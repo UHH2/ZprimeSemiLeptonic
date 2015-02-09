@@ -1,8 +1,6 @@
 #pragma once
-
 #include "UHH2/core/include/Hists.h"
 
-namespace uhh2examples {
 
 /**  \brief Example class for booking and filling histograms
  * 
@@ -11,13 +9,15 @@ namespace uhh2examples {
  * many histograms. Therefore, it is recommended to use histogram
  * pointers as member data instead, like in 'common/include/ElectronHists.h'.
  */
-class ZprimeSemiLeptonicHists: public uhh2::Hists {
+
+
+class ZprimePreSelectionHists: public uhh2::Hists {
 public:
     // use the same constructor arguments as Hists for forwarding:
-    ZprimeSemiLeptonicHists(uhh2::Context & ctx, const std::string & dirname);
+    ZprimePreSelectionHists(uhh2::Context & ctx, const std::string & dirname);
 
     virtual void fill(const uhh2::Event & ev) override;
-    virtual ~ZprimeSemiLeptonicHists();
+    virtual ~ZprimePreSelectionHists();
 };
 
-}
+

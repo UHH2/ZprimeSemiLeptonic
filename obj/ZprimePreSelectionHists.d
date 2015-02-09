@@ -1,5 +1,5 @@
-obj/ZprimeSemiLeptonicHists.o: src/ZprimeSemiLeptonicHists.cxx \
- /nfs/dust/cms/user/kripav/CMSSW_7_2_1_patch4/src/UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicHists.h \
+obj/ZprimePreSelectionHists.o: src/ZprimePreSelectionHists.cxx \
+ /nfs/dust/cms/user/kripav/CMSSW_7_2_1_patch4/src/UHH2/ZprimeSemiLeptonic/include/ZprimePreSelectionHists.h \
  /nfs/dust/cms/user/kripav/CMSSW_7_2_1_patch4/src/UHH2/core/include/Hists.h \
  /nfs/dust/cms/user/kripav/CMSSW_7_2_1_patch4/src/UHH2/core/include/fwd.h \
  /nfs/dust/cms/user/kripav/CMSSW_7_2_1_patch4/src/UHH2/core/include/AnalysisModule.h \

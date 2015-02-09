@@ -1,11 +1,20 @@
-#include "UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicSelections.h"
-#include "UHH2/core/include/Event.h"
-
 #include <stdexcept>
+#include <iostream>
+#include <memory>
 
-using namespace uhh2examples;
+#include "UHH2/core/include/AnalysisModule.h"
+#include "UHH2/core/include/Event.h"
+#include "UHH2/common/include/CleaningModules.h"
+#include "UHH2/common/include/JetCorrections.h"
+#include "UHH2/common/include/ElectronHists.h"
+#include "UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicSelections.h"
+#include "UHH2/ZprimeSemiLeptonic/include/ZprimePreSelectionHists.h"
+#include "UHH2/core/include/Event.h"
+#include "UHH2/common/include/TTbarGen.h"
+
+
+using namespace std;
 using namespace uhh2;
-
 
 DijetSelection::DijetSelection(float dphi_min_, float third_frac_max_): dphi_min(dphi_min_), third_frac_max(third_frac_max_){}
     
