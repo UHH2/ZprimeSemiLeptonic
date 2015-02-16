@@ -41,6 +41,7 @@ private:
   std::unique_ptr<ElectronCleaner> electroncleaner;
   std::unique_ptr<JetLeptonCleaner> jetleptoncleaner;
   std::unique_ptr<JetCorrector> jetcorrector;
+  std::unique_ptr<JetResolutionSmearer> jetresolutionsmearer;
   
     // declare the Selections to use. Use unique_ptr to ensure automatic call of delete in the destructor,
     // to avoid memory leaks.
@@ -72,11 +73,12 @@ ZprimePreSelectionModule::ZprimePreSelectionModule(Context & ctx){
   electroncleaner.reset(new ElectronCleaner(AndId<Electron>(ElectronID_PHYS14_25ns_medium, PtEtaCut(35.0, 2.5))));
   jetcorrector.reset(new JetCorrector(JERFiles::PHYS14_L123_MC));
   jetleptoncleaner.reset(new JetLeptonCleaner(JERFiles::PHYS14_L123_MC));
-    
+  jetresolutionsmearer.reset(new JetResolutionSmearer(ctx));
+
     // 2. set up selections
     // For Muons only:
     nele_sel.reset(new NElectronSelection(0,0)); //no electrons
-    nmu_sel.reset(new NMuonSelection(0,std::numeric_limits<double>::infinity())); // at least one muon
+    nmu_sel.reset(new NMuonSelection(1,std::numeric_limits<double>::infinity())); // at least one muon
     njet_sel.reset(new NJetSelection(2,std::numeric_limits<double>::infinity())); // at least 2 jets
 
     // 3. Set up Hists classes:
@@ -109,6 +111,7 @@ bool ZprimePreSelectionModule::process(Event & event) {
   electroncleaner->process(event);
   jetcorrector->process(event);
   jetleptoncleaner->process(event);
+  jetresolutionsmearer->process(event);
 
   // 2. test selections and fill histograms  
   bool nele_selection = nele_sel->passes(event);

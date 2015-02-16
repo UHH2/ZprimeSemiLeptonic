@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd">
+<!-- OutputLevel controls which messages are printed; set to VERBOSE or DEBUG for more verbosity, to WARNING or ERROR for less -->
+<JobConfiguration JobName="ZprimePostSelectionJob" OutputLevel="INFO">
+    <Library Name="libSUHH2ZprimeSemiLeptonic"/>
+    <Package Name="SUHH2ZprimeSemiLeptonic.par" />
+
+   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/kripav/AnalysisOutput/UHH2/PostSelection/Muon/" PostFix="" TargetLumi="1" >
+   <!-- <Cycle Name="uhh2::AnalysisModuleRunner"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/ottjoc/proof-wd/" ProofNodes="2" OutputDirectory="./" PostFix="" TargetLumi="1" >  -->
+
+
+		<InputData Lumi="239194" NEventsMax="-1" Type="MC" Version="ZP1000w10" Cacheable="False">
+		        <In FileName="/nfs/dust/cms/user/kripav/AnalysisOutput/UHH2/Selection/Muon/uhh2.AnalysisModuleRunner.MC.ZP1000w10.root" Lumi="0.0"/> 
+			<InputTree Name="AnalysisTree" /> 
+			<OutputTree Name="AnalysisTree" />  
+		</InputData>
+<!--
+		<InputData Lumi="349334" NEventsMax="-1" Type="MC" Version="ZP1000w100" Cacheable="False">
+		        <In FileName="/nfs/dust/cms/user/kripav/AnalysisOutput/UHH2/Selection/Muon/uhh2.AnalysisModuleRunner.MC.ZP1000w100.root" Lumi="0.0"/> 
+			<InputTree Name="AnalysisTree" /> 
+			<OutputTree Name="AnalysisTree" />  
+		</InputData>
+
+		<InputData Lumi="211296" NEventsMax="-1" Type="MC" Version="ZP2000w20" Cacheable="False">
+		        <In FileName="/nfs/dust/cms/user/kripav/AnalysisOutput/UHH2/Selection/Muon/uhh2.AnalysisModuleRunner.MC.ZP2000w20.root" Lumi="0.0"/> 
+			<InputTree Name="AnalysisTree" /> 
+			<OutputTree Name="AnalysisTree" />  
+		</InputData>
+
+		<InputData Lumi="246089" NEventsMax="-1" Type="MC" Version="ZP2000w200" Cacheable="False">
+		        <In FileName="/nfs/dust/cms/user/kripav/AnalysisOutput/UHH2/Selection/Muon/uhh2.AnalysisModuleRunner.MC.ZP2000w200.root" Lumi="0.0"/> 
+			<InputTree Name="AnalysisTree" /> 
+			<OutputTree Name="AnalysisTree" />  
+		</InputData>
+
+
+		<InputData Lumi="243766" NEventsMax="-1" Type="MC" Version="ZP3000w30" Cacheable="False">
+		        <In FileName="/nfs/dust/cms/user/kripav/AnalysisOutput/UHH2/Selection/Muon/uhh2.AnalysisModuleRunner.MC.ZP3000w30.root" Lumi="0.0"/> 
+			<InputTree Name="AnalysisTree" /> 
+			<OutputTree Name="AnalysisTree" />  
+		</InputData>
+
+		<InputData Lumi="244930" NEventsMax="-1" Type="MC" Version="ZP3000w300" Cacheable="False">
+		        <In FileName="/nfs/dust/cms/user/kripav/AnalysisOutput/UHH2/Selection/Muon/uhh2.AnalysisModuleRunner.MC.ZP3000w300.root" Lumi="0.0"/> 
+			<InputTree Name="AnalysisTree" /> 
+			<OutputTree Name="AnalysisTree" />  
+		</InputData>
+
+		<InputData Lumi="31571.94789" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="False">
+		        <In FileName="/nfs/dust/cms/user/kripav/AnalysisOutput/UHH2/Selection/Muon/uhh2.AnalysisModuleRunner.MC.TTbar.root" Lumi="0.0"/> 
+			<InputTree Name="AnalysisTree" /> 
+			<OutputTree Name="AnalysisTree" />  
+		</InputData>
+	-->
+<!--
+		<InputData Lumi="162.00222" NEventsMax="-1" Type="MC" Version="WJets" Cacheable="False">
+		        <In FileName="/nfs/dust/cms/user/kripav/AnalysisOutput/UHH2/Selection/Muon/uhh2.AnalysisModuleRunner.MC.WJets.root" Lumi="0.0"/> 
+			<InputTree Name="AnalysisTree" /> 
+			<OutputTree Name="AnalysisTree" />  
+		</InputData> 
+
+	        <InputData Lumi="12474004.79" NEventsMax="-1" Type="MC" Version="ZZ" Cacheable="False">
+ 		        <In FileName="/nfs/dust/cms/user/kripav/AnalysisOutput/UHH2/Selection/Muon/uhh2.AnalysisModuleRunner.MC.ZZ.root" Lumi="0.0"/>       
+			<InputTree Name="AnalysisTree" /> 
+			<OutputTree Name="AnalysisTree" />  
+		</InputData> 
+	        <InputData Lumi="278723.7334" NEventsMax="-1" Type="MC" Version="WZ" Cacheable="False">
+ 		        <In FileName="/nfs/dust/cms/user/kripav/AnalysisOutput/UHH2/Selection/Muon/uhh2.AnalysisModuleRunner.MC.WZ.root" Lumi="0.0"/>       
+			<InputTree Name="AnalysisTree" /> 
+			<OutputTree Name="AnalysisTree" />  
+		</InputData> 
+-->
+<!--
+		<InputData Lumi="2354.586335" NEventsMax="-1" Type="MC" Version="WJets_HT100to200" Cacheable="False">
+		        <In FileName="/nfs/dust/cms/user/kripav/AnalysisOutput/UHH2/Selection/Muon/uhh2.AnalysisModuleRunner.MC.WJets_HT100to200.root" Lumi="0.0"/> 
+			<InputTree Name="AnalysisTree" /> 
+			<OutputTree Name="AnalysisTree" />  
+		</InputData> 
+		<InputData Lumi="8509.010515428" NEventsMax="-1" Type="MC" Version="WJets_HT200to400" Cacheable="False">
+		        <In FileName="/nfs/dust/cms/user/kripav/AnalysisOutput/UHH2/Selection/Muon/uhh2.AnalysisModuleRunner.MC.WJets_HT200to400.root" Lumi="0.0"/> 
+			<InputTree Name="AnalysisTree" /> 
+			<OutputTree Name="AnalysisTree" />  
+		</InputData> 
+		<InputData Lumi="67844.94152" NEventsMax="-1" Type="MC" Version="WJets_HT400to600" Cacheable="False">
+		        <In FileName="/nfs/dust/cms/user/kripav/AnalysisOutput/UHH2/Selection/Muon/uhh2.AnalysisModuleRunner.MC.WJets_HT400to600.root" Lumi="0.0"/> 
+			<InputTree Name="AnalysisTree" /> 
+			<OutputTree Name="AnalysisTree" />  
+		</InputData> 
+
+		<InputData Lumi="198005.22" NEventsMax="-1" Type="MC" Version="WJets_HT600toInf" Cacheable="False">
+		        <In FileName="/nfs/dust/cms/user/kripav/AnalysisOutput/UHH2/Selection/Muon/uhh2.AnalysisModuleRunner.MC.WJets_HT600toInf.root" Lumi="0.0"/> 
+			<InputTree Name="AnalysisTree" /> 
+			<OutputTree Name="AnalysisTree" />  
+		</InputData> 
+-->
+        <UserConfig>
+            <Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices" /> 
+            <Item Name="ElectronCollection" Value="slimmedElectrons" />
+            <Item Name="MuonCollection" Value="slimmedMuons" /> 
+            <Item Name="TauCollection" Value="slimmedTaus" />
+            <Item Name="JetCollection" Value="slimmedJets" />
+            <Item Name="GenJetCollection" Value="slimmedGenJets" />
+            <Item Name="METName" Value="slimmedMETs" />
+	    <Item Name="TopJetCollection" Value="patJetsCMSTopTagCHSPacked" />
+	    <Item Name="GenParticleCollection" Value="GenParticles" /> 
+      
+            <!-- The list of available collections to read in corresponds to the pointer members in event. The 'Name's to use here in the configuration are:
+            
+                 PrimaryVertexCollection
+                 ElectronCollection
+                 MuonCollection
+                 TauCollection
+                 PhotonCollection
+                 JetCollection
+                 TopJetCollection
+                 METName
+                 
+                 GenInfoName
+                 GenJetCollection
+                 GenTopJetCollection
+                 GenParticleCollection
+                 
+                 Note that the last four are only read in for MC (InputData Type="MC"), so it is save to specify
+                 them for real data, although those branches do not exist.
+                 
+                 As 'Value', always use the branch name (if in doubt, open the input file in ROOT).
+                 
+                 By default, triggers are read. To explicitly disable reading triggers, use:
+                 <Item Name="readTrigger" Value="false" />
+            -->
+            
+            <!-- the class name of the AnalysisModule subclasses to run: -->
+            <Item Name="AnalysisModule" Value="ZprimePostSelectionModule" /> 
+            
+            <!-- Some test configuration; see ZprimePostSelectionModule.cxx for how to access it: -->
+            <!--<Item Name="TestKey" Value="TestKeyValue" /> -->
+        </UserConfig>
+    </Cycle>
+</JobConfiguration>
