@@ -41,7 +41,7 @@ HTlepCut::HTlepCut(Context & ctx, float min_htlep, float max_htlep) : h_htlep_(c
 
 bool HTlepCut::passes(const Event & event)
 {
-    if (event.get_state(h_htlep_)==GenericEvent::state::valid)
+    if (event.is_valid(h_htlep_))
     {
         double htlep = event.get(h_htlep_);
         return htlep > min_htlep_ && (max_htlep_ < 0 || htlep < max_htlep_);
@@ -95,12 +95,12 @@ bool NJetCut::passes(const Event & event){
 bool TwoDCut::passes(const Event & event){
     //make sure that you have cleaned the electron and muon collections: event should content only one charged lepton
     //clean jets for pt>25 GeV before calling this routine    
-for(auto & ele : *event.electrons) {
-    double pt_rel = pTrel(ele,*event.jets);
-    double deltar_min = deltaRmin(ele,*event.jets);
-        if (pt_rel < 25) return false;
-        if (deltar_min < 0.5) return false;
-        }
+    for(auto & ele : *event.electrons) {
+        double drmin, ptrel;
+        tie(drmin, ptrel) = drmin_pTrel(ele, *event.jets);
+        if (ptrel < 25) return false;
+        if (drmin < 0.5) return false;
+    }
     return true;
 }
 

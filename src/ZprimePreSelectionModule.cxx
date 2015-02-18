@@ -78,8 +78,8 @@ ZprimePreSelectionModule::ZprimePreSelectionModule(Context & ctx){
     // 2. set up selections
     // For Muons only:
     nele_sel.reset(new NElectronSelection(0,0)); //no electrons
-    nmu_sel.reset(new NMuonSelection(1,std::numeric_limits<double>::infinity())); // at least one muon
-    njet_sel.reset(new NJetSelection(2,std::numeric_limits<double>::infinity())); // at least 2 jets
+    nmu_sel.reset(new NMuonSelection(1)); // at least one muon
+    njet_sel.reset(new NJetSelection(2)); // at least 2 jets
 
     // 3. Set up Hists classes:
     h_event.reset(new EventHists(ctx, "Event_Presel"));
