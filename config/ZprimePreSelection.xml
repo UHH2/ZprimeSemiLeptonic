@@ -31,7 +31,7 @@
           <InputTree Name="AnalysisTree" />        
           <OutputTree Name="AnalysisTree" />
         </InputData>
-        
+<!--        
         <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="ZP1000w100" Cacheable="True">
           &ZP1000w100;
           <InputTree Name="AnalysisTree" />
@@ -61,13 +61,15 @@
           <InputTree Name="AnalysisTree" />
 	  <OutputTree Name="AnalysisTree" />
         </InputData>
-
+-->
+<!--
         <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="True">
           &TTbar;
           <InputTree Name="AnalysisTree" />
 	  <OutputTree Name="AnalysisTree" />
         </InputData>
-
+      -->
+<!--
         <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="WZ" Cacheable="True">
           &WZ;
           <InputTree Name="AnalysisTree" />
@@ -79,7 +81,8 @@
           <InputTree Name="AnalysisTree" />
 	  <OutputTree Name="AnalysisTree" />
         </InputData>
-
+-->
+<!--
         <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="WJets_HT100to200" Cacheable="True">
           &WJets_HT100to200;
           <InputTree Name="AnalysisTree" />
@@ -103,7 +106,7 @@
           <InputTree Name="AnalysisTree" />
 	  <OutputTree Name="AnalysisTree" />
         </InputData>
-
+-->
         <UserConfig>
             <Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices" /> 
             <Item Name="ElectronCollection" Value="slimmedElectrons" />

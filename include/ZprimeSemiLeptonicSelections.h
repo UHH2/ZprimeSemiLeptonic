@@ -51,14 +51,14 @@ private:
   int nmin, nmax;
   double ptmin, etamax;
 };
-
+    
 class TwoDCut: public Selection {
 public:
   TwoDCut() {};
   ~TwoDCut() {};
   virtual bool passes(const Event & event) override;
 };
-
+  
 
 
 class CMSTopTagOverlapSelection: public Selection {

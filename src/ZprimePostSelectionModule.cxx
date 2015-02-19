@@ -61,8 +61,8 @@ ZprimePostSelectionModule::ZprimePostSelectionModule(Context & ctx){
 
     // 2. set up selections
     // For Muons only:
-  njet_sel.reset(new NJetSelection(1,std::numeric_limits<double>::infinity(),jet_kinematic)); // at least 2 jets with pt 150 and eta 2.5
-  btag_sel.reset(new NJetSelection(1,std::numeric_limits<double>::infinity(),btag_medium));
+  njet_sel.reset(new NJetSelection(1,-1,jet_kinematic)); // at least 2 jets with pt 150 and eta 2.5
+  btag_sel.reset(new NJetSelection(1,-1,btag_medium));
   metcut.reset(new METCut(50,std::numeric_limits<double>::infinity()));
   ntopjet_sel.reset(new NTopJetSelection(1,1,topjetid));
   cmstoptagoverlap_sel.reset(new CMSTopTagOverlapSelection()); 

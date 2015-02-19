@@ -48,7 +48,8 @@ private:
   std::unique_ptr<Selection> nele_sel, nmu_sel, njet_sel;
     
     // store the Hists collection as member variables. Again, use unique_ptr to avoid memory leaks.
-  std::unique_ptr<Hists> h_event, h_jet, h_ele, h_mu, h_tau, h_topjet;
+std::unique_ptr<Hists> h_event, h_jet, h_ele, h_mu, h_tau, h_topjet;
+std::unique_ptr<Hists> a_event, a_jet, a_ele, a_mu, a_tau, a_topjet;
 };
 
 ZprimePreSelectionModule::ZprimePreSelectionModule(Context & ctx){
@@ -68,26 +69,35 @@ ZprimePreSelectionModule::ZprimePreSelectionModule(Context & ctx){
     //}
 
     // 1. setup other modules (CommonModules,JetCleaner, etc.):
-  jetcleaner.reset(new JetCleaner(30.0, 2.5)); 
-  muoncleaner.reset(new MuonCleaner(AndId<Muon>(MuonIDTight(),PtEtaCut(45.0, 2.1))));
-  electroncleaner.reset(new ElectronCleaner(AndId<Electron>(ElectronID_PHYS14_25ns_medium, PtEtaCut(35.0, 2.5))));
   jetcorrector.reset(new JetCorrector(JERFiles::PHYS14_L123_MC));
+
+  muoncleaner.reset(new MuonCleaner(AndId<Muon>(MuonIDTight(),PtEtaCut(45.0, 2.1))));
+  electroncleaner.reset(new ElectronCleaner(AndId<Electron>(ElectronID_PHYS14_25ns_tight, PtEtaCut(35.0, 2.5))));
   jetleptoncleaner.reset(new JetLeptonCleaner(JERFiles::PHYS14_L123_MC));
   jetresolutionsmearer.reset(new JetResolutionSmearer(ctx));
-
+  jetcleaner.reset(new JetCleaner(30.0, 2.5)); 
+  
     // 2. set up selections
     // For Muons only:
     nele_sel.reset(new NElectronSelection(0,0)); //no electrons
-    nmu_sel.reset(new NMuonSelection(1,std::numeric_limits<double>::infinity())); // at least one muon
-    njet_sel.reset(new NJetSelection(2,std::numeric_limits<double>::infinity())); // at least 2 jets
+    nmu_sel.reset(new NMuonSelection(1,-1)); // at least one muon
+    njet_sel.reset(new NJetSelection(2)); // at least 2 jets
 
     // 3. Set up Hists classes:
-    h_event.reset(new EventHists(ctx, "Event_Presel"));
-    h_jet.reset(new JetHists(ctx, "Jets_Presel"));
-    h_ele.reset(new ElectronHists(ctx, "Electron_Presel"));
-    h_mu.reset(new MuonHists(ctx, "Muon_Presel"));
-    h_tau.reset(new TauHists(ctx, "Tau_Presel"));
-    h_topjet.reset(new TopJetHists(ctx, "TopJets_Presel"));
+    
+    h_event.reset(new EventHists(ctx, "Event_before_Presel"));
+    h_jet.reset(new JetHists(ctx, "Jets_before_Presel"));
+    h_ele.reset(new ElectronHists(ctx, "Electron_before_Presel"));
+    h_mu.reset(new MuonHists(ctx, "Muon_before_Presel"));
+    h_tau.reset(new TauHists(ctx, "Tau_before_Presel"));
+    h_topjet.reset(new TopJetHists(ctx, "TopJets_before_Presel"));
+
+    a_event.reset(new EventHists(ctx, "Event_after_Presel"));
+    a_jet.reset(new JetHists(ctx, "Jets_after_Presel"));
+    a_ele.reset(new ElectronHists(ctx, "Electron_after_Presel"));
+    a_mu.reset(new MuonHists(ctx, "Muon_after_Presel"));
+    a_tau.reset(new TauHists(ctx, "Tau_after_Presel"));
+    a_topjet.reset(new TopJetHists(ctx, "TopJets_after_Presel"));
 }
 
 
@@ -103,31 +113,40 @@ bool ZprimePreSelectionModule::process(Event & event) {
     // is thrown away.
     //cout << "ZprimePreSelectionModule: Starting to process event (runid, eventid) = (" << event.run << ", " << event.event << "); weight = " << event.weight << endl;
     
-
+    // 0. Fill Presel histos.
+      h_event->fill(event);
+      h_jet->fill(event);
+      h_ele->fill(event);
+      h_mu->fill(event);
+      h_tau->fill(event);
+      h_topjet->fill(event);
 
     // 1. run all modules other modules.
-  jetcleaner->process(event);
-  muoncleaner->process(event);
-  electroncleaner->process(event);
+      
   jetcorrector->process(event);
-  jetleptoncleaner->process(event);
-  jetresolutionsmearer->process(event);
+  muoncleaner->process(event);     
+  electroncleaner->process(event);    
+  jetleptoncleaner->process(event);     
+  jetresolutionsmearer->process(event);      
+  jetcleaner->process(event); 
 
-  // 2. test selections and fill histograms  
+  // 2. test selections and fill histograms after PreSelection 
   bool nele_selection = nele_sel->passes(event);
   bool nmu_selection = nmu_sel->passes(event);
   bool njet_selection = njet_sel->passes(event);
-  if(nele_selection && nmu_selection && njet_selection){
-    h_event->fill(event);
-    h_jet->fill(event);
-    h_ele->fill(event);
-    h_mu->fill(event);
-    h_tau->fill(event);
-    h_topjet->fill(event);
-  }
+  
+if(nele_selection && nmu_selection && njet_selection){
+  a_event->fill(event);
+  a_jet->fill(event);
+  a_ele->fill(event);
+  a_mu->fill(event);
+  a_tau->fill(event);
+  a_topjet->fill(event);
+}
 
   // 3. decide whether or not to keep the current event in the output:
-  return  njet_selection && nmu_selection && njet_selection; //njet_selection && dijet_selection;
+  return  njet_selection && nmu_selection && nele_selection; ;
+  //return true;
 }
   
   // as we want to run the ExampleCycleNew directly with AnalysisModuleRunner,
