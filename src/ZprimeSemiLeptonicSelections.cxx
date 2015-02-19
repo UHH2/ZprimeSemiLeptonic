@@ -41,7 +41,7 @@ HTlepCut::HTlepCut(Context & ctx, float min_htlep, float max_htlep) : h_htlep_(c
 
 bool HTlepCut::passes(const Event & event)
 {
-    if (event.is_valid(h_htlep_)) 
+    if (event.is_valid(h_htlep_))
     {
         double htlep = event.get(h_htlep_);
         return htlep > min_htlep_ && (max_htlep_ < 0 || htlep < max_htlep_);

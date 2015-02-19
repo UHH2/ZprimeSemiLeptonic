@@ -74,7 +74,7 @@ ZprimeSelectionModule::ZprimeSelectionModule(Context & ctx){
   nele_sel.reset(new NElectronSelection(0,0)); //no electrons
   nmu_sel.reset(new NMuonSelection(1,1)); // exactly one muon
   twodcut.reset(new TwoDCut()); 
-  njet_sel.reset(new NJetSelection(1,-1,jet_kinematic)); // at least 2 jets with pt 150 and eta 2.5
+  njet_sel.reset(new NJetSelection(1, -1,jet_kinematic)); // at least 2 jets with pt 150 and eta 2.5
   htlepcut.reset(new HTlepCut(ctx,150,std::numeric_limits<double>::infinity()));
   metcut.reset(new METCut(20,std::numeric_limits<double>::infinity()));
   ntopjet_sel.reset(new NTopJetSelection(1,-1,topjetid));
