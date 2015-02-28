@@ -33,12 +33,12 @@ class ZprimePreSelectionModule: public AnalysisModule {
   virtual bool process(Event & event) override;
 
  private:
-  std::unique_ptr<JetCleaner> jetcleaner;
-  std::unique_ptr<MuonCleaner> muoncleaner;
-  std::unique_ptr<ElectronCleaner> electroncleaner;
-  std::unique_ptr<JetLeptonCleaner> jetleptoncleaner;
-  std::unique_ptr<JetCorrector> jetcorrector;
-  std::unique_ptr<JetResolutionSmearer> jetresolutionsmearer;
+  std::unique_ptr<MuonCleaner> muo_cleaner;
+  std::unique_ptr<ElectronCleaner> ele_cleaner;
+  std::unique_ptr<JetCorrector> jet_corrector;
+  std::unique_ptr<JetLeptonCleaner> jetlepton_cleaner;
+  std::unique_ptr<JetResolutionSmearer> jetER_smearer;
+  std::unique_ptr<JetCleaner> jet_cleaner;
 
   // declare the Selections to use
   std::unique_ptr<Selection> muoN_sel, eleN_sel, jetN_sel;
@@ -53,13 +53,12 @@ class ZprimePreSelectionModule: public AnalysisModule {
 ZprimePreSelectionModule::ZprimePreSelectionModule(Context & ctx){
 
   // setup object cleaners
-  jetcorrector.reset(new JetCorrector(JERFiles::PHYS14_L123_MC));
-
-  muoncleaner.reset(new MuonCleaner(AndId<Muon>(MuonIDTight(), PtEtaCut(45., 2.1))));
-  electroncleaner.reset(new ElectronCleaner(AndId<Electron>(ElectronID_PHYS14_25ns_tight, PtEtaCut(35., 2.5))));
-  jetleptoncleaner.reset(new JetLeptonCleaner(JERFiles::PHYS14_L123_MC));
-  jetresolutionsmearer.reset(new JetResolutionSmearer(ctx));
-  jetcleaner.reset(new JetCleaner(30., 2.4));
+  muo_cleaner.reset(new MuonCleaner(AndId<Muon>(MuonIDTight(), PtEtaCut(45., 2.1))));
+  ele_cleaner.reset(new ElectronCleaner(AndId<Electron>(ElectronID_PHYS14_25ns_tight, PtEtaCut(35., 2.5))));
+  jet_corrector.reset(new JetCorrector(JERFiles::PHYS14_L123_MC));
+  jetlepton_cleaner.reset(new JetLeptonCleaner(JERFiles::PHYS14_L123_MC));
+  jetER_smearer.reset(new JetResolutionSmearer(ctx));
+  jet_cleaner.reset(new JetCleaner(30., 2.4));
 
   // set up selections
   muoN_sel.reset(new NMuonSelection(1));    // at least 1 muon
@@ -94,15 +93,13 @@ bool ZprimePreSelectionModule::process(Event & event) {
   // keep Jets *before cleaning* to store them in the ntuple if event is accepted
   std::unique_ptr< std::vector<Jet> > uncleaned_jets(new std::vector<Jet>(*event.jets));
 
-  // apply JECs
-  jetcorrector->process(event);
-
   // clean muons/electrons/jets to preselect events
-  muoncleaner->process(event);
-  electroncleaner->process(event);
-  jetleptoncleaner->process(event);
-  jetresolutionsmearer->process(event);
-  jetcleaner->process(event);
+  muo_cleaner->process(event);
+  ele_cleaner->process(event);
+  jet_corrector->process(event);
+  jetlepton_cleaner->process(event);
+  jetER_smearer->process(event);
+  jet_cleaner->process(event);
 
   // compute preselection-filter boolean
   bool pass_presel = (muoN_sel->passes(event) || eleN_sel->passes(event)) && jetN_sel->passes(event);

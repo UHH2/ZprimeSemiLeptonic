@@ -25,24 +25,20 @@
 #include "UHH2/common/include/ReconstructionHypothesisDiscriminators.h"
 #include "UHH2/common/include/HypothesisHists.h"
 
-
-using namespace std;
 using namespace uhh2;
 
 class ZprimePostSelectionModule: public AnalysisModule {
-public:
-    
-    explicit ZprimePostSelectionModule(Context & ctx);
-    virtual bool process(Event & event) override;
+ public:
+  explicit ZprimePostSelectionModule(Context & ctx);
+  virtual bool process(Event & event) override;
 
-private:    
+ private:
   JetId jet_kinematic, btag_medium;
   TopJetId topjetid;
   std::vector<std::unique_ptr<AnalysisModule>> recomodules;
 
-      
-  // declare the Selections to use. 
-  std::unique_ptr<Selection> njet_sel, metcut, chi2_sel, btag_sel, ntopjet_sel, cmstoptagoverlap_sel;
+  // declare the Selections to use
+  std::unique_ptr<Selection> njet_sel, metcut, chi2_sel, btag_sel, ntopjet_sel, topjetoverlap_sel;
  
   // store the Hists collection as member variables.
   std::unique_ptr<Hists> top_hyphists, top_event, top_jet, top_ele, top_mu, top_tau, top_topjet;
@@ -57,19 +53,18 @@ ZprimePostSelectionModule::ZprimePostSelectionModule(Context & ctx){
   jet_kinematic = PtEtaCut(150.0, 2.5);
   topjetid = CMSTopTag();
 
-    // 1. setup other modules (CommonModules,JetCleaner, etc.):
+  // 1. setup other modules (CommonModules,JetCleaner, etc.):
 
-    // 2. set up selections
-    // For Muons only:
+  // 2. set up selections
+  // For Muons only:
   njet_sel.reset(new NJetSelection(1, -1, jet_kinematic)); // at least 2 jets with pt 150 and eta 2.5
   btag_sel.reset(new NJetSelection(1, -1, btag_medium));
-  metcut.reset(new METCut(50,std::numeric_limits<double>::infinity()));
+  metcut.reset(new METCut(50., std::numeric_limits<double>::infinity()));
   ntopjet_sel.reset(new NTopJetSelection(1,1,topjetid));
-  cmstoptagoverlap_sel.reset(new CMSTopTagOverlapSelection()); 
-  chi2_sel.reset(new HypothesisDiscriminatorCut(ctx,0., 50.));
+  topjetoverlap_sel.reset(new TopJetOverlapSelection()); 
+  chi2_sel.reset(new HypothesisDiscriminatorCut(ctx, 0., 50.));
 
-
-    //make reconstruction hypotheses
+  //make reconstruction hypotheses
   recomodules.emplace_back(new PrimaryLepton(ctx));
   recomodules.emplace_back(new HighMassTTbarReconstruction(ctx,NeutrinoReconstruction));
   recomodules.emplace_back(new Chi2Discriminator(ctx,"HighMassReconstruction"));
@@ -126,11 +121,11 @@ bool ZprimePostSelectionModule::process(Event & event) {
   bool njet_selection = njet_sel->passes(event);
   bool metcut_selection = metcut->passes(event);
   bool ntopjet_selection = ntopjet_sel->passes(event);
-  bool cmstoptagoverlap_selection = cmstoptagoverlap_sel->passes(event);
+  bool topjetoverlap_selection = topjetoverlap_sel->passes(event);
   bool btag_selection = btag_sel->passes(event);
   
   if(njet_selection && metcut_selection && chi2_selection){
-    if(ntopjet_selection && cmstoptagoverlap_selection){
+    if(ntopjet_selection && topjetoverlap_selection){
       top_event->fill(event);
       top_jet->fill(event);
       top_ele->fill(event);
