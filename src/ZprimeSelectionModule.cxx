@@ -17,6 +17,7 @@
 #include "UHH2/common/include/JetHists.h"
 #include "UHH2/common/include/JetIds.h"
 #include "UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicSelections.h"
+#include "UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicUtils.h"
 #include "UHH2/ZprimeSemiLeptonic/include/ZprimeSelectionHists.h"
 #include "UHH2/common/include/JetCorrections.h"
 #include "UHH2/common/include/ObjectIdUtils.h"
@@ -37,14 +38,20 @@ class ZprimeSelectionModule: public AnalysisModule {
   std::unique_ptr<ElectronCleaner> ele_cleaner;
   std::unique_ptr<JetCorrector> jet_corrector;
   std::unique_ptr<JetLeptonCleaner> jetlepton_cleaner;
-  std::unique_ptr<JetCleaner> jet_cleaner;
+  std::unique_ptr<JetResolutionSmearer> jetER_smearer;
+  std::unique_ptr<JetCleaner> jet_cleaner1;
+  std::unique_ptr<JetCleaner> jet_cleaner2;
+  std::unique_ptr<TopJetCorrector> topjet_corrector;
+  std::unique_ptr<TopJetLeptonDeltaRCleaner> topjetlepton_cleaner;
+//  std::unique_ptr<TopJetResolutionSmearer> topjetER_smearer;
+  std::unique_ptr<TopJetCleaner> topjet_cleaner;
 
   std::vector<std::unique_ptr<AnalysisModule>> recomodules;
 
   // Selection
   std::unique_ptr<AndSelection> lepN_sel;
-  std::unique_ptr<Selection> pvN_sel, jet1_sel, jet2_sel, htlep_sel, met_sel, twodcut_sel, topjetN_sel, topjetoverlap_sel;
- 
+  std::unique_ptr<Selection> pvN_sel, jet1_sel, jet2_sel, htlep_sel, met_sel, twodcut_sel, topjetN_sel, toptagevent_sel;
+
   // Hists
   std::unique_ptr<Hists> h_hyphists, h_event, h_jet, h_ele, h_mu, h_tau, h_topjet;
   uhh2::Event::Handle<std::vector<ReconstructionHypothesis>> h_hyps;
@@ -56,7 +63,14 @@ ZprimeSelectionModule::ZprimeSelectionModule(Context & ctx){
   ele_cleaner.reset(new ElectronCleaner(AndId<Electron>(ElectronID_PHYS14_25ns_medium, PtEtaCut(35., 2.5))));
   jet_corrector.reset(new JetCorrector(JERFiles::PHYS14_L123_MC));
   jetlepton_cleaner.reset(new JetLeptonCleaner(JERFiles::PHYS14_L123_MC));
-  jet_cleaner.reset(new JetCleaner(25., std::numeric_limits<double>::infinity())); 
+  jetlepton_cleaner->set_drmax(.4);
+  jetER_smearer.reset(new JetResolutionSmearer(ctx));
+  jet_cleaner1.reset(new JetCleaner(25., std::numeric_limits<double>::infinity())); 
+  jet_cleaner2.reset(new JetCleaner(50., 2.4));
+  topjet_corrector.reset(new TopJetCorrector(JERFiles::PHYS14_L123_MC));
+  topjetlepton_cleaner.reset(new TopJetLeptonDeltaRCleaner(.8));
+//  topjetER_smearer.reset(new TopJetResolutionSmearer(ctx));
+  topjet_cleaner.reset(new TopJetCleaner(TopJetId(PtEtaCut(400., 2.4))));
 
   bool muon(false), elec(false);
   const std::string channel(ctx.get("channel", ""));
@@ -79,8 +93,7 @@ ZprimeSelectionModule::ZprimeSelectionModule(Context & ctx){
   htlep_sel.reset(new HTlepCut(150., std::numeric_limits<double>::infinity()));
   met_sel.reset(new METCut(50., std::numeric_limits<double>::infinity()));
   twodcut_sel.reset(new TwoDCut());
-  topjetN_sel.reset(new NTopJetSelection(1, -1, TopJetId(CMSTopTag())));
-  topjetoverlap_sel.reset(new TopJetOverlapSelection());
+  toptagevent_sel.reset(new TopTagEventSelection());
 
   // reconstruction hypotheses
   recomodules.emplace_back(new PrimaryLepton(ctx));
@@ -102,18 +115,26 @@ bool ZprimeSelectionModule::process(Event & event){
 
   muo_cleaner->process(event);
   ele_cleaner->process(event);
+
   jet_corrector->process(event);
   jetlepton_cleaner->process(event);
-  jet_cleaner->process(event);
+  jetER_smearer->process(event);
+  jet_cleaner1->process(event);
+  bool pass_twodcut = twodcut_sel->passes(event);
+  jet_cleaner2->process(event);
+
+  topjet_corrector->process(event);
+  topjetlepton_cleaner->process(event);
+//  topjetER_smearer->process(event);
+  topjet_cleaner->process(event);
 
   bool pass_lepN = lepN_sel->passes(event);
   bool pass_jet1 = jet1_sel->passes(event);
   bool pass_jet2 = jet2_sel->passes(event);
-  bool pass_twodcut = twodcut_sel->passes(event);
   bool pass_htlep = htlep_sel->passes(event);
   bool pass_met = met_sel->passes(event);
   bool pass_topjetN = topjetN_sel->passes(event);
-  bool pass_topjetoverlap = topjetoverlap_sel->passes(event);
+  bool pass_toptagevent = toptagevent_sel->passes(event);
 
 ///  if(nele_selection && nmu_selection && njet_selection && twodcut_selection && htlepcut_selection && metcut_selection && ntopjet_selection && topjetoverlap_selection){
 ///
@@ -128,7 +149,7 @@ bool ZprimeSelectionModule::process(Event & event){
 ///    h_hyphists->fill(event);
 ///  }
 
-  return pass_lepN && pass_jet1 && pass_jet2 && pass_twodcut && pass_htlep && pass_met && pass_topjetN && pass_topjetoverlap;
+  return pass_lepN && pass_jet1 && pass_jet2 && pass_twodcut && pass_htlep && pass_met && pass_topjetN && pass_toptagevent;
 }
 
 UHH2_REGISTER_ANALYSIS_MODULE(ZprimeSelectionModule)

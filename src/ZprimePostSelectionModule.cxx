@@ -61,7 +61,7 @@ ZprimePostSelectionModule::ZprimePostSelectionModule(Context & ctx){
   btag_sel.reset(new NJetSelection(1, -1, btag_medium));
   metcut.reset(new METCut(50., std::numeric_limits<double>::infinity()));
   ntopjet_sel.reset(new NTopJetSelection(1,1,topjetid));
-  topjetoverlap_sel.reset(new TopJetOverlapSelection()); 
+//  topjetoverlap_sel.reset(new TopTagEventSelection()); 
   chi2_sel.reset(new HypothesisDiscriminatorCut(ctx, 0., 50.));
 
   //make reconstruction hypotheses

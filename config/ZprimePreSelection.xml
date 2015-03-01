@@ -10,7 +10,9 @@
     <Package Name="SUHH2ZprimeSemiLeptonic.par" />
 
     <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="./" PostFix="" TargetLumi="1" >
-   <!-- <Cycle Name="ZprimePreSelection"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/ottjoc/proof-wd/" ProofNodes="2" OutputDirectory="./" PostFix="" TargetLumi="1" > -->
+<!--
+    <Cycle Name="ZprimePreSelection"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/ottjoc/proof-wd/" ProofNodes="2" OutputDirectory="./" PostFix="" TargetLumi="1" >
+-->
 
 <!--
         <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="ZP1000w10" Cacheable="True">
@@ -25,7 +27,7 @@
 	  <OutputTree Name="AnalysisTree" />
         </InputData>
 -->
-        <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="ZP2000w20" Cacheable="True">
+        <InputData Lumi="1" NEventsMax="100" Type="MC" Version="ZP2000w20" Cacheable="True">
           &ZP2000w20;
           <InputTree Name="AnalysisTree" />
           <OutputTree Name="AnalysisTree" />

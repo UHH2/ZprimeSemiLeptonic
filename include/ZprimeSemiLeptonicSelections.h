@@ -4,6 +4,7 @@
 #include "UHH2/core/include/Utils.h"
 #include "UHH2/core/include/Selection.h"
 #include "UHH2/common/include/ReconstructionHypothesisDiscriminators.h"
+#include "UHH2/common/include/TopJetIds.h"
 
 namespace uhh2 {
     
@@ -15,6 +16,7 @@ namespace uhh2 {
    private:
     float min_htlep_, max_htlep_;
   };
+  /////
 
   class METCut : public Selection {
    public:
@@ -24,6 +26,7 @@ namespace uhh2 {
    private:
     float min_met_, max_met_;
   };
+  /////
 
   class NJetCut : public Selection {
    public:
@@ -34,23 +37,26 @@ namespace uhh2 {
     int nmin, nmax;
     float ptmin, etamax;
   };
+  /////
 
   class TwoDCut : public Selection {
    public:
     TwoDCut() {}
     virtual bool passes(const Event & event) override;
   };
+  /////
 
-  class TopJetOverlapSelection: public Selection {
+  class TopTagEventSelection: public Selection {
    public:
-    explicit TopJetOverlapSelection(float delR_Lep_TopJet=0.8, float delR_Jet_TopJet=1.2);
+    explicit TopTagEventSelection(const TopJetId& tjet_id=CMSTopTag(), float minDR_jet_ttag=1.2);
     virtual bool passes(const Event & event) override;
 
    private:
-    float delR_Lep_TopJet, delR_Jet_TopJet;
-    std::unique_ptr<Selection> ntopjet_sel;
-    TopJetId topjetid;
+    TopJetId topjetID_;
+    std::unique_ptr<Selection> topjet1_sel_;
+    float minDR_jet_toptag_;
   };
+  /////
 
   class HypothesisDiscriminatorCut: public Selection {
    public:
@@ -62,5 +68,6 @@ namespace uhh2 {
     std::string m_discriminator_name;
     uhh2::Event::Handle<std::vector<ReconstructionHypothesis>> h_hyps;
   };
+  /////
 
 }

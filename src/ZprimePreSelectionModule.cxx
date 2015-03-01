@@ -51,8 +51,6 @@ class ZprimePreSelectionModule: public AnalysisModule {
   // store the Hists collection as member variables
   std::unique_ptr<Hists> h_event, h_jet, h_ele, h_mu, h_tau, h_topjet;
   std::unique_ptr<Hists> a_event, a_jet, a_ele, a_mu, a_tau, a_topjet;
-
-  void debug(const Event&, const std::string&);
 };
 
 ZprimePreSelectionModule::ZprimePreSelectionModule(Context & ctx){

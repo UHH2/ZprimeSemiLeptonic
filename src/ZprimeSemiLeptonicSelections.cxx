@@ -112,38 +112,21 @@ bool TwoDCut::passes(const Event & event){
 }
 ////////////////////////////////////////////////////////
 
-TopJetOverlapSelection::TopJetOverlapSelection(float delR_Lep_TopJet_, float delR_Jet_TopJet_):
-  delR_Lep_TopJet(delR_Lep_TopJet_), delR_Jet_TopJet(delR_Jet_TopJet_), topjetid(CMSTopTag()) {
+TopTagEventSelection::TopTagEventSelection(const TopJetId& tjetID, float minDR_jet_ttag):
+  topjetID_(tjetID), minDR_jet_toptag_(minDR_jet_ttag) {
 
-  ntopjet_sel.reset(new NTopJetSelection(1, -1, topjetid));
+  topjet1_sel_.reset(new NTopJetSelection(1, -1, topjetID_));
 }
 
-bool TopJetOverlapSelection::passes(const Event & event){ 
+bool TopTagEventSelection::passes(const Event & event){ 
 
-  bool ntopjet_selection = ntopjet_sel->passes(event);
+  if(!topjet1_sel_->passes(event)) return false;
 
-  if(event.electrons->size() > 0){
-    const auto & ele = (*event.electrons)[0];
+  for(auto & topjet : * event.topjets){
+    if(!topjetID_(topjet, event)) continue;
 
-    for(auto & topjet : * event.topjets){
-      if(ntopjet_selection && delR_Lep_TopJet < deltaR(ele, topjet)){
-        for(auto & jet : * event.jets){
-          if(deltaR(jet, topjet) > delR_Jet_TopJet) return true;
-        }
-      }
-    }
-  }
-
-  if(event.muons->size() > 0){
-    const auto & mu = (*event.muons)[0];
-
-    for(auto & topjet : * event.topjets){
-      if(ntopjet_selection && delR_Lep_TopJet < deltaR(mu, topjet)){
-        for(auto & jet : * event.jets){
-          if(deltaR(jet, topjet) > delR_Jet_TopJet) return true;
-        }
-      }
-    }
+    for(auto & jet : * event.jets)
+      if(deltaR(jet, topjet) > minDR_jet_toptag_) return true;
   }
 
   return false;
