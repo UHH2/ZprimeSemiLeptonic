@@ -40,7 +40,6 @@ class ZprimeSelectionModule: public AnalysisModule {
   std::unique_ptr<JetCleaner> jet_cleaner;
 
   std::vector<std::unique_ptr<AnalysisModule>> recomodules;
-  std::vector<std::unique_ptr<AnalysisModule>> pre_modules;
 
   // Selection
   std::unique_ptr<AndSelection> lepN_sel;
@@ -58,7 +57,6 @@ ZprimeSelectionModule::ZprimeSelectionModule(Context & ctx){
   jet_corrector.reset(new JetCorrector(JERFiles::PHYS14_L123_MC));
   jetlepton_cleaner.reset(new JetLeptonCleaner(JERFiles::PHYS14_L123_MC));
   jet_cleaner.reset(new JetCleaner(25., std::numeric_limits<double>::infinity())); 
-  pre_modules.push_back(std::unique_ptr<AnalysisModule>(new HTlepCalculator(ctx)));
 
   bool muon(false), elec(false);
   const std::string channel(ctx.get("channel", ""));
@@ -107,8 +105,6 @@ bool ZprimeSelectionModule::process(Event & event){
   jet_corrector->process(event);
   jetlepton_cleaner->process(event);
   jet_cleaner->process(event);
-
-  for(auto & mod : pre_modules) mod->process(event);
 
   bool pass_lepN = lepN_sel->passes(event);
   bool pass_jet1 = jet1_sel->passes(event);

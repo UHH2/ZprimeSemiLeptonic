@@ -1,49 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd"[
+<!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
 
-  <!ENTITY ZP1000w10 SYSTEM "../../common/datasets/MC_Zp_TTJets_M1000w10_20x25.xml">
-  <!ENTITY ZP2000w20 SYSTEM "../../common/datasets/MC_Zp_TTJets_M2000w20_20x25.xml">
-  <!ENTITY ZP3000w30 SYSTEM "../../common/datasets/MC_Zp_TTJets_M3000w30_20x25.xml">
-  <!ENTITY ZP1000w100 SYSTEM "../../common/datasets/MC_Zp_TTJets_M1000w100_20x25.xml">
-  <!ENTITY ZP2000w200 SYSTEM "../../common/datasets/MC_Zp_TTJets_M2000w200_20x25.xml">
-  <!ENTITY ZP3000w300 SYSTEM "../../common/datasets/MC_Zp_TTJets_M3000w300_20x25.xml">
-  <!ENTITY TTbar SYSTEM "../../common/datasets/MC_TTbar_20x25.xml">
-  <!ENTITY WJets SYSTEM "../../common/datasets/MC_WJets_LNu_20x25.xml">
-  <!ENTITY WZ SYSTEM "../../common/datasets/MC_WZJets_To3LNu_20x25.xml">
-  <!ENTITY ZZ SYSTEM "../../common/datasets/MC_ZZ_To4L_20x25.xml">
-  <!ENTITY WJets_HT100to200 SYSTEM "../../common/datasets/MC_WJets_HT100to200_20x25.xml">
-  <!ENTITY WJets_HT200to400 SYSTEM "../../common/datasets/MC_WJets_HT200to400_20x25.xml">
-  <!ENTITY WJets_HT400to600 SYSTEM "../../common/datasets/MC_WJets_HT400to600_20x25.xml">
-  <!ENTITY WJets_HT600toInf SYSTEM "../../common/datasets/MC_WJets_HT600toInf_20x25.xml">
+  <!ENTITY ZP2000w20 SYSTEM "../../common/datasets/MC_Zp_TTJets_M2000W20_20x25.xml">
+  <!ENTITY ZP3000w30 SYSTEM "../../common/datasets/MC_Zp_TTJets_M3000W30_20x25.xml">
 ]>
 
-<!-- OutputLevel controls which messages are printed; set to VERBOSE or DEBUG for more verbosity, to WARNING or ERROR for less -->
 <JobConfiguration JobName="ZprimePreSelectionJob" OutputLevel="INFO">
     <Library Name="libSUHH2ZprimeSemiLeptonic"/>
     <Package Name="SUHH2ZprimeSemiLeptonic.par" />
 
-    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/kripav/AnalysisOutput/UHH2/PreSelection/Muon/" PostFix="" TargetLumi="1" >
+    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="./" PostFix="" TargetLumi="1" >
    <!-- <Cycle Name="ZprimePreSelection"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/ottjoc/proof-wd/" ProofNodes="2" OutputDirectory="./" PostFix="" TargetLumi="1" > -->
 
-
+<!--
         <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="ZP1000w10" Cacheable="True">
           &ZP1000w10;
           <InputTree Name="AnalysisTree" />
           <OutputTree Name="AnalysisTree" />
         </InputData>
-<!--
+
         <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="ZP1000w100" Cacheable="True">
           &ZP1000w100;
           <InputTree Name="AnalysisTree" />
 	  <OutputTree Name="AnalysisTree" />
         </InputData>
-
+-->
         <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="ZP2000w20" Cacheable="True">
           &ZP2000w20;
           <InputTree Name="AnalysisTree" />
           <OutputTree Name="AnalysisTree" />
         </InputData>
-
+<!--
         <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="ZP2000w200" Cacheable="True">
           &ZP2000w200;
           <InputTree Name="AnalysisTree" />
@@ -110,10 +97,10 @@
             <Item Name="ElectronCollection" Value="slimmedElectrons" />
             <Item Name="MuonCollection" Value="slimmedMuons" />
             <Item Name="TauCollection" Value="slimmedTaus" />
-            <Item Name="JetCollection" Value="slimmedJets" />
+            <Item Name="JetCollection" Value="patJetsAk4PFCHS" />
             <Item Name="GenJetCollection" Value="slimmedGenJets" />
             <Item Name="METName" Value="slimmedMETs" />
-            <Item Name="TopJetCollection" Value="patJetsCMSTopTagCHSPacked" />
+            <Item Name="TopJetCollection" Value="patJetsCmsTopTagCHSPacked" />
             <Item Name="GenParticleCollection" Value="GenParticles" />
             <Item Name="readTrigger" Value="false" />
 
@@ -123,5 +110,6 @@
        <!-- the class name of the AnalysisModule subclasses to run: -->
             <Item Name="AnalysisModule" Value="ZprimePreSelectionModule" />
         </UserConfig>
+
     </Cycle>
 </JobConfiguration>

@@ -10,10 +10,9 @@ namespace uhh2 {
   class HTlepCut : public Selection {
    public:
     explicit HTlepCut(float min_htlep, float max_htlep=infinity);
-    virtual bool passes(const Event &);
+    virtual bool passes(const Event &) override;
 
    private:
-    Event::Handle<double> h_htlep_;
     float min_htlep_, max_htlep_;
   };
 
@@ -28,7 +27,7 @@ namespace uhh2 {
 
   class NJetCut : public Selection {
    public:
-    explicit NJetCut(int nmin, int nmax=-1, float ptmin=0., float etamax=infinity);
+    explicit NJetCut(int nmin, int nmax=999, float ptmin=0., float etamax=infinity);
     virtual bool passes(const Event & event) override;
 
    private:
@@ -44,7 +43,7 @@ namespace uhh2 {
 
   class TopJetOverlapSelection: public Selection {
    public:
-    explicit TopJetOverlapSelection(float delR_Lep_TopJet=0.8 , float delR_Jet_TopJet=1.2);
+    explicit TopJetOverlapSelection(float delR_Lep_TopJet=0.8, float delR_Jet_TopJet=1.2);
     virtual bool passes(const Event & event) override;
 
    private:
@@ -56,7 +55,7 @@ namespace uhh2 {
   class HypothesisDiscriminatorCut: public Selection {
    public:
     explicit HypothesisDiscriminatorCut(Context& ctx, float min_discr, float max_discr, const std::string& discr_name="Chi2", const std::string& hyps_name="HighMassReconstruction");
-    virtual bool passes(const Event & event);
+    virtual bool passes(const Event & event) override;
 
    private:
     float m_min_discr_, m_max_discr_;

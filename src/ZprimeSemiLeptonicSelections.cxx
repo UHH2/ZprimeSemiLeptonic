@@ -82,12 +82,12 @@ NJetCut::NJetCut(int nmin_, int nmax_, float ptmin_, float etamax_):
 
 bool NJetCut::passes(const Event & event){
 
-  int nparticle(0);
+  int njet(0);
   for(auto & jet : *event.jets){
-    if(jet.pt() > ptmin && fabs(jet.eta()) < etamax) ++nparticle;
+    if(jet.pt() > ptmin && fabs(jet.eta()) < etamax) ++njet;
   }
 
-  return (nparticle >= nmin);
+  return (njet >= nmin) && (njet <= nmax);
 }
 ////////////////////////////////////////////////////////
 
