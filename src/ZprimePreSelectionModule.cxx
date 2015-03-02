@@ -38,7 +38,6 @@ class ZprimePreSelectionModule: public AnalysisModule {
 
   std::unique_ptr<JetCorrector> jet_corrector;
   std::unique_ptr<JetLeptonCleaner> jetlepton_cleaner;
-  std::unique_ptr<JetResolutionSmearer> jetER_smearer;
   std::unique_ptr<JetCleaner> jet_cleaner;
 
   std::unique_ptr<TopJetCorrector> topjet_corrector;
@@ -62,7 +61,6 @@ ZprimePreSelectionModule::ZprimePreSelectionModule(Context & ctx){
   jet_corrector.reset(new JetCorrector(JERFiles::PHYS14_L123_MC));
   jetlepton_cleaner.reset(new JetLeptonCleaner(JERFiles::PHYS14_L123_MC));
   jetlepton_cleaner->set_drmax(.4);
-  jetER_smearer.reset(new JetResolutionSmearer(ctx));
   jet_cleaner.reset(new JetCleaner(30., 2.4));
 
   topjet_corrector.reset(new TopJetCorrector(JERFiles::PHYS14_L123_MC));
@@ -111,7 +109,6 @@ bool ZprimePreSelectionModule::process(Event & event) {
 
   jet_corrector->process(event);
   jetlepton_cleaner->process(event);
-  jetER_smearer->process(event);
   jet_cleaner->process(event);
 
   topjet_corrector->process(event);
