@@ -121,6 +121,8 @@
             <Item Name="TopJetCollection" Value="patJetsCmsTopTagCHSPacked" />
             <Item Name="GenParticleCollection" Value="GenParticles" />
 
+            <Item Name="channel" Value="lepton" />
+
             <Item Name="AnalysisModule" Value="ZprimePreSelectionModule" />
         </UserConfig>
 

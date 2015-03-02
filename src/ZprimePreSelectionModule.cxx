@@ -34,6 +34,8 @@ class ZprimePreSelectionModule: public AnalysisModule {
   virtual bool process(Event & event) override;
 
  private:
+  std::string channel_;
+
   std::unique_ptr<MuonCleaner> muo_cleaner;
   std::unique_ptr<ElectronCleaner> ele_cleaner;
 
@@ -46,7 +48,7 @@ class ZprimePreSelectionModule: public AnalysisModule {
   std::unique_ptr<TopJetCleaner> topjet_cleaner;
 
   // declare the Selections to use
-  std::unique_ptr<Selection> muoN_sel, eleN_sel, jet1_sel, jet2_sel, topjet1_sel;
+  std::unique_ptr<Selection> muo1_sel, ele1_sel, jet1_sel, jet2_sel, topjet1_sel;
 
   // store the Hists collection as member variables
   std::unique_ptr<Hists> h_event, h_jet, h_ele, h_mu, h_tau, h_topjet;
@@ -54,6 +56,10 @@ class ZprimePreSelectionModule: public AnalysisModule {
 };
 
 ZprimePreSelectionModule::ZprimePreSelectionModule(Context & ctx){
+
+  channel_ = ctx.get("channel", "lepton");
+  if(channel_!="muon" && channel_!="electron" && channel_!="lepton")
+    throw std::runtime_error("undefined argument for 'channel' key in xml file (must be 'muon', 'electron' or 'lepton'): "+channel_);
 
   // setup object cleaners
   muo_cleaner.reset(new MuonCleaner(AndId<Muon>(MuonIDTight(), PtEtaCut(45., 2.1))));
@@ -69,8 +75,8 @@ ZprimePreSelectionModule::ZprimePreSelectionModule(Context & ctx){
   topjet_cleaner.reset(new TopJetCleaner(TopJetId(PtEtaCut(200., 2.4))));
 
   // set up selections
-  muoN_sel.reset(new NMuonSelection(1));      // at least 1 muon
-  eleN_sel.reset(new NElectronSelection(1));  // at least 1 electron
+  muo1_sel.reset(new NMuonSelection(1));      // at least 1 muon
+  ele1_sel.reset(new NElectronSelection(1));  // at least 1 electron
   jet1_sel.reset(new NJetSelection(1));       // at least 1 jet
   jet2_sel.reset(new NJetSelection(2));       // at least 2 jets
   topjet1_sel.reset(new NTopJetSelection(1)); // at least 1 topjet
@@ -117,7 +123,12 @@ bool ZprimePreSelectionModule::process(Event & event) {
   topjet_cleaner->process(event);
 
   // compute preselection-filter boolean
-  bool pass_lep = (muoN_sel->passes(event) || eleN_sel->passes(event));
+  bool pass_lep(false);
+  if(channel_ == "lepton") pass_lep = (muo1_sel->passes(event) || ele1_sel->passes(event));
+  else if(channel_ == "muon") pass_lep = muo1_sel->passes(event);
+  else if(channel_ == "electron") pass_lep = ele1_sel->passes(event);
+  else throw std::runtime_error("undefined argument for 'channel' key in xml file (must be 'muon', 'electron' or 'lepton'): "+channel_);
+
   bool pass_jet = jet2_sel->passes(event) || (jet1_sel->passes(event) && topjet1_sel->passes(event));
   bool pass_presel = pass_lep && pass_jet;
 
