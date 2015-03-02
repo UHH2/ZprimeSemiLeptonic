@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
 
+  <!ENTITY PRESELdir "/nfs/dust/cms/user/missirol/Analysis7XY/preselection">
+
   <!ENTITY ZP2000w20 SYSTEM "../../common/datasets/MC_Zp_TTJets_M2000W20_20x25.xml">
   <!ENTITY ZP3000w30 SYSTEM "../../common/datasets/MC_Zp_TTJets_M3000W30_20x25.xml">
 ]>
@@ -9,9 +11,9 @@
     <Library Name="libSUHH2ZprimeSemiLeptonic"/>
     <Package Name="SUHH2ZprimeSemiLeptonic.par" />
 
-    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="./" PostFix="" TargetLumi="1" >
+    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="1" >
 <!--
-    <Cycle Name="ZprimePreSelection"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/nfs/dust/cms/user/ottjoc/proof-wd/" ProofNodes="2" OutputDirectory="./" PostFix="" TargetLumi="1" >
+    <Cycle Name="ZprimePreSelection" RunMode="PROOF" ProofServer="lite://" ProofWorkDir="/nfs/dust/cms/user/ottjoc/proof-wd/" ProofNodes="2" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="1" >
 -->
 
 <!--
@@ -27,7 +29,7 @@
 	  <OutputTree Name="AnalysisTree" />
         </InputData>
 -->
-        <InputData Lumi="1" NEventsMax="100" Type="MC" Version="ZP2000w20" Cacheable="True">
+        <InputData Lumi="1" NEventsMax="1000" Type="MC" Version="ZP2000w20" Cacheable="True">
           &ZP2000w20;
           <InputTree Name="AnalysisTree" />
           <OutputTree Name="AnalysisTree" />
@@ -104,12 +106,7 @@
             <Item Name="METName" Value="slimmedMETs" />
             <Item Name="TopJetCollection" Value="patJetsCmsTopTagCHSPacked" />
             <Item Name="GenParticleCollection" Value="GenParticles" />
-            <Item Name="readTrigger" Value="false" />
 
-       <!-- do not propagate JER smearing to MET; no preselection cut on MET is applied, and we want to store the original MET in the ntuple -->
-            <Item Name="jersmear_smear_met" Value="false" />
-
-       <!-- the class name of the AnalysisModule subclasses to run: -->
             <Item Name="AnalysisModule" Value="ZprimePreSelectionModule" />
         </UserConfig>
 
