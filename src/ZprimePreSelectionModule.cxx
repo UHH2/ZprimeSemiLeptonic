@@ -19,6 +19,7 @@
 #include "UHH2/ZprimeSemiLeptonic/include/ZprimePreSelectionHists.h"
 #include "UHH2/common/include/JetCorrections.h"
 #include "UHH2/common/include/ObjectIdUtils.h"
+#include "UHH2/common/include/Utils.h"
 #include "UHH2/core/include/Selection.h"
 
 using namespace uhh2;
@@ -133,10 +134,12 @@ bool ZprimePreSelectionModule::process(Event & event) {
     event.jets->clear();
     event.jets->reserve(uncleaned_jets->size());
     for(auto & j : *uncleaned_jets) event.jets->push_back(j); 
+    sort_by_pt<Jet>(*event.jets);
 
     event.topjets->clear();
     event.topjets->reserve(uncleaned_topjets->size());
     for(auto & j : *uncleaned_topjets) event.topjets->push_back(j); 
+    sort_by_pt<TopJet>(*event.topjets);
   }
 
   return pass_presel;
