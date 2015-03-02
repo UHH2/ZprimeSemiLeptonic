@@ -92,23 +92,18 @@ bool NJetCut::passes(const Event & event){
 ////////////////////////////////////////////////////////
 
 bool TwoDCut::passes(const Event & event){
-  // make sure that you have cleaned the electron and muon collections
-  // event should content only one charged lepton
-  // clean jets for pt>25 GeV before calling this routine 
 
-  for(auto & ele : *event.electrons) {
-    float drmin, ptrel;
-    std::tie(drmin, ptrel) = drmin_pTrel(ele, *event.jets);
-    if(ptrel < 25. && drmin < 0.5) return false;
+  assert(event.muons && event.electrons && event.jets);
+  if((event.muons->size()+event.electrons->size()) != 1){
+    std::cout << "\n @@@ WARNING -- TwoDCut::passes -- unexpected number of muons+electrons in the event (!=1). returning 'false'\n";
+    return false;
   }
 
-  for(auto & mu : *event.muons) {
-    float drmin, ptrel;
-    std::tie(drmin, ptrel) = drmin_pTrel(mu, *event.jets);
-    if(ptrel < 25. && drmin < 0.5) return false;
-  }
+  float drmin, ptrel;  
+  if(event.muons->size()) std::tie(drmin, ptrel) = drmin_pTrel(event.muons->at(0), *event.jets);
+  else std::tie(drmin, ptrel) = drmin_pTrel(event.electrons->at(0), *event.jets);
 
-  return true;
+  return (drmin > min_deltaR_) || (ptrel > min_pTrel_);
 }
 ////////////////////////////////////////////////////////
 

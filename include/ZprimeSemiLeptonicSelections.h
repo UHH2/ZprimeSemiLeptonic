@@ -41,8 +41,11 @@ namespace uhh2 {
 
   class TwoDCut : public Selection {
    public:
-    TwoDCut() {}
+    TwoDCut(float min_deltaR, float min_pTrel): min_deltaR_(min_deltaR), min_pTrel_(min_pTrel) {}
     virtual bool passes(const Event & event) override;
+
+   private:
+    float min_deltaR_, min_pTrel_;
   };
   /////
 

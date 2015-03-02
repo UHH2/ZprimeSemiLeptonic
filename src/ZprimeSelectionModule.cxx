@@ -92,7 +92,7 @@ ZprimeSelectionModule::ZprimeSelectionModule(Context & ctx){
   jet2_sel.reset(new NJetSelection(2, -1, JetId(PtEtaCut(50., 2.4)))); // at least 2 jets with pt>50 and |eta|<2.4
   htlep_sel.reset(new HTlepCut(150., std::numeric_limits<double>::infinity()));
   met_sel.reset(new METCut(50., std::numeric_limits<double>::infinity()));
-  twodcut_sel.reset(new TwoDCut());
+  twodcut_sel.reset(new TwoDCut(.4, 25.));
   toptagevent_sel.reset(new TopTagEventSelection());
 
   // reconstruction hypotheses
