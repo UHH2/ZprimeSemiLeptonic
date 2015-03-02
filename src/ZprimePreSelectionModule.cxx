@@ -57,7 +57,7 @@ ZprimePreSelectionModule::ZprimePreSelectionModule(Context & ctx){
 
   // setup object cleaners
   muo_cleaner.reset(new MuonCleaner(AndId<Muon>(MuonIDTight(), PtEtaCut(45., 2.1))));
-  ele_cleaner.reset(new ElectronCleaner(AndId<Electron>(ElectronID_PHYS14_25ns_tight, PtEtaCut(35., 2.5))));
+  ele_cleaner.reset(new ElectronCleaner(AndId<Electron>(ElectronID_PHYS14_25ns_tight_noIso, PtEtaCut(35., 2.5))));
 
   jet_corrector.reset(new JetCorrector(JERFiles::PHYS14_L123_MC));
   jetlepton_cleaner.reset(new JetLeptonCleaner(JERFiles::PHYS14_L123_MC));
