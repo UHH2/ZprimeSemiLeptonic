@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
+
   <!ENTITY PRESELdir "/nfs/dust/cms/user/missirol/Analysis7XY/preselection">
   <!ENTITY SELdir    "/nfs/dust/cms/user/missirol/Analysis7XY/selection/muon/">
 ]>
@@ -15,6 +16,24 @@
 
         <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="ZP2000w20" Cacheable="False">
             <In FileName="&PRESELdir;/uhh2.AnalysisModuleRunner.MC.ZP2000w20.root" Lumi="0.0"/> 
+            <InputTree Name="AnalysisTree" /> 
+            <OutputTree Name="AnalysisTree" />  
+        </InputData>
+
+        <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="ZP3000w30" Cacheable="False">
+            <In FileName="&PRESELdir;/uhh2.AnalysisModuleRunner.MC.ZP3000w30.root" Lumi="0.0"/> 
+            <InputTree Name="AnalysisTree" /> 
+            <OutputTree Name="AnalysisTree" />  
+        </InputData>
+
+        <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="WJets" Cacheable="False">
+            <In FileName="&PRESELdir;/uhh2.AnalysisModuleRunner.MC.WJets.root" Lumi="0.0"/> 
+            <InputTree Name="AnalysisTree" /> 
+            <OutputTree Name="AnalysisTree" />  
+        </InputData>
+
+        <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="False">
+            <In FileName="&PRESELdir;/uhh2.AnalysisModuleRunner.MC.TTbar.root" Lumi="0.0"/> 
             <InputTree Name="AnalysisTree" /> 
             <OutputTree Name="AnalysisTree" />  
         </InputData>

@@ -5,6 +5,8 @@
 
   <!ENTITY ZP2000w20 SYSTEM "../../common/datasets/MC_Zp_TTJets_M2000W20_20x25.xml">
   <!ENTITY ZP3000w30 SYSTEM "../../common/datasets/MC_Zp_TTJets_M3000W30_20x25.xml">
+  <!ENTITY TTbar     SYSTEM "../../common/datasets/MC_TTJets_20x25.xml">
+  <!ENTITY WJets     SYSTEM "../../common/datasets/MC_WJets_LNu_20x25.xml">
 ]>
 
 <JobConfiguration JobName="ZprimePreSelectionJob" OutputLevel="INFO">
@@ -22,23 +24,11 @@
           <InputTree Name="AnalysisTree" />
           <OutputTree Name="AnalysisTree" />
         </InputData>
-
-        <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="ZP1000w100" Cacheable="True">
-          &ZP1000w100;
-          <InputTree Name="AnalysisTree" />
-	  <OutputTree Name="AnalysisTree" />
-        </InputData>
 -->
-        <InputData Lumi="1" NEventsMax="1000" Type="MC" Version="ZP2000w20" Cacheable="True">
+        <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="ZP2000w20" Cacheable="True">
           &ZP2000w20;
           <InputTree Name="AnalysisTree" />
           <OutputTree Name="AnalysisTree" />
-        </InputData>
-<!--
-        <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="ZP2000w200" Cacheable="True">
-          &ZP2000w200;
-          <InputTree Name="AnalysisTree" />
-	  <OutputTree Name="AnalysisTree" />
         </InputData>
 
         <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="ZP3000w30" Cacheable="True">
@@ -46,31 +36,37 @@
           <InputTree Name="AnalysisTree" />
           <OutputTree Name="AnalysisTree" />
         </InputData>
+<!--
+        <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="ZP1000w100" Cacheable="True">
+          &ZP1000w100;
+          <InputTree Name="AnalysisTree" />
+	  <OutputTree Name="AnalysisTree" />
+        </InputData>
+
+        <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="ZP2000w200" Cacheable="True">
+          &ZP2000w200;
+          <InputTree Name="AnalysisTree" />
+	  <OutputTree Name="AnalysisTree" />
+        </InputData>
 
         <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="ZP3000w300" Cacheable="True">
           &ZP3000w300;
           <InputTree Name="AnalysisTree" />
 	  <OutputTree Name="AnalysisTree" />
         </InputData>
-
+-->
         <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="True">
           &TTbar;
           <InputTree Name="AnalysisTree" />
 	  <OutputTree Name="AnalysisTree" />
         </InputData>
 
-        <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="WZ" Cacheable="True">
-          &WZ;
+        <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="WJets" Cacheable="True">
+          &WJets;
           <InputTree Name="AnalysisTree" />
 	  <OutputTree Name="AnalysisTree" />
         </InputData>
-
-        <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="ZZ" Cacheable="True">
-          &ZZ;
-          <InputTree Name="AnalysisTree" />
-	  <OutputTree Name="AnalysisTree" />
-        </InputData>
-
+<!--
         <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="WJets_HT100to200" Cacheable="True">
           &WJets_HT100to200;
           <InputTree Name="AnalysisTree" />
@@ -91,6 +87,24 @@
 
         <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="WJets_HT600toInf" Cacheable="True">
           &WJets_HT600toInf;
+          <InputTree Name="AnalysisTree" />
+	  <OutputTree Name="AnalysisTree" />
+        </InputData>
+
+        <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="WW" Cacheable="True">
+          &WW;
+          <InputTree Name="AnalysisTree" />
+	  <OutputTree Name="AnalysisTree" />
+        </InputData>
+
+        <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="WZ" Cacheable="True">
+          &WZ;
+          <InputTree Name="AnalysisTree" />
+	  <OutputTree Name="AnalysisTree" />
+        </InputData>
+
+        <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="ZZ" Cacheable="True">
+          &ZZ;
           <InputTree Name="AnalysisTree" />
 	  <OutputTree Name="AnalysisTree" />
         </InputData>
