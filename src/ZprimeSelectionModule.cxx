@@ -24,10 +24,11 @@
 #include "UHH2/common/include/TTbarReconstruction.h"
 #include "UHH2/common/include/ReconstructionHypothesisDiscriminators.h"
 #include "UHH2/common/include/HypothesisHists.h"
-
+#include "UHH2/common/include/TriggerSelection.h"
 //
 // -- ITEMS TO BE IMPLEMENTED
 //   * trigger selection
+//   * update 2D cut values and thresholds for leptons and jets according to the HLT paths
 //   * primary vertex selection
 //   * triangular cuts (electron only)
 //   * JER smearing for TopJet collection
@@ -57,9 +58,9 @@ class ZprimeSelectionModule: public AnalysisModule {
   // Selection
   std::unique_ptr<AndSelection> lepN_sel;
   std::unique_ptr<Selection> jet1_sel, jet2_sel, htlep_sel, met_sel, twodcut_sel, toptagevent_sel;
-
+  std::unique_ptr<Selection> ele_Trigger, mu_Trigger;
   // Hists
-  std::unique_ptr<Hists> input_h_event, lep1_h_event, jet1_h_event, jet2_h_event;
+  std::unique_ptr<Hists> input_h_event, lep1_h_event, jet1_h_event, jet2_h_event, trigger_h_event;
   std::unique_ptr<Hists> htlep_h_event, met_h_event, twodcut_h_event, toptagevent_h_event;
   std::unique_ptr<Hists> h_hyphists, h_event, h_jet, h_ele, h_mu, h_topjet;
   uhh2::Event::Handle<std::vector<ReconstructionHypothesis>> h_hyps;
@@ -90,10 +91,12 @@ ZprimeSelectionModule::ZprimeSelectionModule(Context & ctx){
   if(muon){
     lepN_sel->add<NMuonSelection>("muoN == 1", 1, 1);
     lepN_sel->add<NElectronSelection>("eleN == 0", 0, 0);
+    mu_Trigger.reset(new TriggerSelection("HLT_Mu40_eta2p1_PFJet200_PFJet50_v*"));
   }
   else if(elec){
     lepN_sel->add<NMuonSelection>("muoN == 0", 0, 0);
     lepN_sel->add<NElectronSelection>("eleN == 1", 1, 1);
+    ele_Trigger.reset(new TriggerSelection("HLT_Ele45_CaloIdVT_GsfTrkIdT_PFJet200_PFJet50_v*")); 
   }
 
   jet1_sel.reset(new NJetSelection(1, -1, JetId(PtEtaCut(150., 2.4)))); // at least 1 jet with pt>150 and |eta|<2.4
@@ -117,7 +120,7 @@ ZprimeSelectionModule::ZprimeSelectionModule(Context & ctx){
   htlep_h_event.reset(new EventHists(ctx, "htlep_Event"));
   twodcut_h_event.reset(new EventHists(ctx, "twodcut_Event"));
   toptagevent_h_event.reset(new EventHists(ctx, "toptagevent_Event"));
-
+  trigger_h_event.reset(new EventHists(ctx,"trigger_Event"));
   h_hyphists.reset(new HypothesisHists(ctx, "Chi2Hists", "HighMassReconstruction", "Chi2"));
   h_hyps = ctx.get_handle<std::vector<ReconstructionHypothesis>>("HighMassReconstruction");
   h_event.reset(new EventHists(ctx, "Event_Sel"));
@@ -141,7 +144,13 @@ bool ZprimeSelectionModule::process(Event & event){
   jetlepton_cleaner->process(event);
   jetER_smearer->process(event);
   jet_cleaner1->process(event); // jets w/ pt>25 GeV for lepton-2Dcut
-  bool pass_twodcut = twodcut_sel->passes(event); // lepton 2D-cut
+  //Trigger selection
+  bool ele_Trigger_selection = ele_Trigger->passes(event);
+  bool mu_Trigger_selection = mu_Trigger->passes(event);
+  if (!ele_Trigger_selection || !mu_Trigger_selection || (mu_Trigger_selection && ele_Trigger_selection)) return false;
+  trigger_h_event->fill(event);
+  // 2D cut
+  bool pass_twodcut = twodcut_sel->passes(event);
 
   jet_cleaner2->process(event); // cleaned jets with pt>50 GeV & |eta|<2.4
   sort_by_pt<Jet>(*event.jets);
