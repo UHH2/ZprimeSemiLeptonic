@@ -51,8 +51,8 @@ class ZprimePreSelectionModule: public AnalysisModule {
   std::unique_ptr<Selection> muo1_sel, ele1_sel, jet1_sel, jet2_sel, topjet1_sel;
 
   // store the Hists collection as member variables
-  std::unique_ptr<Hists> h_event, h_jet, h_ele, h_mu, h_tau, h_topjet;
-  std::unique_ptr<Hists> a_event, a_jet, a_ele, a_mu, a_tau, a_topjet;
+  std::unique_ptr<Hists> input_h_event, input_h_jet, input_h_ele, input_h_muo, input_h_topjet;
+  std::unique_ptr<Hists> output_h_event, output_h_jet, output_h_ele, output_h_muo, output_h_topjet;
 };
 
 ZprimePreSelectionModule::ZprimePreSelectionModule(Context & ctx){
@@ -82,78 +82,79 @@ ZprimePreSelectionModule::ZprimePreSelectionModule(Context & ctx){
   topjet1_sel.reset(new NTopJetSelection(1)); // at least 1 topjet
 
   // set up Hists classes
-  h_event.reset(new EventHists(ctx, "Event_before_Presel"));
-  h_jet.reset(new JetHists(ctx, "Jets_before_Presel"));
-  h_ele.reset(new ElectronHists(ctx, "Electron_before_Presel"));
-  h_mu.reset(new MuonHists(ctx, "Muon_before_Presel"));
-  h_tau.reset(new TauHists(ctx, "Tau_before_Presel"));
-  h_topjet.reset(new TopJetHists(ctx, "TopJets_before_Presel"));
+  input_h_event.reset(new EventHists(ctx, "input_Event"));
+  input_h_jet.reset(new JetHists(ctx, "input_Jets"));
+  input_h_ele.reset(new ElectronHists(ctx, "input_Electrons"));
+  input_h_muo.reset(new MuonHists(ctx, "input_Muons"));
+  input_h_topjet.reset(new TopJetHists(ctx, "input_TopJets"));
 
-  a_event.reset(new EventHists(ctx, "Event_after_Presel"));
-  a_jet.reset(new JetHists(ctx, "Jets_after_Presel"));
-  a_ele.reset(new ElectronHists(ctx, "Electron_after_Presel"));
-  a_mu.reset(new MuonHists(ctx, "Muon_after_Presel"));
-  a_tau.reset(new TauHists(ctx, "Tau_after_Presel"));
-  a_topjet.reset(new TopJetHists(ctx, "TopJets_after_Presel"));
+  output_h_event.reset(new EventHists(ctx, "output_Event"));
+  output_h_jet.reset(new JetHists(ctx, "output_Jets"));
+  output_h_ele.reset(new ElectronHists(ctx, "output_Electrons"));
+  output_h_muo.reset(new MuonHists(ctx, "output_Muons"));
+  output_h_topjet.reset(new TopJetHists(ctx, "output_TopJets"));
 }
 
 bool ZprimePreSelectionModule::process(Event & event) {
 
-  h_event->fill(event);
-  h_jet->fill(event);
-  h_ele->fill(event);
-  h_mu->fill(event);
-  h_tau->fill(event);
-  h_topjet->fill(event);
+  // dump input content
+  input_h_event->fill(event);
+  input_h_jet->fill(event);
+  input_h_ele->fill(event);
+  input_h_muo->fill(event);
+  input_h_topjet->fill(event);
 
-  // keep Jets *before cleaning* to store them in the ntuple if event is accepted
-  std::unique_ptr< std::vector<Jet> > uncleaned_jets(new std::vector<Jet>(*event.jets));
-  std::unique_ptr< std::vector<TopJet> > uncleaned_topjets(new std::vector<TopJet>(*event.topjets));
-
-  // clean muons/electrons/jets to preselect events
+  // LEPTON CLEANING
   muo_cleaner->process(event);
   ele_cleaner->process(event);
 
-  jet_corrector->process(event);
-  jetlepton_cleaner->process(event);
-  jet_cleaner->process(event);
-
-  topjet_corrector->process(event);
-  topjetlepton_cleaner->process(event);
-  topjet_cleaner->process(event);
-
-  // compute preselection-filter boolean
+  // LEPTON PRE-SELECTION
   bool pass_lep(false);
   if(channel_ == "lepton") pass_lep = (muo1_sel->passes(event) || ele1_sel->passes(event));
   else if(channel_ == "muon") pass_lep = muo1_sel->passes(event);
   else if(channel_ == "electron") pass_lep = ele1_sel->passes(event);
   else throw std::runtime_error("undefined argument for 'channel' key in xml file (must be 'muon', 'electron' or 'lepton'): "+channel_);
 
+  // exit if lepton selection fails, otherwise proceed to jet selection
+  if(!pass_lep) return false;
+
+  // keep Jets *before cleaning* to store them in the ntuple if event is accepted
+  std::unique_ptr< std::vector<Jet> > uncleaned_jets(new std::vector<Jet>(*event.jets));
+  std::unique_ptr< std::vector<TopJet> > uncleaned_topjets(new std::vector<TopJet>(*event.topjets));
+
+  // JET CLEANING
+  jet_corrector->process(event);
+  jetlepton_cleaner->process(event);
+  jet_cleaner->process(event);
+  topjet_corrector->process(event);
+  topjetlepton_cleaner->process(event);
+  topjet_cleaner->process(event);
+
+  // JET PRE-SELECTION
   bool pass_jet = jet2_sel->passes(event) || (jet1_sel->passes(event) && topjet1_sel->passes(event));
-  bool pass_presel = pass_lep && pass_jet;
 
-  if(pass_presel){
+  // exit if jet preselection fails
+  if(!pass_jet) return false;
 
-    a_event->fill(event);
-    a_jet->fill(event);
-    a_ele->fill(event);
-    a_mu->fill(event);
-    a_tau->fill(event);
-    a_topjet->fill(event);
+  // store Jets *before cleaning* in the ntuple
+  event.jets->clear();
+  event.jets->reserve(uncleaned_jets->size());
+  for(auto & j : *uncleaned_jets) event.jets->push_back(j); 
+  sort_by_pt<Jet>(*event.jets);
 
-    // store Jets *before cleaning* in the ntuple
-    event.jets->clear();
-    event.jets->reserve(uncleaned_jets->size());
-    for(auto & j : *uncleaned_jets) event.jets->push_back(j); 
-    sort_by_pt<Jet>(*event.jets);
+  event.topjets->clear();
+  event.topjets->reserve(uncleaned_topjets->size());
+  for(auto & j : *uncleaned_topjets) event.topjets->push_back(j); 
+  sort_by_pt<TopJet>(*event.topjets);
 
-    event.topjets->clear();
-    event.topjets->reserve(uncleaned_topjets->size());
-    for(auto & j : *uncleaned_topjets) event.topjets->push_back(j); 
-    sort_by_pt<TopJet>(*event.topjets);
-  }
+  // dump output content
+  output_h_event->fill(event);
+  output_h_jet->fill(event);
+  output_h_ele->fill(event);
+  output_h_muo->fill(event);
+  output_h_topjet->fill(event);
 
-  return pass_presel;
+  return true;
 }
 
 UHH2_REGISTER_ANALYSIS_MODULE(ZprimePreSelectionModule)
