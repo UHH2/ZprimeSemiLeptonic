@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
 
+  <!ENTITY PROOFdir  "/nfs/dust/cms/user/missirol/PROOF">
   <!ENTITY PRESELdir "/nfs/dust/cms/user/missirol/Analysis7XY/preselection">
 
   <!ENTITY ZP2000w20 SYSTEM "../../common/datasets/MC_Zp_TTJets_M2000W20_20x25.xml">
@@ -15,7 +16,9 @@
 
     <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="1" >
 <!--
-    <Cycle Name="ZprimePreSelection" RunMode="PROOF" ProofServer="lite://" ProofWorkDir="/nfs/dust/cms/user/ottjoc/proof-wd/" ProofNodes="2" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="1" >
+    <Cycle Name="ZprimePreSelection" RunMode="PROOF" ProofServer="lite://" ProofWorkDir="&PROOFdir;/" ProofNodes="2" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="1" >
+
+    <Cycle Name="ZprimePreSelection" RunMode="PROOF" ProofServer="pod://" ProofWorkDir="&PROOFdir;/" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="1" >
 -->
 
 <!--
