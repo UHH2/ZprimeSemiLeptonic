@@ -24,10 +24,11 @@
 #include "UHH2/common/include/TTbarReconstruction.h"
 #include "UHH2/common/include/ReconstructionHypothesisDiscriminators.h"
 #include "UHH2/common/include/HypothesisHists.h"
-
+#include "UHH2/common/include/TriggerSelection.h"
 //
 // -- ITEMS TO BE IMPLEMENTED
 //   * trigger selection
+//   * update 2D cut values and thresholds for leptons and jets according to the HLT paths
 //   * primary vertex selection
 //   * triangular cuts (electron only)
 //   * JER smearing for TopJet collection
@@ -57,9 +58,9 @@ class ZprimeSelectionModule: public AnalysisModule {
   // Selection
   std::unique_ptr<AndSelection> lepN_sel;
   std::unique_ptr<Selection> jet1_sel, jet2_sel, htlep_sel, met_sel, twodcut_sel, toptagevent_sel;
-
+  std::unique_ptr<Selection> trigger_sel;
   // Hists
-  std::unique_ptr<Hists> input_h_event, lep1_h_event, jet1_h_event, jet2_h_event;
+  std::unique_ptr<Hists> input_h_event, lep1_h_event, jet1_h_event, jet2_h_event, trigger_h_event;
   std::unique_ptr<Hists> htlep_h_event, met_h_event, twodcut_h_event, toptagevent_h_event;
   std::unique_ptr<Hists> h_hyphists, h_event, h_jet, h_ele, h_mu, h_topjet;
   uhh2::Event::Handle<std::vector<ReconstructionHypothesis>> h_hyps;
@@ -68,7 +69,7 @@ class ZprimeSelectionModule: public AnalysisModule {
 ZprimeSelectionModule::ZprimeSelectionModule(Context & ctx){
 
   muo_cleaner.reset(new MuonCleaner(AndId<Muon>(MuonIDTight(), PtEtaCut(45., 2.1))));
-  ele_cleaner.reset(new ElectronCleaner(AndId<Electron>(ElectronID_PHYS14_25ns_tight_noIso, PtEtaCut(35., 2.5))));
+  ele_cleaner.reset(new ElectronCleaner(AndId<Electron>(ElectronID_PHYS14_25ns_tight_noIso, PtEtaCut(50., 2.5))));
   jet_corrector.reset(new JetCorrector(JERFiles::PHYS14_L123_MC));
   jetlepton_cleaner.reset(new JetLeptonCleaner(JERFiles::PHYS14_L123_MC));
   jetlepton_cleaner->set_drmax(.4);
@@ -82,6 +83,7 @@ ZprimeSelectionModule::ZprimeSelectionModule(Context & ctx){
 
   bool muon(false), elec(false);
   const std::string channel(ctx.get("channel", ""));
+  const std::string triggername(ctx.get("triggername","NotSet"));
   if(channel == "muon") muon = true;
   else if(channel == "electron") elec = true;
   else throw std::runtime_error("undefined argument for 'channel' key in xml file (must be 'muon' or 'electron'): "+channel);
@@ -90,13 +92,21 @@ ZprimeSelectionModule::ZprimeSelectionModule(Context & ctx){
   if(muon){
     lepN_sel->add<NMuonSelection>("muoN == 1", 1, 1);
     lepN_sel->add<NElectronSelection>("eleN == 0", 0, 0);
+    if(triggername=="NotSet")
+      trigger_sel = make_unique<TriggerSelection>("HLT_Mu40_eta2p1_PFJet200_PFJet50_v*");
+    else 
+      trigger_sel = make_unique<TriggerSelection>(triggername);
   }
   else if(elec){
     lepN_sel->add<NMuonSelection>("muoN == 0", 0, 0);
     lepN_sel->add<NElectronSelection>("eleN == 1", 1, 1);
+    if(triggername=="NotSet")
+      trigger_sel = make_unique<TriggerSelection>("HLT_Ele45_CaloIdVT_GsfTrkIdT_PFJet200_PFJet50_v*");
+    else
+      trigger_sel = make_unique<TriggerSelection>(triggername); 
   }
 
-  jet1_sel.reset(new NJetSelection(1, -1, JetId(PtEtaCut(150., 2.4)))); // at least 1 jet with pt>150 and |eta|<2.4
+  jet1_sel.reset(new NJetSelection(1, -1, JetId(PtEtaCut(200., 2.4)))); // at least 1 jet with pt>200 and |eta|<2.4
   jet2_sel.reset(new NJetSelection(2, -1, JetId(PtEtaCut(50., 2.4))));  // at least 2 jets with pt>50 and |eta|<2.4
   met_sel.reset(new METCut(50., std::numeric_limits<double>::infinity()));
   htlep_sel.reset(new HTlepCut(150., std::numeric_limits<double>::infinity()));
@@ -117,7 +127,7 @@ ZprimeSelectionModule::ZprimeSelectionModule(Context & ctx){
   htlep_h_event.reset(new EventHists(ctx, "htlep_Event"));
   twodcut_h_event.reset(new EventHists(ctx, "twodcut_Event"));
   toptagevent_h_event.reset(new EventHists(ctx, "toptagevent_Event"));
-
+  trigger_h_event.reset(new EventHists(ctx,"trigger_Event"));
   h_hyphists.reset(new HypothesisHists(ctx, "Chi2Hists", "HighMassReconstruction", "Chi2"));
   h_hyps = ctx.get_handle<std::vector<ReconstructionHypothesis>>("HighMassReconstruction");
   h_event.reset(new EventHists(ctx, "Event_Sel"));
@@ -141,7 +151,12 @@ bool ZprimeSelectionModule::process(Event & event){
   jetlepton_cleaner->process(event);
   jetER_smearer->process(event);
   jet_cleaner1->process(event); // jets w/ pt>25 GeV for lepton-2Dcut
-  bool pass_twodcut = twodcut_sel->passes(event); // lepton 2D-cut
+  //Trigger selection
+  bool trigger_selection = trigger_sel->passes(event);
+  if(!trigger_selection) return false;
+  trigger_h_event->fill(event);
+  // 2D cut
+  bool pass_twodcut = twodcut_sel->passes(event);
 
   jet_cleaner2->process(event); // cleaned jets with pt>50 GeV & |eta|<2.4
   sort_by_pt<Jet>(*event.jets);
