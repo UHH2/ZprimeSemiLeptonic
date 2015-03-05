@@ -13,13 +13,13 @@
 <JobConfiguration JobName="ZprimePreSelectionJob" OutputLevel="INFO">
     <Library Name="libSUHH2ZprimeSemiLeptonic"/>
     <Package Name="SUHH2ZprimeSemiLeptonic.par" />
-
-    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="1" >
 <!--
-    <Cycle Name="ZprimePreSelection" RunMode="PROOF" ProofServer="lite://" ProofWorkDir="&PROOFdir;/" ProofNodes="2" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="1" >
+    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="1" >
 
-    <Cycle Name="ZprimePreSelection" RunMode="PROOF" ProofServer="pod://" ProofWorkDir="&PROOFdir;/" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="1" >
+    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="1" RunMode="PROOF" ProofServer="lite://" ProofWorkDir="&PROOFdir;/" ProofNodes="5" >
 -->
+    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="1" RunMode="PROOF" ProofServer="pod://" ProofWorkDir="&PROOFdir;/" >
+
 
 <!--
         <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="ZP1000w10" Cacheable="True">
@@ -27,7 +27,7 @@
           <InputTree Name="AnalysisTree" />
           <OutputTree Name="AnalysisTree" />
         </InputData>
--->
+
         <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="ZP2000w20" Cacheable="True">
           &ZP2000w20;
           <InputTree Name="AnalysisTree" />
@@ -39,7 +39,7 @@
           <InputTree Name="AnalysisTree" />
           <OutputTree Name="AnalysisTree" />
         </InputData>
-<!--
+
         <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="ZP1000w100" Cacheable="True">
           &ZP1000w100;
           <InputTree Name="AnalysisTree" />
@@ -57,13 +57,13 @@
           <InputTree Name="AnalysisTree" />
 	  <OutputTree Name="AnalysisTree" />
         </InputData>
--->
+
         <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="True">
           &TTbar;
           <InputTree Name="AnalysisTree" />
 	  <OutputTree Name="AnalysisTree" />
         </InputData>
-
+-->
         <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="WJets" Cacheable="True">
           &WJets;
           <InputTree Name="AnalysisTree" />
