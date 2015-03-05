@@ -51,7 +51,7 @@
            <Item Name="GenParticleCollection" Value="GenParticles" />
 
            <Item Name="channel" Value="muon" />
-
+           <!--<Item Name="triggername" Value="HLT_.." /> -->
            <Item Name="AnalysisModule" Value="ZprimeSelectionModule" />
         </UserConfig>
 
