@@ -2,8 +2,8 @@
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
 
   <!ENTITY PROOFdir  "/nfs/dust/cms/user/missirol/PROOF">
-  <!ENTITY PRESELdir "/nfs/dust/cms/user/missirol/Analysis7XY/preselection">
-  <!ENTITY SELdir    "/nfs/dust/cms/user/missirol/Analysis7XY/selection/muon/">
+  <!ENTITY PRESELdir "/nfs/dust/cms/user/missirol/Analysis7XY/ttbar_semilep_13TeV/preselection">
+  <!ENTITY SELdir    "/nfs/dust/cms/user/missirol/Analysis7XY/ttbar_semilep_13TeV/selection/muon/">
 ]>
 
 <JobConfiguration JobName="ZprimeSelectionJob" OutputLevel="INFO">
@@ -28,7 +28,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
         </InputData>
-
+<!--
         <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="False">
             <In FileName="&PRESELdir;/uhh2.AnalysisModuleRunner.MC.TTbar.root" Lumi="0.0"/>
             <InputTree Name="AnalysisTree" />
@@ -40,7 +40,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
         </InputData>
-
+-->
 
         <UserConfig>
            <Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices" />
@@ -54,7 +54,8 @@
            <Item Name="GenParticleCollection" Value="GenParticles" />
 
            <Item Name="channel" Value="muon" />
-           <!--<Item Name="triggername" Value="HLT_.." /> -->
+          <!-- <Item Name="triggername" Value="HLT_.." /> -->
+
            <Item Name="AnalysisModule" Value="ZprimeSelectionModule" />
         </UserConfig>
 
