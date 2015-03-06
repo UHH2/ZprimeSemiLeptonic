@@ -3,6 +3,7 @@
 
 #include <string>
 #include <TH1F.h>
+#include <TH2F.h>
 
 class ZprimeSelectionHists: public uhh2::Hists {
  public:
@@ -62,6 +63,6 @@ class ZprimeSelectionHists: public uhh2::Hists {
   TH1F* met__pt;
   TH1F* met__phi;
   TH1F* htlep__pt;
+  TH2F* met_VS_dphi_lep1;
+  TH2F* met_VS_dphi_jet1;
 };
-
-

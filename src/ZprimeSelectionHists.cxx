@@ -10,57 +10,59 @@ using namespace uhh2;
 
 ZprimeSelectionHists::ZprimeSelectionHists(Context & ctx, const std::string & dirname): Hists(ctx, dirname){
 
-  wgt = book<TH1F>("weight", "event weight", 120, 0, 12);
+  wgt = book<TH1F>("weight", ";event weight", 120, 0, 12);
 
   // PV
-  pvN = book<TH1F>("pvN", "# of primary vertices", 60, 0, 60);
+  pvN = book<TH1F>("pvN", ";# of primary vertices", 60, 0, 60);
 
   // MUON
-  muoN = book<TH1F>("muoN", "# of muons", 20, 0, 20);
-  muo1__pt = book<TH1F>("muo1__pt", "muon p_{T} [GeV]", 180, 0, 900);
-  muo1__eta = book<TH1F>("muo1__eta", "muon #eta", 60, -3, 3);
-  muo1__minDR_jet = book<TH1F>("muo1__minDR_jet", "#DeltaR_{min}(#mu, jet)", 60, 0, 6);
-  muo1__pTrel_jet = book<TH1F>("muo1__pTrel_jet", "p_{T, rel}(#mu, jet)", 180, 0, 180);
-  muo1__minDR_topjet = book<TH1F>("muo1__minDR_topjet", "#DeltaR_{min}(#mu, topjet)", 60, 0, 6);
-  muo2__pt = book<TH1F>("muo2__pt", "muon p_{T} [GeV]", 180, 0, 900);
-  muo2__eta = book<TH1F>("muo2__eta", "muon #eta", 60, -3, 3);
-  muo2__minDR_jet = book<TH1F>("muo2__minDR_jet", "#DeltaR_{min}(#mu, jet)", 60, 0, 6);
-  muo2__pTrel_jet = book<TH1F>("muo2__pTrel_jet", "p_{T, rel}(#mu, jet)", 180, 0, 180);
-  muo2__minDR_topjet = book<TH1F>("muo2__minDR_topjet", "#DeltaR_{min}(#mu, topjet)", 60, 0, 6);
+  muoN = book<TH1F>("muoN", ";# of muons", 20, 0, 20);
+  muo1__pt = book<TH1F>("muo1__pt", ";muon p_{T} [GeV]", 180, 0, 900);
+  muo1__eta = book<TH1F>("muo1__eta", ";muon #eta", 60, -3, 3);
+  muo1__minDR_jet = book<TH1F>("muo1__minDR_jet", ";#DeltaR_{min}(#mu, jet)", 60, 0, 6);
+  muo1__pTrel_jet = book<TH1F>("muo1__pTrel_jet", ";p_{T, rel}(#mu, jet)", 180, 0, 180);
+  muo1__minDR_topjet = book<TH1F>("muo1__minDR_topjet", ";#DeltaR_{min}(#mu, topjet)", 60, 0, 6);
+  muo2__pt = book<TH1F>("muo2__pt", ";muon p_{T} [GeV]", 180, 0, 900);
+  muo2__eta = book<TH1F>("muo2__eta", ";muon #eta", 60, -3, 3);
+  muo2__minDR_jet = book<TH1F>("muo2__minDR_jet", ";#DeltaR_{min}(#mu, jet)", 60, 0, 6);
+  muo2__pTrel_jet = book<TH1F>("muo2__pTrel_jet", ";p_{T, rel}(#mu, jet)", 180, 0, 180);
+  muo2__minDR_topjet = book<TH1F>("muo2__minDR_topjet", ";#DeltaR_{min}(#mu, topjet)", 60, 0, 6);
 
   // ELECTRON
-  eleN = book<TH1F>("eleN", "# of electrons", 20, 0, 20);
-  ele1__pt = book<TH1F>("ele1__pt", "electron p_{T} [GeV]", 180, 0, 900);
-  ele1__eta = book<TH1F>("ele1__eta", "electron #eta", 60, -3, 3);
-  ele1__minDR_jet = book<TH1F>("ele1__minDR_jet", "#DeltaR_{min}(e, jet)", 60, 0, 6);
-  ele1__pTrel_jet = book<TH1F>("ele1__pTrel_jet", "p_{T, rel}(e, jet)", 180, 0, 180);
-  ele1__minDR_topjet = book<TH1F>("ele1__minDR_topjet", "#DeltaR_{min}(e, topjet)", 60, 0, 6);
-  ele2__pt = book<TH1F>("ele2__pt", "electron p_{T} [GeV]", 180, 0, 900);
-  ele2__eta = book<TH1F>("ele2__eta", "electron #eta", 60, -3, 3);
-  ele2__minDR_jet = book<TH1F>("ele2__minDR_jet", "#DeltaR_{min}(e, jet)", 60, 0, 6);
-  ele2__pTrel_jet = book<TH1F>("ele2__pTrel_jet", "p_{T, rel}(e, jet)", 180, 0, 180);
-  ele2__minDR_topjet = book<TH1F>("ele2__minDR_topjet", "#DeltaR_{min}(e, topjet)", 60, 0, 6);
+  eleN = book<TH1F>("eleN", ";# of electrons", 20, 0, 20);
+  ele1__pt = book<TH1F>("ele1__pt", ";electron p_{T} [GeV]", 180, 0, 900);
+  ele1__eta = book<TH1F>("ele1__eta", ";electron #eta", 60, -3, 3);
+  ele1__minDR_jet = book<TH1F>("ele1__minDR_jet", ";#DeltaR_{min}(e, jet)", 60, 0, 6);
+  ele1__pTrel_jet = book<TH1F>("ele1__pTrel_jet", ";p_{T, rel}(e, jet)", 180, 0, 180);
+  ele1__minDR_topjet = book<TH1F>("ele1__minDR_topjet", ";#DeltaR_{min}(e, topjet)", 60, 0, 6);
+  ele2__pt = book<TH1F>("ele2__pt", ";electron p_{T} [GeV]", 180, 0, 900);
+  ele2__eta = book<TH1F>("ele2__eta", ";electron #eta", 60, -3, 3);
+  ele2__minDR_jet = book<TH1F>("ele2__minDR_jet", ";#DeltaR_{min}(e, jet)", 60, 0, 6);
+  ele2__pTrel_jet = book<TH1F>("ele2__pTrel_jet", ";p_{T, rel}(e, jet)", 180, 0, 180);
+  ele2__minDR_topjet = book<TH1F>("ele2__minDR_topjet", ";#DeltaR_{min}(e, topjet)", 60, 0, 6);
 
   // JET
-  jetN = book<TH1F>("jetN", "# of jets", 20, 0, 20);
-  jet1__pt = book<TH1F>("jet1__pt", "jet p_{T} [GeV]", 180, 0, 900);
-  jet1__eta = book<TH1F>("jet1__eta", "jet #eta", 60, -3, 3);
-  jet2__pt = book<TH1F>("jet2__pt", "jet p_{T} [GeV]", 180, 0, 900);
-  jet2__eta = book<TH1F>("jet2__eta", "jet #eta", 60, -3, 3);
-  jet3__pt = book<TH1F>("jet3__pt", "jet p_{T} [GeV]", 180, 0, 900);
-  jet3__eta = book<TH1F>("jet3__eta", "jet #eta", 60, -3, 3);
+  jetN = book<TH1F>("jetN", ";# of jets", 20, 0, 20);
+  jet1__pt = book<TH1F>("jet1__pt", ";jet p_{T} [GeV]", 180, 0, 900);
+  jet1__eta = book<TH1F>("jet1__eta", ";jet #eta", 60, -3, 3);
+  jet2__pt = book<TH1F>("jet2__pt", ";jet p_{T} [GeV]", 180, 0, 900);
+  jet2__eta = book<TH1F>("jet2__eta", ";jet #eta", 60, -3, 3);
+  jet3__pt = book<TH1F>("jet3__pt", ";jet p_{T} [GeV]", 180, 0, 900);
+  jet3__eta = book<TH1F>("jet3__eta", ";jet #eta", 60, -3, 3);
 
   // TOPJET
-  topjetN = book<TH1F>("topjetN", "# of topjets", 20, 0, 20);
-  topjet1__pt = book<TH1F>("topjet1__pt", "topjet p_{T} [GeV]", 180, 0, 900);
-  topjet1__eta = book<TH1F>("topjet1__eta", "topjet #eta", 60, -3, 3);
-  topjet2__pt = book<TH1F>("topjet2__pt", "topjet p_{T} [GeV]", 180, 0, 900);
-  topjet2__eta = book<TH1F>("topjet2__eta", "topjet #eta", 60, -3, 3);
+  topjetN = book<TH1F>("topjetN", ";# of topjets", 20, 0, 20);
+  topjet1__pt = book<TH1F>("topjet1__pt", ";topjet p_{T} [GeV]", 180, 0, 900);
+  topjet1__eta = book<TH1F>("topjet1__eta", ";topjet #eta", 60, -3, 3);
+  topjet2__pt = book<TH1F>("topjet2__pt", ";topjet p_{T} [GeV]", 180, 0, 900);
+  topjet2__eta = book<TH1F>("topjet2__eta", ";topjet #eta", 60, -3, 3);
 
   // MET
-  met__pt = book<TH1F>("met__pt", "MET [GeV]", 180, 0, 1800);
-  met__phi = book<TH1F>("met__phi", "MET #phi", 72, -3.6, 3.6);
-  htlep__pt = book<TH1F>("htlep__pt", "H_{T}^{lep} [GeV]", 180, 0, 1800);
+  met__pt = book<TH1F>("met__pt", ";MET [GeV]", 180, 0, 1800);
+  met__phi = book<TH1F>("met__phi", ";MET #phi", 72, -3.6, 3.6);
+  htlep__pt = book<TH1F>("htlep__pt", ";H_{T}^{lep} [GeV]", 180, 0, 1800);
+  met_VS_dphi_lep1 = book<TH2F>("met_VS_dphi_lep1", ";MET [GeV];#Delta#phi(MET, l1)", 180, 0, 1800, 60, 0, 3.6);
+  met_VS_dphi_jet1 = book<TH2F>("met_VS_dphi_jet1", ";MET [GeV];#Delta#phi(MET, l1)", 180, 0, 1800, 60, 0, 3.6);
 }
 
 void ZprimeSelectionHists::fill(const Event & event){
@@ -181,6 +183,12 @@ void ZprimeSelectionHists::fill(const Event & event){
   for(const auto& l : *event.muons)     if(l.pt() > max_lep_pt){ lep1 = &l; max_lep_pt = l.pt(); }
   for(const auto& l : *event.electrons) if(l.pt() > max_lep_pt){ lep1 = &l; max_lep_pt = l.pt(); }
   if(lep1) htlep__pt->Fill(event.met->pt()+lep1->pt(), weight);
+
+  /* triangular cuts vars */
+  if(lep1) met_VS_dphi_lep1->Fill(event.met->pt(), fabs(deltaPhi(*event.met, *lep1)), weight);
+
+  const Particle* jet1 = &event.jets->at(0);
+  if(jet1) met_VS_dphi_jet1->Fill(event.met->pt(), fabs(deltaPhi(*event.met, *jet1)), weight);
 
   return;
 }

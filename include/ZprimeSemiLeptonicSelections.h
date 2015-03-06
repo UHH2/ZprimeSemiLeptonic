@@ -4,6 +4,7 @@
 #include "UHH2/core/include/Utils.h"
 #include "UHH2/core/include/Selection.h"
 #include "UHH2/common/include/ReconstructionHypothesisDiscriminators.h"
+#include "UHH2/common/include/ObjectIdUtils.h"
 #include "UHH2/common/include/TopJetIds.h"
 
 namespace uhh2 {
@@ -41,11 +42,21 @@ namespace uhh2 {
 
   class TwoDCut : public Selection {
    public:
-    TwoDCut(float min_deltaR, float min_pTrel): min_deltaR_(min_deltaR), min_pTrel_(min_pTrel) {}
+    explicit TwoDCut(float min_deltaR, float min_pTrel): min_deltaR_(min_deltaR), min_pTrel_(min_pTrel) {}
     virtual bool passes(const Event & event) override;
 
    private:
     float min_deltaR_, min_pTrel_;
+  };
+  /////
+
+  class TriangularCuts : public Selection {
+   public:
+    explicit TriangularCuts(float a, float b);
+    virtual bool passes(const Event & event) override;
+
+   private:
+    float a_, b_;
   };
   /////
 
