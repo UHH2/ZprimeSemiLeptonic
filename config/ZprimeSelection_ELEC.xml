@@ -3,7 +3,7 @@
 
   <!ENTITY PROOFdir  "/nfs/dust/cms/user/missirol/PROOF">
   <!ENTITY PRESELdir "/nfs/dust/cms/user/missirol/Analysis7XY/ttbar_semilep_13TeV/preselection">
-  <!ENTITY SELdir    "/nfs/dust/cms/user/missirol/Analysis7XY/ttbar_semilep_13TeV/selection/elec/">
+  <!ENTITY SELdir    "/nfs/dust/cms/user/missirol/Analysis7XY/ttbar_semilep_13TeV/selection/150307_test/elec/">
 ]>
 
 <JobConfiguration JobName="ZprimeSelectionJob" OutputLevel="INFO">
@@ -12,10 +12,16 @@
 <!--
     <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&SELdir;/" PostFix="" TargetLumi="1" >
 -->
-    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&SELdir;/" PostFix="" TargetLumi="1" RunMode="PROOF" ProofServer="lite://" ProofWorkDir="&PROOFdir;/" ProofNodes="5" >
+    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&SELdir;/" PostFix="" TargetLumi="1" RunMode="PROOF" ProofServer="lite://" ProofWorkDir="&PROOFdir;/" ProofNodes="10" >
 <!--
     <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&SELdir;/" PostFix="" TargetLumi="1" RunMode="PROOF" ProofServer="pod://" ProofWorkDir="&PROOFdir;/" >
 -->
+
+        <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="ZP1000w10" Cacheable="False">
+            <In FileName="&PRESELdir;/uhh2.AnalysisModuleRunner.MC.ZP1000w10.root" Lumi="0.0"/>
+            <InputTree Name="AnalysisTree" />
+            <OutputTree Name="AnalysisTree" />
+        </InputData>
 
         <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="ZP2000w20" Cacheable="False">
             <In FileName="&PRESELdir;/uhh2.AnalysisModuleRunner.MC.ZP2000w20.root" Lumi="0.0"/>
@@ -28,7 +34,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
         </InputData>
-<!--
+
         <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="False">
             <In FileName="&PRESELdir;/uhh2.AnalysisModuleRunner.MC.TTbar.root" Lumi="0.0"/>
             <InputTree Name="AnalysisTree" />
@@ -40,23 +46,31 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
         </InputData>
--->
+
+        <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="ZJets" Cacheable="False">
+            <In FileName="&PRESELdir;/uhh2.AnalysisModuleRunner.MC.ZJets.root" Lumi="0.0"/>
+            <InputTree Name="AnalysisTree" />
+            <OutputTree Name="AnalysisTree" />
+        </InputData>
+
 
         <UserConfig>
-           <Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices" />
-           <Item Name="ElectronCollection" Value="slimmedElectrons" />
-           <Item Name="MuonCollection" Value="slimmedMuons" />
-           <Item Name="TauCollection" Value="slimmedTaus" />
-           <Item Name="JetCollection" Value="patJetsAk4PFCHS" />
-           <Item Name="GenJetCollection" Value="slimmedGenJets" />
-           <Item Name="METName" Value="slimmedMETs" />
-           <Item Name="TopJetCollection" Value="patJetsCmsTopTagCHSPacked" />
-           <Item Name="GenParticleCollection" Value="GenParticles" />
+            <Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices" />
+            <Item Name="ElectronCollection" Value="slimmedElectrons" />
+            <Item Name="MuonCollection" Value="slimmedMuons" />
+            <Item Name="TauCollection" Value="slimmedTaus" />
+            <Item Name="JetCollection" Value="patJetsAk4PFCHS" />
+            <Item Name="GenJetCollection" Value="slimmedGenJets" />
+            <Item Name="METName" Value="slimmedMETs" />
+            <Item Name="TopJetCollection" Value="patJetsCmsTopTagCHSPacked" />
+            <Item Name="GenParticleCollection" Value="GenParticles" />
 
-           <Item Name="channel" Value="electron" />
-          <!-- <Item Name="triggername" Value="HLT_.." /> -->
+            <Item Name="use_sframe_weight" Value="false" />
 
-           <Item Name="AnalysisModule" Value="ZprimeSelectionModule" />
+            <Item Name="channel" Value="electron" />
+           <!-- <Item Name="triggername" Value="HLT_.." /> -->
+
+            <Item Name="AnalysisModule" Value="ZprimeSelectionModule" />
         </UserConfig>
 
     </Cycle>

@@ -17,12 +17,12 @@ ZprimeSelectionHists::ZprimeSelectionHists(Context & ctx, const std::string & di
 
   // MUON
   muoN = book<TH1F>("muoN", ";# of muons", 20, 0, 20);
-  muo1__pt = book<TH1F>("muo1__pt", ";muon p_{T} [GeV]", 180, 0, 900);
+  muo1__pt = book<TH1F>("muo1__pt", ";muon p_{T} [GeV]", 240, 0, 1200);
   muo1__eta = book<TH1F>("muo1__eta", ";muon #eta", 60, -3, 3);
   muo1__minDR_jet = book<TH1F>("muo1__minDR_jet", ";#DeltaR_{min}(#mu, jet)", 60, 0, 6);
   muo1__pTrel_jet = book<TH1F>("muo1__pTrel_jet", ";p_{T, rel}(#mu, jet)", 180, 0, 180);
   muo1__minDR_topjet = book<TH1F>("muo1__minDR_topjet", ";#DeltaR_{min}(#mu, topjet)", 60, 0, 6);
-  muo2__pt = book<TH1F>("muo2__pt", ";muon p_{T} [GeV]", 180, 0, 900);
+  muo2__pt = book<TH1F>("muo2__pt", ";muon p_{T} [GeV]", 240, 0, 1200);
   muo2__eta = book<TH1F>("muo2__eta", ";muon #eta", 60, -3, 3);
   muo2__minDR_jet = book<TH1F>("muo2__minDR_jet", ";#DeltaR_{min}(#mu, jet)", 60, 0, 6);
   muo2__pTrel_jet = book<TH1F>("muo2__pTrel_jet", ";p_{T, rel}(#mu, jet)", 180, 0, 180);
@@ -30,12 +30,12 @@ ZprimeSelectionHists::ZprimeSelectionHists(Context & ctx, const std::string & di
 
   // ELECTRON
   eleN = book<TH1F>("eleN", ";# of electrons", 20, 0, 20);
-  ele1__pt = book<TH1F>("ele1__pt", ";electron p_{T} [GeV]", 180, 0, 900);
+  ele1__pt = book<TH1F>("ele1__pt", ";electron p_{T} [GeV]", 240, 0, 1200);
   ele1__eta = book<TH1F>("ele1__eta", ";electron #eta", 60, -3, 3);
   ele1__minDR_jet = book<TH1F>("ele1__minDR_jet", ";#DeltaR_{min}(e, jet)", 60, 0, 6);
   ele1__pTrel_jet = book<TH1F>("ele1__pTrel_jet", ";p_{T, rel}(e, jet)", 180, 0, 180);
   ele1__minDR_topjet = book<TH1F>("ele1__minDR_topjet", ";#DeltaR_{min}(e, topjet)", 60, 0, 6);
-  ele2__pt = book<TH1F>("ele2__pt", ";electron p_{T} [GeV]", 180, 0, 900);
+  ele2__pt = book<TH1F>("ele2__pt", ";electron p_{T} [GeV]", 240, 0, 1200);
   ele2__eta = book<TH1F>("ele2__eta", ";electron #eta", 60, -3, 3);
   ele2__minDR_jet = book<TH1F>("ele2__minDR_jet", ";#DeltaR_{min}(e, jet)", 60, 0, 6);
   ele2__pTrel_jet = book<TH1F>("ele2__pTrel_jet", ";p_{T, rel}(e, jet)", 180, 0, 180);
@@ -43,18 +43,18 @@ ZprimeSelectionHists::ZprimeSelectionHists(Context & ctx, const std::string & di
 
   // JET
   jetN = book<TH1F>("jetN", ";# of jets", 20, 0, 20);
-  jet1__pt = book<TH1F>("jet1__pt", ";jet p_{T} [GeV]", 180, 0, 900);
+  jet1__pt = book<TH1F>("jet1__pt", ";jet p_{T} [GeV]", 180, 0, 1800);
   jet1__eta = book<TH1F>("jet1__eta", ";jet #eta", 60, -3, 3);
-  jet2__pt = book<TH1F>("jet2__pt", ";jet p_{T} [GeV]", 180, 0, 900);
+  jet2__pt = book<TH1F>("jet2__pt", ";jet p_{T} [GeV]", 180, 0, 1800);
   jet2__eta = book<TH1F>("jet2__eta", ";jet #eta", 60, -3, 3);
-  jet3__pt = book<TH1F>("jet3__pt", ";jet p_{T} [GeV]", 180, 0, 900);
+  jet3__pt = book<TH1F>("jet3__pt", ";jet p_{T} [GeV]", 180, 0, 1800);
   jet3__eta = book<TH1F>("jet3__eta", ";jet #eta", 60, -3, 3);
 
   // TOPJET
   topjetN = book<TH1F>("topjetN", ";# of topjets", 20, 0, 20);
-  topjet1__pt = book<TH1F>("topjet1__pt", ";topjet p_{T} [GeV]", 180, 0, 900);
+  topjet1__pt = book<TH1F>("topjet1__pt", ";topjet p_{T} [GeV]", 180, 0, 1800);
   topjet1__eta = book<TH1F>("topjet1__eta", ";topjet #eta", 60, -3, 3);
-  topjet2__pt = book<TH1F>("topjet2__pt", ";topjet p_{T} [GeV]", 180, 0, 900);
+  topjet2__pt = book<TH1F>("topjet2__pt", ";topjet p_{T} [GeV]", 180, 0, 1800);
   topjet2__eta = book<TH1F>("topjet2__eta", ";topjet #eta", 60, -3, 3);
 
   // MET
@@ -186,9 +186,7 @@ void ZprimeSelectionHists::fill(const Event & event){
 
   /* triangular cuts vars */
   if(lep1) met_VS_dphi_lep1->Fill(event.met->pt(), fabs(deltaPhi(*event.met, *lep1)), weight);
-
-  const Particle* jet1 = &event.jets->at(0);
-  if(jet1) met_VS_dphi_jet1->Fill(event.met->pt(), fabs(deltaPhi(*event.met, *jet1)), weight);
+  if(event.jets->size()) met_VS_dphi_jet1->Fill(event.met->pt(), fabs(deltaPhi(*event.met, event.jets->at(0))), weight);
 
   return;
 }
