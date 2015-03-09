@@ -151,7 +151,7 @@ ZprimeSelectionModule::ZprimeSelectionModule(Context & ctx){
   if(elec) triangc_sel.reset(new TriangularCuts(1.5, 75.));
   else if(muon) triangc_sel.reset(new AndSelection(ctx)); // always true (no triangular cuts for muon channel)
 
-  const TopJetId topjetID = CMSTopTag();
+  const TopJetId topjetID = AndId<TopJet>(CMSTopTag(), Tau32());
   const float minDR_topjet_jet(1.2);
 
   toptagevent_sel.reset(new TopTagEventSelection(topjetID, minDR_topjet_jet));
