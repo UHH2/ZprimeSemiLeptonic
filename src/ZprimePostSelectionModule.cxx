@@ -3,16 +3,17 @@
 
 #include "UHH2/core/include/AnalysisModule.h"
 #include "UHH2/core/include/Event.h"
-#include "UHH2/common/include/JetIds.h"
-#include "UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicSelections.h"
-#include "UHH2/ZprimeSemiLeptonic/include/ZprimePostSelectionHists.h"
-#include "UHH2/common/include/ObjectIdUtils.h"
 #include "UHH2/core/include/Selection.h"
+#include "UHH2/core/include/Utils.h"
+
 #include "UHH2/common/include/NSelections.h"
-#include "UHH2/common/include/TTbarReconstruction.h"
+#include "UHH2/common/include/ObjectIdUtils.h"
+#include "UHH2/common/include/JetIds.h"
 #include "UHH2/common/include/ReconstructionHypothesisDiscriminators.h"
 #include "UHH2/common/include/HypothesisHists.h"
-#include <UHH2/core/include/Utils.h>
+
+#include "UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicSelections.h"
+#include "UHH2/ZprimeSemiLeptonic/include/ZprimePostSelectionHists.h"
 
 using namespace uhh2;
 
@@ -129,7 +130,7 @@ bool ZprimePostSelectionModule::process(Event& event) {
     }
     else {
 
-      hi_t0b0->fill(event);
+      hi_t0b1->fill(event);
       hi_t0b1__hyp->fill(event);
     }
   }

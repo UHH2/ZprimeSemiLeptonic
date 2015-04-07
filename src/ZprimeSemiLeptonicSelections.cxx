@@ -1,21 +1,11 @@
 #include "UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicSelections.h"
 
-#include <stdexcept>
 #include <iostream>
 #include <memory>
 
-#include "UHH2/core/include/AnalysisModule.h"
-#include "UHH2/core/include/Event.h"
-#include "UHH2/core/include/Selection.h"
 #include "UHH2/core/include/LorentzVector.h"
-
-#include "UHH2/common/include/NSelections.h"
-#include "UHH2/common/include/ObjectIdUtils.h"
-#include "UHH2/common/include/JetIds.h"
-#include "UHH2/common/include/TopJetIds.h"
+#include "UHH2/common/include/ReconstructionHypothesisDiscriminators.h"
 #include "UHH2/common/include/Utils.h"
-
-//using namespace uhh2;
 
 uhh2::HTlepCut::HTlepCut(float min_htlep, float max_htlep):
   min_htlep_(min_htlep), max_htlep_(max_htlep) {}

@@ -1,18 +1,23 @@
 #pragma once
 
-#include "UHH2/core/include/fwd.h"
-#include "UHH2/core/include/Utils.h"
+#include "UHH2/core/include/Event.h"
+#include "UHH2/core/include/AnalysisModule.h"
 #include "UHH2/core/include/Selection.h"
-#include "UHH2/common/include/ReconstructionHypothesisDiscriminators.h"
+#include "UHH2/core/include/Utils.h"
+#include "UHH2/common/include/NSelections.h"
+#include "UHH2/common/include/ReconstructionHypothesis.h"
 #include "UHH2/common/include/ObjectIdUtils.h"
 #include "UHH2/common/include/TopJetIds.h"
+
+#include <string>
+#include <vector>
 
 namespace uhh2 {
     
   class HTlepCut : public Selection {
    public:
-    explicit HTlepCut(float min_htlep, float max_htlep=infinity);
-    virtual bool passes(const Event &) override;
+    explicit HTlepCut(float, float max_htlep=infinity);
+    virtual bool passes(const Event&) override;
 
    private:
     float min_htlep_, max_htlep_;
@@ -21,8 +26,8 @@ namespace uhh2 {
 
   class METCut : public Selection {
    public:
-    explicit METCut(float min_met, float max_met=infinity);
-    virtual bool passes(const Event & event) override;
+    explicit METCut(float, float max_met=infinity);
+    virtual bool passes(const Event&) override;
 
    private:
     float min_met_, max_met_;
@@ -31,8 +36,8 @@ namespace uhh2 {
 
   class NJetCut : public Selection {
    public:
-    explicit NJetCut(int nmin, int nmax=999, float ptmin=0., float etamax=infinity);
-    virtual bool passes(const Event & event) override;
+    explicit NJetCut(int, int nmax=999, float ptmin=0., float etamax=infinity);
+    virtual bool passes(const Event&) override;
 
    private:
     int nmin, nmax;
@@ -43,7 +48,7 @@ namespace uhh2 {
   class TwoDCut : public Selection {
    public:
     explicit TwoDCut(float min_deltaR, float min_pTrel): min_deltaR_(min_deltaR), min_pTrel_(min_pTrel) {}
-    virtual bool passes(const Event & event) override;
+    virtual bool passes(const Event&) override;
 
    private:
     float min_deltaR_, min_pTrel_;
@@ -52,8 +57,8 @@ namespace uhh2 {
 
   class TriangularCuts : public Selection {
    public:
-    explicit TriangularCuts(float a, float b);
-    virtual bool passes(const Event & event) override;
+    explicit TriangularCuts(float, float);
+    virtual bool passes(const Event&) override;
 
    private:
     float a_, b_;
@@ -63,7 +68,7 @@ namespace uhh2 {
   class TopTagEventSelection: public Selection {
    public:
     explicit TopTagEventSelection(const TopJetId& tjet_id=CMSTopTag(), float minDR_jet_ttag=1.2);
-    virtual bool passes(const Event & event) override;
+    virtual bool passes(const Event&) override;
 
    private:
     TopJetId topjetID_;
