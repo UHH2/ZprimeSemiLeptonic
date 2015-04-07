@@ -1,15 +1,16 @@
 #pragma once
+
 #include "UHH2/core/include/Hists.h"
+#include "UHH2/core/include/Event.h"
 
 #include <string>
 #include <TH1F.h>
 #include <TH2F.h>
 
-class ZprimeSelectionHists: public uhh2::Hists {
+class ZprimeSelectionHists : public uhh2::Hists {
  public:
-  ZprimeSelectionHists(uhh2::Context & ctx, const std::string & dirname);
-
-  virtual void fill(const uhh2::Event & ev) override;
+  ZprimeSelectionHists(uhh2::Context&, const std::string&);
+  virtual void fill(const uhh2::Event&) override;
 
  private:
   TH1F* wgt;
