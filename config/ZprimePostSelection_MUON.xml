@@ -2,53 +2,53 @@
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
 
   <!ENTITY PROOFdir  "/nfs/dust/cms/user/missirol/PROOF">
-  <!ENTITY PRESELdir "/nfs/dust/cms/user/missirol/Analysis7XY/ttbar_semilep_13TeV/preselection">
-  <!ENTITY SELdir    "/nfs/dust/cms/user/missirol/Analysis7XY/ttbar_semilep_13TeV/selection/150312_test/elec/">
+  <!ENTITY SELdir    "/nfs/dust/cms/user/missirol/Analysis7XY/ttbar_semilep_13TeV/selection/150312_test/muon/">
+  <!ENTITY POSELdir  "/nfs/dust/cms/user/missirol/Analysis7XY/ttbar_semilep_13TeV/postselection/150312_test/muon/">
 ]>
 
-<JobConfiguration JobName="ZprimeSelectionJob" OutputLevel="INFO">
+<JobConfiguration JobName="ZprimePostSelectionJob" OutputLevel="INFO">
     <Library Name="libSUHH2ZprimeSemiLeptonic"/>
     <Package Name="SUHH2ZprimeSemiLeptonic.par" />
 <!--
-    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&SELdir;/" PostFix="" TargetLumi="1" >
+    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&POSELdir;/" PostFix="" TargetLumi="1" >
 -->
-    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&SELdir;/" PostFix="" TargetLumi="1" RunMode="PROOF" ProofServer="lite://" ProofWorkDir="&PROOFdir;/" ProofNodes="10" >
+    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&POSELdir;/" PostFix="" TargetLumi="1" RunMode="PROOF" ProofServer="lite://" ProofWorkDir="&PROOFdir;/" ProofNodes="10" >
 <!--
-    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&SELdir;/" PostFix="" TargetLumi="1" RunMode="PROOF" ProofServer="pod://" ProofWorkDir="&PROOFdir;/" >
+    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&POSELdir;/" PostFix="" TargetLumi="1" RunMode="PROOF" ProofServer="pod://" ProofWorkDir="&PROOFdir;/" >
 -->
 
         <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="ZP1000w10" Cacheable="False">
-            <In FileName="&PRESELdir;/uhh2.AnalysisModuleRunner.MC.ZP1000w10.root" Lumi="0.0"/>
+            <In FileName="&SELdir;/uhh2.AnalysisModuleRunner.MC.ZP1000w10.root" Lumi="0.0"/>
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
         </InputData>
 
         <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="ZP2000w20" Cacheable="False">
-            <In FileName="&PRESELdir;/uhh2.AnalysisModuleRunner.MC.ZP2000w20.root" Lumi="0.0"/>
+            <In FileName="&SELdir;/uhh2.AnalysisModuleRunner.MC.ZP2000w20.root" Lumi="0.0"/>
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
         </InputData>
 
         <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="ZP3000w30" Cacheable="False">
-            <In FileName="&PRESELdir;/uhh2.AnalysisModuleRunner.MC.ZP3000w30.root" Lumi="0.0"/>
+            <In FileName="&SELdir;/uhh2.AnalysisModuleRunner.MC.ZP3000w30.root" Lumi="0.0"/>
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
         </InputData>
 
         <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="False">
-            <In FileName="&PRESELdir;/uhh2.AnalysisModuleRunner.MC.TTbar.root" Lumi="0.0"/>
+            <In FileName="&SELdir;/uhh2.AnalysisModuleRunner.MC.TTbar.root" Lumi="0.0"/>
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
         </InputData>
 
         <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="WJets" Cacheable="False">
-            <In FileName="&PRESELdir;/uhh2.AnalysisModuleRunner.MC.WJets.root" Lumi="0.0"/>
+            <In FileName="&SELdir;/uhh2.AnalysisModuleRunner.MC.WJets.root" Lumi="0.0"/>
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
         </InputData>
 
         <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="ZJets" Cacheable="False">
-            <In FileName="&PRESELdir;/uhh2.AnalysisModuleRunner.MC.ZJets.root" Lumi="0.0"/>
+            <In FileName="&SELdir;/uhh2.AnalysisModuleRunner.MC.ZJets.root" Lumi="0.0"/>
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
         </InputData>
@@ -67,10 +67,9 @@
 
             <Item Name="use_sframe_weight" Value="false" />
 
-            <Item Name="channel" Value="electron" />
-           <!-- <Item Name="triggername" Value="HLT_.." /> -->
+            <Item Name="channel" Value="muon" />
 
-            <Item Name="AnalysisModule" Value="ZprimeSelectionModule" />
+            <Item Name="AnalysisModule" Value="ZprimePostSelectionModule" />
         </UserConfig>
 
     </Cycle>

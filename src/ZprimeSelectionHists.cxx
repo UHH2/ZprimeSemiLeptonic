@@ -1,14 +1,8 @@
 #include "UHH2/ZprimeSemiLeptonic/include/ZprimeSelectionHists.h"
-#include "UHH2/core/include/Event.h"
 #include "UHH2/core/include/Utils.h"
 #include "UHH2/common/include/Utils.h"
 
-#include <iostream>
-#include <TH1F.h>
-
-using namespace uhh2;
-
-ZprimeSelectionHists::ZprimeSelectionHists(Context & ctx, const std::string & dirname): Hists(ctx, dirname){
+ZprimeSelectionHists::ZprimeSelectionHists(uhh2::Context& ctx, const std::string& dirname): Hists(ctx, dirname){
 
   wgt = book<TH1F>("weight", ";event weight", 120, 0, 12);
 
@@ -65,7 +59,7 @@ ZprimeSelectionHists::ZprimeSelectionHists(Context & ctx, const std::string & di
   met_VS_dphi_jet1 = book<TH2F>("met_VS_dphi_jet1", ";MET [GeV];#Delta#phi(MET, l1)", 180, 0, 1800, 60, 0, 3.6);
 }
 
-void ZprimeSelectionHists::fill(const Event & event){
+void ZprimeSelectionHists::fill(const uhh2::Event& event){
 
   assert(event.pvs && event.muons && event.electrons);
   assert(event.jets && event.topjets && event.met);
@@ -86,9 +80,9 @@ void ZprimeSelectionHists::fill(const Event & event){
     float minDR_jet(-1.), pTrel_jet(-1.);
     std::tie(minDR_jet, pTrel_jet) = drmin_pTrel(p, *event.jets);
 
-    float minDR_topjet(infinity);
+    float minDR_topjet(uhh2::infinity);
     for(const auto& tj: *event.topjets)
-      if(deltaR(p, tj) < minDR_topjet) minDR_topjet = deltaR(p, tj);
+      if(uhh2::deltaR(p, tj) < minDR_topjet) minDR_topjet = uhh2::deltaR(p, tj);
 
     if(i == 0){
       muo1__pt->Fill(p.pt(), weight);
@@ -116,9 +110,9 @@ void ZprimeSelectionHists::fill(const Event & event){
     float minDR_jet(-1.), pTrel_jet(-1.);
     std::tie(minDR_jet, pTrel_jet) = drmin_pTrel(p, *event.jets);
 
-    float minDR_topjet(infinity);
+    float minDR_topjet(uhh2::infinity);
     for(const auto& tj: *event.topjets)
-      if(deltaR(p, tj) < minDR_topjet) minDR_topjet = deltaR(p, tj);
+      if(uhh2::deltaR(p, tj) < minDR_topjet) minDR_topjet = uhh2::deltaR(p, tj);
 
     if(i == 0){
       ele1__pt->Fill(p.pt(), weight);
@@ -185,8 +179,8 @@ void ZprimeSelectionHists::fill(const Event & event){
   if(lep1) htlep__pt->Fill(event.met->pt()+lep1->pt(), weight);
 
   /* triangular cuts vars */
-  if(lep1) met_VS_dphi_lep1->Fill(event.met->pt(), fabs(deltaPhi(*event.met, *lep1)), weight);
-  if(event.jets->size()) met_VS_dphi_jet1->Fill(event.met->pt(), fabs(deltaPhi(*event.met, event.jets->at(0))), weight);
+  if(lep1) met_VS_dphi_lep1->Fill(event.met->pt(), fabs(uhh2::deltaPhi(*event.met, *lep1)), weight);
+  if(event.jets->size()) met_VS_dphi_jet1->Fill(event.met->pt(), fabs(uhh2::deltaPhi(*event.met, event.jets->at(0))), weight);
 
   return;
 }

@@ -1,26 +1,16 @@
 #include "UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicSelections.h"
 
-#include <stdexcept>
 #include <iostream>
 #include <memory>
 
-#include "UHH2/core/include/AnalysisModule.h"
-#include "UHH2/core/include/Event.h"
-#include "UHH2/core/include/Selection.h"
 #include "UHH2/core/include/LorentzVector.h"
-
-#include "UHH2/common/include/NSelections.h"
-#include "UHH2/common/include/ObjectIdUtils.h"
-#include "UHH2/common/include/JetIds.h"
-#include "UHH2/common/include/TopJetIds.h"
+#include "UHH2/common/include/ReconstructionHypothesisDiscriminators.h"
 #include "UHH2/common/include/Utils.h"
 
-using namespace uhh2;
-
-HTlepCut::HTlepCut(float min_htlep, float max_htlep):
+uhh2::HTlepCut::HTlepCut(float min_htlep, float max_htlep):
   min_htlep_(min_htlep), max_htlep_(max_htlep) {}
 
-bool HTlepCut::passes(const Event & event){
+bool uhh2::HTlepCut::passes(const uhh2::Event & event){
 
   assert(event.muons || event.electrons);
   assert(event.met);
@@ -44,10 +34,10 @@ bool HTlepCut::passes(const Event & event){
 }
 ////////////////////////////////////////////////////////
 
-METCut::METCut(float min_met, float max_met):
+uhh2::METCut::METCut(float min_met, float max_met):
   min_met_(min_met), max_met_(max_met) {}
 
-bool METCut::passes(const Event & event){
+bool uhh2::METCut::passes(const uhh2::Event & event){
 
   assert(event.met);
 
@@ -56,10 +46,10 @@ bool METCut::passes(const Event & event){
 }
 ////////////////////////////////////////////////////////
 
-NJetCut::NJetCut(int nmin_, int nmax_, float ptmin_, float etamax_):
+uhh2::NJetCut::NJetCut(int nmin_, int nmax_, float ptmin_, float etamax_):
   nmin(nmin_), nmax(nmax_), ptmin(ptmin_), etamax(etamax_) {}
 
-bool NJetCut::passes(const Event & event){
+bool uhh2::NJetCut::passes(const uhh2::Event & event){
 
   int njet(0);
   for(auto & jet : *event.jets){
@@ -70,7 +60,7 @@ bool NJetCut::passes(const Event & event){
 }
 ////////////////////////////////////////////////////////
 
-bool TwoDCut::passes(const Event & event){
+bool uhh2::TwoDCut::passes(const uhh2::Event & event){
 
   assert(event.muons && event.electrons && event.jets);
   if((event.muons->size()+event.electrons->size()) != 1){
@@ -86,12 +76,12 @@ bool TwoDCut::passes(const Event & event){
 }
 ////////////////////////////////////////////////////////
 
-TriangularCuts::TriangularCuts(float a, float b): a_(a), b_(b) {
+uhh2::TriangularCuts::TriangularCuts(float a, float b): a_(a), b_(b) {
 
   if(!b_) std::runtime_error("TriangularCuts -- incorrect initialization (parameter 'b' is null)");
 }
 
-bool TriangularCuts::passes(const Event & event){
+bool uhh2::TriangularCuts::passes(const uhh2::Event & event){
 
   assert(event.muons || event.electrons);
   assert(event.jets && event.met);
@@ -124,13 +114,13 @@ bool TriangularCuts::passes(const Event & event){
 }
 ////////////////////////////////////////////////////////
 
-TopTagEventSelection::TopTagEventSelection(const TopJetId& tjetID, float minDR_jet_ttag):
+uhh2::TopTagEventSelection::TopTagEventSelection(const TopJetId& tjetID, float minDR_jet_ttag):
   topjetID_(tjetID), minDR_jet_toptag_(minDR_jet_ttag) {
 
   topjet1_sel_.reset(new NTopJetSelection(1, -1, topjetID_));
 }
 
-bool TopTagEventSelection::passes(const Event & event){ 
+bool uhh2::TopTagEventSelection::passes(const uhh2::Event & event){ 
 
   if(!topjet1_sel_->passes(event)) return false;
 
@@ -145,22 +135,32 @@ bool TopTagEventSelection::passes(const Event & event){
 }
 ////////////////////////////////////////////////////////
 
-HypothesisDiscriminatorCut::HypothesisDiscriminatorCut(uhh2::Context& ctx, float min_discr, float max_discr, const std::string& discr_name, const std::string& hyps_name):
-  m_min_discr_(min_discr), m_max_discr_(max_discr), m_discriminator_name(discr_name), h_hyps(ctx.get_handle<std::vector<ReconstructionHypothesis>>(hyps_name)) {}
+uhh2::LeptonicTopPtCut::LeptonicTopPtCut(uhh2::Context& ctx, float pt_min, float pt_max, const std::string& hyps_name, const std::string& disc_name):
+  tlep_pt_min_(pt_min), tlep_pt_max_(pt_max), h_hyps_(ctx.get_handle<std::vector<ReconstructionHypothesis>>(hyps_name)), disc_name_(disc_name) {}
 
-bool HypothesisDiscriminatorCut::passes(const Event & event){
+bool uhh2::LeptonicTopPtCut::passes(const uhh2::Event& event){
 
-  std::vector<ReconstructionHypothesis> hyps = event.get(h_hyps);
-  const ReconstructionHypothesis* hyp = get_best_hypothesis( hyps, m_discriminator_name);
+  std::vector<ReconstructionHypothesis> hyps = event.get(h_hyps_);
+  const ReconstructionHypothesis* hyp = get_best_hypothesis(hyps, disc_name_);
+  if(!hyp) std::runtime_error("LeptonicTopPtCut -- best hypothesis not found (discriminator="+disc_name_+")");
 
-  if(!hyp){
-//    std::cout << "WARNING: no hypothesis " << m_discr->GetLabel() << " found, event is rejected.\n";
-    return false;
-  }
+  float tlep_pt = hyp->toplep_v4().Pt();
 
-  float discr_value = hyp->discriminator(m_discriminator_name);
-  if(discr_value < m_min_discr_ || discr_value > m_max_discr_) return false;
+  return (tlep_pt > tlep_pt_min_) && (tlep_pt < tlep_pt_max_);
+}
+////////////////////////////////////////////////////////
 
-  return true;
+uhh2::HypothesisDiscriminatorCut::HypothesisDiscriminatorCut(uhh2::Context& ctx, float disc_min, float disc_max, const std::string& hyps_name, const std::string& disc_name):
+  disc_min_(disc_min), disc_max_(disc_max), h_hyps_(ctx.get_handle<std::vector<ReconstructionHypothesis>>(hyps_name)), disc_name_(disc_name) {}
+
+bool uhh2::HypothesisDiscriminatorCut::passes(const uhh2::Event & event){
+
+  std::vector<ReconstructionHypothesis> hyps = event.get(h_hyps_);
+  const ReconstructionHypothesis* hyp = get_best_hypothesis(hyps, disc_name_);
+  if(!hyp) std::runtime_error("HypothesisDiscriminatorCut -- best hypothesis not found (discriminator="+disc_name_+")");
+
+  float disc_val = hyp->discriminator(disc_name_);
+
+  return (disc_val > disc_min_) && (disc_val < disc_max_);
 }
 ////////////////////////////////////////////////////////

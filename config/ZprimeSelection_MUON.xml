@@ -3,7 +3,7 @@
 
   <!ENTITY PROOFdir  "/nfs/dust/cms/user/missirol/PROOF">
   <!ENTITY PRESELdir "/nfs/dust/cms/user/missirol/Analysis7XY/ttbar_semilep_13TeV/preselection">
-  <!ENTITY SELdir    "/nfs/dust/cms/user/missirol/Analysis7XY/ttbar_semilep_13TeV/selection/150307_test/muon/">
+  <!ENTITY SELdir    "/nfs/dust/cms/user/missirol/Analysis7XY/ttbar_semilep_13TeV/selection/150312_test/muon/">
 ]>
 
 <JobConfiguration JobName="ZprimeSelectionJob" OutputLevel="INFO">
