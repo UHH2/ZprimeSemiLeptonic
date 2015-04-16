@@ -25,11 +25,6 @@ class ZprimePostSelectionHists : public uhh2::Hists {
   TH1F* muo1__minDR_jet;
   TH1F* muo1__pTrel_jet;
   TH1F* muo1__minDR_topjet;
-  TH1F* muo2__pt;
-  TH1F* muo2__eta;
-  TH1F* muo2__minDR_jet;
-  TH1F* muo2__pTrel_jet;
-  TH1F* muo2__minDR_topjet;
 
   // ELECTRON
   TH1F* eleN;
@@ -38,11 +33,6 @@ class ZprimePostSelectionHists : public uhh2::Hists {
   TH1F* ele1__minDR_jet;
   TH1F* ele1__pTrel_jet;
   TH1F* ele1__minDR_topjet;
-  TH1F* ele2__pt;
-  TH1F* ele2__eta;
-  TH1F* ele2__minDR_jet;
-  TH1F* ele2__pTrel_jet;
-  TH1F* ele2__minDR_topjet;
 
   // JET
   TH1F* jetN;

@@ -16,11 +16,6 @@ ZprimePostSelectionHists::ZprimePostSelectionHists(uhh2::Context& ctx, const std
   muo1__minDR_jet = book<TH1F>("muo1__minDR_jet", ";#DeltaR_{min}(#mu, jet)", 60, 0, 6);
   muo1__pTrel_jet = book<TH1F>("muo1__pTrel_jet", ";p_{T, rel}(#mu, jet)", 180, 0, 180);
   muo1__minDR_topjet = book<TH1F>("muo1__minDR_topjet", ";#DeltaR_{min}(#mu, topjet)", 60, 0, 6);
-  muo2__pt = book<TH1F>("muo2__pt", ";muon p_{T} [GeV]", 240, 0, 1200);
-  muo2__eta = book<TH1F>("muo2__eta", ";muon #eta", 60, -3, 3);
-  muo2__minDR_jet = book<TH1F>("muo2__minDR_jet", ";#DeltaR_{min}(#mu, jet)", 60, 0, 6);
-  muo2__pTrel_jet = book<TH1F>("muo2__pTrel_jet", ";p_{T, rel}(#mu, jet)", 180, 0, 180);
-  muo2__minDR_topjet = book<TH1F>("muo2__minDR_topjet", ";#DeltaR_{min}(#mu, topjet)", 60, 0, 6);
 
   // ELECTRON
   eleN = book<TH1F>("eleN", ";# of electrons", 20, 0, 20);
@@ -29,11 +24,6 @@ ZprimePostSelectionHists::ZprimePostSelectionHists(uhh2::Context& ctx, const std
   ele1__minDR_jet = book<TH1F>("ele1__minDR_jet", ";#DeltaR_{min}(e, jet)", 60, 0, 6);
   ele1__pTrel_jet = book<TH1F>("ele1__pTrel_jet", ";p_{T, rel}(e, jet)", 180, 0, 180);
   ele1__minDR_topjet = book<TH1F>("ele1__minDR_topjet", ";#DeltaR_{min}(e, topjet)", 60, 0, 6);
-  ele2__pt = book<TH1F>("ele2__pt", ";electron p_{T} [GeV]", 240, 0, 1200);
-  ele2__eta = book<TH1F>("ele2__eta", ";electron #eta", 60, -3, 3);
-  ele2__minDR_jet = book<TH1F>("ele2__minDR_jet", ";#DeltaR_{min}(e, jet)", 60, 0, 6);
-  ele2__pTrel_jet = book<TH1F>("ele2__pTrel_jet", ";p_{T, rel}(e, jet)", 180, 0, 180);
-  ele2__minDR_topjet = book<TH1F>("ele2__minDR_topjet", ";#DeltaR_{min}(e, topjet)", 60, 0, 6);
 
   // JET
   jetN = book<TH1F>("jetN", ";# of jets", 20, 0, 20);
@@ -74,8 +64,8 @@ void ZprimePostSelectionHists::fill(const uhh2::Event& event){
   int muo_n(event.muons->size());
   muoN->Fill(muo_n, weight);
 
-  for(int i=0; i<std::min(2, muo_n); ++i){
-    const Particle& p = event.muons->at(i);
+  if(muo_n){
+    const Particle& p = event.muons->at(0);
 
     float minDR_jet(-1.), pTrel_jet(-1.);
     std::tie(minDR_jet, pTrel_jet) = drmin_pTrel(p, *event.jets);
@@ -84,28 +74,19 @@ void ZprimePostSelectionHists::fill(const uhh2::Event& event){
     for(const auto& tj: *event.topjets)
       if(uhh2::deltaR(p, tj) < minDR_topjet) minDR_topjet = uhh2::deltaR(p, tj);
 
-    if(i == 0){
-      muo1__pt->Fill(p.pt(), weight);
-      muo1__eta->Fill(p.eta(), weight);
-      muo1__minDR_jet->Fill(minDR_jet, weight);
-      muo1__pTrel_jet->Fill(pTrel_jet, weight);
-      muo1__minDR_topjet->Fill(minDR_topjet, weight);
-    }
-    else if(i == 1){
-      muo2__pt->Fill(p.pt(), weight);
-      muo2__eta->Fill(p.eta(), weight);
-      muo2__minDR_jet->Fill(minDR_jet, weight);
-      muo2__pTrel_jet->Fill(pTrel_jet, weight);
-      muo2__minDR_topjet->Fill(minDR_topjet, weight);
-    }
+    muo1__pt->Fill(p.pt(), weight);
+    muo1__eta->Fill(p.eta(), weight);
+    muo1__minDR_jet->Fill(minDR_jet, weight);
+    muo1__pTrel_jet->Fill(pTrel_jet, weight);
+    muo1__minDR_topjet->Fill(minDR_topjet, weight);
   }
 
   // ELECTRON
   int ele_n(event.electrons->size());
   eleN->Fill(ele_n, weight);
 
-  for(int i=0; i<std::min(2, ele_n); ++i){
-    const Particle& p = event.electrons->at(i);
+  if(ele_n){
+    const Particle& p = event.electrons->at(0);
 
     float minDR_jet(-1.), pTrel_jet(-1.);
     std::tie(minDR_jet, pTrel_jet) = drmin_pTrel(p, *event.jets);
@@ -114,20 +95,11 @@ void ZprimePostSelectionHists::fill(const uhh2::Event& event){
     for(const auto& tj: *event.topjets)
       if(uhh2::deltaR(p, tj) < minDR_topjet) minDR_topjet = uhh2::deltaR(p, tj);
 
-    if(i == 0){
-      ele1__pt->Fill(p.pt(), weight);
-      ele1__eta->Fill(p.eta(), weight);
-      ele1__minDR_jet->Fill(minDR_jet, weight);
-      ele1__pTrel_jet->Fill(pTrel_jet, weight);
-      ele1__minDR_topjet->Fill(minDR_topjet, weight);
-    }
-    else if(i == 1){
-      ele2__pt->Fill(p.pt(), weight);
-      ele2__eta->Fill(p.eta(), weight);
-      ele2__minDR_jet->Fill(minDR_jet, weight);
-      ele2__pTrel_jet->Fill(pTrel_jet, weight);
-      ele2__minDR_topjet->Fill(minDR_topjet, weight);
-    }
+    ele1__pt->Fill(p.pt(), weight);
+    ele1__eta->Fill(p.eta(), weight);
+    ele1__minDR_jet->Fill(minDR_jet, weight);
+    ele1__pTrel_jet->Fill(pTrel_jet, weight);
+    ele1__minDR_topjet->Fill(minDR_topjet, weight);
   }
 
   // JET
