@@ -59,13 +59,13 @@ class ZprimeSelectionModule: public AnalysisModule {
   std::unique_ptr<MuonCleaner> muo_cleaner;
   std::unique_ptr<ElectronCleaner> ele_cleaner;
   std::unique_ptr<JetCorrector> jet_corrector;
-  std::unique_ptr<JetLeptonCleaner> jetlepton_cleaner;
   std::unique_ptr<JetResolutionSmearer> jetER_smearer;
+  std::unique_ptr<JetLeptonCleaner> jetlepton_cleaner;
   std::unique_ptr<JetCleaner> jet_cleaner1;
   std::unique_ptr<JetCleaner> jet_cleaner2;
   std::unique_ptr<TopJetCorrector> topjet_corrector;
-  std::unique_ptr<TopJetLeptonDeltaRCleaner> topjetlepton_cleaner;
 //  std::unique_ptr<TopJetResolutionSmearer> topjetER_smearer;
+  std::unique_ptr<TopJetLeptonDeltaRCleaner> topjetlepton_cleaner;
   std::unique_ptr<TopJetCleaner> topjet_cleaner;
 
   // selections
@@ -107,14 +107,14 @@ ZprimeSelectionModule::ZprimeSelectionModule(Context & ctx){
   muo_cleaner.reset(new MuonCleaner(AndId<Muon>(MuonIDTight(), PtEtaCut(45., 2.1))));
   ele_cleaner.reset(new ElectronCleaner(AndId<Electron>(ElectronID_PHYS14_25ns_tight_noIso, PtEtaCut(50., 2.5))));
   jet_corrector.reset(new JetCorrector(JERFiles::PHYS14_L123_MC));
+  jetER_smearer.reset(new JetResolutionSmearer(ctx));
   jetlepton_cleaner.reset(new JetLeptonCleaner(JERFiles::PHYS14_L123_MC));
   jetlepton_cleaner->set_drmax(.4);
-  jetER_smearer.reset(new JetResolutionSmearer(ctx));
   jet_cleaner1.reset(new JetCleaner(25., std::numeric_limits<double>::infinity())); 
   jet_cleaner2.reset(new JetCleaner(30., 2.4));
   topjet_corrector.reset(new TopJetCorrector(JERFiles::PHYS14_L123_MC));
-  topjetlepton_cleaner.reset(new TopJetLeptonDeltaRCleaner(.8));
 //  topjetER_smearer.reset(new TopJetResolutionSmearer(ctx));
+  topjetlepton_cleaner.reset(new TopJetLeptonDeltaRCleaner(.8));
   topjet_cleaner.reset(new TopJetCleaner(TopJetId(PtEtaCut(400., 2.4))));
   ////
 
@@ -210,8 +210,8 @@ bool ZprimeSelectionModule::process(Event & event){
 
   //// JET selection
   jet_corrector->process(event);
-  jetlepton_cleaner->process(event);
   jetER_smearer->process(event);
+  jetlepton_cleaner->process(event);
 
   /* lepton-2Dcut boolean */
   jet_cleaner1->process(event); // jets w/ pt>25 GeV for lepton-2Dcut
@@ -221,8 +221,8 @@ bool ZprimeSelectionModule::process(Event & event){
   sort_by_pt<Jet>(*event.jets);
 
   topjet_corrector->process(event);
-  topjetlepton_cleaner->process(event);
 //  topjetER_smearer->process(event);
+  topjetlepton_cleaner->process(event);
   topjet_cleaner->process(event);
   sort_by_pt<TopJet>(*event.topjets);
 
