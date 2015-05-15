@@ -82,8 +82,9 @@ class ZprimeSelectionModule: public AnalysisModule {
   // ttbar reconstruction
   std::unique_ptr<AnalysisModule> ttgenprod;
   std::unique_ptr<AnalysisModule> reco_primlep;
-  std::unique_ptr<AnalysisModule> ttbar_reco_toptag0, ttbar_reco_toptag1;
-  std::unique_ptr<AnalysisModule> ttbar_chi2min;
+  std::unique_ptr<AnalysisModule> ttbar_reco__ttag0, ttbar_reco__ttag1;
+  std::unique_ptr<AnalysisModule> ttbar_chi2__ttag0, ttbar_chi2__ttag1;
+
   Event::Handle<std::vector<ReconstructionHypothesis>> h_ttbar_hyps;
 
   // hists
@@ -105,7 +106,7 @@ ZprimeSelectionModule::ZprimeSelectionModule(Context & ctx){
 
   //// OBJ CLEANING
   muo_cleaner.reset(new MuonCleaner(AndId<Muon>(MuonIDTight(), PtEtaCut(45., 2.1))));
-  ele_cleaner.reset(new ElectronCleaner(AndId<Electron>(ElectronID_PHYS14_25ns_tight_noIso, PtEtaCut(50., 2.5))));
+  ele_cleaner.reset(new ElectronCleaner(AndId<Electron>(ElectronID_PHYS14_25ns_tight_noIso, PtEtaSCCut(50., 2.5))));
   jet_corrector.reset(new JetCorrector(JERFiles::PHYS14_L123_MC));
   jetER_smearer.reset(new JetResolutionSmearer(ctx));
   jetlepton_cleaner.reset(new JetLeptonCleaner(JERFiles::PHYS14_L123_MC));
@@ -164,9 +165,12 @@ ZprimeSelectionModule::ZprimeSelectionModule(Context & ctx){
   reco_primlep.reset(new PrimaryLepton(ctx));
 
   std::string ttbar_hyps_label("TTbarReconstruction");
-  ttbar_reco_toptag0.reset(new HighMassTTbarReconstruction(ctx, NeutrinoReconstruction, ttbar_hyps_label));
-  ttbar_reco_toptag1.reset(new TopTagReconstruction(ctx, NeutrinoReconstruction, ttbar_hyps_label, topjetID, minDR_topjet_jet));
-  ttbar_chi2min.reset(new Chi2Discriminator(ctx, ttbar_hyps_label));
+  ttbar_reco__ttag0.reset(new HighMassTTbarReconstruction(ctx, NeutrinoReconstruction, ttbar_hyps_label));
+  ttbar_reco__ttag1.reset(new        TopTagReconstruction(ctx, NeutrinoReconstruction, ttbar_hyps_label, topjetID, minDR_topjet_jet));
+
+  ttbar_chi2__ttag0.reset(new Chi2Discriminator    (ctx, ttbar_hyps_label));
+  ttbar_chi2__ttag1.reset(new Chi2DiscriminatorTTAG(ctx, ttbar_hyps_label));
+
   h_ttbar_hyps = ctx.get_handle<std::vector<ReconstructionHypothesis>>(ttbar_hyps_label);
   ////
 
@@ -273,13 +277,13 @@ bool ZprimeSelectionModule::process(Event & event){
   reco_primlep->process(event);
 
   if(pass_toptagevent){
-    ttbar_reco_toptag1->process(event);
-    ttbar_chi2min->process(event);
+    ttbar_reco__ttag1->process(event);
+    ttbar_chi2__ttag1->process(event);
     chi2min_toptag1_h->fill(event);
   }
   else{
-    ttbar_reco_toptag0->process(event);
-    ttbar_chi2min->process(event);
+    ttbar_reco__ttag0->process(event);
+    ttbar_chi2__ttag0->process(event);
     chi2min_toptag0_h->fill(event);
   }
   ////

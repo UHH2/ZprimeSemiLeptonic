@@ -63,7 +63,7 @@ ZprimePreSelectionModule::ZprimePreSelectionModule(Context & ctx){
 
   // setup object cleaners
   muo_cleaner.reset(new MuonCleaner(AndId<Muon>(MuonIDTight(), PtEtaCut(45., 2.1))));
-  ele_cleaner.reset(new ElectronCleaner(AndId<Electron>(ElectronID_PHYS14_25ns_tight_noIso, PtEtaCut(50., 2.5))));
+  ele_cleaner.reset(new ElectronCleaner(AndId<Electron>(ElectronID_PHYS14_25ns_tight_noIso, PtEtaSCCut(50., 2.5))));
 
   jet_corrector.reset(new JetCorrector(JERFiles::PHYS14_L123_MC));
   jetlepton_cleaner.reset(new JetLeptonCleaner(JERFiles::PHYS14_L123_MC));
@@ -126,6 +126,7 @@ bool ZprimePreSelectionModule::process(Event & event) {
   jet_corrector->process(event);
   jetlepton_cleaner->process(event);
   jet_cleaner->process(event);
+
   topjet_corrector->process(event);
   topjetlepton_cleaner->process(event);
   topjet_cleaner->process(event);
