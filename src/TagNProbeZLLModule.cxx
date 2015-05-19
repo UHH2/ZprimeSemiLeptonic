@@ -88,10 +88,10 @@ class TagNProbeZLLModule: public AnalysisModule {
   Event::Handle<float> h_TAG__etaSC;
   Event::Handle<float> h_TAG__phi;
   Event::Handle<int>   h_TAG__charge;
-  Event::Handle<float> h_TAG__pfiso_dbeta;
-  Event::Handle<float> h_TAG__dRjet_pt025;
-  Event::Handle<float> h_TAG__dRjet_pt030_eta2p4;
-  Event::Handle<float> h_TAG__dRjet_pt050_eta2p4;
+  Event::Handle<float> h_TAG__pfIso_dbeta;
+  Event::Handle<float> h_TAG__minDR_pt025;
+  Event::Handle<float> h_TAG__minDR_pt030_eta2p4;
+  Event::Handle<float> h_TAG__minDR_pt050_eta2p4;
   Event::Handle<float> h_TAG__pTrel_pt025;
   Event::Handle<float> h_TAG__pTrel_pt030_eta2p4;
   Event::Handle<float> h_TAG__pTrel_pt050_eta2p4;
@@ -102,10 +102,10 @@ class TagNProbeZLLModule: public AnalysisModule {
   Event::Handle<float> h_PRO__etaSC;
   Event::Handle<float> h_PRO__phi;
   Event::Handle<int>   h_PRO__charge;
-  Event::Handle<float> h_PRO__pfiso_dbeta;
-  Event::Handle<float> h_PRO__dRjet_pt025;
-  Event::Handle<float> h_PRO__dRjet_pt030_eta2p4;
-  Event::Handle<float> h_PRO__dRjet_pt050_eta2p4;
+  Event::Handle<float> h_PRO__pfIso_dbeta;
+  Event::Handle<float> h_PRO__minDR_pt025;
+  Event::Handle<float> h_PRO__minDR_pt030_eta2p4;
+  Event::Handle<float> h_PRO__minDR_pt050_eta2p4;
   Event::Handle<float> h_PRO__pTrel_pt025;
   Event::Handle<float> h_PRO__pTrel_pt030_eta2p4;
   Event::Handle<float> h_PRO__pTrel_pt050_eta2p4;
@@ -115,7 +115,7 @@ TagNProbeZLLModule::TagNProbeZLLModule(Context & ctx){
 
   //// OBJ CLEANING
   muo_cleaner.reset(new MuonCleaner(AndId<Muon>(MuonIDTight(), PtEtaCut(45., 2.1))));
-  ele_cleaner.reset(new ElectronCleaner(AndId<Electron>(ElectronID_PHYS14_25ns_tight_noIso, PtEtaCut(50., 2.5))));
+  ele_cleaner.reset(new ElectronCleaner(AndId<Electron>(ElectronID_PHYS14_25ns_tight_noIso, PtEtaSCCut(50., 2.5))));
   jet_corrector.reset(new JetCorrector(JERFiles::PHYS14_L123_MC));
   jetER_smearer.reset(new JetResolutionSmearer(ctx));
   jetlepton_cleaner.reset(new JetLeptonCleaner(JERFiles::PHYS14_L123_MC));
@@ -139,11 +139,11 @@ TagNProbeZLLModule::TagNProbeZLLModule(Context & ctx){
 
   lep2_sel.reset(new AndSelection(ctx));
   if(channel == muon){
-    lep2_sel->add<NMuonSelection>("muoN == 2", 2, 2);
+    lep2_sel->add<NMuonSelection>    ("muoN == 2", 2, 2);
     lep2_sel->add<NElectronSelection>("eleN == 0", 0, 0);
   }
   else if(channel == elec){
-    lep2_sel->add<NMuonSelection>("muoN == 0", 0, 0);
+    lep2_sel->add<NMuonSelection>    ("muoN == 0", 0, 0);
     lep2_sel->add<NElectronSelection>("eleN == 2", 2, 2);
   }
 
@@ -157,48 +157,68 @@ TagNProbeZLLModule::TagNProbeZLLModule(Context & ctx){
   ////
 
   //// TNP VARS
-  h_MCweight           = ctx.declare_event_output<float> ("TnP_MCweight");
-  h_pvN                = ctx.declare_event_output<int>   ("TnP_pvN");
-  h_MET__pt            = ctx.declare_event_output<float> ("TnP_MET__pt");
-  h_MET__phi           = ctx.declare_event_output<float> ("TnP_MET__phi");
-  h_jetN__pt030_eta2p4 = ctx.declare_event_output<int>   ("TnP_jetN__pt030_eta2p4");
-  h_jetN__pt050_eta2p4 = ctx.declare_event_output<int>   ("TnP_jetN__pt050_eta2p4");
-  h_jetN__pt100_eta2p4 = ctx.declare_event_output<int>   ("TnP_jetN__pt100_eta2p4");
-  h_jetN__pt200_eta2p4 = ctx.declare_event_output<int>   ("TnP_jetN__pt200_eta2p4");
+  h_MCweight           = ctx.declare_event_output<float> ("MCweight");
+
+  h_pvN                = ctx.declare_event_output<int>   ("pvN");
+  h_MET__pt            = ctx.declare_event_output<float> ("MET__pt");
+  h_MET__phi           = ctx.declare_event_output<float> ("MET__phi");
+  h_jetN__pt030_eta2p4 = ctx.declare_event_output<int>   ("jetN__pt030_eta2p4");
+  h_jetN__pt050_eta2p4 = ctx.declare_event_output<int>   ("jetN__pt050_eta2p4");
+  h_jetN__pt100_eta2p4 = ctx.declare_event_output<int>   ("jetN__pt100_eta2p4");
+  h_jetN__pt200_eta2p4 = ctx.declare_event_output<int>   ("jetN__pt200_eta2p4");
   				
-  h_ZLL__M   = ctx.declare_event_output<float> ("TnP_ZLL__M");
-  h_ZLL__pt  = ctx.declare_event_output<float> ("TnP_ZLL__pt");
-  h_ZLL__eta = ctx.declare_event_output<float> ("TnP_ZLL__eta");
-  h_ZLL__phi = ctx.declare_event_output<float> ("TnP_ZLL__phi");
+  h_ZLL__M   = ctx.declare_event_output<float> ("ZLL__M");
+  h_ZLL__pt  = ctx.declare_event_output<float> ("ZLL__pt");
+  h_ZLL__eta = ctx.declare_event_output<float> ("ZLL__eta");
+  h_ZLL__phi = ctx.declare_event_output<float> ("ZLL__phi");
   				
-  h_TAG__E                 = ctx.declare_event_output<float> ("TnP_TAG__E");
-  h_TAG__pt                = ctx.declare_event_output<float> ("TnP_TAG__pt");
-  h_TAG__eta               = ctx.declare_event_output<float> ("TnP_TAG__eta");
-  h_TAG__etaSC             = ctx.declare_event_output<float> ("TnP_TAG__etaSC");
-  h_TAG__phi               = ctx.declare_event_output<float> ("TnP_TAG__phi");
-  h_TAG__charge            = ctx.declare_event_output<int>   ("TnP_TAG__charge");
-  h_TAG__pfiso_dbeta       = ctx.declare_event_output<float> ("TnP_TAG__pfiso_dbeta");
-  h_TAG__dRjet_pt025        = ctx.declare_event_output<float> ("TnP_TAG__dRjet_pt025");
-  h_TAG__dRjet_pt030_eta2p4 = ctx.declare_event_output<float> ("TnP_TAG__dRjet_pt030_eta2p4");
-  h_TAG__dRjet_pt050_eta2p4 = ctx.declare_event_output<float> ("TnP_TAG__dRjet_pt050_eta2p4");
-  h_TAG__pTrel_pt025        = ctx.declare_event_output<float> ("TnP_TAG__pTrel_pt025");
-  h_TAG__pTrel_pt030_eta2p4 = ctx.declare_event_output<float> ("TnP_TAG__pTrel_pt030_eta2p4");
-  h_TAG__pTrel_pt050_eta2p4 = ctx.declare_event_output<float> ("TnP_TAG__pTrel_pt050_eta2p4");
+  h_TAG__E                 = ctx.declare_event_output<float> ("TAG__E");
+  h_TAG__pt                = ctx.declare_event_output<float> ("TAG__pt");
+  h_TAG__eta               = ctx.declare_event_output<float> ("TAG__eta");
+  h_TAG__etaSC             = ctx.declare_event_output<float> ("TAG__etaSC");
+  h_TAG__phi               = ctx.declare_event_output<float> ("TAG__phi");
+  h_TAG__charge            = ctx.declare_event_output<int>   ("TAG__charge");
+  h_TAG__pfIso_dbeta       = ctx.declare_event_output<float> ("TAG__pfIso_dbeta");
+  h_TAG__minDR_pt025        = ctx.declare_event_output<float> ("TAG__minDR_pt025");
+  h_TAG__minDR_pt030_eta2p4 = ctx.declare_event_output<float> ("TAG__minDR_pt030_eta2p4");
+  h_TAG__minDR_pt050_eta2p4 = ctx.declare_event_output<float> ("TAG__minDR_pt050_eta2p4");
+  h_TAG__pTrel_pt025        = ctx.declare_event_output<float> ("TAG__pTrel_pt025");
+  h_TAG__pTrel_pt030_eta2p4 = ctx.declare_event_output<float> ("TAG__pTrel_pt030_eta2p4");
+  h_TAG__pTrel_pt050_eta2p4 = ctx.declare_event_output<float> ("TAG__pTrel_pt050_eta2p4");
   				
-  h_PRO__E                 = ctx.declare_event_output<float> ("TnP_PRO__E");
-  h_PRO__pt                = ctx.declare_event_output<float> ("TnP_PRO__pt");
-  h_PRO__eta               = ctx.declare_event_output<float> ("TnP_PRO__eta");
-  h_PRO__etaSC             = ctx.declare_event_output<float> ("TnP_PRO__etaSC");
-  h_PRO__phi               = ctx.declare_event_output<float> ("TnP_PRO__phi");
-  h_PRO__charge            = ctx.declare_event_output<int>   ("TnP_PRO__charge");
-  h_PRO__pfiso_dbeta       = ctx.declare_event_output<float> ("TnP_PRO__pfiso_dbeta");
-  h_PRO__dRjet_pt025        = ctx.declare_event_output<float> ("TnP_PRO__dRjet_pt025");
-  h_PRO__dRjet_pt030_eta2p4 = ctx.declare_event_output<float> ("TnP_PRO__dRjet_pt030_eta2p4");
-  h_PRO__dRjet_pt050_eta2p4 = ctx.declare_event_output<float> ("TnP_PRO__dRjet_pt050_eta2p4");
-  h_PRO__pTrel_pt025        = ctx.declare_event_output<float> ("TnP_PRO__pTrel_pt025");
-  h_PRO__pTrel_pt030_eta2p4 = ctx.declare_event_output<float> ("TnP_PRO__pTrel_pt030_eta2p4");
-  h_PRO__pTrel_pt050_eta2p4 = ctx.declare_event_output<float> ("TnP_PRO__pTrel_pt050_eta2p4");
+  h_PRO__E                 = ctx.declare_event_output<float> ("PRO__E");
+  h_PRO__pt                = ctx.declare_event_output<float> ("PRO__pt");
+  h_PRO__eta               = ctx.declare_event_output<float> ("PRO__eta");
+  h_PRO__etaSC             = ctx.declare_event_output<float> ("PRO__etaSC");
+  h_PRO__phi               = ctx.declare_event_output<float> ("PRO__phi");
+  h_PRO__charge            = ctx.declare_event_output<int>   ("PRO__charge");
+  h_PRO__pfIso_dbeta       = ctx.declare_event_output<float> ("PRO__pfIso_dbeta");
+  h_PRO__minDR_pt025        = ctx.declare_event_output<float> ("PRO__minDR_pt025");
+  h_PRO__minDR_pt030_eta2p4 = ctx.declare_event_output<float> ("PRO__minDR_pt030_eta2p4");
+  h_PRO__minDR_pt050_eta2p4 = ctx.declare_event_output<float> ("PRO__minDR_pt050_eta2p4");
+  h_PRO__pTrel_pt025        = ctx.declare_event_output<float> ("PRO__pTrel_pt025");
+  h_PRO__pTrel_pt030_eta2p4 = ctx.declare_event_output<float> ("PRO__pTrel_pt030_eta2p4");
+  h_PRO__pTrel_pt050_eta2p4 = ctx.declare_event_output<float> ("PRO__pTrel_pt050_eta2p4");
   ////
+
+  // remove default input collections from output
+  ctx.undeclare_event_output("offlineSlimmedPrimaryVertices");
+  ctx.undeclare_event_output("slimmedElectrons");
+  ctx.undeclare_event_output("slimmedMuons");
+  ctx.undeclare_event_output("slimmedTaus");
+  ctx.undeclare_event_output("patJetsAk4PFCHS");
+  ctx.undeclare_event_output("slimmedGenJets");
+  ctx.undeclare_event_output("slimmedMETs");
+  ctx.undeclare_event_output("patJetsCmsTopTagCHSPacked");
+  ctx.undeclare_event_output("GenParticles");
+
+  ctx.undeclare_event_output("triggerResults");
+  ctx.undeclare_event_output("triggerNames");
+  ctx.undeclare_event_output("beamspot_x0");
+  ctx.undeclare_event_output("beamspot_y0");
+  ctx.undeclare_event_output("beamspot_z0");
+  ctx.undeclare_event_output("genInfo");
+  ctx.undeclare_event_output("rho");
 }
 
 bool TagNProbeZLLModule::process(Event & event){
@@ -246,14 +266,14 @@ bool TagNProbeZLLModule::process(Event & event){
   if(channel == muon){
 
     if(event.muons->size() != 2) 
-      std::runtime_error("logical error: incorrect number of muons (!=2)");
+      throw std::runtime_error("logical error: incorrect number of muons (!=2)");
 
     for(const auto& muo : *event.muons){
 
-      float dRjet_pt025(0.), pTrel_pt025(0.);
-      std::tie(dRjet_pt025, pTrel_pt025) = drmin_pTrel(muo, *event.jets);
+      float minDR_pt025(0.), pTrel_pt025(0.);
+      std::tie(minDR_pt025, pTrel_pt025) = drmin_pTrel(muo, *event.jets);
 
-      if(dRjet_pt025 > .4 && muo.relIso() < .1){ tag = &muo; break; }
+      if(minDR_pt025 > .4 && muo.relIso() < .1){ tag = &muo; break; }
     }
 
     if(!tag) return false;
@@ -263,14 +283,14 @@ bool TagNProbeZLLModule::process(Event & event){
   else if(channel == elec){
 
     if(event.electrons->size() != 2) 
-      std::runtime_error("logical error: incorrect number of electrons (!=2)");
+      throw std::runtime_error("logical error: incorrect number of electrons (!=2)");
 
     for(const auto& ele : *event.electrons){
 
-      float dRjet_pt025(0.), pTrel_pt025(0.);
-      std::tie(dRjet_pt025, pTrel_pt025) = drmin_pTrel(ele, *event.jets);
+      float minDR_pt025(0.), pTrel_pt025(0.);
+      std::tie(minDR_pt025, pTrel_pt025) = drmin_pTrel(ele, *event.jets);
 
-      if(dRjet_pt025 > .4 && ele.relIsodb() < .1){ tag = &ele; break; }
+      if(minDR_pt025 > .4 && ele.relIsodb() < .1){ tag = &ele; break; }
     }
 
     if(!tag) return false;
@@ -282,35 +302,36 @@ bool TagNProbeZLLModule::process(Event & event){
 
   // global vars
   event.set(h_MCweight, event.weight);
+
   event.set(h_pvN     , event.pvs->size());
   event.set(h_MET__pt , event.met->pt());
   event.set(h_MET__phi, event.met->phi());
   //
 
-  float tag__dRjet_pt025(0.), tag__dRjet_pt030_eta2p4(0.), tag__dRjet_pt050_eta2p4(0.);
+  float tag__minDR_pt025(0.), tag__minDR_pt030_eta2p4(0.), tag__minDR_pt050_eta2p4(0.);
   float tag__pTrel_pt025(0.), tag__pTrel_pt030_eta2p4(0.), tag__pTrel_pt050_eta2p4(0.);
 
-  float pro__dRjet_pt025(0.), pro__dRjet_pt030_eta2p4(0.), pro__dRjet_pt050_eta2p4(0.);
+  float pro__minDR_pt025(0.), pro__minDR_pt030_eta2p4(0.), pro__minDR_pt050_eta2p4(0.);
   float pro__pTrel_pt025(0.), pro__pTrel_pt030_eta2p4(0.), pro__pTrel_pt050_eta2p4(0.);
 
-  std::tie(tag__dRjet_pt025, tag__pTrel_pt025) = drmin_pTrel(*tag, *event.jets);
-  std::tie(pro__dRjet_pt025, pro__pTrel_pt025) = drmin_pTrel(*pro, *event.jets);
+  std::tie(tag__minDR_pt025, tag__pTrel_pt025) = drmin_pTrel(*tag, *event.jets);
+  std::tie(pro__minDR_pt025, pro__pTrel_pt025) = drmin_pTrel(*pro, *event.jets);
   //
 
   jet_cleaner2->process(event);
   sort_by_pt<Jet>(*event.jets);
   event.set(h_jetN__pt030_eta2p4, event.jets->size());
 
-  std::tie(tag__dRjet_pt030_eta2p4, tag__pTrel_pt030_eta2p4) = drmin_pTrel(*tag, *event.jets);
-  std::tie(pro__dRjet_pt030_eta2p4, pro__pTrel_pt030_eta2p4) = drmin_pTrel(*pro, *event.jets);
+  std::tie(tag__minDR_pt030_eta2p4, tag__pTrel_pt030_eta2p4) = drmin_pTrel(*tag, *event.jets);
+  std::tie(pro__minDR_pt030_eta2p4, pro__pTrel_pt030_eta2p4) = drmin_pTrel(*pro, *event.jets);
   //
 
   jet_cleaner3->process(event);
   sort_by_pt<Jet>(*event.jets);
   event.set(h_jetN__pt050_eta2p4, event.jets->size());
 
-  std::tie(tag__dRjet_pt050_eta2p4, tag__pTrel_pt050_eta2p4) = drmin_pTrel(*tag, *event.jets);
-  std::tie(pro__dRjet_pt050_eta2p4, pro__pTrel_pt050_eta2p4) = drmin_pTrel(*pro, *event.jets);
+  std::tie(tag__minDR_pt050_eta2p4, tag__pTrel_pt050_eta2p4) = drmin_pTrel(*tag, *event.jets);
+  std::tie(pro__minDR_pt050_eta2p4, pro__pTrel_pt050_eta2p4) = drmin_pTrel(*pro, *event.jets);
   //
 
   jet_cleaner4->process(event);
@@ -323,16 +344,16 @@ bool TagNProbeZLLModule::process(Event & event){
   event.set(h_jetN__pt200_eta2p4, event.jets->size());
   //
 
-  float tag__etaSC(0.), tag__pfiso_dbeta(0.);
-  float pro__etaSC(0.), pro__pfiso_dbeta(0.);
+  float tag__etaSC(0.), tag__pfIso_dbeta(0.);
+  float pro__etaSC(0.), pro__pfIso_dbeta(0.);
 
   if(channel == muon){
-    tag__pfiso_dbeta = ((Muon*) tag)->relIso();
-    pro__pfiso_dbeta = ((Muon*) pro)->relIso();
+    tag__pfIso_dbeta = ((Muon*) tag)->relIso();
+    pro__pfIso_dbeta = ((Muon*) pro)->relIso();
   }
   else if(channel == elec){
-    tag__pfiso_dbeta = ((Electron*) tag)->relIsodb();
-    pro__pfiso_dbeta = ((Electron*) pro)->relIsodb();
+    tag__pfIso_dbeta = ((Electron*) tag)->relIsodb();
+    pro__pfIso_dbeta = ((Electron*) pro)->relIsodb();
 
     tag__etaSC = ((Electron*) tag)->supercluster_eta();
     pro__etaSC = ((Electron*) pro)->supercluster_eta();
@@ -345,47 +366,35 @@ bool TagNProbeZLLModule::process(Event & event){
   event.set(h_ZLL__phi, (tag->v4()+pro->v4()).Phi());
 
   /* TAG */
-  event.set(h_TAG__E                , tag->v4().E());
-  event.set(h_TAG__pt               , tag->v4().Pt());
-  event.set(h_TAG__eta              , tag->v4().Eta());
-  event.set(h_TAG__etaSC            , tag__etaSC);
-  event.set(h_TAG__phi              , tag->v4().Phi());
-  event.set(h_TAG__charge           , int(tag->charge()));
-  event.set(h_TAG__pfiso_dbeta      , tag__pfiso_dbeta);
-  event.set(h_TAG__dRjet_pt025       , tag__dRjet_pt025);
-  event.set(h_TAG__dRjet_pt030_eta2p4, tag__dRjet_pt030_eta2p4);
-  event.set(h_TAG__dRjet_pt050_eta2p4, tag__dRjet_pt050_eta2p4);
+  event.set(h_TAG__E                 , tag->v4().E());
+  event.set(h_TAG__pt                , tag->v4().Pt());
+  event.set(h_TAG__eta               , tag->v4().Eta());
+  event.set(h_TAG__etaSC             , tag__etaSC);
+  event.set(h_TAG__phi               , tag->v4().Phi());
+  event.set(h_TAG__charge            , int(tag->charge()));
+  event.set(h_TAG__pfIso_dbeta       , tag__pfIso_dbeta);
+  event.set(h_TAG__minDR_pt025       , tag__minDR_pt025);
+  event.set(h_TAG__minDR_pt030_eta2p4, tag__minDR_pt030_eta2p4);
+  event.set(h_TAG__minDR_pt050_eta2p4, tag__minDR_pt050_eta2p4);
   event.set(h_TAG__pTrel_pt025       , tag__pTrel_pt025);
   event.set(h_TAG__pTrel_pt030_eta2p4, tag__pTrel_pt030_eta2p4);
   event.set(h_TAG__pTrel_pt050_eta2p4, tag__pTrel_pt050_eta2p4);
 
   /* PROBE */
-  event.set(h_PRO__E                , pro->v4().E());
-  event.set(h_PRO__pt               , pro->v4().Pt());
-  event.set(h_PRO__eta              , pro->v4().Eta());
-  event.set(h_PRO__etaSC            , pro__etaSC);
-  event.set(h_PRO__phi              , pro->v4().Phi());
-  event.set(h_PRO__charge           , int(pro->charge()));
-  event.set(h_PRO__pfiso_dbeta      , pro__pfiso_dbeta);
-  event.set(h_PRO__dRjet_pt025       , pro__dRjet_pt025);
-  event.set(h_PRO__dRjet_pt030_eta2p4, pro__dRjet_pt030_eta2p4);
-  event.set(h_PRO__dRjet_pt050_eta2p4, pro__dRjet_pt050_eta2p4);
+  event.set(h_PRO__E                 , pro->v4().E());
+  event.set(h_PRO__pt                , pro->v4().Pt());
+  event.set(h_PRO__eta               , pro->v4().Eta());
+  event.set(h_PRO__etaSC             , pro__etaSC);
+  event.set(h_PRO__phi               , pro->v4().Phi());
+  event.set(h_PRO__charge            , int(pro->charge()));
+  event.set(h_PRO__pfIso_dbeta       , pro__pfIso_dbeta);
+  event.set(h_PRO__minDR_pt025       , pro__minDR_pt025);
+  event.set(h_PRO__minDR_pt030_eta2p4, pro__minDR_pt030_eta2p4);
+  event.set(h_PRO__minDR_pt050_eta2p4, pro__minDR_pt050_eta2p4);
   event.set(h_PRO__pTrel_pt025       , pro__pTrel_pt025);
   event.set(h_PRO__pTrel_pt030_eta2p4, pro__pTrel_pt030_eta2p4);
   event.set(h_PRO__pTrel_pt050_eta2p4, pro__pTrel_pt050_eta2p4);
   ///
-
-  // clear default output collections (reduce output size)
-  if(event.pvs) event.pvs->clear();	      
-  if(event.electrons) event.electrons->clear();   
-  if(event.muons) event.muons->clear();	      
-  if(event.taus) event.taus->clear();	      
-  if(event.photons) event.photons->clear();     
-  if(event.jets) event.jets->clear();	      
-  if(event.topjets) event.topjets->clear();     
-  if(event.gentopjets) event.gentopjets->clear();  
-  if(event.genparticles) event.genparticles->clear();
-  if(event.genjets) event.genjets->clear();
 
   return true;
 }
