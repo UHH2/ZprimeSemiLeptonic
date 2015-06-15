@@ -113,7 +113,7 @@ ZprimeSelectionModule::ZprimeSelectionModule(Context & ctx){
   jetlepton_cleaner->set_drmax(.4);
   jet_cleaner1.reset(new JetCleaner(25., std::numeric_limits<double>::infinity())); 
   jet_cleaner2.reset(new JetCleaner(30., 2.4));
-  topjet_corrector.reset(new TopJetCorrector(JERFiles::PHYS14_L123_MC));
+  topjet_corrector.reset(new TopJetCorrector(JERFiles::PHYS14_L123_AK8PFchs_MC));
 //  topjetER_smearer.reset(new TopJetResolutionSmearer(ctx));
   topjetlepton_cleaner.reset(new TopJetLeptonDeltaRCleaner(.8));
   topjet_cleaner.reset(new TopJetCleaner(TopJetId(PtEtaCut(400., 2.4))));
