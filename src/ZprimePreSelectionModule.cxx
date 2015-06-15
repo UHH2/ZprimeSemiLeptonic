@@ -70,7 +70,7 @@ ZprimePreSelectionModule::ZprimePreSelectionModule(Context & ctx){
   jetlepton_cleaner->set_drmax(.4);
   jet_cleaner.reset(new JetCleaner(30., 2.4));
 
-  topjet_corrector.reset(new TopJetCorrector(JERFiles::PHYS14_L123_MC));
+  topjet_corrector.reset(new TopJetCorrector(JERFiles::PHYS14_L123_AK8PFchs_MC));
   topjetlepton_cleaner.reset(new TopJetLeptonDeltaRCleaner(.8));
   topjet_cleaner.reset(new TopJetCleaner(TopJetId(PtEtaCut(200., 2.4))));
 
