@@ -11,3 +11,8 @@ class TopJetLeptonDeltaRCleaner : public uhh2::AnalysisModule {
  private:
   float minDR_;
 };
+
+const Particle* leading_lepton(const uhh2::Event&);
+
+float HTlep (const uhh2::Event&);
+float HTlep1(const uhh2::Event&);

@@ -55,6 +55,26 @@ namespace uhh2 {
   };
   /////
 
+  class TwoDCut1 : public Selection {
+   public:
+    explicit TwoDCut1(float min_deltaR, float min_pTrel): min_deltaR_(min_deltaR), min_pTrel_(min_pTrel) {}
+    virtual bool passes(const Event&) override;
+
+   private:
+    float min_deltaR_, min_pTrel_;
+  };
+  /////
+
+  class TwoDCutALL : public Selection {
+   public:
+    explicit TwoDCutALL(float min_deltaR, float min_pTrel): min_deltaR_(min_deltaR), min_pTrel_(min_pTrel) {}
+    virtual bool passes(const Event&) override;
+
+   private:
+    float min_deltaR_, min_pTrel_;
+  };
+  /////
+
   class TriangularCuts : public Selection {
    public:
     explicit TriangularCuts(float, float);
@@ -62,6 +82,28 @@ namespace uhh2 {
 
    private:
     float a_, b_;
+  };
+  /////
+
+  class TriangularCutsELE : public Selection {
+   public:
+    explicit TriangularCutsELE(float, float);
+    virtual bool passes(const Event&) override;
+
+   private:
+    float a_, b_;
+  };
+  /////
+
+  class DiLeptonSelection: public Selection {
+   public:
+    explicit DiLeptonSelection(const std::string&, const bool, const bool);
+    virtual bool passes(const Event&) override;
+
+   private:
+    std::string channel_;
+    bool opposite_charge_;
+    bool veto_other_flavor_;
   };
   /////
 
@@ -91,13 +133,14 @@ namespace uhh2 {
 
   class HypothesisDiscriminatorCut: public Selection {
    public:
-    explicit HypothesisDiscriminatorCut(Context&, float, float, const std::string& disc="Chi2", const std::string& hyps="TTbarReconstruction");
+    explicit HypothesisDiscriminatorCut(Context&, float, float, const std::string& hyps="TTbarReconstruction", const std::string& disc_bhyp="Chi2", const std::string& disc_cut="Chi2");
     virtual bool passes(const Event&) override;
 
    private:
     float disc_min_, disc_max_;
     Event::Handle<std::vector<ReconstructionHypothesis>> h_hyps_;
-    std::string disc_name_;
+    std::string disc_bhyp_;
+    std::string disc_cut_;
   };
   /////
 

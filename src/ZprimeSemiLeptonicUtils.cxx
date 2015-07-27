@@ -30,3 +30,37 @@ bool TopJetLeptonDeltaRCleaner::process(uhh2::Event & event){
 
   return true;
 }
+
+const Particle* leading_lepton(const uhh2::Event& event){
+
+  const Particle* lep(0);
+
+  float ptL_max(0.);
+  if(event.muons)    { for(const auto& mu : *event.muons)    { if(mu.pt() > ptL_max){ ptL_max = mu.pt(); lep = &mu; } } }
+  if(event.electrons){ for(const auto& el : *event.electrons){ if(el.pt() > ptL_max){ ptL_max = el.pt(); lep = &el; } } }
+
+  if(!lep) throw std::runtime_error("leading_lepton -- pt-leading lepton not found");
+
+  return lep;
+}
+
+float HTlep(const uhh2::Event& event){
+
+  float htlep(0.);
+
+  assert((event.muons || event.electrons) && event.met);
+
+  if(event.muons)    { for(const auto& mu : *event.muons)     htlep += mu.pt(); }
+  if(event.electrons){ for(const auto& el : *event.electrons) htlep += el.pt(); }
+
+  htlep += event.met->pt();
+
+  return htlep;
+}
+
+float HTlep1(const uhh2::Event& event){
+
+  assert((event.muons || event.electrons) && event.met);
+
+  return (leading_lepton(event)->pt() + event.met->pt());
+}
