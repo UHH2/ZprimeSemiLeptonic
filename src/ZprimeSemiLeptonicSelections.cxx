@@ -1,4 +1,5 @@
 #include "UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicSelections.h"
+#include "UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicUtils.h"
 
 #include <iostream>
 #include <memory>
@@ -12,24 +13,8 @@ uhh2::HTlepCut::HTlepCut(float min_htlep, float max_htlep):
 
 bool uhh2::HTlepCut::passes(const uhh2::Event & event){
 
-  assert(event.muons || event.electrons);
-  assert(event.met);
+  float htlep = HTlep1(event);
 
-  float plep_pt(0.);
-
-  if(event.electrons){
-    for(const auto & ele : *event.electrons){
-      if(ele.pt() > plep_pt) plep_pt = ele.pt();
-    }
-  }
-
-  if(event.muons) {
-    for(const auto & mu : *event.muons){
-      if(mu.pt() > plep_pt) plep_pt = mu.pt();
-    }
-  }
-
-  float htlep = plep_pt + event.met->pt();
   return (htlep > min_htlep_) && (htlep < max_htlep_);
 }
 ////////////////////////////////////////////////////////
@@ -57,6 +42,45 @@ bool uhh2::NJetCut::passes(const uhh2::Event & event){
   }
 
   return (njet >= nmin) && (njet <= nmax);
+}
+////////////////////////////////////////////////////////
+
+bool uhh2::TwoDCut1::passes(const uhh2::Event& event){
+
+  assert(event.muons && event.electrons && event.jets);
+
+  const Particle* lepton = leading_lepton(event);
+
+  float drmin, ptrel;
+  std::tie(drmin, ptrel) = drmin_pTrel(*lepton, *event.jets);
+
+  return (drmin > min_deltaR_) || (ptrel > min_pTrel_);
+}
+////////////////////////////////////////////////////////
+
+bool uhh2::TwoDCutALL::passes(const uhh2::Event & event){
+
+  assert(event.muons && event.electrons && event.jets);
+
+  for(const auto& muo : *event.muons){
+
+    float drmin, ptrel;
+    std::tie(drmin, ptrel) = drmin_pTrel(muo, *event.jets);
+
+    const bool pass = (drmin > min_deltaR_) || (ptrel > min_pTrel_);
+    if(!pass) return false;
+  }
+
+  for(const auto& ele : *event.electrons){
+
+    float drmin, ptrel;
+    std::tie(drmin, ptrel) = drmin_pTrel(ele, *event.jets);
+
+    const bool pass = (drmin > min_deltaR_) || (ptrel > min_pTrel_);
+    if(!pass) return false;
+  }
+
+  return true;
 }
 ////////////////////////////////////////////////////////
 
@@ -96,10 +120,8 @@ bool uhh2::TriangularCuts::passes(const uhh2::Event & event){
     return false;
   }
 
-  // charged lepton
-  const Particle* lep1(0);
-  if(event.muons->size()) lep1 = &event.muons->at(0);
-  else lep1 = &event.electrons->at(0);
+  // pt-leading charged lepton
+  const Particle* lep1 = leading_lepton(event);
 
   // 1st entry in jet collection (should be the pt-leading jet)
   const Particle* jet1 = &event.jets->at(0);
@@ -111,6 +133,64 @@ bool uhh2::TriangularCuts::passes(const uhh2::Event & event){
   bool pass_tc_jet = fabs(fabs(deltaPhi(*event.met, *jet1)) - a_) < a_/b_ * event.met->pt();
 
   return pass_tc_lep && pass_tc_jet;
+}
+////////////////////////////////////////////////////////
+
+uhh2::TriangularCutsELE::TriangularCutsELE(float a, float b): a_(a), b_(b) {
+
+  if(!b_) std::runtime_error("TriangularCuts -- incorrect initialization (parameter 'b' is null)");
+}
+
+bool uhh2::TriangularCutsELE::passes(const uhh2::Event & event){
+
+  assert(event.electrons);
+  assert(event.jets && event.met);
+
+  if(event.electrons->size() != 1) std::runtime_error("TriangularCutsELE::passes -- unexpected number of electrons in the event (!=1)");
+  if(event.jets     ->size() == 0) std::runtime_error("TriangularCutsELE::passes -- unexpected number of jets in the event (==0)");
+
+  // pt-leading charged lepton
+  const Particle* lep1 = &event.electrons->at(0);
+
+  // 1st entry in jet collection (should be the pt-leading jet)
+  const Particle* jet1 = &event.jets->at(0);
+
+  // MET-lepton triangular cut
+  bool pass_tc_lep = fabs(fabs(deltaPhi(*event.met, *lep1)) - a_) < a_/b_ * event.met->pt();
+
+  // MET-jet triangular cut
+  bool pass_tc_jet = fabs(fabs(deltaPhi(*event.met, *jet1)) - a_) < a_/b_ * event.met->pt();
+
+  return pass_tc_lep && pass_tc_jet;
+}
+////////////////////////////////////////////////////////
+
+uhh2::DiLeptonSelection::DiLeptonSelection(const std::string& channel, const bool opposite_charge, const bool veto_other_flavor):
+  channel_(channel), opposite_charge_(opposite_charge), veto_other_flavor_(veto_other_flavor) {}
+
+bool uhh2::DiLeptonSelection::passes(const uhh2::Event & event){ 
+
+  bool pass(false);
+
+  assert(event.muons && event.electrons);
+
+  if(channel_ == "muon"){
+
+    pass = (event.muons->size() == 2);
+
+    if(pass && opposite_charge_)   pass &= ((event.muons->at(0).charge() * event.muons->at(1).charge()) == -1);
+    if(pass && veto_other_flavor_) pass &= (event.electrons->size() == 0);
+  }
+  else if(channel_ == "elec"){
+
+    pass = (event.electrons->size() == 2);
+
+    if(pass && opposite_charge_)   pass &= ((event.electrons->at(0).charge() * event.electrons->at(1).charge()) == -1);
+    if(pass && veto_other_flavor_) pass &= (event.muons->size() == 0);
+  }
+  else std::runtime_error("DiLeptonSelection::passes -- undefined key for lepton channel: "+channel_);
+
+  return pass;
 }
 ////////////////////////////////////////////////////////
 
@@ -150,16 +230,16 @@ bool uhh2::LeptonicTopPtCut::passes(const uhh2::Event& event){
 }
 ////////////////////////////////////////////////////////
 
-uhh2::HypothesisDiscriminatorCut::HypothesisDiscriminatorCut(uhh2::Context& ctx, float disc_min, float disc_max, const std::string& hyps_name, const std::string& disc_name):
-  disc_min_(disc_min), disc_max_(disc_max), h_hyps_(ctx.get_handle<std::vector<ReconstructionHypothesis>>(hyps_name)), disc_name_(disc_name) {}
+uhh2::HypothesisDiscriminatorCut::HypothesisDiscriminatorCut(uhh2::Context& ctx, float disc_min, float disc_max, const std::string& hyps_name, const std::string& disc_bhyp, const std::string& disc_cut):
+  disc_min_(disc_min), disc_max_(disc_max), h_hyps_(ctx.get_handle<std::vector<ReconstructionHypothesis>>(hyps_name)), disc_bhyp_(disc_bhyp), disc_cut_(disc_cut) {}
 
 bool uhh2::HypothesisDiscriminatorCut::passes(const uhh2::Event & event){
 
   std::vector<ReconstructionHypothesis> hyps = event.get(h_hyps_);
-  const ReconstructionHypothesis* hyp = get_best_hypothesis(hyps, disc_name_);
-  if(!hyp) std::runtime_error("HypothesisDiscriminatorCut -- best hypothesis not found (discriminator="+disc_name_+")");
+  const ReconstructionHypothesis* hyp = get_best_hypothesis(hyps, disc_bhyp_);
+  if(!hyp) std::runtime_error("HypothesisDiscriminatorCut -- best hypothesis not found (discriminator="+disc_bhyp_+")");
 
-  float disc_val = hyp->discriminator(disc_name_);
+  float disc_val = hyp->discriminator(disc_cut_);
 
   return (disc_val > disc_min_) && (disc_val < disc_max_);
 }
