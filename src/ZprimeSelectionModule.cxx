@@ -16,6 +16,7 @@
 #include "UHH2/common/include/Utils.h"
 #include "UHH2/common/include/TTbarGen.h"
 #include "UHH2/common/include/TTbarReconstruction.h"
+#include "UHH2/common/include/ReconstructionHypothesis.h"
 #include "UHH2/common/include/ReconstructionHypothesisDiscriminators.h"
 #include "UHH2/common/include/HypothesisHists.h"
 #include "UHH2/common/include/TriggerSelection.h"
@@ -287,6 +288,16 @@ bool ZprimeSelectionModule::process(Event & event){
     chi2min_toptag0_h->fill(event);
   }
   ////
+
+  // save only the chi2-best ttbar hypothesis in output sub-ntuple
+  std::vector<ReconstructionHypothesis>& hyps = event.get(h_ttbar_hyps);
+  const ReconstructionHypothesis* hyp = get_best_hypothesis(hyps, "Chi2");
+  if(!hyp) std::runtime_error("ZprimeSelectionModule::process() -- best hypothesis for ttbar-reconstruction not found");
+
+  const ReconstructionHypothesis hyp_obj(*hyp);
+
+  hyps.clear();
+  hyps.push_back(hyp_obj);
 
   return true;
 }
