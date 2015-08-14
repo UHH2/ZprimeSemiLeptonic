@@ -53,6 +53,7 @@ class ZprimePreSelectionModule: public AnalysisModule {
   // store the Hists collection as member variables
   std::unique_ptr<Hists> input_h_event, input_h_jet, input_h_ele, input_h_muo, input_h_topjet;
   std::unique_ptr<Hists> output_h_event, output_h_jet, output_h_ele, output_h_muo, output_h_topjet;
+  bool is_mc;
 };
 
 ZprimePreSelectionModule::ZprimePreSelectionModule(Context & ctx){
@@ -65,12 +66,19 @@ ZprimePreSelectionModule::ZprimePreSelectionModule(Context & ctx){
   muo_cleaner.reset(new MuonCleaner(AndId<Muon>(MuonIDTight(), PtEtaCut(45., 2.1))));
   ele_cleaner.reset(new ElectronCleaner(AndId<Electron>(ElectronID_PHYS14_25ns_tight_noIso, PtEtaSCCut(50., 2.5))));
 
-  jet_corrector.reset(new JetCorrector(JERFiles::PHYS14_L123_MC));
-  jetlepton_cleaner.reset(new JetLeptonCleaner(JERFiles::PHYS14_L123_MC));
+  is_mc = ctx.get("dataset_type") == "MC";
+  if (is_mc) {
+    jet_corrector.reset(new JetCorrector(JERFiles::Summer15_50ns_L123_AK4PFchs_MC));
+    jetlepton_cleaner.reset(new JetLeptonCleaner(JERFiles::Summer15_50ns_L123_AK4PFchs_MC));
+    topjet_corrector.reset(new TopJetCorrector(JERFiles::Summer15_50ns_L123_AK8PFchs_MC));
+  } else {
+    jet_corrector.reset(new JetCorrector(JERFiles::Summer15_50ns_L123_AK4PFchs_DATA));
+    jetlepton_cleaner.reset(new JetLeptonCleaner(JERFiles::Summer15_50ns_L123_AK4PFchs_DATA));
+    topjet_corrector.reset(new TopJetCorrector(JERFiles::Summer15_50ns_L123_AK8PFchs_DATA));
+  }
   jetlepton_cleaner->set_drmax(.4);
   jet_cleaner.reset(new JetCleaner(30., 2.4));
 
-  topjet_corrector.reset(new TopJetCorrector(JERFiles::PHYS14_L123_AK8PFchs_MC));
   topjetlepton_cleaner.reset(new TopJetLeptonDeltaRCleaner(.8));
   topjet_cleaner.reset(new TopJetCleaner(TopJetId(PtEtaCut(200., 2.4))));
 
