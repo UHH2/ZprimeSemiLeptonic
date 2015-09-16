@@ -254,7 +254,7 @@ bool uhh2::GenMttbarCut::passes(const uhh2::Event& event){
   const TTbarGen& ttbargen = event.get(h_ttbargen_);
 
   if(ttbargen.DecayChannel() == TTbarGen::e_notfound)
-    std::runtime_error("GenMttbarCut::passes -- undefined decay-channel for TTbarGen object");
+    throw std::runtime_error("GenMttbarCut::passes -- undefined decay-channel for TTbarGen object");
 
   const float mttbargen = (ttbargen.Top().v4() + ttbargen.Antitop().v4()).M();
 
