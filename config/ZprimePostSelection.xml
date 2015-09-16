@@ -4,79 +4,77 @@
   <!ENTITY NEVT "-1">
 
   <!ENTITY channel "muon">
-  <!ENTITY HLT     "HLT_Mu45_eta2p1_v*">
 <!--
   <!ENTITY channel "elec">
-  <!ENTITY HLT     "HLT_Ele45_CaloIdVT_GsfTrkIdT_PFJet200_PFJet50_v*">
 -->
 
-  <!ENTITY PROOFdir  "/nfs/dust/cms/user/missirol/PROOF">
-  <!ENTITY PRESELdir "/nfs/dust/cms/user/missirol/Analysis7XY/ttbar_semilep_13TeV/test_01">
-  <!ENTITY SELdir    "/nfs/dust/cms/user/missirol/Analysis7XY/ttbar_semilep_13TeV/test_02">
+  <!ENTITY PROOFdir   "/nfs/dust/cms/user/missirol/PROOF">
+  <!ENTITY SELdir     "/nfs/dust/cms/user/missirol/Analysis7XY/ttbar_semilep_13TeV/test_02">
+  <!ENTITY POSTSELdir "/nfs/dust/cms/user/missirol/Analysis7XY/ttbar_semilep_13TeV/test_03">
 
-  <!ENTITY SingleMU            "&PRESELdir;/uhh2.AnalysisModuleRunner.DATA.SingleMu.root">
-  <!ENTITY SingleEG            "&PRESELdir;/uhh2.AnalysisModuleRunner.DATA.SingleEG.root">
+  <!ENTITY SingleMU            "&SELdir;/uhh2.AnalysisModuleRunner.DATA.SingleMu.root">
+  <!ENTITY SingleEG            "&SELdir;/uhh2.AnalysisModuleRunner.DATA.SingleEG.root">
 
-  <!ENTITY Zp01w0500           "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.Zp01w0500.root">
-  <!ENTITY Zp01w1000           "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.Zp01w1000.root">
-  <!ENTITY Zp01w1500           "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.Zp01w1500.root">
-  <!ENTITY Zp01w2000           "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.Zp01w2000.root">
-  <!ENTITY Zp01w2500           "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.Zp01w2500.root">
-  <!ENTITY Zp01w3000           "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.Zp01w3000.root">
+  <!ENTITY Zp01w0500           "&SELdir;/uhh2.AnalysisModuleRunner.MC.Zp01w0500.root">
+  <!ENTITY Zp01w1000           "&SELdir;/uhh2.AnalysisModuleRunner.MC.Zp01w1000.root">
+  <!ENTITY Zp01w1500           "&SELdir;/uhh2.AnalysisModuleRunner.MC.Zp01w1500.root">
+  <!ENTITY Zp01w2000           "&SELdir;/uhh2.AnalysisModuleRunner.MC.Zp01w2000.root">
+  <!ENTITY Zp01w2500           "&SELdir;/uhh2.AnalysisModuleRunner.MC.Zp01w2500.root">
+  <!ENTITY Zp01w3000           "&SELdir;/uhh2.AnalysisModuleRunner.MC.Zp01w3000.root">
 
-  <!ENTITY Zp10w0500           "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.Zp10w0500.root">
-  <!ENTITY Zp10w1000           "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.Zp10w1000.root">
-  <!ENTITY Zp10w1500           "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.Zp10w1500.root">
-  <!ENTITY Zp10w2000           "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.Zp10w2000.root">
-  <!ENTITY Zp10w2500           "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.Zp10w2500.root">
-  <!ENTITY Zp10w3000           "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.Zp10w3000.root">
+  <!ENTITY Zp10w0500           "&SELdir;/uhh2.AnalysisModuleRunner.MC.Zp10w0500.root">
+  <!ENTITY Zp10w1000           "&SELdir;/uhh2.AnalysisModuleRunner.MC.Zp10w1000.root">
+  <!ENTITY Zp10w1500           "&SELdir;/uhh2.AnalysisModuleRunner.MC.Zp10w1500.root">
+  <!ENTITY Zp10w2000           "&SELdir;/uhh2.AnalysisModuleRunner.MC.Zp10w2000.root">
+  <!ENTITY Zp10w2500           "&SELdir;/uhh2.AnalysisModuleRunner.MC.Zp10w2500.root">
+  <!ENTITY Zp10w3000           "&SELdir;/uhh2.AnalysisModuleRunner.MC.Zp10w3000.root">
 
-  <!ENTITY TTbar               "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.TTbar.root">
-  <!ENTITY TTbar_Mtt0700to1000 "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.TTbar_Mtt0700to1000.root">
-  <!ENTITY TTbar_Mtt1000toINFT "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.TTbar_Mtt1000toINFT.root">
+  <!ENTITY TTbar               "&SELdir;/uhh2.AnalysisModuleRunner.MC.TTbar.root">
+  <!ENTITY TTbar_Mtt0700to1000 "&SELdir;/uhh2.AnalysisModuleRunner.MC.TTbar_Mtt0700to1000.root">
+  <!ENTITY TTbar_Mtt1000toINFT "&SELdir;/uhh2.AnalysisModuleRunner.MC.TTbar_Mtt1000toINFT.root">
 
-  <!ENTITY WJets               "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.WJets.root">
+  <!ENTITY WJets               "&SELdir;/uhh2.AnalysisModuleRunner.MC.WJets.root">
 
-  <!ENTITY ZJets               "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.ZJets.root">
+  <!ENTITY ZJets               "&SELdir;/uhh2.AnalysisModuleRunner.MC.ZJets.root">
 
-  <!ENTITY WW                  "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.WW.root">
-  <!ENTITY WZ                  "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.WZ.root">
-  <!ENTITY ZZ                  "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.ZZ.root">
+  <!ENTITY WW                  "&SELdir;/uhh2.AnalysisModuleRunner.MC.WW.root">
+  <!ENTITY WZ                  "&SELdir;/uhh2.AnalysisModuleRunner.MC.WZ.root">
+  <!ENTITY ZZ                  "&SELdir;/uhh2.AnalysisModuleRunner.MC.ZZ.root">
 
-  <!ENTITY STpos_s             "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.STpos_s.root">
-  <!ENTITY STpos_t             "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.STpos_t.root">
-  <!ENTITY STpos_tW            "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.STpos_tW.root">
-  <!ENTITY STneg_s             "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.STneg_s.root">
-  <!ENTITY STneg_t             "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.STneg_t.root">
-  <!ENTITY STneg_tW            "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.STneg_tW.root">
+  <!ENTITY STpos_s             "&SELdir;/uhh2.AnalysisModuleRunner.MC.STpos_s.root">
+  <!ENTITY STpos_t             "&SELdir;/uhh2.AnalysisModuleRunner.MC.STpos_t.root">
+  <!ENTITY STpos_tW            "&SELdir;/uhh2.AnalysisModuleRunner.MC.STpos_tW.root">
+  <!ENTITY STneg_s             "&SELdir;/uhh2.AnalysisModuleRunner.MC.STneg_s.root">
+  <!ENTITY STneg_t             "&SELdir;/uhh2.AnalysisModuleRunner.MC.STneg_t.root">
+  <!ENTITY STneg_tW            "&SELdir;/uhh2.AnalysisModuleRunner.MC.STneg_tW.root">
 
-  <!ENTITY QCD_Pt0015to0030    "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Pt0015to0030.root">
-  <!ENTITY QCD_Pt0030to0050    "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Pt0030to0050.root">
-  <!ENTITY QCD_Pt0050to0080    "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Pt0050to0080.root">
-  <!ENTITY QCD_Pt0080to0120    "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Pt0080to0120.root">
-  <!ENTITY QCD_Pt0120to0170    "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Pt0120to0170.root">
-  <!ENTITY QCD_Pt0170to0300    "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Pt0170to0300.root">
-  <!ENTITY QCD_Pt0300to0470    "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Pt0300to0470.root">
-  <!ENTITY QCD_Pt0470to0600    "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Pt0470to0600.root">
-  <!ENTITY QCD_Pt0600to0800    "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Pt0600to0800.root">
-  <!ENTITY QCD_Pt0800to1000    "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Pt0800to1000.root">
-  <!ENTITY QCD_Pt1000to1400    "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Pt1000to1400.root">
-  <!ENTITY QCD_Pt1400to1800    "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Pt1400to1800.root">
-  <!ENTITY QCD_Pt1800to2400    "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Pt1800to2400.root">
-  <!ENTITY QCD_Pt2400to3200    "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Pt2400to3200.root">
-  <!ENTITY QCD_Pt3200toINFT    "&PRESELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Pt3200toINFT.root">
+  <!ENTITY QCD_Pt0015to0030    "&SELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Pt0015to0030.root">
+  <!ENTITY QCD_Pt0030to0050    "&SELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Pt0030to0050.root">
+  <!ENTITY QCD_Pt0050to0080    "&SELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Pt0050to0080.root">
+  <!ENTITY QCD_Pt0080to0120    "&SELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Pt0080to0120.root">
+  <!ENTITY QCD_Pt0120to0170    "&SELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Pt0120to0170.root">
+  <!ENTITY QCD_Pt0170to0300    "&SELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Pt0170to0300.root">
+  <!ENTITY QCD_Pt0300to0470    "&SELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Pt0300to0470.root">
+  <!ENTITY QCD_Pt0470to0600    "&SELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Pt0470to0600.root">
+  <!ENTITY QCD_Pt0600to0800    "&SELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Pt0600to0800.root">
+  <!ENTITY QCD_Pt0800to1000    "&SELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Pt0800to1000.root">
+  <!ENTITY QCD_Pt1000to1400    "&SELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Pt1000to1400.root">
+  <!ENTITY QCD_Pt1400to1800    "&SELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Pt1400to1800.root">
+  <!ENTITY QCD_Pt1800to2400    "&SELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Pt1800to2400.root">
+  <!ENTITY QCD_Pt2400to3200    "&SELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Pt2400to3200.root">
+  <!ENTITY QCD_Pt3200toINFT    "&SELdir;/uhh2.AnalysisModuleRunner.MC.QCD_Pt3200toINFT.root">
 
 ]>
 
-<JobConfiguration JobName="ZprimeSelectionJob" OutputLevel="INFO">
+<JobConfiguration JobName="ZprimePostSelectionJob" OutputLevel="INFO">
     <Library Name="libSUHH2ZprimeSemiLeptonic"/>
     <Package Name="SUHH2ZprimeSemiLeptonic.par"/>
 <!--
-    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&SELdir;/" PostFix="" TargetLumi="1" >
+    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&POSTSELdir;/" PostFix="" TargetLumi="1" >
 -->
-    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&SELdir;/" PostFix="" TargetLumi="1" RunMode="PROOF" ProofServer="lite://" ProofWorkDir="&PROOFdir;/" ProofNodes="10" >
+    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&POSTSELdir;/" PostFix="" TargetLumi="1" RunMode="PROOF" ProofServer="lite://" ProofWorkDir="&PROOFdir;/" ProofNodes="10" >
 <!--
-    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&SELdir;/" PostFix="" TargetLumi="1" RunMode="PROOF" ProofServer="pod://" ProofWorkDir="&PROOFdir;/" >
+    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&POSTSELdir;/" PostFix="" TargetLumi="1" RunMode="PROOF" ProofServer="pod://" ProofWorkDir="&PROOFdir;/" >
 -->
 <!--
         <InputData Version="SingleMU" Lumi="1" Type="DATA" NEventsMax="&NEVT;" Cacheable="False">
@@ -231,19 +229,11 @@
           <Item Name="TopJetCollection"        Value="slimmedJetsAK8_CMSTopTag"/>
           <Item Name="METName"                 Value="slimmedMETsNoHF"/>
 
-          <Item Name="pileup_directory_data"
-                Value="/nfs/dust/cms/user/gonvaq/CMSSW/CMSSW_7_4_3/src/UHH2/VLQToTopAndLepton/config/PU_reweighting/uhh2.AnalysisModuleRunner.Data.Data.root"/>
-          <Item Name="pileup_directory_50ns"
-                Value="/nfs/dust/cms/user/gonvaq/CMSSW/CMSSW_7_4_3/src/UHH2/VLQToTopAndLepton/config/PU_reweighting/uhh2.AnalysisModuleRunner.MC.TTbar.root"/>
-
-          <Item Name="lumi_file" Value="/nfs/dust/cms/user/peiffer/NtupleWriter/Ntuples/RunII_v2/Lumifile.root"/>
-
           <Item Name="use_sframe_weight" Value="false"/>
 
           <Item Name="channel" Value="&channel;"/>
-          <Item Name="trigger" Value="&HLT;"/>
 
-          <Item Name="AnalysisModule" Value="ZprimeSelectionModule"/>
+          <Item Name="AnalysisModule" Value="ZprimePostSelectionModule"/>
         </UserConfig>
 
     </Cycle>

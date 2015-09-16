@@ -1,114 +1,125 @@
 #include <iostream>
 #include <memory>
 
-#include "UHH2/core/include/AnalysisModule.h"
-#include "UHH2/core/include/Event.h"
-#include "UHH2/core/include/Selection.h"
-#include "UHH2/core/include/Utils.h"
+#include <UHH2/core/include/AnalysisModule.h>
+#include <UHH2/core/include/Event.h>
+#include <UHH2/core/include/Selection.h>
+#include <UHH2/core/include/Utils.h>
 
-#include "UHH2/common/include/NSelections.h"
-#include "UHH2/common/include/ObjectIdUtils.h"
-#include "UHH2/common/include/JetIds.h"
-#include "UHH2/common/include/ReconstructionHypothesisDiscriminators.h"
-#include "UHH2/common/include/HypothesisHists.h"
+#include <UHH2/common/include/NSelections.h>
+#include <UHH2/common/include/ObjectIdUtils.h>
+#include <UHH2/common/include/JetIds.h>
+#include <UHH2/common/include/ReconstructionHypothesisDiscriminators.h>
+#include <UHH2/common/include/HypothesisHists.h>
 
-#include "UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicSelections.h"
-#include "UHH2/ZprimeSemiLeptonic/include/ZprimePostSelectionHists.h"
+#include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicSelections.h>
+#include <UHH2/ZprimeSemiLeptonic/include/ZprimePostSelectionHists.h>
 
-using namespace uhh2;
+/** \brief module to produce "PostSelection" output for the Z'->ttbar semileptonic analysis
+ *
+ * -- ITEMS TO BE IMPLEMENTED:
+ *   * systematic uncertainties
+ *
+ */
+class ZprimePostSelectionModule : public uhh2::AnalysisModule {
 
-class ZprimePostSelectionModule: public AnalysisModule {
  public:
-  explicit ZprimePostSelectionModule(Context&);
-  virtual bool process(Event&) override;
+  explicit ZprimePostSelectionModule(uhh2::Context&);
+  virtual bool process(uhh2::Event&) override;
 
  private:
-  std::unique_ptr<AnalysisModule> ttgenprod;
-  Event::Handle<TTbarGen> h_ttbargen;
+  enum lepton { muon, elec };
+  lepton channel_;
 
-  Event::Handle<std::vector<ReconstructionHypothesis>> h_ttbar_hyps;
+  std::unique_ptr<uhh2::AnalysisModule> ttgenprod;
+  uhh2::Event::Handle<TTbarGen> h_ttbargen;
 
-  JetId btagAK4_wp;
-  Event::Handle<int> h_flag_toptagevent;
+  uhh2::Event::Handle<std::vector<ReconstructionHypothesis>> h_ttbar_hyps;
+
+  uhh2::Event::Handle<int> h_flag_toptagevent;
 
   // selections
-  std::unique_ptr<Selection> btagAK4_sel;
-  std::unique_ptr<Selection> leptoppt_sel;
-  std::unique_ptr<Selection> chi2_sel;
+  std::unique_ptr<uhh2::Selection> btagAK4_sel;
+  std::unique_ptr<uhh2::Selection> topleppt_sel;
+  std::unique_ptr<uhh2::Selection> chi2_sel;
 
   // hists
-  std::unique_ptr<Hists> hi_input;
-  std::unique_ptr<Hists> hi_input__hyp;
-  std::unique_ptr<Hists> hi_leptoppt;
-  std::unique_ptr<Hists> hi_leptoppt__hyp;
-  std::unique_ptr<Hists> hi_chi2;
-  std::unique_ptr<Hists> hi_chi2__hyp;
-  std::unique_ptr<Hists> hi_t0b0;
-  std::unique_ptr<Hists> hi_t0b0__hyp;
-  std::unique_ptr<Hists> hi_t0b1;
-  std::unique_ptr<Hists> hi_t0b1__hyp;
-  std::unique_ptr<Hists> hi_t1;
-  std::unique_ptr<Hists> hi_t1__hyp;
+  std::unique_ptr<uhh2::Hists> hi_input;
+  std::unique_ptr<uhh2::Hists> hi_input__hyp;
+  std::unique_ptr<uhh2::Hists> hi_topleppt;
+  std::unique_ptr<uhh2::Hists> hi_topleppt__hyp;
+  std::unique_ptr<uhh2::Hists> hi_chi2;
+  std::unique_ptr<uhh2::Hists> hi_chi2__hyp;
+  std::unique_ptr<uhh2::Hists> hi_t0b0;
+  std::unique_ptr<uhh2::Hists> hi_t0b0__hyp;
+  std::unique_ptr<uhh2::Hists> hi_t0b1;
+  std::unique_ptr<uhh2::Hists> hi_t0b1__hyp;
+  std::unique_ptr<uhh2::Hists> hi_t1;
+  std::unique_ptr<uhh2::Hists> hi_t1__hyp;
 };
 
-ZprimePostSelectionModule::ZprimePostSelectionModule(Context& ctx){
+ZprimePostSelectionModule::ZprimePostSelectionModule(uhh2::Context& ctx){
 
-  bool muon(false), elec(false);
-  const std::string channel(ctx.get("channel", ""));
-  if(channel == "muon") muon = true;
-  else if(channel == "electron") elec = true;
-  else throw std::runtime_error("undefined argument for 'channel' key in xml file (must be 'muon' or 'electron'): "+channel);
+  const std::string& channel = ctx.get("channel", "");
+  if     (channel == "muon") channel_ = muon;
+  else if(channel == "elec") channel_ = elec;
+  else throw std::runtime_error("ZprimePostSelectionModule -- undefined argument for 'channel' key in xml file (must be 'muon' or 'elec'): "+channel);
 
-  // ttbar GEN
-  ttgenprod.reset(new TTbarGenProducer(ctx, "ttbargen", false));
-  h_ttbargen = ctx.get_handle<TTbarGen>("ttbargen");
+  // TTBAR RECO
+  const std::string ttbar_gen_label ("ttbargen");
+  const std::string ttbar_hyps_label("TTbarReconstruction");
+  const std::string ttbar_chi2_label("Chi2");
 
-  // ttbar RECO hypotheses
-  h_ttbar_hyps = ctx.declare_event_input<std::vector<ReconstructionHypothesis>>("TTbarReconstruction");
+  /* GEN */
+  ttgenprod.reset(new TTbarGenProducer(ctx, ttbar_gen_label, false));
+  h_ttbargen = ctx.get_handle<TTbarGen>(ttbar_gen_label);
+
+  /* RECO */
+  h_ttbar_hyps = ctx.declare_event_input<std::vector<ReconstructionHypothesis>>(ttbar_hyps_label);
+  //
 
   // b-tagging
-  btagAK4_wp = CSVBTag(CSVBTag::WP_MEDIUM);
-  btagAK4_sel.reset(new NJetSelection(1, -1, btagAK4_wp));
+  btagAK4_sel.reset(new NJetSelection(1, -1, JetId(CSVBTag(CSVBTag::WP_MEDIUM))));
 
   // top-tagging flag (from ZprimeSelection ntuple)
   h_flag_toptagevent = ctx.declare_event_input<int>("flag_toptagevent");
 
   // SELECTION
-  if(elec) leptoppt_sel.reset(new LeptonicTopPtCut(ctx, 140., infinity, "TTbarReconstruction", "Chi2"));
-  else if(muon) leptoppt_sel.reset(new AndSelection(ctx));
+  if     (channel_ == elec) topleppt_sel.reset(new LeptonicTopPtCut(ctx, 140., uhh2::infinity, ttbar_hyps_label, ttbar_chi2_label));
+  else if(channel_ == muon) topleppt_sel.reset(new uhh2::AndSelection(ctx));
 
-  chi2_sel.reset(new HypothesisDiscriminatorCut(ctx, 0., 50., "TTbarReconstruction", "Chi2"));
+  chi2_sel.reset(new HypothesisDiscriminatorCut(ctx, 0., 50., ttbar_hyps_label, ttbar_chi2_label));
 
   // HISTS
   hi_input.reset(new ZprimePostSelectionHists(ctx, "input"));
-  hi_input__hyp.reset(new HypothesisHists(ctx, "input__hyp_chi2min", "TTbarReconstruction", "Chi2"));
+  hi_input__hyp.reset(new HypothesisHists    (ctx, "input__hyp_chi2min", ttbar_hyps_label, ttbar_chi2_label));
 
-  hi_leptoppt.reset(new ZprimePostSelectionHists(ctx, "leptoppt"));
-  hi_leptoppt__hyp.reset(new HypothesisHists(ctx, "leptoppt__hyp_chi2min", "TTbarReconstruction", "Chi2"));
+  hi_topleppt.reset(new ZprimePostSelectionHists(ctx, "topleppt"));
+  hi_topleppt__hyp.reset(new HypothesisHists    (ctx, "topleppt__hyp_chi2min", ttbar_hyps_label, ttbar_chi2_label));
 
   hi_chi2.reset(new ZprimePostSelectionHists(ctx, "chi2"));
-  hi_chi2__hyp.reset(new HypothesisHists(ctx, "chi2__hyp_chi2min", "TTbarReconstruction", "Chi2"));
+  hi_chi2__hyp.reset(new HypothesisHists    (ctx, "chi2__hyp_chi2min", ttbar_hyps_label, ttbar_chi2_label));
 
   hi_t0b0.reset(new ZprimePostSelectionHists(ctx, "t0b0"));
-  hi_t0b0__hyp.reset(new HypothesisHists(ctx, "t0b0__hyp_chi2min", "TTbarReconstruction", "Chi2"));
+  hi_t0b0__hyp.reset(new HypothesisHists    (ctx, "t0b0__hyp_chi2min", ttbar_hyps_label, ttbar_chi2_label));
 
   hi_t0b1.reset(new ZprimePostSelectionHists(ctx, "t0b1"));
-  hi_t0b1__hyp.reset(new HypothesisHists(ctx, "t0b1__hyp_chi2min", "TTbarReconstruction", "Chi2"));
+  hi_t0b1__hyp.reset(new HypothesisHists    (ctx, "t0b1__hyp_chi2min", ttbar_hyps_label, ttbar_chi2_label));
 
   hi_t1.reset(new ZprimePostSelectionHists(ctx, "t1"));
-  hi_t1__hyp.reset(new HypothesisHists(ctx, "t1__hyp_chi2min", "TTbarReconstruction", "Chi2"));
+  hi_t1__hyp.reset(new HypothesisHists    (ctx, "t1__hyp_chi2min", ttbar_hyps_label, ttbar_chi2_label));
 }
 
-bool ZprimePostSelectionModule::process(Event& event) {
+bool ZprimePostSelectionModule::process(uhh2::Event& event){
 
   hi_input->fill(event);
   hi_input__hyp->fill(event);
 
   //// LEPTONIC-TOP pt selection
-  bool pass_leptoppt = leptoppt_sel->passes(event);
-  if(!pass_leptoppt) return false;
-  hi_leptoppt->fill(event);
-  hi_leptoppt__hyp->fill(event);
+  bool pass_topleppt = topleppt_sel->passes(event);
+  if(!pass_topleppt) return false;
+  hi_topleppt->fill(event);
+  hi_topleppt__hyp->fill(event);
   ////
 
   //// CHI2 selection
@@ -118,8 +129,8 @@ bool ZprimePostSelectionModule::process(Event& event) {
   hi_chi2__hyp->fill(event);
   ////
 
-  bool btag(btagAK4_sel->passes(event));
-  bool toptag(event.get(h_flag_toptagevent));
+  const bool btag(btagAK4_sel->passes(event));
+  const bool toptag(event.get(h_flag_toptagevent));
 
   if(!toptag){
 

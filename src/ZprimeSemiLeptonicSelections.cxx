@@ -1,17 +1,18 @@
-#include "UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicSelections.h"
-#include "UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicUtils.h"
+#include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicSelections.h>
+#include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicUtils.h>
 
 #include <iostream>
 #include <memory>
 
-#include "UHH2/core/include/LorentzVector.h"
-#include "UHH2/common/include/ReconstructionHypothesisDiscriminators.h"
-#include "UHH2/common/include/Utils.h"
+#include <UHH2/core/include/LorentzVector.h>
+
+#include <UHH2/common/include/ReconstructionHypothesisDiscriminators.h>
+#include <UHH2/common/include/Utils.h>
 
 uhh2::HTlepCut::HTlepCut(float min_htlep, float max_htlep):
   min_htlep_(min_htlep), max_htlep_(max_htlep) {}
 
-bool uhh2::HTlepCut::passes(const uhh2::Event & event){
+bool uhh2::HTlepCut::passes(const uhh2::Event& event){
 
   float htlep = HTlep1(event);
 
@@ -22,7 +23,7 @@ bool uhh2::HTlepCut::passes(const uhh2::Event & event){
 uhh2::METCut::METCut(float min_met, float max_met):
   min_met_(min_met), max_met_(max_met) {}
 
-bool uhh2::METCut::passes(const uhh2::Event & event){
+bool uhh2::METCut::passes(const uhh2::Event& event){
 
   assert(event.met);
 
@@ -34,7 +35,7 @@ bool uhh2::METCut::passes(const uhh2::Event & event){
 uhh2::NJetCut::NJetCut(int nmin_, int nmax_, float ptmin_, float etamax_):
   nmin(nmin_), nmax(nmax_), ptmin(ptmin_), etamax(etamax_) {}
 
-bool uhh2::NJetCut::passes(const uhh2::Event & event){
+bool uhh2::NJetCut::passes(const uhh2::Event& event){
 
   int njet(0);
   for(auto & jet : *event.jets){
@@ -58,7 +59,7 @@ bool uhh2::TwoDCut1::passes(const uhh2::Event& event){
 }
 ////////////////////////////////////////////////////////
 
-bool uhh2::TwoDCutALL::passes(const uhh2::Event & event){
+bool uhh2::TwoDCutALL::passes(const uhh2::Event& event){
 
   assert(event.muons && event.electrons && event.jets);
 
@@ -84,7 +85,7 @@ bool uhh2::TwoDCutALL::passes(const uhh2::Event & event){
 }
 ////////////////////////////////////////////////////////
 
-bool uhh2::TwoDCut::passes(const uhh2::Event & event){
+bool uhh2::TwoDCut::passes(const uhh2::Event& event){
 
   assert(event.muons && event.electrons && event.jets);
   if((event.muons->size()+event.electrons->size()) != 1){
@@ -105,7 +106,7 @@ uhh2::TriangularCuts::TriangularCuts(float a, float b): a_(a), b_(b) {
   if(!b_) std::runtime_error("TriangularCuts -- incorrect initialization (parameter 'b' is null)");
 }
 
-bool uhh2::TriangularCuts::passes(const uhh2::Event & event){
+bool uhh2::TriangularCuts::passes(const uhh2::Event& event){
 
   assert(event.muons || event.electrons);
   assert(event.jets && event.met);
@@ -141,7 +142,7 @@ uhh2::TriangularCutsELE::TriangularCutsELE(float a, float b): a_(a), b_(b) {
   if(!b_) std::runtime_error("TriangularCuts -- incorrect initialization (parameter 'b' is null)");
 }
 
-bool uhh2::TriangularCutsELE::passes(const uhh2::Event & event){
+bool uhh2::TriangularCutsELE::passes(const uhh2::Event& event){
 
   assert(event.electrons);
   assert(event.jets && event.met);
@@ -168,7 +169,7 @@ bool uhh2::TriangularCutsELE::passes(const uhh2::Event & event){
 uhh2::DiLeptonSelection::DiLeptonSelection(const std::string& channel, const bool opposite_charge, const bool veto_other_flavor):
   channel_(channel), opposite_charge_(opposite_charge), veto_other_flavor_(veto_other_flavor) {}
 
-bool uhh2::DiLeptonSelection::passes(const uhh2::Event & event){ 
+bool uhh2::DiLeptonSelection::passes(const uhh2::Event& event){ 
 
   bool pass(false);
 
@@ -200,7 +201,7 @@ uhh2::TopTagEventSelection::TopTagEventSelection(const TopJetId& tjetID, float m
   topjet1_sel_.reset(new NTopJetSelection(1, -1, topjetID_));
 }
 
-bool uhh2::TopTagEventSelection::passes(const uhh2::Event & event){ 
+bool uhh2::TopTagEventSelection::passes(const uhh2::Event& event){ 
 
   if(!topjet1_sel_->passes(event)) return false;
 
@@ -233,7 +234,7 @@ bool uhh2::LeptonicTopPtCut::passes(const uhh2::Event& event){
 uhh2::HypothesisDiscriminatorCut::HypothesisDiscriminatorCut(uhh2::Context& ctx, float disc_min, float disc_max, const std::string& hyps_name, const std::string& disc_bhyp, const std::string& disc_cut):
   disc_min_(disc_min), disc_max_(disc_max), h_hyps_(ctx.get_handle<std::vector<ReconstructionHypothesis>>(hyps_name)), disc_bhyp_(disc_bhyp), disc_cut_(disc_cut) {}
 
-bool uhh2::HypothesisDiscriminatorCut::passes(const uhh2::Event & event){
+bool uhh2::HypothesisDiscriminatorCut::passes(const uhh2::Event& event){
 
   std::vector<ReconstructionHypothesis> hyps = event.get(h_hyps_);
   const ReconstructionHypothesis* hyp = get_best_hypothesis(hyps, disc_bhyp_);
@@ -242,5 +243,21 @@ bool uhh2::HypothesisDiscriminatorCut::passes(const uhh2::Event & event){
   float disc_val = hyp->discriminator(disc_cut_);
 
   return (disc_val > disc_min_) && (disc_val < disc_max_);
+}
+////////////////////////////////////////////////////////
+
+uhh2::GenMttbarCut::GenMttbarCut(uhh2::Context& ctx, const float mtt_min, const float mtt_max, const std::string& ttgen_name):
+  mttbar_min_(mtt_min), mttbar_max_(mtt_max), h_ttbargen_(ctx.get_handle<TTbarGen>(ttgen_name)) {}
+
+bool uhh2::GenMttbarCut::passes(const uhh2::Event& event){
+
+  const TTbarGen& ttbargen = event.get(h_ttbargen_);
+
+  if(ttbargen.DecayChannel() == TTbarGen::e_notfound)
+    std::runtime_error("GenMttbarCut::passes -- undefined decay-channel for TTbarGen object");
+
+  const float mttbargen = (ttbargen.Top().v4() + ttbargen.Antitop().v4()).M();
+
+  return (mttbar_min_ < mttbargen) && (mttbargen < mttbar_max_);
 }
 ////////////////////////////////////////////////////////

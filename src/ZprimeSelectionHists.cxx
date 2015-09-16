@@ -1,10 +1,12 @@
-#include "UHH2/ZprimeSemiLeptonic/include/ZprimeSelectionHists.h"
-#include "UHH2/core/include/Utils.h"
-#include "UHH2/common/include/Utils.h"
+#include <UHH2/ZprimeSemiLeptonic/include/ZprimeSelectionHists.h>
 
-ZprimeSelectionHists::ZprimeSelectionHists(uhh2::Context& ctx, const std::string& dirname): Hists(ctx, dirname){
+#include <UHH2/core/include/Utils.h>
 
-  wgt = book<TH1F>("weight", ";event weight", 120, 0, 12);
+#include <UHH2/common/include/Utils.h>
+
+ZprimeSelectionHists::ZprimeSelectionHists(uhh2::Context& ctx, const std::string& dirname): uhh2::Hists(ctx, dirname){
+
+  wgt = book<TH1F>("weight", ";event weight", 120, -6, 6);
 
   // PV
   pvN = book<TH1F>("pvN", ";# of primary vertices", 60, 0, 60);
@@ -71,7 +73,7 @@ void ZprimeSelectionHists::fill(const uhh2::Event& event){
   pvN->Fill(event.pvs->size(), weight);
 
   // MUON
-  int muo_n(event.muons->size());
+  const int muo_n(event.muons->size());
   muoN->Fill(muo_n, weight);
 
   for(int i=0; i<std::min(2, muo_n); ++i){
@@ -85,6 +87,7 @@ void ZprimeSelectionHists::fill(const uhh2::Event& event){
       if(uhh2::deltaR(p, tj) < minDR_topjet) minDR_topjet = uhh2::deltaR(p, tj);
 
     if(i == 0){
+
       muo1__pt->Fill(p.pt(), weight);
       muo1__eta->Fill(p.eta(), weight);
       muo1__minDR_jet->Fill(minDR_jet, weight);
@@ -92,6 +95,7 @@ void ZprimeSelectionHists::fill(const uhh2::Event& event){
       muo1__minDR_topjet->Fill(minDR_topjet, weight);
     }
     else if(i == 1){
+
       muo2__pt->Fill(p.pt(), weight);
       muo2__eta->Fill(p.eta(), weight);
       muo2__minDR_jet->Fill(minDR_jet, weight);
@@ -101,7 +105,7 @@ void ZprimeSelectionHists::fill(const uhh2::Event& event){
   }
 
   // ELECTRON
-  int ele_n(event.electrons->size());
+  const int ele_n(event.electrons->size());
   eleN->Fill(ele_n, weight);
 
   for(int i=0; i<std::min(2, ele_n); ++i){
@@ -115,6 +119,7 @@ void ZprimeSelectionHists::fill(const uhh2::Event& event){
       if(uhh2::deltaR(p, tj) < minDR_topjet) minDR_topjet = uhh2::deltaR(p, tj);
 
     if(i == 0){
+
       ele1__pt->Fill(p.pt(), weight);
       ele1__eta->Fill(p.eta(), weight);
       ele1__minDR_jet->Fill(minDR_jet, weight);
@@ -122,6 +127,7 @@ void ZprimeSelectionHists::fill(const uhh2::Event& event){
       ele1__minDR_topjet->Fill(minDR_topjet, weight);
     }
     else if(i == 1){
+
       ele2__pt->Fill(p.pt(), weight);
       ele2__eta->Fill(p.eta(), weight);
       ele2__minDR_jet->Fill(minDR_jet, weight);
@@ -131,38 +137,43 @@ void ZprimeSelectionHists::fill(const uhh2::Event& event){
   }
 
   // JET
-  int jet_n(event.jets->size());
+  const int jet_n(event.jets->size());
   jetN->Fill(jet_n, weight);
 
   for(int i=0; i<std::min(3, jet_n); ++i){
     const Particle& p = event.jets->at(i);
 
     if(i == 0){
+
       jet1__pt->Fill(p.pt(), weight);
       jet1__eta->Fill(p.eta(), weight);
     }
     else if(i == 1){
+
       jet2__pt->Fill(p.pt(), weight);
       jet2__eta->Fill(p.eta(), weight);
     }
     else if(i == 2){
+
       jet3__pt->Fill(p.pt(), weight);
       jet3__eta->Fill(p.eta(), weight);
     }
   }
 
   // TOPJET
-  int topjet_n(event.topjets->size());
+  const int topjet_n(event.topjets->size());
   topjetN->Fill(topjet_n, weight);
 
   for(int i=0; i<std::min(2, topjet_n); ++i){
     const Particle& p = event.topjets->at(i);
 
     if(i == 0){
+
       topjet1__pt->Fill(p.pt(), weight);
       topjet1__eta->Fill(p.eta(), weight);
     }
     else if(i == 1){
+
       topjet2__pt->Fill(p.pt(), weight);
       topjet2__eta->Fill(p.eta(), weight);
     }
@@ -179,7 +190,7 @@ void ZprimeSelectionHists::fill(const uhh2::Event& event){
   if(lep1) htlep__pt->Fill(event.met->pt()+lep1->pt(), weight);
 
   /* triangular cuts vars */
-  if(lep1) met_VS_dphi_lep1->Fill(event.met->pt(), fabs(uhh2::deltaPhi(*event.met, *lep1)), weight);
+  if(lep1)               met_VS_dphi_lep1->Fill(event.met->pt(), fabs(uhh2::deltaPhi(*event.met, *lep1))            , weight);
   if(event.jets->size()) met_VS_dphi_jet1->Fill(event.met->pt(), fabs(uhh2::deltaPhi(*event.met, event.jets->at(0))), weight);
 
   return;
