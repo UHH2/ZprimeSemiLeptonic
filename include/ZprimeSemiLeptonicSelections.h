@@ -1,13 +1,15 @@
 #pragma once
 
-#include "UHH2/core/include/Event.h"
-#include "UHH2/core/include/AnalysisModule.h"
-#include "UHH2/core/include/Selection.h"
-#include "UHH2/core/include/Utils.h"
-#include "UHH2/common/include/NSelections.h"
-#include "UHH2/common/include/ReconstructionHypothesis.h"
-#include "UHH2/common/include/ObjectIdUtils.h"
-#include "UHH2/common/include/TopJetIds.h"
+#include <UHH2/core/include/Event.h>
+#include <UHH2/core/include/AnalysisModule.h>
+#include <UHH2/core/include/Selection.h>
+#include <UHH2/core/include/Utils.h>
+
+#include <UHH2/common/include/NSelections.h>
+#include <UHH2/common/include/ReconstructionHypothesis.h>
+#include <UHH2/common/include/ObjectIdUtils.h>
+#include <UHH2/common/include/TopJetIds.h>
+#include <UHH2/common/include/TTbarGen.h>
 
 #include <string>
 #include <vector>
@@ -141,6 +143,17 @@ namespace uhh2 {
     Event::Handle<std::vector<ReconstructionHypothesis>> h_hyps_;
     std::string disc_bhyp_;
     std::string disc_cut_;
+  };
+  /////
+
+  class GenMttbarCut: public Selection {
+   public:
+    explicit GenMttbarCut(Context&, const float, const float, const std::string&);
+    virtual bool passes(const Event&) override;
+
+   private:
+    float mttbar_min_, mttbar_max_;
+    Event::Handle<TTbarGen> h_ttbargen_;
   };
   /////
 

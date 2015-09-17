@@ -1,10 +1,12 @@
-#include "UHH2/ZprimeSemiLeptonic/include/ZprimePostSelectionHists.h"
-#include "UHH2/core/include/Utils.h"
-#include "UHH2/common/include/Utils.h"
+#include <UHH2/ZprimeSemiLeptonic/include/ZprimePostSelectionHists.h>
 
-ZprimePostSelectionHists::ZprimePostSelectionHists(uhh2::Context& ctx, const std::string& dirname): Hists(ctx, dirname){
+#include <UHH2/core/include/Utils.h>
 
-  wgt = book<TH1F>("weight", ";event weight", 120, 0, 12);
+#include <UHH2/common/include/Utils.h>
+
+ZprimePostSelectionHists::ZprimePostSelectionHists(uhh2::Context& ctx, const std::string& dirname): uhh2::Hists(ctx, dirname){
+
+  wgt = book<TH1F>("weight", ";event weight", 120, -6, 6);
 
   // PV
   pvN = book<TH1F>("pvN", ";# of primary vertices", 60, 0, 60);
@@ -61,10 +63,11 @@ void ZprimePostSelectionHists::fill(const uhh2::Event& event){
   pvN->Fill(event.pvs->size(), weight);
 
   // MUON
-  int muo_n(event.muons->size());
+  const int muo_n(event.muons->size());
   muoN->Fill(muo_n, weight);
 
   if(muo_n){
+
     const Particle& p = event.muons->at(0);
 
     float minDR_jet(-1.), pTrel_jet(-1.);
@@ -82,10 +85,11 @@ void ZprimePostSelectionHists::fill(const uhh2::Event& event){
   }
 
   // ELECTRON
-  int ele_n(event.electrons->size());
+  const int ele_n(event.electrons->size());
   eleN->Fill(ele_n, weight);
 
   if(ele_n){
+
     const Particle& p = event.electrons->at(0);
 
     float minDR_jet(-1.), pTrel_jet(-1.);
@@ -103,45 +107,50 @@ void ZprimePostSelectionHists::fill(const uhh2::Event& event){
   }
 
   // JET
-  int jet_n(event.jets->size());
+  const int jet_n(event.jets->size());
   jetN->Fill(jet_n, weight);
 
   for(int i=0; i<std::min(3, jet_n); ++i){
     const Particle& p = event.jets->at(i);
 
     if(i == 0){
-      jet1__pt->Fill(p.pt(), weight);
+
+      jet1__pt ->Fill(p.pt() , weight);
       jet1__eta->Fill(p.eta(), weight);
     }
     else if(i == 1){
-      jet2__pt->Fill(p.pt(), weight);
+
+      jet2__pt ->Fill(p.pt() , weight);
       jet2__eta->Fill(p.eta(), weight);
     }
     else if(i == 2){
-      jet3__pt->Fill(p.pt(), weight);
+
+      jet3__pt ->Fill(p.pt() , weight);
       jet3__eta->Fill(p.eta(), weight);
     }
   }
 
   // TOPJET
-  int topjet_n(event.topjets->size());
+  const int topjet_n(event.topjets->size());
   topjetN->Fill(topjet_n, weight);
 
   for(int i=0; i<std::min(2, topjet_n); ++i){
     const Particle& p = event.topjets->at(i);
 
     if(i == 0){
-      topjet1__pt->Fill(p.pt(), weight);
+
+      topjet1__pt ->Fill(p.pt() , weight);
       topjet1__eta->Fill(p.eta(), weight);
     }
     else if(i == 1){
-      topjet2__pt->Fill(p.pt(), weight);
+
+      topjet2__pt ->Fill(p.pt() , weight);
       topjet2__eta->Fill(p.eta(), weight);
     }
   }
 
   // MET
-  met__pt->Fill(event.met->pt(), weight);
+  met__pt ->Fill(event.met->pt() , weight);
   met__phi->Fill(event.met->phi(), weight);
 
   const Particle* lep1(0);
@@ -151,7 +160,7 @@ void ZprimePostSelectionHists::fill(const uhh2::Event& event){
   if(lep1) htlep__pt->Fill(event.met->pt()+lep1->pt(), weight);
 
   /* triangular cuts vars */
-  if(lep1) met_VS_dphi_lep1->Fill(event.met->pt(), fabs(uhh2::deltaPhi(*event.met, *lep1)), weight);
+  if(lep1)               met_VS_dphi_lep1->Fill(event.met->pt(), fabs(uhh2::deltaPhi(*event.met, *lep1))            , weight);
   if(event.jets->size()) met_VS_dphi_jet1->Fill(event.met->pt(), fabs(uhh2::deltaPhi(*event.met, event.jets->at(0))), weight);
 
   return;
