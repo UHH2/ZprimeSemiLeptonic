@@ -64,8 +64,6 @@ class ZprimePreSelectionModule : public uhh2::AnalysisModule {
   std::unique_ptr<uhh2::Hists> output_h_ele;
   std::unique_ptr<uhh2::Hists> output_h_jet;
   std::unique_ptr<uhh2::Hists> output_h_topjet;
-
-  bool fix_NLO_wgt_;
 };
 
 ZprimePreSelectionModule::ZprimePreSelectionModule(uhh2::Context& ctx){
@@ -123,22 +121,9 @@ ZprimePreSelectionModule::ZprimePreSelectionModule(uhh2::Context& ctx){
   output_h_jet   .reset(new JetHists     (ctx, "output_Jets"));
   output_h_topjet.reset(new TopJetHists  (ctx, "output_TopJets"));
   ///
-
-  // fix for NLO weight
-  fix_NLO_wgt_ = false;
-  fix_NLO_wgt_ |= (ctx.get("dataset_version") == "WJets");
-  fix_NLO_wgt_ |= (ctx.get("dataset_version") == "ZJets");
 }
 
 bool ZprimePreSelectionModule::process(Event & event) {
-
-  if(fix_NLO_wgt_){
-
-    if(!event.genInfo) throw std::runtime_error("ZprimePreSelectionModule::process -- error in fixing NLO weight: failed to access Event::genInfo (null pointer)");
-
-    if(event.genInfo->weights().size() != 1) throw std::runtime_error("ZprimePreSelectionModule::process -- error in fixing NLO weight: genInfo->weights().size() != 1");
-    event.weight /= fabs(event.genInfo->weights().at(0));
-  }
 
   // dump input content
   input_h_event ->fill(event);

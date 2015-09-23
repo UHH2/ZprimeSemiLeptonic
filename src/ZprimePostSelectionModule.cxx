@@ -56,8 +56,6 @@ class ZprimePostSelectionModule : public uhh2::AnalysisModule {
   std::unique_ptr<uhh2::Hists> hi_t0b1__hyp;
   std::unique_ptr<uhh2::Hists> hi_t1;
   std::unique_ptr<uhh2::Hists> hi_t1__hyp;
-
-  bool fix_NLO_wgt_;
 };
 
 ZprimePostSelectionModule::ZprimePostSelectionModule(uhh2::Context& ctx){
@@ -111,22 +109,9 @@ ZprimePostSelectionModule::ZprimePostSelectionModule(uhh2::Context& ctx){
   hi_t1.reset(new ZprimePostSelectionHists(ctx, "t1"));
   hi_t1__hyp.reset(new HypothesisHists    (ctx, "t1__hyp_chi2min", ttbar_hyps_label, ttbar_chi2_label));
   ///
-
-  // fix for NLO weight
-  fix_NLO_wgt_ = false;
-  fix_NLO_wgt_ |= (ctx.get("dataset_version") == "WJets");
-  fix_NLO_wgt_ |= (ctx.get("dataset_version") == "ZJets");
 }
 
 bool ZprimePostSelectionModule::process(uhh2::Event& event){
-
-  if(fix_NLO_wgt_){
-
-    if(!event.genInfo) throw std::runtime_error("ZprimePostSelectionModule::process -- error in fixing NLO weight: failed to access Event::genInfo (null pointer)");
-
-    if(event.genInfo->weights().size() != 1) throw std::runtime_error("ZprimePostSelectionModule::process -- error in fixing NLO weight: genInfo->weights().size() != 1");
-    event.weight /= fabs(event.genInfo->weights().at(0));
-  }
 
   hi_input->fill(event);
   hi_input__hyp->fill(event);
