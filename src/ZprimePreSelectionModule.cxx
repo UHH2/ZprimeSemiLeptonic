@@ -120,7 +120,6 @@ ZprimePreSelectionModule::ZprimePreSelectionModule(uhh2::Context& ctx){
   output_h_ele   .reset(new ElectronHists(ctx, "output_Electrons"));
   output_h_jet   .reset(new JetHists     (ctx, "output_Jets"));
   output_h_topjet.reset(new TopJetHists  (ctx, "output_TopJets"));
-  ///
 }
 
 bool ZprimePreSelectionModule::process(Event & event) {

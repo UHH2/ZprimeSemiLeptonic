@@ -108,7 +108,6 @@ ZprimePostSelectionModule::ZprimePostSelectionModule(uhh2::Context& ctx){
 
   hi_t1.reset(new ZprimePostSelectionHists(ctx, "t1"));
   hi_t1__hyp.reset(new HypothesisHists    (ctx, "t1__hyp_chi2min", ttbar_hyps_label, ttbar_chi2_label));
-  ///
 }
 
 bool ZprimePostSelectionModule::process(uhh2::Event& event){
