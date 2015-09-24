@@ -114,8 +114,6 @@ class ZprimeSelectionModule : public uhh2::AnalysisModule {
   std::unique_ptr<uhh2::Hists> toptagevt_h;
   std::unique_ptr<uhh2::Hists> chi2min_toptag0_h;
   std::unique_ptr<uhh2::Hists> chi2min_toptag1_h;
-
-  bool fix_NLO_wgt_;
 };
 
 ZprimeSelectionModule::ZprimeSelectionModule(uhh2::Context& ctx){
@@ -245,22 +243,9 @@ ZprimeSelectionModule::ZprimeSelectionModule(uhh2::Context& ctx){
   chi2min_toptag0_h.reset(new HypothesisHists(ctx, "chi2min_toptag0__HypHists", ttbar_hyps_label, ttbar_chi2_label));
   chi2min_toptag1_h.reset(new HypothesisHists(ctx, "chi2min_toptag1__HypHists", ttbar_hyps_label, ttbar_chi2_label));
   ////
-
-  // fix for NLO weight
-  fix_NLO_wgt_ = false;
-  fix_NLO_wgt_ |= (ctx.get("dataset_version") == "WJets");
-  fix_NLO_wgt_ |= (ctx.get("dataset_version") == "ZJets");
 }
 
 bool ZprimeSelectionModule::process(uhh2::Event& event){
-
-  if(fix_NLO_wgt_){
-
-    if(!event.genInfo) throw std::runtime_error("ZprimeSelectionModule::process -- error in fixing NLO weight: failed to access Event::genInfo (null pointer)");
-
-    if(event.genInfo->weights().size() != 1) throw std::runtime_error("ZprimeSelectionModule::process -- error in fixing NLO weight: genInfo->weights().size() != 1");
-    event.weight /= fabs(event.genInfo->weights().at(0));
-  }
 
   if(!event.isRealData){
 
