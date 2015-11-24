@@ -38,7 +38,7 @@ uhh2::NJetCut::NJetCut(int nmin_, int nmax_, float ptmin_, float etamax_):
 bool uhh2::NJetCut::passes(const uhh2::Event& event){
 
   int njet(0);
-  for(auto & jet : *event.jets){
+  for(const auto& jet : *event.jets){
     if(jet.pt() > ptmin && fabs(jet.eta()) < etamax) ++njet;
   }
 
@@ -101,11 +101,6 @@ bool uhh2::TwoDCut::passes(const uhh2::Event& event){
 }
 ////////////////////////////////////////////////////////
 
-uhh2::TriangularCuts::TriangularCuts(float a, float b): a_(a), b_(b) {
-
-  if(!b_) std::runtime_error("TriangularCuts -- incorrect initialization (parameter 'b' is null)");
-}
-
 bool uhh2::TriangularCuts::passes(const uhh2::Event& event){
 
   assert(event.muons || event.electrons);
@@ -128,19 +123,14 @@ bool uhh2::TriangularCuts::passes(const uhh2::Event& event){
   const Particle* jet1 = &event.jets->at(0);
 
   // MET-lepton triangular cut
-  bool pass_tc_lep = fabs(fabs(deltaPhi(*event.met, *lep1)) - a_) < a_/b_ * event.met->pt();
+  bool pass_tc_lep = fabs(fabs(deltaPhi(*event.met, *lep1)) - a_) < b_ * event.met->pt();
 
   // MET-jet triangular cut
-  bool pass_tc_jet = fabs(fabs(deltaPhi(*event.met, *jet1)) - a_) < a_/b_ * event.met->pt();
+  bool pass_tc_jet = fabs(fabs(deltaPhi(*event.met, *jet1)) - a_) < b_ * event.met->pt();
 
   return pass_tc_lep && pass_tc_jet;
 }
 ////////////////////////////////////////////////////////
-
-uhh2::TriangularCutsELE::TriangularCutsELE(float a, float b): a_(a), b_(b) {
-
-  if(!b_) std::runtime_error("TriangularCuts -- incorrect initialization (parameter 'b' is null)");
-}
 
 bool uhh2::TriangularCutsELE::passes(const uhh2::Event& event){
 
@@ -157,10 +147,10 @@ bool uhh2::TriangularCutsELE::passes(const uhh2::Event& event){
   const Particle* jet1 = &event.jets->at(0);
 
   // MET-lepton triangular cut
-  bool pass_tc_lep = fabs(fabs(deltaPhi(*event.met, *lep1)) - a_) < a_/b_ * event.met->pt();
+  bool pass_tc_lep = fabs(fabs(deltaPhi(*event.met, *lep1)) - a_) < b_ * event.met->pt();
 
   // MET-jet triangular cut
-  bool pass_tc_jet = fabs(fabs(deltaPhi(*event.met, *jet1)) - a_) < a_/b_ * event.met->pt();
+  bool pass_tc_jet = fabs(fabs(deltaPhi(*event.met, *jet1)) - a_) < b_ * event.met->pt();
 
   return pass_tc_lep && pass_tc_jet;
 }
@@ -189,13 +179,13 @@ bool uhh2::DiLeptonSelection::passes(const uhh2::Event& event){
     if(pass && opposite_charge_)   pass &= ((event.electrons->at(0).charge() * event.electrons->at(1).charge()) == -1);
     if(pass && veto_other_flavor_) pass &= (event.muons->size() == 0);
   }
-  else std::runtime_error("DiLeptonSelection::passes -- undefined key for lepton channel: "+channel_);
+  else throw std::runtime_error("DiLeptonSelection::passes -- undefined key for lepton channel: "+channel_);
 
   return pass;
 }
 ////////////////////////////////////////////////////////
 
-uhh2::TopTagEventSelection::TopTagEventSelection(const TopJetId& tjetID, float minDR_jet_ttag):
+uhh2::TopTagEventSelection::TopTagEventSelection(const TopJetId& tjetID, const float minDR_jet_ttag):
   topjetID_(tjetID), minDR_jet_toptag_(minDR_jet_ttag) {
 
   topjet1_sel_.reset(new NTopJetSelection(1, -1, topjetID_));
@@ -205,11 +195,13 @@ bool uhh2::TopTagEventSelection::passes(const uhh2::Event& event){
 
   if(!topjet1_sel_->passes(event)) return false;
 
-  for(auto & topjet : * event.topjets){
+  for(const auto& topjet : *event.topjets){
+
     if(!topjetID_(topjet, event)) continue;
 
-    for(auto & jet : * event.jets)
+    for(const auto& jet : *event.jets){
       if(deltaR(jet, topjet) > minDR_jet_toptag_) return true;
+    }
   }
 
   return false;
@@ -221,11 +213,12 @@ uhh2::LeptonicTopPtCut::LeptonicTopPtCut(uhh2::Context& ctx, float pt_min, float
 
 bool uhh2::LeptonicTopPtCut::passes(const uhh2::Event& event){
 
-  std::vector<ReconstructionHypothesis> hyps = event.get(h_hyps_);
+  const std::vector<ReconstructionHypothesis>& hyps = event.get(h_hyps_);
+
   const ReconstructionHypothesis* hyp = get_best_hypothesis(hyps, disc_name_);
   if(!hyp) std::runtime_error("LeptonicTopPtCut -- best hypothesis not found (discriminator="+disc_name_+")");
 
-  float tlep_pt = hyp->toplep_v4().Pt();
+  const float tlep_pt = hyp->toplep_v4().Pt();
 
   return (tlep_pt > tlep_pt_min_) && (tlep_pt < tlep_pt_max_);
 }
@@ -236,11 +229,12 @@ uhh2::HypothesisDiscriminatorCut::HypothesisDiscriminatorCut(uhh2::Context& ctx,
 
 bool uhh2::HypothesisDiscriminatorCut::passes(const uhh2::Event& event){
 
-  std::vector<ReconstructionHypothesis> hyps = event.get(h_hyps_);
+  const std::vector<ReconstructionHypothesis>& hyps = event.get(h_hyps_);
+
   const ReconstructionHypothesis* hyp = get_best_hypothesis(hyps, disc_bhyp_);
   if(!hyp) std::runtime_error("HypothesisDiscriminatorCut -- best hypothesis not found (discriminator="+disc_bhyp_+")");
 
-  float disc_val = hyp->discriminator(disc_cut_);
+  const float disc_val = hyp->discriminator(disc_cut_);
 
   return (disc_val > disc_min_) && (disc_val < disc_max_);
 }
@@ -253,11 +247,82 @@ bool uhh2::GenMttbarCut::passes(const uhh2::Event& event){
 
   const TTbarGen& ttbargen = event.get(h_ttbargen_);
 
-  if(ttbargen.DecayChannel() == TTbarGen::e_notfound)
-    throw std::runtime_error("GenMttbarCut::passes -- undefined decay-channel for TTbarGen object");
+  if(ttbargen.DecayChannel() == TTbarGen::e_notfound){
+
+    return true;
+//!!    throw std::runtime_error("GenMttbarCut::passes -- undefined decay-channel for TTbarGen object");
+  }
 
   const float mttbargen = (ttbargen.Top().v4() + ttbargen.Antitop().v4()).M();
 
   return (mttbar_min_ < mttbargen) && (mttbargen < mttbar_max_);
+}
+////////////////////////////////////////////////////////
+
+uhh2::GenFlavorSelection::GenFlavorSelection(const std::string& flav_key){
+
+  flavor_key_ = flav_key;
+
+  if(flavor_key_ != "l" && flavor_key_ != "c" && flavor_key_ != "b")
+    throw std::runtime_error("GenFlavorSelection::GenFlavorSelection -- undefined key for parton flavor (must be 'l', 'c' or 'b'): "+flavor_key_);
+}
+
+bool uhh2::GenFlavorSelection::passes(const uhh2::Event& event){ 
+
+  bool pass(false);
+
+  assert(event.genparticles);
+
+  int bottomN(0), charmN(0);
+  for(const auto& genp : *event.genparticles){
+
+    if(!(20 <= genp.status() && genp.status() <= 30)) continue;
+    if(genp.mother1() == (unsigned short)(-1)) continue;
+    if(genp.mother2() == (unsigned short)(-1)) continue;
+
+    const int id = genp.pdgId();
+
+    if(std::abs(id) == 5) ++bottomN;
+    if(std::abs(id) == 4) ++charmN;
+  }
+
+  if     (flavor_key_ == "b") pass = (bottomN >= 1);
+  else if(flavor_key_ == "c") pass = (bottomN == 0 && charmN >= 1);
+  else if(flavor_key_ == "l") pass = (bottomN == 0 && charmN == 0);
+  else throw std::runtime_error("GenFlavorSelection::GenFlavorSelection -- undefined key for parton flavor (must be 'l', 'c' or 'b'): "+flavor_key_);
+
+  return pass;
+}
+////////////////////////////////////////////////////////
+
+uhh2::JetFlavorSelection::JetFlavorSelection(const std::string& flav_key){
+
+  flavor_key_ = flav_key;
+
+  if(flavor_key_ != "l" && flavor_key_ != "c" && flavor_key_ != "b")
+    throw std::runtime_error("JetFlavorSelection::JetFlavorSelection -- undefined key for jet flavor (must be 'l', 'c' or 'b'): "+flavor_key_);
+}
+
+bool uhh2::JetFlavorSelection::passes(const uhh2::Event& event){ 
+
+  bool pass(false);
+
+  assert(event.jets);
+
+  int bottomN(0), charmN(0);
+  for(const auto& j : *event.jets){
+
+    const int id = j.hadronFlavor();
+
+    if(std::abs(id) == 5) ++bottomN;
+    if(std::abs(id) == 4) ++charmN;
+  }
+
+  if     (flavor_key_ == "b") pass = (bottomN >= 1);
+  else if(flavor_key_ == "c") pass = (bottomN == 0 && charmN >= 1);
+  else if(flavor_key_ == "l") pass = (bottomN == 0 && charmN == 0);
+  else throw std::runtime_error("JetFlavorSelection::JetFlavorSelection -- undefined key for jet flavor (must be 'l', 'c' or 'b'): "+flavor_key_);
+
+  return pass;
 }
 ////////////////////////////////////////////////////////
