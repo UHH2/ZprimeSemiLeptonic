@@ -8,7 +8,7 @@
 #include <limits>
 #include <algorithm>
 
-weightcalc_ttagging::weightcalc_ttagging(const std::string& sfac_csvfile, const std::string& ttagWP_key,
+weightcalc_ttagging::weightcalc_ttagging(const std::string& sfac_csvfile , const std::string& ttagWP_key,
                                          const std::string& meas_key_jetL, const std::string& meas_key_jetT,
                                          const std::string& syst_key_jetL, const std::string& syst_key_jetT,
                                          const std::string& effyTF, const std::string& effyTG__jetL, const std::string& effyTG__jetT){
@@ -52,19 +52,21 @@ weightcalc_ttagging::~weightcalc_ttagging(){
   if(effy__tfile_) effy__tfile_->Close();
 }
 
-void weightcalc_ttagging::load_SFac(const std::string&, const std::string& sfac_csvfile){
+void weightcalc_ttagging::load_SFac(const std::string& ttagWP_key, const std::string& sfac_csvfile){
 
   // scale-factors
-  int op_point(-1);
-
-  op_point = 0;
-//!!  if     (ttagWP_key == "WP0") op_point = 0;
-//!!  else throw std::runtime_error("weightcalc_ttagging::load_SFac -- invalid key for t-tagging working point: "+ttagWP_key);
+  const std::string op_point(ttagWP_key);
 
   if(ttagSF_vec_.size()) throw std::runtime_error("weightcalc_ttagging::load_SFac -- logic error: list of b-tagging SF values not empty");
 
   std::ifstream csv_file;
-  csv_file.open(sfac_csvfile.c_str()); {
+  csv_file.open(sfac_csvfile.c_str());
+
+  if(csv_file.fail()){
+
+    throw std::runtime_error("weightcalc_ttagging::load_SFac -- failed to locate input file: "+sfac_csvfile);
+  }
+  else {
 
     csv_file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
@@ -112,7 +114,7 @@ void weightcalc_ttagging::load_SFac(const std::string&, const std::string& sfac_
     std::string log("");
     log += "weightcalc_ttagging::load_SFac";
     log += " -- logic error: no entries in the list of t-tagging SF:";
-    log +=     " operating_point="+std::to_string(op_point);
+    log +=     " operating_point="+op_point;
     log += " measurement_type(L)="+measurement_type__jetL_;
     log += " measurement_type(T)="+measurement_type__jetT_;
     log +=          " sys_key(L)="+sys_key__jetL_;
@@ -221,16 +223,9 @@ float weightcalc_ttagging::jet_effy(const TopJet& jet_, const uhh2::Event& evt_)
       const float pt_lo = (x-geff->GetErrorXlow(i));
       const float pt_hi = (x+geff->GetErrorXhigh(i));
 
-      if(pt_lo<jet_PT && jet_PT<pt_hi ){ eff = y; break; }
-
-      else if(jet_PT <= pt_lo){
-
-        if(pt_lo < pt_min){ eff = y; pt_min = pt_lo; }
-      }
-      else if((jet_PT >= pt_hi)){
-
-        if(pt_hi > pt_max){ eff = y; pt_max = pt_hi; }
-      }
+      if     (pt_lo <  jet_PT && jet_PT < pt_hi){ eff = y; break; }
+      else if(pt_lo >= jet_PT && pt_min > pt_lo){ eff = y; pt_min = pt_lo; }
+      else if(pt_hi <= jet_PT && pt_max < pt_hi){ eff = y; pt_max = pt_hi; }
     }
   }
 
@@ -248,11 +243,10 @@ float weightcalc_ttagging::jet_SFac(const TopJet& jet_, const uhh2::Event& evt_)
   else if(std::abs(jetFlavor) == 0) jet_FLAV = 2;
   else throw std::runtime_error("weightcalc_ttagging::jet_effy -- failed to locate graph for jet b-tagging efficiency: "+std::to_string(jetFlavor));
 
-  const float jet_PT  = jet_.pt();
+  const float jet_pt  = jet_.pt();
   const float jet_ETA = jet_.eta();
 
-
-  float sf(1.); {
+  float jet_PT(jet_pt), sf(1.); {
 
     int idx(-1); {
 
@@ -268,16 +262,9 @@ float weightcalc_ttagging::jet_SFac(const TopJet& jet_, const uhh2::Event& evt_)
             const float pt_lo = ttag_sf.ptMin;
             const float pt_hi = ttag_sf.ptMax;
 
-            if(pt_lo<jet_PT && jet_PT<pt_hi){ idx = i; break; }
-
-            else if(jet_PT <= pt_lo){
-
-              if(pt_lo < pt_min){ idx = i; pt_min = pt_lo; }
-            }
-            else if((jet_PT >= pt_hi)){
-
-              if(pt_hi > pt_max){ idx = i; pt_max = pt_hi; }
-            }
+            if     (pt_lo <  jet_pt && jet_pt <  pt_hi){ idx = i; jet_PT = jet_pt; break; }
+            else if(pt_lo >= jet_pt && pt_min >= pt_lo){ idx = i; jet_PT = pt_lo; pt_min = pt_lo; }
+            else if(pt_hi <= jet_pt && pt_max <= pt_hi){ idx = i; jet_PT = pt_hi; pt_max = pt_hi; }
           }
         }
       }

@@ -12,7 +12,7 @@
 -->
 
   <!ENTITY PROOFdir "/nfs/dust/cms/user/missirol/PROOF">
-  <!ENTITY OUTdir   "/nfs/dust/cms/user/missirol/Analysis7XY/ttbar_semilep_13TeV/run2_25ns/v02/ttbarLJAnalysis/151123/&KEYW;/&channel;">
+  <!ENTITY OUTdir   "/nfs/dust/cms/user/missirol/Analysis7XY/ttbar_semilep_13TeV/run2_25ns/v02/ttbarLJAnalysis/151129/&KEYW;/&channel;">
 
 
   <!ENTITY SingleMU                    SYSTEM  "&SKIdir;/DATA.SingleMU.xml">
@@ -131,10 +131,10 @@
     <Library Name="libSUHH2ZprimeSemiLeptonic"/>
     <Package Name="SUHH2ZprimeSemiLeptonic.par"/>
 
-    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTdir;/" PostFix="" TargetLumi="1" >
+    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTdir;/" PostFix="" TargetLumi="1">
 <!--
-    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTdir;/" PostFix="" TargetLumi="1" RunMode="PROOF" ProofServer="lite://" ProofWorkDir="&PROOFdir;/" ProofNodes="15" >
-    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTdir;/" PostFix="" TargetLumi="1" RunMode="PROOF" ProofServer="pod://" ProofWorkDir="&PROOFdir;/" >
+    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTdir;/" PostFix="" TargetLumi="1" RunMode="PROOF" ProofServer="lite://" ProofWorkDir="&PROOFdir;/" ProofNodes="15">
+    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTdir;/" PostFix="" TargetLumi="1" RunMode="PROOF" ProofServer="pod://"  ProofWorkDir="&PROOFdir;/">
 -->
 
       <InputData Version="SingleMU" Lumi="1" Type="DATA" NEventsMax="&NEVT;" Cacheable="False">
@@ -457,22 +457,22 @@
 
 
         <Item Name="pileup_MC"      Value="/nfs/dust/cms/user/missirol/Analysis7XY/utils/pileup/pileupMC__25ns_Startup.root"/>
-        <Item Name="pileup_DATA_ct" Value="/nfs/dust/cms/user/missirol/Analysis7XY/utils/pileup/pileupDATA__Cert_246908-260627_13TeV_PromptReco_Collisions15_25ns_JSON_Silver__max52_n52_69000.root"/>
-        <Item Name="pileup_DATA_up" Value="/nfs/dust/cms/user/missirol/Analysis7XY/utils/pileup/pileupDATA__Cert_246908-260627_13TeV_PromptReco_Collisions15_25ns_JSON_Silver__max52_n52_72450.root"/>
-        <Item Name="pileup_DATA_dn" Value="/nfs/dust/cms/user/missirol/Analysis7XY/utils/pileup/pileupDATA__Cert_246908-260627_13TeV_PromptReco_Collisions15_25ns_JSON_Silver__max52_n52_65550.root"/>
+        <Item Name="pileup_DATA_ct" Value="/nfs/dust/cms/user/missirol/Analysis7XY/utils/pileup/pileupDATA__Cert_246908-260627_13TeV_PromptReco_Collisions15_25ns_JSON_Silver__max52_n52_72000.root"/>
+        <Item Name="pileup_DATA_up" Value="/nfs/dust/cms/user/missirol/Analysis7XY/utils/pileup/pileupDATA__Cert_246908-260627_13TeV_PromptReco_Collisions15_25ns_JSON_Silver__max52_n52_75600.root"/>
+        <Item Name="pileup_DATA_dn" Value="/nfs/dust/cms/user/missirol/Analysis7XY/utils/pileup/pileupDATA__Cert_246908-260627_13TeV_PromptReco_Collisions15_25ns_JSON_Silver__max52_n52_68400.root"/>
 
         <Item Name="btag_wp"        Value="CSVM"/>
-        <Item Name="btag_SFs"       Value="/nfs/dust/cms/user/missirol/Analysis7XY/utils/btagging/btagSF__CSVv2__25ns__151120.csv"/>
-        <Item Name="btag_eff"       Value="/nfs/dust/cms/user/missirol/Analysis7XY/utils/btagging/btagEFFY__CSVv2__25ns__151101.root"/>
-        <Item Name="btag_eff__jetL" Value="muon/ttbar/chi2__BTAG/CSVM/jetA__pt__l"/>
-        <Item Name="btag_eff__jetC" Value="muon/ttbar/chi2__BTAG/CSVM/jetA__pt__c"/>
-        <Item Name="btag_eff__jetB" Value="muon/ttbar/chi2__BTAG/CSVM/jetA__pt__b"/>
+        <Item Name="btag_SFs"       Value="/nfs/dust/cms/user/missirol/Analysis7XY/utils/btagging/btagSFAC__CSVv2__25ns__151128__mod.csv"/>
+        <Item Name="btag_eff"       Value="/nfs/dust/cms/user/missirol/Analysis7XY/utils/btagging/btagEFFY__CSVv2__25ns__151128.root"/>
+        <Item Name="btag_eff__jetL" Value="&channel;/wjets/chi2__BTAG/CSVM/jetA__pt__l"/>
+        <Item Name="btag_eff__jetC" Value="&channel;/ttbar/chi2__BTAG/CSVM/jetA__pt__c"/>
+        <Item Name="btag_eff__jetB" Value="&channel;/ttbar/chi2__BTAG/CSVM/jetA__pt__b"/>
 
-        <Item Name="ttag_wp"        Value="mr003_wp1"/>
-        <Item Name="ttag_SFs"       Value="/nfs/dust/cms/user/missirol/Analysis7XY/utils/ttagging/ttagSF__CMSTT__25ns__151110.csv"/>
-        <Item Name="ttag_eff"       Value="/nfs/dust/cms/user/missirol/Analysis7XY/utils/ttagging/ttagEFFY__CMSTT__25ns__151101.root"/>
-        <Item Name="ttag_eff__jetL" Value="muon/ttbar/chi2__TTAG/tjetA__pt__l"/>
-        <Item Name="ttag_eff__jetT" Value="muon/ttbar/chi2__TTAG/tjetA__pt__t"/>
+        <Item Name="ttag_wp"        Value="mr030_wp1"/>
+        <Item Name="ttag_SFs"       Value="/nfs/dust/cms/user/missirol/Analysis7XY/utils/ttagging/ttagSFAC__SDTT_mr030_wp1__151127.csv"/>
+        <Item Name="ttag_eff"       Value="/nfs/dust/cms/user/missirol/Analysis7XY/utils/ttagging/ttagEFFY__SDTT_mr030_wp1__151127.root"/>
+        <Item Name="ttag_eff__jetL" Value="&channel;/wjets/kine__TTAG/tjetA__pt__l"/>
+        <Item Name="ttag_eff__jetT" Value="&channel;/ttbar/kine__TTAG/tjetA__pt__t"/>
 
 
         <Item Name="AnalysisModule" Value="TTbarLJAnalysisLiteModule"/>

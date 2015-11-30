@@ -73,7 +73,13 @@ void weightcalc_btagging::load_SFac(const std::string& btagWP_key, const std::st
   if(btagSF_vec_.size()) throw std::runtime_error("weightcalc_btagging::load_SFac -- logic error: list of b-tagging SF values not empty");
 
   std::ifstream csv_file;
-  csv_file.open(sfac_csvfile.c_str()); {
+  csv_file.open(sfac_csvfile.c_str());
+
+  if(csv_file.fail()){
+
+    throw std::runtime_error("weightcalc_btagging::load_SFac -- failed to locate input file: "+sfac_csvfile);
+  }
+  else {
 
     csv_file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
@@ -214,16 +220,9 @@ float weightcalc_btagging::jet_effy(const Jet& jet_) const {
       const float pt_lo = (x-geff->GetErrorXlow(i));
       const float pt_hi = (x+geff->GetErrorXhigh(i));
 
-      if(pt_lo<jet_PT && jet_PT<pt_hi ){ eff = y; break; }
-
-      else if(jet_PT <= pt_lo){
-
-        if(pt_lo < pt_min){ eff = y; pt_min = pt_lo; }
-      }
-      else if((jet_PT >= pt_hi)){
-
-        if(pt_hi > pt_max){ eff = y; pt_max = pt_hi; }
-      }
+      if     (pt_lo <  jet_PT && jet_PT < pt_hi){ eff = y; break; }
+      else if(pt_lo >= jet_PT && pt_min > pt_lo){ eff = y; pt_min = pt_lo; }
+      else if(pt_hi <= jet_PT && pt_max < pt_hi){ eff = y; pt_max = pt_hi; }
     }
   }
 
@@ -240,11 +239,10 @@ float weightcalc_btagging::jet_SFac(const Jet& jet_) const {
   else if(std::abs(jet_.hadronFlavor()) == 0) jet_FLAV = 2;
   else throw std::runtime_error("weightcalc_btagging::jet_SFac -- failed to assign key for jet flavor");
 
-  const float jet_PT   = jet_.pt();
-  const float jet_ETA  = jet_.eta();
-  const float jet_BTAG = jet_.btag_combinedSecondaryVertex();
+  const float jet_pt  = jet_.pt();
+  const float jet_ETA = jet_.eta();
 
-  float sf(1.); {
+  float jet_PT(jet_pt), sf(1.); {
 
     int idx(-1); {
 
@@ -260,17 +258,10 @@ float weightcalc_btagging::jet_SFac(const Jet& jet_) const {
             const float pt_lo = btag_sf.ptMin;
             const float pt_hi = btag_sf.ptMax;
 
-            if(pt_lo<jet_PT && jet_PT<pt_hi){ idx = i; break; }
-
-            else if(jet_PT <= pt_lo){
-
-              if(pt_lo < pt_min){ idx = i; pt_min = pt_lo; }
-            }
-            else if((jet_PT >= pt_hi)){
-
-              if(pt_hi > pt_max){ idx = i; pt_max = pt_hi; }
-            }
-	  }
+            if     (pt_lo <  jet_pt && jet_pt <  pt_hi){ idx = i; jet_PT = jet_pt; break; }
+            else if(pt_lo >= jet_pt && pt_min >= pt_lo){ idx = i; jet_PT = pt_lo; pt_min = pt_lo; }
+            else if(pt_hi <= jet_pt && pt_max <= pt_hi){ idx = i; jet_PT = pt_hi; pt_max = pt_hi; }
+          }
         }
       }
     }
@@ -286,7 +277,6 @@ float weightcalc_btagging::jet_SFac(const Jet& jet_) const {
       std::cout <<   " SF_idx=" << idx;
       std::cout <<   " jet_PT=" << jet_PT;
       std::cout <<  " jet_ETA=" << jet_ETA;
-      std::cout <<  " jet_CSV=" << jet_BTAG;
       std::cout << " jet_FLAV=" << jet_FLAV;
       std::cout <<       " sf=" << sf;
     }

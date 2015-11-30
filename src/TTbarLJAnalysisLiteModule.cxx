@@ -61,6 +61,8 @@ class TTbarLJAnalysisLiteModule : public ModuleBASE {
 
   uhh2::Event::Handle<std::vector<ReconstructionHypothesis>> h_ttbar_hyps;
 
+  JetId btag_ID_;
+
   bool use_ttagging_;
   TopJetId ttag_ID_;
   float    ttag_minDR_jet_;
@@ -234,14 +236,25 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   else triangc_sel.reset(new uhh2::AndSelection(ctx));
   ////
 
-  //// TTBAR KINEMATICAL RECO
+  /* b-tagging */
+  const std::string& btag_wp = ctx.get("btag_wp");
+
+  if     (btag_wp == "CSVL") btag_ID_ = CSVBTag(CSVBTag::WP_LOOSE);
+  else if(btag_wp == "CSVM") btag_ID_ = CSVBTag(CSVBTag::WP_MEDIUM);
+  else if(btag_wp == "CSVT") btag_ID_ = CSVBTag(CSVBTag::WP_TIGHT);
+  else throw std::runtime_error("TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule -- invalid key for b-tagging working point: "+btag_wp);
+  /*************/
 
   /* t-tagging */
-  ttag_ID_ = TopTagID_SoftDrop("mr003_wp1");
+  const std::string& ttag_wp = ctx.get("ttag_wp");
+
+  ttag_ID_ = TopTagID_SoftDrop(ttag_wp);
   ttag_minDR_jet_ = 1.2;
 
   ttagevt_sel.reset(new TopTagEventSelection(ttag_ID_, ttag_minDR_jet_));
   /*************/
+
+  //// TTBAR KINEMATICAL RECO
 
   const std::string ttbar_gen_label ("ttbargen");
   const std::string ttbar_hyps_label("TTbarReconstruction");
@@ -357,7 +370,6 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   //
 
   // b-tagging
-  const std::string& btag_wp        = ctx.get("btag_wp");
   const std::string& btag_SFac_file = ctx.get("btag_SFs");
   const std::string& btag_effy_file = ctx.get("btag_eff");
   const std::string& btag_effyL     = ctx.get("btag_eff__jetL");
@@ -374,19 +386,18 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   //
 
   // t-tagging
-  const std::string& ttag_wp        = ctx.get("ttag_wp");
   const std::string& ttag_SFac_file = ctx.get("ttag_SFs");
   const std::string& ttag_effy_file = ctx.get("ttag_eff");
   const std::string& ttag_effyL     = ctx.get("ttag_eff__jetL");
   const std::string& ttag_effyT     = ctx.get("ttag_eff__jetT");
 
-  ttagSF_ct .reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "muon", "muon", "CT", "CT", ttag_effy_file, ttag_effyL, ttag_effyT));
+  ttagSF_ct .reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "CT", "CT", ttag_effy_file, ttag_effyL, ttag_effyT));
 
-  ttagSF_upL.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "muon", "muon", "UP", "CT", ttag_effy_file, ttag_effyL, ttag_effyT));
-  ttagSF_dnL.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "muon", "muon", "DN", "CT", ttag_effy_file, ttag_effyL, ttag_effyT));
+  ttagSF_upL.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "UP", "CT", ttag_effy_file, ttag_effyL, ttag_effyT));
+  ttagSF_dnL.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "DN", "CT", ttag_effy_file, ttag_effyL, ttag_effyT));
 
-  ttagSF_upT.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "muon", "muon", "CT", "UP", ttag_effy_file, ttag_effyL, ttag_effyT));
-  ttagSF_dnT.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "muon", "muon", "CT", "DN", ttag_effy_file, ttag_effyL, ttag_effyT));
+  ttagSF_upT.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "CT", "UP", ttag_effy_file, ttag_effyL, ttag_effyT));
+  ttagSF_dnT.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "CT", "DN", ttag_effy_file, ttag_effyL, ttag_effyT));
   //
 
   ////
@@ -632,12 +643,9 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   /* btagN counters */
   int jetbtagN(0), subjbtagN(0);
 
-  const float jetbtagWP(.890), subjbtagWP(.890);
-
   if(!pass_ttagevt){
 
-    for(const auto& j : *event.jets)
-      if(j.btag_combinedSecondaryVertex() >  jetbtagWP)  ++jetbtagN;
+    for(const auto& j : *event.jets) if(btag_ID_(j, event)) ++jetbtagN;
   }
   else {
 
@@ -645,14 +653,13 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
 
     const TopJet* thad = ttbar_hyp->tophad_topjet_ptr();
 
+    for(const auto& j : thad->subjets()) if(btag_ID_(j, event)) ++subjbtagN;
+
     for(const auto& j : *event.jets){
 
       if(!(uhh2::deltaR(*thad, j) > ttag_minDR_jet_)) continue;
-      if(j.btag_combinedSecondaryVertex() >  jetbtagWP)  ++jetbtagN;
+      if(btag_ID_(j, event)) ++jetbtagN;
     }
-
-    for(const auto& j : thad->subjets())
-      if(j.btag_combinedSecondaryVertex() > subjbtagWP) ++subjbtagN;
   }
 
   const int btagN = jetbtagN + subjbtagN;
