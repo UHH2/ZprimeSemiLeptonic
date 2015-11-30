@@ -60,7 +60,13 @@ void weightcalc_ttagging::load_SFac(const std::string& ttagWP_key, const std::st
   if(ttagSF_vec_.size()) throw std::runtime_error("weightcalc_ttagging::load_SFac -- logic error: list of b-tagging SF values not empty");
 
   std::ifstream csv_file;
-  csv_file.open(sfac_csvfile.c_str()); {
+  csv_file.open(sfac_csvfile.c_str());
+
+  if(csv_file.fail()){
+
+    throw std::runtime_error("weightcalc_ttagging::load_SFac -- failed to locate input file: "+sfac_csvfile);
+  }
+  else {
 
     csv_file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
