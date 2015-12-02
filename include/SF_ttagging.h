@@ -57,7 +57,7 @@ class weightcalc_ttagging {
 
   struct ttagSF {
 
-    int OperatingPoint;
+    std::string OperatingPoint;
     std::string measurementType;
     std::string sysType;
     int   jetFlavor;
