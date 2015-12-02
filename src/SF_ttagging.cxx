@@ -26,12 +26,12 @@ weightcalc_ttagging::weightcalc_ttagging(const std::string& sfac_csvfile , const
   if     (syst_key_jetL == "CT") sys_key__jetL_ = "central";
   else if(syst_key_jetL == "UP") sys_key__jetL_ = "up";
   else if(syst_key_jetL == "DN") sys_key__jetL_ = "down";
-  else throw std::runtime_error("weightcalc_ttagging::weightcalc_ttagging -- invalid key for b-tagging SF systematic (flavor=L): "+syst_key_jetL);
+  else throw std::runtime_error("weightcalc_ttagging::weightcalc_ttagging -- invalid key for t-tagging SF systematic (flavor=L): "+syst_key_jetL);
 
   if     (syst_key_jetT == "CT") sys_key__jetT_ = "central";
   else if(syst_key_jetT == "UP") sys_key__jetT_ = "up";
   else if(syst_key_jetT == "DN") sys_key__jetT_ = "down";
-  else throw std::runtime_error("weightcalc_ttagging::weightcalc_ttagging -- invalid key for b-tagging SF systematic (flavor=T): "+syst_key_jetT);
+  else throw std::runtime_error("weightcalc_ttagging::weightcalc_ttagging -- invalid key for t-tagging SF systematic (flavor=T): "+syst_key_jetT);
 
   ttagSF_vec_.clear();
   load_SFac(ttagWP_key, sfac_csvfile);
