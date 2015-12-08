@@ -116,9 +116,9 @@ TagNProbeZLLModule::TagNProbeZLLModule(Context & ctx){
   //// OBJ CLEANING
   muo_cleaner.reset(new MuonCleaner(AndId<Muon>(MuonIDTight(), PtEtaCut(45., 2.1))));
   ele_cleaner.reset(new ElectronCleaner(AndId<Electron>(ElectronID_PHYS14_25ns_tight_noIso, PtEtaSCCut(50., 2.5))));
-  jet_corrector.reset(new JetCorrector(JERFiles::PHYS14_L123_MC));
+  jet_corrector.reset(new JetCorrector(ctx, JERFiles::PHYS14_L123_MC));
   jetER_smearer.reset(new JetResolutionSmearer(ctx));
-  jetlepton_cleaner.reset(new JetLeptonCleaner(JERFiles::PHYS14_L123_MC));
+  jetlepton_cleaner.reset(new JetLeptonCleaner(ctx, JERFiles::PHYS14_L123_MC));
   jetlepton_cleaner->set_drmax(.4);
   jet_cleaner1.reset(new JetCleaner( 25., std::numeric_limits<double>::infinity()));
   jet_cleaner2.reset(new JetCleaner( 30., 2.4));

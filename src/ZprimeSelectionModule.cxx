@@ -154,15 +154,15 @@ ZprimeSelectionModule::ZprimeSelectionModule(uhh2::Context& ctx){
   }
 
   jet_IDcleaner.reset(new JetCleaner(jetID));
-  jet_corrector.reset(new JetCorrector(JEC_AK4));
+  jet_corrector.reset(new JetCorrector(ctx, JEC_AK4));
 //!!  jetER_smearer.reset(new JetResolutionSmearer(ctx));
-  jetlepton_cleaner.reset(new JetLeptonCleaner(JEC_AK4));
+  jetlepton_cleaner.reset(new JetLeptonCleaner(ctx, JEC_AK4));
   jetlepton_cleaner->set_drmax(.4);
   jet_cleaner1.reset(new JetCleaner(25., uhh2::infinity));
   jet_cleaner2.reset(new JetCleaner(30., 2.4));
 
   topjet_IDcleaner.reset(new JetCleaner(jetID));
-  topjet_corrector.reset(new TopJetCorrector(JEC_AK8));
+  topjet_corrector.reset(new TopJetCorrector(ctx, JEC_AK8));
 //!!  topjetER_smearer.reset(new TopJetResolutionSmearer(ctx));
   topjetlepton_cleaner.reset(new TopJetLeptonDeltaRCleaner(.8));
   topjet_cleaner.reset(new TopJetCleaner(TopJetId(PtEtaCut(400., 2.4))));
