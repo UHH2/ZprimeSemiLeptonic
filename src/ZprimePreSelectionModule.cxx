@@ -90,12 +90,12 @@ ZprimePreSelectionModule::ZprimePreSelectionModule(uhh2::Context& ctx){
     JEC_AK8 = JERFiles::Summer15_50ns_L123_AK8PFchs_DATA;
   }
 
-  jet_corrector.reset(new JetCorrector(JEC_AK4));
-  jetlepton_cleaner.reset(new JetLeptonCleaner(JEC_AK4));
+  jet_corrector.reset(new JetCorrector(ctx, JEC_AK4));
+  jetlepton_cleaner.reset(new JetLeptonCleaner(ctx, JEC_AK4));
   jetlepton_cleaner->set_drmax(.4);
   jet_cleaner.reset(new JetCleaner(30., 2.4));
 
-  topjet_corrector.reset(new TopJetCorrector(JEC_AK8));
+  topjet_corrector.reset(new TopJetCorrector(ctx, JEC_AK8));
   topjetlepton_cleaner.reset(new TopJetLeptonDeltaRCleaner(.8));
   topjet_cleaner.reset(new TopJetCleaner(TopJetId(PtEtaCut(200., 2.4))));
 
