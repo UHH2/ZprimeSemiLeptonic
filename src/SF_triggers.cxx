@@ -5,7 +5,7 @@ weightcalc_triggers::weightcalc_triggers(const std::string& sffit_file){
    //ele45_pfjet200_pfjet50
    f_sffit = TFile::Open(sffit_file.c_str());
    if(!f_sffit) throw std::runtime_error("weightcalc_trigger failed to locate sf fit file");
-   SFfit = (TF1*) f_sffit->Get("fit");
+   SFfit = (TF1*) f_sffit->Get("fit_200_50");
   if (!SFfit) throw std::runtime_error("weightcalc_trigger failed to locate TF1 of the fit");
   
 }
