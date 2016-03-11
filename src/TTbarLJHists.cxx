@@ -139,29 +139,35 @@ void TTbarLJHists::init(){
   // TOPTAG
   book_TH1F("toptagN"              , 20, 0, 20);
 
-  book_TH1F("toptag1__pt"          , 180, 0, 1800);
-  book_TH1F("toptag1__eta"         , 60, -3, 3);
-  book_TH1F("toptag1__phi"         , 60, -3.15, 3.15);
-  book_TH1F("toptag1__M"           , 360, 90, 450);
-  book_TH1F("toptag1__Mgro"        , 360, 90, 450);
-  book_TH1F("toptag1__Mpru"        , 360, 90, 450);
-  book_TH1F("toptag1__Msdp"        , 360, 90, 450);
-  book_TH1F("toptag1__mmin"        , 40, 0, 200);
-  book_TH1F("toptag1__tau2"        , 24, 0, 1.2);
-  book_TH1F("toptag1__tau3"        , 24, 0, 1.2);
-  book_TH1F("toptag1__tau32"       , 24, 0, 1.2);
-  book_TH1F("toptag1__CSV"         , 120, 0, 1.2);
-  book_TH1F("toptag1__subjN"       , 4, 2, 6);
-  book_TH1F("toptag1__subj1__pt"   , 180, 0, 1800);
-  book_TH1F("toptag1__subj1__eta"  , 60, -3, 3);
-  book_TH1F("toptag1__subj2__pt"   , 180, 0, 900);
-  book_TH1F("toptag1__subj2__eta"  , 60, -3, 3);
-  book_TH1F("toptag1__subj3__pt"   , 180, 0, 900);
-  book_TH1F("toptag1__subj3__eta"  , 60, -3, 3);
-  book_TH1F("toptag1__subj_minDR"  , 20, 0, 2);
-  book_TH1F("toptag1__subj_maxCSV1", 120, 0, 1.2);
-  book_TH1F("toptag1__subj_maxCSV2", 120, 0, 1.2);
-  book_TH1F("toptag1__subj_maxCSV3", 120, 0, 1.2);
+  const std::vector<std::string> htags_ETA({"", "_etaLO", "_etaHI"});
+
+  for(const auto& eta : htags_ETA){
+
+    book_TH1F("toptag1"+eta+"__pt"          , 180, 0, 1800);
+    book_TH1F("toptag1"+eta+"__eta"         , 60, -3, 3);
+    book_TH1F("toptag1"+eta+"__phi"         , 60, -3.15, 3.15);
+    book_TH1F("toptag1"+eta+"__M"           , 360, 90, 450);
+    book_TH1F("toptag1"+eta+"__Mgro"        , 360, 90, 450);
+    book_TH1F("toptag1"+eta+"__Mpru"        , 360, 90, 450);
+    book_TH1F("toptag1"+eta+"__Msdp"        , 360, 90, 450);
+    book_TH1F("toptag1"+eta+"__mmin"        , 40, 0, 200);
+    book_TH1F("toptag1"+eta+"__tau2"        , 24, 0, 1.2);
+    book_TH1F("toptag1"+eta+"__tau3"        , 24, 0, 1.2);
+    book_TH1F("toptag1"+eta+"__tau32"       , 24, 0, 1.2);
+    book_TH1F("toptag1"+eta+"__CSV"         , 120, 0, 1.2);
+    book_TH1F("toptag1"+eta+"__subjN"       , 4, 2, 6);
+    book_TH1F("toptag1"+eta+"__subj1__pt"   , 180, 0, 1800);
+    book_TH1F("toptag1"+eta+"__subj1__eta"  , 60, -3, 3);
+    book_TH1F("toptag1"+eta+"__subj2__pt"   , 180, 0, 900);
+    book_TH1F("toptag1"+eta+"__subj2__eta"  , 60, -3, 3);
+    book_TH1F("toptag1"+eta+"__subj3__pt"   , 180, 0, 900);
+    book_TH1F("toptag1"+eta+"__subj3__eta"  , 60, -3, 3);
+    book_TH1F("toptag1"+eta+"__subj_minDR"  , 20, 0, 2);
+    book_TH1F("toptag1"+eta+"__subj_maxCSV1", 120, 0, 1.2);
+    book_TH1F("toptag1"+eta+"__subj_maxCSV2", 120, 0, 1.2);
+    book_TH1F("toptag1"+eta+"__subj_maxCSV3", 120, 0, 1.2);
+  }
+
   book_TH1F("toptag2__pt"          , 180, 0, 1800);
   book_TH1F("toptag2__eta"         , 60, -3, 3);
   book_TH1F("toptag2__phi"         , 60, -3.15, 3.15);
@@ -371,57 +377,66 @@ void TTbarLJHists::fill(const uhh2::Event& event){
 
     const TopJet& tj = toptags.at(i);
 
-    H1("toptag"+std::to_string(i+1)+"__pt") ->Fill(tj.pt()                          , weight);
-    H1("toptag"+std::to_string(i+1)+"__eta")->Fill(tj.eta()                         , weight);
-    H1("toptag"+std::to_string(i+1)+"__phi")->Fill(tj.phi()                         , weight);
-    H1("toptag"+std::to_string(i+1)+"__M")  ->Fill(tj.v4().M()                      , weight);
-    H1("toptag"+std::to_string(i+1)+"__CSV")->Fill(tj.btag_combinedSecondaryVertex(), weight);
+    std::vector<std::string> htags_ETA({""});
+    if(i == 0){
+      if(fabs(tj.eta()) < 1.0) htags_ETA.push_back("_etaLO");
+      else                     htags_ETA.push_back("_etaHI");
+    }
 
-    // substructure
-    if(i > 0) continue;
+    for(const auto& eta : htags_ETA){
 
-    H1("toptag"+std::to_string(i+1)+"__Mpru")->Fill(tj.prunedmass()   , weight);
-    H1("toptag"+std::to_string(i+1)+"__Msdp")->Fill(tj.softdropmass() , weight);
-    H1("toptag"+std::to_string(i+1)+"__mmin")->Fill(m_disubjet_min(tj), weight);
-    H1("toptag"+std::to_string(i+1)+"__tau2")->Fill(tj.tau2()         , weight);
-    H1("toptag"+std::to_string(i+1)+"__tau3")->Fill(tj.tau3()         , weight);
-    if(tj.tau2()) H1("toptag"+std::to_string(i+1)+"__tau32")->Fill(tj.tau3()/tj.tau2(), weight);
+      H1("toptag"+std::to_string(i+1)+eta+"__pt") ->Fill(tj.pt()                          , weight);
+      H1("toptag"+std::to_string(i+1)+eta+"__eta")->Fill(tj.eta()                         , weight);
+      H1("toptag"+std::to_string(i+1)+eta+"__phi")->Fill(tj.phi()                         , weight);
+      H1("toptag"+std::to_string(i+1)+eta+"__M")  ->Fill(tj.v4().M()                      , weight);
+      H1("toptag"+std::to_string(i+1)+eta+"__CSV")->Fill(tj.btag_combinedSecondaryVertex(), weight);
 
-    std::vector<Jet> subjets = tj.subjets();
+      // substructure
+      if(i > 0) continue;
 
-    const int subjN(subjets.size());
+      H1("toptag"+std::to_string(i+1)+eta+"__Mpru")->Fill(tj.prunedmass()   , weight);
+      H1("toptag"+std::to_string(i+1)+eta+"__Msdp")->Fill(tj.softdropmass() , weight);
+      H1("toptag"+std::to_string(i+1)+eta+"__mmin")->Fill(m_disubjet_min(tj), weight);
+      H1("toptag"+std::to_string(i+1)+eta+"__tau2")->Fill(tj.tau2()         , weight);
+      H1("toptag"+std::to_string(i+1)+eta+"__tau3")->Fill(tj.tau3()         , weight);
+      if(tj.tau2()) H1("toptag"+std::to_string(i+1)+eta+"__tau32")->Fill(tj.tau3()/tj.tau2(), weight);
 
-    H1("toptag"+std::to_string(i+1)+"__subjN")->Fill(subjN, weight);
+      std::vector<Jet> subjets = tj.subjets();
 
-    float subj_minDR(-1.);
-    LorentzVector sum_subj(0, 0, 0, 0);
-    for  (int sj1=0    ; sj1<subjN; ++sj1){
-      for(int sj2=sj1+1; sj2<subjN; ++sj2){
+      const int subjN(subjets.size());
 
-        const float dR = uhh2::deltaR(subjets.at(sj1), subjets.at(sj2));
-        if(dR < subj_minDR || (sj1+sj2==1)) subj_minDR = dR;
+      H1("toptag"+std::to_string(i+1)+eta+"__subjN")->Fill(subjN, weight);
+
+      float subj_minDR(-1.);
+      LorentzVector sum_subj(0, 0, 0, 0);
+      for  (int sj1=0    ; sj1<subjN; ++sj1){
+        for(int sj2=sj1+1; sj2<subjN; ++sj2){
+
+          const float dR = uhh2::deltaR(subjets.at(sj1), subjets.at(sj2));
+          if(dR < subj_minDR || (sj1+sj2==1)) subj_minDR = dR;
+        }
+
+        sum_subj += subjets.at(sj1).v4();
+      }
+      H1("toptag"+std::to_string(i+1)+eta+"__Mgro")      ->Fill(sum_subj.M(), weight);
+      H1("toptag"+std::to_string(i+1)+eta+"__subj_minDR")->Fill(subj_minDR  , weight);
+
+      sort_by_pt<Jet>(subjets);
+      for(int sj=0; sj<std::min(3, subjN); ++sj){
+
+        const Jet& sjet = subjets.at(sj);
+
+        H1("toptag"+std::to_string(i+1)+eta+"__subj"+std::to_string(sj+1)+"__pt") ->Fill(sjet.pt() , weight);
+        H1("toptag"+std::to_string(i+1)+eta+"__subj"+std::to_string(sj+1)+"__eta")->Fill(sjet.eta(), weight);
       }
 
-      sum_subj += subjets.at(sj1).v4();
-    }
-    H1("toptag"+std::to_string(i+1)+"__Mgro")      ->Fill(sum_subj.M(), weight);
-    H1("toptag"+std::to_string(i+1)+"__subj_minDR")->Fill(subj_minDR  , weight);
+      std::sort(subjets.begin(), subjets.end(), [](const Jet& j1, const Jet& j2){return j1.btag_combinedSecondaryVertex() > j2.btag_combinedSecondaryVertex();});
+      for(int sj=0; sj<std::min(3, subjN); ++sj){
 
-    sort_by_pt<Jet>(subjets);
-    for(int sj=0; sj<std::min(3, subjN); ++sj){
+        const Jet& sjet = subjets.at(sj);
 
-      const Jet& sjet = subjets.at(sj);
-
-      H1("toptag"+std::to_string(i+1)+"__subj"+std::to_string(sj+1)+"__pt") ->Fill(sjet.pt() , weight);
-      H1("toptag"+std::to_string(i+1)+"__subj"+std::to_string(sj+1)+"__eta")->Fill(sjet.eta(), weight);
-    }
-
-    std::sort(subjets.begin(), subjets.end(), [](const Jet& j1, const Jet& j2){return j1.btag_combinedSecondaryVertex() > j2.btag_combinedSecondaryVertex();});
-    for(int sj=0; sj<std::min(3, subjN); ++sj){
-
-      const Jet& sjet = subjets.at(sj);
-
-      H1("toptag"+std::to_string(i+1)+"__subj_maxCSV"+std::to_string(sj+1))->Fill(sjet.btag_combinedSecondaryVertex(), weight);
+        H1("toptag"+std::to_string(i+1)+eta+"__subj_maxCSV"+std::to_string(sj+1))->Fill(sjet.btag_combinedSecondaryVertex(), weight);
+      }
     }
   }
 

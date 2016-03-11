@@ -13,6 +13,7 @@ class JetLeptonDeltaRCleaner : public uhh2::AnalysisModule {
  private:
   float minDR_;
 };
+////
 
 class TopJetLeptonDeltaRCleaner : public uhh2::AnalysisModule {
 
@@ -23,6 +24,7 @@ class TopJetLeptonDeltaRCleaner : public uhh2::AnalysisModule {
  private:
   float minDR_;
 };
+////
 
 const Particle* leading_lepton(const uhh2::Event&);
 
@@ -31,7 +33,37 @@ float HTlep1(const uhh2::Event&);
 
 float Muon_pfMINIIso    (const Muon&    , const uhh2::Event&, const std::string&);
 float Electron_pfMINIIso(const Electron&, const uhh2::Event&, const std::string&);
+////
+
 bool trigger_bit(const uhh2::Event&, const std::string&);
+////
+
+class GENWToLNuFinder : public uhh2::AnalysisModule {
+
+ public:
+  explicit GENWToLNuFinder(uhh2::Context&, const std::string&);
+  virtual ~GENWToLNuFinder() {}
+
+  virtual bool process(uhh2::Event&) override;
+
+ protected:
+  uhh2::Event::Handle<GenParticle> h_genWln_W_;
+  uhh2::Event::Handle<GenParticle> h_genWln_l_;
+  uhh2::Event::Handle<GenParticle> h_genWln_n_;
+};
+
+class MEPartonFinder : public uhh2::AnalysisModule {
+
+ public:
+  explicit MEPartonFinder(uhh2::Context&, const std::string&);
+  virtual ~MEPartonFinder() {}
+
+  virtual bool process(uhh2::Event&) override;
+
+ protected:
+  uhh2::Event::Handle<std::vector<GenParticle> > h_meps_;
+};
+////
 
 class TopTagID_NO {
 
@@ -40,6 +72,7 @@ class TopTagID_NO {
 
   bool operator()(const TopJet&, const uhh2::Event&) const { return false; }
 };
+//
 
 class TopTagID_SoftDrop {
 
@@ -63,3 +96,4 @@ class TopTagID_SoftDrop {
   float  tau32_max_;
   float sjbtag_min_;
 };
+////

@@ -1,7 +1,10 @@
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicSelections.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicUtils.h>
+#include <UHH2/ZprimeSemiLeptonic/include/utils.h>
 
 #include <iostream>
+#include <fstream>
+#include <cstdlib>
 #include <memory>
 
 #include <UHH2/core/include/LorentzVector.h>
@@ -45,6 +48,36 @@ bool uhh2::NJetCut::passes(const uhh2::Event& event){
   return (njet >= nmin) && (njet <= nmax);
 }
 ////////////////////////////////////////////////////////
+
+//!! uhh2::TTbarNJetSelection::TTbarNJetSelection(const float jet1_pt, const float jet2_pt, const float tjet1_pt):
+//!!   jet1_pt_(jet1_pt), jet2_pt_(jet2_pt), tjet1_pt_(tjet1_pt) {
+//!! 
+//!!   h_jets_    = ctx.get_handle<std::vector<Jet>   >("jets");
+//!!   h_topjets_ = ctx.get_handle<std::vector<TopJet>>("topjets");
+//!! 
+//!! }
+//!! 
+//!! bool uhh2::TTbarNJetSelection::passes(const uhh2::Event& event){
+//!! 
+//!!   const std::vector<Jet>&       jets = event.get(h_jets_);
+//!!   const std::vector<TopJet>& topjets = event.get(h_topjets_);
+//!! 
+//!!   int jetN_1(0), jetN_2(0);
+//!!   for(const auto& j : jets){
+//!! 
+//!!     if(j.pt() > jet1_pt_) ++jetN_1;
+//!!     if(j.pt() > jet2_pt_) ++jetN_2;
+//!!   }
+//!! 
+//!!   int tjetN_1(0);
+//!!   for(const auto& tj : topjets){
+//!! 
+//!!     if(tj.pt() > tjet1_pt_) ++tjetN_1;
+//!!   }
+//!! 
+//!!   return (njet >= nmin) && (njet <= nmax);
+//!! }
+//!! ////////////////////////////////////////////////////////
 
 bool uhh2::TwoDCut1::passes(const uhh2::Event& event){
 
@@ -185,6 +218,24 @@ bool uhh2::DiLeptonSelection::passes(const uhh2::Event& event){
 }
 ////////////////////////////////////////////////////////
 
+uhh2::TopJetPlusJetEventSelection::TopJetPlusJetEventSelection(const float topjet_minDR_jet, const float jet_min_pt):
+  topjet_minDR_jet_(topjet_minDR_jet), jet_min_pt_(jet_min_pt) {}
+
+bool uhh2::TopJetPlusJetEventSelection::passes(const uhh2::Event& event){ 
+
+  if(event.topjets->size() != 1) return false;
+
+  for(const auto& topjet : *event.topjets){
+
+    for(const auto& jet : *event.jets){
+      if(uhh2::deltaR(topjet, jet) > topjet_minDR_jet_ && jet.pt() > jet_min_pt_) return true;
+    }
+  }
+
+  return false;
+}
+////////////////////////////////////////////////////////
+
 uhh2::TopTagEventSelection::TopTagEventSelection(const TopJetId& tjetID, const float minDR_jet_ttag):
   topjetID_(tjetID), minDR_jet_toptag_(minDR_jet_ttag) {
 
@@ -255,7 +306,7 @@ bool uhh2::GenMttbarCut::passes(const uhh2::Event& event){
 
   const float mttbargen = (ttbargen.Top().v4() + ttbargen.Antitop().v4()).M();
 
-  return (mttbar_min_ < mttbargen) && (mttbargen < mttbar_max_);
+  return (mttbar_min_ <= mttbargen) && (mttbargen < mttbar_max_);
 }
 ////////////////////////////////////////////////////////
 
@@ -324,5 +375,80 @@ bool uhh2::JetFlavorSelection::passes(const uhh2::Event& event){
   else throw std::runtime_error("JetFlavorSelection::JetFlavorSelection -- undefined key for jet flavor (must be 'l', 'c' or 'b'): "+flavor_key_);
 
   return pass;
+}
+////////////////////////////////////////////////////////
+
+uhh2::GenHTCut::GenHTCut(uhh2::Context& ctx, const float min, const float max, const std::string& meps_name):
+  genHT_min_(min), genHT_max_(max), h_meps_(ctx.get_handle<std::vector<GenParticle> >(meps_name)) {}
+
+bool uhh2::GenHTCut::passes(const uhh2::Event& event){
+
+  const std::vector<GenParticle>& me_partons = event.get(h_meps_);
+
+  float genHT(0.);
+  for(const auto& p : me_partons) genHT += p.pt();
+
+  return (genHT_min_ <= genHT) && (genHT < genHT_max_);
+}
+////////////////////////////////////////////////////////
+
+uhh2::RunLumiEventSelection::RunLumiEventSelection(const std::string& input_file, const std::string& separator){
+
+  std::ifstream ifstr;
+  ifstr.open(input_file.c_str());
+  if(!ifstr.fail()){
+
+    std::string line;
+    while(std::getline(ifstr, line)){
+
+      const std::vector<std::string> line_tags(util::string_tokens(line, separator));
+      if(line_tags.size() != 3) std::runtime_error("RunLumiEventSelection::RunLumiEventSelection -- unexpected number of tags (separator="+separator+"): "+line);
+
+      const unsigned long int run = atoi(line_tags.at(0).c_str());
+      const unsigned long int lum = atoi(line_tags.at(1).c_str());
+      const unsigned long int evt = atoi(line_tags.at(2).c_str());
+
+      rle_map_[run][lum].push_back(evt);
+    }
+  }
+  else throw std::runtime_error("RunLumiEventSelection::RunLumiEventSelection -- failed reading input file: "+input_file);
+
+  ifstr.close();
+}
+
+bool uhh2::RunLumiEventSelection::found(const uhh2::Event& event){
+
+  bool is_found(false);
+
+  const unsigned long int RUN = ((unsigned int) event.run);
+  const unsigned long int LUM = ((unsigned int) event.luminosityBlock);
+  const unsigned long int EVT = ((unsigned int) event.event);
+
+  for(const auto& r : rle_map_){
+    if(is_found) break;
+
+    if(r.first == RUN){
+
+      for(const auto& l : r.second){
+	if(is_found) break;
+
+        if(l.first == LUM){
+
+          for(const auto& e : l.second){
+            if(is_found) break;
+
+            if(e == EVT) is_found = true;
+          }
+        }
+      }
+    }
+  }
+
+  return is_found;
+}
+
+bool uhh2::RunLumiEventSelection::passes(const uhh2::Event& event){
+
+  return found(event);
 }
 ////////////////////////////////////////////////////////

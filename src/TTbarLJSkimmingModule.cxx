@@ -30,27 +30,28 @@ class TTbarLJSkimmingModule : public ModuleBASE {
   virtual bool process(uhh2::Event&) override;
 
  protected:
-  enum lepton { muon, elec };
-  lepton channel_;
 
   // cleaners
   std::unique_ptr<MuonCleaner>     muoSR_cleaner;
   std::unique_ptr<ElectronCleaner> eleSR_cleaner;
-  std::unique_ptr<JetCleaner>           jet_IDcleaner;
-  std::unique_ptr<JetCorrector>         jet_corrector;
-//!!  std::unique_ptr<JetResolutionSmearer> jetER_smearer;
+
+  std::unique_ptr<JetCleaner>                      jet_IDcleaner;
+  std::unique_ptr<JetCorrector>                    jet_corrector;
+  std::unique_ptr<GenericJetResolutionSmearer>     jetER_smearer;
   std::unique_ptr<JetLeptonCleaner_by_KEYmatching> jetlepton_cleaner;
-  std::unique_ptr<JetCleaner>           jet_cleaner1;
-  std::unique_ptr<JetCleaner>           jet_cleaner2;
-  std::unique_ptr<JetCleaner>                 topjet_IDcleaner;
-  std::unique_ptr<TopJetCorrector>            topjet_corrector;
-//!!  std::unique_ptr<TopJetResolutionSmearer>    topjetER_smearer;
-  std::unique_ptr<TopJetLeptonDeltaRCleaner>  topjetlepton_cleaner;
-  std::unique_ptr<TopJetCleaner>              topjet_cleaner;
+  std::unique_ptr<JetCleaner>                      jet_cleaner1;
+  std::unique_ptr<JetCleaner>                      jet_cleaner2;
+
+  std::unique_ptr<JetCleaner>                  topjet_IDcleaner;
+  std::unique_ptr<TopJetCorrector>             topjet_corrector;
+  std::unique_ptr<SubJetCorrector>             topjet_subjet_corrector;
+  std::unique_ptr<GenericJetResolutionSmearer> topjetER_smearer;
+  std::unique_ptr<TopJetLeptonDeltaRCleaner>   topjetlepton_cleaner;
+  std::unique_ptr<TopJetCleaner>               topjet_cleaner;
 
   // selections
   std::unique_ptr<uhh2::Selection> lumi_sel;
-  std::unique_ptr<uhh2::AndSelection> metfilters_sel;
+  std::vector<std::unique_ptr<uhh2::Selection> > met_filters1;
 
   std::unique_ptr<uhh2::Selection> genmttbar_sel;
   std::unique_ptr<uhh2::Selection> genflavor_sel;
@@ -67,14 +68,7 @@ class TTbarLJSkimmingModule : public ModuleBASE {
 TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
 
   //// CONFIGURATION
-
   const bool isMC = (ctx.get("dataset_type") == "MC");
-
-//!!  const std::string& channel = ctx.get("channel", "");
-//!!  if     (channel == "muon") channel_ = muon;
-//!!  else if(channel == "elec") channel_ = elec;
-//!!  else throw std::runtime_error("TTbarLJSkimmingModule::TTbarLJSkimmingModule -- undefined argument for 'channel' key in xml file (must be 'muon' or 'elec'): "+channel);
-  //
 
   const std::string& keyword = ctx.get("keyword");
 
@@ -96,22 +90,20 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
     HT_lep  =   0.;
   }
   else throw std::runtime_error("TTbarLJSkimmingModule::TTbarLJSkimmingModule -- undefined \"keyword\" argument in .xml configuration file: "+keyword);
-  //
-
   ////
 
   //// COMMON MODULES
 
   if(!isMC) lumi_sel.reset(new LumiSelection(ctx));
 
-  /* MET filters */
-  metfilters_sel.reset(new uhh2::AndSelection(ctx, "metfilters"));
-  metfilters_sel->add<TriggerSelection>("1-good-vtx", "Flag_goodVertices");
-  metfilters_sel->add<TriggerSelection>("eeBadSc"   , "Flag_eeBadScFilter");
-  /***************/
+  /* MET filters #1 (MINIAOD flags) */
+  met_filters1.clear();
+  met_filters1.emplace_back(new TriggerSelection("Flag_goodVertices"));
+  met_filters1.emplace_back(new TriggerSelection("Flag_eeBadScFilter"));
+  /**********************************/
 
   /* GEN M-ttbar selection [TTbar MC "0.<M^{gen}_{ttbar}(GeV)<700.] */
-  const std::string ttbar_gen_label ("ttbargen");
+  const std::string ttbar_gen_label("ttbargen");
 
   ttgenprod.reset(new TTbarGenProducer(ctx, ttbar_gen_label, false));
 
@@ -166,18 +158,22 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
     JEC_AK8 = JERFiles::Summer15_25ns_L123_AK8PFchs_DATA;
   }
 
-  jet_IDcleaner.reset(new JetCleaner(jetID));
+  jet_IDcleaner.reset(new JetCleaner(ctx, jetID));
   jet_corrector.reset(new JetCorrector(ctx, JEC_AK4));
-//!!  jetER_smearer.reset(new JetResolutionSmearer(ctx));
+  if(isMC) jetER_smearer.reset(new GenericJetResolutionSmearer(ctx));
   jetlepton_cleaner.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4));
-  jet_cleaner1.reset(new JetCleaner(15., 3.0));
-  jet_cleaner2.reset(new JetCleaner(30., 2.4));
+  jet_cleaner1.reset(new JetCleaner(ctx, 15., 3.0));
+  jet_cleaner2.reset(new JetCleaner(ctx, 30., 2.4));
 
-  topjet_IDcleaner.reset(new JetCleaner(jetID));
+  topjet_IDcleaner.reset(new JetCleaner(ctx, jetID));
   topjet_corrector.reset(new TopJetCorrector(ctx, JEC_AK8));
-//!!  topjetER_smearer.reset(new TopJetResolutionSmearer(ctx));
+  topjet_subjet_corrector.reset(new SubJetCorrector(ctx, JEC_AK4));
+  if(isMC){
+    ctx.declare_event_input<std::vector<Particle> >(ctx.get("TopJetCollectionGEN"), "topjetsGEN");
+    topjetER_smearer.reset(new GenericJetResolutionSmearer(ctx, "topjets", "topjetsGEN", false));
+  }
   topjetlepton_cleaner.reset(new TopJetLeptonDeltaRCleaner(.8));
-  topjet_cleaner.reset(new TopJetCleaner(TopJetId(PtEtaCut(500., 2.4))));
+  topjet_cleaner.reset(new TopJetCleaner(ctx, TopJetId(PtEtaCut(500., 2.4))));
   ////
 
   //// EVENT SELECTION
@@ -223,11 +219,17 @@ bool TTbarLJSkimmingModule::process(uhh2::Event& event){
     if(!genflavor_sel->passes(event)) return false;
   }
 
-  /* luminosity sections from CMS JSON file */
-  if(event.isRealData && !lumi_sel->passes(event)) return false;
+  /* CMS-certified luminosity sections */
+  if(event.isRealData){
 
-  /* MET filters */
-  if(!metfilters_sel->passes(event)) return false;
+    if(!lumi_sel->passes(event)) return false;
+  }
+
+  /* MET filters #1 */
+  for(const auto& metf1 : met_filters1){
+
+    if(!metf1->passes(event)) return false;
+  }
 
   ////
 
@@ -247,17 +249,10 @@ bool TTbarLJSkimmingModule::process(uhh2::Event& event){
 
   jet_IDcleaner->process(event);
   jet_corrector->process(event);
-//!!  jetER_smearer->process(event);
+  if(jetER_smearer.get()) jetER_smearer->process(event);
   jetlepton_cleaner->process(event);
   jet_cleaner1->process(event);
   sort_by_pt<Jet>(*event.jets);
-
-  topjet_IDcleaner->process(event);
-  topjet_corrector->process(event);
-//!!  topjetER_smearer->process(event);
-  topjetlepton_cleaner->process(event);
-  topjet_cleaner->process(event);
-  sort_by_pt<TopJet>(*event.topjets);
 
   /* lepton-2Dcut variables */
   const bool pass_twodcut = twodcut_sel->passes(event); {
@@ -283,6 +278,14 @@ bool TTbarLJSkimmingModule::process(uhh2::Event& event){
 
   jet_cleaner2->process(event);
   sort_by_pt<Jet>(*event.jets);
+
+  topjet_IDcleaner->process(event);
+  topjet_corrector->process(event);
+  topjet_subjet_corrector->process(event);
+  if(topjetER_smearer.get()) topjetER_smearer->process(event);
+  topjetlepton_cleaner->process(event);
+  topjet_cleaner->process(event);
+  sort_by_pt<TopJet>(*event.topjets);
 
   /* 2nd AK4 jet selection */
   const bool pass_jet2 = jet2_sel->passes(event);

@@ -21,7 +21,7 @@ class weightcalc_btagging {
   explicit weightcalc_btagging(const std::string&, const std::string&,
                                const std::string&, const std::string&, const std::string&,
                                const std::string&, const std::string&, const std::string&,
-                               const std::string&, const std::string&, const std::string&, const std::string&);
+                               const std::string&, const std::string&, const std::string&, const std::string&, const bool v=false);
   virtual ~weightcalc_btagging();
 
   virtual void load_SFac(const std::string&, const std::string&);
@@ -32,9 +32,11 @@ class weightcalc_btagging {
   virtual float weight(const uhh2::Event&) const;
 
   void set_verbose(const bool v=true){ verbose_ = v; }
+  void set_abseta (const bool e=true){ abs_eta_ = e; }
 
  protected:
   bool verbose_;
+  bool abs_eta_;
 
   JetId btagWP_;
 
