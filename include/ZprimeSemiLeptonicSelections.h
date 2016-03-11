@@ -13,6 +13,7 @@
 
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 namespace uhh2 {
 
@@ -118,6 +119,18 @@ namespace uhh2 {
   };
   ////
 
+  class TopJetPlusJetEventSelection: public Selection {
+
+   public:
+    explicit TopJetPlusJetEventSelection(const float, const float);
+    virtual bool passes(const Event&) override;
+
+   private:
+    float topjet_minDR_jet_;
+    float jet_min_pt_;
+  };
+  ////
+
   class TopTagEventSelection: public Selection {
 
    public:
@@ -189,6 +202,32 @@ namespace uhh2 {
 
    private:
     std::string flavor_key_;
+  };
+  ////
+
+  class GenHTCut : public Selection {
+
+   public:
+    explicit GenHTCut(Context&, const float, const float, const std::string&);
+    virtual bool passes(const Event&) override;
+
+  protected:
+    float genHT_min_, genHT_max_;
+    Event::Handle<std::vector<GenParticle> > h_meps_;
+  };
+  ////
+
+  class RunLumiEventSelection : public Selection {
+
+   public:
+    explicit RunLumiEventSelection(const std::string&, const std::string& sep=":");
+    virtual ~RunLumiEventSelection() {}
+
+    virtual bool passes(const Event&) override;
+    virtual bool found (const Event&);
+
+   protected:
+    std::unordered_map<unsigned long int, std::unordered_map<unsigned long int, std::vector<unsigned long int> > > rle_map_;
   };
   ////
 

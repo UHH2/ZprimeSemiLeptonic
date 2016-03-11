@@ -21,7 +21,7 @@ class weightcalc_ttagging {
   explicit weightcalc_ttagging(const std::string&, const std::string&,
                                                    const std::string&, const std::string&,
                                                    const std::string&, const std::string&,
-                               const std::string&, const std::string&, const std::string&);
+                               const std::string&, const std::string&, const std::string&, const bool v=false);
   virtual ~weightcalc_ttagging();
 
   virtual void load_SFac(const std::string&, const std::string&);

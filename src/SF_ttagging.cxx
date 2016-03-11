@@ -11,9 +11,10 @@
 weightcalc_ttagging::weightcalc_ttagging(const std::string& sfac_csvfile , const std::string& ttagWP_key,
                                          const std::string& meas_key_jetL, const std::string& meas_key_jetT,
                                          const std::string& syst_key_jetL, const std::string& syst_key_jetT,
-                                         const std::string& effyTF, const std::string& effyTG__jetL, const std::string& effyTG__jetT){
+                                         const std::string& effyTF, const std::string& effyTG__jetL, const std::string& effyTG__jetT,
+                                         const bool v){
 
-  verbose_ = false;
+  verbose_ = v;
 
   tjet_maxDR_gentop_ = 0.8;
 
@@ -136,8 +137,10 @@ void weightcalc_ttagging::load_SFac(const std::string& ttagWP_key, const std::st
       std::cout << ", " << sf.ptMin;
       std::cout << ", " << sf.ptMax;
       std::cout << ", " << std::string(sf.function.GetExpFormula());
-      std::cout << std::endl;
+      std::cout << "\n";
     }
+
+    std::cout << "\n";
   }
 
   return;
@@ -253,9 +256,9 @@ float weightcalc_ttagging::jet_SFac(const TopJet& jet_, const uhh2::Event& evt_)
       float pt_min(std::numeric_limits<float>::infinity()), pt_max(-1.);
       for(unsigned int i=0; i<ttagSF_vec_.size(); ++i){
 
-	const weightcalc_ttagging::ttagSF& ttag_sf = ttagSF_vec_.at(i);
+        const weightcalc_ttagging::ttagSF& ttag_sf = ttagSF_vec_.at(i);
 
-	if(ttag_sf.jetFlavor == jet_FLAV){
+        if(ttag_sf.jetFlavor == jet_FLAV){
 
           if(ttag_sf.etaMin<jet_ETA && jet_ETA<ttag_sf.etaMax){
 
@@ -300,10 +303,24 @@ float weightcalc_ttagging::weight(const uhh2::Event& evt_) const {
     const float sfac =          jet_SFac(jet, evt_);
     const float effy = std::min(jet_effy(jet, evt_), float(0.99999));
 
-    if(verbose_) std::cout << std::endl;
+    const bool pass_ttagWP(ttagWP_(jet, evt_));
 
-    if(ttagWP_(jet, evt_)) wgt *=     sfac;
-    else                   wgt *= (1.-sfac*effy) / (1.-effy);
+    if(verbose_) std::cout << " pass_ttagWP=" << pass_ttagWP << std::endl;
+
+    if(pass_ttagWP) wgt *=     sfac;
+    else            wgt *= (1.-sfac*effy) / (1.-effy);
+  }
+
+  if(verbose_){
+
+    std::string log("--- ttagSF.weight="+std::to_string(wgt));
+    log += " [meas(L)="+measurement_type__jetL_;
+    log += ", meas(T)="+measurement_type__jetT_;
+    log += ", syst(L)="+sys_key__jetL_;
+    log += ", syst(T)="+sys_key__jetT_;
+    log += "]";
+
+    std::cout << log << "\n\n";
   }
 
   return wgt;

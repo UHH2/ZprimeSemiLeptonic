@@ -6,7 +6,7 @@ EffyTTbarRECOHists::EffyTTbarRECOHists(uhh2::Context& ctx, const std::string& di
   HistsBASE(ctx, dir) {
 
   h_ttbar_gen  = ctx.get_handle<TTbarGen>(ttgen);
-  h_ttbar_hyps = ctx.get_handle<std::vector<ReconstructionHypothesis>>(hyps);
+  h_ttbar_hyps = ctx.get_handle<std::vector<ReconstructionHypothesis> >(hyps);
   disc_name_ = disc;
 
   init();
@@ -205,12 +205,7 @@ void EffyTTbarRECOHists::init(){
 
 void EffyTTbarRECOHists::fill(const uhh2::Event& evt){
 
-  const std::vector<ReconstructionHypothesis>& ttbar_hyps = evt.get(h_ttbar_hyps);
-
-  const ReconstructionHypothesis* hyp = get_best_hypothesis(ttbar_hyps, disc_name_);
-  if(!hyp) throw std::runtime_error("EffyTTbarRECOHists::fill -- null pointer to ReconstructionHypothesis object (from \"get_best_hypothesis\")");
-
-  const float hyp_val = hyp->discriminator(disc_name_);
+  const float weight(evt.weight);
 
   const TTbarGen* ttbargen(0);
   if(!evt.isRealData){
@@ -219,7 +214,17 @@ void EffyTTbarRECOHists::fill(const uhh2::Event& evt){
     ttbargen = &ttgen;
   }
 
-  const float weight(evt.weight);
+  const ReconstructionHypothesis* hyp(0);
+  float hyp_val(0.);
+  if(evt.is_valid(h_ttbar_hyps)){
+
+    const auto& ttbar_hyps = evt.get(h_ttbar_hyps);
+
+    hyp = get_best_hypothesis(ttbar_hyps, disc_name_);
+    if(!hyp) throw std::runtime_error("EffyTTbarRECOHists::fill -- null pointer to ReconstructionHypothesis object (from \"get_best_hypothesis\")");
+
+    hyp_val = hyp->discriminator(disc_name_);
+  }
 
   fill(hyp, hyp_val, ttbargen, weight);
 
@@ -332,8 +337,8 @@ void EffyTTbarRECOHists::fill(const ReconstructionHypothesis* hyp, const float h
   if(hyp){
 
     // ttbar
-    float rec_ttbar_M ((hyp->top_v4()+hyp->antitop_v4()).M());
-    float rec_ttbar_pt((hyp->top_v4()+hyp->antitop_v4()).Pt());
+    const float rec_ttbar_M ((hyp->top_v4()+hyp->antitop_v4()).M());
+    const float rec_ttbar_pt((hyp->top_v4()+hyp->antitop_v4()).Pt());
 
 //!!    const float& hyp_val = hyp->discriminator(hyp_disc);
 

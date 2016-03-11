@@ -10,9 +10,12 @@
 weightcalc_btagging::weightcalc_btagging(const std::string& sfac_csvfile, const std::string& btagWP_key,
                                          const std::string& meas_key_jetL, const std::string& meas_key_jetC, const std::string& meas_key_jetB,
                                          const std::string& syst_key_jetL, const std::string& syst_key_jetC, const std::string& syst_key_jetB,
-                                         const std::string& effyTF, const std::string& effyTG__jetL, const std::string& effyTG__jetC, const std::string& effyTG__jetB){
+                                         const std::string& effyTF, const std::string& effyTG__jetL, const std::string& effyTG__jetC, const std::string& effyTG__jetB,
+                                         const bool v){
 
-  verbose_ = false;
+  verbose_ = v;
+
+  abs_eta_ = false;
 
   // scale-factors
   measurement_type__jetL_ = meas_key_jetL;
@@ -157,8 +160,10 @@ void weightcalc_btagging::load_SFac(const std::string& btagWP_key, const std::st
       std::cout << ", " << sf.discrMin;
       std::cout << ", " << sf.discrMax;
       std::cout << ", " << std::string(sf.function.GetExpFormula());
-      std::cout << std::endl;
+      std::cout << "\n";
     }
+
+    std::cout << "\n";
   }
 
   return;
@@ -240,7 +245,7 @@ float weightcalc_btagging::jet_SFac(const Jet& jet_) const {
   else throw std::runtime_error("weightcalc_btagging::jet_SFac -- failed to assign key for jet flavor");
 
   const float jet_pt  = jet_.pt();
-  const float jet_ETA = jet_.eta();
+  const float jet_ETA = abs_eta_ ? fabs(jet_.eta()) : jet_.eta();
 
   float jet_PT(jet_pt), sf(1.); {
 
@@ -296,10 +301,26 @@ float weightcalc_btagging::weight(const uhh2::Event& evt_) const {
     const float sfac =          jet_SFac(jet);
     const float effy = std::min(jet_effy(jet), float(0.99999));
 
-    if(verbose_) std::cout << std::endl;
+    const bool pass_btagWP(btagWP_(jet, evt_));
 
-    if(btagWP_(jet, evt_)) wgt *=     sfac;
-    else                   wgt *= (1.-sfac*effy) / (1.-effy);
+    if(verbose_) std::cout << " pass_btagWP=" << pass_btagWP << std::endl;
+
+    if(pass_btagWP) wgt *=     sfac;
+    else            wgt *= (1.-sfac*effy) / (1.-effy);
+  }
+
+  if(verbose_){
+
+    std::string log("--- btagSF.weight="+std::to_string(wgt));
+    log += " [meas(L)="+measurement_type__jetL_;
+    log += ", meas(C)="+measurement_type__jetC_;
+    log += ", meas(B)="+measurement_type__jetB_;
+    log += ", syst(L)="+sys_key__jetL_;
+    log += ", syst(C)="+sys_key__jetC_;
+    log += ", syst(B)="+sys_key__jetB_;
+    log += "]";
+
+    std::cout << log << "\n\n";
   }
 
   return wgt;

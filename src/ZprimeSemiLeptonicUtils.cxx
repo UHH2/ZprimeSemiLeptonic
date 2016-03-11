@@ -30,6 +30,7 @@ bool JetLeptonDeltaRCleaner::process(uhh2::Event& event){
 
   return true;
 }
+////
 
 bool TopJetLeptonDeltaRCleaner::process(uhh2::Event& event){
 
@@ -60,6 +61,7 @@ bool TopJetLeptonDeltaRCleaner::process(uhh2::Event& event){
 
   return true;
 }
+////
 
 const Particle* leading_lepton(const uhh2::Event& event){
 
@@ -122,12 +124,118 @@ float Electron_pfMINIIso(const Electron& ele, const uhh2::Event&, const std::str
 
   return iso;
 }
+////
 
 bool trigger_bit(const uhh2::Event& evt_, const std::string& hlt_key_){
 
   uhh2::Event::TriggerIndex trg_index = evt_.get_trigger_index(hlt_key_);
 
   return bool(evt_.passes_trigger(trg_index));
+}
+////
+
+GENWToLNuFinder::GENWToLNuFinder(uhh2::Context& ctx, const std::string& label){
+
+  h_genWln_W_ = ctx.declare_event_output<GenParticle>(label+"_W");
+  h_genWln_l_ = ctx.declare_event_output<GenParticle>(label+"_l");
+  h_genWln_n_ = ctx.declare_event_output<GenParticle>(label+"_n");
+}
+
+bool GENWToLNuFinder::process(uhh2::Event& evt){
+
+  const GenParticle *genW(0), *genW_lep(0), *genW_neu(0); {
+
+    int genwN(0);
+
+    assert(evt.genparticles);
+    for(const auto& genp : *evt.genparticles){
+
+      if(genwN > 1) throw std::runtime_error("GENWToLNuFinder::process -- logic error: more than 1 W->lnu decay found at GEN level");
+
+      // gen-W
+      const bool is_me = (20 <= genp.status() && genp.status() <= 30);
+      if(!is_me) continue;
+
+      const int is_w = (std::abs(genp.pdgId()) == 24);
+      if(!is_w) continue;
+
+      genW = &genp;
+
+      // gen-W daughters
+      const GenParticle* dau1 = genp.daughter(evt.genparticles, 1);
+      const GenParticle* dau2 = genp.daughter(evt.genparticles, 2);
+
+      if(dau1 && dau2){
+
+        const int id1 = std::abs(dau1->pdgId());
+        const int id2 = std::abs(dau2->pdgId());
+
+        if((id1 == 11 || id1 == 13 || id1 == 15) &&
+           (id2 == 12 || id2 == 14 || id2 == 16) ){ genW_lep = dau1; genW_neu = dau2; ++genwN; }
+
+        if((id2 == 11 || id2 == 13 || id2 == 15) &&
+           (id1 == 12 || id1 == 14 || id1 == 16) ){ genW_lep = dau2; genW_neu = dau1; ++genwN; }
+      }
+    }
+  }
+
+//  if(!genW || !genW_lep || !genW_neu){
+//
+//    std::cout << std::endl;
+//    for(const auto& p : *evt.genparticles){
+//
+//      std::cout <<  " i=" << p.index()    ;
+//      std::cout << " m1=" << p.mother1()  ;
+//      std::cout << " m2=" << p.mother2()  ;
+//      std::cout << " d1=" << p.daughter1();
+//      std::cout << " d2=" << p.daughter2();
+//      std::cout << " ID=" << p.pdgId()    ;
+//      std::cout << " px=" << p.v4().Px()  ;
+//      std::cout << " py=" << p.v4().Py()  ;
+//      std::cout << " pz=" << p.v4().Pz()  ;
+//      std::cout << std::endl;
+//    }
+//  }
+
+  evt.set(h_genWln_W_, genW     ? GenParticle(*genW)     : GenParticle());
+  evt.set(h_genWln_l_, genW_lep ? GenParticle(*genW_lep) : GenParticle());
+  evt.set(h_genWln_n_, genW_neu ? GenParticle(*genW_neu) : GenParticle());
+
+  return true;
+}
+////
+
+MEPartonFinder::MEPartonFinder(uhh2::Context& ctx, const std::string& label){
+
+  h_meps_ = ctx.declare_event_output<std::vector<GenParticle> >(label);
+}
+
+bool MEPartonFinder::process(uhh2::Event& evt){
+
+  std::vector<GenParticle> mep_refs;
+
+  assert(evt.genparticles);
+  for(const auto& genp : *evt.genparticles){
+
+    const bool is_me = (20 <= genp.status() && genp.status() <= 30);
+    if(!is_me) continue;
+
+    const bool has_mo1 = (genp.mother1() != (unsigned short)(-1));
+    if(!has_mo1) continue;
+
+    const bool has_mo2 = (genp.mother2() != (unsigned short)(-1));
+    if(!has_mo2) continue;
+
+    const int abs_id = std::abs(genp.pdgId());
+    const bool is_parton = (((1<=abs_id) && (abs_id<=5)) || (abs_id == 21));
+    if(!is_parton) continue;
+
+    mep_refs.push_back(genp);
+  }
+
+  evt.set(h_meps_, std::move(mep_refs));
+
+  return true;
 }
 ////
 
@@ -176,3 +284,4 @@ bool TopTagID_SoftDrop::operator()(const TopJet& tj, const uhh2::Event&) const {
 
   return true;
 }
+////
