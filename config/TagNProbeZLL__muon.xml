@@ -169,8 +169,8 @@
       <Item Name="pileup_directory"           Value="../../common/data/MyMCPileupHistogram.root"/>
       <Item Name="pileup_directory_data"      Value="../../common/data/MyDataPileupHistogram_Silver.root"/>
 
-      <Item Name="muonID_SF_file"  Value="/nfs/dust/cms/user/missirol/Analysis7XY/utils/lepton/muon_ID/MuonID_Z_RunCD_Reco74X_Dec1.root"/>
-      <Item Name="muonID_SF_hist"  Value="NUM_MediumID_DEN_genTracks_PAR_pt_spliteta_bin1/abseta_pt_ratio"/>
+      <Item Name="muonID_SF_file"  Value="../../common/data/MuonID_Z_RunCD_Reco76X_Feb15.root"/>
+      <Item Name="muonID_SF_directory"  Value="MC_NUM_MediumID_DEN_genTracks_PAR_pt_spliteta_bin1"/>
 
       <Item Name="elecID_SF_file"  Value="/nfs/dust/cms/user/missirol/Analysis7XY/utils/lepton/elec_ID/kinematicBinSFele.root"/>
       <Item Name="elecID_SF_hist"  Value="CutBasedTight"/>

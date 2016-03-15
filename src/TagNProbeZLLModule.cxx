@@ -21,7 +21,6 @@
 
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicSelections.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicUtils.h>
-#include <UHH2/ZprimeSemiLeptonic/include/SF_muon.h>
 #include <UHH2/ZprimeSemiLeptonic/include/SF_elec.h>
 
 class TagNProbeZLLModule: public AnalysisModule {
@@ -66,8 +65,7 @@ class TagNProbeZLLModule: public AnalysisModule {
   //// Data/MC scale factors
   std::unique_ptr<uhh2::AnalysisModule> pileupSF;
 
-  std::unique_ptr<weightcalc_muonID>  muonIDSF;
-  std::unique_ptr<weightcalc_muonHLT> muonHLTSF;
+  std::unique_ptr<uhh2::AnalysisModule> muonID_SF;
 
   std::unique_ptr<weightcalc_elecID>  elecIDSF;
 //!!  std::unique_ptr<weightcalc_elecHLT> elecHLTSF;
@@ -272,9 +270,8 @@ TagNProbeZLLModule::TagNProbeZLLModule(uhh2::Context& ctx){
 
   // muon-ID
   const std::string& muonID_SFac    = ctx.get("muonID_SF_file");
-  const std::string& muonID_hist    = ctx.get("muonID_SF_hist");
+  const std::string& muonID_directory    = ctx.get("muonID_SF_directory");
 
-  muonIDSF.reset(new weightcalc_muonID(ctx, "muons", muonID_SFac, muonID_hist, 0.01));
   //
 
   // elec-ID
@@ -291,6 +288,9 @@ TagNProbeZLLModule::TagNProbeZLLModule(uhh2::Context& ctx){
 
   //pileup
   pileupSF.reset(new MCPileupReweight(ctx));
+
+  // muon-ID
+  muonID_SF.reset(new MCMuonScaleFactor(ctx, muonID_SFac, muonID_directory, 1.0, "ID"));
 
   if(isMC){
 
@@ -443,7 +443,6 @@ bool TagNProbeZLLModule::process(uhh2::Event& event){
 
   //// Data/MC scale factors
 
-  float w_muonIDSF_ct(1.);
   float w_elecIDSF_ct(1.);
 
   if(!event.isRealData){
@@ -453,15 +452,15 @@ bool TagNProbeZLLModule::process(uhh2::Event& event){
     //
 
     // muon-ID
-    w_muonIDSF_ct = muonIDSF->weight(event, "CT");
+    muonID_SF->process(event);
+
     //
 
     // elec-ID
     w_elecIDSF_ct = 1.00;//!!elecIDSF->weight(event, "CT");
     //
 
-    if     (channel_ == muon) event.weight *= w_muonIDSF_ct;
-    else if(channel_ == elec) event.weight *= w_elecIDSF_ct;
+    if(channel_ == elec) event.weight *= w_elecIDSF_ct;
     //
   }
   ////

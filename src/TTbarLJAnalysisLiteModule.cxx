@@ -28,7 +28,6 @@
 #include <UHH2/ZprimeSemiLeptonic/include/DileptonHists.h>
 #include <UHH2/ZprimeSemiLeptonic/include/EffyTTbarRECOHists.h>
 
-#include <UHH2/ZprimeSemiLeptonic/include/SF_muon.h>
 #include <UHH2/ZprimeSemiLeptonic/include/SF_elec.h>
 #include <UHH2/ZprimeSemiLeptonic/include/SF_btagging.h>
 #include <UHH2/ZprimeSemiLeptonic/include/SF_ttagging.h>
@@ -83,12 +82,11 @@ class TTbarLJAnalysisLiteModule : public ModuleBASE {
   bool store_PDF_weights_;
 
   //// Data/MC scale factors
-  std::unique_ptr<weightcalc_muonID>  muonIDSF;
-  std::unique_ptr<weightcalc_muonHLT> muonHLTSF;
-
   std::unique_ptr<weightcalc_elecID>  elecIDSF;
 
   std::unique_ptr<uhh2::AnalysisModule> pileupSF;
+  std::unique_ptr<uhh2::AnalysisModule> muonID_SF;
+  std::unique_ptr<uhh2::AnalysisModule> muonHLT_SF;
 
 //!!  std::unique_ptr<weightcalc_elecHLT> elecHLTSF;
 
@@ -154,14 +152,6 @@ class TTbarLJAnalysisLiteModule : public ModuleBASE {
 
   // weight
   Event::Handle<float> h_wgtMC__GEN;
-
-  Event::Handle<float> h_wgtMC__muonIDSF_ct;
-  Event::Handle<float> h_wgtMC__muonIDSF_up;
-  Event::Handle<float> h_wgtMC__muonIDSF_dn;
-
-  Event::Handle<float> h_wgtMC__muonHLTSF_ct;
-  Event::Handle<float> h_wgtMC__muonHLTSF_up;
-  Event::Handle<float> h_wgtMC__muonHLTSF_dn;
 
   Event::Handle<float> h_wgtMC__elecIDSF_ct;
   Event::Handle<float> h_wgtMC__elecIDSF_up;
@@ -523,17 +513,13 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
   // muon-ID
   const std::string& muonID_SFac    = ctx.get("muonID_SF_file");
-  const std::string& muonID_hist    = ctx.get("muonID_SF_hist");
+  const std::string& muonID_directory    = ctx.get("muonID_SF_directory");
 
-  muonIDSF.reset(new weightcalc_muonID(ctx, "muons", muonID_SFac, muonID_hist, 0.01));
-  //
 
   // muon-HLT
   const std::string& muonHLT_SFac   = ctx.get("muonHLT_SF_file");
-  const std::string& muonHLT_hist   = ctx.get("muonHLT_SF_hist");
+  const std::string& muonHLT_directory   = ctx.get("muonHLT_SF_directory");
 
-  muonHLTSF.reset(new weightcalc_muonHLT(ctx, "muons", muonHLT_SFac, muonHLT_hist, 0.005));
-  //
 
   // elec-ID
   const std::string& elecID_SFac    = ctx.get("elecID_SF_file");
@@ -598,6 +584,8 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
   //pileup (define it after undeclaring all other variables to keep the weights in the output)
   pileupSF.reset(new MCPileupReweight(ctx));
+  muonID_SF.reset(new MCMuonScaleFactor(ctx, muonID_SFac, muonID_directory, 1.0, "ID"));
+  muonHLT_SF.reset(new MCMuonScaleFactor(ctx, muonHLT_SFac, muonHLT_directory, 0.5, "HLT"));
 
   // event
   h_run             = ctx.declare_event_output<int>("run");
@@ -649,14 +637,6 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
   // weight
   h_wgtMC__GEN            = ctx.declare_event_output<float>("wgtMC__GEN");
-
-  h_wgtMC__muonIDSF_ct    = ctx.declare_event_output<float>("wgtMC__muonIDSF_ct");
-  h_wgtMC__muonIDSF_up    = ctx.declare_event_output<float>("wgtMC__muonIDSF_up");
-  h_wgtMC__muonIDSF_dn    = ctx.declare_event_output<float>("wgtMC__muonIDSF_dn");
-
-  h_wgtMC__muonHLTSF_ct   = ctx.declare_event_output<float>("wgtMC__muonHLTSF_ct");
-  h_wgtMC__muonHLTSF_up   = ctx.declare_event_output<float>("wgtMC__muonHLTSF_up");
-  h_wgtMC__muonHLTSF_dn   = ctx.declare_event_output<float>("wgtMC__muonHLTSF_dn");
 
   h_wgtMC__elecIDSF_ct    = ctx.declare_event_output<float>("wgtMC__elecIDSF_ct");
   h_wgtMC__elecIDSF_up    = ctx.declare_event_output<float>("wgtMC__elecIDSF_up");
@@ -718,8 +698,6 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   //// Data/MC scale factors
 
   float w_GEN(1.);
-  float w_muonIDSF_ct(1.) , w_muonIDSF_up(1.) , w_muonIDSF_dn(1.);
-  float w_muonHLTSF_ct(1.), w_muonHLTSF_up(1.), w_muonHLTSF_dn(1.);
   float w_elecIDSF_ct(1.) , w_elecIDSF_up(1.) , w_elecIDSF_dn(1.);
   float w_elecHLTSF_ct(1.), w_elecHLTSF_up(1.), w_elecHLTSF_dn(1.);
   float w_btagSF_ct(1.), w_btagSF_upL(1.), w_btagSF_dnL(1.), w_btagSF_upB(1.), w_btagSF_dnB(1.);
@@ -739,15 +717,13 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
     //
 
     // muon-ID
-    w_muonIDSF_ct  = muonIDSF->weight(event, "CT");
-    w_muonIDSF_up  = muonIDSF->weight(event, "UP");
-    w_muonIDSF_dn  = muonIDSF->weight(event, "DN");
+    muonID_SF->process(event);
+
     //
 
     // muon-HLT
-    w_muonHLTSF_ct = muonHLTSF->weight(event, "CT");
-    w_muonHLTSF_up = muonHLTSF->weight(event, "UP");
-    w_muonHLTSF_dn = muonHLTSF->weight(event, "DN");
+    muonHLT_SF->process(event);
+
     //
 
     // elec-ID
@@ -823,8 +799,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
     event.weight *= w_ttagSF_ct;
     //
 
-    if     (channel_ == muon) event.weight *= w_muonIDSF_ct;
-    else if(channel_ == elec) event.weight *= w_elecIDSF_ct;
+    if(channel_ == elec) event.weight *= w_elecIDSF_ct;
   }
   //
 
@@ -873,8 +848,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   if(lepN == 1) HFolder("trigger")->fill(event);
   ////
 
-  if     (channel_ == muon) event.weight *= w_muonHLTSF_ct;
-  else if(channel_ == elec) event.weight *= w_elecHLTSF_ct;
+  if(channel_ == elec) event.weight *= w_elecHLTSF_ct;
 
   //// MET selection
   const bool pass_met = met_sel->passes(event);
@@ -1146,14 +1120,6 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
 
   // weight
   event.set(h_wgtMC__GEN         , w_GEN);
-
-  event.set(h_wgtMC__muonIDSF_ct , w_muonIDSF_ct);
-  event.set(h_wgtMC__muonIDSF_up , w_muonIDSF_up);
-  event.set(h_wgtMC__muonIDSF_dn , w_muonIDSF_dn);
-
-  event.set(h_wgtMC__muonHLTSF_ct, w_muonHLTSF_ct);
-  event.set(h_wgtMC__muonHLTSF_up, w_muonHLTSF_up);
-  event.set(h_wgtMC__muonHLTSF_dn, w_muonHLTSF_dn);
 
   event.set(h_wgtMC__elecIDSF_ct , w_elecIDSF_ct);
   event.set(h_wgtMC__elecIDSF_up , w_elecIDSF_up);
