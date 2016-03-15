@@ -21,7 +21,6 @@
 
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicSelections.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicUtils.h>
-#include <UHH2/ZprimeSemiLeptonic/include/SF_pileup.h>
 #include <UHH2/ZprimeSemiLeptonic/include/SF_muon.h>
 #include <UHH2/ZprimeSemiLeptonic/include/SF_elec.h>
 
@@ -56,9 +55,7 @@ class TagNProbeZLLModule: public AnalysisModule {
 
   // selections
   std::unique_ptr<Selection>    lumi_sel;
-  std::vector<std::unique_ptr<uhh2::Selection> >             met_filters1;
-  std::vector<std::unique_ptr<uhh2::RunLumiEventSelection> > met_filters2;
-
+  std::unique_ptr<uhh2::AndSelection> metfilters_sel;
   std::unique_ptr<AndSelection> lep2_sel;
   std::unique_ptr<Selection>    jet2_sel;
   std::unique_ptr<Selection>    jet1_sel;
@@ -67,7 +64,7 @@ class TagNProbeZLLModule: public AnalysisModule {
   std::unique_ptr<uhh2::Selection> genmttbar_sel;
 
   //// Data/MC scale factors
-  std::unique_ptr<weightcalc_pileup> pileupSF_ct;
+  std::unique_ptr<uhh2::AnalysisModule> pileupSF;
 
   std::unique_ptr<weightcalc_muonID>  muonIDSF;
   std::unique_ptr<weightcalc_muonHLT> muonHLTSF;
@@ -202,28 +199,16 @@ TagNProbeZLLModule::TagNProbeZLLModule(uhh2::Context& ctx){
   /* CMS-certified luminosity sections */
   if(!isMC) lumi_sel.reset(new LumiSelection(ctx));
 
-  /* MET filters #1 (MINIAOD flags) */
-  met_filters1.clear();
-  met_filters1.emplace_back(new TriggerSelection("Flag_goodVertices"));
-  met_filters1.emplace_back(new TriggerSelection("Flag_eeBadScFilter"));
-  /**********************************/
-
-  /* MET filters #2 (.txt files) ****/
-  met_filters2.clear();
-  if(!isMC){
-
-    const int metfiltersN(4);
-
-    for(unsigned int i=0; i<metfiltersN; ++i){
-
-      if(ctx.has("METFilter_file"+std::to_string(i+1))){
-
-        const std::string& text_file(ctx.get("METFilter_file"+std::to_string(i+1)));
-
-        if(text_file != "NULL") met_filters2.emplace_back(new RunLumiEventSelection(text_file, ":"));
-      }
-    }
-  }
+  /* MET filters (MINIAOD flags) */
+  metfilters_sel.reset(new uhh2::AndSelection(ctx, "metfilters"));
+  metfilters_sel->add<TriggerSelection>("1-good-vtx", "Flag_goodVertices");
+  metfilters_sel->add<TriggerSelection>("HBHENoiseFilter", "Flag_HBHENoiseFilter");
+  metfilters_sel->add<TriggerSelection>("HBHENoiseIsoFilter", "Flag_HBHENoiseIsoFilter");
+  metfilters_sel->add<TriggerSelection>("CSCTightHalo2015Filter", "Flag_CSCTightHalo2015Filter");
+  metfilters_sel->add<TriggerSelection>("EcalDeadCellTriggerPrimitiveFilter", "Flag_EcalDeadCellTriggerPrimitiveFilter");
+  metfilters_sel->add<TriggerSelection>("eeBadScFilter", "Flag_eeBadScFilter");
+  metfilters_sel->add<TriggerSelection>("chargedHadronTrackResolutionFilter", "Flag_chargedHadronTrackResolutionFilter"); 
+  metfilters_sel->add<TriggerSelection>("muonBadTrackFilter", "Flag_muonBadTrackFilter");
   /**********************************/
 
   ////
@@ -237,11 +222,11 @@ TagNProbeZLLModule::TagNProbeZLLModule(uhh2::Context& ctx){
   std::vector<std::string> JEC_AK4;
   if(isMC){
 
-    JEC_AK4 = JERFiles::Summer15_25ns_L123_AK4PFchs_MC;
+    JEC_AK4 = JERFiles::Fall15_25ns_L123_AK4PFchs_MC;
   }
   else {
 
-    JEC_AK4 = JERFiles::Summer15_25ns_L123_AK4PFchs_DATA;
+    JEC_AK4 = JERFiles::Fall15_25ns_L123_AK4PFchs_DATA;
   }
 
   jet_IDcleaner.reset(new JetCleaner(ctx, jetID));
@@ -285,13 +270,6 @@ TagNProbeZLLModule::TagNProbeZLLModule(uhh2::Context& ctx){
 
   //// Data/MC scale factors
 
-  // pileup
-  const std::string& pileup_MC      = ctx.get("pileup_MC");
-  const std::string& pileup_DATA_ct = ctx.get("pileup_DATA_ct");
-
-  pileupSF_ct.reset(new weightcalc_pileup(pileup_DATA_ct, pileup_MC, "pileup", "pileup"));
-  //
-
   // muon-ID
   const std::string& muonID_SFac    = ctx.get("muonID_SF_file");
   const std::string& muonID_hist    = ctx.get("muonID_SF_hist");
@@ -310,6 +288,9 @@ TagNProbeZLLModule::TagNProbeZLLModule(uhh2::Context& ctx){
 
   //// TNP VARS
   ctx.undeclare_all_event_output();
+
+  //pileup
+  pileupSF.reset(new MCPileupReweight(ctx));
 
   if(isMC){
 
@@ -456,35 +437,19 @@ bool TagNProbeZLLModule::process(uhh2::Event& event){
   if(event.isRealData && !lumi_sel->passes(event)) return false;
 
   /* MET filters #1 */
-  for(const auto& metf1 : met_filters1){
-
-    if(!metf1->passes(event)) return false;
-  }
-
-  /* MET filters #2 */
-  if(event.isRealData){
-
-    for(const auto& metf2 : met_filters2){
-
-      if(metf2->found(event)) return false;
-    }
-  }
+  if(!metfilters_sel->passes(event)) return false;
 
   ////
 
   //// Data/MC scale factors
 
-  float w_GEN(1.);
-  float w_pileupSF_ct(1.);
   float w_muonIDSF_ct(1.);
   float w_elecIDSF_ct(1.);
 
   if(!event.isRealData){
 
-    w_GEN = event.weight;
-
     // pileup
-    w_pileupSF_ct = pileupSF_ct->weight(event);
+    pileupSF->process(event);
     //
 
     // muon-ID
@@ -494,10 +459,6 @@ bool TagNProbeZLLModule::process(uhh2::Event& event){
     // elec-ID
     w_elecIDSF_ct = 1.00;//!!elecIDSF->weight(event, "CT");
     //
-
-    // central weight (histograms)
-    event.weight  = w_GEN;
-    event.weight *= w_pileupSF_ct;
 
     if     (channel_ == muon) event.weight *= w_muonIDSF_ct;
     else if(channel_ == elec) event.weight *= w_elecIDSF_ct;

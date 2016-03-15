@@ -28,7 +28,6 @@
 #include <UHH2/ZprimeSemiLeptonic/include/DileptonHists.h>
 #include <UHH2/ZprimeSemiLeptonic/include/EffyTTbarRECOHists.h>
 
-#include <UHH2/ZprimeSemiLeptonic/include/SF_pileup.h>
 #include <UHH2/ZprimeSemiLeptonic/include/SF_muon.h>
 #include <UHH2/ZprimeSemiLeptonic/include/SF_elec.h>
 #include <UHH2/ZprimeSemiLeptonic/include/SF_btagging.h>
@@ -48,7 +47,6 @@ class TTbarLJAnalysisLiteModule : public ModuleBASE {
 
   // selections
   std::unique_ptr<uhh2::Selection> lumi_sel;
-  std::vector<std::unique_ptr<uhh2::RunLumiEventSelection> > met_filters2;
 
   std::unique_ptr<uhh2::Selection> jet2_sel;
   std::unique_ptr<uhh2::Selection> jet1_sel;
@@ -85,14 +83,13 @@ class TTbarLJAnalysisLiteModule : public ModuleBASE {
   bool store_PDF_weights_;
 
   //// Data/MC scale factors
-  std::unique_ptr<weightcalc_pileup> pileupSF_ct;
-  std::unique_ptr<weightcalc_pileup> pileupSF_up;
-  std::unique_ptr<weightcalc_pileup> pileupSF_dn;
-
   std::unique_ptr<weightcalc_muonID>  muonIDSF;
   std::unique_ptr<weightcalc_muonHLT> muonHLTSF;
 
   std::unique_ptr<weightcalc_elecID>  elecIDSF;
+
+  std::unique_ptr<uhh2::AnalysisModule> pileupSF;
+
 //!!  std::unique_ptr<weightcalc_elecHLT> elecHLTSF;
 
   std::unique_ptr<weightcalc_btagging> btagSF_ct;
@@ -157,10 +154,6 @@ class TTbarLJAnalysisLiteModule : public ModuleBASE {
 
   // weight
   Event::Handle<float> h_wgtMC__GEN;
-
-  Event::Handle<float> h_wgtMC__pileupSF_ct;
-  Event::Handle<float> h_wgtMC__pileupSF_up;
-  Event::Handle<float> h_wgtMC__pileupSF_dn;
 
   Event::Handle<float> h_wgtMC__muonIDSF_ct;
   Event::Handle<float> h_wgtMC__muonIDSF_up;
@@ -367,22 +360,6 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   /* CMS-certified luminosity sections */
   if(!isMC) lumi_sel.reset(new LumiSelection(ctx));
 
-  /* MET filters #2 (.txt files) ****/
-  met_filters2.clear();
-  if(!isMC){
-
-    const int metfiltersN(4);
-
-    for(unsigned int i=0; i<metfiltersN; ++i){
-
-      if(ctx.has("METFilter_file"+std::to_string(i+1))){
-
-        const std::string& text_file(ctx.get("METFilter_file"+std::to_string(i+1)));
-
-        if(text_file != "NULL") met_filters2.emplace_back(new RunLumiEventSelection(text_file, ":"));
-      }
-    }
-  }
   /**********************************/
 
   ////
@@ -542,15 +519,6 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
   //// Data/MC scale factors
 
-  // pileup
-  const std::string& pileup_MC      = ctx.get("pileup_MC");
-  const std::string& pileup_DATA_ct = ctx.get("pileup_DATA_ct");
-  const std::string& pileup_DATA_up = ctx.get("pileup_DATA_up");
-  const std::string& pileup_DATA_dn = ctx.get("pileup_DATA_dn");
-
-  pileupSF_ct.reset(new weightcalc_pileup(pileup_DATA_ct, pileup_MC, "pileup", "pileup"));
-  pileupSF_up.reset(new weightcalc_pileup(pileup_DATA_up, pileup_MC, "pileup", "pileup"));
-  pileupSF_dn.reset(new weightcalc_pileup(pileup_DATA_dn, pileup_MC, "pileup", "pileup"));
   //
 
   // muon-ID
@@ -628,6 +596,9 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   //// VARS
   ctx.undeclare_all_event_output();
 
+  //pileup (define it after undeclaring all other variables to keep the weights in the output)
+  pileupSF.reset(new MCPileupReweight(ctx));
+
   // event
   h_run             = ctx.declare_event_output<int>("run");
   h_lumi_block      = ctx.declare_event_output<int>("lumi_block");
@@ -678,10 +649,6 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
   // weight
   h_wgtMC__GEN            = ctx.declare_event_output<float>("wgtMC__GEN");
-
-  h_wgtMC__pileupSF_ct    = ctx.declare_event_output<float>("wgtMC__pileupSF_ct");
-  h_wgtMC__pileupSF_up    = ctx.declare_event_output<float>("wgtMC__pileupSF_up");
-  h_wgtMC__pileupSF_dn    = ctx.declare_event_output<float>("wgtMC__pileupSF_dn");
 
   h_wgtMC__muonIDSF_ct    = ctx.declare_event_output<float>("wgtMC__muonIDSF_ct");
   h_wgtMC__muonIDSF_up    = ctx.declare_event_output<float>("wgtMC__muonIDSF_up");
@@ -734,6 +701,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
 
   //// COMMON MODULES
 
+
   if(!event.isRealData){
 
     ttgenprod->process(event);
@@ -745,21 +713,11 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
     if(!lumi_sel->passes(event)) return false;
   }
 
-  /* MET filters #2 */
-  if(event.isRealData){
-
-    for(const auto& metf2 : met_filters2){
-
-      if(metf2->found(event)) return false;
-    }
-  }
-
   ////
 
   //// Data/MC scale factors
 
   float w_GEN(1.);
-  float w_pileupSF_ct(1.) , w_pileupSF_up(1.) , w_pileupSF_dn(1.);
   float w_muonIDSF_ct(1.) , w_muonIDSF_up(1.) , w_muonIDSF_dn(1.);
   float w_muonHLTSF_ct(1.), w_muonHLTSF_up(1.), w_muonHLTSF_dn(1.);
   float w_elecIDSF_ct(1.) , w_elecIDSF_up(1.) , w_elecIDSF_dn(1.);
@@ -776,10 +734,8 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
 
     w_GEN = event.weight;
 
-    // pileup
-    w_pileupSF_ct  = pileupSF_ct->weight(event);
-    w_pileupSF_up  = pileupSF_up->weight(event);
-    w_pileupSF_dn  = pileupSF_dn->weight(event);
+    pileupSF->process(event);
+
     //
 
     // muon-ID
@@ -863,8 +819,6 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
     //
 
     // central weight (histograms)
-    event.weight  = w_GEN;
-    event.weight *= w_pileupSF_ct;
     event.weight *= w_btagSF_ct;
     event.weight *= w_ttagSF_ct;
     //
@@ -1192,10 +1146,6 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
 
   // weight
   event.set(h_wgtMC__GEN         , w_GEN);
-
-  event.set(h_wgtMC__pileupSF_ct , w_pileupSF_ct);
-  event.set(h_wgtMC__pileupSF_up , w_pileupSF_up);
-  event.set(h_wgtMC__pileupSF_dn , w_pileupSF_dn);
 
   event.set(h_wgtMC__muonIDSF_ct , w_muonIDSF_ct);
   event.set(h_wgtMC__muonIDSF_up , w_muonIDSF_up);

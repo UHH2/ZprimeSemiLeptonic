@@ -51,7 +51,7 @@ class TTbarLJSkimmingModule : public ModuleBASE {
 
   // selections
   std::unique_ptr<uhh2::Selection> lumi_sel;
-  std::vector<std::unique_ptr<uhh2::Selection> > met_filters1;
+  std::unique_ptr<uhh2::AndSelection> metfilters_sel;
 
   std::unique_ptr<uhh2::Selection> genmttbar_sel;
   std::unique_ptr<uhh2::Selection> genflavor_sel;
@@ -96,10 +96,16 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
 
   if(!isMC) lumi_sel.reset(new LumiSelection(ctx));
 
-  /* MET filters #1 (MINIAOD flags) */
-  met_filters1.clear();
-  met_filters1.emplace_back(new TriggerSelection("Flag_goodVertices"));
-  met_filters1.emplace_back(new TriggerSelection("Flag_eeBadScFilter"));
+  /* MET filters */
+  metfilters_sel.reset(new uhh2::AndSelection(ctx, "metfilters"));
+  metfilters_sel->add<TriggerSelection>("1-good-vtx", "Flag_goodVertices");
+  metfilters_sel->add<TriggerSelection>("HBHENoiseFilter", "Flag_HBHENoiseFilter");
+  metfilters_sel->add<TriggerSelection>("HBHENoiseIsoFilter", "Flag_HBHENoiseIsoFilter");
+  metfilters_sel->add<TriggerSelection>("CSCTightHalo2015Filter", "Flag_CSCTightHalo2015Filter");
+  metfilters_sel->add<TriggerSelection>("EcalDeadCellTriggerPrimitiveFilter", "Flag_EcalDeadCellTriggerPrimitiveFilter");
+  metfilters_sel->add<TriggerSelection>("eeBadScFilter", "Flag_eeBadScFilter");
+  metfilters_sel->add<TriggerSelection>("chargedHadronTrackResolutionFilter", "Flag_chargedHadronTrackResolutionFilter"); 
+  metfilters_sel->add<TriggerSelection>("muonBadTrackFilter", "Flag_muonBadTrackFilter");
   /**********************************/
 
   /* GEN M-ttbar selection [TTbar MC "0.<M^{gen}_{ttbar}(GeV)<700.] */
@@ -148,14 +154,12 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
 
   std::vector<std::string> JEC_AK4, JEC_AK8;
   if(isMC){
-
-    JEC_AK4 = JERFiles::Summer15_25ns_L123_AK4PFchs_MC;
-    JEC_AK8 = JERFiles::Summer15_25ns_L123_AK8PFchs_MC;
+    JEC_AK4 = JERFiles::Fall15_25ns_L123_AK4PFchs_MC;
+    JEC_AK8 = JERFiles::Fall15_25ns_L123_AK8PFchs_MC;
   }
   else {
-
-    JEC_AK4 = JERFiles::Summer15_25ns_L123_AK4PFchs_DATA;
-    JEC_AK8 = JERFiles::Summer15_25ns_L123_AK8PFchs_DATA;
+    JEC_AK4 = JERFiles::Fall15_25ns_L123_AK4PFchs_DATA;
+    JEC_AK8 = JERFiles::Fall15_25ns_L123_AK8PFchs_DATA;
   }
 
   jet_IDcleaner.reset(new JetCleaner(ctx, jetID));
@@ -225,11 +229,8 @@ bool TTbarLJSkimmingModule::process(uhh2::Event& event){
     if(!lumi_sel->passes(event)) return false;
   }
 
-  /* MET filters #1 */
-  for(const auto& metf1 : met_filters1){
-
-    if(!metf1->passes(event)) return false;
-  }
+  /* MET filters */
+  if(!metfilters_sel->passes(event)) return false;
 
   ////
 
