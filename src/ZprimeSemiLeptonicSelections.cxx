@@ -35,20 +35,6 @@ bool uhh2::METCut::passes(const uhh2::Event& event){
 }
 ////////////////////////////////////////////////////////
 
-uhh2::NJetCut::NJetCut(int nmin_, int nmax_, float ptmin_, float etamax_):
-  nmin(nmin_), nmax(nmax_), ptmin(ptmin_), etamax(etamax_) {}
-
-bool uhh2::NJetCut::passes(const uhh2::Event& event){
-
-  int njet(0);
-  for(const auto& jet : *event.jets){
-    if(jet.pt() > ptmin && fabs(jet.eta()) < etamax) ++njet;
-  }
-
-  return (njet >= nmin) && (njet <= nmax);
-}
-////////////////////////////////////////////////////////
-
 //!! uhh2::TTbarNJetSelection::TTbarNJetSelection(const float jet1_pt, const float jet2_pt, const float tjet1_pt):
 //!!   jet1_pt_(jet1_pt), jet2_pt_(jet2_pt), tjet1_pt_(tjet1_pt) {
 //!! 
@@ -288,25 +274,6 @@ bool uhh2::HypothesisDiscriminatorCut::passes(const uhh2::Event& event){
   const float disc_val = hyp->discriminator(disc_cut_);
 
   return (disc_val > disc_min_) && (disc_val < disc_max_);
-}
-////////////////////////////////////////////////////////
-
-uhh2::GenMttbarCut::GenMttbarCut(uhh2::Context& ctx, const float mtt_min, const float mtt_max, const std::string& ttgen_name):
-  mttbar_min_(mtt_min), mttbar_max_(mtt_max), h_ttbargen_(ctx.get_handle<TTbarGen>(ttgen_name)) {}
-
-bool uhh2::GenMttbarCut::passes(const uhh2::Event& event){
-
-  const TTbarGen& ttbargen = event.get(h_ttbargen_);
-
-  if(ttbargen.DecayChannel() == TTbarGen::e_notfound){
-
-    return true;
-//!!    throw std::runtime_error("GenMttbarCut::passes -- undefined decay-channel for TTbarGen object");
-  }
-
-  const float mttbargen = (ttbargen.Top().v4() + ttbargen.Antitop().v4()).M();
-
-  return (mttbar_min_ <= mttbargen) && (mttbargen < mttbar_max_);
 }
 ////////////////////////////////////////////////////////
 

@@ -18,6 +18,7 @@
 #include <UHH2/common/include/JetCorrections.h>
 #include <UHH2/common/include/TTbarGen.h>
 #include <UHH2/common/include/Utils.h>
+#include <UHH2/common/include/AdditionalSelections.h>
 
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicSelections.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicUtils.h>
@@ -262,7 +263,7 @@ TagNProbeZLLModule::TagNProbeZLLModule(uhh2::Context& ctx){
 
   ttgenprod.reset(new TTbarGenProducer(ctx, ttbar_gen_label, false));
 
-  if(ctx.get("dataset_version") == "TTbar_Mtt0000to0700") genmttbar_sel.reset(new GenMttbarCut(ctx, 0., 700., ttbar_gen_label));
+  if(ctx.get("dataset_version") == "TTbar_Mtt0000to0700") genmttbar_sel.reset(new MttbarGenSelection( 0., 700.));
   else                                                    genmttbar_sel.reset(new uhh2::AndSelection(ctx));
   ////
 

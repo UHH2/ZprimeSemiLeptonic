@@ -39,18 +39,6 @@ namespace uhh2 {
   };
   ////
 
-  class NJetCut : public Selection {
-
-   public:
-    explicit NJetCut(int, int nmax=999, float ptmin=0., float etamax=infinity);
-    virtual bool passes(const Event&) override;
-
-   private:
-    int nmin, nmax;
-    float ptmin, etamax;
-  };
-  ////
-
   class TwoDCut : public Selection {
 
    public:
@@ -168,18 +156,6 @@ namespace uhh2 {
     Event::Handle<std::vector<ReconstructionHypothesis>> h_hyps_;
     std::string disc_bhyp_;
     std::string disc_cut_;
-  };
-  ////
-
-  class GenMttbarCut: public Selection {
-
-   public:
-    explicit GenMttbarCut(Context&, const float, const float, const std::string&);
-    virtual bool passes(const Event&) override;
-
-   private:
-    float mttbar_min_, mttbar_max_;
-    Event::Handle<TTbarGen> h_ttbargen_;
   };
   ////
 
