@@ -268,10 +268,14 @@ TagNProbeZLLModule::TagNProbeZLLModule(uhh2::Context& ctx){
 
   //// Data/MC scale factors
 
+  //pileup
+  pileupSF.reset(new MCPileupReweight(ctx));
+
   // muon-ID
   const std::string& muonID_SFac    = ctx.get("muonID_SF_file");
   const std::string& muonID_directory    = ctx.get("muonID_SF_directory");
 
+  muonID_SF.reset(new MCMuonScaleFactor(ctx, muonID_SFac, muonID_directory, 1.0, "ID"));
   //
 
   // elec-ID
@@ -286,35 +290,30 @@ TagNProbeZLLModule::TagNProbeZLLModule(uhh2::Context& ctx){
   //// TNP VARS
   ctx.undeclare_all_event_output();
 
-  //pileup
-  pileupSF.reset(new MCPileupReweight(ctx));
 
-  // muon-ID
-  muonID_SF.reset(new MCMuonScaleFactor(ctx, muonID_SFac, muonID_directory, 1.0, "ID"));
+  //if(isMC){
 
-  if(isMC){
+  //   HLT_paths_ = std::vector<std::string>({
+  //     "HLT_Ele20WP60_Ele8_Mass55",
+  //     "HLT_Ele25WP60_SC4_Mass55",
+  //     "HLT_Ele27_WP85_Gsf",
+  //     "HLT_Ele27_eta2p1_WP75_Gsf",
+  //     "HLT_Ele27_eta2p1_WP85_Gsf_HT200",
+  //     "HLT_Ele32_eta2p1_WP75_Gsf",
+  //     "HLT_Ele105_CaloIdVT_GsfTrkIdT",
+  //     "HLT_Mu40_TkMu11",
+  //     "HLT_IsoMu17_eta2p1",
+  //     "HLT_IsoMu24_eta2p1",
+  //     "HLT_IsoMu27",
+  //     "HLT_Mu45_eta2p1",
+  //     "HLT_Mu50",
+  //     "HLT_PFHT900",
+  //     "HLT_PFHT800Emu",
+  //   });
+  // }
+  // else {
 
-    HLT_paths_ = std::vector<std::string>({
-      "HLT_Ele20WP60_Ele8_Mass55",
-      "HLT_Ele25WP60_SC4_Mass55",
-      "HLT_Ele27_WP85_Gsf",
-      "HLT_Ele27_eta2p1_WP75_Gsf",
-      "HLT_Ele27_eta2p1_WP85_Gsf_HT200",
-      "HLT_Ele32_eta2p1_WP75_Gsf",
-      "HLT_Ele105_CaloIdVT_GsfTrkIdT",
-      "HLT_Mu40_TkMu11",
-      "HLT_IsoMu17_eta2p1",
-      "HLT_IsoMu24_eta2p1",
-      "HLT_IsoMu27",
-      "HLT_Mu45_eta2p1",
-      "HLT_Mu50",
-      "HLT_PFHT900",
-      "HLT_PFHT800Emu",
-    });
-  }
-  else {
-
-    HLT_paths_ = std::vector<std::string>({
+  HLT_paths_ = std::vector<std::string>({
       "HLT_Ele30WP60_SC4_Mass55",
       "HLT_Ele30WP60_Ele8_Mass55",
       "HLT_Ele27_eta2p1_WPLoose_Gsf",
@@ -329,9 +328,9 @@ TagNProbeZLLModule::TagNProbeZLLModule(uhh2::Context& ctx){
       "HLT_Mu50",
       "HLT_PFHT800",
       "HLT_PFHT800Emu",
-    });
-  }
-
+  });
+  // }
+    
   for(const auto& p : HLT_paths_) h_HLT[p] = ctx.declare_event_output<bool>(p);
 
   h_MCweight                = ctx.declare_event_output<float> ("MCweight");
