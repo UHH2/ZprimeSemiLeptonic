@@ -29,7 +29,6 @@
 #include <UHH2/ZprimeSemiLeptonic/include/EffyTTbarRECOHists.h>
 
 #include <UHH2/ZprimeSemiLeptonic/include/SF_elec.h>
-#include <UHH2/ZprimeSemiLeptonic/include/SF_btagging.h>
 #include <UHH2/ZprimeSemiLeptonic/include/SF_ttagging.h>
 #include <UHH2/ZprimeSemiLeptonic/include/SF_topptREWGT.h>
 #include <UHH2/ZprimeSemiLeptonic/include/SF_WjetsREWGT.h>
@@ -72,6 +71,7 @@ class TTbarLJAnalysisLiteModule : public ModuleBASE {
   float lep1_pt_;
 
   JetId btag_ID_;
+  CSVBTag::wp b_working_point;
 
   bool use_ttagging_;
   TopJetId ttag_ID_;
@@ -90,11 +90,7 @@ class TTbarLJAnalysisLiteModule : public ModuleBASE {
 
 //!!  std::unique_ptr<weightcalc_elecHLT> elecHLTSF;
 
-  std::unique_ptr<weightcalc_btagging> btagSF_ct;
-  std::unique_ptr<weightcalc_btagging> btagSF_upL;
-  std::unique_ptr<weightcalc_btagging> btagSF_dnL;
-  std::unique_ptr<weightcalc_btagging> btagSF_upB;
-  std::unique_ptr<weightcalc_btagging> btagSF_dnB;
+  std::unique_ptr<uhh2::AnalysisModule> btagSF;
 
   std::unique_ptr<weightcalc_ttagging> ttagSF_ct;
   std::unique_ptr<weightcalc_ttagging> ttagSF_upL;
@@ -160,12 +156,6 @@ class TTbarLJAnalysisLiteModule : public ModuleBASE {
   Event::Handle<float> h_wgtMC__elecHLTSF_ct;
   Event::Handle<float> h_wgtMC__elecHLTSF_up;
   Event::Handle<float> h_wgtMC__elecHLTSF_dn;
-
-  Event::Handle<float> h_wgtMC__btagSF_ct;
-  Event::Handle<float> h_wgtMC__btagSF_upL;
-  Event::Handle<float> h_wgtMC__btagSF_dnL;
-  Event::Handle<float> h_wgtMC__btagSF_upB;
-  Event::Handle<float> h_wgtMC__btagSF_dnB;
 
   Event::Handle<float> h_wgtMC__ttagSF_ct;
   Event::Handle<float> h_wgtMC__ttagSF_upL;
@@ -382,7 +372,11 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   if     (btag_wp == "CSVL") btag_ID_ = CSVBTag(CSVBTag::WP_LOOSE);
   else if(btag_wp == "CSVM") btag_ID_ = CSVBTag(CSVBTag::WP_MEDIUM);
   else if(btag_wp == "CSVT") btag_ID_ = CSVBTag(CSVBTag::WP_TIGHT);
-  else throw std::runtime_error("TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule -- invalid key for b-tagging working point: "+btag_wp);
+
+  if     (btag_wp == "CSVL") b_working_point = CSVBTag::WP_LOOSE;
+  else if(btag_wp == "CSVM") b_working_point = CSVBTag::WP_MEDIUM;
+  else if(btag_wp == "CSVT") b_working_point = CSVBTag::WP_TIGHT;
+
   /*************/
 
   /* t-tagging */
@@ -535,21 +529,6 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 //!!  elecHLTSF.reset(new weightcalc_elecHLT(ctx, "electrons", elecHLT_SFac, elecHLT_hist, 0.005));
 //!!  //
 
-  // b-tagging
-  const std::string& btag_SFac_file = ctx.get("btag_SFs");
-  const std::string& btag_effy_file = ctx.get("btag_eff");
-  const std::string& btag_effyL     = ctx.get("btag_eff__jetL");
-  const std::string& btag_effyC     = ctx.get("btag_eff__jetC");
-  const std::string& btag_effyB     = ctx.get("btag_eff__jetB");
-
-  btagSF_ct .reset(new weightcalc_btagging(btag_SFac_file, btag_wp, "comb", "mujets", "mujets", "CT", "CT", "CT", btag_effy_file, btag_effyL, btag_effyC, btag_effyB));
-
-  btagSF_upL.reset(new weightcalc_btagging(btag_SFac_file, btag_wp, "comb", "mujets", "mujets", "UP", "CT", "CT", btag_effy_file, btag_effyL, btag_effyC, btag_effyB));
-  btagSF_dnL.reset(new weightcalc_btagging(btag_SFac_file, btag_wp, "comb", "mujets", "mujets", "DN", "CT", "CT", btag_effy_file, btag_effyL, btag_effyC, btag_effyB));
-
-  btagSF_upB.reset(new weightcalc_btagging(btag_SFac_file, btag_wp, "comb", "mujets", "mujets", "CT", "UP", "UP", btag_effy_file, btag_effyL, btag_effyC, btag_effyB));
-  btagSF_dnB.reset(new weightcalc_btagging(btag_SFac_file, btag_wp, "comb", "mujets", "mujets", "CT", "DN", "DN", btag_effy_file, btag_effyL, btag_effyC, btag_effyB));
-  //
 
   // t-tagging
   const std::string& ttag_SFac_file = ctx.get("ttag_SFs");
@@ -584,8 +563,13 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
   //pileup (define it after undeclaring all other variables to keep the weights in the output)
   pileupSF.reset(new MCPileupReweight(ctx));
+
+  //muon ID scale factors
   muonID_SF.reset(new MCMuonScaleFactor(ctx, muonID_SFac, muonID_directory, 1.0, "ID"));
   muonHLT_SF.reset(new MCMuonScaleFactor(ctx, muonHLT_SFac, muonHLT_directory, 0.5, "HLT"));
+
+  //b-tagging scale factors
+  btagSF.reset(new MCBTagScaleFactor(ctx, b_working_point));
 
   // event
   h_run             = ctx.declare_event_output<int>("run");
@@ -646,12 +630,6 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   h_wgtMC__elecHLTSF_up   = ctx.declare_event_output<float>("wgtMC__elecHLTSF_up");
   h_wgtMC__elecHLTSF_dn   = ctx.declare_event_output<float>("wgtMC__elecHLTSF_dn");
 
-  h_wgtMC__btagSF_ct      = ctx.declare_event_output<float>("wgtMC__btagSF_ct");
-  h_wgtMC__btagSF_upL     = ctx.declare_event_output<float>("wgtMC__btagSF_upL");
-  h_wgtMC__btagSF_dnL     = ctx.declare_event_output<float>("wgtMC__btagSF_dnL");
-  h_wgtMC__btagSF_upB     = ctx.declare_event_output<float>("wgtMC__btagSF_upB");
-  h_wgtMC__btagSF_dnB     = ctx.declare_event_output<float>("wgtMC__btagSF_dnB");
-
   h_wgtMC__ttagSF_ct      = ctx.declare_event_output<float>("wgtMC__ttagSF_ct");
   h_wgtMC__ttagSF_upL     = ctx.declare_event_output<float>("wgtMC__ttagSF_upL");
   h_wgtMC__ttagSF_dnL     = ctx.declare_event_output<float>("wgtMC__ttagSF_dnL");
@@ -700,7 +678,6 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   float w_GEN(1.);
   float w_elecIDSF_ct(1.) , w_elecIDSF_up(1.) , w_elecIDSF_dn(1.);
   float w_elecHLTSF_ct(1.), w_elecHLTSF_up(1.), w_elecHLTSF_dn(1.);
-  float w_btagSF_ct(1.), w_btagSF_upL(1.), w_btagSF_dnL(1.), w_btagSF_upB(1.), w_btagSF_dnB(1.);
   float w_ttagSF_ct(1.), w_ttagSF_upL(1.), w_ttagSF_dnL(1.), w_ttagSF_upT(1.), w_ttagSF_dnT(1.);
   float w_muR_ct__muF_up(1.), w_muR_ct__muF_dn(1.), w_muR_up__muF_ct(1.), w_muR_up__muF_up(1.), w_muR_dn__muF_ct(1.), w_muR_dn__muF_dn(1.);
   float w_topptREWGT_ct(1.), w_topptREWGT_up(1.), w_topptREWGT_dn(1.);
@@ -739,13 +716,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
     //
 
     // b-tagging
-    w_btagSF_ct    = btagSF_ct ->weight(event);
-
-    w_btagSF_upL   = btagSF_upL->weight(event);
-    w_btagSF_dnL   = btagSF_dnL->weight(event);
-
-    w_btagSF_upB   = btagSF_upB->weight(event);
-    w_btagSF_dnB   = btagSF_dnB->weight(event);
+    btagSF->process(event);
     //
 
     // t-tagging
@@ -795,7 +766,6 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
     //
 
     // central weight (histograms)
-    event.weight *= w_btagSF_ct;
     event.weight *= w_ttagSF_ct;
     //
 
@@ -1128,12 +1098,6 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   event.set(h_wgtMC__elecHLTSF_ct, w_elecHLTSF_ct);
   event.set(h_wgtMC__elecHLTSF_up, w_elecHLTSF_up);
   event.set(h_wgtMC__elecHLTSF_dn, w_elecHLTSF_dn);
-
-  event.set(h_wgtMC__btagSF_ct  , w_btagSF_ct );
-  event.set(h_wgtMC__btagSF_upL , w_btagSF_upL);
-  event.set(h_wgtMC__btagSF_dnL , w_btagSF_dnL);
-  event.set(h_wgtMC__btagSF_upB , w_btagSF_upB);
-  event.set(h_wgtMC__btagSF_dnB , w_btagSF_dnB);
 
   event.set(h_wgtMC__ttagSF_ct  , w_ttagSF_ct );
   event.set(h_wgtMC__ttagSF_upL , w_ttagSF_upL);

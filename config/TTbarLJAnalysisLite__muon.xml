@@ -463,11 +463,8 @@
       <Item Name="elecID_SF_hist"  Value="CutBasedTight"/>
 
       <Item Name="btag_wp"         Value="CSVM"/>
-      <Item Name="btag_SFs"        Value="/nfs/dust/cms/user/missirol/Analysis7XY/utils/btagging/160203/btagSFAC__CSVv2__25ns__mod.csv"/>
-      <Item Name="btag_eff"        Value="/nfs/dust/cms/user/missirol/Analysis7XY/utils/btagging/160203/btagEFFY__CSVv2__25ns.root"/>
-      <Item Name="btag_eff__jetL"  Value="&channel;/wjets/chi2__BTAG/CSVM/jetA__pt__l"/>
-      <Item Name="btag_eff__jetC"  Value="&channel;/ttbar/chi2__BTAG/CSVM/jetA__pt__c"/>
-      <Item Name="btag_eff__jetB"  Value="&channel;/ttbar/chi2__BTAG/CSVM/jetA__pt__b"/>
+      <Item Name="MCBtagEfficiencies"   Value = "/afs/desy.de/user/p/peiffer/Software/RootScripts/BTagDummyEffi.root"/>
+      <Item Name="BTagCalibration" Value = "../../common/data/CSVv2.csv" />
 
       <Item Name="ttag_wp"         Value="mr030_wp1"/>
       <Item Name="ttag_SFs"        Value="/nfs/dust/cms/user/missirol/Analysis7XY/utils/ttagging/160203/ttagSFAC__SDTT_mr030_wp1.csv"/>
