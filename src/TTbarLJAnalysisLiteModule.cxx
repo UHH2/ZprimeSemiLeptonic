@@ -20,6 +20,7 @@
 #include <UHH2/common/include/TTbarReconstruction.h>
 #include <UHH2/common/include/ReconstructionHypothesisDiscriminators.h>
 #include <UHH2/common/include/Utils.h>
+#include <UHH2/common/include/JetHists.h>
 
 #include <UHH2/ZprimeSemiLeptonic/include/ModuleBASE.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicSelections.h>
@@ -91,6 +92,7 @@ class TTbarLJAnalysisLiteModule : public ModuleBASE {
 //!!  std::unique_ptr<weightcalc_elecHLT> elecHLTSF;
 
   std::unique_ptr<uhh2::AnalysisModule> btagSF;
+  std::unique_ptr<Hists> h_btagMCeffi;
 
   std::unique_ptr<weightcalc_ttagging> ttagSF_ct;
   std::unique_ptr<weightcalc_ttagging> ttagSF_upL;
@@ -376,6 +378,8 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   if     (btag_wp == "CSVL") b_working_point = CSVBTag::WP_LOOSE;
   else if(btag_wp == "CSVM") b_working_point = CSVBTag::WP_MEDIUM;
   else if(btag_wp == "CSVT") b_working_point = CSVBTag::WP_TIGHT;
+
+  h_btagMCeffi.reset(new BTagMCEfficiencyHists(ctx,"chi2__BTAG",b_working_point));
 
   /*************/
 
@@ -938,6 +942,11 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
 
     HFolder(chi2_posx+"__"+ttag_posx+btag_posx)          ->fill(event);
     HFolder(chi2_posx+"__"+ttag_posx+btag_posx+"__ttbar")->fill(event);
+    
+    if(pass_chi2 && !event.isRealData){
+      h_btagMCeffi->fill(event);
+    }
+    
   }
   else if(lepN == 2){
 
