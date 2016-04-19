@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
 
- <!ENTITY NEVT "-1">
+ <!-- <!ENTITY NEVT "-1"> -->
 
- <!-- <!ENTITY NEVT "1000000"> -->
+ <!ENTITY NEVT "10000">
   <!-- <!ENTITY NEVT "124896137"> -->
 
   <!ENTITY KEYW "v01">
 
   <!ENTITY PROOFdir "/nfs/dust/cms/user/karavdia/PROOF">
-  <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_76X_v1/ttbarLJSkimming/">
+  <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_76X_v2/ttbarLJSkimming/">
 
 
   <!ENTITY  SingleELE_Run2015C_16Dec2015 SYSTEM  "../../common/datasets/RunII_76X_v1/DATA_SingleELE_Run2015C_16Dec2015.xml">
@@ -113,18 +113,6 @@
 <!ENTITY ZprimeToTT_30w_M3000 SYSTEM  "../../common/datasets/RunII_76X_v1/MC_ZprimeToTT_30w_M3000.xml">
 <!ENTITY ZprimeToTT_30w_M4000 SYSTEM  "../../common/datasets/RunII_76X_v1/MC_ZprimeToTT_30w_M4000.xml">
 
-<!-- <!ENTITY  SYSTEM  "../../common/datasets/RunII_76X_v1/MC_.xml">
-  <!ENTITY  SYSTEM  "../../common/datasets/RunII_76X_v1/MC_.xml">
-  <!ENTITY  SYSTEM  "../../common/datasets/RunII_76X_v1/MC_.xml">
-  <!ENTITY  SYSTEM  "../../common/datasets/RunII_76X_v1/MC_.xml"> -->
-
-<!-- <!ENTITY  SYSTEM  "../../common/datasets/RunII_76X_v1/MC_.xml">
-  <!ENTITY  SYSTEM  "../../common/datasets/RunII_76X_v1/MC_.xml">
-  <!ENTITY  SYSTEM  "../../common/datasets/RunII_76X_v1/MC_.xml">
-  <!ENTITY  SYSTEM  "../../common/datasets/RunII_76X_v1/MC_.xml"> -->
-
-
-
 
 ]>
 
@@ -143,7 +131,7 @@
   <!--  <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTdir;/" PostFix="" TargetLumi="1" RunMode="PROOF" ProofServer="pod://"  ProofWorkDir="&PROOFdir;/">
 -->
 
-   <!--
+  
 
   <InputData Version="SingleEG" Lumi="1" Type="DATA" NEventsMax="&NEVT;" Cacheable="False">
                          &SingleELE_Run2015C_16Dec2015;
@@ -300,8 +288,7 @@
     <InputData Version="QCD_Pt-800to1000_MuEnrichedPt5" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
     &QCD_Pt-800to1000_MuEnrichedPt5; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
     <InputData Version="QCD_Pt-1000toInf_MuEnrichedPt5" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
-    &QCD_Pt-1000toInf_MuEnrichedPt5; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> -->
-
+    &QCD_Pt-1000toInf_MuEnrichedPt5; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
 
  <InputData Version="Zp30w1000" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
    &ZprimeToTT_30w_M1000; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
@@ -336,10 +323,10 @@
 
 
 
-<!-- <InputData Version="TTbarScaleUp" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+ <InputData Version="TTbarScaleUp" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
     &TTbarScaleUp; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
    <InputData Version="TTbarScaleDown" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
-    &TTbarScaleDown; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> -->
+    &TTbarScaleDown; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
 
       <UserConfig>
         <Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices"/>
@@ -350,11 +337,10 @@
         <Item Name="JetCollection"           Value="slimmedJets"/>
         <Item Name="GenJetCollection"        Value="slimmedGenJets"/>
         <Item Name="TopJetCollection"        Value="slimmedJetsAK8_SoftDrop"/>
+	<Item Name="TopJetCollectionGEN"     Value="slimmedGenJetsAK8"/>
 <!--        <Item Name="METName"                 Value="slimmedMETsNoHF"/> -->
         <Item Name="METName"                 Value="slimmedMETs"/>
         <Item Name="lumi_file" Value="/afs/desy.de/user/k/karavdia/CMSSW_7_6_3_patch2/src/UHH2/common/data/Cert_13TeV_16Dec2015ReReco_Collisions15_25ns_JSON_Silver.root"/>
-   <!--    <Item Name="lumi_file" Value="/afs/desy.de/user/k/karavdia/CMSSW_7_6_3_patch2/src/UHH2/common/data/Cert_13TeV_16Dec2015ReReco_Collisions15_25ns_JSON_Silver_NoBadBSRuns.root"/> -->
-  <!--       <Item Name="lumi_file" Value="/afs/desy.de/user/k/karavdia/CMSSW_7_6_3_patch2/src/UHH2/common/data/Cert_13TeV_16Dec2015ReReco_Collisions15_25ns_JSON_NoBadBSRuns.root"/> -->
         <Item Name="use_sframe_weight" Value="false"/>
 
         <Item Name="keyword" Value="&KEYW;"/>

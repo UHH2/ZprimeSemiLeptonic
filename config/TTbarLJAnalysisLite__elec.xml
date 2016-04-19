@@ -3,9 +3,9 @@
 
 <!ENTITY NEVT "-1"> 
 <!-- <!ENTITY NEVT "100"> -->
-  <!ENTITY KEYW "v01">
-
-   <!ENTITY channel "elec">
+ <!ENTITY KEYW "T1_v01">
+ <!ENTITY channel "elec">
+ <!ENTITY btag_workpoint "CSVM">
 <!--   <!ENTITY channel "muon"> -->
    <!ENTITY btag_workpoint "CSVM">
   <!ENTITY HLT     "HLT_Ele45_CaloIdVT_GsfTrkIdT_PFJet200_PFJet50_v*">
@@ -14,16 +14,9 @@
 -->
 
  <!ENTITY PROOFdir "/nfs/dust/cms/user/karavdia/PROOF">
-  <!ENTITY INdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_76X_v1/ttbarLJSkimming/">
+ <!ENTITY INdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_76X_v2/ttbarLJSkimming/">
+ <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_76X_v2/ttbarLJAnalysis/&channel;/"> 
 
-<!-- <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_76X_v1/ttbarLJAnalysis/&channel;/"> -->
-<!-- <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_76X_v1/ttbarLJAnalysis/QCD_Sideband/&channel;/"> -->
-<!-- <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_76X_v1/ttbarLJAnalysis/&channel;/BDTG/"> -->
- <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_76X_v1/ttbarLJAnalysis/&channel;/BDTG_0_76_cut_chi2_30/">
-<!-- <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_76X_v1/ttbarLJAnalysis/&channel;/MET_below_70/"> -->
-<!--  <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_76X_v1/ttbarLJAnalysis/&channel;/BDTG_0_0_cut_chi30/"> -->
-<!-- <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_76X_v1/ttbarLJAnalysis/&channel;/MLP/"> -->
-<!-- <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_76X_v1/ttbarLJAnalysis/&channel;/SVM/"> -->
  <!ENTITY  SingleEG "&INdir;/uhh2.AnalysisModuleRunner.DATA.SingleEG.root">
  <!ENTITY  SingleMUON "&INdir;/uhh2.AnalysisModuleRunner.DATA.SingleMUON.root">
  <!ENTITY  ST_t-channel_4f_leptonDecays "&INdir;/uhh2.AnalysisModuleRunner.MC.ST_t-channel_4f_leptonDecays.root">
@@ -290,6 +283,7 @@
         <Item Name="JetCollection"           Value="slimmedJets"/>
         <Item Name="GenJetCollection"        Value="slimmedGenJets"/>
         <Item Name="TopJetCollection"        Value="slimmedJetsAK8_SoftDrop"/>
+	<Item Name="TopJetCollectionGEN"     Value="slimmedGenJetsAK8"/>
 <!--        <Item Name="METName"                 Value="slimmedMETsNoHF"/> -->
         <Item Name="METName"                 Value="slimmedMETs"/>
 
@@ -301,34 +295,44 @@
         <Item Name="channel" Value="&channel;"/>
         <Item Name="trigger" Value="&HLT;"/>
 
+	<Item Name="lumi_file" Value="../../common/data/Cert_13TeV_16Dec2015ReReco_Collisions15_25ns_JSON_Silver.root"/>
+	<Item Name="pileup_directory"           Value="../../common/data/MyMCPileupHistogram.root"/>
+	<Item Name="pileup_directory_data"      Value="../../common/data/MyDataPileupHistogram_Silver.root"/>
+	<Item Name="pileup_directory_data_up"   Value="../../common/data/MyDataPileupHistogram_Silver_72450.root"/>
+	<Item Name="pileup_directory_data_down" Value="../../common/data/MyDataPileupHistogram_Silver_65550.root"/>
 
-        <Item Name="pileup_MC"      Value="/afs/desy.de/user/k/karavdia/CMSSW_7_6_3_patch2/src/UHH2/common/data/MyMCPileupHistogram.root"/>
-        <Item Name="pileup_DATA_ct" Value="/afs/desy.de/user/k/karavdia/CMSSW_7_6_3_patch2/src/UHH2/common/data/MyDataPileupHistogram_Silver.root"/>
-        <Item Name="pileup_DATA_up" Value="/afs/desy.de/user/k/karavdia/CMSSW_7_6_3_patch2/src/UHH2/common/data/MyDataPileupHistogram_Silver_65550.root"/>
-        <Item Name="pileup_DATA_dn" Value="/afs/desy.de/user/k/karavdia/CMSSW_7_6_3_patch2/src/UHH2/common/data/MyDataPileupHistogram_Silver_72450.root"/>
+	<Item Name="muonID_SF_file"  Value="../../common/data/MuonID_Z_RunCD_Reco76X_Feb15.root"/>
+	<Item Name="muonID_SF_directory"  Value="MC_NUM_MediumID_DEN_genTracks_PAR_pt_spliteta_bin1"/>
+	
+	<Item Name="muonHLT_SF_file" Value="../../common/data/SingleMuonTrigger_Z_RunCD_Reco76X_Feb15.root"/>
+	<Item Name="muonHLT_SF_directory" Value="runD_Mu45_eta2p1_PtEtaBins"/>
+	
+	<Item Name="elecID_SF_file"  Value="/nfs/dust/cms/user/missirol/Analysis7XY/utils/lepton/elec_ID/kinematicBinSFele.root"/>
+	<Item Name="elecID_SF_hist"  Value="CutBasedTight"/>
 
-        <Item Name="btag_wp"        Value="CSVM"/>
-        <Item Name="btag_SFs"       Value="/nfs/dust/cms/user/missirol/Analysis7XY/utils/btagging/btagSFAC__CSVv2__25ns__151128__mod.csv"/>
-        <Item Name="btag_eff"       Value="/nfs/dust/cms/user/missirol/Analysis7XY/utils/btagging/btagEFFY__CSVv2__25ns__151128.root"/>
-        <Item Name="btag_eff__jetL" Value="&channel;/wjets/chi2__BTAG/CSVM/jetA__pt__l"/>
-        <Item Name="btag_eff__jetC" Value="&channel;/ttbar/chi2__BTAG/CSVM/jetA__pt__c"/>
-        <Item Name="btag_eff__jetB" Value="&channel;/ttbar/chi2__BTAG/CSVM/jetA__pt__b"/>
-
-        <Item Name="ttag_wp"        Value="mr030_wp1"/>
+	<Item Name="btag_wp"         Value="CSVM"/>
+	<Item Name="MCBtagEfficiencies"   Value = "/nfs/dust/cms/user/peiffer/Analysis7XY/ttbar_semilep_13TeV/run2_76/v01/BTagDummyEffi.root"/>
+	<Item Name="BTagCalibration" Value = "../../common/data/CSVv2.csv" />
+	
+	
+	<Item Name="ttag_wp"        Value="mr030_wp1"/>
         <Item Name="ttag_SFs"       Value="/nfs/dust/cms/user/missirol/Analysis7XY/utils/ttagging/ttagSFAC__SDTT_mr030_wp1__151127.csv"/>
         <Item Name="ttag_eff"       Value="/nfs/dust/cms/user/missirol/Analysis7XY/utils/ttagging/ttagEFFY__SDTT_mr030_wp1__151127.root"/>
         <Item Name="ttag_eff__jetL" Value="&channel;/wjets/kine__TTAG/tjetA__pt__l"/>
         <Item Name="ttag_eff__jetT" Value="&channel;/ttbar/kine__TTAG/tjetA__pt__t"/>
 
+	
+	<Item Name="store_PDF_weights" Value="true"/>
+
 	<Item Name="blind_DATA" Value="false"/>
 
 	<!-- reweight MC for MVA studies -->
-	<Item Name="reweight_file" Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_7_4_15_patch1/src/UHH2/ZprimeSemiLeptonic/TMVA_weights/reWeightMCvars_v1.root"/>
+<!--	<Item Name="reweight_file" Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_7_4_15_patch1/src/UHH2/ZprimeSemiLeptonic/TMVA_weights/reWeightMCvars_v1.root"/> -->
 <!--	<Item Name="reweight_file" Value=""/>  -->
 <!--	<Item Name="reweight_var" Value="MwT"/> -->
 
-        <Item Name="reweight_var" Value=""/>
-	<Item Name="reweight_var_trans" Value=""/>
+    <!--    <Item Name="reweight_var" Value=""/>
+	<Item Name="reweight_var_trans" Value=""/> -->
 
      <!-- <Item Name="reweight_var" Value="jets_pt"/>
 	<Item Name="reweight_var_trans" Value=""/> -->
