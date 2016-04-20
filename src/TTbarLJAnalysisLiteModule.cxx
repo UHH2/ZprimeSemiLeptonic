@@ -689,22 +689,23 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   std::vector<float> w_PDF;
   w_PDF.clear();
 
+  //pileup
+  pileupSF->process(event);
+
+  // b-tagging
+  btagSF->process(event);
+
+  // muon-ID
+  muonID_SF->process(event);
+
+  // muon-HLT
+  muonHLT_SF->process(event);
+
+
   if(!event.isRealData){
 
     w_GEN = event.weight;
-
-    pileupSF->process(event);
-
-    //
-
-    // muon-ID
-    muonID_SF->process(event);
-
-    //
-
-    // muon-HLT
-    muonHLT_SF->process(event);
-
+  
     //
 
     // elec-ID
@@ -719,9 +720,6 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
     w_elecHLTSF_dn = 0.97;//!!elecHLTSF->weight(event, "DN");
     //
 
-    // b-tagging
-    btagSF->process(event);
-    //
 
     // t-tagging
     w_ttagSF_ct    = ttagSF_ct ->weight(event);
