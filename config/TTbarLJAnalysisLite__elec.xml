@@ -316,10 +316,10 @@
 	
 	
 	<Item Name="ttag_wp"        Value="mr030_wp1"/>
-        <Item Name="ttag_SFs"       Value="/nfs/dust/cms/user/missirol/Analysis7XY/utils/ttagging/ttagSFAC__SDTT_mr030_wp1__151127.csv"/>
-        <Item Name="ttag_eff"       Value="/nfs/dust/cms/user/missirol/Analysis7XY/utils/ttagging/ttagEFFY__SDTT_mr030_wp1__151127.root"/>
-        <Item Name="ttag_eff__jetL" Value="&channel;/wjets/kine__TTAG/tjetA__pt__l"/>
-        <Item Name="ttag_eff__jetT" Value="&channel;/ttbar/kine__TTAG/tjetA__pt__t"/>
+	<Item Name="ttag_SFs"        Value="/nfs/dust/cms/user/missirol/Analysis7XY/utils/ttagging/160203/ttagSFAC__SDTT_mr030_wp1.csv"/>
+	<Item Name="ttag_eff"        Value="/nfs/dust/cms/user/missirol/Analysis7XY/utils/ttagging/160203/ttagEFFY__SDTT_mr030_wp1.root"/>
+	<Item Name="ttag_eff__jetL"  Value="&channel;/wjets/tjpj_chi2tlep__TTAG/tjetA__pt__l"/>
+	<Item Name="ttag_eff__jetT"  Value="&channel;/ttbar/tjpj_chi2tlep__TTAG/tjetA__pt__t"/>
 
 	
 	<Item Name="store_PDF_weights" Value="true"/>
