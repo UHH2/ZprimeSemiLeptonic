@@ -58,7 +58,7 @@ void weightcalc_ttagging::load_SFac(const std::string& ttagWP_key, const std::st
   // scale-factors
   const std::string op_point(ttagWP_key);
 
-  if(ttagSF_vec_.size()) throw std::runtime_error("weightcalc_ttagging::load_SFac -- logic error: list of b-tagging SF values not empty");
+  if(ttagSF_vec_.size()) throw std::runtime_error("weightcalc_ttagging::load_SFac -- logic error: list of t-tagging SF values not empty");
 
   std::ifstream csv_file;
   csv_file.open(sfac_csvfile.c_str());
@@ -209,9 +209,9 @@ float weightcalc_ttagging::jet_effy(const TopJet& jet_, const uhh2::Event& evt_)
   const int jetFlavor = jet_flavor(jet_, evt_);
   if     (std::abs(jetFlavor) == 6) geff = effy__graph__jet_t_;
   else if(std::abs(jetFlavor) == 0) geff = effy__graph__jet_l_;
-  else throw std::runtime_error("weightcalc_ttagging::jet_effy -- failed to locate graph for jet b-tagging efficiency: "+std::to_string(jetFlavor));
+  else throw std::runtime_error("weightcalc_ttagging::jet_effy -- failed to locate graph for jet t-tagging efficiency: "+std::to_string(jetFlavor));
 
-  if(!geff) throw std::runtime_error("weightcalc_ttagging::jet_effy -- uninitialized reference to jet b-tagging efficiencies");         
+  if(!geff) throw std::runtime_error("weightcalc_ttagging::jet_effy -- uninitialized reference to jet t-tagging efficiencies");         
 
   const float jet_PT = jet_.pt();
 
@@ -244,7 +244,7 @@ float weightcalc_ttagging::jet_SFac(const TopJet& jet_, const uhh2::Event& evt_)
   const int jetFlavor = jet_flavor(jet_, evt_);
   if     (std::abs(jetFlavor) == 6) jet_FLAV = 0;
   else if(std::abs(jetFlavor) == 0) jet_FLAV = 2;
-  else throw std::runtime_error("weightcalc_ttagging::jet_effy -- failed to locate graph for jet b-tagging efficiency: "+std::to_string(jetFlavor));
+  else throw std::runtime_error("weightcalc_ttagging::jet_SFac -- unknown jet flavor for jet t-tagging efficiency: "+std::to_string(jetFlavor));
 
   const float jet_pt  = jet_.pt();
   const float jet_ETA = jet_.eta();
