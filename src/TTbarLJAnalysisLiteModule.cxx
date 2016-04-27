@@ -551,7 +551,6 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   //
 
   // top-pt reweighting
-  //topptREWGT.reset(new weightcalc_topptREWGT(ctx, ttbar_gen_label, 0.156, -0.00137));
   topptREWGT.reset(new TopPtReweight(ctx, 0.156, -0.00137, ttbar_gen_label, "wgtMC__topptREWGT_ct"));
   //
 
