@@ -1,4 +1,5 @@
 <use name="root" />
+<use name="roottmva" />
 <use name="boost" />
 <use name="UHH2/common" />
 <use name="UHH2/core" />
