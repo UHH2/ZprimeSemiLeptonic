@@ -651,12 +651,14 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   //
 
   // top-pt reweighting
-  topptREWGT.reset(new TopPtReweight(ctx, 0.156, -0.00137, ttbar_gen_label, "wgtMC__topptREWGT_ct"));
+  if(ctx.get("dataset_version").find("TT") != std::string::npos){
+    std::cout<<"Set top pt reweighting!"<<std::endl;
+    topptREWGT.reset(new TopPtReweight(ctx, 0.156, -0.00137, ttbar_gen_label, "wgtMC__topptREWGT_ct"));
+  }
   //
 
   // W+jets reweighting (NLO/LO k-factors)
   if(ctx.get("dataset_version").find("WJets") != std::string::npos){
-
     wjetsREWGT.reset(new weightcalc_WjetsREWGT());
   }
   //
@@ -906,7 +908,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   float w_elecHLTSF_ct(1.), w_elecHLTSF_up(1.), w_elecHLTSF_dn(1.);
   float w_ttagSF_ct(1.), w_ttagSF_upL(1.), w_ttagSF_dnL(1.), w_ttagSF_upT(1.), w_ttagSF_dnT(1.);
   float w_muR_ct__muF_up(1.), w_muR_ct__muF_dn(1.), w_muR_up__muF_ct(1.), w_muR_up__muF_up(1.), w_muR_dn__muF_ct(1.), w_muR_dn__muF_dn(1.);
-  float w_topptREWGT_up(1.), w_topptREWGT_dn(1.);
+  float w_topptREWGT_up(1.), w_topptREWGT_dn(1.), w_topptREWGT_ct(1.);
   float w_wjetsREWGT_ct(1.);
   std::vector<float> w_PDF;
   w_PDF.clear();
@@ -980,12 +982,18 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
     }
 
     // top-pt reweighting
-    topptREWGT->process(event);
-    float w_topptREWGT_ct = event.get(h_wgtMC__topptREWGT_ct);
-    //apply twice the shift as uncertainty
-    w_topptREWGT_dn = w_topptREWGT_ct*w_topptREWGT_ct;
-    w_topptREWGT_up = 1;
-    //
+    if(topptREWGT.get()){
+      std::cout<<"aw!"<<std::endl;
+      topptREWGT->process(event);
+      w_topptREWGT_ct = event.get(h_wgtMC__topptREWGT_ct);
+      std::cout<<w_topptREWGT_ct<<std::endl;
+      //apply twice the shift as uncertainty
+      w_topptREWGT_dn = w_topptREWGT_ct*w_topptREWGT_ct;
+      w_topptREWGT_up = 1;
+      //
+    }
+    //  
+
 
     // W+jets reweighting
     if(wjetsREWGT.get()) w_wjetsREWGT_ct = wjetsREWGT->weight(event);
@@ -1454,6 +1462,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   event.set(h_wgtMC__muR_dn__muF_ct, w_muR_dn__muF_ct);
   event.set(h_wgtMC__muR_dn__muF_dn, w_muR_dn__muF_dn);
 
+  event.set(h_wgtMC__topptREWGT_ct , w_topptREWGT_ct);
   event.set(h_wgtMC__topptREWGT_up , w_topptREWGT_up);
   event.set(h_wgtMC__topptREWGT_dn , w_topptREWGT_dn);
 

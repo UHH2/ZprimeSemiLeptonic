@@ -91,6 +91,7 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
     jet2_pt =  50.;
 
     MET     =  50.;
+    //    MET     =   0.;
     HT_lep  =   0.;
   }
   else throw std::runtime_error("TTbarLJSkimmingModule::TTbarLJSkimmingModule -- undefined \"keyword\" argument in .xml configuration file: "+keyword);
@@ -218,7 +219,7 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
 
 bool TTbarLJSkimmingModule::process(uhh2::Event& event){
 
-  event.set(tt_TMVA_response,0);//fill with dummy value
+  event.set(tt_TMVA_response,-100);//fill with dummy value
 
   //// COMMON MODULES
 
@@ -285,6 +286,8 @@ bool TTbarLJSkimmingModule::process(uhh2::Event& event){
       ele.set_tag(Electron::twodcut_pTrel, pTrel);
     }
   }
+
+  if(!pass_twodcut){};//place holder
 
   jet_cleaner2->process(event);
   sort_by_pt<Jet>(*event.jets);
