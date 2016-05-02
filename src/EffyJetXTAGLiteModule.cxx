@@ -25,12 +25,9 @@
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicSelections.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicUtils.h>
 #include <UHH2/ZprimeSemiLeptonic/include/TTbarLJHists.h>
-#include <UHH2/ZprimeSemiLeptonic/include/EffyJetBTAGHists.h>
 #include <UHH2/ZprimeSemiLeptonic/include/EffyJetTTAGHists.h>
 #include <UHH2/ZprimeSemiLeptonic/include/EffyTTbarRECOHists.h>
 
-#include <UHH2/ZprimeSemiLeptonic/include/SF_pileup.h>
-#include <UHH2/ZprimeSemiLeptonic/include/SF_muon.h>
 #include <UHH2/ZprimeSemiLeptonic/include/SF_elec.h>
 
 class EffyJetXTAGLiteModule : public ModuleBASE {
@@ -77,10 +74,9 @@ class EffyJetXTAGLiteModule : public ModuleBASE {
   bool blind_DATA_;
 
   //// Data/MC scale factors
-  std::unique_ptr<weightcalc_pileup> pileupSF_ct;
-
-  std::unique_ptr<weightcalc_muonID>  muonIDSF;
-  std::unique_ptr<weightcalc_muonHLT> muonHLTSF;
+  std::unique_ptr<uhh2::AnalysisModule> pileupSF;
+  std::unique_ptr<uhh2::AnalysisModule> muonID_SF;
+  std::unique_ptr<uhh2::AnalysisModule> muonHLT_SF;
 
   std::unique_ptr<weightcalc_elecID>  elecIDSF;
 //!!  std::unique_ptr<weightcalc_elecHLT> elecHLTSF;
@@ -149,22 +145,6 @@ EffyJetXTAGLiteModule::EffyJetXTAGLiteModule(uhh2::Context& ctx){
   /* CMS-certified luminosity sections */
   if(!isMC) lumi_sel.reset(new LumiSelection(ctx));
 
-  /* MET filters #2 (.txt files) ****/
-  met_filters2.clear();
-  if(!isMC){
-
-    const int metfiltersN(4);
-
-    for(unsigned int i=0; i<metfiltersN; ++i){
-
-      if(ctx.has("METFilter_file"+std::to_string(i+1))){
-
-        const std::string& text_file(ctx.get("METFilter_file"+std::to_string(i+1)));
-
-        if(text_file != "NULL") met_filters2.emplace_back(new RunLumiEventSelection(text_file, ":"));
-      }
-    }
-  }
   /**********************************/
 
   ////
@@ -275,7 +255,7 @@ EffyJetXTAGLiteModule::EffyJetXTAGLiteModule(uhh2::Context& ctx){
 
     book_HFolder(sel               , new TTbarLJHists      (ctx, sel               , ttag_ID_     , ttag_minDR_jet_));
     book_HFolder(sel+"__ttbar"     , new EffyTTbarRECOHists(ctx, sel+"__ttbar"     , ttbar_gen_label, ttbar_hyps_label, ttbar_chi2_label));
-    book_HFolder(sel+"__BTAG"      , new EffyJetBTAGHists  (ctx, sel+"__BTAG"      , ttag_ID_     , ttag_minDR_jet_));
+
     book_HFolder(sel+"__TTAG"      , new EffyJetTTAGHists  (ctx, sel+"__TTAG"      , ttag_ID_     , ttag_minDR_jet_));
     book_HFolder(sel+"__TTAG_noMsd", new EffyJetTTAGHists  (ctx, sel+"__TTAG_noMsd", ttag_ID_noMsd, ttag_minDR_jet_));
     book_HFolder(sel+"__TTAG_noTau", new EffyJetTTAGHists  (ctx, sel+"__TTAG_noTau", ttag_ID_noTau, ttag_minDR_jet_));
@@ -321,24 +301,21 @@ EffyJetXTAGLiteModule::EffyJetXTAGLiteModule(uhh2::Context& ctx){
   //// Data/MC scale factors
 
   // pileup
-  const std::string& pileup_MC      = ctx.get("pileup_MC");
-  const std::string& pileup_DATA_ct = ctx.get("pileup_DATA_ct");
-
-  pileupSF_ct.reset(new weightcalc_pileup(pileup_DATA_ct, pileup_MC, "pileup", "pileup"));
+  pileupSF.reset(new MCPileupReweight(ctx));
   //
 
   // muon-ID
   const std::string& muonID_SFac    = ctx.get("muonID_SF_file");
-  const std::string& muonID_hist    = ctx.get("muonID_SF_hist");
+  const std::string& muonID_directory    = ctx.get("muonID_SF_directory");
 
-  muonIDSF.reset(new weightcalc_muonID(ctx, "muons", muonID_SFac, muonID_hist, 0.01));
+  muonID_SF.reset(new MCMuonScaleFactor(ctx, muonID_SFac, muonID_directory, 1.0, "ID"));
   //
 
   // muon-HLT
   const std::string& muonHLT_SFac   = ctx.get("muonHLT_SF_file");
-  const std::string& muonHLT_hist   = ctx.get("muonHLT_SF_hist");
+  const std::string& muonHLT_directory   = ctx.get("muonHLT_SF_directory");
 
-  muonHLTSF.reset(new weightcalc_muonHLT(ctx, "muons", muonHLT_SFac, muonHLT_hist, 0.005));
+  muonHLT_SF.reset(new MCMuonScaleFactor(ctx, muonHLT_SFac, muonHLT_directory, 0.5, "HLT"));
   //
 
   // elec-ID
@@ -403,27 +380,18 @@ bool EffyJetXTAGLiteModule::process(uhh2::Event& event){
   //// Data/MC scale factors
 
   float w_GEN(1.);
-  float w_pileupSF_ct(1.);
-  float w_muonIDSF_ct(1.);
-  float w_muonHLTSF_ct(1.);
   float w_elecIDSF_ct(1.);
   float w_elecHLTSF_ct(1.);
+
+  //pileup
+  pileupSF->process(event);
+
+  // muon-ID
+  muonID_SF->process(event);
 
   if(!event.isRealData){
 
     w_GEN = event.weight;
-
-    // pileup
-    w_pileupSF_ct  = pileupSF_ct->weight(event);
-    //
-
-    // muon-ID
-    w_muonIDSF_ct  = muonIDSF->weight(event, "CT");
-    //
-
-    // muon-HLT
-    w_muonHLTSF_ct = muonHLTSF->weight(event, "CT");
-    //
 
     // elec-ID
     w_elecIDSF_ct  = elecIDSF->weight(event, "CT");
@@ -435,10 +403,8 @@ bool EffyJetXTAGLiteModule::process(uhh2::Event& event){
 
     // central weight (histograms)
     event.weight   = w_GEN;
-    event.weight  *= w_pileupSF_ct;
-
-    if     (channel_ == muon) event.weight *= w_muonIDSF_ct;
-    else if(channel_ == elec) event.weight *= w_elecIDSF_ct;
+  
+    if(channel_ == elec) event.weight *= w_elecIDSF_ct;
     //
   }
   //
@@ -465,8 +431,10 @@ bool EffyJetXTAGLiteModule::process(uhh2::Event& event){
   HFolder("trigger")->fill(event);
   ////
 
-  if     (channel_ == muon) event.weight *= w_muonHLTSF_ct;
-  else if(channel_ == elec) event.weight *= w_elecHLTSF_ct;
+  // HLT
+  muonHLT_SF->process(event);
+
+  if(channel_ == elec) event.weight *= w_elecHLTSF_ct;
 
   //// MET selection
   const bool pass_met = met_sel->passes(event);
@@ -531,7 +499,6 @@ bool EffyJetXTAGLiteModule::process(uhh2::Event& event){
 
   HFolder("kine")            ->fill(event);
   HFolder("kine__ttbar")     ->fill(event);
-  HFolder("kine__BTAG")      ->fill(event);
   HFolder("kine__TTAG")      ->fill(event);
   HFolder("kine__TTAG_noMsd")->fill(event);
   HFolder("kine__TTAG_noTau")->fill(event);
@@ -544,7 +511,6 @@ bool EffyJetXTAGLiteModule::process(uhh2::Event& event){
 
   HFolder(chi2_posx)               ->fill(event);
   HFolder(chi2_posx+"__ttbar")     ->fill(event);
-  HFolder(chi2_posx+"__BTAG")      ->fill(event);
   HFolder(chi2_posx+"__TTAG")      ->fill(event);
   HFolder(chi2_posx+"__TTAG_noMsd")->fill(event);
   HFolder(chi2_posx+"__TTAG_noTau")->fill(event);
