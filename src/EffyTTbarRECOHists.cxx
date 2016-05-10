@@ -56,11 +56,11 @@ void EffyTTbarRECOHists::init(){
   book_TH1F("gen_blep__pz"       , 120, -1200, 1200);
   book_TH1F("gen_blep__cosThetaX", 40, -1, 1);
 
-  book_TH1F("rec_chi2", 300, 0, 600);
+  book_TH1F("rec_chi2", 200, 0, 600);
   book_TH2F("rec_chi2__VS__rec_ttbar__M", 300, 0, 600, 600, 0, 6000);
 
-  book_TH1F("rec_ttbar__M"          , 600, 0, 6000);
-  book_TH1F("rec_ttbar__pt"         , 300, 0, 3000);
+  book_TH1F("rec_ttbar__M"          , 300, 0, 6000);
+  book_TH1F("rec_ttbar__pt"         , 150, 0, 3000);
   book_TH1F("rec_ttbar__gen_DM"     , 120, -600, 600);
   book_TH1F("rec_ttbar__gen_Dpt"    , 120, -600, 600);
   book_TH1F("rec_ttbar__gen_DM_pct" , 120, -1.2, 1.2);
