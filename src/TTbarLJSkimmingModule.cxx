@@ -64,6 +64,9 @@ class TTbarLJSkimmingModule : public ModuleBASE {
   std::unique_ptr<uhh2::Selection> twodcut_sel;
 
   std::unique_ptr<uhh2::AnalysisModule> ttgenprod;
+
+  Event::Handle<float> tt_TMVA_response;// response of TMVA method, dummy value at this step
+
 };
 
 TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
@@ -80,14 +83,15 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
   if(keyword == "v01"){
 
     ele_pt = 50.;
-    eleID  = ElectronID_Spring15_25ns_tight_noIso;
-
+    //    eleID  = ElectronID_Spring15_25ns_tight_noIso;
+    eleID = ElectronID_MVAnotrig_Spring15_25ns_loose; //TEST 
     use_miniiso = false;
 
     jet1_pt = 150.;
     jet2_pt =  50.;
 
     MET     =  50.;
+    //    MET     =   0.;
     HT_lep  =   0.;
   }
   else throw std::runtime_error("TTbarLJSkimmingModule::TTbarLJSkimmingModule -- undefined \"keyword\" argument in .xml configuration file: "+keyword);
@@ -208,9 +212,14 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
     book_HFolder(tag, new TTbarLJHists(ctx, tag));
   }
   ////
+
+  tt_TMVA_response = ctx.declare_event_output<float>("TMVA_response");
+
 }
 
 bool TTbarLJSkimmingModule::process(uhh2::Event& event){
+
+  event.set(tt_TMVA_response,-100);//fill with dummy value
 
   //// COMMON MODULES
 
@@ -278,6 +287,8 @@ bool TTbarLJSkimmingModule::process(uhh2::Event& event){
     }
   }
 
+  if(!pass_twodcut){};//place holder
+
   jet_cleaner2->process(event);
   sort_by_pt<Jet>(*event.jets);
 
@@ -300,22 +311,25 @@ bool TTbarLJSkimmingModule::process(uhh2::Event& event){
   HFolder("jet1")->fill(event);
   ////
 
-  //// MET selection
-  const bool pass_met = met_sel->passes(event);
-  if(!pass_met) return false;
-  HFolder("met")->fill(event);
+  //TEST no MET, HT_lep, 2D cut for QCD studies
+
+  // //// MET selection
+  // const bool pass_met = met_sel->passes(event);
+  // if(!pass_met) return false;
+  // HFolder("met")->fill(event);
+  // ////
+
+  // //// HT_lep selection
+  // const bool pass_htlep = htlep_sel->passes(event);
+  // if(!pass_htlep) return false;
+  // HFolder("htlep")->fill(event);
   ////
 
-  //// HT_lep selection
-  const bool pass_htlep = htlep_sel->passes(event);
-  if(!pass_htlep) return false;
-  HFolder("htlep")->fill(event);
-  ////
-
-  //// LEPTON-2Dcut selection
-  if(!pass_twodcut) return false;
-  HFolder("twodcut")->fill(event);
-  ////
+  
+  // //// LEPTON-2Dcut selection
+  // if(!pass_twodcut) return false;
+  // HFolder("twodcut")->fill(event);
+  // ////
 
   return true;
 }

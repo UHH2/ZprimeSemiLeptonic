@@ -11,12 +11,14 @@ TTbarLJHists::TTbarLJHists(uhh2::Context& ctx, const std::string& dirname):
   HistsBASE(ctx, dirname), tjet_ID_(TopTagID_NO()), tjet_minDR_jet_(0.) {
 
   init();
+  tt_tmva_response = ctx.get_handle<float>("TMVA_response");
 }
 
 TTbarLJHists::TTbarLJHists(uhh2::Context& ctx, const std::string& dirname, const TopJetId& ttag_id, const float dr__ttag_jet):
   HistsBASE(ctx, dirname), tjet_ID_(ttag_id), tjet_minDR_jet_(dr__ttag_jet) {
 
   init();
+  tt_tmva_response = ctx.get_handle<float>("TMVA_response");
 }
 
 void TTbarLJHists::init(){
@@ -59,12 +61,15 @@ void TTbarLJHists::init(){
 
   // ELECTRON
   book_TH1F("eleN"                 , 20, 0, 20);
-
+  book_TH1F("ele1__etaSC"          , 60, -3, 3);
+  book_TH1F("ele1__class" , 6, -0.5, 5.5);
   book_TH1F("ele1__charge"         , 5, -2, 3);
   book_TH1F("ele1__pt"             , 360, 0, 1800);
+  book_TH1F("ele1__ptError"         , 36, 0, 720);
   book_TH1F("ele1__eta"            , 60, -3, 3);
-  book_TH1F("ele1__etaSC"          , 60, -3, 3);
+  book_TH1F("ele1__etaError"        , 60, 0, 1.);
   book_TH1F("ele1__phi"            , 60, -3.15, 3.15);
+  book_TH1F("ele1__phiError"            , 60, 0, 1.);
   book_TH1F("ele1__pfIso_dbeta"    , 60, 0, 3);
   book_TH1F("ele1__pfMINIIso_dbeta", 60, 0, 3);
   book_TH1F("ele1__pfMINIIso_pfwgt", 60, 0, 3);
@@ -74,12 +79,17 @@ void TTbarLJHists::init(){
   book_TH2F("ele1__minDR_jet__vs__ele1__pTrel_jet", 60, 0, 6, 100, 0, 500);
   book_TH2F("ele1__pt__vs__met__pt", 360, 0, 1800, 180, 0, 1800);
   book_TH2F("ele1__pTrel_jet__vs__met__pt", 100, 0, 500, 180, 0, 1800);
+  
 
+  book_TH1F("ele2__class" , 6, -0.5, 5.5);
+  book_TH1F("ele2__etaSC"          , 60, -3, 3);
   book_TH1F("ele2__charge"         , 5, -2, 3);
   book_TH1F("ele2__pt"             , 240, 0, 1200);
+  book_TH1F("ele2__ptError" , 36, 0, 720);
   book_TH1F("ele2__eta"            , 60, -3, 3);
-  book_TH1F("ele2__etaSC"          , 60, -3, 3);
+  book_TH1F("ele2__etaError" , 60, 0, 1);
   book_TH1F("ele2__phi"            , 60, -3.15, 3.15);
+  book_TH1F("ele2__phiError" , 60, 0, 1.);
   book_TH1F("ele2__pfIso_dbeta"    , 60, 0, 3);
   book_TH1F("ele2__pfMINIIso_dbeta", 60, 0, 3);
   book_TH1F("ele2__pfMINIIso_pfwgt", 60, 0, 3);
@@ -183,6 +193,8 @@ void TTbarLJHists::init(){
   book_TH2F("met__pt__vs__dphi_met_lep1", 180, 0, 1800, 60, 0, 3.15);
   book_TH2F("met__pt__vs__dphi_met_jet1", 180, 0, 1800, 60, 0, 3.15);
 
+  TMVA_response = book<TH1F>("TMVA_response", "TMVA response", 50,-1.2,1.8);
+
   return;
 }
 
@@ -251,11 +263,15 @@ void TTbarLJHists::fill(const uhh2::Event& event){
 
     H1("ele"+std::to_string(i+1)+"__charge")->Fill(p.charge()          , weight);
     H1("ele"+std::to_string(i+1)+"__pt")    ->Fill(p.pt()              , weight);
+    H1("ele"+std::to_string(i+1)+"__ptError") ->Fill(p.ptError() , weight);
     H1("ele"+std::to_string(i+1)+"__eta")   ->Fill(p.eta()             , weight);
+    H1("ele"+std::to_string(i+1)+"__etaError") ->Fill(p.etaError() , weight);
     H1("ele"+std::to_string(i+1)+"__etaSC") ->Fill(p.supercluster_eta(), weight);
     H1("ele"+std::to_string(i+1)+"__phi")   ->Fill(p.phi()             , weight);
-
+    H1("ele"+std::to_string(i+1)+"__phiError") ->Fill(p.phiError() , weight);
     H2("ele"+std::to_string(i+1)+"__pt__vs__met__pt")->Fill(p.pt(), event.met->pt(), weight);
+    int EMclass= p.Class();
+    H1("ele"+std::to_string(i+1)+"__class")->Fill(EMclass, weight);
 
     const float pfR030Iso_dbeta = p.relIsodb();
     const float pfMINIIso_dbeta = util::pfMINIIso(p, "delta-beta");
@@ -460,5 +476,6 @@ void TTbarLJHists::fill(const uhh2::Event& event){
   if(lep1)               H2("met__pt__vs__dphi_met_lep1")->Fill(event.met->pt(), fabs(uhh2::deltaPhi(*event.met, *lep1))            , weight);
   if(event.jets->size()) H2("met__pt__vs__dphi_met_jet1")->Fill(event.met->pt(), fabs(uhh2::deltaPhi(*event.met, event.jets->at(0))), weight);
 
+  TMVA_response->Fill(event.get(tt_tmva_response), weight);
   return;
 }

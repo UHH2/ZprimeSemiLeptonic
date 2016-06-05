@@ -19,4 +19,9 @@ class TTbarLJHists : public HistsBASE {
   float    tjet_minDR_jet_;
 
   virtual void init() override;
+
+ private:
+  TH1F* TMVA_response;
+  uhh2::Event::Handle<float> tt_tmva_response;
+
 };
