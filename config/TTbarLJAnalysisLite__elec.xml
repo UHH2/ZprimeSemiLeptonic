@@ -16,7 +16,11 @@
  <!ENTITY PROOFdir "/nfs/dust/cms/user/karavdia/PROOF">
  <!ENTITY INdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_76X_v1_v3/ttbarLJSkimming/">
 <!-- <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_76X_v1_v3/ttbarLJAnalysis/&channel;/BDTG_DataDrivenMET70_10Vars_000cut"> -->
- <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_76X_v1_v3/ttbarLJAnalysis/&channel;/MLPBNN_DataDrivenMET70_10Vars_090cut"> 
+<!-- <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_76X_v1_v3/ttbarLJAnalysis/&channel;/MLPBNN_DataDrivenMET70_10Vars_090cut"> -->
+
+<!-- <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_76X_v1_v3/ttbarLJAnalysis/&channel;/BDTG_DataDrivenMET30_19Vars"> -->
+<!-- <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_76X_v1_v3/ttbarLJAnalysis/&channel;/Btagging_CSV_MVA"> -->
+<!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_76X_v1_v3/ttbarLJAnalysis/&channel;/BDT_DataDrivenMET40_20Vars_Cut_0_5"> 
 
  <!ENTITY  SingleEG "&INdir;/uhh2.AnalysisModuleRunner.DATA.SingleEG.root">
  <!ENTITY  SingleMUON "&INdir;/uhh2.AnalysisModuleRunner.DATA.SingleMUON.root">
@@ -107,7 +111,7 @@
 
     <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTdir;/" PostFix="" TargetLumi="2690.707225445" >
 
-    <!-- <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTdir;/" PostFix="" TargetLumi="2690.707225445" RunMode="PROOF" ProofServer="lite://" ProofWorkDir="&PROOFdir;/" ProofNodes="15" > -->
+<!--    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTdir;/" PostFix="" TargetLumi="2690.707225445" RunMode="PROOF" ProofServer="lite://" ProofWorkDir="&PROOFdir;/" ProofNodes="15" > -->
 
   <!--  <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTdir;/" PostFix="" TargetLumi="1" RunMode="PROOF" ProofServer="pod://" ProofWorkDir="&PROOFdir;/" >
 -->
@@ -115,7 +119,7 @@
   <InputData Version="SingleEG" Lumi="2690.707225445" Type="DATA" NEventsMax="&NEVT;" Cacheable="False">
     <In FileName="&SingleEG;" Lumi="0.0"/> <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
 
-    <InputData Version="Zp01w0500" Lumi="102461" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+   <InputData Version="Zp01w0500" Lumi="102461" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
      <In FileName="&Zp01w0500;" Lumi="0.0"/> <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
 
    <InputData Version="Zp01w0750" Lumi="93217" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
@@ -268,7 +272,7 @@
     <In FileName="&DYJetsToLL_LO_M50_HT0400to0600;" Lumi="0.0"/> <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
 
 <InputData Version="DYJetsToLL_LO_M50_HT0600toINFT" Lumi="381390.0" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
-    <In FileName="&DYJetsToLL_LO_M50_HT0600toINFT;" Lumi="0.0"/> <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+    <In FileName="&DYJetsToLL_LO_M50_HT0600toINFT;" Lumi="0.0"/> <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
 
 
 <!--  <InputData Version="TTbarScaleUp" Lumi="11926.25" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
