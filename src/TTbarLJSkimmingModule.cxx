@@ -77,21 +77,22 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
   const std::string& keyword = ctx.get("keyword");
 
   ElectronId eleID;
-  float ele_pt(-1.), jet1_pt(-1.), jet2_pt(-1.), MET(-1.), HT_lep(-1.);
+  float ele_pt(-1.),muon_pt(-1.), jet1_pt(-1.), jet2_pt(-1.), MET(-1.), HT_lep(-1.);
   bool use_miniiso(false);
 
   if(keyword == "v01"){
 
-    ele_pt = 50.;
-    //    eleID  = ElectronID_Spring15_25ns_tight_noIso;
-    eleID = ElectronID_MVAnotrig_Spring15_25ns_loose; //TEST 
+    ele_pt = 45.;
+    muon_pt = 45.;
+    eleID  = ElectronID_Spring15_25ns_tight_noIso;
+    //    eleID = ElectronID_MVAnotrig_Spring15_25ns_loose; //TEST 
     use_miniiso = false;
 
-    jet1_pt = 150.;
+    jet1_pt = 200.;
     jet2_pt =  50.;
 
     MET     =  50.;
-    //    MET     =   0.;
+    //MET     =   0.;
     HT_lep  =   0.;
   }
   else throw std::runtime_error("TTbarLJSkimmingModule::TTbarLJSkimmingModule -- undefined \"keyword\" argument in .xml configuration file: "+keyword);
@@ -137,7 +138,7 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
   ////
 
   //// OBJ CLEANING
-  const     MuonId muoSR(AndId<Muon>    (PtEtaCut  (50.   , 2.1), MuonIDMedium()));
+  const     MuonId muoSR(AndId<Muon>    (PtEtaCut  (muon_pt   , 2.1), MuonIDMedium()));
   const ElectronId eleSR(AndId<Electron>(PtEtaSCCut(ele_pt, 2.5), eleID));
 
   if(use_miniiso){
@@ -287,7 +288,7 @@ bool TTbarLJSkimmingModule::process(uhh2::Event& event){
     }
   }
 
-  if(!pass_twodcut){};//place holder
+  //  if(!pass_twodcut){};//place holder
 
   jet_cleaner2->process(event);
   sort_by_pt<Jet>(*event.jets);
@@ -313,23 +314,23 @@ bool TTbarLJSkimmingModule::process(uhh2::Event& event){
 
   //TEST no MET, HT_lep, 2D cut for QCD studies
 
-  // //// MET selection
-  // const bool pass_met = met_sel->passes(event);
-  // if(!pass_met) return false;
-  // HFolder("met")->fill(event);
-  // ////
-
-  // //// HT_lep selection
-  // const bool pass_htlep = htlep_sel->passes(event);
-  // if(!pass_htlep) return false;
-  // HFolder("htlep")->fill(event);
+  //// MET selection
+  const bool pass_met = met_sel->passes(event);
+  if(!pass_met) return false;
+  HFolder("met")->fill(event);
   ////
 
+  //// HT_lep selection
+  const bool pass_htlep = htlep_sel->passes(event);
+  if(!pass_htlep) return false;
+  HFolder("htlep")->fill(event);
   
-  // //// LEPTON-2Dcut selection
-  // if(!pass_twodcut) return false;
-  // HFolder("twodcut")->fill(event);
-  // ////
+
+  
+  //// LEPTON-2Dcut selection
+  if(!pass_twodcut) return false;
+  HFolder("twodcut")->fill(event);
+  ////
 
   return true;
 }

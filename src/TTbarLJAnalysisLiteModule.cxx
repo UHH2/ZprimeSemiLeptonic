@@ -362,10 +362,17 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
       lep1_pt_ =   0.;
 
-      jet1_pt  = 250.;
-      jet2_pt  =  70.;
+      // jet1_pt  = 250.;
+      // jet2_pt  =  70.;
 
-      MET      = 120.;
+      // MET      = 120.;
+      // HT_lep   =   0.;
+
+
+      jet1_pt  = 0.;
+      jet2_pt  = 0.;
+
+      MET      =   0.;
       HT_lep   =   0.;
 
       triangul_cut = false;
@@ -703,8 +710,8 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   muonID_SF.reset(new MCMuonScaleFactor(ctx, muonID_SFac, muonID_directory, 1.0, "ID"));
   muonHLT_SF.reset(new MCMuonScaleFactor(ctx, muonHLT_SFac, muonHLT_directory, 0.5, "HLT"));
 
-  //b-tagging scale factors
-  btagSF.reset(new MCBTagScaleFactor(ctx, b_working_point));
+  // //b-tagging scale factors
+  // btagSF.reset(new MCBTagScaleFactor(ctx, b_working_point));
 
   // event
   h_run             = ctx.declare_event_output<int>("run");
@@ -913,10 +920,12 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
     reader->AddVariable("fjet2_pt/Mttbar", &varMVA[15]);
     reader->AddVariable("jet2_CSV", &varMVA[16]);
     reader->AddVariable("met_pt/MwT", &varMVA[17]);                                                                                 
-    reader->AddVariable("ttagN", &varMVA[18]);                                                                                             reader->AddVariable("btagN", &varMVA[19]); 
+    reader->AddVariable("ttagN", &varMVA[18]);                                                                                             
+    reader->AddVariable("btagN", &varMVA[19]); 
   
 
-  TString dir    = "/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_7_6_3_patch2/src/UHH2/ZprimeSemiLeptonic/TMVA_weights/76X/"; //ToDo: make it param in xml
+    //  TString dir    = "/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_7_6_3_patch2/src/UHH2/ZprimeSemiLeptonic/TMVA_weights/76X/"; //ToDo: make it param in xml
+  TString dir    = "/afs/desy.de/user/k/karavdia/CMSSW_8_0_8_patch1/src/UHH2/ZprimeSemiLeptonic/TMVA_weights/76X/"; //ToDo: make it param in xml
    methodName = "BDT::BDTG";
    TString weightfile = dir + "Homemade_TTbarMVAClassification_BDTG_DataDriven_MET40_20vras.weights.xml";
   // methodName = "MLP::MLPBNN";
@@ -960,8 +969,8 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   //pileup
   pileupSF->process(event);
 
-  // b-tagging
-  btagSF->process(event);
+  // // b-tagging
+  // btagSF->process(event);
 
   // muon-ID
   muonID_SF->process(event);
@@ -1092,7 +1101,9 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
 
   //// HLT selection
   const bool pass_trigger = trigger_sel->passes(event);
-  if(!pass_trigger) return false;
+  //  if(!pass_trigger) return false;
+  if(!pass_trigger && event.isRealData) return false; //apply only on data
+  //  else std::cout<<"Passed trigger!!! "<<std::endl;
   if(lepN == 1) HFolder("trigger")->fill(event);
   ////
 
@@ -1603,7 +1614,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   if(ljet_CSV<-1. || lep_pt_err>1000.) 
      return false; // do NOT use unphysical data
   TMVA_response = reader->EvaluateMVA(methodName);
-  if(TMVA_response<0.5) return false; //BDTG_DATADriven_MET40_20vars
+  //  if(TMVA_response<0.5) return false; //BDTG_DATADriven_MET40_20vars
   event.set(tt_TMVA_response, TMVA_response);
   //std::cout<<"TMVA_response = "<<TMVA_response<<std::endl;
     }
