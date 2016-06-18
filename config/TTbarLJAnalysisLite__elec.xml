@@ -8,8 +8,8 @@
  <!ENTITY btag_workpoint "CSVM">
 <!--   <!ENTITY channel "muon"> -->
    <!ENTITY btag_workpoint "CSVM">
-<!--  <!ENTITY HLT     "HLT_Ele45_CaloIdVT_GsfTrkIdT_PFJet200_PFJet50_v*"> -->
-  <!ENTITY HLT     "HLT_Ele35_CaloIdVT_GsfTrkIdT_PFJet150_PFJet50_v*">
+ <!ENTITY HLT     "HLT_Ele45_CaloIdVT_GsfTrkIdT_PFJet200_PFJet50_v*">
+<!-- <!ENTITY HLT     "HLT_Ele35_CaloIdVT_GsfTrkIdT_PFJet150_PFJet50_v*"> -->
 <!--
   <!ENTITY HLT     "HLT_Ele105_CaloIdVT_GsfTrkIdT_v*">
 -->
