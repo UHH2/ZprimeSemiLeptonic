@@ -347,7 +347,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
     if(channel_ == muon){
 
-      lep1_pt_ =   0.;
+      lep1_pt_ =   50.;
 
       jet1_pt  = 150.;
       jet2_pt  =  50.;
@@ -360,20 +360,19 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
     }
     else if(channel_ == elec){
 
-      lep1_pt_ =   0.;
+      lep1_pt_ =   50.;
 
-      // jet1_pt  = 250.;
-      // jet2_pt  =  70.;
+      jet1_pt  = 250.;
+      jet2_pt  =  70.;
 
-      // MET      = 120.;
-      // HT_lep   =   0.;
-
-
-      jet1_pt  = 0.;
-      jet2_pt  = 0.;
-
-      MET      =   0.;
+      MET      = 120.;
       HT_lep   =   0.;
+
+      // jet1_pt  = 0.;
+      // jet2_pt  = 0.;
+
+      // MET      =   0.;
+      // HT_lep   =   0.;
 
       triangul_cut = false;
       topleppt_cut = false;
@@ -554,8 +553,8 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   }
   else topleppt_sel.reset(new uhh2::AndSelection(ctx));
 
-  //  chi2_sel.reset(new HypothesisDiscriminatorCut(ctx,  0., 30., ttbar_hyps_label, ttbar_chi2_label));
-  chi2_sel.reset(new HypothesisDiscriminatorCut(ctx,  0., uhh2::infinity, ttbar_hyps_label, ttbar_chi2_label)); //TEST no chi2 for QCD studies
+  chi2_sel.reset(new HypothesisDiscriminatorCut(ctx,  0., 30., ttbar_hyps_label, ttbar_chi2_label));
+  //  chi2_sel.reset(new HypothesisDiscriminatorCut(ctx,  0., uhh2::infinity, ttbar_hyps_label, ttbar_chi2_label)); //TEST no chi2 for QCD studies
 
   //// HISTS
 
@@ -686,7 +685,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   //
 
   // top-pt reweighting
-  if(ctx.get("dataset_version").find("TT") != std::string::npos){
+  if(ctx.get("dataset_version").find("TTbar") != std::string::npos || ctx.get("dataset_version").find("TTBar") != std::string::npos){
     std::cout<<"Set top pt reweighting!"<<std::endl;
     topptREWGT.reset(new TopPtReweight(ctx, 0.156, -0.00137, ttbar_gen_label, "wgtMC__topptREWGT_ct"));
   }
@@ -1111,23 +1110,23 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
 
   // //TEST: no  MET, HT_lep, TRIANGULAR-CUTS cuts for QCD studies
 
-  // //// MET selection
-  // const bool pass_met = met_sel->passes(event);
-  // if(!pass_met) return false;
-  // if(lepN == 1) HFolder("met")->fill(event);
-  // ////
+  //// MET selection
+  const bool pass_met = met_sel->passes(event);
+  if(!pass_met) return false;
+  if(lepN == 1) HFolder("met")->fill(event);
+  ////
 
-  // //// HT_lep selection
-  // const bool pass_htlep = htlep_sel->passes(event);
-  // if(!pass_htlep) return false;
-  // if(lepN == 1) HFolder("htlep")->fill(event);
-  // ////
+  //// HT_lep selection
+  const bool pass_htlep = htlep_sel->passes(event);
+  if(!pass_htlep) return false;
+  if(lepN == 1) HFolder("htlep")->fill(event);
+  ////
 
-  // //// TRIANGULAR-CUTS selection
-  // const bool pass_triangc = triangc_sel->passes(event);
-  // if(!pass_triangc) return false;
-  // if(lepN == 1) HFolder("triangc")->fill(event);
-  // ////
+  //// TRIANGULAR-CUTS selection
+  const bool pass_triangc = triangc_sel->passes(event);
+  if(!pass_triangc) return false;
+  if(lepN == 1) HFolder("triangc")->fill(event);
+  ////
 
   // //--------------------------------------------------------------------
 
@@ -1183,8 +1182,8 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   event.set(tt_softdropmass,top_softdropmass); 
 
   //TEST for QCD studies
-  // // veto on 2-ttag events
-  // if(!(ttagN <= 1)) return false;
+  // veto on 2-ttag events
+  if(!(ttagN <= 1)) return false;
 
   /******************/
 
@@ -1611,15 +1610,15 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   varMVA[18] = ttagN;
   varMVA[19] = btagN;
   
-  if(ljet_CSV<-1. || lep_pt_err>1000.) 
-     return false; // do NOT use unphysical data
+  // if(ljet_CSV<-1. || lep_pt_err>1000.) 
+  //    return false; // do NOT use unphysical data
   TMVA_response = reader->EvaluateMVA(methodName);
   //  if(TMVA_response<0.5) return false; //BDTG_DATADriven_MET40_20vars
   event.set(tt_TMVA_response, TMVA_response);
   //std::cout<<"TMVA_response = "<<TMVA_response<<std::endl;
     }
-  if(!pass_chi2) 
-    return false;
+  // if(!pass_chi2) 
+  //   return false;
 
   //  if(TMVA_response<0.9) return false; //MLP
 

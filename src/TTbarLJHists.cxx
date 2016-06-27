@@ -26,13 +26,13 @@ void TTbarLJHists::init(){
   book_TH1F("wgt", 120, -6, 6);
 
   // PV
-  book_TH1F("pvN", 120, 0, 120);
+  book_TH1F("pvN", 60, 0, 60);
 
   // MUON
   book_TH1F("muoN"                 , 20, 0, 20);
 
   book_TH1F("muo1__charge"         , 5, -2, 3);
-  book_TH1F("muo1__pt"             , 360, 0, 1800);
+  book_TH1F("muo1__pt"             , 90, 0, 900);
   book_TH1F("muo1__eta"            , 60, -3, 3);
   book_TH1F("muo1__phi"            , 60, -3.15, 3.15);
   book_TH1F("muo1__pfIso_dbeta"    , 60, 0, 3);
@@ -42,8 +42,8 @@ void TTbarLJHists::init(){
   book_TH1F("muo1__pTrel_jet"      , 100, 0, 500);
   book_TH1F("muo1__minDR_topjet"   , 60, 0, 6);
   book_TH2F("muo1__minDR_jet__vs__muo1__pTrel_jet", 60, 0, 6, 100, 0, 500);
-  book_TH2F("muo1__pt__vs__met__pt", 360, 0, 1800, 180, 0, 1800);
-  book_TH2F("muo1__pTrel_jet__vs__met__pt", 100, 0, 500, 180, 0, 1800);
+  book_TH2F("muo1__pt__vs__met__pt", 90, 0, 900, 90, 0, 900);
+  book_TH2F("muo1__pTrel_jet__vs__met__pt", 100, 0, 500, 90, 0, 900);
 
   book_TH1F("muo2__charge"         , 5, -2, 3);
   book_TH1F("muo2__pt"             , 240, 0, 1200);
@@ -56,15 +56,15 @@ void TTbarLJHists::init(){
   book_TH1F("muo2__pTrel_jet"      , 100, 0, 500);
   book_TH1F("muo2__minDR_topjet"   , 60, 0, 6);
   book_TH2F("muo2__minDR_jet__vs__muo2__pTrel_jet", 60, 0, 6, 100, 0, 500);
-  book_TH2F("muo2__pt__vs__met__pt", 360, 0, 1800, 180, 0, 1800);
-  book_TH2F("muo2__pTrel_jet__vs__met__pt", 100, 0, 500, 180, 0, 1800);
+  book_TH2F("muo2__pt__vs__met__pt", 90, 0, 900, 90, 0, 900);
+  book_TH2F("muo2__pTrel_jet__vs__met__pt", 100, 0, 500, 90, 0, 900);
 
   // ELECTRON
   book_TH1F("eleN"                 , 20, 0, 20);
   book_TH1F("ele1__etaSC"          , 60, -3, 3);
   book_TH1F("ele1__class" , 6, -0.5, 5.5);
   book_TH1F("ele1__charge"         , 5, -2, 3);
-  book_TH1F("ele1__pt"             , 360, 0, 1800);
+  book_TH1F("ele1__pt"             , 90, 0, 900);
   book_TH1F("ele1__ptError"         , 36, 0, 720);
   book_TH1F("ele1__eta"            , 60, -3, 3);
   book_TH1F("ele1__etaError"        , 60, 0, 1.);
@@ -77,8 +77,8 @@ void TTbarLJHists::init(){
   book_TH1F("ele1__pTrel_jet"      , 100, 0, 500);
   book_TH1F("ele1__minDR_topjet"   , 60, 0, 6);
   book_TH2F("ele1__minDR_jet__vs__ele1__pTrel_jet", 60, 0, 6, 100, 0, 500);
-  book_TH2F("ele1__pt__vs__met__pt", 360, 0, 1800, 180, 0, 1800);
-  book_TH2F("ele1__pTrel_jet__vs__met__pt", 100, 0, 500, 180, 0, 1800);
+  book_TH2F("ele1__pt__vs__met__pt", 90, 0, 900, 90, 0, 900);
+  book_TH2F("ele1__pTrel_jet__vs__met__pt", 100, 0, 500, 90, 0, 900);
   
 
   book_TH1F("ele2__class" , 6, -0.5, 5.5);
@@ -97,8 +97,8 @@ void TTbarLJHists::init(){
   book_TH1F("ele2__pTrel_jet"      , 100, 0, 500);
   book_TH1F("ele2__minDR_topjet"   , 60, 0, 6);
   book_TH2F("ele2__minDR_jet__vs__ele2__pTrel_jet", 60, 0, 6, 100, 0, 500);
-  book_TH2F("ele2__pt__vs__met__pt", 360, 0, 1800, 180, 0, 1800);
-  book_TH2F("ele2__pTrel_jet__vs__met__pt", 100, 0, 500, 180, 0, 1800);
+  book_TH2F("ele2__pt__vs__met__pt", 90, 0, 900, 90, 0, 900);
+  book_TH2F("ele2__pTrel_jet__vs__met__pt", 100, 0, 500, 90, 0, 900);
 
   // JET
   book_TH1F("jetN"              , 20, 0, 20);
@@ -116,13 +116,13 @@ void TTbarLJHists::init(){
   book_TH1F("jetA__maxCSV2", 120, 0, 1.2);
   book_TH1F("jetA__maxCSV3", 120, 0, 1.2);
 
-  book_TH1F("jet1__pt" , 180, 0, 1800);
+  book_TH1F("jet1__pt" , 90, 0, 900);
   book_TH1F("jet1__eta", 60, -3, 3);
   book_TH1F("jet1__phi", 60, -3.15, 3.15);
   book_TH1F("jet1__M"  , 360, 0, 360);
   book_TH1F("jet1__CSV", 120, 0, 1.2);
 
-  book_TH1F("jet2__pt" , 180, 0, 1800);
+  book_TH1F("jet2__pt" , 90, 0, 900);
   book_TH1F("jet2__eta", 60, -3, 3);
   book_TH1F("jet2__phi", 60, -3.15, 3.15);
   book_TH1F("jet2__M"  , 360, 0, 360);
@@ -153,7 +153,7 @@ void TTbarLJHists::init(){
 
   for(const auto& eta : htags_ETA){
 
-    book_TH1F("toptag1"+eta+"__pt"          , 180, 0, 1800);
+    book_TH1F("toptag1"+eta+"__pt"          , 90, 0, 900);
     book_TH1F("toptag1"+eta+"__eta"         , 60, -3, 3);
     book_TH1F("toptag1"+eta+"__phi"         , 60, -3.15, 3.15);
     book_TH1F("toptag1"+eta+"__M"           , 360, 90, 450);
@@ -166,7 +166,7 @@ void TTbarLJHists::init(){
     book_TH1F("toptag1"+eta+"__tau32"       , 24, 0, 1.2);
     book_TH1F("toptag1"+eta+"__CSV"         , 120, 0, 1.2);
     book_TH1F("toptag1"+eta+"__subjN"       , 4, 2, 6);
-    book_TH1F("toptag1"+eta+"__subj1__pt"   , 180, 0, 1800);
+    book_TH1F("toptag1"+eta+"__subj1__pt"   , 90, 0, 900);
     book_TH1F("toptag1"+eta+"__subj1__eta"  , 60, -3, 3);
     book_TH1F("toptag1"+eta+"__subj2__pt"   , 180, 0, 900);
     book_TH1F("toptag1"+eta+"__subj2__eta"  , 60, -3, 3);
@@ -178,20 +178,20 @@ void TTbarLJHists::init(){
     book_TH1F("toptag1"+eta+"__subj_maxCSV3", 120, 0, 1.2);
   }
 
-  book_TH1F("toptag2__pt"          , 180, 0, 1800);
+  book_TH1F("toptag2__pt"          , 90, 0, 900);
   book_TH1F("toptag2__eta"         , 60, -3, 3);
   book_TH1F("toptag2__phi"         , 60, -3.15, 3.15);
   book_TH1F("toptag2__M"           , 360, 90, 450);
   book_TH1F("toptag2__CSV"         , 120, 0, 1.2);
 
   // MET
-  book_TH1F("met__pt" , 180, 0, 1800);
+  book_TH1F("met__pt" , 90, 0, 900);
   book_TH1F("met__phi", 60, -3.15, 3.15);
-  book_TH1F("wlep__ht", 180, 0, 1800);
-  book_TH1F("wlep__pt", 180, 0, 1800);
+  book_TH1F("wlep__ht", 90, 0, 900);
+  book_TH1F("wlep__pt", 90, 0, 900);
   book_TH1F("wlep__Mt", 360, 0,  360);
-  book_TH2F("met__pt__vs__dphi_met_lep1", 180, 0, 1800, 60, 0, 3.15);
-  book_TH2F("met__pt__vs__dphi_met_jet1", 180, 0, 1800, 60, 0, 3.15);
+  book_TH2F("met__pt__vs__dphi_met_lep1", 90, 0, 900, 60, 0, 3.15);
+  book_TH2F("met__pt__vs__dphi_met_jet1", 90, 0, 900, 60, 0, 3.15);
 
   TMVA_response = book<TH1F>("TMVA_response", "TMVA response", 50,-1.2,1.8);
 
