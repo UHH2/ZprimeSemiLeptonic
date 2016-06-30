@@ -157,9 +157,9 @@ void TTbarLJHists::init(){
     book_TH1F("toptag1"+eta+"__eta"         , 60, -3, 3);
     book_TH1F("toptag1"+eta+"__phi"         , 60, -3.15, 3.15);
     book_TH1F("toptag1"+eta+"__M"           , 360, 90, 450);
-    book_TH1F("toptag1"+eta+"__Mgro"        , 360, 90, 450);
-    book_TH1F("toptag1"+eta+"__Mpru"        , 360, 90, 450);
-    book_TH1F("toptag1"+eta+"__Msdp"        , 360, 90, 450);
+    book_TH1F("toptag1"+eta+"__Mgro"        , 35, 0, 350);
+    book_TH1F("toptag1"+eta+"__Mpru"        , 35, 0, 350);
+    book_TH1F("toptag1"+eta+"__Msdp"        , 35, 0, 350);
     book_TH1F("toptag1"+eta+"__mmin"        , 40, 0, 200);
     book_TH1F("toptag1"+eta+"__tau2"        , 24, 0, 1.2);
     book_TH1F("toptag1"+eta+"__tau3"        , 24, 0, 1.2);

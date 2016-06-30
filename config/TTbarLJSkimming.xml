@@ -9,7 +9,7 @@
 
   <!ENTITY PROOFdir "/nfs/dust/cms/user/karavdia/PROOF">
   <!-- <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v1/ttbarLJSkimming/Selas2015/"> -->
-  <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v1/ttbarLJSkimming/Selas2015_reducedMETfilters_fixJet1Cut/">
+  <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v1/ttbarLJSkimming/Selas2015_4fb/">
 
   <!ENTITY SingleELE_Run2016 SYSTEM  "../../common/datasets/RunII_80X_v1/DATA_SingleElectron_Run2016B.xml">
   <!ENTITY SingleMUON_Run2016  SYSTEM  "../../common/datasets/RunII_80X_v1/SingleMuon_Run2016B.xml">
@@ -235,7 +235,7 @@
 	<Item Name="TopJetCollectionGEN"     Value="slimmedGenJetsAK8"/>
 <!--        <Item Name="METName"                 Value="slimmedMETsNoHF"/> -->
         <Item Name="METName"                 Value="slimmedMETs"/>
-        <Item Name="lumi_file" Value="/afs/desy.de/user/k/karavdia/CMSSW_8_0_8_patch1/src/UHH2/common/data/Cert_271036-274421_13TeV_PromptReco_Collisions16_JSON.root"/>
+        <Item Name="lumi_file" Value="/afs/desy.de/user/k/karavdia/CMSSW_8_0_8_patch1/src/UHH2/common/data/Cert_271036-275125_13TeV_PromptReco_Collisions16_JSON.root"/>
         <Item Name="use_sframe_weight" Value="true"/>
 
         <Item Name="keyword" Value="&KEYW;"/>

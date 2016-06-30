@@ -581,25 +581,28 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
     "kine__t0b0",
     "kine__t0b1",
     "kine__t0b2",
-    "kine__t1b0",
-    "kine__t1b1",
-    "kine__t1b2",
+      "kine__t1",
+      //    "kine__t1b0",
+    // "kine__t1b1",
+    // "kine__t1b2",
 
     "antichi2",
     "antichi2__t0b0",
     "antichi2__t0b1",
     "antichi2__t0b2",
-    "antichi2__t1b0",
-    "antichi2__t1b1",
-    "antichi2__t1b2",
+    "antichi2__t1",
+    // "antichi2__t1b0",
+    // "antichi2__t1b1",
+    // "antichi2__t1b2",
 
     "chi2",
     "chi2__t0b0",
     "chi2__t0b1",
     "chi2__t0b2",
-    "chi2__t1b0",
-    "chi2__t1b1",
-    "chi2__t1b2",
+    "chi2__t1",
+    // "chi2__t1b0",
+    // "chi2__t1b1",
+    // "chi2__t1b2",
   });
 
   for(const auto& tag : htags_2){
@@ -615,9 +618,10 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
     "chi2_L2__t0b0",
     "chi2_L2__t0b1",
     "chi2_L2__t0b2",
-    "chi2_L2__t1b0",
-    "chi2_L2__t1b1",
-    "chi2_L2__t1b2",
+    "chi2_L2__t1",
+    // "chi2_L2__t1b0",
+    // "chi2_L2__t1b1",
+    // "chi2_L2__t1b2",
   });
 
   for(const auto& tag : htags_3){
@@ -691,11 +695,11 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   }
   //
 
-  // W+jets reweighting (NLO/LO k-factors)
-  if(ctx.get("dataset_version").find("WJets") != std::string::npos){
-    wjetsREWGT.reset(new weightcalc_WjetsREWGT());
-  }
-  //
+  // // W+jets reweighting (NLO/LO k-factors)
+  // if(ctx.get("dataset_version").find("WJets") != std::string::npos){
+  //   wjetsREWGT.reset(new weightcalc_WjetsREWGT());
+  // }
+  // //
 
   ////
 
@@ -709,7 +713,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   muonID_SF.reset(new MCMuonScaleFactor(ctx, muonID_SFac, muonID_directory, 1.0, "ID"));
   muonHLT_SF.reset(new MCMuonScaleFactor(ctx, muonHLT_SFac, muonHLT_directory, 0.5, "HLT"));
 
-  // //b-tagging scale factors
+  // // //b-tagging scale factors
   // btagSF.reset(new MCBTagScaleFactor(ctx, b_working_point));
 
   // event
@@ -950,7 +954,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
 
     if(!lumi_sel->passes(event)) return false;
   }
-
+  //  std::cout<<"Pile up next..."<<std::endl;
   ////
 
   //// Data/MC scale factors
@@ -968,7 +972,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   //pileup
   pileupSF->process(event);
 
-  // // b-tagging
+  // // // b-tagging
   // btagSF->process(event);
 
   // muon-ID
@@ -990,11 +994,11 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
     w_elecIDSF_dn  = elecIDSF->weight(event, "DN");
     //
 
-    // elec-HLT
-    w_elecHLTSF_ct = 0.99;//!!elecHLTSF->weight(event, "CT");
-    w_elecHLTSF_up = 1.01;//!!elecHLTSF->weight(event, "UP");
-    w_elecHLTSF_dn = 0.97;//!!elecHLTSF->weight(event, "DN");
-    //
+    // // elec-HLT
+    // w_elecHLTSF_ct = 0.99;//!!elecHLTSF->weight(event, "CT");
+    // w_elecHLTSF_up = 1.01;//!!elecHLTSF->weight(event, "UP");
+    // w_elecHLTSF_dn = 0.97;//!!elecHLTSF->weight(event, "DN");
+    // //
 
 
     // t-tagging
@@ -1047,9 +1051,9 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
     //  
 
 
-    // W+jets reweighting
-    if(wjetsREWGT.get()) w_wjetsREWGT_ct = wjetsREWGT->weight(event);
-    //
+    // // W+jets reweighting
+    // if(wjetsREWGT.get()) w_wjetsREWGT_ct = wjetsREWGT->weight(event);
+    // //
 
     // central weight (histograms)
     event.weight *= w_ttagSF_ct;
@@ -1079,7 +1083,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
 
   // pt-leading lepton selection
   const Particle* lep1 = leading_lepton(event);
-  if(!(lep1->pt() > lep1_pt_)) return false;
+  if(!(lep1->pt() > lep1_pt_)) return false; 
   //
 
   ////
@@ -1108,7 +1112,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
 
   if(channel_ == elec) event.weight *= w_elecHLTSF_ct;
 
-  // //TEST: no  MET, HT_lep, TRIANGULAR-CUTS cuts for QCD studies
+  // // //TEST: no  MET, HT_lep, TRIANGULAR-CUTS cuts for QCD studies
 
   //// MET selection
   const bool pass_met = met_sel->passes(event);
@@ -1128,7 +1132,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   if(lepN == 1) HFolder("triangc")->fill(event);
   ////
 
-  // //--------------------------------------------------------------------
+  // // //--------------------------------------------------------------------
 
   //// TTBAR KIN RECO
 
@@ -1240,8 +1244,14 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
     HFolder("kine")       ->fill(event);
     HFolder("kine__ttbar")->fill(event);
 
-    HFolder("kine__"+ttag_posx+btag_posx)          ->fill(event);
-    HFolder("kine__"+ttag_posx+btag_posx+"__ttbar")->fill(event);
+    if(!pass_ttagevt){
+      HFolder("kine__"+ttag_posx+btag_posx)          ->fill(event);
+      HFolder("kine__"+ttag_posx+btag_posx+"__ttbar")->fill(event);
+    }
+    else{
+      HFolder("kine__"+ttag_posx)          ->fill(event);
+      HFolder("kine__"+ttag_posx+"__ttbar")->fill(event);
+    }
   }
   /**************/
 
@@ -1250,10 +1260,14 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
 
     HFolder(chi2_posx)          ->fill(event);
     HFolder(chi2_posx+"__ttbar")->fill(event);
-
-    HFolder(chi2_posx+"__"+ttag_posx+btag_posx)          ->fill(event);
-    HFolder(chi2_posx+"__"+ttag_posx+btag_posx+"__ttbar")->fill(event);
-    
+    if(!pass_ttagevt){
+      HFolder(chi2_posx+"__"+ttag_posx+btag_posx)          ->fill(event);
+      HFolder(chi2_posx+"__"+ttag_posx+btag_posx+"__ttbar")->fill(event);
+    }
+    else{
+      HFolder(chi2_posx+"__"+ttag_posx)          ->fill(event);
+      HFolder(chi2_posx+"__"+ttag_posx+"__ttbar")->fill(event);
+    }
     if(pass_chi2 && !event.isRealData){
       h_btagMCeffi->fill(event);
     }
@@ -1270,10 +1284,16 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
       HFolder(chi2_posx+"_L2")          ->fill(event);
       HFolder(chi2_posx+"_L2"+"__dilep")->fill(event);
       HFolder(chi2_posx+"_L2"+"__ttbar")->fill(event);
-
-      HFolder(chi2_posx+"_L2"+"__"+ttag_posx+btag_posx)          ->fill(event);
-      HFolder(chi2_posx+"_L2"+"__"+ttag_posx+btag_posx+"__dilep")->fill(event);
-      HFolder(chi2_posx+"_L2"+"__"+ttag_posx+btag_posx+"__ttbar")->fill(event);
+      if(!pass_ttagevt){
+	HFolder(chi2_posx+"_L2"+"__"+ttag_posx+btag_posx)          ->fill(event);
+	HFolder(chi2_posx+"_L2"+"__"+ttag_posx+btag_posx+"__dilep")->fill(event);
+	HFolder(chi2_posx+"_L2"+"__"+ttag_posx+btag_posx+"__ttbar")->fill(event);
+      }
+      else{
+	HFolder(chi2_posx+"_L2"+"__"+ttag_posx)          ->fill(event);
+	HFolder(chi2_posx+"_L2"+"__"+ttag_posx+"__dilep")->fill(event);
+	HFolder(chi2_posx+"_L2"+"__"+ttag_posx+"__ttbar")->fill(event);
+      }
     }
   }
   /**************/

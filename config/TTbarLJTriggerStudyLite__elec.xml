@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
+
+ <!ENTITY NEVT "-1">
+ <!-- <!ENTITY NEVT "10000">-->
+ <!ENTITY KEYW "T0_v01">
+<!-- <!ENTITY channel "elec"> -->
+ <!ENTITY btag_workpoint "CSVM">
+<!ENTITY channel "elec">
+ <!ENTITY HLT  "HLT_Ele45_CaloIdVT_GsfTrkIdT_PFJet200_PFJet50_v*">
+<!--
+  <!ENTITY HLT     "HLT_Mu40_eta2p1_PFJet200_PFJet50_v*">
+-->             
+
+ <!ENTITY PROOFdir "/nfs/dust/cms/user/karavdia/PROOF_2/">
+<!-- <!ENTITY INdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v1/ttbarLJSkimming/Selas2015_reducedMETfilters_fixJet1Cut/"> -->
+<!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v1/ttbarLJTriggerStudyLite/&channel;/"> 
+
+<!-- <!ENTITY  SingleEG "&INdir;/uhh2.AnalysisModuleRunner.DATA.SingleEG.root">
+ <!ENTITY  SingleMUON "&INdir;/uhh2.AnalysisModuleRunner.DATA.SingleMUON.root"> -->
+<!ENTITY SingleEG SYSTEM  "../../common/datasets/RunII_80X_v1/DATA_SingleElectron_Run2016B.xml">
+<!ENTITY SingleMUON  SYSTEM  "../../common/datasets/RunII_80X_v1/SingleMuon_Run2016B.xml">
+]>
+
+<!--
+   <ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="10" AutoResubmit="10"/>
+   <ConfigSGE RAM ="4" DISK ="2" Mail="anastasia.karavdina@desy.de" Notification="as" Workdir="workdir_elec"/>
+-->
+
+
+<JobConfiguration JobName="TTbarLJTriggerStudyJob" OutputLevel="INFO">
+    <Library Name="libSUHH2ZprimeSemiLeptonic"/>
+    <Package Name="SUHH2ZprimeSemiLeptonic.par"/>
+
+  <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTdir;/" PostFix="" TargetLumi="2070.0" >
+
+    <InputData Version="SingleMUON_ID_HLT" Lumi="2070.0" Type="DATA" NEventsMax="&NEVT;" Cacheable="False">
+      &SingleMUON;
+      <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+
+<InputData Version="SingleMUON_ID" Lumi="2070.0" Type="DATA" NEventsMax="&NEVT;" Cacheable="False">
+  &SingleMUON;
+  <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
+
+<UserConfig>
+        <Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices"/>
+        <Item Name="GenParticleCollection"   Value="GenParticles"/>
+        <Item Name="ElectronCollection"      Value="slimmedElectronsUSER"/>
+        <Item Name="MuonCollection"          Value="slimmedMuonsUSER"/>
+        <Item Name="TauCollection"           Value="slimmedTaus"/>
+        <Item Name="JetCollection"           Value="slimmedJets"/>
+        <Item Name="GenJetCollection"        Value="slimmedGenJets"/>
+        <Item Name="TopJetCollection"        Value="slimmedJetsAK8_SoftDrop"/>
+	<Item Name="TopJetCollectionGEN"     Value="slimmedGenJetsAK8"/>
+<!--        <Item Name="METName"                 Value="slimmedMETsNoHF"/> -->
+        <Item Name="METName"                 Value="slimmedMETs"/>
+
+
+        <Item Name="use_sframe_weight" Value="true"/>
+        <Item Name="keyword" Value="&KEYW;"/>
+
+        <Item Name="channel" Value="&channel;"/>
+        <Item Name="trigger" Value="&HLT;"/>
+
+        <Item Name="lumi_file" Value="/afs/desy.de/user/k/karavdia/CMSSW_8_0_8_patch1/src/UHH2/common/data/Cert_271036-274421_13TeV_PromptReco_Collisions16_JSON.root"/> 
+	<Item Name="pileup_directory"           Value="/afs/desy.de/user/k/karavdia/CMSSW_8_0_8_patch1/src/UHH2/common/data/MyMCPileupHistogram.root"/>
+	<Item Name="pileup_directory_data"      Value="/afs/desy.de/user/k/karavdia/CMSSW_8_0_8_patch1/src/UHH2/common/data/MyDataPileupHistogram.root"/>
+	<Item Name="pileup_directory_data_up"   Value="/afs/desy.de/user/k/karavdia/CMSSW_8_0_8_patch1/src/UHH2/common/data/MyDataPileupHistogram.root"/>
+	<Item Name="pileup_directory_data_down" Value="/afs/desy.de/user/k/karavdia/CMSSW_8_0_8_patch1/src/UHH2/common/data/MyDataPileupHistogram.root"/>
+
+	<Item Name="muonID_SF_file"  Value="/afs/desy.de/user/k/karavdia/CMSSW_7_6_3_patch2/src/UHH2/common/data/MuonID_Z_RunCD_Reco76X_Feb15.root"/>
+	<Item Name="muonID_SF_directory"  Value="MC_NUM_MediumID_DEN_genTracks_PAR_pt_spliteta_bin1"/>
+	
+	<Item Name="muonHLT_SF_file" Value="/afs/desy.de/user/k/karavdia/CMSSW_7_6_3_patch2/src/UHH2/common/data/SingleMuonTrigger_Z_RunCD_Reco76X_Feb15.root"/>
+	<Item Name="muonHLT_SF_directory" Value="runD_Mu45_eta2p1_PtEtaBins"/>
+	
+	<Item Name="elecID_SF_file"  Value="/nfs/dust/cms/user/missirol/Analysis7XY/utils/lepton/elec_ID/kinematicBinSFele.root"/>
+	<Item Name="elecID_SF_hist"  Value="CutBasedTight"/>
+
+	<Item Name="btag_wp"         Value="CSVM"/>
+	<Item Name="MCBtagEfficiencies"   Value = "/nfs/dust/cms/user/peiffer/Analysis7XY/ttbar_semilep_13TeV/run2_76/v01/BTagDummyEffi.root"/>
+	<Item Name="BTagCalibration" Value = "/afs/desy.de/user/k/karavdia/CMSSW_7_6_3_patch2/src/UHH2/common/data/CSVv2.csv" />
+	
+	
+	<Item Name="ttag_wp"        Value="mr030_wp1"/>
+	<Item Name="ttag_SFs"        Value="/nfs/dust/cms/user/missirol/Analysis7XY/utils/ttagging/160203/ttagSFAC__SDTT_mr030_wp1.csv"/>
+	<Item Name="ttag_eff"        Value="/nfs/dust/cms/user/missirol/Analysis7XY/utils/ttagging/160203/ttagEFFY__SDTT_mr030_wp1.root"/>
+	<Item Name="ttag_eff__jetL"  Value="&channel;/wjets/tjpj_chi2tlep__TTAG/tjetA__pt__l"/>
+	<Item Name="ttag_eff__jetT"  Value="&channel;/ttbar/tjpj_chi2tlep__TTAG/tjetA__pt__t"/>
+
+	
+	<Item Name="store_PDF_weights" Value="true"/>
+
+	<Item Name="blind_DATA" Value="true"/>
+
+	<!-- reweight MC for MVA studies -->
+<!--	<Item Name="reweight_file" Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_7_4_15_patch1/src/UHH2/ZprimeSemiLeptonic/TMVA_weights/reWeightMCvars_v1.root"/> -->
+<!--	<Item Name="reweight_file" Value=""/>  -->
+<!--	<Item Name="reweight_var" Value="MwT"/> -->
+
+    <!--    <Item Name="reweight_var" Value=""/>
+	<Item Name="reweight_var_trans" Value=""/> -->
+
+     <!-- <Item Name="reweight_var" Value="jets_pt"/>
+	<Item Name="reweight_var_trans" Value=""/> -->
+
+    <!--  <Item Name="reweight_var" Value="lep_eta"/>
+      <Item Name="reweight_var_trans" Value="fabs"/> -->
+
+<!--    <Item Name="reweight_var" Value="dR_lep_cljet"/>
+    <Item Name="reweight_var_trans" Value="log"/> -->
+
+<!-- <Item Name="reweight_var" Value="dR_cljet_ljet"/>
+    <Item Name="reweight_var_trans" Value="trans_dR"/> -->
+
+        <Item Name="AnalysisModule" Value="TTbarLJTriggerStudyLiteModule"/>
+      </UserConfig>
+
+
+    </Cycle>
+</JobConfiguration>
