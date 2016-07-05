@@ -9,7 +9,9 @@
 
   <!ENTITY PROOFdir "/nfs/dust/cms/user/karavdia/PROOF">
   <!-- <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v1/ttbarLJSkimming/Selas2015/"> -->
-  <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v1/ttbarLJSkimming/Selas2015_4fb/">
+<!--  <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v1/ttbarLJSkimming/Selas2015_4fb/"> -->
+<!--  <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v1/ttbarLJSkimming/Selas2015_4fb_TightMuonID/">-->
+  <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v1/ttbarLJSkimming/Selas2015_4fb_LooseMuonID/">
 
   <!ENTITY SingleELE_Run2016 SYSTEM  "../../common/datasets/RunII_80X_v1/DATA_SingleElectron_Run2016B.xml">
   <!ENTITY SingleMUON_Run2016  SYSTEM  "../../common/datasets/RunII_80X_v1/SingleMuon_Run2016B.xml">

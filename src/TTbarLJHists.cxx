@@ -120,19 +120,19 @@ void TTbarLJHists::init(){
   book_TH1F("jet1__eta", 60, -3, 3);
   book_TH1F("jet1__phi", 60, -3.15, 3.15);
   book_TH1F("jet1__M"  , 360, 0, 360);
-  book_TH1F("jet1__CSV", 120, 0, 1.2);
+  book_TH1F("jet1__CSV", 60, 0, 1.2);
 
   book_TH1F("jet2__pt" , 90, 0, 900);
   book_TH1F("jet2__eta", 60, -3, 3);
   book_TH1F("jet2__phi", 60, -3.15, 3.15);
   book_TH1F("jet2__M"  , 360, 0, 360);
-  book_TH1F("jet2__CSV", 120, 0, 1.2);
+  book_TH1F("jet2__CSV", 60, 0, 1.2);
 
   book_TH1F("jet3__pt" , 180,  0, 1800);
   book_TH1F("jet3__eta", 60, -3, 3);
   book_TH1F("jet3__phi", 60, -3.15, 3.15);
   book_TH1F("jet3__M"  , 360, 0, 360);
-  book_TH1F("jet3__CSV", 120, 0, 1.2);
+  book_TH1F("jet3__CSV", 60, 0, 1.2);
 
   // TOPJET
   book_TH1F("topjetN", 20, 0, 20);
@@ -140,11 +140,11 @@ void TTbarLJHists::init(){
   book_TH1F("topjet1__pt" , 180,  0, 1800);
   book_TH1F("topjet1__eta", 60, -3, 3);
   book_TH1F("topjet1__phi", 60, -3.15, 3.15);
-  book_TH1F("topjet1__CSV", 120, 0, 1.2);
+  book_TH1F("topjet1__CSV", 60, 0, 1.2);
   book_TH1F("topjet2__pt" , 180,  0, 1800);
   book_TH1F("topjet2__eta", 60, -3, 3);
   book_TH1F("topjet2__phi", 60, -3.15, 3.15);
-  book_TH1F("topjet2__CSV", 120, 0, 1.2);
+  book_TH1F("topjet2__CSV", 60, 0, 1.2);
 
   // TOPTAG
   book_TH1F("toptagN"              , 20, 0, 20);
@@ -164,7 +164,7 @@ void TTbarLJHists::init(){
     book_TH1F("toptag1"+eta+"__tau2"        , 24, 0, 1.2);
     book_TH1F("toptag1"+eta+"__tau3"        , 24, 0, 1.2);
     book_TH1F("toptag1"+eta+"__tau32"       , 24, 0, 1.2);
-    book_TH1F("toptag1"+eta+"__CSV"         , 120, 0, 1.2);
+    book_TH1F("toptag1"+eta+"__CSV"         , 60, 0, 1.2);
     book_TH1F("toptag1"+eta+"__subjN"       , 4, 2, 6);
     book_TH1F("toptag1"+eta+"__subj1__pt"   , 90, 0, 900);
     book_TH1F("toptag1"+eta+"__subj1__eta"  , 60, -3, 3);
@@ -173,16 +173,16 @@ void TTbarLJHists::init(){
     book_TH1F("toptag1"+eta+"__subj3__pt"   , 180, 0, 900);
     book_TH1F("toptag1"+eta+"__subj3__eta"  , 60, -3, 3);
     book_TH1F("toptag1"+eta+"__subj_minDR"  , 20, 0, 2);
-    book_TH1F("toptag1"+eta+"__subj_maxCSV1", 120, 0, 1.2);
-    book_TH1F("toptag1"+eta+"__subj_maxCSV2", 120, 0, 1.2);
-    book_TH1F("toptag1"+eta+"__subj_maxCSV3", 120, 0, 1.2);
+    book_TH1F("toptag1"+eta+"__subj_maxCSV1", 60, 0, 1.2);
+    book_TH1F("toptag1"+eta+"__subj_maxCSV2", 60, 0, 1.2);
+    book_TH1F("toptag1"+eta+"__subj_maxCSV3", 60, 0, 1.2);
   }
 
   book_TH1F("toptag2__pt"          , 90, 0, 900);
   book_TH1F("toptag2__eta"         , 60, -3, 3);
   book_TH1F("toptag2__phi"         , 60, -3.15, 3.15);
   book_TH1F("toptag2__M"           , 360, 90, 450);
-  book_TH1F("toptag2__CSV"         , 120, 0, 1.2);
+  book_TH1F("toptag2__CSV"         , 60, 0, 1.2);
 
   // MET
   book_TH1F("met__pt" , 90, 0, 900);

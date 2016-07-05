@@ -54,6 +54,7 @@ class TTbarLJAnalysisLiteModule : public ModuleBASE {
   std::unique_ptr<uhh2::Selection> jet2_sel;
   std::unique_ptr<uhh2::Selection> jet1_sel;
   std::unique_ptr<uhh2::Selection> trigger_sel;
+  std::unique_ptr<uhh2::Selection> trigger2_sel;
   std::unique_ptr<uhh2::Selection> met_sel;
   std::unique_ptr<uhh2::Selection> htlep_sel;
   std::unique_ptr<uhh2::Selection> triangc_sel;
@@ -360,10 +361,10 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
     }
     else if(channel_ == elec){
 
-      lep1_pt_ =   50.;
+      lep1_pt_ =   55.;
 
-      jet1_pt  = 250.;
-      jet2_pt  =  70.;
+      jet1_pt  = 170.;
+      jet2_pt  =  50.;
 
       MET      = 120.;
       HT_lep   =   0.;
@@ -478,8 +479,11 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   jet1_sel.reset(new NJetSelection(1, -1, JetId(PtEtaCut(jet1_pt, 2.4))));
 
   const std::string& trigger = ctx.get("trigger", "NULL");
-  if(trigger != "NULL") trigger_sel.reset(new TriggerSelection(trigger));
+  if(trigger != "NULL" && !isMC) trigger_sel.reset(new TriggerSelection(trigger));
   else                  trigger_sel.reset(new uhh2::AndSelection(ctx));
+  const std::string& trigger2 = ctx.get("trigger2", "NULL");
+  if(trigger2 != "NULL" && !isMC) trigger2_sel.reset(new TriggerSelection(trigger2));
+  else                  trigger2_sel.reset(new uhh2::AndSelection(ctx));
 
   met_sel  .reset(new METCut  (MET   , uhh2::infinity));
   htlep_sel.reset(new HTlepCut(HT_lep, uhh2::infinity));
@@ -713,8 +717,9 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   muonID_SF.reset(new MCMuonScaleFactor(ctx, muonID_SFac, muonID_directory, 1.0, "ID"));
   muonHLT_SF.reset(new MCMuonScaleFactor(ctx, muonHLT_SFac, muonHLT_directory, 0.5, "HLT"));
 
-  // // //b-tagging scale factors
-  // btagSF.reset(new MCBTagScaleFactor(ctx, b_working_point));
+  // //b-tagging scale factors
+  //  btagSF.reset(new MCBTagScaleFactor(ctx, b_working_point));
+  btagSF.reset(new MCBTagScaleFactor(ctx, b_working_point,"jets","central","mujets","mujets","MCBtagEfficiencies"));
 
   // event
   h_run             = ctx.declare_event_output<int>("run");
@@ -939,13 +944,16 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 }
 
 bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
-
+  //  std::cout<<"   --- NEW event ---   "<<std::endl;
   event.set(tt_TMVA_response, 0);//set some dummy initial value
   //// COMMON MODULES
 
+  float w_GEN(1.);
+  if(!event.isRealData)
+    w_GEN = event.weight;
+
 
   if(!event.isRealData){
-
     ttgenprod->process(event);
   }
 
@@ -958,8 +966,6 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   ////
 
   //// Data/MC scale factors
-
-  float w_GEN(1.);
   float w_elecIDSF_ct(1.) , w_elecIDSF_up(1.) , w_elecIDSF_dn(1.);
   float w_elecHLTSF_ct(1.), w_elecHLTSF_up(1.), w_elecHLTSF_dn(1.);
   float w_ttagSF_ct(1.), w_ttagSF_upL(1.), w_ttagSF_dnL(1.), w_ttagSF_upT(1.), w_ttagSF_dnT(1.);
@@ -969,24 +975,22 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   std::vector<float> w_PDF;
   w_PDF.clear();
 
+  //  std::cout<<event.weight<<std::endl;
+  //
   //pileup
   pileupSF->process(event);
-
-  // // // b-tagging
-  // btagSF->process(event);
-
+  //  std::cout<<event.weight<<std::endl;
+  // // b-tagging
+  btagSF->process(event);
+  //      std::cout<<event.weight<<std::endl;
   // muon-ID
   muonID_SF->process(event);
-
+  //      std::cout<<event.weight<<std::endl;
   // muon-HLT
   muonHLT_SF->process(event);
-
+  //  std::cout<<event.weight<<std::endl;
 
   if(!event.isRealData){
-
-    w_GEN = event.weight;
-  
-    //
 
     // elec-ID
     w_elecIDSF_ct  = elecIDSF->weight(event, "CT");
@@ -994,11 +998,11 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
     w_elecIDSF_dn  = elecIDSF->weight(event, "DN");
     //
 
-    // // elec-HLT
-    // w_elecHLTSF_ct = 0.99;//!!elecHLTSF->weight(event, "CT");
-    // w_elecHLTSF_up = 1.01;//!!elecHLTSF->weight(event, "UP");
-    // w_elecHLTSF_dn = 0.97;//!!elecHLTSF->weight(event, "DN");
-    // //
+    // elec-HLT
+    w_elecHLTSF_ct = 0.9598;//!!elecHLTSF->weight(event, "CT");
+    w_elecHLTSF_up = 0.9665;//!!elecHLTSF->weight(event, "UP");
+    w_elecHLTSF_dn = 0.9531;//!!elecHLTSF->weight(event, "DN");
+    //
 
 
     // t-tagging
@@ -1036,6 +1040,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
         }
       }
     }
+    
 
     // top-pt reweighting
     if(topptREWGT.get()){
@@ -1060,6 +1065,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
     //
 
     if(channel_ == elec) event.weight *= w_elecIDSF_ct;
+    // std::cout<<event.weight<<std::endl;
   }
   //
 
@@ -1104,8 +1110,9 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
 
   //// HLT selection
   const bool pass_trigger = trigger_sel->passes(event);
+  const bool pass_trigger2 = trigger2_sel->passes(event);
   //  if(!pass_trigger) return false;
-  if(!pass_trigger && event.isRealData) return false; //apply only on data
+  if(!(pass_trigger||pass_trigger2) && event.isRealData) return false; //apply only on data
   //  else std::cout<<"Passed trigger!!! "<<std::endl;
   if(lepN == 1) HFolder("trigger")->fill(event);
   ////
@@ -1656,7 +1663,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
 
   HFolder("Final")->fill(event);
   HFolder("Final__ttbar")->fill(event);
-
+  //  std::cout<<event.weight<<std::endl;
   return true;
 }
 
