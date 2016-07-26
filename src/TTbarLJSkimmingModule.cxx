@@ -95,7 +95,23 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
     //MET     =   0.;
     HT_lep  =   0.;
   }
-  else throw std::runtime_error("TTbarLJSkimmingModule::TTbarLJSkimmingModule -- undefined \"keyword\" argument in .xml configuration file: "+keyword);
+  else {
+    if(keyword == "v02"){
+
+    ele_pt = 45.;
+    muon_pt = 45.;
+    eleID  = ElectronID_Spring15_25ns_tight_noIso;
+    //    eleID = ElectronID_MVAnotrig_Spring15_25ns_loose; //TEST 
+    use_miniiso = false;
+
+    jet1_pt = 150.;
+    jet2_pt =  50.;
+
+    MET     =   0.;
+    HT_lep  =   0.;
+    }
+    else throw std::runtime_error("TTbarLJSkimmingModule::TTbarLJSkimmingModule -- undefined \"keyword\" argument in .xml configuration file: "+keyword);
+  }
   ////
 
   //// COMMON MODULES
@@ -139,8 +155,8 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
 
   //// OBJ CLEANING
   //  const     MuonId muoSR(AndId<Muon>    (PtEtaCut  (muon_pt   , 2.1), MuonIDMedium()));
-  //  const     MuonId muoSR(AndId<Muon>    (PtEtaCut  (muon_pt   , 2.1), MuonIDTight()));//temporary switch to TightID due to problems with MediumID in 2016 data
-  const     MuonId muoSR(AndId<Muon>    (PtEtaCut  (muon_pt   , 2.1), MuonIDLoose()));//temporary switch to LooseID due to problems with MediumID in 2016 data
+  const     MuonId muoSR(AndId<Muon>    (PtEtaCut  (muon_pt   , 2.1), MuonIDTight()));//temporary switch to TightID due to problems with MediumID in 2016 data
+  //  const     MuonId muoSR(AndId<Muon>    (PtEtaCut  (muon_pt   , 2.1), MuonIDLoose()));//temporary switch to LooseID due to problems with MediumID in 2016 data
   const ElectronId eleSR(AndId<Electron>(PtEtaSCCut(ele_pt, 2.5), eleID));
 
   if(use_miniiso){
@@ -196,7 +212,8 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
   htlep_sel.reset(new HTlepCut(HT_lep, uhh2::infinity));
 
   if(use_miniiso) twodcut_sel.reset(new TwoDCut1(-1, 20.));
-  else            twodcut_sel.reset(new TwoDCut1(.4, 20.));
+  //  else            twodcut_sel.reset(new TwoDCut1(.4, 20.));
+  else            twodcut_sel.reset(new TwoDCut1(.4, 40.));
   ////
 
   //// HISTS
@@ -234,6 +251,7 @@ bool TTbarLJSkimmingModule::process(uhh2::Event& event){
 
     /* GEN ME quark-flavor selection */
     if(!genflavor_sel->passes(event)) return false;
+    //    std::cout<<"genflavor_sel OK!"<<std::endl;
   }
 
   /* CMS-certified luminosity sections */

@@ -18,6 +18,7 @@ class HistsBASE : public uhh2::Hists {
   virtual void init() = 0;
 
   void book_TH1F(const std::string&, const int, const double, const double);
+  void book_TH1F(const std::string&, const std::string&, const int, const double, const double);
   void book_TH1F(const std::string&, const int, const double*);
 
   void book_TH2F(const std::string&, const int, const double, const double, const int, const double, const double);

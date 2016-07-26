@@ -14,7 +14,7 @@ void DileptonHists::init(){
 
   // DI-MUON
   book_TH1F("dimuo1__charge", 5, -2, 3);
-  book_TH1F("dimuo1__M"     , 360, 0, 360);
+  book_TH1F("dimuo1__M"     ,"M_{#mu#mu} [GeV]", 20, 0, 360);
   book_TH1F("dimuo1__pt"    , 180, 0, 1800);
   book_TH1F("dimuo1__eta"   , 60, -3, 3);
   book_TH1F("dimuo1__phi"   , 60, -3.15, 3.15);
@@ -22,7 +22,7 @@ void DileptonHists::init(){
 
   // DI-ELECTRON
   book_TH1F("diele1__charge", 5, -2, 3);
-  book_TH1F("diele1__M"     , 360, 0, 360);
+  book_TH1F("diele1__M"     ,"M_{ee} [GeV]", 20, 0, 360);
   book_TH1F("diele1__pt"    , 180, 0, 1800);
   book_TH1F("diele1__eta"   , 60, -3, 3);
   book_TH1F("diele1__phi"   , 60, -3.15, 3.15);

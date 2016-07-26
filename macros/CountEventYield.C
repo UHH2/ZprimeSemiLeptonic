@@ -1,9 +1,9 @@
 // this macro compares event yield between 2015 and 2016 versions of the analysis
 void CountEventYield(){
-  //after pre-selection
+  /*  //after pre-selection
   TString names[2] = {"SingleMUON","SingleEG"};
  TString path_2015 = "/afs/desy.de/user/k/karavdia/CMSSW_8_0_8_patch1/src/UHH2/ZprimeSemiLeptonic/macros/2015/";
- TString path_2016 = "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v1/ttbarLJSkimming/Selas2015_4fb_LooseMuonID/";
+ TString path_2016 = "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v1/ttbarLJSkimming/Selas2015_4fb_20160708/";
  for(int chI = 0; chI <2; chI++){
   TString fname_2015 = path_2015+"/uhh2.AnalysisModuleRunner.DATA."+names[chI]+".root";
   TFile *input_2015 = TFile::Open(fname_2015);
@@ -33,11 +33,11 @@ void CountEventYield(){
   cout<<names[chI]<<" 2016: lep= "<<lep_2016<<" ("<<100.*lep_2016/lep_2015<<") jet2= "<<jet2_2016<<"("
       <<100.*jet2_2016/jet2_2015<<") jet1= "<<jet1_2016<<"("<<100.*jet1_2016/jet1_2015<<") met= "<<met_2016<<"("
       <<100.*met_2016/met_2015<<") twodcut= "<<twodcut_2016<<" ("<<100.*twodcut_2016/twodcut_2015<<")"<<endl;
- } 
+ } */
 
-  /* //after full selection
+  //after full selection
   TString path_2015 = "/nfs/dust/cms/user/missirol/Analysis7XY/ttbar_semilep_13TeV/run2_25ns/v02/ttbarLJAnalysis/160218/T1_v01/";
-  TString path_2016 = "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v1/ttbarLJAnalysis/Selas2015_4fb_playLimits_bTag/";
+  TString path_2016 = "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v1/ttbarLJAnalysis/Selas2015_4fb_20160708/";
   TString channels[2] = {"muon","elec"};
   TString names[2] = {"SingleMU__BLINDED","SingleEG__BLINDED"};
   for(int chI = 0; chI <2; chI++){
@@ -62,10 +62,10 @@ void CountEventYield(){
     Long64_t  Nevents_2016_t0b1 = TTree_2016->Project("hmet","MET.Pt()","btagN==1 && ttagN ==0 && rec_chi2<30.");
     Long64_t  Nevents_2016_t1 = TTree_2016->Project("hmet","MET.Pt()","ttagN ==1 && rec_chi2<30.");
     cout<<" 2016: Total= "<< Nevents_2016_all<<" ("<<100.*Nevents_2016_all/Nevents_2015_all
-	<<"%) ; after chi2: "<<Nevents_2016<<" ("<<100.*Nevents_2016/Nevents_2015<<"%) t0b0= "<<Nevents_2016_t0b0<<" ("
-	<<100.*Nevents_2016_t0b0/Nevents_2015_t0b0<<"%) t0b1= "
-	<<Nevents_2016_t0b1<<" ("<<100.*Nevents_2016_t0b1/Nevents_2015_t0b1<<"%) t1= "<<Nevents_2016_t1<<"("<<100.*Nevents_2016_t1/Nevents_2015_t1<<"%)"<<endl;
+	<<") ; after chi2: "<<Nevents_2016<<" ("<<100.*Nevents_2016/Nevents_2015<<") t0b0= "<<Nevents_2016_t0b0<<" ("
+	<<100.*Nevents_2016_t0b0/Nevents_2015_t0b0<<") t0b1= "
+	<<Nevents_2016_t0b1<<" ("<<100.*Nevents_2016_t0b1/Nevents_2015_t0b1<<") t1= "<<Nevents_2016_t1<<"("<<100.*Nevents_2016_t1/Nevents_2015_t1<<")"<<endl;
   }
-  */
+  
  
 }

@@ -66,19 +66,21 @@ void EffyJetTTAGHists::init(){
     book_TH2F("tjetA__Msdp__vs__tjetA__subjN"+fla, 240, 0, 600,   8,  0, 8);
     book_TH2F("tjetA__Msdp__vs__tjetA__tau32"+fla, 240, 0, 600, 120,  0, 1.2);
 
-    book_TH2F("TAG__vs__tjetA__pt"     +fla, 2, 0, 2, 360, 0, 3600);
-    book_TH2F("TAG__vs__tjetA__eta"    +fla, 2, 0, 2,  60, -3, 3);
-    book_TH2F("TAG__vs__tjetA__phi"    +fla, 2, 0, 2,  60, -3.15, 3.15);
-    book_TH2F("TAG__vs__tjetA__subjN"  +fla, 2, 0, 2,   8, 0, 8);
-    book_TH2F("TAG__vs__tjetA__M"      +fla, 2, 0, 2, 240, 0, 600);
-    book_TH2F("TAG__vs__tjetA__Mgro"   +fla, 2, 0, 2, 240, 0, 600);
-    book_TH2F("TAG__vs__tjetA__Mpru"   +fla, 2, 0, 2, 240, 0, 600);
-    book_TH2F("TAG__vs__tjetA__Msdp"   +fla, 2, 0, 2, 240, 0, 600);
-    book_TH2F("TAG__vs__tjetA__Mmin"   +fla, 2, 0, 2, 180, 0, 180);
-    book_TH2F("TAG__vs__tjetA__tau2"   +fla, 2, 0, 2, 120, 0, 1.2);
-    book_TH2F("TAG__vs__tjetA__tau3"   +fla, 2, 0, 2, 120, 0, 1.2);
-    book_TH2F("TAG__vs__tjetA__tau32"  +fla, 2, 0, 2, 120, 0, 1.2);
-    book_TH2F("TAG__vs__tjetA__tgen_pt"+fla, 2, 0, 2, 360, 0, 3600);
+    book_TH2F("TAG__vs__tjetA__pt"     +fla, 5, 0, 5, 360, 0, 3600);
+    book_TH2F("TAG__vs__tjetA__eta"    +fla, 5, 0, 5,  60, -3, 3);
+    book_TH2F("TAG__vs__tjetA__phi"    +fla, 5, 0, 5,  60, -3.15, 3.15);
+    book_TH2F("TAG__vs__tjetA__subjN"  +fla, 5, 0, 5,   8, 0, 8);
+    book_TH2F("TAG__vs__tjetA__M"      +fla, 5, 0, 5, 240, 0, 600);
+    book_TH2F("TAG__vs__tjetA__Mgro"   +fla, 5, 0, 5, 240, 0, 600);
+    book_TH2F("TAG__vs__tjetA__Mpru"   +fla, 5, 0, 5, 240, 0, 600);
+    book_TH2F("TAG__vs__tjetA__Msdp"   +fla, 5, 0, 5, 240, 0, 600);
+    book_TH2F("TAG__vs__tjetA__Mmin"   +fla, 5, 0, 5, 180, 0, 180);
+    book_TH2F("TAG__vs__tjetA__tau2"   +fla, 5, 0, 5, 120, 0, 1.2);
+    book_TH2F("TAG__vs__tjetA__tau3"   +fla, 5, 0, 5, 120, 0, 1.2);
+    book_TH2F("TAG__vs__tjetA__tau32"  +fla, 5, 0, 5, 120, 0, 1.2);
+    book_TH2F("TAG__vs__tjetA__tgen_pt"+fla, 5, 0, 5, 360, 0, 3600);
+    book_TH1F("TAG__"   +fla, 5,  0, 5);
+
   }
 
   return;
@@ -93,6 +95,7 @@ void EffyJetTTAGHists::fill(const uhh2::Event& event){
 
   // PV
   H1("pvN")->Fill(event.pvs->size(), weight);
+
 
   // TOPJET
   for(const auto& tjet : *event.topjets){
@@ -130,6 +133,7 @@ void EffyJetTTAGHists::fill(const uhh2::Event& event){
 
       if  (jfla == 6) fla_strs.push_back("__t");
       else            fla_strs.push_back("__l");
+      //      std::cout<<"jfla = "<<jfla<<std::endl;
     }
 
     for(const auto& fla : fla_strs){
@@ -177,6 +181,8 @@ void EffyJetTTAGHists::fill(const uhh2::Event& event){
       H2("tjetA__Mpru__vs__tjetA__tau32"+fla)->Fill(tjet_Mpru, tjet_tau32, weight);
       H2("tjetA__Msdp__vs__tjetA__subjN"+fla)->Fill(tjet_Msdp, tjet_subjN, weight);
       H2("tjetA__Msdp__vs__tjetA__tau32"+fla)->Fill(tjet_Msdp, tjet_tau32, weight);
+
+      H1("TAG__"   +fla)->Fill(float(jtag), weight);
 
       H2("TAG__vs__tjetA__pt"   +fla)->Fill(float(jtag), tjet.pt()  , weight);
       H2("TAG__vs__tjetA__eta"  +fla)->Fill(float(jtag), tjet.eta() , weight);

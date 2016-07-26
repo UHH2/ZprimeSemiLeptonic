@@ -308,6 +308,7 @@ bool uhh2::GenFlavorSelection::passes(const uhh2::Event& event){
   else if(flavor_key_ == "c") pass = (bottomN == 0 && charmN >= 1);
   else if(flavor_key_ == "l") pass = (bottomN == 0 && charmN == 0);
   else throw std::runtime_error("GenFlavorSelection::GenFlavorSelection -- undefined key for parton flavor (must be 'l', 'c' or 'b'): "+flavor_key_);
+  //  std::cout<<"bottomN = "<<bottomN<<" charmN = "<<charmN<<std::endl;
 
   return pass;
 }

@@ -29,6 +29,7 @@
 #include <UHH2/ZprimeSemiLeptonic/include/TTbarLJHists.h>
 #include <UHH2/ZprimeSemiLeptonic/include/DileptonHists.h>
 #include <UHH2/ZprimeSemiLeptonic/include/EffyTTbarRECOHists.h>
+#include <UHH2/ZprimeSemiLeptonic/include/EffyJetTTAGHists.h>
 
 #include <UHH2/ZprimeSemiLeptonic/include/SF_elec.h>
 #include <UHH2/ZprimeSemiLeptonic/include/SF_ttagging.h>
@@ -38,10 +39,10 @@
 #include <TMVA/Reader.h>
 #include <TMVA/MethodCuts.h>
 
-class TTbarLJAnalysisLiteModule : public ModuleBASE {
+class TTbarLJTopTagStudyModule : public ModuleBASE {
 
  public:
-  explicit TTbarLJAnalysisLiteModule(uhh2::Context&);
+  explicit TTbarLJTopTagStudyModule(uhh2::Context&);
   virtual bool process(uhh2::Event&) override;
 
  protected:
@@ -61,6 +62,7 @@ class TTbarLJAnalysisLiteModule : public ModuleBASE {
   std::unique_ptr<uhh2::Selection> ttagevt_sel;
   std::unique_ptr<uhh2::Selection> topleppt_sel;
   std::unique_ptr<uhh2::Selection> chi2_sel;
+  //  std::unique_ptr<uhh2::Selection> chi2tlep_sel;
 
   // ttbar reconstruction
   std::unique_ptr<uhh2::AnalysisModule> ttgenprod;
@@ -88,14 +90,11 @@ class TTbarLJAnalysisLiteModule : public ModuleBASE {
   bool store_PDF_weights_;
 
   //// Data/MC scale factors
-  //  std::unique_ptr<weightcalc_elecID>  elecIDSF;
-  std::unique_ptr<uhh2::AnalysisModule> elecID_SF;
-  std::unique_ptr<uhh2::AnalysisModule> elecGsf_SF;
+  std::unique_ptr<weightcalc_elecID>  elecIDSF;
 
   std::unique_ptr<uhh2::AnalysisModule> pileupSF;
   std::unique_ptr<uhh2::AnalysisModule> muonID_SF;
   std::unique_ptr<uhh2::AnalysisModule> muonHLT_SF;
-  std::unique_ptr<uhh2::AnalysisModule> muonTRK_SF;
 
 //!!  std::unique_ptr<weightcalc_elecHLT> elecHLTSF;
 
@@ -160,9 +159,9 @@ class TTbarLJAnalysisLiteModule : public ModuleBASE {
   // weight
   Event::Handle<float> h_wgtMC__GEN;
 
-  // Event::Handle<float> h_wgtMC__elecIDSF_ct;
-  // Event::Handle<float> h_wgtMC__elecIDSF_up;
-  // Event::Handle<float> h_wgtMC__elecIDSF_dn;
+  Event::Handle<float> h_wgtMC__elecIDSF_ct;
+  Event::Handle<float> h_wgtMC__elecIDSF_up;
+  Event::Handle<float> h_wgtMC__elecIDSF_dn;
 
   Event::Handle<float> h_wgtMC__elecHLTSF_ct;
   Event::Handle<float> h_wgtMC__elecHLTSF_up;
@@ -306,7 +305,7 @@ class TTbarLJAnalysisLiteModule : public ModuleBASE {
   ////
 };
 
-TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
+TTbarLJTopTagStudyModule::TTbarLJTopTagStudyModule(uhh2::Context& ctx){
 
   //// CONFIGURATION
   const bool isMC = (ctx.get("dataset_type") == "MC");
@@ -316,13 +315,13 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   else if(channel == "elec") channel_ = elec;
   else {
 
-    std::string log("TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule -- ");
-    log += "TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule -- invalid argument for 'channel' key in xml file (must be 'muon' or 'elec'): \""+channel+"\"";
+    std::string log("TTbarLJTopTagStudyModule::TTbarLJTopTagStudyModule -- ");
+    log += "TTbarLJTopTagStudyModule::TTbarLJTopTagStudyModule -- invalid argument for 'channel' key in xml file (must be 'muon' or 'elec'): \""+channel+"\"";
 
     throw std::runtime_error(log);
   }
 
-  use_ttagging_ = true;
+  //  use_ttagging_ = true;
 
   blind_DATA_ = ((ctx.get("dataset_version").find("BLINDED") != std::string::npos) && (ctx.get("dataset_type") == "DATA") && !isMC);
 
@@ -331,7 +330,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   else if(store_PDF_weights == "false") store_PDF_weights_ = false;
   else {
 
-    std::string log("TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule -- ");
+    std::string log("TTbarLJTopTagStudyModule::TTbarLJTopTagStudyModule -- ");
     log += "invalid argument for 'store_PDF_weights' key in xml file (must be 'true' or 'false'): \""+store_PDF_weights+"\"";
 
     throw std::runtime_error(log);
@@ -357,7 +356,8 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
       jet2_pt  =  50.;
 
       MET      =  50.;
-      HT_lep   = 150.;
+      //      HT_lep   = 150.;
+      HT_lep   = 0.;
 
       triangul_cut = false;
       topleppt_cut = false;
@@ -370,6 +370,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
       jet2_pt  =  50.;
 
       MET      = 120.;
+      //      MET      = 100.;
       HT_lep   =   0.;
 
       // jet1_pt  = 0.;
@@ -434,7 +435,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
     }
     else if(channel_ == elec){
 
-      throw std::runtime_error("TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule -- undefined working-point for \""+keyword+"\" in \"elec\" channel");
+      throw std::runtime_error("TTbarLJTopTagStudyModule::TTbarLJTopTagStudyModule -- undefined working-point for \""+keyword+"\" in \"elec\" channel");
     }
   }
   else if(keyword == "T0_v04" || keyword == "T1_v04"){
@@ -444,7 +445,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
     if(channel_ == muon){
 
-      throw std::runtime_error("TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule -- undefined working-point for \""+keyword+"\" in \"muon\" channel");
+      throw std::runtime_error("TTbarLJTopTagStudyModule::TTbarLJTopTagStudyModule -- undefined working-point for \""+keyword+"\" in \"muon\" channel");
     }
     else if(channel_ == elec){
 
@@ -460,7 +461,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
       topleppt_cut = false;
     }
   }
-  else throw std::runtime_error("TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule -- undefined \"keyword\" argument in .xml configuration file: "+keyword);
+  else throw std::runtime_error("TTbarLJTopTagStudyModule::TTbarLJTopTagStudyModule -- undefined \"keyword\" argument in .xml configuration file: "+keyword);
   //
 
   ////
@@ -510,8 +511,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   else if(btag_wp == "CSVM") b_working_point = CSVBTag::WP_MEDIUM;
   else if(btag_wp == "CSVT") b_working_point = CSVBTag::WP_TIGHT;
 
-  //  h_btagMCeffi.reset(new BTagMCEfficiencyHists(ctx,"chi2__BTAG",b_working_point));
-  h_btagMCeffi.reset(new BTagMCEfficiencyHists(ctx,"BTAG",b_working_point));
+  h_btagMCeffi.reset(new BTagMCEfficiencyHists(ctx,"chi2__BTAG",b_working_point));
 
   /*************/
 
@@ -561,7 +561,9 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   }
   else topleppt_sel.reset(new uhh2::AndSelection(ctx));
 
-  chi2_sel.reset(new HypothesisDiscriminatorCut(ctx,  0., 30., ttbar_hyps_label, ttbar_chi2_label));
+  //  chi2_sel.reset(new HypothesisDiscriminatorCut(ctx,  0., 30., ttbar_hyps_label, ttbar_chi2_label));
+  chi2_sel.reset(new HypothesisDiscriminatorCut(ctx,  30., uhh2::infinity, ttbar_hyps_label, ttbar_chi2_label,"Chi2_tlep"));
+  //chi2tlep_sel.reset(new HypothesisDiscriminatorCut(ctx,  30., uhh2::infinity, ttbar_hyps_label, ttbar_chi2_label,"Chi2_tlep"));
   //  chi2_sel.reset(new HypothesisDiscriminatorCut(ctx,  0., uhh2::infinity, ttbar_hyps_label, ttbar_chi2_label)); //TEST no chi2 for QCD studies
 
   //// HISTS
@@ -617,6 +619,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
     book_HFolder(tag          , new TTbarLJHists      (ctx, tag          , ttag_ID_, ttag_minDR_jet_));
     book_HFolder(tag+"__ttbar", new EffyTTbarRECOHists(ctx, tag+"__ttbar", ttbar_gen_label, ttbar_hyps_label, ttbar_chi2_label));
+    book_HFolder(tag+"__TTAG"      , new EffyJetTTAGHists  (ctx, tag+"__TTAG"      , ttag_ID_     , ttag_minDR_jet_));
   }
   //
 
@@ -661,23 +664,16 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   const std::string& muonID_directory    = ctx.get("muonID_SF_directory");
 
 
-  // // muon-HLT
-  // const std::string& muonHLT_SFac   = ctx.get("muonHLT_SF_file");
-  // const std::string& muonHLT_directory   = ctx.get("muonHLT_SF_directory");
+  // muon-HLT
+  const std::string& muonHLT_SFac   = ctx.get("muonHLT_SF_file");
+  const std::string& muonHLT_directory   = ctx.get("muonHLT_SF_directory");
 
-  //muon-Trk
-  const std::string& muonTRK_SFac   = ctx.get("muonTRK_SF_file");
 
   // elec-ID
-    const std::string& elecID_SFac    = ctx.get("elecID_SF_file");
-    //    const std::string& elecID_SFac_Data_part1    = ctx.get("elecID_SF_file_Data_part1");
-    //    elecID_SF_Data_part1.reset(new MCElecScaleFactor(ctx, elecID_SFac_Data_part1, 0.0, "ID"));//must be here to avoid double weight vars in the TTree
-  //  const std::string& elecID_hist    = ctx.get("elecID_SF_hist");
-  //  elecIDSF.reset(new weightcalc_elecID(ctx, "electrons", elecID_SFac, elecID_hist, 0.00));
+  const std::string& elecID_SFac    = ctx.get("elecID_SF_file");
+  const std::string& elecID_hist    = ctx.get("elecID_SF_hist");
 
-  // elec-ID
-  const std::string& elecGsf_SFac    = ctx.get("elecGsf_SF_file");
-
+  elecIDSF.reset(new weightcalc_elecID(ctx, "electrons", elecID_SFac, elecID_hist, 0.00));
   //
 
 //!!  // elec-HLT
@@ -688,27 +684,27 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 //!!  //
 
 
-  // t-tagging
-  const std::string& ttag_SFac_file = ctx.get("ttag_SFs");
-  const std::string& ttag_effy_file = ctx.get("ttag_eff");
-  const std::string& ttag_effyL     = ctx.get("ttag_eff__jetL");
-  const std::string& ttag_effyT     = ctx.get("ttag_eff__jetT");
+  // // t-tagging
+  // const std::string& ttag_SFac_file = ctx.get("ttag_SFs");
+  // const std::string& ttag_effy_file = ctx.get("ttag_eff");
+  // const std::string& ttag_effyL     = ctx.get("ttag_eff__jetL");
+  // const std::string& ttag_effyT     = ctx.get("ttag_eff__jetT");
 
-  ttagSF_ct .reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "CT", "CT", ttag_effy_file, ttag_effyL, ttag_effyT));
+  // ttagSF_ct .reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "CT", "CT", ttag_effy_file, ttag_effyL, ttag_effyT));
 
-  ttagSF_upL.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "UP", "CT", ttag_effy_file, ttag_effyL, ttag_effyT));
-  ttagSF_dnL.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "DN", "CT", ttag_effy_file, ttag_effyL, ttag_effyT));
+  // ttagSF_upL.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "UP", "CT", ttag_effy_file, ttag_effyL, ttag_effyT));
+  // ttagSF_dnL.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "DN", "CT", ttag_effy_file, ttag_effyL, ttag_effyT));
 
-  ttagSF_upT.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "CT", "UP", ttag_effy_file, ttag_effyL, ttag_effyT));
-  ttagSF_dnT.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "CT", "DN", ttag_effy_file, ttag_effyL, ttag_effyT));
-  //
+  // ttagSF_upT.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "CT", "UP", ttag_effy_file, ttag_effyL, ttag_effyT));
+  // ttagSF_dnT.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "CT", "DN", ttag_effy_file, ttag_effyL, ttag_effyT));
+  // //
 
   // // top-pt reweighting
   // if(ctx.get("dataset_version").find("TTbar") != std::string::npos || ctx.get("dataset_version").find("TTBar") != std::string::npos){
   //   std::cout<<"Set top pt reweighting!"<<std::endl;
   //   topptREWGT.reset(new TopPtReweight(ctx, 0.156, -0.00137, ttbar_gen_label, "wgtMC__topptREWGT_ct"));
   // }
-  //
+  // //
 
   // // W+jets reweighting (NLO/LO k-factors)
   // if(ctx.get("dataset_version").find("WJets") != std::string::npos){
@@ -724,26 +720,13 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   //pileup (define it after undeclaring all other variables to keep the weights in the output)
   pileupSF.reset(new MCPileupReweight(ctx));
 
-  // //muon ID scale factors
-  muonID_SF.reset(new MCMuonScaleFactor(ctx, muonID_SFac, muonID_directory, 1.12, "ID")); //hypot(1.0%,0.5%)
-  // //  muonHLT_SF.reset(new MCMuonScaleFactor(ctx, muonHLT_SFac, muonHLT_directory, 0.5, "HLT",false));//TEST
-  //  muonHLT_SF.reset(new MCMuonScaleFactor(ctx, muonHLT_SFac, muonHLT_directory, 1.0, "HLT",true));//TEST
-  muonTRK_SF.reset(new MCMuonTrkScaleFactor(ctx, muonTRK_SFac, 0.0, "TRK"));
-
-  // // elec-ID
-  elecID_SF.reset(new MCElecScaleFactor(ctx, elecID_SFac, 0.0, "ID"));
-  // double lumi_tot = string2double(ctx.get("target_lumi"));
-  // double lumi1 = 500.;//0.5/fb in 2016 data
-  // double lumi2 = lumi_tot - lumi1;
-  // elecID_SF.reset(new MCElecScaleFactor2(ctx, elecID_SFac_Data_part1, elecID_SFac, lumi1, lumi2, 0.0, "ID"));
-
-  // // elec-ID
-  elecGsf_SF.reset(new MCElecScaleFactor(ctx, elecGsf_SFac, 0.0, "Gsf"));
+  //muon ID scale factors
+  muonID_SF.reset(new MCMuonScaleFactor(ctx, muonID_SFac, muonID_directory, 1.0, "ID"));
+  muonHLT_SF.reset(new MCMuonScaleFactor(ctx, muonHLT_SFac, muonHLT_directory, 0.5, "HLT"));
 
   // //b-tagging scale factors
   //  btagSF.reset(new MCBTagScaleFactor(ctx, b_working_point));
-  btagSF.reset(new MCBTagScaleFactor(ctx, b_working_point,"jets","central","comb","incl","MCBtagEfficiencies"));
-  //  btagSF.reset(new uhh2::AndSelection(ctx));//TEST
+  btagSF.reset(new MCBTagScaleFactor(ctx, b_working_point,"jets","central","mujets","mujets","MCBtagEfficiencies"));
 
   // event
   h_run             = ctx.declare_event_output<int>("run");
@@ -796,9 +779,9 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   // weight
   h_wgtMC__GEN            = ctx.declare_event_output<float>("wgtMC__GEN");
 
-  // h_wgtMC__elecIDSF_ct    = ctx.declare_event_output<float>("wgtMC__elecIDSF_ct");
-  // h_wgtMC__elecIDSF_up    = ctx.declare_event_output<float>("wgtMC__elecIDSF_up");
-  // h_wgtMC__elecIDSF_dn    = ctx.declare_event_output<float>("wgtMC__elecIDSF_dn");
+  h_wgtMC__elecIDSF_ct    = ctx.declare_event_output<float>("wgtMC__elecIDSF_ct");
+  h_wgtMC__elecIDSF_up    = ctx.declare_event_output<float>("wgtMC__elecIDSF_up");
+  h_wgtMC__elecIDSF_dn    = ctx.declare_event_output<float>("wgtMC__elecIDSF_dn");
 
   h_wgtMC__elecHLTSF_ct   = ctx.declare_event_output<float>("wgtMC__elecHLTSF_ct");
   h_wgtMC__elecHLTSF_up   = ctx.declare_event_output<float>("wgtMC__elecHLTSF_up");
@@ -967,8 +950,8 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   // ////
 }
 
-bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
-  //std::cout<<"   --- NEW event ---   "<<std::endl;
+bool TTbarLJTopTagStudyModule::process(uhh2::Event& event){
+  //  std::cout<<"   --- NEW event ---   "<<std::endl;
   event.set(tt_TMVA_response, 0);//set some dummy initial value
   //// COMMON MODULES
 
@@ -990,7 +973,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   ////
 
   //// Data/MC scale factors
-  //  float w_elecIDSF_ct(1.) , w_elecIDSF_up(1.) , w_elecIDSF_dn(1.);
+  float w_elecIDSF_ct(1.) , w_elecIDSF_up(1.) , w_elecIDSF_dn(1.);
   float w_elecHLTSF_ct(1.), w_elecHLTSF_up(1.), w_elecHLTSF_dn(1.);
   float w_ttagSF_ct(1.), w_ttagSF_upL(1.), w_ttagSF_dnL(1.), w_ttagSF_upT(1.), w_ttagSF_dnT(1.);
   float w_muR_ct__muF_up(1.), w_muR_ct__muF_dn(1.), w_muR_up__muF_ct(1.), w_muR_up__muF_up(1.), w_muR_dn__muF_ct(1.), w_muR_dn__muF_dn(1.);
@@ -1006,58 +989,38 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   //  std::cout<<event.weight<<std::endl;
   // // b-tagging
   btagSF->process(event);
-  //  std::cout<<event.weight<<std::endl;
-  //  muon-ID
+  //      std::cout<<event.weight<<std::endl;
+  // muon-ID
   muonID_SF->process(event);
-  //  std::cout<<event.weight<<std::endl;
-  // // muon-HLT eff
-  // muonHLT_SF->process(event);
-  //  std::cout<<event.weight<<std::endl;
-  //  muon-Trk
-  muonTRK_SF->process(event);
+  //      std::cout<<event.weight<<std::endl;
+  // muon-HLT
+  muonHLT_SF->process(event);
   //  std::cout<<event.weight<<std::endl;
 
-
-  // // elec-ID
-  //std::cout<<event.weight<<std::endl;
-  elecID_SF->process(event);
-  //std::cout<<event.weight<<std::endl;
-  // elec-Gsf
-  elecGsf_SF->process(event);
   if(!event.isRealData){
-    //std::cout<<event.weight<<std::endl;
-    //std::cout<<""<<std::endl;
-    
-    // w_elecIDSF_ct  = elecIDSF->weight(event, "CT");
-    // w_elecIDSF_up  = elecIDSF->weight(event, "UP");
-    // w_elecIDSF_dn  = elecIDSF->weight(event, "DN");
-    // //
-   
-    // // elec-HLT
-    // w_elecHLTSF_ct = 0.9598;//!!elecHLTSF->weight(event, "CT");
-    // w_elecHLTSF_up = 0.9665;//!!elecHLTSF->weight(event, "UP");
-    // w_elecHLTSF_dn = 0.9531;//!!elecHLTSF->weight(event, "DN");
-    // //
 
+    // elec-ID
+    w_elecIDSF_ct  = elecIDSF->weight(event, "CT");
+    w_elecIDSF_up  = elecIDSF->weight(event, "UP");
+    w_elecIDSF_dn  = elecIDSF->weight(event, "DN");
+    //
 
     // elec-HLT
-    w_elecHLTSF_ct = 1.0;//!!elecHLTSF->weight(event, "CT");
-    w_elecHLTSF_up = 1.0;//!!elecHLTSF->weight(event, "UP");
-    w_elecHLTSF_dn = 1.0;//!!elecHLTSF->weight(event, "DN");
+    w_elecHLTSF_ct = 0.9598;//!!elecHLTSF->weight(event, "CT");
+    w_elecHLTSF_up = 0.9665;//!!elecHLTSF->weight(event, "UP");
+    w_elecHLTSF_dn = 0.9531;//!!elecHLTSF->weight(event, "DN");
     //
 
-    // t-tagging
-    w_ttagSF_ct    = ttagSF_ct ->weight(event);
 
-    w_ttagSF_upL   = ttagSF_upL->weight(event);
-    if(fabs(w_ttagSF_upL)>10.)
-      std::cout<<"!!!!!!!!!!!!!!!! w_ttagSF_upL = "<<w_ttagSF_upL<<std::endl;
-    w_ttagSF_dnL   = ttagSF_dnL->weight(event);
-    w_ttagSF_upT   = ttagSF_upT->weight(event);
-    if(fabs(w_ttagSF_upT)>10.)
-    std::cout<<"!!!!!!!!!!!!!! w_ttagSF_upT = "<<w_ttagSF_upT<<std::endl;
-    w_ttagSF_dnT   = ttagSF_dnT->weight(event);
-    //
+    // // t-tagging
+    // w_ttagSF_ct    = ttagSF_ct ->weight(event);
+
+    // w_ttagSF_upL   = ttagSF_upL->weight(event);
+    // w_ttagSF_dnL   = ttagSF_dnL->weight(event);
+
+    // w_ttagSF_upT   = ttagSF_upT->weight(event);
+    // w_ttagSF_dnT   = ttagSF_dnT->weight(event);
+    // //
 
     // Renormalization/Factorization scales
     if(event.genInfo){
@@ -1105,15 +1068,12 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
     // //
 
     // central weight (histograms)
-    //    if(fabs(w_ttagSF_ct-1.)>1e-4)
-    //std::cout<<"w_ttagSF_ct = "<<w_ttagSF_ct<<std::endl;
     event.weight *= w_ttagSF_ct;
     //
 
-    //  if(channel_ == elec) event.weight *= w_elecIDSF_ct;
+    if(channel_ == elec) event.weight *= w_elecIDSF_ct;
     // std::cout<<event.weight<<std::endl;
   }
-  //  std::cout<<" ==== "<<std::endl;
   //
 
   ////
@@ -1132,7 +1092,9 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   if     (channel_ == muon) lepN = int(event.muons    ->size());
   else if(channel_ == elec) lepN = int(event.electrons->size());
   if(!(lepN >= 1)) return false;
-  //
+  
+  //veto on leptons, to suppress DY
+  if(lepN >1) return false;
 
   // pt-leading lepton selection
   const Particle* lep1 = leading_lepton(event);
@@ -1269,6 +1231,9 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
 
   const int btagN = jetbtagN + subjbtagN;
 
+  // veto on btag events
+  if(btagN>=1)  return false;
+
   const std::string btag_posx = (btagN >= 2 ? "b2" : (btagN >= 1 ? "b1" : "b0"));
   /******************/
 
@@ -1314,16 +1279,19 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
 
     HFolder(chi2_posx)          ->fill(event);
     HFolder(chi2_posx+"__ttbar")->fill(event);
+    HFolder(chi2_posx+"__TTAG")->fill(event);
+
     if(!pass_ttagevt){
       HFolder(chi2_posx+"__"+ttag_posx+btag_posx)          ->fill(event);
       HFolder(chi2_posx+"__"+ttag_posx+btag_posx+"__ttbar")->fill(event);
+      HFolder(chi2_posx+"__"+ttag_posx+btag_posx+"__TTAG")->fill(event);
     }
     else{
       HFolder(chi2_posx+"__"+ttag_posx)          ->fill(event);
       HFolder(chi2_posx+"__"+ttag_posx+"__ttbar")->fill(event);
+      HFolder(chi2_posx+"__"+ttag_posx+"__TTAG")->fill(event);
     }
-    //    if(pass_chi2 && !event.isRealData){
-    if(!event.isRealData){//TEST
+    if(pass_chi2 && !event.isRealData){
       h_btagMCeffi->fill(event);
     }
     
@@ -1394,7 +1362,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   //
 
   // jet
-  if(!(event.jets->size() >= 2)) throw std::runtime_error("TTbarLJAnalysisLiteModule::process -- logic error: jet multiplicity < 2 ("+std::to_string(event.jets->size())+")");
+  if(!(event.jets->size() >= 2)) throw std::runtime_error("TTbarLJTopTagStudyModule::process -- logic error: jet multiplicity < 2 ("+std::to_string(event.jets->size())+")");
 
   TLorentzVector jet1__p4(event.jets->at(0).v4().Px(), event.jets->at(0).v4().Py(), event.jets->at(0).v4().Pz(), event.jets->at(0).v4().E());
   TLorentzVector jet2__p4(event.jets->at(1).v4().Px(), event.jets->at(1).v4().Py(), event.jets->at(1).v4().Pz(), event.jets->at(1).v4().E());
@@ -1608,7 +1576,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   
   // ttbar reco hyp
   const ReconstructionHypothesis* rec_ttbar = get_best_hypothesis(ttbar_hyps, "Chi2");
-  if(!rec_ttbar) throw std::runtime_error("TTbarLJAnalysisLiteModule::process -- logic error: ttbar reconstruction hypothesis (\"get_best_hypothesis\", discr=Chi2) not found");
+  if(!rec_ttbar) throw std::runtime_error("TTbarLJTopTagStudyModule::process -- logic error: ttbar reconstruction hypothesis (\"get_best_hypothesis\", discr=Chi2) not found");
 
   const float MET__pz = rec_ttbar->neutrino_v4().Pz();
   event.set(h_MET__pz, MET__pz);
@@ -1626,9 +1594,9 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   // weight
   event.set(h_wgtMC__GEN         , w_GEN);
 
-  // event.set(h_wgtMC__elecIDSF_ct , w_elecIDSF_ct);
-  // event.set(h_wgtMC__elecIDSF_up , w_elecIDSF_up);
-  // event.set(h_wgtMC__elecIDSF_dn , w_elecIDSF_dn);
+  event.set(h_wgtMC__elecIDSF_ct , w_elecIDSF_ct);
+  event.set(h_wgtMC__elecIDSF_up , w_elecIDSF_up);
+  event.set(h_wgtMC__elecIDSF_dn , w_elecIDSF_dn);
 
   event.set(h_wgtMC__elecHLTSF_ct, w_elecHLTSF_ct);
   event.set(h_wgtMC__elecHLTSF_up, w_elecHLTSF_up);
@@ -1715,4 +1683,4 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   return true;
 }
 
-UHH2_REGISTER_ANALYSIS_MODULE(TTbarLJAnalysisLiteModule)
+UHH2_REGISTER_ANALYSIS_MODULE(TTbarLJTopTagStudyModule)

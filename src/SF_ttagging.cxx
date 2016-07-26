@@ -207,30 +207,33 @@ float weightcalc_ttagging::jet_effy(const TopJet& jet_, const uhh2::Event& evt_)
   TGraphAsymmErrors* geff(0);
 
   const int jetFlavor = jet_flavor(jet_, evt_);
+  //  std::cout<<" jetFlavor = "<<jetFlavor<<std::endl;
   if     (std::abs(jetFlavor) == 6) geff = effy__graph__jet_t_;
   else if(std::abs(jetFlavor) == 0) geff = effy__graph__jet_l_;
   else throw std::runtime_error("weightcalc_ttagging::jet_effy -- failed to locate graph for jet t-tagging efficiency: "+std::to_string(jetFlavor));
-
+  //  geff->Print();//TEST
   if(!geff) throw std::runtime_error("weightcalc_ttagging::jet_effy -- uninitialized reference to jet t-tagging efficiencies");         
 
   const float jet_PT = jet_.pt();
+  //  std::cout<<"jet_PT = "<<jet_PT<<" geff->GetN() = "<<geff->GetN()<<std::endl;
+  float eff(0.); 
+  //  {
 
-  float eff(0.); {
-
-    float pt_min(std::numeric_limits<float>::infinity()), pt_max(-1.);
+  float pt_min(std::numeric_limits<float>::infinity()), pt_max(-1.);
     for(int i=0; i<geff->GetN(); ++i){
 
       double x(-1.), y(-1.);
       geff->GetPoint(i, x, y);
-
+      //      std::cout<<" "<<i<<" "<<x<<" "<<y<<std::endl;
       const float pt_lo = (x-geff->GetErrorXlow(i));
       const float pt_hi = (x+geff->GetErrorXhigh(i));
 
       if     (pt_lo <  jet_PT && jet_PT < pt_hi){ eff = y; break; }
       else if(pt_lo >= jet_PT && pt_min > pt_lo){ eff = y; pt_min = pt_lo; }
       else if(pt_hi <= jet_PT && pt_max < pt_hi){ eff = y; pt_max = pt_hi; }
+      //      std::cout<<" eff = "<<eff<<std::endl;
     }
-  }
+    //  }
 
   if(verbose_) std::cout << " eff=" << eff;
 
@@ -301,7 +304,8 @@ float weightcalc_ttagging::weight(const uhh2::Event& evt_) const {
   for(const auto& jet : *evt_.topjets){
 
     const float sfac =          jet_SFac(jet, evt_);
-    const float effy = std::min(jet_effy(jet, evt_), float(0.99999));
+    //    const float effy = std::min(jet_effy(jet, evt_), float(0.99999));
+    const float effy = std::min(jet_effy(jet, evt_), float(0.95));
 
     const bool pass_ttagWP(ttagWP_(jet, evt_));
 
@@ -309,6 +313,7 @@ float weightcalc_ttagging::weight(const uhh2::Event& evt_) const {
 
     if(pass_ttagWP) wgt *=     sfac;
     else            wgt *= (1.-sfac*effy) / (1.-effy);
+    //    std::cout<<"wgt = "<<wgt<<" pass_ttagWP = "<<pass_ttagWP<<" sfac = "<<sfac<<" effy = "<<effy<<" jet_effy(jet, evt_) = "<<jet_effy(jet, evt_)<<std::endl;
   }
 
   if(verbose_){

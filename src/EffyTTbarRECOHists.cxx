@@ -14,7 +14,7 @@ EffyTTbarRECOHists::EffyTTbarRECOHists(uhh2::Context& ctx, const std::string& di
 
 void EffyTTbarRECOHists::init(){
 
-  book_TH1F("gen_ttbar__M" , 125, 0, 5000);
+  book_TH1F("gen_ttbar__M", "M_{GEN} [GEV]" , 125, 0, 5000);
   book_TH1F("gen_ttbar__pt", 300, 0, 3000);
 
   book_TH1F("gen_thad__M" , 360, 0, 360);
@@ -56,10 +56,10 @@ void EffyTTbarRECOHists::init(){
   book_TH1F("gen_blep__pz"       , 120, -1200, 1200);
   book_TH1F("gen_blep__cosThetaX", 40, -1, 1);
 
-  book_TH1F("rec_chi2", 200, 0, 600);
-  book_TH2F("rec_chi2__VS__rec_ttbar__M", 300, 0, 600, 125, 0, 5000);
+  book_TH1F("rec_chi2","#chi^2", 100, 0, 600);
+  book_TH2F("rec_chi2__VS__rec_ttbar__M", 300, 0, 600, 55, 0, 4500);
 
-  book_TH1F("rec_ttbar__M"          , 125, 0, 5000);
+  book_TH1F("rec_ttbar__M"          , "M_{ttbar} [GeV]", 100, 0, 8000);
   book_TH1F("rec_ttbar__pt"         , 150, 0, 3000);
   book_TH1F("rec_ttbar__gen_DM"     , 120, -600, 600);
   book_TH1F("rec_ttbar__gen_Dpt"    , 120, -600, 600);

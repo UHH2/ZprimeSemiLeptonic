@@ -8,6 +8,14 @@ void HistsBASE::book_TH1F(const std::string& name_, const int xnbins_, const dou
   return;
 }
 
+void HistsBASE::book_TH1F(const std::string& name_,const std::string& title_, const int xnbins_, const double xmin_, const double xmax_){
+
+  if(h1.find(name_) == h1.end()) h1[name_] = book<TH1F>(name_.c_str(), title_.c_str(), xnbins_, xmin_, xmax_);
+  else throw std::runtime_error("HistsBASE::book_TH1F -- histogram key already existing: "+name_);
+
+  return;
+}
+
 void HistsBASE::book_TH1F(const std::string& name_, const int xnbins_, const double* xbin_ls_){
 
   if(h1.find(name_) == h1.end()) h1[name_] = book<TH1F>(name_.c_str(), name_.c_str(), xnbins_, xbin_ls_);
