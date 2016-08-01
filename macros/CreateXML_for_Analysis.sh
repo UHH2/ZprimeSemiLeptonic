@@ -2,8 +2,10 @@
 # path=/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v1/ttbarLJSkimming/Selas2015_4fb_20160721_METcorrected//workdir_Skimming/uhh2.AnalysisModuleRunner.
 # cd /afs/desy.de/user/k/karavdia/CMSSW_8_0_8_patch1/src/UHH2/ZprimeSemiLeptonic/Skimming_datasets
 
-path=/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v1/ttbarLJSkimming/Selas2015_2DpT40_13fb_20160725/workdir_Skimming/uhh2.AnalysisModuleRunner.
-cd /afs/desy.de/user/k/karavdia/CMSSW_8_0_8_patch1/src/UHH2/ZprimeSemiLeptonic/Skimming_datasets_13fb
+#path=/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v1/ttbarLJSkimming/Selas2015_2DpT40_13fb_20160725/workdir_Skimming/uhh2.AnalysisModuleRunner.
+path=/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v1/ttbarLJSkimming/Selas2015_13fb_20160725_METcorrTEST/workdir_Skimming/uhh2.AnalysisModuleRunner.
+cd /afs/desy.de/user/k/karavdia/CMSSW_8_0_8_patch1/src/UHH2/ZprimeSemiLeptonic/Skimming_datasets_13fb_METcorrTEST
+
 ~/CMSSW_8_0_8_patch1//src/UHH2/scripts/create-dataset-xmlfile $path"DATA.SingleMUON_*" DATA_SingleMUON.xml
 ~/CMSSW_8_0_8_patch1//src/UHH2/scripts/create-dataset-xmlfile $path"DATA.SingleEG_*" DATA_SingleEG.xml
 ~/CMSSW_8_0_8_patch1//src/UHH2/scripts/create-dataset-xmlfile $path"MC.DYJetsToLL_LO_M50_HT0100to0200*" MC_DYJetsToLL_LO_M50_HT0100to0200.xml

@@ -104,9 +104,8 @@
 	    RunMode="PROOF" ProofServer="lite://" ProofWorkDir="&PROOFdir;/" ProofNodes="15" > 
 
 <!--   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTdir;/" PostFix="" TargetLumi="1" RunMode="PROOF" ProofServer="pod://" ProofWorkDir="&PROOFdir;/" >-->
-<!-- <InputData Version="SingleMUON" Lumi="3990.0" Type="DATA" NEventsMax="&NEVT;" Cacheable="False">
-    <In FileName="&SingleMUON;" Lumi="0.0"/> <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> -->
-
+ <InputData Version="SingleMUON" Lumi="3990.0" Type="DATA" NEventsMax="&NEVT;" Cacheable="False">
+    <In FileName="&SingleMUON;" Lumi="0.0"/> <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
   <InputData Version="WJets_LNu_HT100To200" Lumi="18140.0" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
      <In FileName="&WJets_LNu_HT100To200;" Lumi="0.0"/> <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
 
@@ -129,11 +128,11 @@
   <InputData Version="WJets_LNu_HT2500ToInf" Lumi="63886636" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
      <In FileName="&WJets_LNu_HT2500ToInf;" Lumi="0.0"/> <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
 
- <InputData Version="DYJetsToLL_NLO_M10to50" Lumi="50089944.7" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+<!-- <InputData Version="DYJetsToLL_NLO_M10to50" Lumi="50089944.7" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
      <In FileName="&DYJetsToLL_NLO_M10to50;" Lumi="0.0"/> <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
    <InputData Version="DYJetsToLL_NLO_M50" Lumi="74885665.8" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
      <In FileName="&DYJetsToLL_NLO_M50;" Lumi="0.0"/> <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
-
+-->
    
     <InputData Version="QCD_HT500to700" Lumi="585.213" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
      <In FileName="&QCD_HT500to700;" Lumi="0.0"/> <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>

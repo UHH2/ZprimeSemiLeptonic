@@ -75,6 +75,7 @@ class TTbarLJAnalysisLiteModule : public ModuleBASE {
   uhh2::Event::Handle<std::vector<ReconstructionHypothesis> > h_ttbar_hyps;
 
   float lep1_pt_;
+  float muo1_pt_max_, muo1_eta_max_;
 
   JetId btag_ID_;
   CSVBTag::wp b_working_point;
@@ -95,6 +96,7 @@ class TTbarLJAnalysisLiteModule : public ModuleBASE {
   std::unique_ptr<uhh2::AnalysisModule> pileupSF;
   std::unique_ptr<uhh2::AnalysisModule> muonID_SF;
   std::unique_ptr<uhh2::AnalysisModule> muonHLT_SF;
+  std::unique_ptr<uhh2::AnalysisModule> muonHLT2_SF;
   std::unique_ptr<uhh2::AnalysisModule> muonTRK_SF;
 
 //!!  std::unique_ptr<weightcalc_elecHLT> elecHLTSF;
@@ -303,6 +305,11 @@ class TTbarLJAnalysisLiteModule : public ModuleBASE {
   TString methodName;
   float varMVA[20];
 
+  //For usage of run dependent muonHLT Effs
+  double lumi_tot;
+  double lumi1;
+  double lumi2;
+
   ////
 };
 
@@ -352,7 +359,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
     if(channel_ == muon){
 
       lep1_pt_ =   50.;
-
+     
       jet1_pt  = 150.;
       jet2_pt  =  50.;
 
@@ -361,11 +368,13 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
       triangul_cut = false;
       topleppt_cut = false;
+
+      muo1_pt_max_ = 500.;
+      muo1_eta_max_ = 1.2;
     }
     else if(channel_ == elec){
 
       lep1_pt_ =   55.;
-
       jet1_pt  = 170.;
       jet2_pt  =  50.;
 
@@ -380,6 +389,10 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
       triangul_cut = false;
       topleppt_cut = false;
+
+      muo1_pt_max_ = 0;
+      muo1_eta_max_ = 0;
+
     }
   }
   else if(keyword == "T0_v02" || keyword == "T1_v02"){
@@ -390,7 +403,6 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
     if(channel_ == muon){
 
       lep1_pt_ =   0.;
-
       jet1_pt  = 150.;
       jet2_pt  =  50.;
 
@@ -399,6 +411,10 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
       triangul_cut = false;
       topleppt_cut = false;
+
+      muo1_pt_max_ = 0;
+      muo1_eta_max_ = 0;
+
     }
     else if(channel_ == elec){
 
@@ -412,6 +428,10 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
       triangul_cut = false;
       topleppt_cut = false;
+
+      muo1_pt_max_ = 0;
+      muo1_eta_max_ = 0;
+
     }
   }
   else if(keyword == "T0_v03" || keyword == "T1_v03"){
@@ -431,6 +451,10 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
       triangul_cut = false;
       topleppt_cut = false;
+
+      muo1_pt_max_ = 0;
+      muo1_eta_max_ = 0;
+
     }
     else if(channel_ == elec){
 
@@ -458,6 +482,9 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
       triangul_cut = false;
       topleppt_cut = false;
+
+      muo1_pt_max_ = 0;
+      muo1_eta_max_ = 0;
     }
   }
   else throw std::runtime_error("TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule -- undefined \"keyword\" argument in .xml configuration file: "+keyword);
@@ -661,9 +688,10 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   const std::string& muonID_directory    = ctx.get("muonID_SF_directory");
 
 
-  // // muon-HLT
-  // const std::string& muonHLT_SFac   = ctx.get("muonHLT_SF_file");
-  // const std::string& muonHLT_directory   = ctx.get("muonHLT_SF_directory");
+  // muon-HLT
+  const std::string& muonHLT_SFac   = ctx.get("muonHLT_SF_file");
+  const std::string& muonHLT_directory   = ctx.get("muonHLT_SF_directory");
+  const std::string& muonHLT2_directory   = ctx.get("muonHLT2_SF_directory");
 
   //muon-Trk
   const std::string& muonTRK_SFac   = ctx.get("muonTRK_SF_file");
@@ -718,6 +746,9 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
   ////
 
+  //reset here to avaoid dublication of output in the tree
+  muonHLT2_SF.reset(new MCMuonScaleFactor(ctx, muonHLT_SFac, muonHLT2_directory, 0.0, "HLT",true));//TEST
+
   //// VARS
   ctx.undeclare_all_event_output();
 
@@ -727,7 +758,11 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   // //muon ID scale factors
   muonID_SF.reset(new MCMuonScaleFactor(ctx, muonID_SFac, muonID_directory, 1.12, "ID")); //hypot(1.0%,0.5%)
   // //  muonHLT_SF.reset(new MCMuonScaleFactor(ctx, muonHLT_SFac, muonHLT_directory, 0.5, "HLT",false));//TEST
-  //  muonHLT_SF.reset(new MCMuonScaleFactor(ctx, muonHLT_SFac, muonHLT_directory, 1.0, "HLT",true));//TEST
+  muonHLT_SF.reset(new MCMuonScaleFactor(ctx, muonHLT_SFac, muonHLT_directory, 0.0, "HLT",true));//TEST
+  lumi_tot = string2double(ctx.get("target_lumi"));
+  lumi1 = 622.;//0.622/fb in 2016 data
+  lumi2 = lumi_tot - lumi1;
+
   muonTRK_SF.reset(new MCMuonTrkScaleFactor(ctx, muonTRK_SFac, 0.0, "TRK"));
 
   // // elec-ID
@@ -1009,9 +1044,22 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   //  std::cout<<event.weight<<std::endl;
   //  muon-ID
   muonID_SF->process(event);
-  //  std::cout<<event.weight<<std::endl;
+  double w_wo_HLT = event.weight;
+  // std::cout<<"HLT, w_wo_HLT = "<<w_wo_HLT<<std::endl;
   // // muon-HLT eff
-  // muonHLT_SF->process(event);
+  muonHLT2_SF->process(event);
+  double w1 = event.weight;
+  event.weight = w_wo_HLT;
+  muonHLT_SF->process(event);
+  double w2 = event.weight;
+  double w = (lumi1*w1+lumi2*w2)/(lumi_tot);
+  // std::cout<<"w1 = "<<w1<<" w2 = "<<w2<<" w = "<<w<<std::endl;
+  //  std::cout<<"w = "<<w<<std::endl;
+  event.weight = w;
+
+  //in 2016 data ICHEP JSON from [271036-274093] contains 0.622/fb
+
+
   //  std::cout<<event.weight<<std::endl;
   //  muon-Trk
   muonTRK_SF->process(event);
@@ -1033,18 +1081,18 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
     // w_elecIDSF_dn  = elecIDSF->weight(event, "DN");
     // //
    
-    // // elec-HLT
-    // w_elecHLTSF_ct = 0.9598;//!!elecHLTSF->weight(event, "CT");
-    // w_elecHLTSF_up = 0.9665;//!!elecHLTSF->weight(event, "UP");
-    // w_elecHLTSF_dn = 0.9531;//!!elecHLTSF->weight(event, "DN");
-    // //
-
-
     // elec-HLT
-    w_elecHLTSF_ct = 1.0;//!!elecHLTSF->weight(event, "CT");
-    w_elecHLTSF_up = 1.0;//!!elecHLTSF->weight(event, "UP");
-    w_elecHLTSF_dn = 1.0;//!!elecHLTSF->weight(event, "DN");
+    w_elecHLTSF_ct = 0.9598;//!!elecHLTSF->weight(event, "CT");
+    w_elecHLTSF_up = 0.9665;//!!elecHLTSF->weight(event, "UP");
+    w_elecHLTSF_dn = 0.9531;//!!elecHLTSF->weight(event, "DN");
     //
+
+
+    // // elec-HLT
+    // w_elecHLTSF_ct = 1.0;//!!elecHLTSF->weight(event, "CT");
+    // w_elecHLTSF_up = 1.0;//!!elecHLTSF->weight(event, "UP");
+    // w_elecHLTSF_dn = 1.0;//!!elecHLTSF->weight(event, "DN");
+    // //
 
     // t-tagging
     w_ttagSF_ct    = ttagSF_ct ->weight(event);
@@ -1127,6 +1175,14 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   if(!pass_lepV) return false;
   //
 
+  //due to unknown efficiency in 2016 data, skip events with: muon pt>500 GeV in the endcap
+  bool good_muon(0);
+  if (channel_ == muon){
+    const Particle* lep1 = leading_lepton(event);
+    good_muon = (!(lep1->pt()>muo1_pt_max_ && lep1->eta()>muo1_eta_max_));
+  }
+  if(!good_muon) return false;
+
   // lepton multiplicity
   int lepN(-1);
   if     (channel_ == muon) lepN = int(event.muons    ->size());
@@ -1157,7 +1213,13 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
 
   //// HLT selection
   const bool pass_trigger = trigger_sel->passes(event);
-  const bool pass_trigger2 = trigger2_sel->passes(event);
+  bool pass_trigger2 = true;
+  if(channel_ == elec)
+    pass_trigger2 = trigger2_sel->passes(event);
+  if(event.run>274953 && channel_ == muon)
+    pass_trigger2 = trigger2_sel->passes(event);
+
+  //  const bool pass_trigger2 = trigger2_sel->passes(event);
   //  if(!pass_trigger) return false;
   if(!(pass_trigger||pass_trigger2) && event.isRealData) return false; //apply only on data
   //  else std::cout<<"Passed trigger!!! "<<std::endl;

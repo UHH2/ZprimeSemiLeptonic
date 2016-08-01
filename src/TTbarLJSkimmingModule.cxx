@@ -66,6 +66,7 @@ class TTbarLJSkimmingModule : public ModuleBASE {
   std::unique_ptr<uhh2::AnalysisModule> ttgenprod;
 
   Event::Handle<float> tt_TMVA_response;// response of TMVA method, dummy value at this step
+  bool isQCDstudy;
 
 };
 
@@ -81,7 +82,7 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
   bool use_miniiso(false);
 
   if(keyword == "v01"){
-
+    isQCDstudy = false;
     ele_pt = 45.;
     muon_pt = 45.;
     eleID  = ElectronID_Spring15_25ns_tight_noIso;
@@ -97,7 +98,7 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
   }
   else {
     if(keyword == "v02"){
-
+    isQCDstudy = true;
     ele_pt = 45.;
     muon_pt = 45.;
     eleID  = ElectronID_Spring15_25ns_tight_noIso;
@@ -186,10 +187,12 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
     JEC_AK8 = JERFiles::Spring16_25ns_L123_AK8PFchs_DATA;
   }
 
+  jetlepton_cleaner.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4));//TEST
+
   jet_IDcleaner.reset(new JetCleaner(ctx, jetID));
   jet_corrector.reset(new JetCorrector(ctx, JEC_AK4));
   if(isMC) jetER_smearer.reset(new GenericJetResolutionSmearer(ctx));
-  jetlepton_cleaner.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4));
+ 
   jet_cleaner1.reset(new JetCleaner(ctx, 15., 3.0));
   jet_cleaner2.reset(new JetCleaner(ctx, 30., 2.4));
 
@@ -277,11 +280,16 @@ bool TTbarLJSkimmingModule::process(uhh2::Event& event){
   ////
 
   //// JET selection
+  jetlepton_cleaner->process(event);//TEST
 
   jet_IDcleaner->process(event);
+  //  LorentzVector metv4_before = event.met->v4();
   jet_corrector->process(event);
+  //  LorentzVector metv4_after = event.met->v4();
+  // std::cout<<"metv4_before.Pt = "<<metv4_before.Pt()<<" metv4_after.Pt = "<<metv4_after.Pt()<<std::endl;
+
   if(jetER_smearer.get()) jetER_smearer->process(event);
-  jetlepton_cleaner->process(event);
+
   jet_cleaner1->process(event);
   sort_by_pt<Jet>(*event.jets);
 
@@ -347,7 +355,7 @@ bool TTbarLJSkimmingModule::process(uhh2::Event& event){
 
   
   //// LEPTON-2Dcut selection
-  if(!pass_twodcut) return false;
+  if(!pass_twodcut && !isQCDstudy) return false;
   HFolder("twodcut")->fill(event);
   ////
 
