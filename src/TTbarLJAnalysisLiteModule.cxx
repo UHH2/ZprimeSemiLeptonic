@@ -339,14 +339,6 @@ class TTbarLJAnalysisLiteModule : public ModuleBASE {
   //  float varMVA[20];
   float varMVA[15];
 
-  //  For usage of run dependent muonHLT Effs
-  double lumi_tot;
-  double lumi1;
-  double lumi2;
-
-  
-  std::unique_ptr<Hists> lumihists;   std::unique_ptr<Hists> lumihists_before;
-
   
   //W+Jets MVA Related, copied from https://github.com/isando3/ZprimeSemiLeptonic/blob/Summer17/src/TTbarLJAnalysisLiteModule.cxx
   TMVA::Reader *reader_wjets;
@@ -2125,7 +2117,6 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
     }
   // if(!pass_chi2) 
   //   return false;
-
    if(TMVA_response<0) return false;
 
 
@@ -2325,4 +2316,5 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
 }
 
 UHH2_REGISTER_ANALYSIS_MODULE(TTbarLJAnalysisLiteModule)
+
 
