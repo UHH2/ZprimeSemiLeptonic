@@ -85,18 +85,21 @@ void TTbarLJHists::init(){
   jet1__phi = book<TH1F>("jet1__phi", "jet #phi", 60, -3.15, 3.15);
   jet1__M = book<TH1F>("jet1__M", "jet mass"  , 360, 0, 360);
   jet1__CSV = book<TH1F>("jet1__CSV","CSV", 60, 0, 1.2);
+  jet1__MVAbtag = book<TH1F>("jet1__MVAbtag","MVA b-tag", 60, -1.2, 1.2);
 
   jet2__pt = book<TH1F>("jet2__pt", "jet p_{T} [GeV]" , 90, 0, 900);
   jet2__eta = book<TH1F>("jet2__eta", "jet #eta",60,-3,3);
   jet2__phi = book<TH1F>("jet2__phi", "jet #phi", 60, -3.15, 3.15);
   jet2__M = book<TH1F>("jet2__M", "jet mass [GeV]"  , 360, 0, 360);
   jet2__CSV = book<TH1F>("jet2__CSV","CSV", 60, 0, 1.2);
+  jet2__MVAbtag = book<TH1F>("jet2__MVAbtag","MVA b-tag", 60, -1.2, 1.2);
 
   jet3__pt = book<TH1F>("jet3__pt", "jet p_{T}[GeV]" , 50, 200, 1700);
   jet3__eta = book<TH1F>("jet3__eta", "jet #eta",60,-3,3);
   jet3__phi = book<TH1F>("jet3__phi", "jet #phi", 60, -3.15, 3.15);
   jet3__M = book<TH1F>("jet3__M", "jet mass"  , 360, 0, 360);
   jet3__CSV = book<TH1F>("jet3__CSV","CSV", 60, 0, 1.2);
+  jet3__MVAbtag = book<TH1F>("jet3__MVAbtag","MVA b-tag", 60, -1.2, 1.2);
 
   // TOPJET
   topjetN = book<TH1F>("topjetN","N topjets", 10, 0, 10);
@@ -249,6 +252,7 @@ void TTbarLJHists::fill(const uhh2::Event& event){
       jet1__phi->Fill(p.phi()                         , weight);
       jet1__M  ->Fill(p.v4().M()                      , weight);
       jet1__CSV->Fill(p.btag_combinedSecondaryVertex(), weight);
+      jet1__MVAbtag->Fill(p.btag_combinedSecondaryVertexMVA(), weight);
     }
     if(i==1){
       jet2__pt ->Fill(p.pt()                          , weight);
@@ -256,6 +260,7 @@ void TTbarLJHists::fill(const uhh2::Event& event){
       jet2__phi->Fill(p.phi()                         , weight);
       jet2__M  ->Fill(p.v4().M()                      , weight);
       jet2__CSV->Fill(p.btag_combinedSecondaryVertex(), weight);
+      jet2__MVAbtag->Fill(p.btag_combinedSecondaryVertexMVA(), weight);
     }
     if(i==2){
       jet3__pt ->Fill(p.pt()                          , weight);
@@ -263,6 +268,7 @@ void TTbarLJHists::fill(const uhh2::Event& event){
       jet3__phi->Fill(p.phi()                         , weight);
       jet3__M  ->Fill(p.v4().M()                      , weight);
       jet3__CSV->Fill(p.btag_combinedSecondaryVertex(), weight);
+      jet3__MVAbtag->Fill(p.btag_combinedSecondaryVertexMVA(), weight);
     }
   }
 

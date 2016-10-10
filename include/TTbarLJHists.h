@@ -31,7 +31,7 @@ class TTbarLJHists : public uhh2::Hists {
   TH1F *ele2__eta,*ele2__etaError,*ele2__phi,*ele2__phiError;
   TH1F *ele2__minDR_jet,*ele2__pTrel_jet;
   TH1F *jetN__CSVL,*jetN__CSVM,*jetN__CSVT;
-  TH1F *jet1__pt,*jet1__eta,*jet1__phi,*jet1__M,*jet1__CSV;
+  TH1F *jet1__pt,*jet1__eta,*jet1__phi,*jet1__M,*jet1__CSV,*jet1__MVAbtag,*jet2__MVAbtag,*jet3__MVAbtag;
   TH1F *jet2__pt,*jet2__eta,*jet2__phi,*jet2__M,*jet2__CSV;
   TH1F *jet3__pt,*jet3__eta,*jet3__phi,*jet3__M,*jet3__CSV;
   TH1F *topjet1__pt,*topjet1__eta,*topjet1__phi,*topjet1__CSV,*topjet1__Msdp,*topjet1__tau32;

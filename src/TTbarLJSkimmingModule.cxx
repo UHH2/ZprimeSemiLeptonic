@@ -283,10 +283,10 @@ bool TTbarLJSkimmingModule::process(uhh2::Event& event){
   jetlepton_cleaner->process(event);//TEST
 
   jet_IDcleaner->process(event);
-  //  LorentzVector metv4_before = event.met->v4();
+  //LorentzVector metv4_before = event.met->v4();
   jet_corrector->process(event);
-  //  LorentzVector metv4_after = event.met->v4();
-  // std::cout<<"metv4_before.Pt = "<<metv4_before.Pt()<<" metv4_after.Pt = "<<metv4_after.Pt()<<std::endl;
+  //LorentzVector metv4_after = event.met->v4();
+  //  std::cout<<"metv4_before.Pt = "<<metv4_before.Pt()<<" metv4_after.Pt = "<<metv4_after.Pt()<<std::endl;
 
   if(jetER_smearer.get()) jetER_smearer->process(event);
 
@@ -332,11 +332,13 @@ bool TTbarLJSkimmingModule::process(uhh2::Event& event){
   const bool pass_jet2 = jet2_sel->passes(event);
   if(!pass_jet2) return false;
   HFolder("jet2")->fill(event);
+  //  std::cout<<"pass_jet2 "<<std::endl;
 
   /* 1st AK4 jet selection */
   const bool pass_jet1 = jet1_sel->passes(event);
   if(!pass_jet1) return false;
   HFolder("jet1")->fill(event);
+  //  std::cout<<"pass_jet1 "<<std::endl;
   ////
 
   //TEST no MET, HT_lep, 2D cut for QCD studies
@@ -345,18 +347,20 @@ bool TTbarLJSkimmingModule::process(uhh2::Event& event){
   const bool pass_met = met_sel->passes(event);
   if(!pass_met) return false;
   HFolder("met")->fill(event);
+  //  std::cout<<"pass_met "<<std::endl;
   ////
 
   //// HT_lep selection
   const bool pass_htlep = htlep_sel->passes(event);
   if(!pass_htlep) return false;
   HFolder("htlep")->fill(event);
-  
+  //  std::cout<<"pass_htlep "<<std::endl;
 
   
   //// LEPTON-2Dcut selection
   if(!pass_twodcut && !isQCDstudy) return false;
   HFolder("twodcut")->fill(event);
+  //  std::cout<<"twodcut "<<std::endl;
   ////
 
   return true;

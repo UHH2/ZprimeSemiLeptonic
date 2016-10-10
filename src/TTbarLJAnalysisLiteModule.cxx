@@ -76,9 +76,10 @@ class TTbarLJAnalysisLiteModule : public ModuleBASE {
 
   float lep1_pt_;
   float muo1_pt_max_, muo1_eta_max_;
-
+  float chi2_cut_;
   JetId btag_ID_;
   CSVBTag::wp b_working_point;
+  //  MVABTag::wp b_working_point;
 
   bool use_ttagging_;
   TopJetId ttag_ID_;
@@ -110,10 +111,10 @@ class TTbarLJAnalysisLiteModule : public ModuleBASE {
   std::unique_ptr<weightcalc_ttagging> ttagSF_upT;
   std::unique_ptr<weightcalc_ttagging> ttagSF_dnT;
 
-  //std::unique_ptr<weightcalc_topptREWGT> topptREWGT;
-  std::unique_ptr<TopPtReweight> topptREWGT;
-  std::unique_ptr<weightcalc_WjetsREWGT> wjetsREWGT;
-  ////
+  // //std::unique_ptr<weightcalc_topptREWGT> topptREWGT;
+  // std::unique_ptr<TopPtReweight> topptREWGT;
+  // std::unique_ptr<weightcalc_WjetsREWGT> wjetsREWGT;
+  // ////
 
   //// VARS
 
@@ -183,11 +184,11 @@ class TTbarLJAnalysisLiteModule : public ModuleBASE {
   Event::Handle<float> h_wgtMC__muR_dn__muF_ct;
   Event::Handle<float> h_wgtMC__muR_dn__muF_dn;
 
-  Event::Handle<float> h_wgtMC__topptREWGT_ct;
-  Event::Handle<float> h_wgtMC__topptREWGT_up;
-  Event::Handle<float> h_wgtMC__topptREWGT_dn;
+  // Event::Handle<float> h_wgtMC__topptREWGT_ct;
+  // Event::Handle<float> h_wgtMC__topptREWGT_up;
+  // Event::Handle<float> h_wgtMC__topptREWGT_dn;
 
-  Event::Handle<float> h_wgtMC__wjetsREWGT_ct;
+  //  Event::Handle<float> h_wgtMC__wjetsREWGT_ct;
 
   Event::Handle<std::vector<float> > h_wgtMC__PDF;
   //
@@ -351,6 +352,8 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   bool triangul_cut(false);
   bool topleppt_cut(false);
 
+ 
+
   if(keyword == "T0_v01" || keyword == "T1_v01"){
 
     if     (keyword == "T0_v01") use_ttagging_ = false;
@@ -371,6 +374,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
       muo1_pt_max_ = 500.;
       muo1_eta_max_ = 1.2;
+      chi2_cut_ = 30.;
     }
     else if(channel_ == elec){
 
@@ -392,7 +396,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
       muo1_pt_max_ = 0;
       muo1_eta_max_ = 0;
-
+      chi2_cut_ = 30.;
     }
   }
   else if(keyword == "T0_v02" || keyword == "T1_v02"){
@@ -433,12 +437,13 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
       muo1_eta_max_ = 0;
 
     }
+    chi2_cut_ = 30.;
   }
   else if(keyword == "T0_v03" || keyword == "T1_v03"){
 
     if     (keyword == "T0_v03") use_ttagging_ = false;
     else if(keyword == "T1_v03") use_ttagging_ = true;
-
+    chi2_cut_ = 30.;
     if(channel_ == muon){
 
       lep1_pt_ =   0.;
@@ -465,7 +470,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
     if     (keyword == "T0_v04") use_ttagging_ = false;
     else if(keyword == "T1_v04") use_ttagging_ = true;
-
+    chi2_cut_ = 30.;
     if(channel_ == muon){
 
       throw std::runtime_error("TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule -- undefined working-point for \""+keyword+"\" in \"muon\" channel");
@@ -485,6 +490,32 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
       muo1_pt_max_ = 0;
       muo1_eta_max_ = 0;
+    }
+  }
+  else if(keyword == "T0_v05" || keyword == "T1_v05"){
+
+    if     (keyword == "T0_v05") use_ttagging_ = false;
+    else if(keyword == "T1_v05") use_ttagging_ = true;
+    if(channel_ == muon){
+      throw std::runtime_error("TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule -- undefined working-point for \""+keyword+"\" in \"muon\" channel");
+    }
+    else if(channel_ == elec){
+
+      lep1_pt_ =   55.;
+      jet1_pt  = 170.;
+      jet2_pt  =  50.;
+
+      //      MET      =   0.;
+      MET      =   40.;
+      HT_lep   =   0.;
+
+      triangul_cut = false;
+      topleppt_cut = false;
+
+      muo1_pt_max_ = 0;
+      muo1_eta_max_ = 0;
+      //      chi2_cut_ = 0.;
+      chi2_cut_ = uhh2::infinity;
     }
   }
   else throw std::runtime_error("TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule -- undefined \"keyword\" argument in .xml configuration file: "+keyword);
@@ -537,7 +568,16 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   else if(btag_wp == "CSVM") b_working_point = CSVBTag::WP_MEDIUM;
   else if(btag_wp == "CSVT") b_working_point = CSVBTag::WP_TIGHT;
 
-  //  h_btagMCeffi.reset(new BTagMCEfficiencyHists(ctx,"chi2__BTAG",b_working_point));
+
+  // if     (btag_wp == "MVAL") btag_ID_ = MVABTag(MVABTag::WP_LOOSE);
+  // else if(btag_wp == "MVAM") btag_ID_ = MVABTag(MVABTag::WP_MEDIUM);
+  // else if(btag_wp == "MVAT") btag_ID_ = MVABTag(MVABTag::WP_TIGHT);
+
+  // if     (btag_wp == "MVAL") b_working_point = MVABTag::WP_LOOSE;
+  // else if(btag_wp == "MVAM") b_working_point = MVABTag::WP_MEDIUM;
+  // else if(btag_wp == "MVAT") b_working_point = MVABTag::WP_TIGHT;
+
+  //h_btagMCeffi.reset(new BTagMCEfficiencyHists(ctx,"chi2__BTAG",b_working_point));
   h_btagMCeffi.reset(new BTagMCEfficiencyHists(ctx,"BTAG",b_working_point));
 
   /*************/
@@ -588,7 +628,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   }
   else topleppt_sel.reset(new uhh2::AndSelection(ctx));
 
-  chi2_sel.reset(new HypothesisDiscriminatorCut(ctx,  0., 30., ttbar_hyps_label, ttbar_chi2_label));
+  chi2_sel.reset(new HypothesisDiscriminatorCut(ctx,  0., chi2_cut_, ttbar_hyps_label, ttbar_chi2_label));
   //  chi2_sel.reset(new HypothesisDiscriminatorCut(ctx,  0., uhh2::infinity, ttbar_hyps_label, ttbar_chi2_label)); //TEST no chi2 for QCD studies
 
   //// HISTS
@@ -669,6 +709,10 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
   std::vector<std::string> htags_4({
     "Final",
+    "Final__t0b0",
+    "Final__t0b1",
+    "Final__t0b2",
+    "Final__t1",
   });
 
   for(const auto& tag : htags_4){
@@ -746,7 +790,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
   ////
 
-  //reset here to avaoid dublication of output in the tree
+  //reset here to avoid dublication of output in the tree
   muonHLT2_SF.reset(new MCMuonScaleFactor(ctx, muonHLT_SFac, muonHLT2_directory, 0.0, "HLT",true));//TEST
 
   //// VARS
@@ -775,10 +819,11 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   // // elec-ID
   elecGsf_SF.reset(new MCElecScaleFactor(ctx, elecGsf_SFac, 0.0, "Gsf"));
 
-  // //b-tagging scale factors
-  //  btagSF.reset(new MCBTagScaleFactor(ctx, b_working_point));
-  btagSF.reset(new MCBTagScaleFactor(ctx, b_working_point,"jets","central","comb","incl","MCBtagEfficiencies"));
-  //  btagSF.reset(new uhh2::AndSelection(ctx));//TEST
+  // // //b-tagging scale factors
+  // //  btagSF.reset(new MCBTagScaleFactor(ctx, b_working_point));
+  btagSF.reset(new MCBTagScaleFactor(ctx, b_working_point,"jets","central","comb","incl","MCBtagEfficiencies"));//CSV
+  //  btagSF.reset(new MCBTagScaleFactor(ctx, b_working_point,"jets","central","ttbar","incl","MCBtagEfficiencies"));//MVA
+
 
   // event
   h_run             = ctx.declare_event_output<int>("run");
@@ -852,11 +897,11 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   h_wgtMC__muR_dn__muF_ct = ctx.declare_event_output<float>("wgtMC__muR_dn__muF_ct");
   h_wgtMC__muR_dn__muF_dn = ctx.declare_event_output<float>("wgtMC__muR_dn__muF_dn");
 
-  h_wgtMC__topptREWGT_ct  = ctx.declare_event_output<float>("wgtMC__topptREWGT_ct");
-  h_wgtMC__topptREWGT_up  = ctx.declare_event_output<float>("wgtMC__topptREWGT_up");
-  h_wgtMC__topptREWGT_dn  = ctx.declare_event_output<float>("wgtMC__topptREWGT_dn");
+  // h_wgtMC__topptREWGT_ct  = ctx.declare_event_output<float>("wgtMC__topptREWGT_ct");
+  // h_wgtMC__topptREWGT_up  = ctx.declare_event_output<float>("wgtMC__topptREWGT_up");
+  // h_wgtMC__topptREWGT_dn  = ctx.declare_event_output<float>("wgtMC__topptREWGT_dn");
 
-  h_wgtMC__wjetsREWGT_ct  = ctx.declare_event_output<float>("wgtMC__wjetsREWGT_ct");
+  //  h_wgtMC__wjetsREWGT_ct  = ctx.declare_event_output<float>("wgtMC__wjetsREWGT_ct");
 
   h_wgtMC__PDF            = ctx.declare_event_output<std::vector<float> >("wgtMC__PDF");
   //
@@ -973,37 +1018,43 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
     reader->AddVariable("fabs(lep_eta)", &varMVA[1]);
     reader->AddVariable("lep_eta_err",&varMVA[2]); 
     reader->AddVariable("lep_pt_err", &varMVA[3]);
-    reader->AddVariable("lep_full5x5_e5x5", &varMVA[4]);
-    reader->AddVariable("lep_dB", &varMVA[5]);
-    reader->AddVariable("fabs(lep_dPhiIn)", &varMVA[6]);
-    reader->AddVariable("fabs(lep_dEtaInSeed)", &varMVA[7]);
-    reader->AddVariable("lep_hcalOverEcal", &varMVA[8]);
-    reader->AddVariable("lep_dr03TkSumPt", &varMVA[9]);
-    reader->AddVariable("lep_effArea", &varMVA[10]);
-    reader->AddVariable("lep1__minDR_jet", &varMVA[11]);
-    reader->AddVariable("fabs(ljet_eta)", &varMVA[12]);
-    reader->AddVariable("ljet_CSV", &varMVA[13]);
-    reader->AddVariable("fabs(fjet2_eta)", &varMVA[14]);
-    reader->AddVariable("fjet2_pt/Mttbar", &varMVA[15]);
-    reader->AddVariable("jet2_CSV", &varMVA[16]);
-    reader->AddVariable("met_pt/MwT", &varMVA[17]);                                                                                 
-    reader->AddVariable("ttagN", &varMVA[18]);                                                                                             
-    reader->AddVariable("btagN", &varMVA[19]); 
+    //    reader->AddVariable("lep_full5x5_e5x5", &varMVA[4]);
+    reader->AddVariable("lep_dB", &varMVA[4]);
+    reader->AddVariable("fabs(lep_dPhiIn)", &varMVA[5]);
+    reader->AddVariable("fabs(lep_dEtaInSeed)", &varMVA[6]);
+    //    reader->AddVariable("lep_hcalOverEcal", &varMVA[8]);
+    reader->AddVariable("lep_dr03TkSumPt", &varMVA[7]);
+    reader->AddVariable("lep_effArea", &varMVA[8]);
+    reader->AddVariable("lep1__minDR_jet", &varMVA[9]);
+    reader->AddVariable("fabs(ljet_eta)", &varMVA[10]);
+    reader->AddVariable("ljet_CSV", &varMVA[11]);
+    reader->AddVariable("fabs(fjet2_eta)", &varMVA[12]);
+    reader->AddVariable("fjet2_pt/Mttbar", &varMVA[13]);
+    reader->AddVariable("jet2_CSV", &varMVA[14]);
+    reader->AddVariable("met_pt/MwT", &varMVA[15]);                                                                                 
+    reader->AddVariable("ttagN", &varMVA[16]);                                                                                             
+    reader->AddVariable("btagN", &varMVA[17]); 
   
 
-    //  TString dir    = "/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_7_6_3_patch2/src/UHH2/ZprimeSemiLeptonic/TMVA_weights/76X/"; //ToDo: make it param in xml
-  TString dir    = "/afs/desy.de/user/k/karavdia/CMSSW_8_0_8_patch1/src/UHH2/ZprimeSemiLeptonic/TMVA_weights/76X/"; //ToDo: make it param in xml
-   methodName = "BDT::BDTG";
-   TString weightfile = dir + "Homemade_TTbarMVAClassification_BDTG_DataDriven_MET40_20vras.weights.xml";
+   //  //  TString dir    = "/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_7_6_3_patch2/src/UHH2/ZprimeSemiLeptonic/TMVA_weights/76X/"; //ToDo: make it param in xml
+   //  TString dir    = "/afs/desy.de/user/k/karavdia/CMSSW_8_0_8_patch1/src/UHH2/ZprimeSemiLeptonic/TMVA_weights/76X/"; //ToDo: make it param in xml
+   // methodName = "BDT::BDTG";
+   // TString weightfile = dir + "Homemade_TTbarMVAClassification_BDTG_DataDriven_MET40_20vras.weights.xml";
   // methodName = "MLP::MLPBNN";
   // TString weightfile = dir + "Homemade_TTbarMVAClassification_MLPBNN_DataDrivenMET30_24Vars_N-22_N+2.weights.xml";
-  reader->BookMVA(methodName, weightfile);
+
+    TString dir    = "/afs/desy.de/user/k/karavdia/CMSSW_8_0_9/src/UHH2/ZprimeSemiLeptonic/TMVA_weights/80X/"; //ToDo: make it param in xml
+    methodName = "BDT::BDTG";
+    TString weightfile = dir + "Homemade_TTbarMVAClassification_BDTG.weights.xml";
+    reader->BookMVA(methodName, weightfile);
   }
   // ////
 }
 
 bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
-  //std::cout<<"   --- NEW event ---   "<<std::endl;
+  //  std::cout<<"   --- NEW event ---   elecs = "<<event.electrons->size()<<" muons = "<<event.muons->size()<<std::endl;
+  if(channel_ == muon && event.electrons->size()>0) return false; //TEST
+  if(channel_ == elec && event.muons->size()>0) return false;//TEST
   event.set(tt_TMVA_response, 0);//set some dummy initial value
   //// COMMON MODULES
 
@@ -1029,23 +1080,23 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   float w_elecHLTSF_ct(1.), w_elecHLTSF_up(1.), w_elecHLTSF_dn(1.);
   float w_ttagSF_ct(1.), w_ttagSF_upL(1.), w_ttagSF_dnL(1.), w_ttagSF_upT(1.), w_ttagSF_dnT(1.);
   float w_muR_ct__muF_up(1.), w_muR_ct__muF_dn(1.), w_muR_up__muF_ct(1.), w_muR_up__muF_up(1.), w_muR_dn__muF_ct(1.), w_muR_dn__muF_dn(1.);
-  float w_topptREWGT_up(1.), w_topptREWGT_dn(1.); //w_topptREWGT_ct(1.);
-  float w_wjetsREWGT_ct(1.);
+  //  float w_topptREWGT_up(1.), w_topptREWGT_dn(1.); //w_topptREWGT_ct(1.);
+  //  float w_wjetsREWGT_ct(1.);
   std::vector<float> w_PDF;
   w_PDF.clear();
 
-  //  std::cout<<event.weight<<std::endl;
+  //    std::cout<<event.weight<<std::endl;
   //
   //pileup
   pileupSF->process(event);
-  //  std::cout<<event.weight<<std::endl;
-  // // b-tagging
+  //  std::cout<<"Afte PileUp "<<event.weight<<std::endl;
+  // // // b-tagging
   btagSF->process(event);
-  //  std::cout<<event.weight<<std::endl;
+  //  std::cout<<"After Btag SF: "<<event.weight<<std::endl;
   //  muon-ID
   muonID_SF->process(event);
   double w_wo_HLT = event.weight;
-  // std::cout<<"HLT, w_wo_HLT = "<<w_wo_HLT<<std::endl;
+  //   std::cout<<"HLT, w_wo_HLT = "<<w_wo_HLT<<std::endl;
   // // muon-HLT eff
   muonHLT2_SF->process(event);
   double w1 = event.weight;
@@ -1054,16 +1105,15 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   double w2 = event.weight;
   double w = (lumi1*w1+lumi2*w2)/(lumi_tot);
   // std::cout<<"w1 = "<<w1<<" w2 = "<<w2<<" w = "<<w<<std::endl;
-  //  std::cout<<"w = "<<w<<std::endl;
-  event.weight = w;
-
+  // std::cout<<"w = "<<w<<std::endl;
+  if(channel_ == muon) event.weight = w;
   //in 2016 data ICHEP JSON from [271036-274093] contains 0.622/fb
 
 
   //  std::cout<<event.weight<<std::endl;
   //  muon-Trk
   muonTRK_SF->process(event);
-  //  std::cout<<event.weight<<std::endl;
+  //  std::cout<<"After muon TRK SFs "<<event.weight<<std::endl;
 
 
   // // elec-ID
@@ -1103,7 +1153,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
     w_ttagSF_dnL   = ttagSF_dnL->weight(event);
     w_ttagSF_upT   = ttagSF_upT->weight(event);
     if(fabs(w_ttagSF_upT)>10.)
-    std::cout<<"!!!!!!!!!!!!!! w_ttagSF_upT = "<<w_ttagSF_upT<<std::endl;
+          std::cout<<"!!!!!!!!!!!!!! w_ttagSF_upT = "<<w_ttagSF_upT<<std::endl;
     w_ttagSF_dnT   = ttagSF_dnT->weight(event);
     //
 
@@ -1134,18 +1184,18 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
     }
     
 
-    // top-pt reweighting
-    if(topptREWGT.get()){
-      //      std::cout<<"aw!"<<std::endl;
-      topptREWGT->process(event);
-      float w_topptREWGT_ct = event.get(h_wgtMC__topptREWGT_ct);
-      //      std::cout<<w_topptREWGT_ct<<std::endl;
-      //apply twice the shift as uncertainty
-      w_topptREWGT_dn = w_topptREWGT_ct*w_topptREWGT_ct;
-      w_topptREWGT_up = 1;
-      //
-    }
-    //  
+    // // top-pt reweighting
+    // if(topptREWGT.get()){
+    //   //      std::cout<<"aw!"<<std::endl;
+    //   topptREWGT->process(event);
+    //   float w_topptREWGT_ct = event.get(h_wgtMC__topptREWGT_ct);
+    //   //      std::cout<<w_topptREWGT_ct<<std::endl;
+    //   //apply twice the shift as uncertainty
+    //   w_topptREWGT_dn = w_topptREWGT_ct*w_topptREWGT_ct;
+    //   w_topptREWGT_up = 1;
+    //   //
+    // }
+    // //  
 
 
     // // W+jets reweighting
@@ -1174,6 +1224,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   else if(channel_ == elec) pass_lepV = ((event.muons    ->size() == 0));
   if(!pass_lepV) return false;
   //
+  //  std::cout<<"passed lepV "<<std::endl;
 
   //due to unknown efficiency in 2016 data, skip events with: muon pt>500 GeV in the endcap
   bool good_muon(0);
@@ -1181,7 +1232,8 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
     const Particle* lep1 = leading_lepton(event);
     good_muon = (!(lep1->pt()>muo1_pt_max_ && lep1->eta()>muo1_eta_max_));
   }
-  if(!good_muon) return false;
+  if(!good_muon && channel_ == muon) return false;
+  //  std::cout<<"passed  good muon"<<std::endl;
 
   // lepton multiplicity
   int lepN(-1);
@@ -1194,7 +1246,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   const Particle* lep1 = leading_lepton(event);
   if(!(lep1->pt() > lep1_pt_)) return false; 
   //
-
+  //  std::cout<<"passed lep1_pt "<<std::endl;
   ////
 
   //// JET selection
@@ -1245,6 +1297,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   //// TRIANGULAR-CUTS selection
   const bool pass_triangc = triangc_sel->passes(event);
   if(!pass_triangc) return false;
+  //  std::cout<<"passed  triangc"<<std::endl;
   if(lepN == 1) HFolder("triangc")->fill(event);
   ////
 
@@ -1270,6 +1323,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   //// LEPTONIC-TOP pt selection
   const bool pass_topleppt = topleppt_sel->passes(event);
   if(!pass_topleppt) return false;
+  //  std::cout<<"passed  topleppt"<<std::endl;
   if(lepN == 1) HFolder("topleppt")->fill(event);
   ////
 
@@ -1330,7 +1384,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   }
 
   const int btagN = jetbtagN + subjbtagN;
-
+  //  std::cout<<"btagN = "<<btagN<<std::endl;
   const std::string btag_posx = (btagN >= 2 ? "b2" : (btagN >= 1 ? "b1" : "b0"));
   /******************/
 
@@ -1709,13 +1763,13 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   event.set(h_wgtMC__muR_dn__muF_ct, w_muR_dn__muF_ct);
   event.set(h_wgtMC__muR_dn__muF_dn, w_muR_dn__muF_dn);
 
-  if(!topptREWGT.get())
-    event.set(h_wgtMC__topptREWGT_ct , 1.);
+  // if(!topptREWGT.get())
+  //   event.set(h_wgtMC__topptREWGT_ct , 1.);
 
-  event.set(h_wgtMC__topptREWGT_up , w_topptREWGT_up);
-  event.set(h_wgtMC__topptREWGT_dn , w_topptREWGT_dn);
+  // event.set(h_wgtMC__topptREWGT_up , w_topptREWGT_up);
+  // event.set(h_wgtMC__topptREWGT_dn , w_topptREWGT_dn);
 
-  event.set(h_wgtMC__wjetsREWGT_ct , w_wjetsREWGT_ct);
+  // event.set(h_wgtMC__wjetsREWGT_ct , w_wjetsREWGT_ct);
 
   event.set(h_wgtMC__PDF, std::move(w_PDF));
   //
@@ -1730,27 +1784,28 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   varMVA[1] = fabs(lep_eta);
   varMVA[2] = lep_eta_err;
   varMVA[3] = lep_pt_err;
-  varMVA[4] = lep_full5x5_e5x5;
-  varMVA[5] = lep_dB;
-  varMVA[6] = fabs(lep_dPhiIn);
-  varMVA[7] = fabs(lep_dEtaInSeed);
-  varMVA[8] = lep_hcalOverEcal;
-  varMVA[9] = lep_dr03TkSumPt;
-  varMVA[10] = lep_effArea;
-  varMVA[11] = lep1__minDR_jet;
-  varMVA[12] = fabs(ljet_eta);
-  varMVA[13] = ljet_CSV;
-  varMVA[14] = fabs(fjet2_eta);
-  varMVA[15] = fjet2_pt/rec_ttbar_M_;
-  varMVA[16] = jet2_CSV;
-  varMVA[17] = met_pt/MwT;
-  varMVA[18] = ttagN;
-  varMVA[19] = btagN;
+  //  varMVA[4] = lep_full5x5_e5x5;
+  varMVA[4] = lep_dB;
+  varMVA[5] = fabs(lep_dPhiIn);
+  varMVA[6] = fabs(lep_dEtaInSeed);
+  //  varMVA[8] = lep_hcalOverEcal;
+  varMVA[7] = lep_dr03TkSumPt;
+  varMVA[8] = lep_effArea;
+  varMVA[9] = lep1__minDR_jet;
+  varMVA[10] = fabs(ljet_eta);
+  varMVA[11] = ljet_CSV;
+  varMVA[12] = fabs(fjet2_eta);
+  varMVA[13] = fjet2_pt/rec_ttbar_M_;
+  varMVA[14] = jet2_CSV;
+  varMVA[15] = met_pt/MwT;
+  varMVA[16] = ttagN;
+  varMVA[17] = btagN;
   
   // if(ljet_CSV<-1. || lep_pt_err>1000.) 
   //    return false; // do NOT use unphysical data
   TMVA_response = reader->EvaluateMVA(methodName);
   //  if(TMVA_response<0.5) return false; //BDTG_DATADriven_MET40_20vars
+  //  if(TMVA_response<0.76) return false; //BDTG_DATADriven_MET40_20vars
   event.set(tt_TMVA_response, TMVA_response);
   //std::cout<<"TMVA_response = "<<TMVA_response<<std::endl;
     }
@@ -1770,10 +1825,22 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   }
   event.set(tt_mttbar_gen,gen_ttbar_M_);
 
+  
 
   HFolder("Final")->fill(event);
   HFolder("Final__ttbar")->fill(event);
-  //  std::cout<<event.weight<<std::endl;
+  if(!pass_ttagevt){
+    HFolder("Final__"+ttag_posx+btag_posx)          ->fill(event);
+    HFolder("Final__"+ttag_posx+btag_posx+"__ttbar")->fill(event);
+  }
+  else{
+    HFolder("Final__"+ttag_posx)          ->fill(event);
+    HFolder("Final__"+ttag_posx+"__ttbar")->fill(event);
+  }
+  //  std::cout<<" pass_ttagevt = "<<pass_ttagevt<<" ttag_posx = "<<ttag_posx<<std::endl;
+  //  std::cout<<"weight = "<<event.weight<<std::endl;
+  //  std::cout<<"elecID = "<<event.weight_sfelec_ID<<std::endl;
+  //(weight_sfelec_ID)*(wgtMC__elecHLTSF_ct)*(weight_pu)*(weight_btag)*(wgtMC__ttagSF_ct)*(weight_sfelec_Gsf)
   return true;
 }
 

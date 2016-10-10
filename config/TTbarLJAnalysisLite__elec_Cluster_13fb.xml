@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
 
- <!ENTITY NEVT "-1"> 
-<!-- <!ENTITY NEVT "1000"> -->
+ <!ENTITY NEVT "-1">
+<!-- <!ENTITY NEVT "10"> -->
  <!ENTITY KEYW "T1_v01">
+<!-- <!ENTITY KEYW "T1_v05"> -->
 <!-- <!ENTITY channel "elec"> -->
  <!ENTITY btag_workpoint "CSVM">
 <!ENTITY channel "elec">
@@ -11,8 +12,13 @@
  <!ENTITY HLT2 "HLT_Ele105_CaloIdVT_GsfTrkIdT_v*">
 
  <!ENTITY PROOFdir "/nfs/dust/cms/user/karavdia/PROOF_2">
-<!ENTITY INdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v1/ttbarLJSkimming/Selas2015_2DpT40_13fb_20160725/">
-<!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v1/ttbarLJAnalysis/Selas2015_2DpT40_13fb_20160725_HLTeff/&channel;/">
+ <!ENTITY INdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v1/ttbarLJSkimming/Selas2015_2DpT40_13fb_20160725/">
+
+<!-- <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v1/ttbarLJAnalysis/Selas2015_2DpT40_13fb_20160725_HLTeff/&channel;/"> -->
+<!--<!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v1/ttbarLJAnalysis/Selas2015_2DpT40_13fb_20160801_MVAbtag_noSF/&channel;/">-->
+<!-- <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v1/ttbarLJAnalysis/Selas2015_2DpT40_13fb_20160801_MVAbtag_SF/&channel;/"> -->
+<!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v1/ttbarLJAnalysis/Selas2015_2DpT40_13fb_20161004_HLT_Mu50_OR_Mutk50_PU63mb/&channel;/">
+<!-- <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v1/ttbarLJAnalysis/Selas2015_2DpT40_13fb_20161008_TEST_weight/&channel;/"> -->
 
  <!ENTITY  SingleEG SYSTEM "../Skimming_datasets_13fb/DATA_SingleEG.xml">
  <!ENTITY  TTbar SYSTEM "../Skimming_datasets_13fb/MC_TTbar.xml">
@@ -119,7 +125,7 @@
 ]>
 
 <!--
-   <ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="5" AutoResubmit="10"/>
+   <ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="10" AutoResubmit="10"/>
    <ConfigSGE RAM ="4" DISK ="2" Mail="anastasia.karavdina@desy.de" Notification="as" Workdir="workdir_elec"/>
 -->
 
@@ -130,22 +136,28 @@
 
     <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTdir;/" PostFix="" TargetLumi="12891.097839213" >
 
-<!-- <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTdir;/" PostFix="" TargetLumi="12891.097839213" RunMode="PROOF" ProofServer="lite://" ProofWorkDir="&PROOFdir;/" ProofNodes="15" > -->
-
+<!--    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTdir;/" PostFix="" TargetLumi="12891.097839213" RunMode="PROOF" ProofServer="lite://" ProofWorkDir="&PROOFdir;/" ProofNodes="15" >
+-->
   <!--  <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTdir;/" PostFix="" TargetLumi="1" RunMode="PROOF" ProofServer="pod://" ProofWorkDir="&PROOFdir;/" >
 -->
 
-  <InputData Version="SingleEG__BLINDED" Lumi="12891.097839213" Type="DATA" NEventsMax="&NEVT;" Cacheable="False">
+ 
+
+
+ <!-- <InputData Version="WJets_LNu_HT100To200__B" Lumi="18140.0" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+     &WJets_LNu_HT100To200__B; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>  -->
+
+<!--   <InputData Version="WJets_LNu_HT100To200__C" Lumi="18140.0" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+     &WJets_LNu_HT100To200__C; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+ <InputData Version="WJets_LNu_HT400To600__All" Lumi="121227.5" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+     &WJets_LNu_HT400To600; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> -->
+
+
+ <InputData Version="SingleEG__BLINDED" Lumi="12891.097839213" Type="DATA" NEventsMax="&NEVT;" Cacheable="False">
     &SingleEG; 
   <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
 
-
-<!--  <InputData Version="WJets_LNu_HT100To200__B" Lumi="18140.0" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
-     &WJets_LNu_HT100To200__B; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> -->
-
-<!-- <InputData Version="WJets_LNu_HT100To200__C" Lumi="18140.0" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
-     &WJets_LNu_HT100To200__C; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> -->
- <InputData Version="WJets_LNu_HT100To200__L" Lumi="18140.0" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+   <InputData Version="WJets_LNu_HT100To200__L" Lumi="18140.0" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
      &WJets_LNu_HT100To200__L; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
    <InputData Version="TTbar" Lumi="219323.8" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
      &TTbar; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
@@ -153,15 +165,14 @@
  <InputData Version="WJets_LNu_HT100To200__All" Lumi="18140.0" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
      &WJets_LNu_HT100To200; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
    <InputData Version="WJets_LNu_HT200To400__All" Lumi="45854.3" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
-     &WJets_LNu_HT200To400; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
-<!--   <InputData Version="WJets_LNu_HT400To600__All" Lumi="121227.5" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
-     &WJets_LNu_HT400To600; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> --> 
+     &WJets_LNu_HT200To400; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
+  
   <InputData Version="WJets_LNu_HT600To800__All" Lumi="255344.7" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
      &WJets_LNu_HT600To800; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
  <InputData Version="WJets_LNu_HT800To1200__All" Lumi="1120191.1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
      &WJets_LNu_HT800To1200; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
-<!-- <InputData Version="WJets_LNu_HT1200To2500__All" Lumi="4189005" Type="MC" NEventsMax="&NEVT;" Cacheable="False"> 
-     &WJets_LNu_HT1200To2500; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> -->
+ <InputData Version="WJets_LNu_HT1200To2500__All" Lumi="4189005" Type="MC" NEventsMax="&NEVT;" Cacheable="False"> 
+     &WJets_LNu_HT1200To2500; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
  <InputData Version="WJets_LNu_HT2500ToInf__All" Lumi="63886636" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
      &WJets_LNu_HT2500ToInf; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
 
@@ -309,7 +320,7 @@
 <InputData Version="RSGluonToTT_M-3000" Lumi="99755" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
      <In FileName="&RSGluonToTT_M-3000;" Lumi="0.0"/> <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
 <InputData Version="RSGluonToTT_M-4000" Lumi="99136" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
-     <In FileName="&RSGluonToTT_M-4000;" Lumi="0.0"/> <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
+     <In FileName="&RSGluonToTT_M-4000;" Lumi="0.0"/> <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
 
 <!-- 
  <InputData Version="DYJetsToLL_LO_M50_HT0100to0200" Lumi="46415.8" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
@@ -352,28 +363,33 @@
         <Item Name="channel" Value="&channel;"/>
         <Item Name="trigger" Value="&HLT;"/>
 <!--	<Item Name="trigger2" Value="&HLT2;"/> -->
-        <Item Name="lumi_file" Value="/afs/desy.de/user/k/karavdia/CMSSW_8_0_8_patch1/src/UHH2/common/data/Cert_271036-276811_13TeV_PromptReco_Collisions16_JSON.root"/> 
-	<Item Name="pileup_directory"           Value="/afs/desy.de/user/k/karavdia/CMSSW_8_0_8_patch1/src/UHH2/common/data/MyMCPileupHistogram.root"/>
-	<Item Name="pileup_directory_data"      Value="/afs/desy.de/user/k/karavdia/CMSSW_8_0_8_patch1/src/UHH2/common/data/MyDataPileupHistogram.root"/>
-	<Item Name="pileup_directory_data_up"   Value="/afs/desy.de/user/k/karavdia/CMSSW_8_0_8_patch1/src/UHH2/common/data/MyDataPileupHistogram_66150.root"/>
-	<Item Name="pileup_directory_data_down" Value="/afs/desy.de/user/k/karavdia/CMSSW_8_0_8_patch1/src/UHH2/common/data/MyDataPileupHistogram_59850.root"/>
-	<Item Name="muonID_SF_file"  Value="/afs/desy.de/user/k/karavdia/CMSSW_8_0_8_patch1/src/UHH2/common/data/MuonID_Z_RunBCD_prompt80X_7p65.root"/>
+        <Item Name="lumi_file" Value="/afs/desy.de/user/k/karavdia/CMSSW_8_0_9/src/UHH2/common/data/Cert_271036-276811_13TeV_PromptReco_Collisions16_JSON.root"/> 
+	<Item Name="pileup_directory"           Value="/afs/desy.de/user/k/karavdia/CMSSW_8_0_9/src/UHH2/common/data/MyMCPileupHistogram.root"/>
+	<Item Name="pileup_directory_data"      Value="/afs/desy.de/user/k/karavdia/CMSSW_8_0_9/src/UHH2/common/data/MyDataPileupHistogram_63000.root"/>
+	<Item Name="pileup_directory_data_up"   Value="/afs/desy.de/user/k/karavdia/CMSSW_8_0_9/src/UHH2/common/data/MyDataPileupHistogram_66150.root"/>
+	<Item Name="pileup_directory_data_down" Value="/afs/desy.de/user/k/karavdia/CMSSW_8_0_9/src/UHH2/common/data/MyDataPileupHistogram_59850.root"/>
+	<Item Name="muonID_SF_file"  Value="/afs/desy.de/user/k/karavdia/CMSSW_8_0_9/src/UHH2/common/data/MuonID_Z_RunBCD_prompt80X_7p65.root"/>
 	<Item Name="muonID_SF_directory"  Value="MC_NUM_TightIDandIPCut_DEN_genTracks_PAR_pt_spliteta_bin1"/>
-<!--	<Item Name="muonHLT_SF_file" Value="/afs/desy.de/user/k/karavdia/CMSSW_8_0_8_patch1/src/UHH2/common/data/SingleMuonTrigger_Z_RunBCD_prompt80X_7p65.root"/>
-	<Item Name="muonHLT_SF_file" Value="/afs/desy.de/user/k/karavdia/CMSSW_8_0_8_patch1/src/UHH2/common/data/HLT_Mu45_eta2p1_TriggEff_DATA_4fb.root"/> 
-	<Item Name="muonHLT_SF_directory" Value="PtEtaBins"/> -->
-	<Item Name="muonTRK_SF_file"  Value="/afs/desy.de/user/k/karavdia/CMSSW_8_0_8_patch1/src/UHH2/common/data/general_eff_aeta_dr030e030_corr_ratio.txt"/>
-	<Item Name="elecID_SF_file"  Value="/afs/desy.de/user/k/karavdia/CMSSW_8_0_8_patch1/src/UHH2/common/data/egammaEffi.txt_SF2D_TightCutBased_12_9fb.root"/>
-	<Item Name="elecGsf_SF_file"  Value="/afs/desy.de/user/k/karavdia/CMSSW_8_0_8_patch1/src/UHH2/common/data/egammaEffi.txt_SF2D_GsfTrkEff_12p9fb.root"/>
+	<Item Name="muonHLT_SF_file"  Value="/afs/desy.de/user/k/karavdia/CMSSW_8_0_9/src/UHH2/common/data/SingleMuonTrigger_Z_RunBCD_prompt80X_7p65.root"/>
+<!--	<Item Name="muonHLT2_SF_directory"  Value="Mu45_eta2p1_PtEtaBins_Run273158_to_274093/efficienciesDATA/"/> 
+	<Item Name="muonHLT_SF_directory"  Value="Mu45_eta2p1_PtEtaBins_Run274094_to_276097/efficienciesDATA/"/> -->
+	<Item Name="muonHLT2_SF_directory"  Value="Mu50_PtEtaBins_Run273158_to_274093/efficienciesDATA/"/> 
+	<Item Name="muonHLT_SF_directory"  Value="Mu50_OR_TkMu50_PtEtaBins_Run274954_to_276097/efficienciesDATA/"/>
+	<Item Name="muonTRK_SF_file"  Value="/afs/desy.de/user/k/karavdia/CMSSW_8_0_9/src/UHH2/common/data/general_eff_aeta_dr030e030_corr_ratio.txt"/>
+	<Item Name="elecID_SF_file"  Value="/afs/desy.de/user/k/karavdia/CMSSW_8_0_9/src/UHH2/common/data/egammaEffi.txt_SF2D_TightCutBased_12_9fb.root"/>
+	<Item Name="elecGsf_SF_file"  Value="/afs/desy.de/user/k/karavdia/CMSSW_8_0_9/src/UHH2/common/data/egammaEffi.txt_SF2D_GsfTrkEff_12p9fb.root"/>
 	<Item Name="btag_wp"         Value="CSVM"/>
-	<Item Name="MCBtagEfficiencies" Value = "/afs/desy.de/user/k/karavdia/CMSSW_8_0_8_patch1/src/UHH2/ZprimeSemiLeptonic/data/BTagMCEfficiencyHists_elec.root"/>
-	<Item Name="BTagCalibration" Value = "/afs/desy.de/user/k/karavdia/CMSSW_8_0_8_patch1/src/UHH2/common/data/CSVv2_ichep.csv" />
-	
+	<Item Name="BTagCalibration" Value = "/afs/desy.de/user/k/karavdia/CMSSW_8_0_9/src/UHH2/common/data/CSVv2_ichep.csv" />
+	<Item Name="MCBtagEfficiencies" Value = "/afs/desy.de/user/k/karavdia/CMSSW_8_0_9/src/UHH2/ZprimeSemiLeptonic/data/BTagMCEfficiencyHists_elec.root"/>
+
+<!--	<Item Name="btag_wp"         Value="MVAM"/>
+	<Item Name="BTagCalibration" Value = "/afs/desy.de/user/k/karavdia/CMSSW_8_0_9/src/UHH2/common/data/cMVAv2_ichep.csv"/>
+	<Item Name="MCBtagEfficiencies" Value = "/afs/desy.de/user/k/karavdia/CMSSW_8_0_9/src/UHH2/ZprimeSemiLeptonic/data/BTagMCEfficiencyHists_elec_MVA.root"/> -->
 	
 	<Item Name="ttag_wp"        Value="mr030_wp1"/>
 <!--	<Item Name="ttag_SFs"        Value="/nfs/dust/cms/user/missirol/Analysis7XY/utils/ttagging/160203/ttagSFAC__SDTT_mr030_wp1.csv"/> -->
-        <Item Name="ttag_SFs"        Value="/afs/desy.de/user/k/karavdia/CMSSW_8_0_8_patch1/src/UHH2/ZprimeSemiLeptonic/data/ttagSF__2016_mr030_wp1.csv"/>
-	<Item Name="ttag_eff"        Value="/afs/desy.de/user/k/karavdia/CMSSW_8_0_8_patch1/src/UHH2/ZprimeSemiLeptonic/data/TTAGeff.root"/>
+        <Item Name="ttag_SFs"        Value="/afs/desy.de/user/k/karavdia/CMSSW_8_0_9/src/UHH2/ZprimeSemiLeptonic/data/ttagSF__2016_mr030_wp1.csv"/>
+	<Item Name="ttag_eff"        Value="/afs/desy.de/user/k/karavdia/CMSSW_8_0_9/src/UHH2/ZprimeSemiLeptonic/data/TTAGeff.root"/>
 	<Item Name="ttag_eff__jetL"  Value="&channel;/wjets/tjpj_chi2tlep__TTAG/tjetA__pt__l"/>
 	<Item Name="ttag_eff__jetT"  Value="&channel;/ttbar/tjpj_chi2tlep__TTAG/tjetA__pt__t"/>
 
