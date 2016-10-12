@@ -1,3 +1,0 @@
-terminate called after throwing an instance of 'std::bad_alloc'
-  what():  std::bad_alloc
-/scratch/sge/default/spool/bird320/job_scripts/914158: line 20: 10211 Aborted                 sframe_main Zp10w3000_1.xml

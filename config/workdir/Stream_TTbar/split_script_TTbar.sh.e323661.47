@@ -1,3 +1,0 @@
-terminate called after throwing an instance of 'std::bad_alloc'
-  what():  std::bad_alloc
-/scratch/sge/default/spool/bird256/job_scripts/323661: line 20:  4973 Aborted                 sframe_main TTbar_${SGE_TASK_ID}.xml
