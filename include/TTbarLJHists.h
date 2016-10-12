@@ -62,10 +62,12 @@ class TTbarLJHists : public uhh2::Hists {
   uhh2::Event::Handle<float> h_jet1_m;
   uhh2::Event::Handle<float> h_jet1_csv;
   uhh2::Event::Handle<float> h_jet2_m;
+
   uhh2::Event::Handle<float> h_jet2_csv;
   uhh2::Event::Handle<float> h_njets;
   uhh2::Event::Handle<float> h_ht_met_lep_norm;
   uhh2::Event::Handle<float> h_s33;
   uhh2::Event::Handle<float> h_lep1__minDR_norm;
   uhh2::Event::Handle<float> h_lep1__pTrel_jet_norm;
+
 };

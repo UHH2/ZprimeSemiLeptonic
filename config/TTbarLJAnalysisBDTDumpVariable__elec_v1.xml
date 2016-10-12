@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
+
+  <!ENTITY NEVT "-1">
+
+  <!ENTITY KEYW "T1_v01">
+
+  <!ENTITY channel "elec">
+  <!ENTITY HLT     "HLT_Ele50_CaloIdVT_GsfTrkIdT_PFJet140_v*">
+  <!ENTITY HLT_OR  "HLT_Ele105_CaloIdVT_GsfTrkIdT_v*">
+<!--
+  <!ENTITY HLT     "HLT_Mu40_eta2p1_PFJet200_PFJet50_v*">
+-->
+   <!ENTITY OUTdir   "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/ttbarLJAnalysisDumpVariables/&KEYW;/&channel;/v1">
+    <!ENTITY SingleEG SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/DATA.SingleEG.xml">
+ <!ENTITY SingleMU SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/DATA.SingleMU.xml">
+  <!ENTITY WJets_HT0200To0400 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.WJets_LNu_HT200To400__All.xml">
+  <!ENTITY WJets_HT0400To0600 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.WJets_LNu_HT400To600__All.xml">
+  <!ENTITY WJets_HT0600To0800 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.WJets_LNu_HT600To800__All.xml">
+  <!ENTITY WJets_HT0800To1200 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.WJets_LNu_HT800To1200__All.xml">
+  <!ENTITY WJets_HT1200To2500 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.WJets_LNu_HT1200To2500__All.xml">
+  <!ENTITY WJets_HT2500ToInf SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.WJets_LNu_HT2500ToInf__All.xml">
+  <!ENTITY WJets_HT0200To0400__L SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.WJets_LNu_HT200To400__L.xml">
+  <!ENTITY WJets_HT0400To0600__L SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.WJets_LNu_HT400To600__L.xml">
+  <!ENTITY WJets_HT0600To0800__L SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.WJets_LNu_HT600To800__L.xml">
+  <!ENTITY WJets_HT0800To1200__L SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.WJets_LNu_HT800To1200__L.xml">
+  <!ENTITY WJets_HT1200To2500__L SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.WJets_LNu_HT1200To2500__L.xml">
+  <!ENTITY WJets_HT2500ToInf__L SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.WJets_LNu_HT2500ToInf__L.xml">
+  <!ENTITY WJets_HT0200To0400__B SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.WJets_LNu_HT200To400__B.xml">
+  <!ENTITY WJets_HT0400To0600__B SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.WJets_LNu_HT400To600__B.xml">
+  <!ENTITY WJets_HT0600To0800__B SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.WJets_LNu_HT600To800__B.xml">
+  <!ENTITY WJets_HT0800To1200__B SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.WJets_LNu_HT800To1200__B.xml">
+  <!ENTITY WJets_HT1200To2500__B SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.WJets_LNu_HT1200To2500__B.xml">
+  <!ENTITY WJets_HT2500ToInf__B SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.WJets_LNu_HT2500ToInf__B.xml">
+  <!ENTITY WJets_HT0200To0400__C SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.WJets_LNu_HT200To400__C.xml">
+  <!ENTITY WJets_HT0400To0600__C SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.WJets_LNu_HT400To600__C.xml">
+  <!ENTITY WJets_HT0600To0800__C SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.WJets_LNu_HT600To800__C.xml">
+  <!ENTITY WJets_HT0800To1200__C SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.WJets_LNu_HT800To1200__C.xml">
+  <!ENTITY WJets_HT1200To2500__C SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.WJets_LNu_HT1200To2500__C.xml">
+  <!ENTITY WJets_HT2500ToInf__C SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.WJets_LNu_HT2500ToInf__C.xml">
+
+  <!ENTITY WW  SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.WW.xml">
+  <!ENTITY WZ  SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.WZ.xml">  
+  <!ENTITY ZZ  SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.ZZ.xml">
+  <!ENTITY STneg_tW   SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.STneg_tW_inc.xml">
+  <!ENTITY STpos_tW   SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.STpos_tW_inc.xml">
+  <!ENTITY ST_s-channel-4f   SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.ST_s-channel-4f.xml">
+  <!ENTITY ST_t-channel-4f   SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.ST_t-channel_4f.xml">
+
+  <!ENTITY DYJets_HT0100To0200 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/workdir/MC.DYJets_HT0100To0200.xml">
+  <!ENTITY DYJets_HT0200To0400 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/workdir/MC.DYJets_HT0200To0400.xml"> 
+ <!ENTITY DYJets_HT0400To0600 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/workdir/MC.DYJets_HT0400To0600.xml">
+
+ <!ENTITY QCD_HT0500To0700 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.QCD_HT500to700.xml"> 
+ <!ENTITY QCD_HT0700To1000 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.QCD_HT700to1000.xml">
+ <!ENTITY QCD_HT1000To1500 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.QCD_HT1000to1500.xml">
+ <!ENTITY QCD_HT1500To2000 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.QCD_HT1500to2000.xml">
+ <!ENTITY QCD_HT2000ToInf SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.QCD_HT2000toInf.xml">
+
+  <!ENTITY Zp01w0500 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.Zp01w0500.xml">
+  <!ENTITY Zp01w0750 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.Zp01w0750.xml">
+  <!ENTITY Zp01w1000 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.Zp01w1000.xml">
+  <!ENTITY Zp01w1250 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.Zp01w1250.xml">
+  <!ENTITY Zp01w1500 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.Zp01w1500.xml">
+  <!ENTITY Zp01w2000 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.Zp01w2000.xml">
+   <!ENTITY Zp01w2500 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.Zp01w2500.xml">
+   <!ENTITY Zp01w3000 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.Zp01w3000.xml">
+   <!ENTITY Zp01w3500 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.Zp01w3500.xml">
+  <!ENTITY Zp01w4000 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.Zp01w4000.xml">
+
+    <!ENTITY Zp10w0500 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.Zp10w0500.xml">
+  <!ENTITY Zp10w0750 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.Zp10w0750.xml">
+  <!ENTITY Zp10w1000 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.Zp10w1000.xml">
+  <!ENTITY Zp10w1250 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.Zp10w1250.xml">
+  <!ENTITY Zp10w1500 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.Zp10w1500.xml">
+  <!ENTITY Zp10w2000 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.Zp10w2000.xml">
+   <!ENTITY Zp10w2500 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.Zp10w2500.xml">
+   <!ENTITY Zp10w3000 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.Zp10w3000.xml">
+   <!ENTITY Zp10w3500 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.Zp10w3500.xml">
+  <!ENTITY Zp10w4000 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.Zp10w4000.xml">
+
+   <!ENTITY Zp30w1000 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.Zp30w1000.xml">
+   <!ENTITY Zp30w2000 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.Zp30w2000.xml">
+   <!ENTITY Zp30w3000 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.Zp30w3000.xml">
+   <!ENTITY Zp30w4000 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.Zp30w4000.xml">
+
+   <!ENTITY  RSGluonToTT_M-500 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.RSGluonToTT_M-500.xml">
+   <!ENTITY  RSGluonToTT_M-750 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.RSGluonToTT_M-750.xml">
+   <!ENTITY  RSGluonToTT_M-1000 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.RSGluonToTT_M-1000.xml">
+   <!ENTITY  RSGluonToTT_M-1250 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.RSGluonToTT_M-1250.xml">
+   <!ENTITY  RSGluonToTT_M-1500 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.RSGluonToTT_M-1500.xml">
+  <!ENTITY  RSGluonToTT_M-2000 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.RSGluonToTT_M-2000.xml">
+   <!ENTITY  RSGluonToTT_M-2500 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.RSGluonToTT_M-2500.xml">   
+   <!ENTITY  RSGluonToTT_M-3000 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.RSGluonToTT_M-3000.xml">
+   <!ENTITY  RSGluonToTT_M-3500 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.RSGluonToTT_M-3500.xml">
+   <!ENTITY  RSGluonToTT_M-4000 SYSTEM "/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/MC.RSGluonToTT_M-4000.xml">
+]>
+
+
+<!--
+   <ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="3"/>
+   <ConfigSGE RAM="2" DISK="2" Mail="xxxx.edu" Notification="as" Workdir="workdir"/>
+-->
+
+<JobConfiguration JobName="TTbarLJAnalysisLiteJob" OutputLevel="INFO">
+  <Library Name="libSUHH2ZprimeSemiLeptonic"/>
+  <Package Name="SUHH2ZprimeSemiLeptonic.par"/>
+
+    <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTdir;/" PostFix="" TargetLumi="12891.097839213">
+<!--
+
+        <InputData Version="SingleEG" Lumi="1" Type="DATA" NEventsMax="&NEVT;" Cacheable="False">
+    &SingleEG; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
+-->
+<!--
+    <InputData Version="SingleMU" Lumi="1" Type="DATA" NEventsMax="&NEVT;" Cacheable="False">
+    &SingleMU; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+-->
+
+<!--
+    <InputData Version="TTbar" Lumi="219323.8" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+    &TTbar; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+-->
+
+     <InputData Version="WJets_HT0200To0400__L" Lumi="45854.3" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+    &WJets_HT0200To0400__L; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+   <InputData Version="WJets_HT0400To0600__L" Lumi="121227.5" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+    &WJets_HT0400To0600__L; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+   <InputData Version="WJets_HT0600To0800__L" Lumi="255344.7" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+    &WJets_HT0600To0800__L; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+   <InputData Version="WJets_HT0800To1200__L" Lumi="1120191.1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+    &WJets_HT0800To1200__L; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+    <InputData Version="WJets_HT1200To2500__L" Lumi="4189005" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+    &WJets_HT1200To2500__L; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+    <InputData Version="WJets_HT2500ToInf__L" Lumi="63886636" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+    &WJets_HT2500ToInf__L; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+  
+   
+<!--
+
+   <InputData Version="WJets_HT0200To0400__B" Lumi="45854.3" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+    &WJets_HT0200To0400__B; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+   <InputData Version="WJets_HT0400To0600__B" Lumi="121227.5" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+    &WJets_HT0400To0600__B; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+   <InputData Version="WJets_HT0600To0800__B" Lumi="255344.7" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+    &WJets_HT0600To0800__B; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+   <InputData Version="WJets_HT0800To1200__B" Lumi="1120191.1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+    &WJets_HT0800To1200__B; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+    <InputData Version="WJets_HT1200To2500__B" Lumi="4189005" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+    &WJets_HT1200To2500__B; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+    <InputData Version="WJets_HT2500ToInf__B" Lumi="63886636" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+    &WJets_HT2500ToInf__B; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+
+
+    <InputData Version="WJets_HT0200To0400__C" Lumi="45854.3" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+    &WJets_HT0200To0400__C; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+   <InputData Version="WJets_HT0400To0600__C" Lumi="121227.5" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+    &WJets_HT0400To0600__C; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+   <InputData Version="WJets_HT0600To0800__C" Lumi="255344.7" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+    &WJets_HT0600To0800__C; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+   <InputData Version="WJets_HT0800To1200__C" Lumi="1120191.1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+    &WJets_HT0800To1200__C; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+    <InputData Version="WJets_HT1200To2500__C" Lumi="4189005" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+    &WJets_HT1200To2500__C; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+    <InputData Version="WJets_HT2500ToInf__C" Lumi="63886636" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+    &WJets_HT2500ToInf__C; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+
+
+   
+    <InputData Version="WW" Lumi="8367.4" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+    &WW; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+    <InputData Version="WZ" Lumi="21217.9" Type="MC" NEventsMax="&NEVT;" Cacheable="False">    &WZ; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+
+    <InputData Version="ZZ" Lumi="59874.8" Type="MC" NEventsMax="&NEVT;" Cacheable="False">    &ZZ; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+
+   <InputData Version="STneg_tW" Lumi="27179.8" Type="MC" NEventsMax="&NEVT;" Cacheable="False">    &STneg_tW; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+
+   <InputData Version="STpos_tW" Lumi="28044.9" Type="MC" NEventsMax="&NEVT;" Cacheable="False">    &STpos_tW; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+
+  <InputData Version="ST_s-channel-4f" Lumi="1003180" Type="MC" NEventsMax="&NEVT;" Cacheable="False">    &ST_s-channel-4f; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+
+    
+    <InputData Version="ST_t-channel-4f" Lumi="23567.7" Type="MC" NEventsMax="&NEVT;" Cacheable="False">    &ST_t-channel-4f; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+
+    <InputData Version="DYJets_HT0100To0200" Lumi="46415.8" Type="MC" NEventsMax="&NEVT;" Cacheable="False">    &DYJets_HT0100To0200; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+
+    <InputData Version="DYJets_HT0200To0400" Lumi="173698.5" Type="MC" NEventsMax="&NEVT;" Cacheable="False">    &DYJets_HT0200To0400; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>  
+
+ <InputData Version="DYJets_HT0400To0600" Lumi="417950.9" Type="MC" NEventsMax="&NEVT;" Cacheable="False">    &DYJets_HT0400To0600; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+  
+    <InputData Version="QCD_HT0500To0700" Lumi="585.21" Type="MC" NEventsMax="&NEVT;" Cacheable="False">    &QCD_HT0500To0700; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+
+   <InputData Version="QCD_HT0700To1000" Lumi="2286.87" Type="MC" NEventsMax="&NEVT;" Cacheable="False">    &QCD_HT0700To1000; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+
+   <InputData Version="QCD_HT1000To1500" Lumi="4051.11" Type="MC" NEventsMax="&NEVT;" Cacheable="False">    &QCD_HT1000To1500; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+  
+  <InputData Version="QCD_HT1500To2000" Lumi="32764.3" Type="MC" NEventsMax="&NEVT;" Cacheable="False">    &QCD_HT1500To2000; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+ 
+   <InputData Version="QCD_HT2000ToInf" Lumi="78941.0" Type="MC" NEventsMax="&NEVT;" Cacheable="False">    &QCD_HT2000ToInf; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+   -->
+   <InputData Version="Zp01w0500" Lumi="101258" Type="MC" NEventsMax="&NEVT;" Cacheable="False">    &Zp01w0500; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+
+  <InputData Version="Zp01w0750" Lumi="91349" Type="MC" NEventsMax="&NEVT;" Cacheable="False">    &Zp01w0750; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+
+   <InputData Version="Zp01w1000" Lumi="103785" Type="MC" NEventsMax="&NEVT;" Cacheable="False">    &Zp01w1000; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>   
+
+   <InputData Version="Zp01w1250" Lumi="102833" Type="MC" NEventsMax="&NEVT;" Cacheable="False">    &Zp01w1250; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+
+   <InputData Version="Zp01w1500" Lumi="99690" Type="MC" NEventsMax="&NEVT;" Cacheable="False">    &Zp01w1500; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+
+   <InputData Version="Zp01w2000" Lumi="202556" Type="MC" NEventsMax="&NEVT;" Cacheable="False">    &Zp01w2000; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+
+   <InputData Version="Zp01w2500" Lumi="100288" Type="MC" NEventsMax="&NEVT;" Cacheable="False">    &Zp01w2500; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+
+
+    <InputData Version="Zp01w3000" Lumi="91900" Type="MC" NEventsMax="&NEVT;" Cacheable="False">    &Zp01w3000; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+
+     <InputData Version="Zp01w3500" Lumi="91004" Type="MC" NEventsMax="&NEVT;" Cacheable="False">    &Zp01w3500; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+
+    <InputData Version="Zp01w4000" Lumi="107914" Type="MC" NEventsMax="&NEVT;" Cacheable="False">    &Zp01w4000; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+
+    <InputData Version="Zp10w0500" Lumi="101189" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+       &Zp10w0500; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="Zp10w0750" Lumi="100820" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+       &Zp10w0750; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="Zp10w1000" Lumi="101056" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+       &Zp10w1000; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="Zp10w1250" Lumi="96503" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+       &Zp10w1250; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="Zp10w1500" Lumi="111108" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+       &Zp10w1500; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="Zp10w2000" Lumi="104119" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+       &Zp10w2000; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+   <InputData Version="Zp10w2500" Lumi="96077" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+       &Zp10w2500; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="Zp10w3000" Lumi="171658" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+       &Zp10w3000;  <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="Zp10w3500" Lumi="98991" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+       &Zp10w3500;  <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="Zp10w4000" Lumi="102411" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+       &Zp10w4000; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="Zp30w1000" Lumi="79157" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+       &Zp30w1000; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="Zp30w2000" Lumi="113084" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+       &Zp30w2000; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="Zp30w3000" Lumi="89125" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+       &Zp30w3000;<InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="Zp30w4000" Lumi="88798" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+       &Zp30w4000;<InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+
+      <InputData Version="RSGluonToTT_M-500" Lumi="100000" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+         &RSGluonToTT_M-500;   <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="RSGluonToTT_M-750" Lumi="100000" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+         &RSGluonToTT_M-750;   <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="RSGluonToTT_M-1000" Lumi="100000" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+         &RSGluonToTT_M-1000;  <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="RSGluonToTT_M-1250" Lumi="100000" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+         &RSGluonToTT_M-1250;  <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="RSGluonToTT_M-1500" Lumi="94175" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+         &RSGluonToTT_M-1500;  <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="RSGluonToTT_M-2000" Lumi="100000" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+         &RSGluonToTT_M-2000;  <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="RSGluonToTT_M-2500" Lumi="96464" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+         &RSGluonToTT_M-2500;  <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="RSGluonToTT_M-3000" Lumi="99755" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+         &RSGluonToTT_M-3000;  <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="RSGluonToTT_M-4000" Lumi="99136" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+        &RSGluonToTT_M-4000;   <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+
+   <UserConfig>
+      <Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices"/>
+      <Item Name="GenParticleCollection"   Value="GenParticles"/>
+      <Item Name="ElectronCollection"      Value="slimmedElectronsUSER"/>
+      <Item Name="MuonCollection"          Value="slimmedMuonsUSER"/>
+      <Item Name="TauCollection"           Value="slimmedTaus"/>
+      <Item Name="JetCollection"           Value="slimmedJets"/>
+      <Item Name="GenJetCollection"        Value="slimmedGenJets"/>
+      <Item Name="TopJetCollection"        Value="slimmedJetsAK8_SoftDrop"/>
+      <Item Name="TopJetCollectionGEN"     Value="slimmedGenJetsAK8"/>
+      <Item Name="METName"                 Value="slimmedMETs"/>
+
+<!--      <Item Name="use_sframe_weight" Value="true"/>
+    -->
+      <Item Name="keyword" Value="&KEYW;"/>
+
+      <Item Name="channel" Value="&channel;"/>
+      <Item Name="trigger1" Value="&HLT;"/>
+      <Item Name="trigger2" Value="&HLT_OR;"/>
+      <Item Name="lumi_file" Value="/nfs/dust/cms/user/dansand/UHH2_2015/80X_ICHEP/CMSSW_8_0_8/src/UHH2/common/data/Cert_271036-276811_13TeV_PromptReco_Collisions16_JSON.root"/>
+       <Item Name="pileup_directory"           Value="/nfs/dust/cms/user/dansand/UHH2_2015/80X_ICHEP/CMSSW_8_0_8/src/UHH2/common/data/MyMCPileupHistogram.root"/>
+        <Item Name="pileup_directory_data"      Value="/nfs/dust/cms/user/dansand/UHH2_2015/80X_ICHEP/CMSSW_8_0_8/src/UHH2/common/data/MyDataPileupHistogram.root"/>
+        <Item Name="pileup_directory_data_up"   Value="/nfs/dust/cms/user/dansand/UHH2_2015/80X_ICHEP/CMSSW_8_0_8/src/UHH2/common/data/MyDataPileupHistogram.root"/>
+        <Item Name="pileup_directory_data_down" Value="/nfs/dust/cms/user/dansand/UHH2_2015/80X_ICHEP/CMSSW_8_0_8/src/UHH2/common/data/MyDataPileupHistogram.root"/>
+
+
+       <!-- <Item Name="muonID_SF_file"  Value="/nfs/dust/cms/user/dansand/UHH2_2015/CMSSW_7_6_3/src/UHH2/common/data/MuonID_Z_RunCD_Reco76X_Feb15.root"/>
+       -->
+       <Item Name="muonID_SF_file" Value="/nfs/dust/cms/user/dansand/UHH2_2015/80X_ICHEP/CMSSW_8_0_8/src/UHH2/common/data/MuonID_Z_RunBCD_prompt80X_7p65.root"/>
+       <Item Name="muonID_SF_directory"  Value="MC_NUM_TightIDandIPCut_DEN_genTracks_PAR_pt_spliteta_bin1"/>
+
+        <Item Name="muonHLT_SF_file" Value="/nfs/dust/cms/user/dansand/UHH2_2015/80X_ICHEP/CMSSW_8_0_8/src/UHH2/common/data/SingleMuonTrigger_Z_RunBCD_prompt80X_7p65.root"/>
+        <Item Name="muonHLT2_SF_directory" Value="Mu45_eta2p1_PtEtaBins_Run273158_to_274093/efficienciesDATA/"/>
+        <Item Name="muonHLT_SF_directory"  Value="Mu45_eta2p1_PtEtaBins_Run274094_to_276097/efficienciesDATA/"/>
+        <Item Name="muonTRK_SF_file" Value="/nfs/dust/cms/user/dansand/UHH2_2015/80X_ICHEP/CMSSW_8_0_8/src/UHH2/ZprimeSemiLeptonic/data/general_eff_aeta_dr030e030_corr_ratio.txt"/>
+        <Item Name="elecID_SF_file"  Value="/nfs/dust/cms/user/dansand/UHH2_2015/80X_ICHEP/CMSSW_8_0_8/src/UHH2/common/data/egammaEffi.txt_SF2D_TightCutBased_12_9fb.root"/>
+        <Item Name="elecGsf_SF_file" Value="/nfs/dust/cms/user/dansand/UHH2_2015/80X_ICHEP/CMSSW_8_0_8/src/UHH2/common/data/egammaEffi.txt_SF2D_GsfTrkEff_12p9fb.root"/>
+   
+
+        <Item Name="btag_wp"         Value="CSVM"/>
+        <Item Name="MCBtagEfficiencies"  Value ="/nfs/dust/cms/user/dansand/UHH2_2015/80X_ICHEP/CMSSW_8_0_8/src/UHH2/ZprimeSemiLeptonic/data/BTagMCEfficiencyHists_elec.root"/><!--
+        <Item Name="MCBtagEfficiencies"   Value = "/afs/desy.de/user/k/karavdia/CMSSW_8_0_8_patch1/src/UHH2/ZprimeSemiLeptonic/data/BTagMCEfficiencyHists_elec.root"/>-->
+        <Item Name="BTagCalibration" Value = "/nfs/dust/cms/user/dansand/UHH2_2015/80X_ICHEP/CMSSW_8_0_8/src/UHH2/common/data/CSVv2_ichep.csv" />
+
+
+
+
+
+      <Item Name="ttag_wp"         Value="mr030_wp1"/>
+      <Item Name="ttag_SFs"        Value="/nfs/dust/cms/user/dansand/UHH2_2015/80X_ICHEP/CMSSW_8_0_8/src/UHH2/ZprimeSemiLeptonic/data/ttagSF__2016_mr030_wp1.csv"/>
+      <Item Name="ttag_eff"        Value="/nfs/dust/cms/user/dansand/UHH2_2015/80X_ICHEP/CMSSW_8_0_8/src/UHH2/ZprimeSemiLeptonic/data/TTAGeff.root"/>
+      <Item Name="ttag_eff__jetL"  Value="&channel;/wjets/tjpj_chi2tlep__TTAG/tjetA__pt__l"/>
+      <Item Name="ttag_eff__jetT"  Value="&channel;/ttbar/tjpj_chi2tlep__TTAG/tjetA__pt__t"/>
+      <Item Name="store_PDF_weights" Value="true"/>
+       <Item Name="use_sframe_weight" Value="false"/>
+      <Item Name="AnalysisModule" Value="VariableDumpModule"/>
+    </UserConfig>
+
+  </Cycle>
+</JobConfiguration>

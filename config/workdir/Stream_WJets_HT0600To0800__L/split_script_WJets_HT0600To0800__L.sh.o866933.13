@@ -1,0 +1,64 @@
+ ( INFO  )  SCycleController   : Initializing
+ ( INFO  )  SCycleController   : Deleting all analysis cycle algorithms from memory
+ ( INFO  )  SCycleController   : Reading xml file: 'WJets_HT0600To0800__L_13.xml'
+ ( INFO  )  SCycleController   : Created cycle 'uhh2::AnalysisModuleRunner'
+ ( INFO  )  SCycleBaseExec     : Initializing from configuration
+ ( INFO  )  SCycleBaseExec     : Reading SInputData: MC - WJets_HT0600To0800__L
+ ( INFO  )  SCycleConfig       : ===========================================================
+ ( INFO  )  SCycleConfig       :                     Cycle configuration
+ ( INFO  )  SCycleConfig       :   - Running mode: LOCAL
+ ( INFO  )  SCycleConfig       :   - Target luminosity: 12891.1
+ ( INFO  )  SCycleConfig       :   - Output directory: /nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/ttbarLJAnalysisDumpVariables/T1_v01/elec/v1/workdir/
+ ( INFO  )  SCycleConfig       :   - Post-fix: _12
+ ( INFO  )  SInputData         :  ---------------------------------------------------------
+ ( INFO  )  SInputData         :  Type               : MC
+ ( INFO  )  SInputData         :  Version            : WJets_HT0600To0800__L
+ ( INFO  )  SInputData         :  Total luminosity   : 255345pb-1
+ ( INFO  )  SInputData         :  NEventsMax         : -1
+ ( INFO  )  SInputData         :  NEventsSkip        : 0
+ ( INFO  )  SInputData         :  Cacheable          : No
+ ( INFO  )  SInputData         :  Skip validation    : No
+ ( INFO  )  SInputData         :  Skip file lookup   : No
+ ( INFO  )  SInputData         :  Input File         : '/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/uhh2.AnalysisModuleRunner.MC.WJets_LNu_HT600To800__L_8.root' (file) | '0' (lumi)
+ ( INFO  )  SInputData         :  Input File         : '/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/uhh2.AnalysisModuleRunner.MC.WJets_LNu_HT600To800__L_9.root' (file) | '0' (lumi)
+ ( INFO  )  SInputData         :  Tree               : 'AnalysisTree' (name) | 'Flat input tree' (type)
+ ( INFO  )  SInputData         :  Tree               : 'AnalysisTree' (name) | 'Flat output tree' (type)
+ ( INFO  )  SInputData         :  ---------------------------------------------------------
+ ( INFO  )  SCycleConfig       : ===========================================================
+ ( INFO  )  SCycleController   : Job 'TTbarLJAnalysisLiteJob' configured
+ ( INFO  )  SCycleController   : Time needed for initialisation:   0.74 s
+ ( INFO  )  SCycleController   : Entering ExecuteAllCycles()
+ ( INFO  )  SInputData         : Input type "MC" version "WJets_HT0600To0800__L" : 26952 events
+ ( INFO  )  SCycleController   : Executing Cycle #0 ('uhh2::AnalysisModuleRunner') locally
+ ( INFO  )  SCycleController   : Processing input data type: MC version: WJets_HT0600To0800__L
+ ( INFO  )  SCycleBaseExec     : Initialised InputData "MC" (Version:WJets_HT0600To0800__L) on worker node
+ ( INFO  )  SCycleBaseExec     : Processing entry: 999 (999 / 26952 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 1999 (1999 / 26952 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 2999 (2999 / 26952 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 3999 (3999 / 26952 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 4999 (4999 / 26952 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 5999 (5999 / 26952 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 6999 (6999 / 26952 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 7999 (7999 / 26952 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 8999 (8999 / 26952 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 9999 (9999 / 26952 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 10999 (10999 / 26952 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 11999 (11999 / 26952 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 12999 (12999 / 26952 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 533 (13999 / 26952 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 1533 (14999 / 26952 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 2533 (15999 / 26952 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 3533 (16999 / 26952 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 4533 (17999 / 26952 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 5533 (18999 / 26952 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 6533 (19999 / 26952 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 7533 (20999 / 26952 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 8533 (21999 / 26952 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 9533 (22999 / 26952 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 10533 (23999 / 26952 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 11533 (24999 / 26952 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 12533 (25999 / 26952 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Terminated InputData "MC" (Version:WJets_HT0600To0800__L) on worker node
+ ( INFO  )  SCycleController   : Writing output of "uhh2::AnalysisModuleRunner" to: /nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/ttbarLJAnalysisDumpVariables/T1_v01/elec/v1/workdir/uhh2.AnalysisModuleRunner.MC.WJets_HT0600To0800__L_12.root
+ ( INFO  )  SCycleController   : Overall cycle statistics:
+ ( INFO  )  SCycleController   :      26952 Events - Real time  25.26 s  -  1067 Hz | CPU time  22.75 s  -  1185 Hz

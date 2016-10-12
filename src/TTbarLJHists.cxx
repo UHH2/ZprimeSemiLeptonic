@@ -30,7 +30,7 @@ TTbarLJHists::TTbarLJHists(uhh2::Context& ctx, const std::string& dirname):
   h_jet1_m = ctx.get_handle<float>("jet1_m");
   h_jet2_m = ctx.get_handle<float>("jet2_m");
   h_ht_met_lep_norm = ctx.get_handle<float>("ht_met_lep_norm");
-  
+
 }
 
 TTbarLJHists::TTbarLJHists(uhh2::Context& ctx, const std::string& dirname, const TopJetId& ttag_id, const float dr__ttag_jet):
@@ -44,12 +44,12 @@ TTbarLJHists::TTbarLJHists(uhh2::Context& ctx, const std::string& dirname, const
   h_jet1_csv = ctx.get_handle<float>("jet1_csv");
   h_jet2_csv = ctx.get_handle<float>("jet2_csv");
   h_DRpt = ctx.get_handle<float>("DRpt");
+
   h_lep1__pTrel_jet_norm = ctx.get_handle<float>("lep1__pTrel_jet_norm");
   h_lep1__minDR_norm = ctx.get_handle<float>("lep1__minDR_jet");
   h_ht_met_lep_norm = ctx.get_handle<float>("ht_met_lep_norm");
   h_jet1_m = ctx.get_handle<float>("jet1_m");
   h_jet2_m = ctx.get_handle<float>("jet2_m");
- 
 }
 
 void TTbarLJHists::init(){
@@ -505,6 +505,7 @@ void TTbarLJHists::fill(const uhh2::Event& event){
   jet1_csv->Fill(event.get(h_jet1_csv),weight);
   jet2_csv->Fill(event.get(h_jet2_csv),weight);
   jet2_m->Fill(event.get(h_jet2_m),weight);
+
   DRpt->Fill(event.get(h_DRpt),weight);
   ht_met_lep_norm->Fill(event.get(h_ht_met_lep_norm),weight);
   lep1__minDR_norm->Fill(event.get(h_lep1__minDR_norm),weight);
@@ -512,5 +513,6 @@ void TTbarLJHists::fill(const uhh2::Event& event){
   s33->Fill(event.get(h_s33),weight);
   //  njets->Fill(event.get(h_njets),weight);
   
+
   return;
 }

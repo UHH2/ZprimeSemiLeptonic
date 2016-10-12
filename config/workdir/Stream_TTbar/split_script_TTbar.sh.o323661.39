@@ -1,0 +1,110 @@
+ ( INFO  )  SCycleController   : Initializing
+ ( INFO  )  SCycleController   : Deleting all analysis cycle algorithms from memory
+ ( INFO  )  SCycleController   : Reading xml file: 'TTbar_39.xml'
+ ( INFO  )  SCycleController   : Created cycle 'uhh2::AnalysisModuleRunner'
+ ( INFO  )  SCycleBaseExec     : Initializing from configuration
+ ( INFO  )  SCycleBaseExec     : Reading SInputData: MC - TTbar
+ ( INFO  )  SCycleConfig       : ===========================================================
+ ( INFO  )  SCycleConfig       :                     Cycle configuration
+ ( INFO  )  SCycleConfig       :   - Running mode: LOCAL
+ ( INFO  )  SCycleConfig       :   - Target luminosity: 12891.1
+ ( INFO  )  SCycleConfig       :   - Output directory: /nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/ttbarLJAnalysis/ICHEP_RESmeeting/T1_v01/elec/workdir/
+ ( INFO  )  SCycleConfig       :   - Post-fix: _38
+ ( INFO  )  SInputData         :  ---------------------------------------------------------
+ ( INFO  )  SInputData         :  Type               : MC
+ ( INFO  )  SInputData         :  Version            : TTbar
+ ( INFO  )  SInputData         :  Total luminosity   : 219324pb-1
+ ( INFO  )  SInputData         :  NEventsMax         : -1
+ ( INFO  )  SInputData         :  NEventsSkip        : 0
+ ( INFO  )  SInputData         :  Cacheable          : No
+ ( INFO  )  SInputData         :  Skip validation    : No
+ ( INFO  )  SInputData         :  Skip file lookup   : No
+ ( INFO  )  SInputData         :  Input File         : '/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/uhh2.AnalysisModuleRunner.MC.TTbar_3.root' (file) | '0' (lumi)
+ ( INFO  )  SInputData         :  Input File         : '/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/uhh2.AnalysisModuleRunner.MC.TTbar_30.root' (file) | '0' (lumi)
+ ( INFO  )  SInputData         :  Input File         : '/nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/skimming/v01/newdata/uhh2.AnalysisModuleRunner.MC.TTbar_31.root' (file) | '0' (lumi)
+ ( INFO  )  SInputData         :  Tree               : 'AnalysisTree' (name) | 'Flat input tree' (type)
+ ( INFO  )  SInputData         :  Tree               : 'AnalysisTree' (name) | 'Flat output tree' (type)
+ ( INFO  )  SInputData         :  ---------------------------------------------------------
+ ( INFO  )  SCycleConfig       : ===========================================================
+ ( INFO  )  SCycleController   : Job 'TTbarLJAnalysisLiteJob' configured
+ ( INFO  )  SCycleController   : Time needed for initialisation:    1.1 s
+ ( INFO  )  SCycleController   : Entering ExecuteAllCycles()
+ ( INFO  )  SInputData         : Input type "MC" version "TTbar" : 55367 events
+ ( INFO  )  SCycleController   : Executing Cycle #0 ('uhh2::AnalysisModuleRunner') locally
+ ( INFO  )  SCycleController   : Processing input data type: MC version: TTbar
+ ( INFO  )  SCycleBaseExec     : Initialised InputData "MC" (Version:TTbar) on worker node
+--- Reader                   : Booking "BDT method" of type "BDT" from /nfs/dust/cms/user/dansand/UHH2_2015/80X_ICHEP/CMSSW_8_0_8/src/UHH2/ZprimeSemiLeptonic/TMVA_weights/80X/weights_80X_10variables_mu/TMVAClassification_BDT.weights.xml.
+--- MethodBase               : Reading weight file: /nfs/dust/cms/user/dansand/UHH2_2015/80X_ICHEP/CMSSW_8_0_8/src/UHH2/ZprimeSemiLeptonic/TMVA_weights/80X/weights_80X_10variables_mu/TMVAClassification_BDT.weights.xml
+--- BDT                      : Read method "BDT" of type "BDT"
+--- BDT                      : MVA method was trained with TMVA Version: 4.2.0
+--- BDT                      : MVA method was trained with ROOT Version: 5.34/18
+--- DataSetInfo              : Added class "Signal"	 with internal class number 0
+--- DataSetInfo              : Added class "Background"	 with internal class number 1
+--- Reader                   : Booked classifier "BDT" of type: "BDT"
+--- Reader                   : Booking "BDT::BDTG" of type "BDT" from /nfs/dust/cms/user/dansand/UHH2_2015/80X_BDT_v1/CMSSW_8_0_8/src/UHH2/ZprimeSemiLeptonic/TMVA_weights/76X/Homemade_TTbarMVAClassification_BDTG_DataDriven_MET40_20vras.weights.xml.
+--- MethodBase               : Reading weight file: /nfs/dust/cms/user/dansand/UHH2_2015/80X_BDT_v1/CMSSW_8_0_8/src/UHH2/ZprimeSemiLeptonic/TMVA_weights/76X/Homemade_TTbarMVAClassification_BDTG_DataDriven_MET40_20vras.weights.xml
+--- BDTG                     : Read method "BDTG" of type "BDT"
+--- BDTG                     : MVA method was trained with TMVA Version: 4.2.1
+--- BDTG                     : MVA method was trained with ROOT Version: 6.05/02
+--- DataSetInfo              : Added class "Signal"	 with internal class number 0
+--- DataSetInfo              : Added class "Background"	 with internal class number 1
+--- Reader                   : Booked classifier "BDTG" of type: "BDT"
+ ( INFO  )  SCycleBaseExec     : Processing entry: 999 (999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 1999 (1999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 2999 (2999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 3999 (3999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 4999 (4999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 5999 (5999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 6999 (6999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 7999 (7999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 8999 (8999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 9999 (9999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 10999 (10999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 11999 (11999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 12999 (12999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 13999 (13999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 14999 (14999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 15999 (15999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 16999 (16999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 234 (17999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 1234 (18999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 2234 (19999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 3234 (20999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 4234 (21999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 5234 (22999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 6234 (23999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 7234 (24999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 8234 (25999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 9234 (26999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 10234 (27999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 11234 (28999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 12234 (29999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 13234 (30999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 14234 (31999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 15234 (32999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 16234 (33999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 17234 (34999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 18234 (35999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 192 (36999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 1192 (37999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 2192 (38999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 3192 (39999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 4192 (40999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 5192 (41999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 6192 (42999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 7192 (43999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 8192 (44999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 9192 (45999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 10192 (46999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 11192 (47999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 12192 (48999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 13192 (49999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 14192 (50999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 15192 (51999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 16192 (52999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 17192 (53999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Processing entry: 18192 (54999 / 55367 events processed so far)
+ ( INFO  )  SCycleBaseExec     : Terminated InputData "MC" (Version:TTbar) on worker node
+ ( INFO  )  SCycleController   : Writing output of "uhh2::AnalysisModuleRunner" to: /nfs/dust/cms/user/dansand/AnalysisOutput/13_TeV/80X/ICHEP/ttbarLJAnalysis/ICHEP_RESmeeting/T1_v01/elec/workdir/uhh2.AnalysisModuleRunner.MC.TTbar_38.root
+ ( INFO  )  SCycleController   : Overall cycle statistics:
+ ( INFO  )  SCycleController   :      55367 Events - Real time 222.80 s  -   249 Hz | CPU time 219.90 s  -   252 Hz
