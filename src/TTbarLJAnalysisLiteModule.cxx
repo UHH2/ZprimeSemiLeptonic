@@ -365,16 +365,19 @@ class TTbarLJAnalysisLiteModule : public ModuleBASE {
   int rot_num;
   //Event::Handle<float>    h_jet1_pt;                 //9
   //Event::Handle<float>    h_jet2_pt;                 //10
+
   Event::Handle<float>    h_lep1__pTrel_jet_norm;     //11
   Event::Handle<float>    h_ht_met_lep_norm;          //12
   Event::Handle<float>    h_jet1_csv;                //13
   Event::Handle<float>    h_jet2_csv;                //14
   Event::Handle<float>    h_DRpt;                     //15
+
   Event::Handle<float>    h_njets;                    //16
   Event::Handle<float>    h_jet1_m;                  //17
   Event::Handle<float>    h_jet2_m;                  //18
   Event::Handle<float>    h_lep1__minDR_norm;   //19
   Event::Handle<float> h_s33; 
+
 
 };
 
@@ -500,6 +503,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
       HT_lep   =   0.;
 
       triangul_cut = false;
+
       topleppt_cut = false;
 
       muo1_pt_max_ = 0;
@@ -634,7 +638,6 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
     }
   }
 else if(keyword == "T0_v08" || keyword == "T1_v08"){
-
     if     (keyword == "T0_v08") use_ttagging_ = false;
     else if(keyword == "T1_v08") use_ttagging_ = true;
     if(channel_ == muon){
@@ -824,12 +827,14 @@ else if(keyword == "T0_v08" || keyword == "T1_v08"){
     "chi2",
     "chi2__t0b0",
     "chi2__t0b1",
+
     "chi2__t0b2",
     "chi2__t1",
     "chi2__t1__WJetsBDT",
     "chi2__t0__WJetsBDT",
     "chi2__t1__antiWJetsBDT",
     "chi2__t0__antiWJetsBDT",
+
 
   });
 
@@ -850,7 +855,6 @@ else if(keyword == "T0_v08" || keyword == "T1_v08"){
   //     //    "chi2_L2__t1b1",
   //     //    "chi2_L2__t1b2",
   // });
-
 
   // for(const auto& tag : htags_3){
 
@@ -1178,6 +1182,7 @@ else if(keyword == "T0_v08" || keyword == "T1_v08"){
 
   /// Homemade ttbar MVA output for QCD
 
+
   // --- Create the Reader object
   TMVA_response = -100;
   tt_TMVA_response = ctx.declare_event_output<float>("TMVA_response"); // this var is ploted in hist class, should always be filled
@@ -1250,7 +1255,6 @@ else if(keyword == "T0_v08" || keyword == "T1_v08"){
     //    TString weightfile = dir + "Homemade_TTbarMVAClassification_BDTG_12Vars.weights.xml";
     TString weightfile = dir + "Homemade_TTbarMVAClassification_BDTG_blep.weights.xml";
     reader->BookMVA(methodName, weightfile);
-
   }
   // ////
 
@@ -1811,9 +1815,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   TLorentzVector jet2__p4(event.jets->at(1).v4().Px(), event.jets->at(1).v4().Py(), event.jets->at(1).v4().Pz(), event.jets->at(1).v4().E());
 
   event.set(h_jet1           , jet1__p4);
-  event.set(h_jet2           , jet2__p4);
-
- 
+  event.set(h_jet2           , jet2__p4); 
   const int jet_n = event.jets->size();
   //event.set(tt_nJets,jet_n);
   //leading jet
@@ -1864,6 +1866,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   
   //----------------------------------
 
+
   // lepton
   const Particle* lep2(0);
   if(lepN == 2){
@@ -1913,7 +1916,6 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
       lep2__pTrel_jet = ((Electron*) lep2)->get_tag(Electron::twodcut_pTrel);
       lep2__p4        = TLorentzVector(lep2->v4().Px(), lep2->v4().Py(), lep2->v4().Pz(), lep2->v4().E());
     }
-
 
 
     //Set variables for MVA ------------
@@ -2035,6 +2037,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   //
 
   
+
   // ttbar reco hyp
   const ReconstructionHypothesis* rec_ttbar = get_best_hypothesis(ttbar_hyps, "Chi2");
   if(!rec_ttbar) throw std::runtime_error("TTbarLJAnalysisLiteModule::process -- logic error: ttbar reconstruction hypothesis (\"get_best_hypothesis\", discr=Chi2) not found");
@@ -2042,8 +2045,6 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   event.set(h_MET__pz, MET__pz);
 
   const float rec_chi2 = rec_ttbar->discriminator("Chi2");
-  //event.set(h_rec_chi2, rec_chi2);
-
   const LorentzVector tlep(rec_ttbar->toplep_v4());
   const LorentzVector thad(rec_ttbar->tophad_v4());
 
@@ -2107,7 +2108,6 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
 
 
     if(channel_ == elec){
-
       varMVA[0] = lep_pt/rec_ttbar_M_;
       varMVA[1] = fabs(lep_eta);
       varMVA[2] = log(lep1__minDR_jet);
