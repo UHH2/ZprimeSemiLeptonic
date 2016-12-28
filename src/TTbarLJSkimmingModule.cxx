@@ -18,6 +18,7 @@
 #include <UHH2/common/include/TTbarGen.h>
 #include <UHH2/common/include/Utils.h>
 #include <UHH2/common/include/AdditionalSelections.h>
+#include "UHH2/common/include/LuminosityHists.h"
 
 #include <UHH2/ZprimeSemiLeptonic/include/ModuleBASE.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicSelections.h>
@@ -67,6 +68,7 @@ class TTbarLJSkimmingModule : public ModuleBASE {
 
   Event::Handle<float> tt_TMVA_response;// response of TMVA method, dummy value at this step
   bool isQCDstudy;
+  std::unique_ptr<Hists> lumihists;
 
 };
 
@@ -85,7 +87,8 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
     isQCDstudy = false;
     ele_pt = 45.;
     muon_pt = 45.;
-    eleID  = ElectronID_Spring15_25ns_tight_noIso;
+    //    eleID  = ElectronID_Spring15_25ns_tight_noIso;
+    eleID  = ElectronID_Spring16_tight_noIso;
     //    eleID = ElectronID_MVAnotrig_Spring15_25ns_loose; //TEST 
     use_miniiso = false;
 
@@ -101,8 +104,11 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
     isQCDstudy = true;
     ele_pt = 45.;
     muon_pt = 45.;
-    eleID  = ElectronID_Spring15_25ns_tight_noIso;
+    //  eleID  = ElectronID_Spring15_25ns_tight_noIso;
+    //    eleID = ElectronID_MVAnotrig_Spring15_25ns_veryloose;//TEST
     //    eleID = ElectronID_MVAnotrig_Spring15_25ns_loose; //TEST 
+    //    eleID  = ElectronID_Spring15_25ns_tight_noIso;
+    eleID  = ElectronID_Spring16_tight_noIso;
     use_miniiso = false;
 
     jet1_pt = 150.;
@@ -110,6 +116,24 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
 
     MET     =   0.;
     HT_lep  =   0.;
+    }
+    else if(keyword == "v03"){
+      //isQCDstudy = true;
+      isQCDstudy = false;
+      ele_pt = 45.;
+      muon_pt = 45.;
+      //  eleID  = ElectronID_Spring15_25ns_tight_noIso;
+      //    eleID = ElectronID_MVAnotrig_Spring15_25ns_veryloose;//TEST
+      //      eleID = ElectronID_MVAnotrig_Spring15_25ns_loose; //TEST 
+      //      eleID  = ElectronID_Spring15_25ns_tight_noIso;
+      eleID  = ElectronID_Spring16_tight_noIso;
+      use_miniiso = false;
+      
+      jet1_pt = 150.;
+      jet2_pt =  50.;
+      
+      MET     =   0.;
+      HT_lep  =   0.;
     }
     else throw std::runtime_error("TTbarLJSkimmingModule::TTbarLJSkimmingModule -- undefined \"keyword\" argument in .xml configuration file: "+keyword);
   }
@@ -126,6 +150,7 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
   metfilters_sel->add<TriggerSelection>("EcalDeadCellTriggerPrimitiveFilter", "Flag_EcalDeadCellTriggerPrimitiveFilter");
   metfilters_sel->add<TriggerSelection>("1-good-vtx", "Flag_goodVertices");
   metfilters_sel->add<TriggerSelection>("eeBadScFilter", "Flag_eeBadScFilter");
+  metfilters_sel->add<TriggerSelection>("globalTightHalo2016Filter", "Flag_globalTightHalo2016Filter");
   //metfilters_sel->add<TriggerSelection>("CSCTightHalo2016Filter", "Flag_CSCTightHalo2016Filter"); //TEST will be available in 80X miniAODv2 
   //  metfilters_sel->add<TriggerSelection>("chargedHadronTrackResolutionFilter", "Flag_chargedHadronTrackResolutionFilter"); 
   // metfilters_sel->add<TriggerSelection>("muonBadTrackFilter", "Flag_muonBadTrackFilter");
@@ -176,6 +201,7 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
   //
 
   const JetId jetID(JetPFID(JetPFID::WP_LOOSE));
+  //  const JetId jetID(JetPFID(JetPFID::WP_TIGHT));
 
   std::vector<std::string> JEC_AK4, JEC_AK8;
   if(isMC){
@@ -236,6 +262,8 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
   }
   ////
 
+  lumihists.reset(new LuminosityHists(ctx, "lumi"));
+
   tt_TMVA_response = ctx.declare_event_output<float>("TMVA_response");
 
 }
@@ -260,6 +288,7 @@ bool TTbarLJSkimmingModule::process(uhh2::Event& event){
   /* CMS-certified luminosity sections */
   if(event.isRealData){
     if(!lumi_sel->passes(event)) return false;
+    lumihists->fill(event);
   }
 
   /* MET filters */

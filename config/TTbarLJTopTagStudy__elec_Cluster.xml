@@ -8,6 +8,7 @@
 <!-- <!ENTITY channel "elec"> -->
  <!ENTITY btag_workpoint "CSVM">
 <!ENTITY channel "elec">
+<!ENTITY HLT_tag  "HLT_Mu50_v*">
 <!ENTITY HLT  "HLT_Ele50_CaloIdVT_GsfTrkIdT_PFJet140_v*">
  <!ENTITY HLT2 "HLT_Ele105_CaloIdVT_GsfTrkIdT_v*">
 

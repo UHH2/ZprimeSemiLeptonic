@@ -59,14 +59,14 @@ void EffyTTbarRECOHists::init(){
   book_TH1F("rec_chi2","#chi^2", 100, 0, 600);
   book_TH2F("rec_chi2__VS__rec_ttbar__M", 300, 0, 600, 55, 0, 4500);
 
-  book_TH1F("rec_ttbar__M"          , "M_{ttbar} [GeV]", 60, 0, 8000);
+  book_TH1F("rec_ttbar__M"          , "M_{ttbar} [GeV]", 40, 0, 4000);
   book_TH1F("rec_ttbar__pt"         , 150, 0, 3000);
   book_TH1F("rec_ttbar__gen_DM"     , 120, -600, 600);
   book_TH1F("rec_ttbar__gen_Dpt"    , 120, -600, 600);
   book_TH1F("rec_ttbar__gen_DM_pct" , 120, -1.2, 1.2);
   book_TH1F("rec_ttbar__gen_Dpt_pct", 120, -1.2, 1.2);
 
-  book_TH1F("rec_thad__M"            , 360, 0, 360);
+  book_TH1F("rec_thad__M"            , 60, 0, 540);
   book_TH1F("rec_thad__Mgro"         , 360, 0, 360);
   book_TH1F("rec_thad__Mpru"         , 360, 0, 360);
   book_TH1F("rec_thad__Msdp"         , 360, 0, 360);
@@ -86,7 +86,7 @@ void EffyTTbarRECOHists::init(){
   book_TH1F("rec_thad__gen_DMsdp_pct", 120, -1.2, 1.2);
   book_TH1F("rec_thad__gen_Dpt_pct"  , 120, -1.2, 1.2);
 
-  book_TH1F("rec_tlep__M"          , 360, 0, 360);
+  book_TH1F("rec_tlep__M"          , 60, 0, 540);
   book_TH1F("rec_tlep__pt"         , 180, 0, 1800);
   book_TH1F("rec_tlep__px"         , 120, -1200, 1200);
   book_TH1F("rec_tlep__py"         , 120, -1200, 1200);

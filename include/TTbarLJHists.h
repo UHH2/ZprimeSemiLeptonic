@@ -19,7 +19,7 @@ class TTbarLJHists : public uhh2::Hists {
  protected:
   TopJetId tjet_ID_;
   float    tjet_minDR_jet_;
-  TH1F *wgt, *pvN, *muoN, *eleN, *jetN, *topjetN, *toptagN;
+  TH1F *wgt, *pvN, *rho, *muoN, *eleN, *jetN, *topjetN, *toptagN;
   TH1F *muo1__charge,*muo1__pt,*muo1__eta,*muo1__phi;
   TH1F *muo1__minDR_jet,*muo1__pTrel_jet;
   TH1F *muo2__charge,*muo2__pt,*muo2__eta,*muo2__phi;
@@ -34,6 +34,7 @@ class TTbarLJHists : public uhh2::Hists {
   TH1F *jet1__pt,*jet1__eta,*jet1__phi,*jet1__M,*jet1__CSV,*jet1__MVAbtag,*jet2__MVAbtag,*jet3__MVAbtag;
   TH1F *jet2__pt,*jet2__eta,*jet2__phi,*jet2__M,*jet2__CSV;
   TH1F *jet3__pt,*jet3__eta,*jet3__phi,*jet3__M,*jet3__CSV;
+  TH1F *jet1__NDaughters,*jet2__NDaughters,*jet3__NDaughters;
   TH1F *topjet1__pt,*topjet1__eta,*topjet1__phi,*topjet1__CSV,*topjet1__Msdp,*topjet1__tau32;
   TH1F *topjet2__pt,*topjet2__eta,*topjet2__phi,*topjet2__CSV,*topjet2__Msdp,*topjet2__tau32;
   TH1F *toptag1__pt,*toptag1__eta,*toptag1__phi,*toptag1__M;

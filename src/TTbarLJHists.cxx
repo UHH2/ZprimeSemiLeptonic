@@ -33,6 +33,7 @@ void TTbarLJHists::init(){
 
   // PV
   pvN = book<TH1F>("pvN","N_{PV}", 60, 0, 60);
+  rho = book<TH1F>("rho","#rho [GeV]", 60, 0, 60);
 
   // MUON
   muoN = book<TH1F>("muoN", "N mouns"               , 20, 0, 20);
@@ -57,7 +58,7 @@ void TTbarLJHists::init(){
   ele1__pt = book<TH1F>("ele1__pt", "electron p_{T} [GeV]"             , 90, 0, 900);
   ele1__ptError = book<TH1F>("ele1__ptError","electron #sigma(p_{T}) [GeV]"         , 36, 0, 720);
   ele1__eta = book<TH1F>("ele1__eta","electron #eta"            ,60,-3,3);
-  ele1__etaError = book<TH1F>("ele1__etaError","electron #sigma(#eta)"        , 60, 0, 1.);
+  ele1__etaError = book<TH1F>("ele1__etaError","electron #sigma(#eta)"        , 100, 0, 0.01);
   ele1__phi = book<TH1F>("ele1__phi", "electron #phi"            , 60, -3.15, 3.15);
   ele1__phiError = book<TH1F>("ele1__phiError", "electron #sigma(#phi)"            , 60, 0, 1.);
   ele1__minDR_jet = book<TH1F>("ele1__minDR_jet","#Delta R_{min}(e,jet)"      , 60, 0, 6);
@@ -68,7 +69,7 @@ void TTbarLJHists::init(){
   ele2__pt = book<TH1F>("ele2__pt", "electron p_{T} [GeV]"             , 240, 0, 1200);
   ele2__ptError = book<TH1F>("ele2__ptError","electron #sigma(p_{T}) [GeV]"  , 36, 0, 720);
   ele2__eta = book<TH1F>("ele2__eta", "electron #eta"            ,60,-3,3);
-  ele2__etaError = book<TH1F>("ele2__etaError","electron #sigma(#eta)" , 60, 0, 1);
+  ele2__etaError = book<TH1F>("ele2__etaError","electron #sigma(#eta)" , 100, 0, 0.01);
   ele2__phi = book<TH1F>("ele2__phi", "electron #phi"           , 60, -3.15, 3.15);
   ele2__phiError = book<TH1F>("ele2__phiError", "electron #sigma(#phi)" , 60, 0, 1.);
   ele2__minDR_jet = book<TH1F>("ele2__minDR_jet","#Delta R_{min}(e,jet)"      , 60, 0, 6);
@@ -85,12 +86,14 @@ void TTbarLJHists::init(){
   jet1__phi = book<TH1F>("jet1__phi", "jet #phi", 60, -3.15, 3.15);
   jet1__M = book<TH1F>("jet1__M", "jet mass"  , 360, 0, 360);
   jet1__CSV = book<TH1F>("jet1__CSV","CSV", 60, 0, 1.2);
+  jet1__NDaughters = book<TH1F>("jet1__NDaughters","NDaughters", 100, 0, 100);
   jet1__MVAbtag = book<TH1F>("jet1__MVAbtag","MVA b-tag", 60, -1.2, 1.2);
 
   jet2__pt = book<TH1F>("jet2__pt", "jet p_{T} [GeV]" , 90, 0, 900);
   jet2__eta = book<TH1F>("jet2__eta", "jet #eta",60,-3,3);
   jet2__phi = book<TH1F>("jet2__phi", "jet #phi", 60, -3.15, 3.15);
   jet2__M = book<TH1F>("jet2__M", "jet mass [GeV]"  , 360, 0, 360);
+  jet2__NDaughters = book<TH1F>("jet2__NDaughters","NDaughters", 100, 0, 100);
   jet2__CSV = book<TH1F>("jet2__CSV","CSV", 60, 0, 1.2);
   jet2__MVAbtag = book<TH1F>("jet2__MVAbtag","MVA b-tag", 60, -1.2, 1.2);
 
@@ -98,6 +101,7 @@ void TTbarLJHists::init(){
   jet3__eta = book<TH1F>("jet3__eta", "jet #eta",60,-3,3);
   jet3__phi = book<TH1F>("jet3__phi", "jet #phi", 60, -3.15, 3.15);
   jet3__M = book<TH1F>("jet3__M", "jet mass"  , 360, 0, 360);
+  jet3__NDaughters = book<TH1F>("jet3__NDaughters","NDaughters", 100, 0, 100);
   jet3__CSV = book<TH1F>("jet3__CSV","CSV", 60, 0, 1.2);
   jet3__MVAbtag = book<TH1F>("jet3__MVAbtag","MVA b-tag", 60, -1.2, 1.2);
 
@@ -166,6 +170,7 @@ void TTbarLJHists::fill(const uhh2::Event& event){
 
   // PV
   pvN->Fill(event.pvs->size(), weight);
+  rho->Fill(event.rho, weight);
 
   // MUON
   const int muoN_(event.muons->size());
@@ -253,6 +258,7 @@ void TTbarLJHists::fill(const uhh2::Event& event){
       jet1__M  ->Fill(p.v4().M()                      , weight);
       jet1__CSV->Fill(p.btag_combinedSecondaryVertex(), weight);
       jet1__MVAbtag->Fill(p.btag_combinedSecondaryVertexMVA(), weight);
+      jet1__NDaughters->Fill(p.numberOfDaughters(), weight);
     }
     if(i==1){
       jet2__pt ->Fill(p.pt()                          , weight);
@@ -261,6 +267,7 @@ void TTbarLJHists::fill(const uhh2::Event& event){
       jet2__M  ->Fill(p.v4().M()                      , weight);
       jet2__CSV->Fill(p.btag_combinedSecondaryVertex(), weight);
       jet2__MVAbtag->Fill(p.btag_combinedSecondaryVertexMVA(), weight);
+      jet2__NDaughters->Fill(p.numberOfDaughters(), weight);
     }
     if(i==2){
       jet3__pt ->Fill(p.pt()                          , weight);
@@ -269,6 +276,7 @@ void TTbarLJHists::fill(const uhh2::Event& event){
       jet3__M  ->Fill(p.v4().M()                      , weight);
       jet3__CSV->Fill(p.btag_combinedSecondaryVertex(), weight);
       jet3__MVAbtag->Fill(p.btag_combinedSecondaryVertexMVA(), weight);
+      jet3__NDaughters->Fill(p.numberOfDaughters(), weight);
     }
   }
 

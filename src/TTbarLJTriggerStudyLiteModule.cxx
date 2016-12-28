@@ -55,13 +55,17 @@ class TTbarLJTriggerStudyLiteModule : public ModuleBASE {
   std::unique_ptr<uhh2::Selection> jet2_sel;
   std::unique_ptr<uhh2::Selection> jet1_sel;
   std::unique_ptr<uhh2::Selection> trigger_sel;
+  std::unique_ptr<uhh2::Selection> trigger2_sel;
+  std::unique_ptr<uhh2::Selection> tag_trigger_sel;
+  //  std::unique_ptr<uhh2::Selection> tag_trigger2_sel;
   std::unique_ptr<uhh2::Selection> met_sel;
   std::unique_ptr<uhh2::Selection> htlep_sel;
   std::unique_ptr<uhh2::Selection> triangc_sel;
   // cleaners
   std::unique_ptr<MuonCleaner>     muoSR_cleaner;
   std::unique_ptr<ElectronCleaner> eleSR_cleaner;
-  ElectronId eleID = ElectronID_Spring15_25ns_tight_noIso;
+  //  ElectronId eleID = ElectronID_Spring15_25ns_tight_noIso;
+  ElectronId eleID =   ElectronID_Spring16_tight_noIso;
   std::unique_ptr<JetCleaner>                      jet_IDcleaner;
   std::unique_ptr<JetCorrector>                    jet_corrector;
   std::unique_ptr<GenericJetResolutionSmearer>     jetER_smearer;
@@ -101,7 +105,7 @@ class TTbarLJTriggerStudyLiteModule : public ModuleBASE {
   bool store_PDF_weights_;
 
   //// Data/MC scale factors
-  std::unique_ptr<weightcalc_elecID>  elecIDSF;
+  //  std::unique_ptr<weightcalc_elecID>  elecIDSF;
 
   std::unique_ptr<uhh2::AnalysisModule> pileupSF;
   std::unique_ptr<uhh2::AnalysisModule> muonID_SF;
@@ -374,10 +378,13 @@ TTbarLJTriggerStudyLiteModule::TTbarLJTriggerStudyLiteModule(uhh2::Context& ctx)
     }
     else if(channel_ == elec){
 
+      //      lep1_pt_ =   60.;
       lep1_pt_ =   50.;
+      //      lep1_pt_ =   100.;
+      //      lep1_pt_ =   40.;
 
-      jet1_pt  = 250.;
-      jet2_pt  =  70.;
+      jet1_pt  = 180.;
+      jet2_pt  =  50.;
 
       MET      = 120.;
       HT_lep   =   0.;
@@ -485,7 +492,7 @@ TTbarLJTriggerStudyLiteModule::TTbarLJTriggerStudyLiteModule(uhh2::Context& ctx)
   ////
 
   //// OBJ CLEANING
-  const     MuonId muoSR(AndId<Muon>    (PtEtaCut  (lep1_pt_   , 2.1), MuonIDMedium()));
+  const     MuonId muoSR(AndId<Muon>    (PtEtaCut  (lep1_pt_   , 2.1), MuonIDTight()));
   const ElectronId eleSR(AndId<Electron>(PtEtaSCCut(lep1_pt_, 2.5), eleID));
   muoSR_cleaner.reset(new     MuonCleaner(muoSR));
   eleSR_cleaner.reset(new ElectronCleaner(eleSR));
@@ -516,6 +523,16 @@ TTbarLJTriggerStudyLiteModule::TTbarLJTriggerStudyLiteModule(uhh2::Context& ctx)
   const std::string& trigger = ctx.get("trigger", "NULL");
   if(trigger != "NULL") trigger_sel.reset(new TriggerSelection(trigger));
   else                  trigger_sel.reset(new uhh2::AndSelection(ctx));
+  const std::string& trigger2 = ctx.get("trigger2", "NULL");
+  if(trigger2 != "NULL") trigger2_sel.reset(new TriggerSelection(trigger2));
+  else                  trigger2_sel.reset(new uhh2::AndSelection(ctx));
+
+  const std::string& tag_trigger = ctx.get("tag_trigger", "NULL");
+  if(tag_trigger != "NULL") tag_trigger_sel.reset(new TriggerSelection(tag_trigger));
+  else  tag_trigger_sel.reset(new uhh2::AndSelection(ctx));
+  //  const std::string& tag_trigger2 = ctx.get("tag_trigger2", "NULL");
+  //  if(tag_trigger != "NULL") tag_trigger2_sel.reset(new TriggerSelection(tag_trigger2));
+  //  else  tag_trigger2_sel.reset(new uhh2::AndSelection(ctx));
 
   met_sel  .reset(new METCut  (MET   , uhh2::infinity));
   htlep_sel.reset(new HTlepCut(HT_lep, uhh2::infinity));
@@ -657,10 +674,10 @@ TTbarLJTriggerStudyLiteModule::TTbarLJTriggerStudyLiteModule(uhh2::Context& ctx)
 
 
   // elec-ID
-  const std::string& elecID_SFac    = ctx.get("elecID_SF_file");
-  const std::string& elecID_hist    = ctx.get("elecID_SF_hist");
+  //  const std::string& elecID_SFac    = ctx.get("elecID_SF_file");
+  //  const std::string& elecID_hist    = ctx.get("elecID_SF_hist");
 
-  elecIDSF.reset(new weightcalc_elecID(ctx, "electrons", elecID_SFac, elecID_hist, 0.00));
+  // elecIDSF.reset(new weightcalc_elecID(ctx, "electrons", elecID_SFac, elecID_hist, 0.00));
   //
 
 //!!  // elec-HLT
@@ -908,13 +925,14 @@ bool TTbarLJTriggerStudyLiteModule::process(uhh2::Event& event){
   if     (channel_ == muon) lepN = int(event.muons    ->size());
   else if(channel_ == elec) lepN = int(event.electrons->size());
   //  if(!(lepN >= 1)) return false;
-  if(!(lepN == 1)) return false;
+  //  if(!(lepN == 1)) return false;
   //
   
   //di-lepton selection
   bool pass_dilep(0);
-  if(channel_ == muon) pass_dilep = (event.electrons->size()==1);
-  if(channel_ == elec) pass_dilep = (event.muons->size()==1);
+  //  if(channel_ == muon) pass_dilep = (event.electrons->size()==1);
+  // if(channel_ == elec) pass_dilep = (event.muons->size()==1);
+  pass_dilep = (event.muons->size()==1) && (event.electrons->size()==1); 
   if(!pass_dilep) return false;
   //  std::cout<<" MuonN = "<<event.muons->size()<<" ElecN = "<<event.electrons->size()<<std::endl;
   // // pt-leading lepton selection
@@ -943,12 +961,18 @@ bool TTbarLJTriggerStudyLiteModule::process(uhh2::Event& event){
   if(!pass_jet1) return false;
   if(lepN == 1) HFolder("jet1")->fill(event);
 
+  const bool pass_tag_trigger = tag_trigger_sel->passes(event);
+  //  const bool pass_tag_trigger2 = tag_trigger2_sel->passes(event);
+  //  if((!pass_tag_trigger || !pass_tag_trigger2) && event.isRealData) return false; //apply only on data
+  if(!pass_tag_trigger && event.isRealData) return false; //apply only on data
+
   // // ////
   if(isTrigger_sel){
   // //// HLT selection
   const bool pass_trigger = trigger_sel->passes(event);
+  const bool pass_trigger2 = trigger2_sel->passes(event);
   // //  if(!pass_trigger) return false;
-  if(!pass_trigger && event.isRealData) return false; //apply only on data
+  if((!pass_trigger || !pass_trigger2) && event.isRealData) return false; //apply only on data
   // //  else std::cout<<"Passed trigger!!! "<<std::endl;
   if(lepN == 1) HFolder("trigger")->fill(event);
   // ////
