@@ -252,7 +252,7 @@ class TTbarLJAnalysisLiteModule : public ModuleBASE {
   Event::Handle<float> tt_hcalOverEcal;
   Event::Handle<float> tt_dr03TkSumPt;
   Event::Handle<float> tt_effArea;
-  Event::Handle<float> tt_mvaNonTrigV0;
+  //  Event::Handle<float> tt_mvaNonTrigV0;
   Event::Handle<float> tt_dEtaIn;
   Event::Handle<float> tt_dPhiIn;
   // top tagging variables
@@ -318,7 +318,7 @@ class TTbarLJAnalysisLiteModule : public ModuleBASE {
   float lep_Nclusters,lep_full5x5_e1x5,lep_full5x5_e2x5Max,lep_full5x5_e5x5,lep_dEtaInSeed;
   //  float log_ljet_pt, log_dR_cljet_ljet, log_dR_lep_cljet, log_lep_pt, jets_pt_to_lep_pt, lep_pt_ljet_to_lep_pt, log_met_pt_to_ljet_pt;
   //  float jets_pt_to_ljet_pt,  log_lep_xy_corr, log_ljet_CSV_ljet_pt;
-  float lep_dB, lep_sigmaIEtaIEta, lep_HoverE, lep_EoverPIn, lep_hcalOverEcal, lep_dr03TkSumPt, lep_effArea, lep_mvaNonTrigV0;
+  float lep_dB, lep_sigmaIEtaIEta, lep_HoverE, lep_EoverPIn, lep_hcalOverEcal, lep_dr03TkSumPt, lep_effArea;// lep_mvaNonTrigV0;
   float lep_dEtaIn, lep_dPhiIn;
   float top_qjets_volatility,top_tau1, top_tau2, top_tau3, top_mvahiggsdiscr, top_prunedmass, top_softdropmass;
   float TMVA_response;
@@ -1077,7 +1077,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   tt_full5x5_e5x5 = ctx.declare_event_output<float>("lep_full5x5_e5x5");
   tt_dEtaInSeed = ctx.declare_event_output<float>("lep_dEtaInSeed");
 
-  lep_dB = -100; lep_sigmaIEtaIEta = -100; lep_HoverE = -100; lep_EoverPIn = -100; lep_hcalOverEcal = -100; lep_dr03TkSumPt = -100; lep_effArea = -100; lep_mvaNonTrigV0 = -100;
+  lep_dB = -100; lep_sigmaIEtaIEta = -100; lep_HoverE = -100; lep_EoverPIn = -100; lep_hcalOverEcal = -100; lep_dr03TkSumPt = -100; lep_effArea = -100; //lep_mvaNonTrigV0 = -100;
   lep_dEtaIn = -100; lep_dPhiIn = -100;
   tt_dB = ctx.declare_event_output<float>("lep_dB");
   tt_sigmaIEtaIEta = ctx.declare_event_output<float>("lep_sigmaIEtaIEta");
@@ -1086,7 +1086,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   tt_hcalOverEcal = ctx.declare_event_output<float>("lep_hcalOverEcal");
   tt_dr03TkSumPt = ctx.declare_event_output<float>("lep_dr03TkSumPt");
   tt_effArea = ctx.declare_event_output<float>("lep_effArea");
-  tt_mvaNonTrigV0 = ctx.declare_event_output<float>("lep_mvaNonTrigV0");
+  //  tt_mvaNonTrigV0 = ctx.declare_event_output<float>("lep_mvaNonTrigV0");
   tt_dEtaIn = ctx.declare_event_output<float>("lep_dEtaIn");
   tt_dPhiIn = ctx.declare_event_output<float>("lep_dPhiIn");
 
@@ -1751,7 +1751,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
     lep_hcalOverEcal = ((Electron*)lep1)->hcalOverEcal(); 
     lep_dr03TkSumPt = ((Electron*)lep1)->dr03TkSumPt(); 
     lep_effArea = ((Electron*)lep1)->effArea(); 
-    lep_mvaNonTrigV0 = ((Electron*)lep1)->mvaNonTrigV0();
+    //    lep_mvaNonTrigV0 = ((Electron*)lep1)->mvaNonTrigV0();
     lep_dEtaIn = ((Electron*)lep1)->dEtaIn();
     lep_dPhiIn = ((Electron*)lep1)->dPhiIn();
 
@@ -1813,7 +1813,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   event.set(tt_hcalOverEcal, lep_hcalOverEcal);
   event.set(tt_dr03TkSumPt, lep_dr03TkSumPt);
   event.set(tt_effArea, lep_effArea);
-  event.set(tt_mvaNonTrigV0, lep_mvaNonTrigV0);
+  //  event.set(tt_mvaNonTrigV0, lep_mvaNonTrigV0);
   event.set(tt_dEtaIn, lep_dEtaIn);
   event.set(tt_dPhiIn, lep_dPhiIn);
 

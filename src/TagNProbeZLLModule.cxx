@@ -669,16 +669,20 @@ bool TagNProbeZLLModule::process(uhh2::Event& event){
     tag__ElecIDcutbasedL   = ElectronID_Spring15_25ns_loose_noIso    (*((Electron*) tag), event);
     tag__ElecIDcutbasedM   = ElectronID_Spring15_25ns_medium_noIso   (*((Electron*) tag), event);
     tag__ElecIDcutbasedT   = ElectronID_Spring15_25ns_tight_noIso    (*((Electron*) tag), event);
-    tag__ElecIDmvaNonTrigL = ElectronID_MVAnotrig_Spring15_25ns_loose(*((Electron*) tag), event);
-    tag__ElecIDmvaNonTrigT = ElectronID_MVAnotrig_Spring15_25ns_tight(*((Electron*) tag), event);
+    // tag__ElecIDmvaNonTrigL = ElectronID_MVAnotrig_Spring15_25ns_loose(*((Electron*) tag), event);
+    // tag__ElecIDmvaNonTrigT = ElectronID_MVAnotrig_Spring15_25ns_tight(*((Electron*) tag), event);
+    tag__ElecIDmvaNonTrigL = false; //TEST
+    tag__ElecIDmvaNonTrigT = false; //TEST
     tag__ElecIDmvaTrigL    = false;
     tag__ElecIDmvaTrigT    = false;
 
     pro__ElecIDcutbasedL   = ElectronID_Spring15_25ns_loose_noIso    (*((Electron*) pro), event);
     pro__ElecIDcutbasedM   = ElectronID_Spring15_25ns_medium_noIso   (*((Electron*) pro), event);
     pro__ElecIDcutbasedT   = ElectronID_Spring15_25ns_tight_noIso    (*((Electron*) pro), event);
-    pro__ElecIDmvaNonTrigL = ElectronID_MVAnotrig_Spring15_25ns_loose(*((Electron*) pro), event);
-    pro__ElecIDmvaNonTrigT = ElectronID_MVAnotrig_Spring15_25ns_tight(*((Electron*) pro), event);
+    // pro__ElecIDmvaNonTrigL = ElectronID_MVAnotrig_Spring15_25ns_loose(*((Electron*) pro), event);
+    // pro__ElecIDmvaNonTrigT = ElectronID_MVAnotrig_Spring15_25ns_tight(*((Electron*) pro), event);
+    pro__ElecIDmvaNonTrigL = false; //TEST
+    pro__ElecIDmvaNonTrigT = false; //TEST
     pro__ElecIDmvaTrigL    = false;
     pro__ElecIDmvaTrigT    = false;
   }

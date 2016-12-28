@@ -83,11 +83,10 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
   float ele_pt(-1.),muon_pt(-1.), jet1_pt(-1.), jet2_pt(-1.), MET(-1.), HT_lep(-1.);
   bool use_miniiso(false);
 
-  if(keyword == "v01"){
+  if(keyword == "v01"){ // Cut-based aka 2015
     isQCDstudy = false;
     ele_pt = 45.;
     muon_pt = 45.;
-    //    eleID  = ElectronID_Spring15_25ns_tight_noIso;
     eleID  = ElectronID_Spring16_tight_noIso;
     //    eleID = ElectronID_MVAnotrig_Spring15_25ns_loose; //TEST 
     use_miniiso = false;
@@ -100,7 +99,7 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
     HT_lep  =   0.;
   }
   else {
-    if(keyword == "v02"){
+    if(keyword == "v02"){ //Skimming for QCD MVA training
     isQCDstudy = true;
     ele_pt = 45.;
     muon_pt = 45.;
@@ -116,24 +115,6 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
 
     MET     =   0.;
     HT_lep  =   0.;
-    }
-    else if(keyword == "v03"){
-      //isQCDstudy = true;
-      isQCDstudy = false;
-      ele_pt = 45.;
-      muon_pt = 45.;
-      //  eleID  = ElectronID_Spring15_25ns_tight_noIso;
-      //    eleID = ElectronID_MVAnotrig_Spring15_25ns_veryloose;//TEST
-      //      eleID = ElectronID_MVAnotrig_Spring15_25ns_loose; //TEST 
-      //      eleID  = ElectronID_Spring15_25ns_tight_noIso;
-      eleID  = ElectronID_Spring16_tight_noIso;
-      use_miniiso = false;
-      
-      jet1_pt = 150.;
-      jet2_pt =  50.;
-      
-      MET     =   0.;
-      HT_lep  =   0.;
     }
     else throw std::runtime_error("TTbarLJSkimmingModule::TTbarLJSkimmingModule -- undefined \"keyword\" argument in .xml configuration file: "+keyword);
   }
@@ -213,7 +194,7 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
     JEC_AK8 = JERFiles::Spring16_25ns_L123_AK8PFchs_DATA;
   }
 
-  jetlepton_cleaner.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4));//TEST
+  jetlepton_cleaner.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4));
 
   jet_IDcleaner.reset(new JetCleaner(ctx, jetID));
   jet_corrector.reset(new JetCorrector(ctx, JEC_AK4));
@@ -241,7 +222,6 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
   htlep_sel.reset(new HTlepCut(HT_lep, uhh2::infinity));
 
   if(use_miniiso) twodcut_sel.reset(new TwoDCut1(-1, 20.));
-  //  else            twodcut_sel.reset(new TwoDCut1(.4, 20.));
   else            twodcut_sel.reset(new TwoDCut1(.4, 40.));
   ////
 
