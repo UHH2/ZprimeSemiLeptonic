@@ -9,10 +9,10 @@ This module takes ntuples and cleans leptons and jets and applies preliminary cu
     * \>=1 lepton + \>=2 jets + MET
     * lower thresholds for MET and jet pTs, compared to final analysis selection
 
-*BDTWJetsVariableDumpModule
+* BDTWJetsVariableDumpModule
 This module takes the root file output from the skimming modules and dumps the variables needed for 
 BDT training and testing into the AnalysisTree
-  *input:  TTbarLJSkimmingModule output
+  * input:  TTbarLJSkimmingModule output
 
 * TTbarLJAnalysisLiteModule
   * input: TTbarLJSkimmingModule output
