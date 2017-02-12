@@ -78,13 +78,13 @@ void TTbarLJHistsSkimming::init(){
   jetN__CSVM = book<TH1F>("jetN__CSVM","N jets with Medium CSV"        , 10, 0, 10);
   jetN__CSVT = book<TH1F>("jetN__CSVT", "N jets with Tight CSV"        , 10, 0, 10);
 
-  jet1__pt = book<TH1F>("jet1__pt", "jet p_{T} [GeV]" , 90, 0, 900);
+  jet1__pt = book<TH1F>("jet1__pt", "jet p_{T} [GeV]" , 100, 0, 1500);
   jet1__eta = book<TH1F>("jet1__eta", "jet #eta",60,-3,3);
   jet1__phi = book<TH1F>("jet1__phi", "jet #phi", 60, -3.15, 3.15);
   jet1__M = book<TH1F>("jet1__M", "jet mass"  , 360, 0, 360);
   jet1__CSV = book<TH1F>("jet1__CSV","CSV", 60, 0, 1.2);
 
-  jet2__pt = book<TH1F>("jet2__pt", "jet p_{T} [GeV]" , 90, 0, 900);
+  jet2__pt = book<TH1F>("jet2__pt", "jet p_{T} [GeV]" , 100, 0, 1500);
   jet2__eta = book<TH1F>("jet2__eta", "jet #eta",60,-3,3);
   jet2__phi = book<TH1F>("jet2__phi", "jet #phi", 60, -3.15, 3.15);
   jet2__M = book<TH1F>("jet2__M", "jet mass [GeV]"  , 360, 0, 360);

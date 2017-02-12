@@ -24,7 +24,7 @@
 #include <UHH2/ZprimeSemiLeptonic/include/ModuleBASE.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicSelections.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicUtils.h>
-#include <UHH2/ZprimeSemiLeptonic/include/TTbarLJHists.h>
+#include <UHH2/ZprimeSemiLeptonic/include/TTbarLJHistsSkimming.h>
 
 class TTbarLJSkimmingModule : public ModuleBASE {
 
@@ -128,6 +128,7 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
 
     //    MET     =  50.;
     MET     =   0.;
+
     HT_lep  =   0.;
   }
   else {
@@ -248,7 +249,7 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
 
   if(!isMC) lumi_sel.reset(new LumiSelection(ctx));
 
-  /* MET filters 
+  /* MET filters */
   metfilters_sel.reset(new uhh2::AndSelection(ctx, "metfilters"));
   metfilters_sel->add<TriggerSelection>("1-good-vtx", "Flag_goodVertices");
   metfilters_sel->add<TriggerSelection>("globalTightHalo2016Filter", "Flag_globalTightHalo2016Filter");
@@ -260,7 +261,7 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
   metfilters_sel->add<TriggerSelection>("muonBadTrackFilter", "Flag_muonBadTrackFilter");
   //metantifilters_sel.reset(new uhh2::AndSelection(ctx, "metantifilters"));    
   //  metantifilters_sel->add<TriggerSelection>("muonBadTrackFilter", "Flag_muonBadTrackFilter");
-  */  
+  
 
   /**********************************/
   
@@ -407,7 +408,8 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
 
   for(const auto& tag : htags_1){
 
-    book_HFolder(tag, new TTbarLJHists(ctx, tag));
+    //book_HFolder(tag, new TTbarLJHists(ctx, tag));
+     book_HFolder(tag, new TTbarLJHistsSkimming(ctx,tag));
   }
   ////
 
@@ -512,12 +514,13 @@ bool TTbarLJSkimmingModule::process(uhh2::Event& event){
   
 
   //// LEPTON selection
+
   muoSR_cleaner->process(event);
   sort_by_pt<Muon>(*event.muons);
 
-  eleSR_cleaner->process(event);
-  sort_by_pt<Electron>(*event.electrons);
-
+   eleSR_cleaner->process(event);
+   sort_by_pt<Electron>(*event.electrons);
+  //const bool pass_lep1 = (event.electrons->size() == 1);
   const bool pass_lep1 = ((event.muons->size() >= 1) || (event.electrons->size() >= 1));
   if(!pass_lep1) return false;
   HFolder("lep1")->fill(event);
