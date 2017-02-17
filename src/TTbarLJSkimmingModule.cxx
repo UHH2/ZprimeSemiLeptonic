@@ -38,16 +38,40 @@ class TTbarLJSkimmingModule : public ModuleBASE {
   std::unique_ptr<MuonCleaner>     muoSR_cleaner;
   std::unique_ptr<ElectronCleaner> eleSR_cleaner;
 
+  //split corrections by run periods 
+  std::unique_ptr<JetCorrector> jet_corrector;
+  std::unique_ptr<JetCorrector> jet_corrector_BCD;
+  std::unique_ptr<JetCorrector> jet_corrector_EF;
+  std::unique_ptr<JetCorrector> jet_corrector_G;
+  std::unique_ptr<JetCorrector> jet_corrector_H;
+
+  std::unique_ptr<TopJetCorrector> topjet_corrector;
+  std::unique_ptr<TopJetCorrector> topjet_corrector_BCD;
+  std::unique_ptr<TopJetCorrector> topjet_corrector_EF;
+  std::unique_ptr<TopJetCorrector> topjet_corrector_G;
+  std::unique_ptr<TopJetCorrector> topjet_corrector_H;
+
+  std::unique_ptr<SubJetCorrector> subjet_corrector;
+  std::unique_ptr<SubJetCorrector> subjet_corrector_BCD;
+  std::unique_ptr<SubJetCorrector> subjet_corrector_EF;
+  std::unique_ptr<SubJetCorrector> subjet_corrector_G;
+  std::unique_ptr<SubJetCorrector> subjet_corrector_H;
+
+  std::unique_ptr<JetLeptonCleaner> jetlepton_cleaner;
+  std::unique_ptr<JetLeptonCleaner> jetlepton_cleaner_BCD;
+  std::unique_ptr<JetLeptonCleaner> jetlepton_cleaner_EF;
+  std::unique_ptr<JetLeptonCleaner> jetlepton_cleaner_G;
+  std::unique_ptr<JetLeptonCleaner> jetlepton_cleaner_H;
+
+
   std::unique_ptr<JetCleaner>                      jet_IDcleaner;
   std::unique_ptr<JetCorrector>                    jet_corrector, jet_corrector_BCD, jet_corrector_EFearly, jet_corrector_FlateG, jet_corrector_H;
   std::unique_ptr<GenericJetResolutionSmearer>     jetER_smearer;
   std::unique_ptr<JetLeptonCleaner_by_KEYmatching> jetlepton_cleaner, JLC_BCD, JLC_EFearly, JLC_FlateG, JLC_H;
   //  std::unique_ptr<JetLeptonCleaner> jetlepton_cleaner, JLC_BCD, JLC_EFearly, JLC_FlateG, JLC_H;//TEST
-  std::unique_ptr<JetCleaner>                      jet_cleaner1;
-  std::unique_ptr<JetCleaner>                      jet_cleaner2;
 
+  std::unique_ptr<JetCleaner>                      jet_cleaner1;
   std::unique_ptr<JetCleaner>                  topjet_IDcleaner;
-  std::unique_ptr<TopJetCorrector>             topjet_corrector;
   std::unique_ptr<SubJetCorrector>             topjet_subjet_corrector;
   std::unique_ptr<GenericJetResolutionSmearer> topjetER_smearer;
   //  std::unique_ptr<TopJetLeptonDeltaRCleaner>   topjetlepton_cleaner;
@@ -70,6 +94,12 @@ class TTbarLJSkimmingModule : public ModuleBASE {
 
   std::unique_ptr<uhh2::AnalysisModule> ttgenprod;
   uhh2::Event::Handle<TTbarGen> h_ttbar_gen;
+
+  //run numbers for different jet corrections
+  const int runnr_BCD = 276811;
+  const int runnr_EF = 278802;
+  const int runnr_G = 280385;
+  bool isMC;
 
   Event::Handle<float> tt_TMVA_response;// response of TMVA method, dummy value at this step
   Event::Handle<float> wjets_TMVA_response;     // response of TMVA method, dummy value at this step
@@ -122,7 +152,6 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
     //    eleID = ElectronID_HEEP_RunII_25ns; //TEST
     //    eleID = ElectronID_Spring16_medium_noIso;         
     use_miniiso = false;
-
     jet1_pt = 50.;
     jet2_pt =  20.;
 
@@ -148,6 +177,7 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
     jet2_pt =   0.;
     MET     =   50.;
     // MET     =   0.;
+
     HT_lep  =   0.;
     }
     else if(keyword == "v03"){ //Skimming for ElecID_MVA_tight
@@ -296,19 +326,9 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
   const ElectronId eleSR(AndId<Electron>(PtEtaSCCut(ele_pt, 2.5), eleID));
   //  const ElectronId eleSR(PtEtaSCCut(ele_pt, 2.5));//TEST: WITHOUT ELECTRON ID (for denominator of electron ID studies)
 
-  if(use_miniiso){
-
-    const     MuonId muoMINIIso(    Muon_MINIIso(0.05, "delta-beta"));
-    const ElectronId eleMINIIso(Electron_MINIIso(0.05, "delta-beta"));
-
-    muoSR_cleaner.reset(new     MuonCleaner(AndId<Muon>    (muoSR, muoMINIIso)));
-    eleSR_cleaner.reset(new ElectronCleaner(AndId<Electron>(eleSR, eleMINIIso)));
-  }
-  else{
-
     muoSR_cleaner.reset(new     MuonCleaner(muoSR));
     eleSR_cleaner.reset(new ElectronCleaner(eleSR));
-  }
+ 
   //
 
   //  const JetId jetID(JetPFID(JetPFID::WP_LOOSE));
@@ -372,7 +392,15 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
   topjet_IDcleaner.reset(new JetCleaner(ctx, jetID));
   topjet_corrector.reset(new TopJetCorrector(ctx, JEC_AK8));
   topjet_subjet_corrector.reset(new SubJetCorrector(ctx, JEC_AK4)); //ToDo
+
   if(isMC){
+    //jet_IDcleaner.reset(new JetCleaner(ctx, jetID));
+    jet_corrector.reset(new JetCorrector(ctx, JEC_AK4));
+    jetlepton_cleaner.reset(new JetLeptonCleaner(ctx, JEC_AK4));
+    jetlepton_cleaner->set_drmax(.4);
+    jetER_smearer.reset(new GenericJetResolutionSmearer(ctx));
+    topjet_corrector.reset(new TopJetCorrector(ctx, JEC_AK8));
+    topjet_subjet_corrector.reset(new SubJetCorrector(ctx, JEC_AK4));
     ctx.declare_event_input<std::vector<Particle> >(ctx.get("TopJetCollectionGEN"), "topjetsGEN");
     topjetER_smearer.reset(new GenericJetResolutionSmearer(ctx, "topjets", "topjetsGEN", false));
   }
@@ -391,6 +419,7 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
   if(use_miniiso) twodcut_sel.reset(new TwoDCut1(-1, 20.));
   //  else            twodcut_sel.reset(new TwoDCut1(.4, 40.));
   else            twodcut_sel.reset(new TwoDCut1(twod1, twod2));
+
   ////
 
   //// HISTS
@@ -631,7 +660,7 @@ if(event.isRealData){
 
   //  if(!pass_twodcut){};//place holder
 
-  jet_cleaner2->process(event);
+  jet_cleaner1->process(event);
   sort_by_pt<Jet>(*event.jets);
   topjet_IDcleaner->process(event);
   sort_by_pt<TopJet>(*event.topjets);
@@ -648,6 +677,7 @@ if(event.isRealData){
   if(topjetER_smearer.get()) topjetER_smearer->process(event);
   topjet_cleaner->process(event);
   //  if(event.topjets->size()>0) std::cout<<"&&& AFTER cleaning TopJet.pt =  "<<event.topjets->at(0).pt()<<std::endl;
+
   sort_by_pt<TopJet>(*event.topjets);
 
   /* 2nd AK4 jet selection */
@@ -680,7 +710,7 @@ if(event.isRealData){
 
   
   //// LEPTON-2Dcut selection
-  if(!pass_twodcut && !isQCDstudy) return false;
+  if(!pass_twodcut) return false;
   HFolder("twodcut")->fill(event);
   //  std::cout<<"twodcut "<<std::endl;
   ////
