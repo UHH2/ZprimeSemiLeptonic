@@ -230,6 +230,7 @@
       <Item Name="JetCollection"           Value="slimmedJets"/>
       <Item Name="GenJetCollection"        Value="slimmedGenJets"/>
       <Item Name="TopJetCollection"        Value="slimmedJetsAK8_SoftDrop"/>
+      <Item Name="TopPuppiJetCollection"   Value="patJetsAk8PuppiJetsSoftDropPacked_daughters"/>
       <Item Name="TopJetCollectionGEN"     Value="slimmedGenJetsAK8"/>
       <Item Name="METName"                 Value="slimmedMETs"/>
 

@@ -679,6 +679,7 @@ if(event.isRealData){
   //  if(event.topjets->size()>0) std::cout<<"&&& AFTER cleaning TopJet.pt =  "<<event.topjets->at(0).pt()<<std::endl;
 
   sort_by_pt<TopJet>(*event.topjets);
+  sort_by_pt<TopJet>(*event.toppuppijets);
 
   /* 2nd AK4 jet selection */
   const bool pass_jet2 = jet2_sel->passes(event);

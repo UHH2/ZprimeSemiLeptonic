@@ -89,6 +89,7 @@ class TopTagID_SoftDrop {
   bool cut_mass_;     
   bool cut_tau32_;    
   bool cut_subjetbtag_;
+  bool verbose_;
 
   float   mass_min_;
   float   mass_max_;

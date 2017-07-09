@@ -231,7 +231,8 @@ TopTagID_SoftDrop::TopTagID_SoftDrop(const std::string& wp_key){
   else if(wp_key == "mr001_wp2"){ mass_min_ = 110.; mass_max_ = 210.; tau32_max_ = .54; sjbtag_min_ = .79; }
   else if(wp_key == "mr003_wp1"){ mass_min_ = 110.; mass_max_ = 210.; tau32_max_ = .50; sjbtag_min_ = -1.; }
   else if(wp_key == "mr003_wp2"){ mass_min_ = 110.; mass_max_ = 210.; tau32_max_ = .61; sjbtag_min_ = .76; }
-  else if(wp_key == "mr010_wp1"){ mass_min_ = 110.; mass_max_ = 210.; tau32_max_ = .59; sjbtag_min_ = -1.; }
+  //else if(wp_key == "mr010_wp1"){ mass_min_ = 110.; mass_max_ = 210.; tau32_max_ = .59; sjbtag_min_ = -1.; }
+  else if(wp_key == "mr010_wp1"){ mass_min_ = 105.; mass_max_ = 210.; tau32_max_ = .65; sjbtag_min_ = -1.; }
   else if(wp_key == "mr010_wp2"){ mass_min_ = 110.; mass_max_ = 210.; tau32_max_ = .69; sjbtag_min_ = .66; }
   else if(wp_key == "mr030_wp1"){ mass_min_ = 110.; mass_max_ = 210.; tau32_max_ = .69; sjbtag_min_ = -1.; }
   else if(wp_key == "mr030_wp2"){ mass_min_ = 110.; mass_max_ = 210.; tau32_max_ = .75; sjbtag_min_ = .39; }
@@ -243,21 +244,56 @@ TopTagID_SoftDrop::TopTagID_SoftDrop(const std::string& wp_key){
   cut_mass_       = true;
   cut_tau32_      = true;
   cut_subjetbtag_ = true;
+  verbose_        = false;
 }
 
-bool TopTagID_SoftDrop::operator()(const TopJet& tj, const uhh2::Event&) const {
+bool TopTagID_SoftDrop::operator()(const TopJet& tj, const uhh2::Event& event) const {
 
-  const bool pass_mass = (mass_min_ < tj.softdropmass()) && (tj.softdropmass() < mass_max_);
+  float mindR = 9999.0;
+  TopJet MatchedPuppiJet;
+  TLorentzVector PuppiJetv4;
+  TLorentzVector TopJetv4;
+  TopJetv4.SetPtEtaPhiE(tj.pt(),tj.eta(),tj.phi(),tj.energy());
+  for(const auto & pjet : *event.toppuppijets) {
+    PuppiJetv4.SetPtEtaPhiE(pjet.pt(),pjet.eta(),pjet.phi(),pjet.energy());
+    float dR = TopJetv4.DeltaR(PuppiJetv4);
+    if (dR < mindR) {
+      MatchedPuppiJet = pjet;
+      mindR = dR;
+    }
+  }
+
+  if (verbose_) {
+    std::cout << "DeltaR Min: " << mindR << std::endl;
+    std::cout << "Tau2: " << MatchedPuppiJet.tau2() << std::endl;
+    std::cout << "Tau3: " << MatchedPuppiJet.tau3() << std::endl;
+    std::cout << "Tau3/2: " << MatchedPuppiJet.tau3()/MatchedPuppiJet.tau2() << std::endl;
+    std::cout << "Num Subjets: " << MatchedPuppiJet.numberOfDaughters() << std::endl;
+  }
+
+  if (mindR > 0.8) return false;
+  if (MatchedPuppiJet.numberOfDaughters() != 2) return false;
+
+  TLorentzVector SoftDropv4(0,0,0,0);
+  for(const auto & subjet : MatchedPuppiJet.subjets()) {
+    TLorentzVector SubJetv4;
+    SubJetv4.SetPtEtaPhiE(subjet.pt(),subjet.eta(),subjet.phi(),subjet.energy());
+    SoftDropv4 = SoftDropv4 + SubJetv4;
+  }
+
+  if (verbose_) std::cout << "SoftDropMass: " << SoftDropv4.M() << std::endl;
+
+  const bool pass_mass = (mass_min_ < SoftDropv4.M()) && (SoftDropv4.M() < mass_max_);
   if(cut_mass_ && !pass_mass) return false;
 
-  const bool pass_tau32 = (tj.tau2()>0) && (tj.tau3() < tau32_max_*tj.tau2());
+  const bool pass_tau32 = (MatchedPuppiJet.tau2()>0) && (MatchedPuppiJet.tau3() < tau32_max_*MatchedPuppiJet.tau2());
   if(cut_tau32_ && !pass_tau32) return false;
 
   bool pass_sjbtag(false);
   if(sjbtag_min_ == -1.) pass_sjbtag = true;
   else {
 
-    std::vector<Jet> subjets = tj.subjets();
+    std::vector<Jet> subjets = MatchedPuppiJet.subjets();
 
     if(!subjets.size()) pass_sjbtag = false;
     else{
@@ -267,7 +303,7 @@ bool TopTagID_SoftDrop::operator()(const TopJet& tj, const uhh2::Event&) const {
     }
   }
   if(cut_subjetbtag_ && !pass_sjbtag) return false;
-
+  if (verbose_) std::cout << "TopJet passed Top Tagging Criteria" << std::endl;
   return true;
 }
 ////

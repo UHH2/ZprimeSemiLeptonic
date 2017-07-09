@@ -371,6 +371,7 @@
         <Item Name="JetCollection"           Value="slimmedJets"/>
         <Item Name="GenJetCollection"        Value="slimmedGenJets"/>
         <Item Name="TopJetCollection"        Value="slimmedJetsAK8_SoftDrop"/>
+        <Item Name="TopPuppiJetCollection"   Value="patJetsAk8PuppiJetsSoftDropPacked_daughters"/>
         <Item Name="TopJetCollectionGEN"     Value="slimmedGenJetsAK8"/>
         <Item Name="METName"                 Value="slimmedMETs"/>
         <!-- 27p2 lumi<Item Name="lumi_file" Value="/nfs/dust/cms/user/dansand/UHH2_2015/80X_Moriond/CMSSW_8_0_20/src/UHH2/common/data/Cert_271036-280385_13TeV_PromptReco_Collisions16_JSON_NoL1T_v2.root"/>
