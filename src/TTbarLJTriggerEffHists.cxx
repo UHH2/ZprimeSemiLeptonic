@@ -19,6 +19,22 @@ TTbarLJTriggerEffHists::TTbarLJTriggerEffHists(uhh2::Context& ctx, const std::st
 
 void TTbarLJTriggerEffHists::init(){
 
+  // const int nptAxis = 9;
+  // Float_t ptAxis[nptAxis] = {40, 50, 60, 80, 150, 300, 400, 600, 900}; 
+  // const int nptAxis = 4;
+  // Float_t ptAxis[nptAxis] = {0, 50, 100, 1000}; 
+  // const int nptAxis = 27;
+  // Float_t ptAxis[nptAxis] = {0, 30, 40, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 120, 135, 150, 180, 210, 250, 300, 400, 700, 900, 1500}; 
+   // const int nptAxis = 42;
+   // Float_t ptAxis[nptAxis] = {0, 20, 30, 40, 45, 50, 55, 60, 65, 70, 
+   // 			      80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 
+   // 			      180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 
+   // 			      280, 300, 320, 340, 360, 380, 400, 440, 480, 520, 600, 800}; 
+  //  const int nptAxis = 18;
+  // Float_t ptAxis[nptAxis] = {0, 50, 60, 70, 80, 90, 100, 110, 120, 150, 170, 180, 210, 250, 300, 400, 700, 900}; 
+
+  // const int netaAxis = 17;
+  // Float_t etaAxis[netaAxis] = {-2.5, -2, -1.566, -1.444, -1.2, -0.8, -0.6, -0.4, 0, 0.4, 0.6, 0.8, 1.2, 1.444, 1.566, 2, 2.5};
   book_TH1F("wgt", 120, -6, 6);
 
   // PV
@@ -28,13 +44,16 @@ void TTbarLJTriggerEffHists::init(){
   book_TH1F("muoN"                 , 20, 0, 20);
 
   book_TH1F("muo1__charge"         , 5, -2, 3);
-  book_TH1F("muo1__pt"             , 90, 0, 900);
-  book_TH1F("muo1__eta"            , 60, -3, 3);
+  //  book_TH1F("muo1__pt"             , nptAxis-1, ptAxis);
+  book_TH1F("muo1__pt"             , 30, 0, 900);
+  //  book_TH1F("muo1__eta"            , netaAxis-1, etaAxis);
+  book_TH1F("muo1__eta"            , 40, -2.5, 2.5);
   book_TH1F("muo1__phi"            , 60, -3.15, 3.15);
 
   book_TH1F("muo2__charge"         , 5, -2, 3);
   book_TH1F("muo2__pt"             , 240, 0, 1200);
-  book_TH1F("muo2__eta"            , 60, -3, 3);
+  //  book_TH1F("muo2__eta"            , netaAxis-1, etaAxis);
+  book_TH1F("muo2__eta"            , 40, -2.5, 2.5);
   book_TH1F("muo2__phi"            , 60, -3.15, 3.15);
  
 
@@ -42,18 +61,21 @@ void TTbarLJTriggerEffHists::init(){
   book_TH1F("eleN"                 , 20, 0, 20);
   book_TH1F("ele1__class" , 6, -0.5, 5.5);
   book_TH1F("ele1__charge"         , 5, -2, 3);
-  book_TH1F("ele1__pt"             , 90, 0, 900);
+  //  book_TH1F("ele1__pt"             , nptAxis-1, ptAxis);
+  book_TH1F("ele1__pt"             ,30, 0, 900);
   book_TH1F("ele1__ptError"         , 36, 0, 720);
-  book_TH1F("ele1__eta"            , 60, -3, 3);
+  //  book_TH1F("ele1__eta"            , netaAxis-1, etaAxis);
+  book_TH1F("ele1__eta"            , 40, -2.5, 2.5);
   book_TH1F("ele1__etaError"        , 60, 0, 1.);
   book_TH1F("ele1__phi"            , 60, -3.15, 3.15);
   book_TH1F("ele1__phiError"            , 60, 0, 1.);
 
   book_TH1F("ele2__class" , 6, -0.5, 5.5);
   book_TH1F("ele2__charge"         , 5, -2, 3);
-  book_TH1F("ele2__pt"             , 240, 0, 1200);
+  book_TH1F("ele2__pt"             ,30, 0, 900);
   book_TH1F("ele2__ptError" , 36, 0, 720);
-  book_TH1F("ele2__eta"            , 60, -3, 3);
+  //  book_TH1F("ele2__eta"            , netaAxis-1, etaAxis);
+  book_TH1F("ele2__eta"            , 40, -2.5, 2.5);
   book_TH1F("ele2__etaError" , 60, 0, 1);
   book_TH1F("ele2__phi"            , 60, -3.15, 3.15);
   book_TH1F("ele2__phiError" , 60, 0, 1.);
@@ -74,28 +96,38 @@ void TTbarLJTriggerEffHists::init(){
   // JET
   book_TH1F("jetN"              , 20, 0, 20);
  
-  book_TH1F("jet1__pt" , 90, 0, 900);
-  book_TH1F("jet1__eta", 60, -3, 3);
+  //  book_TH1F("jet1__pt" , nptAxis-1, ptAxis);
+  book_TH1F("jet1__pt" , 30, 0, 900);
+  //  book_TH1F("jet1__eta", netaAxis-1, etaAxis);
+  book_TH1F("jet1__eta", 40, -5.0, 5.0);
   book_TH1F("jet1__phi", 60, -3.15, 3.15);
-  book_TH1F("jet1__M"  , 360, 0, 360);
-  book_TH1F("jet1__CSV", 120, 0, 1.2);
+  book_TH1F("jet1__M"  , 60, 0, 360);
+  book_TH1F("jet1__CSV", 60, 0, 1.2);
 
-  book_TH1F("jet2__pt" , 90, 0, 900);
-  book_TH1F("jet2__eta", 60, -3, 3);
+  //  book_TH1F("jet2__pt" , nptAxis-1, ptAxis);
+  book_TH1F("jet2__pt" , 30, 0, 900);
+  //  book_TH1F("jet2__eta", netaAxis-1, etaAxis);
+  book_TH1F("jet2__eta", 40, -5.0, 5.0);
   book_TH1F("jet2__phi", 60, -3.15, 3.15);
-  book_TH1F("jet2__M"  , 360, 0, 360);
-  book_TH1F("jet2__CSV", 120, 0, 1.2);
+  book_TH1F("jet2__M"  , 60, 0, 360);
+  book_TH1F("jet2__CSV", 60, 0, 1.2);
 
-  book_TH1F("jet3__pt" , 180,  0, 1800);
-  book_TH1F("jet3__eta", 60, -3, 3);
+  //  book_TH1F("jet3__pt" , 180,  0, 1800);
+  book_TH1F("jet3__pt" , 30, 0, 900);
+  //  book_TH1F("jet3__eta", netaAxis-1, etaAxis);
+  book_TH1F("jet3__eta", 40, -5.0, 5.0);
   book_TH1F("jet3__phi", 60, -3.15, 3.15);
-  book_TH1F("jet3__M"  , 360, 0, 360);
-  book_TH1F("jet3__CSV", 120, 0, 1.2);
+  book_TH1F("jet3__M"  , 60, 0, 360);
+  book_TH1F("jet3__CSV", 60, 0, 1.2);
 
   // MET
-  book_TH1F("met__pt" , 90, 0, 900);
+  //  book_TH1F("met__pt" , nptAxis-1, ptAxis);
+  book_TH1F("met__pt" , 45, 0, 900);
   book_TH1F("met__phi", 60, -3.15, 3.15);
 
+  //Delepton 
+  book_TH1F("dilep__ee__M" , 70, 60, 130);
+  book_TH1F("dilep__ee__pt" , 45, 0, 900);
   return;
 }
 
@@ -109,7 +141,11 @@ void TTbarLJTriggerEffHists::fill(const uhh2::Event& event){
 
   // PV
   H1("pvN")->Fill(event.pvs->size(), weight);
-
+  //  H1("pvN")->Fill(event.pvs->size());//TEST
+  //  H1("pvN")->Sumw2();//TEST
+  //  std::cout<<"TTbarLJTriggerEffHists::fill with weight = "<<weight<<" and event.pvs->size() = "<<event.pvs->size()<<std::endl;
+  // for(int i=0;i<60;i++)
+  //   std::cout<<i<<" "<<H1("pvN")->GetBinContent(i)<<" "<<H1("pvN")->GetBinError(i)<<std::endl;
   // MUON
   const int muoN(event.muons->size());
   H1("muoN")->Fill(muoN, weight);
@@ -145,6 +181,11 @@ void TTbarLJTriggerEffHists::fill(const uhh2::Event& event){
     int EMclass= p.Class();
     H1("ele"+std::to_string(i+1)+"__class")->Fill(EMclass, weight);
 
+  }
+
+  if(eleN>1){
+    H1("dilep__ee__M")->Fill((event.electrons->at(0).v4()+event.electrons->at(1).v4()).M(), weight);
+    H1("dilep__ee__pt")->Fill((event.electrons->at(0).v4()+event.electrons->at(1).v4()).Pt(), weight);
   }
 
   // JET

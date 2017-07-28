@@ -56,20 +56,20 @@ void EffyTTbarRECOHists::init(){
   book_TH1F("gen_blep__pz"       , 120, -1200, 1200);
   book_TH1F("gen_blep__cosThetaX", 40, -1, 1);
 
-  book_TH1F("rec_chi2","#chi^2", 100, 0, 600);
+  book_TH1F("rec_chi2","#chi^{2}", 100, 0, 600);
   book_TH2F("rec_chi2__VS__rec_ttbar__M", 300, 0, 600, 55, 0, 4500);
 
-  book_TH1F("rec_ttbar__M"          , "M_{ttbar} [GeV]", 40, 0, 4000);
+  book_TH1F("rec_ttbar__M"          , "M_{ttbar} [GeV]", 60, 0, 6000);
   book_TH1F("rec_ttbar__pt"         , 150, 0, 3000);
   book_TH1F("rec_ttbar__gen_DM"     , 120, -600, 600);
   book_TH1F("rec_ttbar__gen_Dpt"    , 120, -600, 600);
   book_TH1F("rec_ttbar__gen_DM_pct" , 120, -1.2, 1.2);
   book_TH1F("rec_ttbar__gen_Dpt_pct", 120, -1.2, 1.2);
 
-  book_TH1F("rec_thad__M"            , 60, 0, 540);
-  book_TH1F("rec_thad__Mgro"         , 360, 0, 360);
-  book_TH1F("rec_thad__Mpru"         , 360, 0, 360);
-  book_TH1F("rec_thad__Msdp"         , 360, 0, 360);
+  book_TH1F("rec_thad__M"            , 90, 0, 360);
+  book_TH1F("rec_thad__Mgro"         , 90, 0, 360);
+  book_TH1F("rec_thad__Mpru"         , 90, 0, 360);
+  book_TH1F("rec_thad__Msdp"         , 90, 0, 360);
   book_TH1F("rec_thad__pt"           , 180, 0, 1800);
   book_TH1F("rec_thad__jetN"         , 7, 0, 7);
   book_TH1F("rec_thad__gen_DM"       , 240, -120, 120);
@@ -148,6 +148,7 @@ void EffyTTbarRECOHists::init(){
   book_TH1F("rec_neu__cosThetaX"     , 40, -1, 1);
   book_TH1F("rec_neu__gen_DR"        , 60, 0, 6);
   book_TH1F("rec_neu__gen_Dpt"       , 120, -600, 600);
+  book_TH2F("rec_neu__gen_Dpt_vs_genPt"       , 120, 0, 1200, 120, -600, 600);
   book_TH1F("rec_neu__gen_Dphi"      , 60, 0., 3.15);
   book_TH1F("rec_neu__gen_Dpx"       , 120, -600, 600);
   book_TH1F("rec_neu__gen_Dpy"       , 120, -600, 600);
@@ -490,6 +491,7 @@ void EffyTTbarRECOHists::fill(const ReconstructionHypothesis* hyp, const float h
     if(ttljets){
       H1("rec_neu__gen_DR")        ->Fill(uhh2::deltaR(rec_neu, ttgen->Neutrino()), weight);
       H1("rec_neu__gen_Dpt")       ->Fill(rec_neu_pt-gen_neu_pt                  , weight);
+      H2("rec_neu__gen_Dpt_vs_genPt")->Fill(gen_neu_pt,rec_neu_pt-gen_neu_pt                  , weight);
       H1("rec_neu__gen_Dphi")      ->Fill(delta_phi(rec_neu_phi, gen_neu_phi)    , weight);
       H1("rec_neu__gen_Dpx")       ->Fill(rec_neu_px-gen_neu_px                  , weight);
       H1("rec_neu__gen_Dpy")       ->Fill(rec_neu_py-gen_neu_py                  , weight);

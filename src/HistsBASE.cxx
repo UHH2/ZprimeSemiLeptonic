@@ -24,6 +24,15 @@ void HistsBASE::book_TH1F(const std::string& name_, const int xnbins_, const dou
   return;
 }
 
+void HistsBASE::book_TH1F(const std::string& name_, const int xnbins_, const float* xbin_ls_){
+
+  if(h1.find(name_) == h1.end()) h1[name_] = book<TH1F>(name_.c_str(), name_.c_str(), xnbins_, xbin_ls_);
+  else throw std::runtime_error("HistsBASE::book_TH1F -- histogram key already existing: "+name_);
+
+  return;
+}
+
+
 void HistsBASE::book_TH2F(const std::string& name_, const int xnbins_, const double xmin_, const double xmax_, const int ynbins_, const double ymin_, const double ymax_){
 
   if(h2.find(name_) == h2.end()) h2[name_] = book<TH2F>(name_.c_str(), name_.c_str(), xnbins_, xmin_, xmax_, ynbins_, ymin_, ymax_);

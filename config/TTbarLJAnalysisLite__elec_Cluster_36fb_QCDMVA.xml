@@ -5,8 +5,9 @@
 <!-- <!ENTITY NEVT "10"> -->
 <!-- <!ENTITY KEYW "T1_v01"> --> <!-- cut based -->
 <!-- <!ENTITY KEYW "T1_v05"> -->  <!-- event selection for QCD MVA training  -->
- <!ENTITY KEYW "T1_v06"> <!-- event selection for QCD MVA training with MET>50  -->
+<!-- <!ENTITY KEYW "T1_v06"> --> <!-- event selection for QCD MVA training with MET>50  -->
 <!-- <!ENTITY channel "elec"> -->
+<!ENTITY KEYW "T1_v07">  <!-- MET>180 -->
  <!ENTITY btag_workpoint "CSVM">
 <!ENTITY channel "elec">
 <!-- <!ENTITY HLT  "HLT_Ele50_CaloIdVT_GsfTrkIdT_PFJet140_v*">27
