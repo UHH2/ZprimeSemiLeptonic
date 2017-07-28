@@ -368,7 +368,7 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
   topjet_corrector.reset(new TopJetCorrector(ctx, JEC_AK8));
   topjet_subjet_corrector.reset(new SubJetCorrector(ctx, JEC_AK4)); //ToDo
   topjetlepton_cleaner.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK8,"topjets"));
-  //  topjet_cleaner.reset(new TopJetCleaner(ctx, TopJetId(PtEtaCut(450., 2.4))));
+  topjet_cleaner.reset(new TopJetCleaner(ctx, TopJetId(PtEtaCut(450., 2.4))));
 
   //// EVENT SELECTION
   jet2_sel.reset(new NJetSelection(2, -1, JetId(PtEtaCut(jet2_pt, 2.4))));
@@ -571,7 +571,7 @@ bool TTbarLJSkimmingModule::process(uhh2::Event& event){
   topjet_cleaner->process(event);
 
   sort_by_pt<TopJet>(*event.topjets);
-  sort_by_pt<TopJet>(*event.toppuppijets);
+  //  sort_by_pt<TopJet>(*event.toppuppijets);
 
   /* 2nd AK4 jet selection */
   const bool pass_jet2 = jet2_sel->passes(event);
