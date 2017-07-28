@@ -372,7 +372,7 @@ BDTQCDVariableDumpModule::BDTQCDVariableDumpModule(uhh2::Context& ctx){
   if(trigger != "NULL") trigger_sel.reset(new TriggerSelection(trigger));
   else                  trigger_sel.reset(new uhh2::AndSelection(ctx));
 
-  met_sel  .reset(new METCut  (0   , 5000));
+  met_sel  .reset(new METCut  (MET   , 5000));
   htlep_sel.reset(new HTlepCut(HT_lep, uhh2::infinity));
 
   if(triangul_cut){
@@ -755,34 +755,34 @@ bool BDTQCDVariableDumpModule::process(uhh2::Event& event){
   }
 
   ////
-
-    float w_elecHLTSF_ct(1.), w_elecHLTSF_up(1.), w_elecHLTSF_dn(1.);
-    float w_ttagSF_ct(1.), w_ttagSF_upL(1.), w_ttagSF_dnL(1.), w_ttagSF_upT(1.), w_ttagSF_dnT(1.);
-    float w_muR_ct__muF_up(1.), w_muR_ct__muF_dn(1.), w_muR_up__muF_ct(1.), w_muR_up__muF_up(1.), w_muR_dn__muF_ct(1.), w_muR_dn__muF_dn(1.);
-    float w_topptREWGT_up(1.), w_topptREWGT_dn(1.); //w_topptREWGT_ct(1.);
-    float w_wjetsREWGT_ct(1.);
-    std::vector<float> w_PDF;
-    w_PDF.clear();
-    
-    //  std::cout<<event.weight<<std::endl;
-    //
-    //pileup
-    pileupSF->process(event);
-    //  std::cout<<event.weight<<std::endl;
-    // // b-tagging
-    btagSF->process(event);
-    //  std::cout<<event.weight<<std::endl;
-    //  muon-ID
-    muonID_SF->process(event);
-    double w_wo_HLT = event.weight;
-    // std::cout<<"HLT, w_wo_HLT = "<<w_wo_HLT<<std::endl;
-    // // muon-HLT eff
-    muonHLT2_SF->process(event);
-    double w1 = event.weight;
-    event.weight = w_wo_HLT;
-    muonHLT_SF->process(event);
-    double w2 = event.weight;
-    double w = (lumi1*w1+lumi2*w2)/(lumi_tot);
+  float w_elecHLTSF_ct(1.);
+  //    float w_elecHLTSF_ct(1.), w_elecHLTSF_up(1.), w_elecHLTSF_dn(1.);
+  //  float w_ttagSF_ct(1.), w_ttagSF_upL(1.), w_ttagSF_dnL(1.), w_ttagSF_upT(1.), w_ttagSF_dnT(1.);
+  //  float w_muR_ct__muF_up(1.), w_muR_ct__muF_dn(1.), w_muR_up__muF_ct(1.), w_muR_up__muF_up(1.), w_muR_dn__muF_ct(1.), w_muR_dn__muF_dn(1.);
+  float w_topptREWGT_up(1.), w_topptREWGT_dn(1.); //w_topptREWGT_ct(1.);
+  float w_wjetsREWGT_ct(1.);
+  std::vector<float> w_PDF;
+  w_PDF.clear();
+  
+  //  std::cout<<event.weight<<std::endl;
+  //
+  //pileup
+  pileupSF->process(event);
+  //  std::cout<<event.weight<<std::endl;
+  // // b-tagging
+  btagSF->process(event);
+  //  std::cout<<event.weight<<std::endl;
+  //  muon-ID
+  muonID_SF->process(event);
+  double w_wo_HLT = event.weight;
+  // std::cout<<"HLT, w_wo_HLT = "<<w_wo_HLT<<std::endl;
+  // // muon-HLT eff
+  muonHLT2_SF->process(event);
+  double w1 = event.weight;
+  event.weight = w_wo_HLT;
+  muonHLT_SF->process(event);
+  double w2 = event.weight;
+  double w = (lumi1*w1+lumi2*w2)/(lumi_tot);
     // std::cout<<"w1 = "<<w1<<" w2 = "<<w2<<" w = "<<w<<std::endl;
     //  std::cout<<"w = "<<w<<std::endl;
     event.weight = w;
@@ -812,9 +812,9 @@ bool BDTQCDVariableDumpModule::process(uhh2::Event& event){
         // //
         
         // elec-HLT
-        w_elecHLTSF_ct = 0.9598;//!!elecHLTSF->weight(event, "CT");
-        w_elecHLTSF_up = 0.9665;//!!elecHLTSF->weight(event, "UP");
-        w_elecHLTSF_dn = 0.9531;//!!elecHLTSF->weight(event, "DN");
+        // w_elecHLTSF_ct = 0.9598;//!!elecHLTSF->weight(event, "CT");
+        // w_elecHLTSF_up = 0.9665;//!!elecHLTSF->weight(event, "UP");
+        // w_elecHLTSF_dn = 0.9531;//!!elecHLTSF->weight(event, "DN");
         //
         
         
@@ -824,17 +824,17 @@ bool BDTQCDVariableDumpModule::process(uhh2::Event& event){
         // w_elecHLTSF_dn = 1.0;//!!elecHLTSF->weight(event, "DN");
         // //
         
-        // t-tagging
-        w_ttagSF_ct    = ttagSF_ct ->weight(event);
+        // // t-tagging
+        // w_ttagSF_ct    = ttagSF_ct ->weight(event);
         
-        w_ttagSF_upL   = ttagSF_upL->weight(event);
-        if(fabs(w_ttagSF_upL)>10.)
-            std::cout<<"!!!!!!!!!!!!!!!! w_ttagSF_upL = "<<w_ttagSF_upL<<std::endl;
-        w_ttagSF_dnL   = ttagSF_dnL->weight(event);
-        w_ttagSF_upT   = ttagSF_upT->weight(event);
-        if(fabs(w_ttagSF_upT)>10.)
-            std::cout<<"!!!!!!!!!!!!!! w_ttagSF_upT = "<<w_ttagSF_upT<<std::endl;
-        w_ttagSF_dnT   = ttagSF_dnT->weight(event);
+        // w_ttagSF_upL   = ttagSF_upL->weight(event);
+        // if(fabs(w_ttagSF_upL)>10.)
+        //     std::cout<<"!!!!!!!!!!!!!!!! w_ttagSF_upL = "<<w_ttagSF_upL<<std::endl;
+        // w_ttagSF_dnL   = ttagSF_dnL->weight(event);
+        // w_ttagSF_upT   = ttagSF_upT->weight(event);
+        // if(fabs(w_ttagSF_upT)>10.)
+        //     std::cout<<"!!!!!!!!!!!!!! w_ttagSF_upT = "<<w_ttagSF_upT<<std::endl;
+        // w_ttagSF_dnT   = ttagSF_dnT->weight(event);
 
     // Renormalization/Factorization scales
     if(event.genInfo){
@@ -843,12 +843,12 @@ bool BDTQCDVariableDumpModule::process(uhh2::Event& event){
 
         if(event.genInfo->originalXWGTUP()){
 
-          w_muR_ct__muF_up = (event.genInfo->systweights().at(1) / event.genInfo->originalXWGTUP());
-          w_muR_ct__muF_dn = (event.genInfo->systweights().at(2) / event.genInfo->originalXWGTUP());
-          w_muR_up__muF_ct = (event.genInfo->systweights().at(3) / event.genInfo->originalXWGTUP());
-          w_muR_up__muF_up = (event.genInfo->systweights().at(4) / event.genInfo->originalXWGTUP());
-          w_muR_dn__muF_ct = (event.genInfo->systweights().at(6) / event.genInfo->originalXWGTUP());
-          w_muR_dn__muF_dn = (event.genInfo->systweights().at(8) / event.genInfo->originalXWGTUP());
+          // w_muR_ct__muF_up = (event.genInfo->systweights().at(1) / event.genInfo->originalXWGTUP());
+          // w_muR_ct__muF_dn = (event.genInfo->systweights().at(2) / event.genInfo->originalXWGTUP());
+          // w_muR_up__muF_ct = (event.genInfo->systweights().at(3) / event.genInfo->originalXWGTUP());
+          // w_muR_up__muF_up = (event.genInfo->systweights().at(4) / event.genInfo->originalXWGTUP());
+          // w_muR_dn__muF_ct = (event.genInfo->systweights().at(6) / event.genInfo->originalXWGTUP());
+          // w_muR_dn__muF_dn = (event.genInfo->systweights().at(8) / event.genInfo->originalXWGTUP());
 
           if(store_PDF_weights_){
 
@@ -869,7 +869,7 @@ bool BDTQCDVariableDumpModule::process(uhh2::Event& event){
             
         }
         
-        event.weight *= w_ttagSF_ct;
+	//event.weight *= w_ttagSF_ct;
         
     }
 

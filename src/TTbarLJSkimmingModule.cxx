@@ -38,13 +38,6 @@ class TTbarLJSkimmingModule : public ModuleBASE {
   std::unique_ptr<MuonCleaner>     muoSR_cleaner;
   std::unique_ptr<ElectronCleaner> eleSR_cleaner;
 
-  //split corrections by run periods 
-  std::unique_ptr<JetCorrector> jet_corrector;
-  std::unique_ptr<JetCorrector> jet_corrector_BCD;
-  std::unique_ptr<JetCorrector> jet_corrector_EF;
-  std::unique_ptr<JetCorrector> jet_corrector_G;
-  std::unique_ptr<JetCorrector> jet_corrector_H;
-
   std::unique_ptr<TopJetCorrector> topjet_corrector;
   std::unique_ptr<TopJetCorrector> topjet_corrector_BCD;
   std::unique_ptr<TopJetCorrector> topjet_corrector_EF;
@@ -57,20 +50,16 @@ class TTbarLJSkimmingModule : public ModuleBASE {
   std::unique_ptr<SubJetCorrector> subjet_corrector_G;
   std::unique_ptr<SubJetCorrector> subjet_corrector_H;
 
-  std::unique_ptr<JetLeptonCleaner> jetlepton_cleaner;
-  std::unique_ptr<JetLeptonCleaner> jetlepton_cleaner_BCD;
-  std::unique_ptr<JetLeptonCleaner> jetlepton_cleaner_EF;
-  std::unique_ptr<JetLeptonCleaner> jetlepton_cleaner_G;
-  std::unique_ptr<JetLeptonCleaner> jetlepton_cleaner_H;
-
-
   std::unique_ptr<JetCleaner>                      jet_IDcleaner;
+  //split corrections by run periods 
   std::unique_ptr<JetCorrector>                    jet_corrector, jet_corrector_BCD, jet_corrector_EFearly, jet_corrector_FlateG, jet_corrector_H;
   std::unique_ptr<GenericJetResolutionSmearer>     jetER_smearer;
+  //split cleaners by run periods 
   std::unique_ptr<JetLeptonCleaner_by_KEYmatching> jetlepton_cleaner, JLC_BCD, JLC_EFearly, JLC_FlateG, JLC_H;
   //  std::unique_ptr<JetLeptonCleaner> jetlepton_cleaner, JLC_BCD, JLC_EFearly, JLC_FlateG, JLC_H;//TEST
 
   std::unique_ptr<JetCleaner>                      jet_cleaner1;
+  std::unique_ptr<JetCleaner>                      jet_cleaner2;
   std::unique_ptr<JetCleaner>                  topjet_IDcleaner;
   std::unique_ptr<SubJetCorrector>             topjet_subjet_corrector;
   std::unique_ptr<GenericJetResolutionSmearer> topjetER_smearer;
@@ -80,7 +69,7 @@ class TTbarLJSkimmingModule : public ModuleBASE {
 
   // selections
   std::unique_ptr<uhh2::Selection> lumi_sel;
-  //  std::unique_ptr<uhh2::AndSelection> metfilters_sel;
+  std::unique_ptr<uhh2::AndSelection> metfilters_sel;
   //  std::unique_ptr<uhh2::AndSelection> metantifilters_sel;
 
   std::unique_ptr<uhh2::Selection> genmttbar_sel;
@@ -157,7 +146,6 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
 
     //    MET     =  50.;
     MET     =   0.;
-
     HT_lep  =   0.;
   }
   else {
@@ -289,8 +277,6 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
   //  metfilters_sel->add<TriggerSelection>("eeBadScFilter", "Flag_eeBadScFilter");
   metfilters_sel->add<TriggerSelection>("chargedHadronTrackResolutionFilter", "Flag_chargedHadronTrackResolutionFilter"); 
   metfilters_sel->add<TriggerSelection>("muonBadTrackFilter", "Flag_muonBadTrackFilter");
-  //metantifilters_sel.reset(new uhh2::AndSelection(ctx, "metantifilters"));    
-  //  metantifilters_sel->add<TriggerSelection>("muonBadTrackFilter", "Flag_muonBadTrackFilter");
   
 
   /**********************************/
@@ -325,10 +311,8 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
   //  const     MuonId muoSR(AndId<Muon>    (PtEtaCut  (muon_pt   , 2.1), MuonIDLoose()));//temporary switch to LooseID due to problems with MediumID in 2016 data
   const ElectronId eleSR(AndId<Electron>(PtEtaSCCut(ele_pt, 2.5), eleID));
   //  const ElectronId eleSR(PtEtaSCCut(ele_pt, 2.5));//TEST: WITHOUT ELECTRON ID (for denominator of electron ID studies)
-
-    muoSR_cleaner.reset(new     MuonCleaner(muoSR));
-    eleSR_cleaner.reset(new ElectronCleaner(eleSR));
- 
+  muoSR_cleaner.reset(new     MuonCleaner(muoSR));
+  eleSR_cleaner.reset(new ElectronCleaner(eleSR));
   //
 
   //  const JetId jetID(JetPFID(JetPFID::WP_LOOSE));
@@ -337,22 +321,11 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
   std::vector<std::string> JEC_AK4, JEC_AK8;
   std::vector<std::string> JEC_corr,       JEC_corr_BCD,       JEC_corr_EFearly,       JEC_corr_FlateG,       JEC_corr_H,      JEC_corr_MC_FlateGH;
   if(isMC){
-    // JEC_AK4 = JERFiles::Spring16_25ns_L123_AK4PFchs_MC;
-    // JEC_AK8 = JERFiles::Spring16_25ns_L123_AK8PFchs_MC;
     JEC_AK4 = JERFiles::Summer16_23Sep2016_V4_L123_AK4PFchs_MC;
     JEC_AK8 = JERFiles::Summer16_23Sep2016_V4_L123_AK8PFchs_MC;
     JEC_corr = JERFiles::Summer16_23Sep2016_V4_L123_AK4PFchs_MC;
-    // JEC_corr              = JERFiles::Summer16_23Sep2016_V4_L123_AK4PFchs_MC;
-    // //dummies, in this version, MC is not split
-    // JEC_corr_BCD          = JERFiles::Summer16_23Sep2016_V4_L123_AK4PFchs_MC; //ReReco Data + Moriond17 MC
-    // JEC_corr_EFearly      = JERFiles::Summer16_23Sep2016_V4_L123_AK4PFchs_MC;
-    // JEC_corr_FlateG       = JERFiles::Summer16_23Sep2016_V4_L123_AK4PFchs_MC;
-    // JEC_corr_H            = JERFiles::Summer16_23Sep2016_V4_L123_AK4PFchs_MC;
   }
   else {
-    // JEC_AK4 = JERFiles::Spring16_25ns_L123_AK4PFchs_DATA;
-    // JEC_AK8 = JERFiles::Spring16_25ns_L123_AK8PFchs_DATA;
-    //ToDo: set-up different corrections for different data
     JEC_AK4 = JERFiles::Summer16_23Sep2016_V4_H_L123_AK4PFchs_DATA;
     JEC_AK8 = JERFiles::Summer16_23Sep2016_V4_H_L123_AK8PFchs_DATA;
     JEC_corr = JERFiles::Summer16_23Sep2016_V4_H_L123_AK4PFchs_DATA;  //ReReco Data + Moriond17 MC
@@ -362,9 +335,7 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
     JEC_corr_H            = JERFiles::Summer16_23Sep2016_V4_H_L123_AK4PFchs_DATA;
   }
 
-
   jet_IDcleaner.reset(new JetCleaner(ctx, jetID));
-  //  jet_corrector.reset(new JetCorrector(ctx, JEC_AK4));
   if(!isMC){
     jet_corrector_BCD.reset(new JetCorrector(ctx, JEC_corr_BCD));
     jet_corrector_EFearly.reset(new JetCorrector(ctx, JEC_corr_EFearly));
@@ -384,6 +355,10 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
     jetlepton_cleaner.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4));
     //    jetlepton_cleaner.reset(new JetLeptonCleaner(ctx, JEC_AK4));//TEST
     jetER_smearer.reset(new GenericJetResolutionSmearer(ctx));
+    topjet_corrector.reset(new TopJetCorrector(ctx, JEC_AK8));
+    topjet_subjet_corrector.reset(new SubJetCorrector(ctx, JEC_AK4));
+    ctx.declare_event_input<std::vector<Particle> >(ctx.get("TopJetCollectionGEN"), "topjetsGEN");
+    topjetER_smearer.reset(new GenericJetResolutionSmearer(ctx, "topjets", "topjetsGEN", false));
   }
  
   jet_cleaner1.reset(new JetCleaner(ctx, 15., 3.0));
@@ -392,22 +367,8 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
   topjet_IDcleaner.reset(new JetCleaner(ctx, jetID));
   topjet_corrector.reset(new TopJetCorrector(ctx, JEC_AK8));
   topjet_subjet_corrector.reset(new SubJetCorrector(ctx, JEC_AK4)); //ToDo
-
-  if(isMC){
-    //jet_IDcleaner.reset(new JetCleaner(ctx, jetID));
-    jet_corrector.reset(new JetCorrector(ctx, JEC_AK4));
-    jetlepton_cleaner.reset(new JetLeptonCleaner(ctx, JEC_AK4));
-    jetlepton_cleaner->set_drmax(.4);
-    jetER_smearer.reset(new GenericJetResolutionSmearer(ctx));
-    topjet_corrector.reset(new TopJetCorrector(ctx, JEC_AK8));
-    topjet_subjet_corrector.reset(new SubJetCorrector(ctx, JEC_AK4));
-    ctx.declare_event_input<std::vector<Particle> >(ctx.get("TopJetCollectionGEN"), "topjetsGEN");
-    topjetER_smearer.reset(new GenericJetResolutionSmearer(ctx, "topjets", "topjetsGEN", false));
-  }
-  //  topjetlepton_cleaner.reset(new TopJetLeptonDeltaRCleaner(.8));
   topjetlepton_cleaner.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK8,"topjets"));
-  topjet_cleaner.reset(new TopJetCleaner(ctx, TopJetId(PtEtaCut(450., 2.4))));
-  ////
+  //  topjet_cleaner.reset(new TopJetCleaner(ctx, TopJetId(PtEtaCut(450., 2.4))));
 
   //// EVENT SELECTION
   jet2_sel.reset(new NJetSelection(2, -1, JetId(PtEtaCut(jet2_pt, 2.4))));
@@ -444,74 +405,38 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
 
   lumihists.reset(new LuminosityHists(ctx, "lumi"));
 
-  tt_TMVA_response = ctx.declare_event_output<float>("TMVA_response");
-  wjets_TMVA_response = ctx.declare_event_output<float>("WJets_TMVA_response");
-  H_Rec_chi2 = ctx.declare_event_output<float>("H_Rec_chi2");     
-  //W+Jets MVA related                                                                                                                                                
-  h_s33             = ctx.declare_event_output<float>("s33");                                                                                                         
-  //h_jet2_pt          = ctx.declare_event_output<float>          ("jet2_pt");  
-  h_ht_met_lep_norm   = ctx.declare_event_output<float>          ("ht_met_lep_norm");
-  h_jet1_csv         = ctx.declare_event_output<float>           ("jet1_csv");
-  h_jet2_csv         = ctx.declare_event_output<float>           ("jet2_csv");
-  h_njets             = ctx.declare_event_output<float>             ("njets");
-  h_DRpt              = ctx.declare_event_output<float>           ("DRpt");
-  h_lep1__pTrel_jet_norm = ctx.declare_event_output<float>         ("lep1__pTrel_jet_norm");
-  h_jet1_m         = ctx.declare_event_output<float>("jet1_m");                                                                           
-  //  h_lep1__minDR_norm = ctx.declare_event_output<float>("lep1__minDR_jet");
-  h_lep1__minDR_norm = ctx.declare_event_output<float>("lep1__minDR_norm");
-  h_jet2_m         = ctx.declare_event_output<float>("jet2_m");
+  // tt_TMVA_response = ctx.declare_event_output<float>("TMVA_response");
+  // wjets_TMVA_response = ctx.declare_event_output<float>("WJets_TMVA_response");
+  // H_Rec_chi2 = ctx.declare_event_output<float>("H_Rec_chi2");     
+  // //W+Jets MVA related                                                                                                                                                
+  // h_s33             = ctx.declare_event_output<float>("s33");                                                                                                         
+  // //h_jet2_pt          = ctx.declare_event_output<float>          ("jet2_pt");  
+  // h_ht_met_lep_norm   = ctx.declare_event_output<float>          ("ht_met_lep_norm");
+  // h_jet1_csv         = ctx.declare_event_output<float>           ("jet1_csv");
+  // h_jet2_csv         = ctx.declare_event_output<float>           ("jet2_csv");
+  // h_njets             = ctx.declare_event_output<float>             ("njets");
+  // h_DRpt              = ctx.declare_event_output<float>           ("DRpt");
+  // h_lep1__pTrel_jet_norm = ctx.declare_event_output<float>         ("lep1__pTrel_jet_norm");
+  // h_jet1_m         = ctx.declare_event_output<float>("jet1_m");                                                                           
+  // //  h_lep1__minDR_norm = ctx.declare_event_output<float>("lep1__minDR_jet");
+  // h_lep1__minDR_norm = ctx.declare_event_output<float>("lep1__minDR_norm");
+  // h_jet2_m         = ctx.declare_event_output<float>("jet2_m");
 }
 
 bool TTbarLJSkimmingModule::process(uhh2::Event& event){
-  // // Select only bad events --------
-  // //  int selected_ev_IDs[20] = {79075202,642124454,98974610,507545803,517073035,122212829,728082393,31770031,54826279,160620321,
-  // //			     799502433,221626989,103932679,4992666,109496300,389238992,75979947,893292765,276024423};
-  // int selected_ev_IDs[10] = {98974610,517073035, 122212829, 728082393, 54826279, 160620321, 103932679, 4992666, 764633118, 244255053};
-
-  // bool skip_event = true;
-  // for(int i=0;i<20;i++)
-  //   if(fabs(event.event-selected_ev_IDs[i])<1)
-  //     skip_event = false;
-  // if(skip_event) 
-  //   return false;
-  // //[END] Select only bad events --------
-  // double met_begin = event.met->pt();
-  // std::cout<<""<<std::endl;
-  // std::cout<<"---------------------------------- NEW EVENT ---------------------------------- "<<std::endl;
-  // //  if(event.met->pt()>500.)std::cout<<"=========================== HEY! ======================================= MET = "<<event.met->pt()<<std::endl;
-  // std::cout << " Evt# "<<event.event<<" Run: "<<event.run<<" " <<std::endl;
-  // std::cout <<" METcollection = "<<METcollection<<std::endl;
-  // std::cout<<"####BEGIN N_ele = "<<event.electrons->size()<<" N_muo = "<<event.muons->size()<<" N_jets = "<<event.jets->size()<<" N_topjets = "<<event.topjets->size()<<" MET = "<<event.met->pt()<<"raw MET = "<<event.met->uncorr_v4().Pt()<<std::endl;
-  // if(event.electrons->size()>0) std::cout<<" leading electron pt = "<<event.electrons->at(0).pt()<<std::endl;
-
-  // //Check conservation 
-  // LorentzVectorXYZE pt_all_before(0,0,0,0);// = -event.met->v4();
-  // for(const auto& ele : *event.electrons)
-  //   pt_all_before+=ele.v4();
-  // for(const auto& muo : *event.muons)
-  //   pt_all_before+=muo.v4();
-  // for(auto & jet : *event.jets)
-  //   pt_all_before+=jet.v4();
-  // for(auto & topjet : *event.topjets)
-  //   pt_all_before+=topjet.v4();
-
-  // pt_all_before -= event.met->v4();
-  // std::cout<<" pt_all_before.Pt() = "<< pt_all_before.Pt()<<std::endl;
-  // //[END] Check conservation 
-
-  event.set(tt_TMVA_response,-100);//fill with dummy value
-  event.set(wjets_TMVA_response, -100);//fill with dummy value 
-  event.set(H_Rec_chi2,-100);                                                                                                                                         
-  event.set(h_jet1_m,-100);                                                                                                                                           
-  event.set(h_jet1_csv,-100);                                                                                                                                         
-  event.set(h_jet2_m,-100);                                                                                                                                           
-  event.set(h_jet2_csv,-100);                                                                                                                                         
-  event.set(h_njets,-100);                                                                                                                                            
-  event.set(h_ht_met_lep_norm,-100);                                                                                                                                  
-  event.set(h_lep1__pTrel_jet_norm,-100);                                                                                                                             
-  event.set(h_lep1__minDR_norm,-100);                                                                                                                                 
-  event.set(h_s33,-100);                                                                                                                                              
-  event.set(h_DRpt,-100);                                                                                                                                               
+  // event.set(tt_TMVA_response,-100);//fill with dummy value
+  // event.set(wjets_TMVA_response, -100);//fill with dummy value 
+  // event.set(H_Rec_chi2,-100);                                                                                                                                         
+  // event.set(h_jet1_m,-100);                                                                                                                                           
+  // event.set(h_jet1_csv,-100);                                                                                                                                         
+  // event.set(h_jet2_m,-100);                                                                                                                                           
+  // event.set(h_jet2_csv,-100);                                                                                                                                         
+  // event.set(h_njets,-100);                                                                                                                                            
+  // event.set(h_ht_met_lep_norm,-100);                                                                                                                                  
+  // event.set(h_lep1__pTrel_jet_norm,-100);                                                                                                                             
+  // event.set(h_lep1__minDR_norm,-100);                                                                                                                                 
+  // event.set(h_s33,-100);                                                                                                                                              
+  // event.set(h_DRpt,-100);                                                                                                                                               
   // event.set(h_jet1pt_chi2,0);                                                                                                                                      
   // event.set(h_mttbar_chi2,0);            
   //// COMMON MODULES
@@ -522,18 +447,16 @@ bool TTbarLJSkimmingModule::process(uhh2::Event& event){
     lumihists->fill(event);
   }
 
-  /* MET filters 
+  /* MET filters  */
   if(!metfilters_sel->passes(event)) return false;
   //  if(metantifilters_sel->passes(event)) return false;
-  */
+ 
   ////
   if(!event.isRealData){
 
     /* GEN M-ttbar selection */
     ttgenprod->process(event);
     if(!genmttbar_sel->passes(event)) return false;
-
-   
 
     /* GEN ME quark-flavor selection */
     if(!genflavor_sel->passes(event)) return false;
@@ -547,91 +470,67 @@ bool TTbarLJSkimmingModule::process(uhh2::Event& event){
   muoSR_cleaner->process(event);
   sort_by_pt<Muon>(*event.muons);
 
-   eleSR_cleaner->process(event);
-   sort_by_pt<Electron>(*event.electrons);
+  eleSR_cleaner->process(event);
+  sort_by_pt<Electron>(*event.electrons);
   //const bool pass_lep1 = (event.electrons->size() == 1);
   const bool pass_lep1 = ((event.muons->size() >= 1) || (event.electrons->size() >= 1));
   if(!pass_lep1) return false;
   HFolder("lep1")->fill(event);
   ////
 
-  
-
+ 
   //// JET selection
   jet_IDcleaner->process(event);
-  //  jetlepton_cleaner->process(event);//TEST
 
-  
-  //LorentzVector metv4_before = event.met->v4();
-    // jet_corrector->process(event);
-  //LorentzVector metv4_after = event.met->v4();
-  //  std::cout<<"metv4_before.Pt = "<<metv4_before.Pt()<<" metv4_after.Pt = "<<metv4_after.Pt()<<std::endl;
-if(event.isRealData){
-  bool apply_BCD = false;
-  bool apply_EFearly = false;
-  bool apply_FlateG = false;
-  bool apply_H = false;
-  bool apply_global = false;
-  if(event.run <= s_runnr_BCD)  apply_BCD = true;
-  else if(event.run < s_runnr_EFearly) apply_EFearly = true; //< is correct, not <=
-  else if(event.run <= s_runnr_FlateG) apply_FlateG = true; 
-  else if(event.run > s_runnr_FlateG) apply_H = true;
-  else throw std::runtime_error("run number not covered by if-statements in process-routine.");
+  if(event.isRealData){
+    bool apply_BCD = false;
+    bool apply_EFearly = false;
+    bool apply_FlateG = false;
+    bool apply_H = false;
+    bool apply_global = false;
+    if(event.run <= s_runnr_BCD)  apply_BCD = true;
+    else if(event.run < s_runnr_EFearly) apply_EFearly = true; //< is correct, not <=
+    else if(event.run <= s_runnr_FlateG) apply_FlateG = true; 
+    else if(event.run > s_runnr_FlateG) apply_H = true;
+    else throw std::runtime_error("run number not covered by if-statements in process-routine.");
 
-  if(apply_BCD+apply_EFearly+apply_FlateG+apply_H+apply_global != 1) throw std::runtime_error("In TestModule.cxx: Sum of apply_* when applying JECs is not == 1. Fix this.");
+    if(apply_BCD+apply_EFearly+apply_FlateG+apply_H+apply_global != 1) throw std::runtime_error("In TestModule.cxx: Sum of apply_* when applying JECs is not == 1. Fix this.");
 
-  //apply proper JECs
-  if(apply_BCD){
-    bool jlc_sw =  JLC_BCD->process(event);
-    jet_corrector_BCD->process(event);
-    jet_corrector_BCD->correct_met(event);
-    //    bool jlc_sw =  JLC_BCD->process(event); //TEST JLC order
+    //apply proper JECs
+    if(apply_BCD){
+      bool jlc_sw =  JLC_BCD->process(event);
+      jet_corrector_BCD->process(event);
+      jet_corrector_BCD->correct_met(event);
+      //    bool jlc_sw =  JLC_BCD->process(event); //TEST JLC order
    
+    }
+    if(apply_EFearly){
+      bool jlc_sw = JLC_EFearly->process(event);
+      jet_corrector_EFearly->process(event);
+      jet_corrector_EFearly->correct_met(event);
+      //bool jlc_sw =  JLC_BCD->process(event); //TEST JLC order
+    }
+    if(apply_FlateG){
+      bool jlc_sw = JLC_FlateG->process(event);
+      jet_corrector_FlateG->process(event);
+      jet_corrector_FlateG->correct_met(event);
+      // bool jlc_sw =  JLC_BCD->process(event); //TEST JLC order
+    }
+    if(apply_H){
+      bool jlc_sw = JLC_H->process(event);
+      jet_corrector_H->process(event);
+      jet_corrector_H->correct_met(event);
+      //    bool jlc_sw =  JLC_BCD->process(event); //TEST JLC order
+    }
   }
-  if(apply_EFearly){
-    bool jlc_sw = JLC_EFearly->process(event);
-    jet_corrector_EFearly->process(event);
-    jet_corrector_EFearly->correct_met(event);
-    //bool jlc_sw =  JLC_BCD->process(event); //TEST JLC order
+  else{ //MC
+    bool jlc_sw = jetlepton_cleaner->process(event); //TEST without JLC
+    jet_corrector->process(event);
+    //Apply JER to all jet collections
+    if(jetER_smearer.get()) jetER_smearer->process(event);  
+    //correct MET only AFTER smearing the jets
+    jet_corrector->correct_met(event);
   }
-  if(apply_FlateG){
-    bool jlc_sw = JLC_FlateG->process(event);
-    jet_corrector_FlateG->process(event);
-    jet_corrector_FlateG->correct_met(event);
-    // bool jlc_sw =  JLC_BCD->process(event); //TEST JLC order
-  }
-  if(apply_H){
-    bool jlc_sw = JLC_H->process(event);
-    jet_corrector_H->process(event);
-    jet_corrector_H->correct_met(event);
-    //    bool jlc_sw =  JLC_BCD->process(event); //TEST JLC order
-  }
- }
- else{ //MC
-   //   const Jet* jet1_before =  &event.jets->at(0);       
-   //    std::cout<<"jet1_before_pt = "<<jet1_before->pt()<<" met_before = "<<event.met->pt()<<std::endl;
-
-   bool jlc_sw = jetlepton_cleaner->process(event); //TEST without JLC
-
-    // if(jlc_sw){
-    //   const Jet* jet1_after =  &event.jets->at(0); 
-    //    std::cout<<"JLC worked! jet1_after_pt = "<<jet1_after->pt()<<" met_before = "<<event.met->pt()<<std::endl;
-    // }
-   jet_corrector->process(event);
-   // if(jlc_sw){
-   //   const Jet* jet1_after2 =  &event.jets->at(0);       
-   //  std::cout<<"JLC worked & JEC applied! jet1_after2_pt = "<<jet1_after2->pt()<<" met_before = "<<event.met->pt()<<std::endl;
-   // }
-      //Apply JER to all jet collections
-   if(jetER_smearer.get()) jetER_smearer->process(event);  
-   //correct MET only AFTER smearing the jets
-   jet_corrector->correct_met(event);
-   //   bool jlc_sw = jetlepton_cleaner->process(event);//TEST JLC order
-   // if(jlc_sw){
-   //   const Jet* jet1_after3 =  &event.jets->at(0);       
-   //  std::cout<<"JLC worked & JEC&JER applied! jet1_after3_pt = "<<jet1_after3->pt()<<" met_after = "<<event.met->pt()<<std::endl;
-   // }
- }
   
   jet_cleaner1->process(event);
   sort_by_pt<Jet>(*event.jets);
@@ -665,18 +564,11 @@ if(event.isRealData){
   topjet_IDcleaner->process(event);
   sort_by_pt<TopJet>(*event.topjets);
 
-  //  if(event.topjets->size()>0) std::cout<<"&&& BEFORE TopJet.pt =  "<<event.topjets->at(0).pt()<<std::endl;
-  //  std::cout<<"BEFORE event.topjets->size() = "<<event.topjets->size()<<std::endl;
-
-  topjetlepton_cleaner->process(event); //TEST without JLC
-
-  // std::cout<<"AFTER event.topjets->size() = "<<event.topjets->size()<<std::endl;
-  //  if(event.topjets->size()>0) std::cout<<"&&& AFTER JLC TopJet.pt =  "<<event.topjets->at(0).pt()<<std::endl;
+  topjetlepton_cleaner->process(event);
   topjet_corrector->process(event);
   //  topjet_subjet_corrector->process(event);
   if(topjetER_smearer.get()) topjetER_smearer->process(event);
   topjet_cleaner->process(event);
-  //  if(event.topjets->size()>0) std::cout<<"&&& AFTER cleaning TopJet.pt =  "<<event.topjets->at(0).pt()<<std::endl;
 
   sort_by_pt<TopJet>(*event.topjets);
   sort_by_pt<TopJet>(*event.toppuppijets);
@@ -685,35 +577,29 @@ if(event.isRealData){
   const bool pass_jet2 = jet2_sel->passes(event);
   if(!pass_jet2) return false;
   HFolder("jet2")->fill(event);
-  //  std::cout<<"pass_jet2 "<<std::endl;
 
   /* 1st AK4 jet selection */
   const bool pass_jet1 = jet1_sel->passes(event);
   if(!pass_jet1) return false;
   HFolder("jet1")->fill(event);
-  //  std::cout<<"pass_jet1 "<<std::endl;
   ////
 
-  //TEST no MET, HT_lep, 2D cut for QCD studies
 
   //// MET selection
   const bool pass_met = met_sel->passes(event);
   if(!pass_met) return false;
   HFolder("met")->fill(event);
-  //  std::cout<<"pass_met "<<std::endl;
   ////
 
   //// HT_lep selection
   const bool pass_htlep = htlep_sel->passes(event);
   if(!pass_htlep) return false;
   HFolder("htlep")->fill(event);
-  //  std::cout<<"pass_htlep "<<std::endl;
-
+  ////
   
   //// LEPTON-2Dcut selection
   if(!pass_twodcut) return false;
   HFolder("twodcut")->fill(event);
-  //  std::cout<<"twodcut "<<std::endl;
   ////
 
   /* GEN matching for the electron ID studies */
@@ -724,17 +610,8 @@ if(event.isRealData){
       for(auto& ele : *event.electrons){
 	double dR_gen_rec_lep = uhh2::deltaR(ele, ttgen.ChargedLepton()); //<0.1
 	double pt_diff = fabs(ele.pt()-ttgen.ChargedLepton().pt())/ttgen.ChargedLepton().pt(); //<0.3
-	// if(dR_gen_rec_lep<0.1){
-	//   std::cout<<"...GEN pt_diff = "<<pt_diff<<" pt_GEN = "<<ttgen.ChargedLepton().pt()<<" pt_REC = "<<ele.pt()<<std::endl;
-	//   std::cout<<"...GEN neutrino_pt = "<<ttgen.Neutrino().pt()<<std::endl;
-	//   std::cout<<"...GEN TopHad_pt = "<<ttgen.TopHad().pt()<<std::endl;
-	//   std::cout<<"...GEN btop_pt = "<<ttgen.bTop().pt()<<" bantitop_pt = "<<ttgen.bAntitop().pt()<<std::endl;
-	//   std::cout<<"...GEN Q1_pt = "<<ttgen.Q1().pt()<<" Q2_pt = "<<ttgen.Q2().pt()<<std::endl;
-	// }
 	if(dR_gen_rec_lep<0.1 && pt_diff<0.3 && (ttgen.ChargedLepton().charge()*ele.charge())>0 && fabs(ttgen.ChargedLepton().pdgId())==11){
 	  HFolder("lep_eff_sig")->fill(event);
-	  // std::cout<<"...GEN neutrino_pt = "<<ttgen.Neutrino().pt()<<std::endl;
-	  // std::cout<<"...GEN pt_diff = "<<pt_diff<<" pt_GEN = "<<ttgen.ChargedLepton().pt()<<" pt_REC = "<<ele.pt()<<std::endl;
 	}
 	else
 	  HFolder("lep_eff_bkg")->fill(event);
@@ -743,34 +620,6 @@ if(event.isRealData){
     else
       HFolder("lep_eff_bkg")->fill(event);
   }
-
-  // //Check conservation 
-  // LorentzVectorXYZE pt_all(0,0,0,0);// = -event.met->v4();
-  // std::cout<<"####END N_ele = "<<event.electrons->size()<<" N_muo = "<<event.muons->size()<<" N_jets = "<<event.jets->size()<<" N_topjets = "<<event.topjets->size()<<std::endl;
-  // for(const auto& ele : *event.electrons){
-  //   pt_all+=ele.v4();
-  //   std::cout<<" ele_pt = "<<ele.v4().Pt();
-  // }
-  // for(const auto& muo : *event.muons)
-  //   pt_all+=muo.v4();
-  // for(auto & jet : *event.jets){
-  //   pt_all+=jet.v4();
-  //   std::cout<<" jet_pt = "<<jet.v4().Pt();
-  // }
-  // for(auto & topjet : *event.topjets){
-  //   pt_all+=topjet.v4();
-  //   std::cout<<" topjet_pt = "<<topjet.v4().Pt();
-  // }
-  // std::cout<<" "<<std::endl;
-  // pt_all -= event.met->v4();
-  // std::cout<<"####END pt_all.Pt() = "<< pt_all.Pt()<<" met = "<<event.met->pt()<<" raw_met = "<<event.met->uncorr_v4().Pt()<<std::endl;
-
-  //[END] Check conservation 
-  // double met_end = event.met->pt();
-  // if(fabs(met_begin-met_end)>50.) std::cout<<"Attention: dMET = "<<fabs(met_begin-met_end)<<" raw_met = "<<event.met->uncorr_v4().Pt()<<std::endl;
-  // if(event.met->pt()>500. && event.muons->size()<1) 
-  //   std::cout<<"=========================== HEY! ======================================= MET = "<<event.met->pt()<<" METcollection = "<<METcollection<<std::endl;
-  // std::cout<<"####END N_ele = "<<event.electrons->size()<<" N_muo = "<<event.muons->size()<<" N_jets = "<<event.jets->size()<<" N_topjets = "<<event.topjets->size()<<" met = "<<event.met->pt()<<" raw_met = "<<event.met->uncorr_v4().Pt()<<std::endl;
   return true;
 }
 
