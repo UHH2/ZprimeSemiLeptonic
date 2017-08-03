@@ -39,16 +39,7 @@ class TTbarLJSkimmingModule : public ModuleBASE {
   std::unique_ptr<ElectronCleaner> eleSR_cleaner;
 
   std::unique_ptr<TopJetCorrector> topjet_corrector;
-  std::unique_ptr<TopJetCorrector> topjet_corrector_BCD;
-  std::unique_ptr<TopJetCorrector> topjet_corrector_EF;
-  std::unique_ptr<TopJetCorrector> topjet_corrector_G;
-  std::unique_ptr<TopJetCorrector> topjet_corrector_H;
-
-  std::unique_ptr<SubJetCorrector> subjet_corrector;
-  std::unique_ptr<SubJetCorrector> subjet_corrector_BCD;
-  std::unique_ptr<SubJetCorrector> subjet_corrector_EF;
-  std::unique_ptr<SubJetCorrector> subjet_corrector_G;
-  std::unique_ptr<SubJetCorrector> subjet_corrector_H;
+  std::unique_ptr<GenericTopJetCorrector> toppuppijet_corrector;
 
   std::unique_ptr<JetCleaner>                      jet_IDcleaner;
   //split corrections by run periods 
@@ -60,12 +51,18 @@ class TTbarLJSkimmingModule : public ModuleBASE {
 
   std::unique_ptr<JetCleaner>                      jet_cleaner1;
   std::unique_ptr<JetCleaner>                      jet_cleaner2;
-  std::unique_ptr<JetCleaner>                  topjet_IDcleaner;
-  std::unique_ptr<SubJetCorrector>             topjet_subjet_corrector;
+  std::unique_ptr<TopJetCleaner>                  topjet_IDcleaner;
+  std::unique_ptr<SubJetCorrector>             topjet_subjet_corrector, topjet_subjet_corrector_BCD, topjet_subjet_corrector_EF, topjet_subjet_corrector_G, topjet_subjet_corrector_H;
   std::unique_ptr<GenericJetResolutionSmearer> topjetER_smearer;
   //  std::unique_ptr<TopJetLeptonDeltaRCleaner>   topjetlepton_cleaner;
   std::unique_ptr<JetLeptonCleaner_by_KEYmatching> topjetlepton_cleaner;
   std::unique_ptr<TopJetCleaner>               topjet_cleaner;
+
+  std::unique_ptr<TopJetCleaner>               toppuppijet_IDcleaner;
+  std::unique_ptr<GenericSubJetCorrector>      toppuppijet_subjet_corrector, toppuppijet_subjet_corrector_BCD, toppuppijet_subjet_corrector_EF, toppuppijet_subjet_corrector_G, toppuppijet_subjet_corrector_H;
+  std::unique_ptr<GenericJetResolutionSmearer> toppuppijetER_smearer;
+  std::unique_ptr<JetLeptonCleaner_by_KEYmatching> toppuppijetlepton_cleaner;
+  std::unique_ptr<TopJetCleaner>               toppuppijet_cleaner;
 
   // selections
   std::unique_ptr<uhh2::Selection> lumi_sel;
@@ -320,10 +317,14 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
 
   std::vector<std::string> JEC_AK4, JEC_AK8;
   std::vector<std::string> JEC_corr,       JEC_corr_BCD,       JEC_corr_EFearly,       JEC_corr_FlateG,       JEC_corr_H,      JEC_corr_MC_FlateGH;
+  std::vector<std::string> JEC_AK4_Puppi, JEC_AK8_Puppi, JEC_corr_BCD_Puppi, JEC_corr_EFearly_Puppi, JEC_corr_FlateG_Puppi, JEC_corr_H_Puppi;
   if(isMC){
     JEC_AK4 = JERFiles::Summer16_23Sep2016_V4_L123_AK4PFchs_MC;
     JEC_AK8 = JERFiles::Summer16_23Sep2016_V4_L123_AK8PFchs_MC;
     JEC_corr = JERFiles::Summer16_23Sep2016_V4_L123_AK4PFchs_MC;
+
+    JEC_AK4_Puppi = JERFiles::Summer16_23Sep2016_V4_L123_AK4PFPuppi_MC;
+    JEC_AK8_Puppi = JERFiles::Summer16_23Sep2016_V4_L123_AK8PFPuppi_MC;
   }
   else {
     JEC_AK4 = JERFiles::Summer16_23Sep2016_V4_H_L123_AK4PFchs_DATA;
@@ -333,6 +334,13 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
     JEC_corr_EFearly      = JERFiles::Summer16_23Sep2016_V4_EF_L123_AK4PFchs_DATA;
     JEC_corr_FlateG       = JERFiles::Summer16_23Sep2016_V4_G_L123_AK4PFchs_DATA;
     JEC_corr_H            = JERFiles::Summer16_23Sep2016_V4_H_L123_AK4PFchs_DATA;
+
+    JEC_AK4_Puppi = JERFiles::Summer16_23Sep2016_V4_H_L123_AK4PFPuppi_DATA;
+    JEC_AK8_Puppi = JERFiles::Summer16_23Sep2016_V4_H_L123_AK8PFPuppi_DATA;
+    JEC_corr_BCD_Puppi          = JERFiles::Summer16_23Sep2016_V4_BCD_L123_AK4PFPuppi_DATA;
+    JEC_corr_EFearly_Puppi      = JERFiles::Summer16_23Sep2016_V4_EF_L123_AK4PFPuppi_DATA;
+    JEC_corr_FlateG_Puppi       = JERFiles::Summer16_23Sep2016_V4_G_L123_AK4PFPuppi_DATA;
+    JEC_corr_H_Puppi            = JERFiles::Summer16_23Sep2016_V4_H_L123_AK4PFPuppi_DATA;
   }
 
   jet_IDcleaner.reset(new JetCleaner(ctx, jetID));
@@ -349,6 +357,16 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
     JLC_EFearly.reset(new JetLeptonCleaner(ctx, JEC_corr_EFearly));
     JLC_FlateG.reset(new JetLeptonCleaner(ctx, JEC_corr_FlateG));
     JLC_H.reset(new JetLeptonCleaner(ctx, JEC_corr_H));*/
+    topjet_subjet_corrector_BCD.reset(new SubJetCorrector(ctx, JEC_corr_BCD));
+    topjet_subjet_corrector_EF.reset(new SubJetCorrector(ctx, JEC_corr_EFearly));
+    topjet_subjet_corrector_G.reset(new SubJetCorrector(ctx, JEC_corr_FlateG));
+    topjet_subjet_corrector_H.reset(new SubJetCorrector(ctx, JEC_corr_H));
+
+    toppuppijet_subjet_corrector_BCD.reset(new GenericSubJetCorrector(ctx, JEC_corr_BCD, "toppuppijets"));
+    toppuppijet_subjet_corrector_EF.reset(new GenericSubJetCorrector(ctx, JEC_corr_EFearly, "toppuppijets"));
+    toppuppijet_subjet_corrector_G.reset(new GenericSubJetCorrector(ctx, JEC_corr_FlateG, "toppuppijets"));
+    toppuppijet_subjet_corrector_H.reset(new GenericSubJetCorrector(ctx, JEC_corr_H, "toppuppijets"));
+
   }
   if(isMC){
     jet_corrector.reset(new JetCorrector(ctx, JEC_AK4));
@@ -359,17 +377,26 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
     topjet_subjet_corrector.reset(new SubJetCorrector(ctx, JEC_AK4));
     ctx.declare_event_input<std::vector<Particle> >(ctx.get("TopJetCollectionGEN"), "topjetsGEN");
     topjetER_smearer.reset(new GenericJetResolutionSmearer(ctx, "topjets", "topjetsGEN", false));
+
+    toppuppijet_corrector.reset(new GenericTopJetCorrector(ctx, JEC_AK8_Puppi, "toppuppijets"));
+    toppuppijet_subjet_corrector.reset(new GenericSubJetCorrector(ctx, JEC_AK4, "toppuppijets"));
+    toppuppijetER_smearer.reset(new GenericJetResolutionSmearer(ctx, "toppuppijets", "topjetsGEN", false));
+
   }
  
   jet_cleaner1.reset(new JetCleaner(ctx, 15., 3.0));
   jet_cleaner2.reset(new JetCleaner(ctx, 30., 2.4));
 
-  topjet_IDcleaner.reset(new JetCleaner(ctx, jetID));
+  topjet_IDcleaner.reset(new TopJetCleaner(ctx, jetID, "topjets"));
   topjet_corrector.reset(new TopJetCorrector(ctx, JEC_AK8));
-  topjet_subjet_corrector.reset(new SubJetCorrector(ctx, JEC_AK4)); //ToDo
-  topjetlepton_cleaner.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK8,"topjets"));
-  topjet_cleaner.reset(new TopJetCleaner(ctx, TopJetId(PtEtaCut(450., 2.4))));
+  //topjet_subjet_corrector.reset(new SubJetCorrector(ctx, JEC_AK4)); //ToDo
+  topjetlepton_cleaner.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK8, "topjets"));
+  topjet_cleaner.reset(new TopJetCleaner(ctx, TopJetId(PtEtaCut(400., 2.4))));
 
+  toppuppijet_IDcleaner.reset(new TopJetCleaner(ctx, jetID, "toppuppijets"));
+  toppuppijet_corrector.reset(new GenericTopJetCorrector(ctx, JEC_AK8_Puppi, "toppuppijets"));
+  toppuppijetlepton_cleaner.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK8, "toppuppijets"));
+  toppuppijet_cleaner.reset(new TopJetCleaner(ctx, TopJetId(PtEtaCut(400., 2.4)), "toppuppijets"));
   //// EVENT SELECTION
   jet2_sel.reset(new NJetSelection(2, -1, JetId(PtEtaCut(jet2_pt, 2.4))));
   jet1_sel.reset(new NJetSelection(1, -1, JetId(PtEtaCut(jet1_pt, 2.4))));
@@ -502,25 +529,32 @@ bool TTbarLJSkimmingModule::process(uhh2::Event& event){
       jet_corrector_BCD->process(event);
       jet_corrector_BCD->correct_met(event);
       //    bool jlc_sw =  JLC_BCD->process(event); //TEST JLC order
-   
+      topjet_subjet_corrector_BCD->process(event);
+      toppuppijet_subjet_corrector_BCD->process(event);
     }
     if(apply_EFearly){
       bool jlc_sw = JLC_EFearly->process(event);
       jet_corrector_EFearly->process(event);
       jet_corrector_EFearly->correct_met(event);
       //bool jlc_sw =  JLC_BCD->process(event); //TEST JLC order
+      topjet_subjet_corrector_EF->process(event);
+      toppuppijet_subjet_corrector_EF->process(event);
     }
     if(apply_FlateG){
       bool jlc_sw = JLC_FlateG->process(event);
       jet_corrector_FlateG->process(event);
       jet_corrector_FlateG->correct_met(event);
       // bool jlc_sw =  JLC_BCD->process(event); //TEST JLC order
+      topjet_subjet_corrector_G->process(event);
+      toppuppijet_subjet_corrector_G->process(event);
     }
     if(apply_H){
       bool jlc_sw = JLC_H->process(event);
       jet_corrector_H->process(event);
       jet_corrector_H->correct_met(event);
       //    bool jlc_sw =  JLC_BCD->process(event); //TEST JLC order
+      topjet_subjet_corrector_H->process(event);
+      toppuppijet_subjet_corrector_H->process(event);
     }
   }
   else{ //MC
@@ -530,6 +564,8 @@ bool TTbarLJSkimmingModule::process(uhh2::Event& event){
     if(jetER_smearer.get()) jetER_smearer->process(event);  
     //correct MET only AFTER smearing the jets
     jet_corrector->correct_met(event);
+    topjet_subjet_corrector->process(event);
+    toppuppijet_subjet_corrector->process(event);
   }
   
   jet_cleaner1->process(event);
@@ -570,8 +606,14 @@ bool TTbarLJSkimmingModule::process(uhh2::Event& event){
   if(topjetER_smearer.get()) topjetER_smearer->process(event);
   topjet_cleaner->process(event);
 
+  //toppuppijet_IDcleaner->process(event);
+  toppuppijetlepton_cleaner->process(event);
+  toppuppijet_corrector->process(event);
+  if(toppuppijetER_smearer.get()) toppuppijetER_smearer->process(event);
+  toppuppijet_cleaner->process(event);
+
   sort_by_pt<TopJet>(*event.topjets);
-  //  sort_by_pt<TopJet>(*event.toppuppijets);
+  sort_by_pt<TopJet>(*event.toppuppijets);
 
   /* 2nd AK4 jet selection */
   const bool pass_jet2 = jet2_sel->passes(event);

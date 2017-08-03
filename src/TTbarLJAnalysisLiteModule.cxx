@@ -710,7 +710,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   if(trigger3 != "NULL") trigger3_sel.reset(new TriggerSelection(trigger3)); //now Trigger infor should be added
   else                  trigger3_sel.reset(new uhh2::AndSelection(ctx));
 
-  std::cout<<"Trigger1 = "<<trigger<<" Trigger2 = "<<trigger2<<" Trigger3 = "<<trigger3<<std::endl;
+  //std::cout<<"Trigger1 = "<<trigger<<" Trigger2 = "<<trigger2<<" Trigger3 = "<<trigger3<<std::endl;
   met_sel  .reset(new METCut  (MET   , uhh2::infinity));
   htlep_sel.reset(new HTlepCut(HT_lep, uhh2::infinity));
 
@@ -803,7 +803,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
       "jet2",
 	"jet1",
 	"trigger",
-	//"met",
+	"met",
 	//"htlep",
 	//"triangc",
 	"topleppt",
@@ -838,6 +838,9 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 	"chi2__t1__antiWJetsBDT",
 	"chi2__t0__antiWJetsBDT",
 
+    "antichi2_antibdt",
+    "antichi2_antibdt__t1",
+    "antichi2_antibdt__t0",
 	});
 
   for(const auto& tag : htags_2){
@@ -1254,11 +1257,12 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
     //    TString dir    = "/afs/desy.de/user/k/karavdia/CMSSW_8_0_9/src/UHH2/ZprimeSemiLeptonic/TMVA_weights/80X/"; //ToDo: make it param in xml
     //    TString dir    = "/afs/desy.de/user/k/karavdia/CMSSW_8_0_19_patch2/UHH2/ZprimeSemiLeptonic/TMVA_weights/80_19/"; //ToDo: make it param in xml
-    TString dir    = "/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/TMVA_weights/80_19/"; //ToDo: make it param in xml
-    methodName = "BDT::BDTG";
+    //TString dir    = "/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/TMVA_weights/80_19/"; //ToDo: make it param in xml
     //    TString weightfile = dir + "Homemade_TTbarMVAClassification_BDTG.weights.xml";
     //    TString weightfile = dir + "Homemade_TTbarMVAClassification_BDTG_12Vars.weights.xml";
-    TString weightfile = dir + "Homemade_TTbarMVAClassification_BDTG_blep.weights.xml";
+    //TString weightfile = dir + "Homemade_TTbarMVAClassification_BDTG_blep.weights.xml";
+    TString weightfile = ctx.get("qcd_ele_bdt");
+    methodName = "BDT::BDTG";
     reader->BookMVA(methodName, weightfile);
   }
   // ////
@@ -1301,7 +1305,8 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   reader_wjets->AddVariable("jet2_m", &mva_jet2m_norm);
   reader_wjets->AddVariable("njets", &mva_njets);
   reader_wjets->AddVariable("s33", &mva_s33);
-  TString dirWJetsMVA = "/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/TMVA_weights/80X/weights_80Xv3BDT_OPTIMIZED_50-001-10-0p2/TMVAClassification_BDT.weights.xml";
+  //TString dirWJetsMVA = "/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/TMVA_weights/80X/weights_80Xv3BDT_OPTIMIZED_50-001-10-0p2/TMVAClassification_BDT.weights.xml";
+  TString dirWJetsMVA = ctx.get("wjet_bdt");
   reader_wjets->BookMVA("BDT method", dirWJetsMVA);
 
 }
@@ -1335,7 +1340,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   event.set(tt_TMVA_response, 0);//set some dummy initial value
   //
   event.set(wjets_TMVA_response,0);
-  event.set(H_Rec_chi2,0);
+  event.set(h_rec_chi2,0);
   //event.set(h_jet1_pt,0);
   event.set(h_jet1_m,0);
   event.set(h_jet1_csv,0);
@@ -1826,15 +1831,15 @@ if(!pass_triangc) return false;
   event.set(h_jet1           , jet1__p4);
   event.set(h_jet2           , jet2__p4); 
   const int jet_n = event.jets->size();
-  //event.set(tt_nJets,jet_n);
+  event.set(tt_nJets,jet_n);
   //leading jet
   const Jet* jet1 = &event.jets->at(0);
   ljet_pt = jet1->pt();
-  //event.set(tt_ljet_pt, ljet_pt);
+  event.set(tt_ljet_pt, ljet_pt);
   ljet_phi = jet1->phi();     ljet_eta = jet1->eta();
-  //event.set(tt_ljet_phi, ljet_phi);     event.set(tt_ljet_eta, ljet_eta);
+  event.set(tt_ljet_phi, ljet_phi);     event.set(tt_ljet_eta, ljet_eta);
   ljet_CSV = jet1->btag_combinedSecondaryVertexMVA();
-  //event.set(tt_ljet_CSV,ljet_CSV);
+  event.set(tt_ljet_CSV,ljet_CSV);
   ljet_M = jet1->v4().M();
   event.set(tt_ljet_M, ljet_M);
   NDaughters_jet1 = jet1->numberOfDaughters();
@@ -1853,10 +1858,10 @@ if(!pass_triangc) return false;
     jet3_M = jet3->v4().M();                        
     jet3_CSV = jet3->btag_combinedSecondaryVertexMVA();        
   }
-  //event.set(tt_jet2_pt,fjet2_pt); event.set(tt_jet2_phi,fjet2_phi); event.set(tt_jet2_eta,fjet2_eta);
-  //event.set(tt_jet3_pt,fjet3_pt); event.set(tt_jet3_phi,fjet3_phi); event.set(tt_jet3_eta,fjet3_eta);
-  //event.set(tt_jet2_M,jet2_M); event.set(tt_jet3_M,jet3_M);
-  //event.set(tt_jet2_CSV,jet2_CSV);
+  event.set(tt_jet2_pt,fjet2_pt); event.set(tt_jet2_phi,fjet2_phi); event.set(tt_jet2_eta,fjet2_eta);
+  event.set(tt_jet3_pt,fjet3_pt); event.set(tt_jet3_phi,fjet3_phi); event.set(tt_jet3_eta,fjet3_eta);
+  event.set(tt_jet2_M,jet2_M); event.set(tt_jet3_M,jet3_M);
+  event.set(tt_jet2_CSV,jet2_CSV);
   //  std::cout<<"one more time ... jet2_CSV = "<<jet2_CSV<<std::endl;
   event.set(tt_jet3_CSV,jet3_CSV);
 
@@ -2141,14 +2146,15 @@ if(!pass_triangc) return false;
     //  if(TMVA_response<0.76) return false; //BDTG_DATADriven_MET40_20vars
     event.set(tt_TMVA_response, TMVA_response);
     //  std::cout<<"TMVA_response = "<<TMVA_response<<std::endl;
+    if(TMVA_response<0) return false;
   }
   // if(!pass_chi2) 
   //   return false;
 
-  if(TMVA_response<0) return false;
+  //if(TMVA_response<0) return false;
 
 
-  //event.set(tt_ev_weight,event.weight);
+  event.set(tt_ev_weight,event.weight);
   if(!event.isRealData){
     const TTbarGen* ttbargen(0);
     const auto& ttgen = event.get(h_ttbar_gen);
@@ -2156,7 +2162,7 @@ if(!pass_triangc) return false;
     LorentzVector gen_ttbar = ttbargen->Top().v4()+ttbargen->Antitop().v4();
     gen_ttbar_M_ = gen_ttbar.M();
   }
-  //event.set(tt_mttbar_gen,gen_ttbar_M_);
+  event.set(tt_mttbar_gen,gen_ttbar_M_);
 
   //FILL HERE THE BDT WJETS VARIABLES
   float s11 = 0.0;
