@@ -451,6 +451,10 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
 }
 
 bool TTbarLJSkimmingModule::process(uhh2::Event& event){
+ //  std::cout<<" -------------------------- "<<std::endl;
+ //  std::cout << " Evt# "<<event.event<<" Run: "<<event.run<<" " <<std::endl;
+ // std::cout<<"####BEGIN N_ele = "<<event.electrons->size()<<" N_muo = "<<event.muons->size()<<" N_jets = "<<event.jets->size()<<" N_topjets = "<<event.topjets->size()<<" met = "<<event.met->pt()<<" raw_met = "<<event.met->uncorr_v4().Pt()<<std::endl;
+
   // event.set(tt_TMVA_response,-100);//fill with dummy value
   // event.set(wjets_TMVA_response, -100);//fill with dummy value 
   // event.set(H_Rec_chi2,-100);                                                                                                                                         
@@ -508,6 +512,7 @@ bool TTbarLJSkimmingModule::process(uhh2::Event& event){
  
   //// JET selection
   jet_IDcleaner->process(event);
+  //  std::cout<<"####After jet_IDcleaner, N_jets = "<<event.jets->size()<<" N_topjets = "<<event.topjets->size()<<std::endl;
 
   if(event.isRealData){
     bool apply_BCD = false;
@@ -567,9 +572,10 @@ bool TTbarLJSkimmingModule::process(uhh2::Event& event){
     topjet_subjet_corrector->process(event);
     toppuppijet_subjet_corrector->process(event);
   }
-  
+  //  std::cout<<"####After JLC, N_jets = "<<event.jets->size()<<" N_topjets = "<<event.topjets->size()<<std::endl;
   jet_cleaner1->process(event);
   sort_by_pt<Jet>(*event.jets);
+  //  std::cout<<"####After jet_cleaner1, N_jets = "<<event.jets->size()<<" N_topjets = "<<event.topjets->size()<<std::endl;
   
   /* lepton-2Dcut variables */
   const bool pass_twodcut = twodcut_sel->passes(event); {
@@ -595,8 +601,10 @@ bool TTbarLJSkimmingModule::process(uhh2::Event& event){
 
   //  if(!pass_twodcut){};//place holder
 
-  jet_cleaner1->process(event);
+  jet_cleaner2->process(event);
   sort_by_pt<Jet>(*event.jets);
+  //  std::cout<<"####After jet_cleaner2, N_jets = "<<event.jets->size()<<" N_topjets = "<<event.topjets->size()<<std::endl;
+
   topjet_IDcleaner->process(event);
   sort_by_pt<TopJet>(*event.topjets);
 
@@ -662,6 +670,8 @@ bool TTbarLJSkimmingModule::process(uhh2::Event& event){
     else
       HFolder("lep_eff_bkg")->fill(event);
   }
+    // std::cout<<"####END N_ele = "<<event.electrons->size()<<" N_muo = "<<event.muons->size()<<" N_jets = "<<event.jets->size()<<" N_topjets = "<<event.topjets->size()<<" met = "<<event.met->pt()<<" raw_met = "<<event.met->uncorr_v4().Pt()<<std::endl;
+    // std::cout<<""<<std::endl;
   return true;
 }
 
