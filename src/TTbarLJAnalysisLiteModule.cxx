@@ -1333,6 +1333,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
 
   
   //  std::cout<<"   --- NEW event ---  "<<std::endl;
+  //  std::cout << " Evt# "<<event.event<<" Run: "<<event.run<<" " << std::endl;
   // std::cout<<"   elecs = "<<event.electrons->size()<<" muons = "<<event.muons->size()<<std::endl;
   if(channel_ == muon && event.electrons->size()>0 && event.muons->size()>1) return false; //veto additional leptons
   if(channel_ == elec && event.muons->size()>0 && event.electrons->size()>1) return false;//veto additional leptons
@@ -1745,7 +1746,8 @@ if(!pass_triangc) return false;
 
   /* DATA blinding */
   
-  if(blind_DATA_ && event.isRealData ){
+  //  if(blind_DATA_ && event.isRealData ){
+  if(blind_DATA_){
 
     //    if(lepN == 1 && pass_chi2){
     //    if(lepN == 1){
@@ -2353,7 +2355,7 @@ if(!pass_triangc) return false;
       } */
   /**************/
   // if(event.met->pt()>500) 
-  //   std::cout<<"#### N_ele = "<<event.electrons->size()<<" N_muo = "<<event.muons->size()<<" N_jets = "<<event.jets->size()<<" N_topjets = "<<event.topjets->size()<<" met = "<<event.met->pt()<<" raw MET = "<<event.met->uncorr_v4().Pt()<<" event weight = "<<event.weight<<std::endl;
+  // std::cout<<"#### N_ele = "<<event.electrons->size()<<" N_muo = "<<event.muons->size()<<" N_jets = "<<event.jets->size()<<" N_topjets = "<<event.topjets->size()<<" met = "<<event.met->pt()<<" raw MET = "<<event.met->uncorr_v4().Pt()<<" event weight = "<<event.weight<<std::endl;
   // std::cout<<"-- End of Event --"<<std::endl;
   return true;
 }
