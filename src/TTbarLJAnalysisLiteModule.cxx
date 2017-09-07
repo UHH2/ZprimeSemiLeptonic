@@ -206,6 +206,7 @@ protected:
   Event::Handle<float> tt_lep_pt;//lepton pt
   Event::Handle<float> tt_lep_pt_err;//lepton pt error
   Event::Handle<float> tt_lep_eta;//lepton eta
+  Event::Handle<float> tt_lep_eta_SC;//lepton eta
   Event::Handle<float> tt_lep_eta_err;//lepton eta error
   Event::Handle<float> tt_lep_phi;//lepton eta
   Event::Handle<float> tt_lep_phi_err;//lepton eta error
@@ -287,7 +288,7 @@ protected:
   Event::Handle<float> tt_dR_recblep_recneu;//distance in R for reconstructed neu to b quark from lepton side 
 
   float met_pt, met_phi, rawmet_pt;//MET
-  float lep_pt, lep_eta, fabs_lep_eta, lep_phi;//lepton
+  float lep_pt, lep_eta, lep_eta_SC, fabs_lep_eta, lep_phi;//lepton
   float lep_pt_err, lep_eta_err, lep_phi_err;//lepton
   float ljet_pt; float ljet_eta; float ljet_phi;//leading jet 
   float cjet_pt; float cjet_eta; float cjet_phi;//close to the lepton jet (not leading)
@@ -1078,7 +1079,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   fjet2_pt = -100; fjet3_pt = -100;                                                                                                                 
   fjet2_phi = -100; fjet3_phi = -100;                                                                                                               
   fjet2_eta = -100; fjet3_eta = -100;  
-  lep_pt = -100; lep_eta = -100; fabs_lep_eta = -100; lep_phi = -100; 
+  lep_pt = -100; lep_eta = -100; lep_eta_SC = -100; fabs_lep_eta = -100; lep_phi = -100; 
   lep_pt_err = -100; lep_eta_err = -100; lep_phi_err = -100; 
   lep_xy = -100; lep_fbrem = -100;
 
@@ -1100,6 +1101,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   tt_lep_pt = ctx.declare_event_output<float>("lep_pt");
   tt_lep_pt_err = ctx.declare_event_output<float>("lep_pt_err");
   tt_lep_eta = ctx.declare_event_output<float>("lep_eta");
+  tt_lep_eta_SC = ctx.declare_event_output<float>("lep_eta_SC");
   tt_lep_eta_err = ctx.declare_event_output<float>("lep_eta_err");
   tt_lep_phi = ctx.declare_event_output<float>("lep_phi");
   tt_lep_phi_err = ctx.declare_event_output<float>("lep_phi_err");
@@ -1334,7 +1336,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   
   //  std::cout<<"   --- NEW event ---  "<<std::endl;
   //  std::cout << " Evt# "<<event.event<<" Run: "<<event.run<<" " << std::endl;
-  // std::cout<<"   elecs = "<<event.electrons->size()<<" muons = "<<event.muons->size()<<std::endl;
+  // std::cout<<"   elecs = "<<event.electrons->size()<<" muons = "<<event.muons->size()<<" N_jets = "<<event.jets->size()<<" N_topjets = "<<event.topjets->size()<<std::endl;
   if(channel_ == muon && event.electrons->size()>0 && event.muons->size()>1) return false; //veto additional leptons
   if(channel_ == elec && event.muons->size()>0 && event.electrons->size()>1) return false;//veto additional leptons
   //  std::cout<<" Now let's do the selections "<<std::endl;
@@ -1486,20 +1488,20 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
 
     //    std::cout<<"event.weight = "<<event.weight<<std::endl;
 
-    // // t-tagging
-    w_ttagSF_ct    = ttagSF_ct ->weight(event);
-    event.weight *= w_ttagSF_ct;
-    if(fabs(w_ttagSF_ct)>10.)
-      std::cout<<"!!!!!!!!!!!!!!!! w_ttagSF_ct = "<<w_ttagSF_ct<<std::endl;  
-    w_ttagSF_upL   = ttagSF_upL->weight(event);
-    if(fabs(w_ttagSF_upL)>10.)
-      std::cout<<"!!!!!!!!!!!!!!!! w_ttagSF_upL = "<<w_ttagSF_upL<<std::endl;
-    w_ttagSF_dnL   = ttagSF_dnL->weight(event);
-    w_ttagSF_upT   = ttagSF_upT->weight(event);
-    if(fabs(w_ttagSF_upT)>10.)
-      std::cout<<"!!!!!!!!!!!!!! w_ttagSF_upT = "<<w_ttagSF_upT<<std::endl;
-    w_ttagSF_dnT   = ttagSF_dnT->weight(event);
-    // //
+    // // // t-tagging
+    // w_ttagSF_ct    = ttagSF_ct ->weight(event);
+    // event.weight *= w_ttagSF_ct;
+    // if(fabs(w_ttagSF_ct)>10.)
+    //   std::cout<<"!!!!!!!!!!!!!!!! w_ttagSF_ct = "<<w_ttagSF_ct<<std::endl;  
+    // w_ttagSF_upL   = ttagSF_upL->weight(event);
+    // if(fabs(w_ttagSF_upL)>10.)
+    //   std::cout<<"!!!!!!!!!!!!!!!! w_ttagSF_upL = "<<w_ttagSF_upL<<std::endl;
+    // w_ttagSF_dnL   = ttagSF_dnL->weight(event);
+    // w_ttagSF_upT   = ttagSF_upT->weight(event);
+    // if(fabs(w_ttagSF_upT)>10.)
+    //   std::cout<<"!!!!!!!!!!!!!! w_ttagSF_upT = "<<w_ttagSF_upT<<std::endl;
+    // w_ttagSF_dnT   = ttagSF_dnT->weight(event);
+    // // //
 
     // Renormalization/Factorization scales
     if(event.genInfo){
@@ -1939,7 +1941,7 @@ if(!pass_triangc) return false;
 
     //Set variables for MVA ------------
     lep_class = ((Electron*)lep1)->Class();
-    lep_pt = lep1->pt(); lep_eta = lep1->eta(); fabs_lep_eta = fabs(lep_eta); lep_phi = lep1->phi();
+    lep_pt = lep1->pt(); lep_eta = lep1->eta(); fabs_lep_eta = fabs(lep_eta); lep_phi = lep1->phi(); lep_eta_SC = ((Electron*)lep1)->supercluster_eta();
     lep_pt_err = ((Electron*)lep1)->ptError(); lep_eta_err = ((Electron*)lep1)->etaError(); lep_phi_err = ((Electron*)lep1)->phiError();
     lep_xy = hypot(((Electron*)lep1)->gsfTrack_vx(),((Electron*)lep1)->gsfTrack_vy());
     lep_fbrem = ((Electron*)lep1)->fbrem();//f_brem = (Pin-Pout)/Pin where Pin, Pout - electron momentum in and out of the tracker
@@ -2002,7 +2004,7 @@ if(!pass_triangc) return false;
   }
  
   event.set(tt_lep_class, lep_class);
-  event.set(tt_lep_pt, lep_pt);   event.set(tt_lep_eta, lep_eta); event.set(tt_lep_phi, lep_phi);
+  event.set(tt_lep_pt, lep_pt);   event.set(tt_lep_eta, lep_eta); event.set(tt_lep_phi, lep_phi); event.set(tt_lep_eta_SC, lep_eta_SC);
   event.set(tt_lep_pt_err, lep_pt_err); event.set(tt_lep_eta_err, lep_eta_err); event.set(tt_lep_phi_err, lep_phi_err);
   event.set(tt_lep_xy,lep_xy);
   event.set(tt_lep_fbrem,lep_fbrem);
@@ -2355,7 +2357,7 @@ if(!pass_triangc) return false;
       } */
   /**************/
   // if(event.met->pt()>500) 
-  // std::cout<<"#### N_ele = "<<event.electrons->size()<<" N_muo = "<<event.muons->size()<<" N_jets = "<<event.jets->size()<<" N_topjets = "<<event.topjets->size()<<" met = "<<event.met->pt()<<" raw MET = "<<event.met->uncorr_v4().Pt()<<" event weight = "<<event.weight<<std::endl;
+  //  std::cout<<"#### N_ele = "<<event.electrons->size()<<" N_muo = "<<event.muons->size()<<" N_jets = "<<event.jets->size()<<" N_topjets = "<<event.topjets->size()<<" met = "<<event.met->pt()<<" raw MET = "<<event.met->uncorr_v4().Pt()<<" event weight = "<<event.weight<<std::endl;
   // std::cout<<"-- End of Event --"<<std::endl;
   return true;
 }

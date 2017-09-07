@@ -107,6 +107,8 @@ void TTbarLJHists::init(){
   ele1__minDR_jet = book<TH1F>("ele1__minDR_jet","#Delta R_{min}(e,jet)"      , 60, 0, 6);
   ele1__pTrel_jet = book<TH1F>("ele1__pTrel_jet", "p_{T,rel}(e,jet)[GeV]"     , 100, 0, 500);
   ele1__DPhi_met = book<TH1F>("ele1__DPhi_met","#Delta #phi(e,MET)", 40, 0, 4);
+  ele1__eta_SC = book<TH1F>("ele1__eta_SC","electron SC #eta" ,10,-3,3);
+  ele1__Deta_trk_SC = book<TH1F>("ele1__Deta_trk_SC","electron #eta_{trk} -#eta_{SC}",150,-2.5,2.5);
 
   ele2__class = book<TH1F>("ele2__class", "electron_{2} class" , 6, -0.5, 5.5);
   ele2__charge = book<TH1F>("ele2__charge", "electron_{2} charge"         , 5, -2, 3);
@@ -309,6 +311,8 @@ void TTbarLJHists::fill(const uhh2::Event& event){
       ele1__minDR_jet->Fill(minDR_jet, weight);
       ele1__pTrel_jet->Fill(pTrel_jet, weight);
       ele1__DPhi_met->Fill(uhh2::deltaPhi(*event.met,p), weight);
+      ele1__eta_SC->Fill(p.supercluster_eta(), weight);
+      ele1__Deta_trk_SC->Fill(p.eta()-p.supercluster_eta(), weight);
     }
     if(i==1){
       ele2__charge->Fill(p.charge()          , weight);
