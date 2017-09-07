@@ -362,10 +362,10 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
     topjet_subjet_corrector_G.reset(new SubJetCorrector(ctx, JEC_corr_FlateG));
     topjet_subjet_corrector_H.reset(new SubJetCorrector(ctx, JEC_corr_H));
 
-    toppuppijet_subjet_corrector_BCD.reset(new GenericSubJetCorrector(ctx, JEC_corr_BCD, "toppuppijets"));
-    toppuppijet_subjet_corrector_EF.reset(new GenericSubJetCorrector(ctx, JEC_corr_EFearly, "toppuppijets"));
-    toppuppijet_subjet_corrector_G.reset(new GenericSubJetCorrector(ctx, JEC_corr_FlateG, "toppuppijets"));
-    toppuppijet_subjet_corrector_H.reset(new GenericSubJetCorrector(ctx, JEC_corr_H, "toppuppijets"));
+    toppuppijet_subjet_corrector_BCD.reset(new GenericSubJetCorrector(ctx, JEC_corr_BCD_Puppi, "toppuppijets"));
+    toppuppijet_subjet_corrector_EF.reset(new GenericSubJetCorrector(ctx, JEC_corr_EFearly_Puppi, "toppuppijets"));
+    toppuppijet_subjet_corrector_G.reset(new GenericSubJetCorrector(ctx, JEC_corr_FlateG_Puppi, "toppuppijets"));
+    toppuppijet_subjet_corrector_H.reset(new GenericSubJetCorrector(ctx, JEC_corr_H_Puppi, "toppuppijets"));
 
   }
   if(isMC){
@@ -379,7 +379,7 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
     topjetER_smearer.reset(new GenericJetResolutionSmearer(ctx, "topjets", "topjetsGEN", false));
 
     toppuppijet_corrector.reset(new GenericTopJetCorrector(ctx, JEC_AK8_Puppi, "toppuppijets"));
-    toppuppijet_subjet_corrector.reset(new GenericSubJetCorrector(ctx, JEC_AK4, "toppuppijets"));
+    toppuppijet_subjet_corrector.reset(new GenericSubJetCorrector(ctx, JEC_AK4_Puppi, "toppuppijets"));
     toppuppijetER_smearer.reset(new GenericJetResolutionSmearer(ctx, "toppuppijets", "topjetsGEN", false));
 
   }
@@ -395,7 +395,7 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
 
   toppuppijet_IDcleaner.reset(new TopJetCleaner(ctx, jetID, "toppuppijets"));
   toppuppijet_corrector.reset(new GenericTopJetCorrector(ctx, JEC_AK8_Puppi, "toppuppijets"));
-  toppuppijetlepton_cleaner.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK8, "toppuppijets"));
+  toppuppijetlepton_cleaner.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK8_Puppi, "toppuppijets"));
   toppuppijet_cleaner.reset(new TopJetCleaner(ctx, TopJetId(PtEtaCut(400., 2.4)), "toppuppijets"));
   //// EVENT SELECTION
   jet2_sel.reset(new NJetSelection(2, -1, JetId(PtEtaCut(jet2_pt, 2.4))));
