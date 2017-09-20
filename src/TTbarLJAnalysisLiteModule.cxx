@@ -441,7 +441,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
     if(channel_ == muon){
 
-      lep1_pt_ =   50.;
+      lep1_pt_ =   55.;
      
       jet1_pt  = 150.;
       jet2_pt  =  50.;
@@ -452,8 +452,10 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
       triangul_cut = false;
       topleppt_cut = false;
 
-      muo1_pt_max_ = 500.;
-      muo1_eta_max_ = 1.2;
+      // muo1_pt_max_ = 500.;
+      // muo1_eta_max_ = 1.2;
+      muo1_pt_max_ = 99999.0;
+      muo1_eta_max_ = 2.4;
       chi2_cut_ = 30.;
       QCD_BDT_cut = -10;
     }
