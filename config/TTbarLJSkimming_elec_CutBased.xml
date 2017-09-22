@@ -52,6 +52,12 @@
 <!ENTITY WJetsToLNu_Pt-400To600 SYSTEM  "../../common/datasets/RunII_80X_v3/MC_WJetsToLNu_Pt-400To600.xml">
 <!ENTITY WJetsToLNu_Pt-600ToInf SYSTEM  "../../common/datasets/RunII_80X_v3/MC_WJetsToLNu_Pt-600ToInf.xml">
 
+ <!ENTITY ZprimeToTT_30w_M1000 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_ZprimeToTT_30w_M1000.xml">
+ <!ENTITY ZprimeToTT_30w_M2000 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_ZprimeToTT_30w_M2000.xml">
+ <!ENTITY ZprimeToTT_30w_M3000 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_ZprimeToTT_30w_M3000.xml">
+ <!ENTITY ZprimeToTT_30w_M4000 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_ZprimeToTT_30w_M4000.xml">
+ <!ENTITY ZprimeToTT_30w_M5000 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_ZprimeToTT_30w_M5000.xml">
+
  <!ENTITY ZprimeToTT_10w_M0500 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_ZprimeToTT_10w_M0500.xml">
  <!ENTITY ZprimeToTT_10w_M0750 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_ZprimeToTT_10w_M0750.xml">
  <!ENTITY ZprimeToTT_10w_M1000 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_ZprimeToTT_10w_M1000.xml">
@@ -62,6 +68,8 @@
  <!ENTITY ZprimeToTT_10w_M3000 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_ZprimeToTT_10w_M3000.xml">
  <!ENTITY ZprimeToTT_10w_M3500 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_ZprimeToTT_10w_M3500.xml">
  <!ENTITY ZprimeToTT_10w_M4000 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_ZprimeToTT_10w_M4000.xml">
+ <!ENTITY ZprimeToTT_10w_M4500 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_ZprimeToTT_10w_M4500.xml">
+ <!ENTITY ZprimeToTT_10w_M5000 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_ZprimeToTT_10w_M5000.xml">
 
  <!ENTITY ZprimeToTT_01w_M0500 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_ZprimeToTT_01w_M0500.xml">
  <!ENTITY ZprimeToTT_01w_M0750 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_ZprimeToTT_01w_M0750.xml">
@@ -73,6 +81,8 @@
  <!ENTITY ZprimeToTT_01w_M3000 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_ZprimeToTT_01w_M3000.xml">
  <!ENTITY ZprimeToTT_01w_M3500 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_ZprimeToTT_01w_M3500.xml">
  <!ENTITY ZprimeToTT_01w_M4000 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_ZprimeToTT_01w_M4000.xml">
+ <!ENTITY ZprimeToTT_01w_M4500 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_ZprimeToTT_01w_M4500.xml">
+ <!ENTITY ZprimeToTT_01w_M5000 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_ZprimeToTT_01w_M5000.xml">
 
  <!ENTITY RSGluonToTT_M0500 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_RSGluonToTT_M0500.xml">
  <!ENTITY RSGluonToTT_M0750 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_RSGluonToTT_M0750.xml">
@@ -84,6 +94,8 @@
  <!ENTITY RSGluonToTT_M3000 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_RSGluonToTT_M3000.xml">
  <!ENTITY RSGluonToTT_M3500 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_RSGluonToTT_M3500.xml">
  <!ENTITY RSGluonToTT_M4000 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_RSGluonToTT_M4000.xml">
+ <!ENTITY RSGluonToTT_M4500 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_RSGluonToTT_M4500.xml">
+ <!ENTITY RSGluonToTT_M5000 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_RSGluonToTT_M5000.xml">
 
  <!ENTITY ZprimeToTTJet_M0500 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_ZprimeToTTJet_M0500.xml">
  <!ENTITY ZprimeToTTJet_M0750 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_ZprimeToTTJet_M0750.xml">
@@ -161,14 +173,13 @@
  <!ENTITY GJets_HT-600ToInf SYSTEM  "../../common/datasets/RunII_80X_v3/MC_GJets_HT-600ToInf.xml">
  <!ENTITY GJets_HT-40To100 SYSTEM  "../../common/datasets/RunII_80X_v3/MC_GJets_HT-40To100.xml">
 
-<!ENTITY DATA_SingleMuon_RunB SYSTEM  "../../common/datasets/RunII_80X_v3/SingleMuonB.xml">
-<!ENTITY DATA_SingleMuon_RunBv3 SYSTEM  "../../common/datasets/RunII_80X_v3/SingleMuonB_v3.xml">
-<!ENTITY DATA_SingleMuon_RunC SYSTEM  "../../common/datasets/RunII_80X_v3/SingleMuonC.xml">
-<!ENTITY DATA_SingleMuon_RunD SYSTEM  "../../common/datasets/RunII_80X_v3/SingleMuonD.xml">
-<!ENTITY DATA_SingleMuon_RunE SYSTEM  "../../common/datasets/RunII_80X_v3/DATA_SingleMuon_Run2016E_23Sep.xml">
-<!ENTITY DATA_SingleMuon_RunF SYSTEM  "../../common/datasets/RunII_80X_v3/DATA_SingleMuon_Run2016F_23Sep.xml">
-<!ENTITY DATA_SingleMuon_RunG SYSTEM  "../../common/datasets/RunII_80X_v3/DATA_SingleMuon_Run2016G_23Sep.xml">
-<!ENTITY DATA_SingleMuon_RunH SYSTEM  "../../common/datasets/RunII_80X_v3/DATA_SingleMuon_Run2016H_PromptReco.xml">
+<!ENTITY DATA_SingleMuon_RunB_03Feb SYSTEM  "../../common/datasets/RunII_80X_v3/DATA_SingleMuon_Run2016B_03Feb.xml">
+<!ENTITY DATA_SingleMuon_RunC_03Feb SYSTEM  "../../common/datasets/RunII_80X_v3/DATA_SingleMuon_Run2016C_03Feb.xml">
+<!ENTITY DATA_SingleMuon_RunD_03Feb SYSTEM  "../../common/datasets/RunII_80X_v3/DATA_SingleMuon_Run2016D_03Feb.xml">
+<!ENTITY DATA_SingleMuon_RunE_03Feb SYSTEM  "../../common/datasets/RunII_80X_v3/DATA_SingleMuon_Run2016E_03Feb.xml">
+<!ENTITY DATA_SingleMuon_RunF_03Feb SYSTEM  "../../common/datasets/RunII_80X_v3/DATA_SingleMuon_Run2016F_03Feb.xml">
+<!ENTITY DATA_SingleMuon_RunG_03Feb SYSTEM  "../../common/datasets/RunII_80X_v3/DATA_SingleMuon_Run2016G_03Feb.xml">
+<!ENTITY DATA_SingleMuon_RunH_03Feb SYSTEM  "../../common/datasets/RunII_80X_v3/DATA_SingleMuon_Run2016H_03Feb.xml">
 
 
 ]>
@@ -188,7 +199,7 @@
   <!--  <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTdir;/" PostFix="" TargetLumi="1" RunMode="PROOF" ProofServer="pod://"  ProofWorkDir="&PROOFdir;/">
 -->
 
- <InputData Version="WJetsToLNu_Pt-250To400__B" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+<!-- <InputData Version="WJetsToLNu_Pt-250To400__B" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
     &WJetsToLNu_Pt-250To400; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
 <InputData Version="WJetsToLNu_Pt-400To600__B" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
     &WJetsToLNu_Pt-400To600; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
@@ -320,6 +331,30 @@
   <InputData Version="RSGluonToTT_M4000" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
     &RSGluonToTT_M4000; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
 
+  <InputData Version="ZprimeToTT_01w_M4500" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+    &ZprimeToTT_01w_M4500; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
+  <InputData Version="ZprimeToTT_01w_M5000" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+    &ZprimeToTT_01w_M5000; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
+  <InputData Version="ZprimeToTT_10w_M4500" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+    &ZprimeToTT_10w_M4500; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
+  <InputData Version="ZprimeToTT_10w_M5000" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+    &ZprimeToTT_10w_M5000; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
+  <InputData Version="RSGluonToTT_M4500" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+    &RSGluonToTT_M4500; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+  <InputData Version="RSGluonToTT_M5000" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+    &RSGluonToTT_M5000; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+
+ <InputData Version="ZprimeToTT_30w_M1000" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+    &ZprimeToTT_30w_M1000; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
+ <InputData Version="ZprimeToTT_30w_M2000" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+    &ZprimeToTT_30w_M2000; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
+ <InputData Version="ZprimeToTT_30w_M3000" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+    &ZprimeToTT_30w_M3000; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
+ <InputData Version="ZprimeToTT_30w_M4000" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+    &ZprimeToTT_30w_M4000; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
+ <InputData Version="ZprimeToTT_30w_M5000" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+    &ZprimeToTT_30w_M5000; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
+
  <InputData Version="TTbar_part1" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
 &TTbar_part1; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
 <InputData Version="TTbar_part2" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
@@ -376,6 +411,29 @@
 &QCD_HT200to300; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
 <InputData Version="QCD_HT100to200" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
 &QCD_HT100to200; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+-->
+
+<InputData Version="DATA_SingleMuon_Run2016B" Lumi="1" Type="DATA" NEventsMax="&NEVT;" Cacheable="False">
+    &DATA_SingleMuon_RunB_03Feb;
+    <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
+  <InputData Version="DATA_SingleMuon_Run2016C" Lumi="1" Type="DATA" NEventsMax="&NEVT;" Cacheable="False">
+    &DATA_SingleMuon_RunC_03Feb;
+    <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
+  <InputData Version="DATA_SingleMuon_Run2016D" Lumi="1" Type="DATA" NEventsMax="&NEVT;" Cacheable="False">
+  &DATA_SingleMuon_RunD_03Feb;
+  <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
+<InputData Version="DATA_SingleMuon_Run2016E" Lumi="1" Type="DATA" NEventsMax="&NEVT;" Cacheable="False">
+  &DATA_SingleMuon_RunE_03Feb;
+  <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
+<InputData Version="DATA_SingleMuon_Run2016F" Lumi="1" Type="DATA" NEventsMax="&NEVT;" Cacheable="False">
+  &DATA_SingleMuon_RunF_03Feb;
+  <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
+ <InputData Version="DATA_SingleMuon_Run2016G" Lumi="1" Type="DATA" NEventsMax="&NEVT;" Cacheable="False">
+  &DATA_SingleMuon_RunG_03Feb;
+  <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
+ <InputData Version="DATA_SingleMuon_Run2016H" Lumi="1" Type="DATA" NEventsMax="&NEVT;" Cacheable="False">
+  &DATA_SingleMuon_RunH_03Feb;
+  <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
 
 
 <!-- <InputData Version="WJetsToLNu_HT-100To200__B" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">

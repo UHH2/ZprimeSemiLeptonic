@@ -19,7 +19,7 @@ class TTbarLJHists : public uhh2::Hists {
  protected:
   TopJetId tjet_ID_;
   float    tjet_minDR_jet_;
-  TH1F *wgt, *pvN, *rho, *muoN, *eleN, *jetN, *topjetN, *toptagN;
+  TH1F *wgt, *pvN, *rho, *muoN, *eleN, *jetN, *topjetN, *toptagN, *toppuppijetN;
   TH1F *muo1__charge,*muo1__pt,*muo1__eta,*muo1__phi;
   TH1F *muo1__minDR_jet,*muo1__pTrel_jet;
   TH1F *muo2__charge,*muo2__pt,*muo2__eta,*muo2__phi;
@@ -42,8 +42,12 @@ class TTbarLJHists : public uhh2::Hists {
   TH1F *jet3__EMfrac,*jet3__HADfrac,*jet3__PHfrac;
   TH1F *under_jets__pt;
   TH1F *jet1__NDaughters,*jet2__NDaughters,*jet3__NDaughters;
-  TH1F *topjet1__pt,*topjet1__eta,*topjet1__phi,*topjet1__CSV,*topjet1__Msdp,*topjet1__tau32;
-  TH1F *topjet2__pt,*topjet2__eta,*topjet2__phi,*topjet2__CSV,*topjet2__Msdp,*topjet2__tau32;
+  TH1F *topjet1__pt,*topjet1__eta,*topjet1__phi,*topjet1__CSV,*topjet1__Msdp,*topjet1__tau32,*topjet1__NumSubjets,*topjet1__dR;
+  TH1F *topjet2__pt,*topjet2__eta,*topjet2__phi,*topjet2__CSV,*topjet2__Msdp,*topjet2__tau32,*topjet2__NumSubjets,*topjet2__dR;
+  TH1F *toppuppijet1__pt,*toppuppijet1__eta,*toppuppijet1__phi,*toppuppijet1__CSV,*toppuppijet1__Msdp,*toppuppijet1__tau32,*toppuppijet1__NumSubjets;
+  TH1F *toppuppijet2__pt,*toppuppijet2__eta,*toppuppijet2__phi,*toppuppijet2__CSV,*toppuppijet2__Msdp,*toppuppijet2__tau32,*toppuppijet2__NumSubjets;
+  TH1F *toppuppijet__pt_matched,*toppuppijet__eta_matched,*toppuppijet__phi_matched,*toppuppijet__CSV_matched,*toppuppijet__Msdp_matched,*toppuppijet__tau32_matched,*toppuppijet__NumSubjets_matched,*toppuppijet__jetID_matched,*toppuppijetN_matched;
+  TH1F *toppuppijet__pt_matched_ttag,*toppuppijet__eta_matched_ttag,*toppuppijet__phi_matched_ttag,*toppuppijet__CSV_matched_ttag,*toppuppijet__Msdp_matched_ttag,*toppuppijet__tau32_matched_ttag,*toppuppijet__NumSubjets_matched_ttag,*toppuppijet__jetID_matched_ttag;
   TH1F *toptag1__pt,*toptag1__eta,*toptag1__phi,*toptag1__M;
   TH1F *toptag1__Mgro,*toptag1__Mpru,*toptag1__Msdp;
   TH1F *toptag1__tau32,*toptag1__CSV,*toptag1__subjN;
