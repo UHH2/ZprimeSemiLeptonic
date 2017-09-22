@@ -107,7 +107,7 @@ protected:
 
   //!!  std::unique_ptr<weightcalc_elecHLT> elecHLTSF;
 
-  std::unique_ptr<uhh2::AnalysisModule> btagSF;
+  //  std::unique_ptr<uhh2::AnalysisModule> btagSF;
   std::unique_ptr<Hists> h_btagMCeffi;
 
   std::unique_ptr<weightcalc_ttagging> ttagSF_ct;
@@ -596,7 +596,18 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
     if     (keyword == "T0_v06") use_ttagging_ = false;
     else if(keyword == "T1_v06") use_ttagging_ = true;
     if(channel_ == muon){
-      throw std::runtime_error("TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule -- undefined working-point for \""+keyword+"\" in \"muon\" channel");
+      lep1_pt_ =   55.;
+      jet1_pt  = 150.;
+      jet2_pt  =  50.;
+      MET      =  50.;
+      HT_lep   = 150.;
+      triangul_cut = false;                                                                                                                                           
+      topleppt_cut = false;                          
+      muo1_pt_max_ = 0.0;
+      muo1_eta_max_ = 0.0;
+      chi2_cut_ = 30.;
+      QCD_BDT_cut = -10;            
+      //      throw std::runtime_error("TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule -- undefined working-point for \""+keyword+"\" in \"muon\" channel");
     }
     else if(channel_ == elec){
       lep1_pt_ =   65.;
@@ -872,9 +883,10 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
   std::vector<std::string> htags_4({
       "Final",
-	"Final__t0b0",
-	"Final__t0b1",
-	"Final__t0b2",
+	// "Final__t0b0",
+	// "Final__t0b1",
+	// "Final__t0b2",
+	"Final__t0",
 	"Final__t1",
 	});
 
@@ -984,10 +996,10 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   // // elec-HLT
   // elecHLT_SF.reset(new MCElecScaleFactor(ctx, elecHLT_SFac, 0.0, "HLT"));
 
-  // // //b-tagging scale factors
-  // //  btagSF.reset(new MCBTagScaleFactor(ctx, b_working_point));
-  btagSF.reset(new MCBTagScaleFactor(ctx, b_working_point,"jets","central","comb","incl","MCBtagEfficiencies"));//CSV
-  //  btagSF.reset(new MCBTagScaleFactor(ctx, b_working_point,"jets","central","ttbar","incl","MCBtagEfficiencies"));//MVA
+  // // // //b-tagging scale factors
+  // // //  btagSF.reset(new MCBTagScaleFactor(ctx, b_working_point));
+  // btagSF.reset(new MCBTagScaleFactor(ctx, b_working_point,"jets","central","comb","incl","MCBtagEfficiencies"));//CSV
+  // //  btagSF.reset(new MCBTagScaleFactor(ctx, b_working_point,"jets","central","ttbar","incl","MCBtagEfficiencies"));//MVA
 
 
   // event
@@ -1425,7 +1437,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   //  std::cout<<"Afte PileUp "<<event.weight<<std::endl;
   // // // b-tagging
   // std::cout<<"Before Btag SF: "<<event.weight<<std::endl;
-  btagSF->process(event);
+  //  btagSF->process(event);
 
   //  std::cout<<event.weight<<std::endl;
   //  muon-ID
@@ -1572,13 +1584,13 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   //
   //  std::cout<<"passed lepV "<<std::endl;
 
-  //due to unknown efficiency in 2016 data, skip events with: muon pt>500 GeV in the endcap
-  bool good_muon(0);
-  if (channel_ == muon){
-    const Particle* lep1 = leading_lepton(event);
-    good_muon = (!(lep1->pt()>muo1_pt_max_ && lep1->eta()>muo1_eta_max_));
-  }
-  if(!good_muon && channel_ == muon) return false;
+  // //due to unknown efficiency in 2016 data, skip events with: muon pt>500 GeV in the endcap
+  // bool good_muon(0);
+  // if (channel_ == muon){
+  //   const Particle* lep1 = leading_lepton(event);
+  //   good_muon = (!(lep1->pt()>muo1_pt_max_ && lep1->eta()>muo1_eta_max_));
+  // }
+  // if(!good_muon && channel_ == muon) return false;
 
 
   // lepton multiplicity
@@ -1679,7 +1691,11 @@ if(!pass_triangc) return false;
 
   /* ttagN counters */
   int ttagN(0);
+  //  std::cout<<"------ Count N topTAG -------"<<std::endl;
   for(const auto& tj : *event.topjets) if(ttag_ID_(tj, event)) ++ttagN;
+  if(ttagN>1) return false; //veto events with 2 and more top-tags
+  //  std::cout<<"------ [END] Count N topTAG "<<ttagN<<"-------"<<std::endl;
+  //  if(ttagN==1) std::cout<<"HEY!!! Look at this!"<<std::endl;
 
   //TEST
   top_qjets_volatility = -100; top_tau1 = -100; top_tau2 = -100; top_tau3 = -100;
@@ -2286,16 +2302,22 @@ if(!pass_triangc) return false;
     //HFolder("antichi2_antibdt__"+ttag_posx+btag_posx)          ->fill(event);
     //HFolder("antichi2_antibdt__"+ttag_posx+btag_posx+"__ttbar")->fill(event);   
   }
+
   HFolder("Final")->fill(event);
   HFolder("Final__ttbar")->fill(event);
-  if(!pass_ttagevt){
-    HFolder("Final__"+ttag_posx+btag_posx)          ->fill(event);
-    HFolder("Final__"+ttag_posx+btag_posx+"__ttbar")->fill(event);
-  }
-  else{
-    HFolder("Final__"+ttag_posx)          ->fill(event);
-    HFolder("Final__"+ttag_posx+"__ttbar")->fill(event);
-  }
+  HFolder("Final__"+ttag_posx)          ->fill(event);
+  HFolder("Final__"+ttag_posx+"__ttbar")->fill(event);
+  // if(pass_ttagevt){
+  //   std::cout<<"Fill hist in Final!"<<std::endl;
+  // }
+  // if(!pass_ttagevt){
+  //   HFolder("Final__"+ttag_posx+btag_posx)          ->fill(event);
+  //   HFolder("Final__"+ttag_posx+btag_posx+"__ttbar")->fill(event);
+  // }
+  // else{
+  //   HFolder("Final__"+ttag_posx)          ->fill(event);
+  //   HFolder("Final__"+ttag_posx+"__ttbar")->fill(event);
+  // }
   //  std::cout<<" pass_ttagevt = "<<pass_ttagevt<<" ttag_posx = "<<ttag_posx<<std::endl;
   //  std::cout<<"weight = "<<event.weight<<std::endl;
   //  std::cout<<"elecID = "<<event.weight_sfelec_ID<<std::endl;

@@ -28,6 +28,7 @@ void EffyJetTTAGHists::init(){
 
     book_TH1F("tjetA__pt"   +fla, 360,  0, 3600);
     book_TH1F("tjetA__eta"  +fla, 60, -3, 3);
+    book_TH1F("tjetA__toptag__eta"  +fla, 60, -3, 3);
     book_TH1F("tjetA__subjN"+fla, 8,  0, 8);
     book_TH1F("tjetA__M"    +fla, 240, 0, 600);
     book_TH1F("tjetA__Mgro" +fla, 240, 0, 600);
@@ -95,11 +96,15 @@ void EffyJetTTAGHists::fill(const uhh2::Event& event){
 
   // PV
   H1("pvN")->Fill(event.pvs->size(), weight);
-
+  //  std::cout<<" pvN = "<<event.pvs->size()<<std::endl;
 
   // TOPJET
+  int itop=0;
   for(const auto& tjet : *event.topjets){
-
+    itop++;
+    if(itop>1) continue; //TEST: check only leading jet
+  // for(const auto& tjet : *event.toppuppijets){ //in 2016 we do matching to PUPPI jets
+  //   if(tjet.numberOfDaughters()<2) continue;   //TEST: skip PUPPI jet if it contains only one daughter       
     // jet vars
     LorentzVector subj_sum_p4;
     for(const auto& subj : tjet.subjets()) subj_sum_p4 += subj.v4();
@@ -133,13 +138,14 @@ void EffyJetTTAGHists::fill(const uhh2::Event& event){
 
       if  (jfla == 6) fla_strs.push_back("__t");
       else            fla_strs.push_back("__l");
-      //      std::cout<<"jfla = "<<jfla<<std::endl;
+      //std::cout<<"jfla = "<<jfla<<std::endl;
     }
 
     for(const auto& fla : fla_strs){
 
       H1("tjetA__pt"   +fla)->Fill(tjet.pt() , weight);
       H1("tjetA__eta"  +fla)->Fill(tjet.eta(), weight);
+      if(jtag) H1("tjetA__toptag__eta"  +fla)->Fill(tjet.eta(), weight);
       H1("tjetA__subjN"+fla)->Fill(tjet_subjN, weight);
       H1("tjetA__M"    +fla)->Fill(tjet_M    , weight);
       H1("tjetA__Mgro" +fla)->Fill(tjet_Mgro , weight);

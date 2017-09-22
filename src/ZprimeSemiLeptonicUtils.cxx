@@ -233,8 +233,8 @@ TopTagID_SoftDrop::TopTagID_SoftDrop(const std::string& wp_key){
   else if(wp_key == "mr003_wp2"){ mass_min_ = 110.; mass_max_ = 210.; tau32_max_ = .61; sjbtag_min_ = .76; }
   //else if(wp_key == "mr010_wp1"){ mass_min_ = 110.; mass_max_ = 210.; tau32_max_ = .59; sjbtag_min_ = -1.; }
   else if(wp_key == "mr010_wp1"){ mass_min_ = 105.; mass_max_ = 210.; tau32_max_ = .65; sjbtag_min_ = -1.; }
-  else if(wp_key == "mr010_wp2"){ mass_min_ = 110.; mass_max_ = 210.; tau32_max_ = .69; sjbtag_min_ = .66; }
   else if(wp_key == "mr030_wp1"){ mass_min_ = 110.; mass_max_ = 210.; tau32_max_ = .69; sjbtag_min_ = -1.; }
+  else if(wp_key == "mr010_wp2"){ mass_min_ = 110.; mass_max_ = 210.; tau32_max_ = .69; sjbtag_min_ = .66; }
   else if(wp_key == "mr030_wp2"){ mass_min_ = 110.; mass_max_ = 210.; tau32_max_ = .75; sjbtag_min_ = .39; }
   else if(wp_key == "mr100_wp1"){ mass_min_ = 110.; mass_max_ = 210.; tau32_max_ = .86; sjbtag_min_ = -1.; }
   else if(wp_key == "mr100_wp2"){ mass_min_ = 110.; mass_max_ = 210.; tau32_max_ = .87; sjbtag_min_ =.089; }
@@ -245,6 +245,7 @@ TopTagID_SoftDrop::TopTagID_SoftDrop(const std::string& wp_key){
   cut_tau32_      = true;
   cut_subjetbtag_ = true;
   verbose_        = false;
+  //verbose_        = true;
 }
 
 bool TopTagID_SoftDrop::operator()(const TopJet& tj, const uhh2::Event& event) const {
@@ -254,7 +255,11 @@ bool TopTagID_SoftDrop::operator()(const TopJet& tj, const uhh2::Event& event) c
   TLorentzVector PuppiJetv4;
   TLorentzVector TopJetv4;
   TopJetv4.SetPtEtaPhiE(tj.pt(),tj.eta(),tj.phi(),tj.energy());
+  if (verbose_) {
+    std::cout<<"Top jet with pt = "<<tj.pt()<<" eta = "<<tj.eta()<<std::endl;
+  }
   for(const auto & pjet : *event.toppuppijets) {
+    if(pjet.numberOfDaughters()<2) continue;   //TEST: skip PUPPI jet if it contains only one daughter
     PuppiJetv4.SetPtEtaPhiE(pjet.pt(),pjet.eta(),pjet.phi(),pjet.energy());
     float dR = TopJetv4.DeltaR(PuppiJetv4);
     if (dR < mindR) {
@@ -269,9 +274,11 @@ bool TopTagID_SoftDrop::operator()(const TopJet& tj, const uhh2::Event& event) c
     std::cout << "Tau3: " << MatchedPuppiJet.tau3() << std::endl;
     std::cout << "Tau3/2: " << MatchedPuppiJet.tau3()/MatchedPuppiJet.tau2() << std::endl;
     std::cout << "Num Subjets: " << MatchedPuppiJet.numberOfDaughters() << std::endl;
+    std::cout << "tau32_max_: " << tau32_max_ << std::endl;
   }
 
-  if (mindR > 0.8) return false;
+  //  if (mindR > 0.8) return false;
+  if (mindR > 1.0) return false; //sync with all had
   if (MatchedPuppiJet.numberOfDaughters() != 2) return false;
 
   TLorentzVector SoftDropv4(0,0,0,0);
@@ -304,6 +311,7 @@ bool TopTagID_SoftDrop::operator()(const TopJet& tj, const uhh2::Event& event) c
   }
   if(cut_subjetbtag_ && !pass_sjbtag) return false;
   if (verbose_) std::cout << "TopJet passed Top Tagging Criteria" << std::endl;
+  if (verbose_) std::cout << " " << std::endl;
   return true;
 }
 ////

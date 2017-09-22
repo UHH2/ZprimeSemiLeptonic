@@ -177,42 +177,87 @@ void TTbarLJHists::init(){
   topjet1__eta = book<TH1F>("topjet1__eta","topjet #eta", 30, -3, 3);
   topjet1__phi = book<TH1F>("topjet1__phi","topjet #phi", 30, -3.15, 3.15);
   topjet1__CSV = book<TH1F>("topjet1__CSV", "topjet CSV", 30, 0, 1.2);
-  topjet1__Msdp = book<TH1F>("topjet1__Msdp","topjet softdrop mass [GeV]", 10, 100, 350);
-  topjet1__tau32 = book<TH1F>("topjet1__tau32","jet #tau_{32}", 24, 0, 1.2);
+  topjet1__Msdp = book<TH1F>("topjet1__Msdp","topjet softdrop mass [GeV]", 50, 0, 500);
+  topjet1__tau32 = book<TH1F>("topjet1__tau32","topjet #tau_{32}", 24, 0, 1.2);
+  topjet1__NumSubjets = book<TH1F>("topjet1__subjN", "topjet N sub-jets"       , 6, 0, 6);
+  topjet1__dR = book<TH1F>("topjet1__dR","#DeltaR(topjet_{1}, toppuppijet)" , 50, 0, 5);
   topjet2__pt = book<TH1F>("topjet2__pt","topjet_{2} p_{T} [GeV]" , 80, 100, 1700);
   //  topjet2__pt = book<TH1F>("topjet2__pt","topjet p_{T} [GeV]", nptAxis-1, ptAxis);
   topjet2__eta = book<TH1F>("topjet2__eta","topjet_{2} #eta", 30, -3, 3);
   topjet2__phi = book<TH1F>("topjet2__phi","topjet_{2} #phi", 30, -3.15, 3.15);
   topjet2__CSV = book<TH1F>("topjet2__CSV", "topjet_{2} CSV", 30, 0, 1.2);
-  topjet2__Msdp = book<TH1F>("topjet2__Msdp","topjet_{2} softdrop mass [GeV]", 35, 0, 350);
+  topjet2__Msdp = book<TH1F>("topjet2__Msdp","topjet_{2} softdrop mass [GeV]", 50, 0, 500);
   topjet2__tau32 = book<TH1F>("topjet2__tau32","topjet_{2} #tau_{32}", 24, 0, 1.2);
+  topjet2__NumSubjets = book<TH1F>("topjet2__subjN", "topjet_{2} N sub-jets" , 6, 0, 6);
+  topjet2__dR = book<TH1F>("topjet2__dR","#DeltaR(topjet_{2}, toppuppijet)" , 50, 0, 5);
+
+ // TOPPUPPIJET
+  toppuppijetN = book<TH1F>("toppuppijetN","N toppuppijets", 10, 0, 10);
+
+  toppuppijet1__pt = book<TH1F>("toppuppijet1__pt","toppuppijet p_{T} [GeV]" , 80, 100, 1700);
+  //  toppuppijet1__pt = book<TH1F>("toppuppijet1__pt","toppuppijet p_{T} [GeV]", nptAxis-1, ptAxis);
+
+  toppuppijet1__eta = book<TH1F>("toppuppijet1__eta","toppuppijet #eta", 30, -3, 3);
+  toppuppijet1__phi = book<TH1F>("toppuppijet1__phi","toppuppijet #phi", 30, -3.15, 3.15);
+  toppuppijet1__CSV = book<TH1F>("toppuppijet1__CSV", "toppuppijet CSV", 30, 0, 1.2);
+  toppuppijet1__Msdp = book<TH1F>("toppuppijet1__Msdp","toppuppijet softdrop mass [GeV]", 50, 0, 500);
+  toppuppijet1__tau32 = book<TH1F>("toppuppijet1__tau32","toppuppijet #tau_{32}", 24, 0, 1.2);
+  toppuppijet1__NumSubjets = book<TH1F>("toppuppijet1__subjN", "toppuppijet N sub-jets"       , 6, 0, 6);
+  toppuppijet2__pt = book<TH1F>("toppuppijet2__pt","toppuppijet_{2} p_{T} [GeV]" , 80, 100, 1700);
+  //  toppuppijet2__pt = book<TH1F>("toppuppijet2__pt","toppuppijet p_{T} [GeV]", nptAxis-1, ptAxis);
+  toppuppijet2__eta = book<TH1F>("toppuppijet2__eta","toppuppijet_{2} #eta", 30, -3, 3);
+  toppuppijet2__phi = book<TH1F>("toppuppijet2__phi","toppuppijet_{2} #phi", 30, -3.15, 3.15);
+  toppuppijet2__CSV = book<TH1F>("toppuppijet2__CSV", "toppuppijet_{2} CSV", 30, 0, 1.2);
+  toppuppijet2__Msdp = book<TH1F>("toppuppijet2__Msdp","toppuppijet_{2} softdrop mass [GeV]", 50, 0, 500);
+  toppuppijet2__tau32 = book<TH1F>("toppuppijet2__tau32","toppuppijet_{2} #tau_{32}", 24, 0, 1.2);
+  toppuppijet2__NumSubjets = book<TH1F>("toppuppijet2__subjN", "toppuppijet_{2} N sub-jets"       , 6, 0, 6);
+
+ // TOPPUPPIJET matched
+  toppuppijetN_matched = book<TH1F>("toppuppijetN_matched","N toppuppijets matched", 10, 0, 10);
+  toppuppijet__pt_matched = book<TH1F>("toppuppijet__pt_matched","matched toppuppijet p_{T} [GeV]" , 80, 100, 1700);
+  toppuppijet__eta_matched = book<TH1F>("toppuppijet__eta_matched","matched toppuppijet #eta", 30, -3, 3);
+  toppuppijet__phi_matched = book<TH1F>("toppuppijet__phi_matched","matched toppuppijet #phi", 30, -3.15, 3.15);
+  toppuppijet__CSV_matched = book<TH1F>("toppuppijet__CSV_matched", "matched toppuppijet CSV", 30, 0, 1.2);
+  toppuppijet__Msdp_matched = book<TH1F>("toppuppijet__Msdp_matched","matched toppuppijet softdrop mass [GeV]", 50, 0, 500);
+  toppuppijet__tau32_matched = book<TH1F>("toppuppijet__tau32_matched","matched toppuppijet #tau_{32}", 24, 0, 1.2);
+  toppuppijet__NumSubjets_matched = book<TH1F>("toppuppijet__subjN_matched", "matched toppuppijet N sub-jets"       , 6, 0, 6);
+  toppuppijet__jetID_matched = book<TH1F>("toppuppijet__jetID_matched", "matched toppuppijet  jetID"       , 6, 1, 7);
+
+
+  toppuppijet__pt_matched_ttag = book<TH1F>("toppuppijet__pt_matched_ttag","matched to ttag toppuppijet p_{T} [GeV]" , 80, 100, 1700);
+  toppuppijet__eta_matched_ttag = book<TH1F>("toppuppijet__eta_matched_ttag","matched to ttag toppuppijet #eta", 30, -3, 3);
+  toppuppijet__phi_matched_ttag = book<TH1F>("toppuppijet__phi_matched_ttag","matched to ttag toppuppijet #phi", 30, -3.15, 3.15);
+  toppuppijet__CSV_matched_ttag = book<TH1F>("toppuppijet__CSV_matched_ttag", "matched to ttag toppuppijet CSV", 30, 0, 1.2);
+  toppuppijet__Msdp_matched_ttag = book<TH1F>("toppuppijet__Msdp_matched_ttag","matched to ttag toppuppijet softdrop mass [GeV]", 50, 0, 500);
+  toppuppijet__tau32_matched_ttag = book<TH1F>("toppuppijet__tau32_matched_ttag","matched to ttag toppuppijet #tau_{32}", 24, 0, 1.2);
+  toppuppijet__NumSubjets_matched_ttag = book<TH1F>("toppuppijet__subjN_matched_ttag", "matched to ttag toppuppijet N sub-jets"       , 6, 0, 6);
+  toppuppijet__jetID_matched_ttag = book<TH1F>("toppuppijet__jetID_matched_ttag", "matched to ttag toppuppijet  jetID"       , 6, 1, 7);
+
 
 
   // TOPTAG
   toptagN = book<TH1F>("toptagN","N top-tagged jets"              , 10, 0, 10);
   toptag1__pt = book<TH1F>("toptag1__pt","top-tag jet p_{T} [GeV]"          , 80, 100, 1700);
-  //  toptag1__pt = book<TH1F>("toptag1__pt","top-tag jet p_{T} [GeV]", nptAxis-1, ptAxis);
   toptag1__eta = book<TH1F>("toptag1__eta", "top-tag jet #eta"         , 30, -3, 3);
   toptag1__phi = book<TH1F>("toptag1__phi","top-tag jet #phi"         , 30, -3.15, 3.15);
-  toptag1__M  = book<TH1F>("toptag1__M", "top-tag jet mass [GeV]"           , 15, 100, 350);
-  toptag1__Mgro = book<TH1F>("toptag1__Mgro", "top-tag jet groomed mass [GeV]"        , 15, 100, 350);
-  toptag1__Mpru  = book<TH1F>("toptag1__Mpru", "top-tag jet pruned mass [GeV]"        , 15, 100, 350);
-  toptag1__Msdp  = book<TH1F>("toptag1__Msdp", "top-tag jet softdrop mass [GeV]"        , 15, 100, 350);
+  toptag1__M  = book<TH1F>("toptag1__M", "top-tag jet mass [GeV]"           , 50, 0, 500);
+  toptag1__Mgro = book<TH1F>("toptag1__Mgro", "top-tag jet groomed mass [GeV]"        , 50, 0, 500);
+  toptag1__Mpru  = book<TH1F>("toptag1__Mpru", "top-tag jet pruned mass [GeV]"        , 50, 0, 500);
+  toptag1__Msdp  = book<TH1F>("toptag1__Msdp", "top-tag jet softdrop mass [GeV]"        , 50, 0, 500);
   toptag1__tau32  = book<TH1F>("toptag1__tau32", "top-tag jet #tau_{32}"       , 24, 0, 1.2);
   toptag1__CSV  = book<TH1F>("toptag1__CSV","top-tag jet CSV"        , 60, 0, 1.2);
-  toptag1__subjN  = book<TH1F>("toptag1__subjN", "top-tag jet N subjettiness"       , 4, 2, 6);
+  toptag1__subjN  = book<TH1F>("toptag1__subjN", "top-tag jet N subjettiness"       , 6, 0, 6);
 
   toptag2__pt = book<TH1F>("toptag2__pt","top-tag jet_{2} p_{T} [GeV]"          , 80, 100, 1700);
-  //  toptag2__pt = book<TH1F>("toptag2__pt","top-tag jet p_{T} [GeV]", nptAxis-1, ptAxis);
   toptag2__eta = book<TH1F>("toptag2__eta", "top-tag jet_{2} #eta"         , 30, -3, 3);
   toptag2__phi = book<TH1F>("toptag2__phi","top-tag jet_{2} #phi"         , 30, -3.15, 3.15);
-  toptag2__M  = book<TH1F>("toptag2__M", "top-tag jet_{2} mass [GeV]"           , 360, 90, 450);
-  toptag2__Mgro = book<TH1F>("toptag2__Mgro", "top-tag jet_{2} groomed mass [GeV]"        , 35, 0, 350);
-  toptag2__Mpru  = book<TH1F>("toptag2__Mpru", "top-tag jet_{2} pruned mass [GeV]"        , 35, 0, 350);
-  toptag2__Msdp  = book<TH1F>("toptag2__Msdp", "top-tag jet_{2} softdrop mass [GeV]"        , 35, 0, 350);
+  toptag2__M  = book<TH1F>("toptag2__M", "top-tag jet_{2} mass [GeV]"           , 50, 0, 500);
+  toptag2__Mgro = book<TH1F>("toptag2__Mgro", "top-tag jet_{2} groomed mass [GeV]"        , 50, 0, 500);
+  toptag2__Mpru  = book<TH1F>("toptag2__Mpru", "top-tag jet_{2} pruned mass [GeV]"        , 50, 0, 500);
+  toptag2__Msdp  = book<TH1F>("toptag2__Msdp", "top-tag jet_{2} softdrop mass [GeV]"        , 50, 0, 500);
   toptag2__tau32  = book<TH1F>("toptag2__tau32", "top-tag jet_{2} #tau_{32}"       , 24, 0, 1.2);
   toptag2__CSV  = book<TH1F>("toptag2__CSV","top-tag jet_{2} CSV"        , 60, 0, 1.2);
-  toptag2__subjN  = book<TH1F>("toptag2__subjN", "top-tag jet_{2} N subjettiness"       , 4, 2, 6);
+  toptag2__subjN  = book<TH1F>("toptag2__subjN", "top-tag jet_{2} N subjettiness"       , 6, 0, 6);
 
   // MET
   met__pt = book<TH1F>("met__pt", "MET [GeV]" , 45, 0, 900);
@@ -246,6 +291,7 @@ void TTbarLJHists::fill(const uhh2::Event& event){
 
   assert(event.pvs && event.muons && event.electrons);
   assert(event.jets && event.topjets && event.met);
+  assert(event.toppuppijets);
 
   const float weight(event.weight);
   wgt->Fill(weight);
@@ -400,11 +446,28 @@ void TTbarLJHists::fill(const uhh2::Event& event){
   // TOPJET
   const int topjetN_(event.topjets->size());
   topjetN->Fill(topjetN_, weight);
-
+  int topjetN_matched = 0;
   for(int i=0; i<std::min(2, topjetN_); ++i){
 
     //    const Jet& p = event.topjets->at(i);
     const TopJet& p = event.topjets->at(i);
+    float mindR = 9999.0;
+    TopJet MatchedPuppiJet;
+    TLorentzVector PuppiJetv4;
+    TLorentzVector TopJetv4;
+    TopJetv4.SetPtEtaPhiE(p.pt(),p.eta(),p.phi(),p.energy());
+    for(const auto & pjet : *event.toppuppijets) {
+      if(pjet.numberOfDaughters()<2) continue;
+      PuppiJetv4.SetPtEtaPhiE(pjet.pt(),pjet.eta(),pjet.phi(),pjet.energy());
+      float dR = TopJetv4.DeltaR(PuppiJetv4);
+      if (dR < mindR) {
+	MatchedPuppiJet = pjet;
+	mindR = dR;
+      }
+    }
+
+    //    if(mindR<0.8) topjetN_matched++;
+    if(mindR<1.0) topjetN_matched++;//sync with all had
     if(i==0){
     topjet1__pt ->Fill(p.pt()                          , weight);
     topjet1__eta->Fill(p.eta()                         , weight);
@@ -412,6 +475,8 @@ void TTbarLJHists::fill(const uhh2::Event& event){
     topjet1__CSV->Fill(p.btag_combinedSecondaryVertex(), weight);
     topjet1__Msdp->Fill(p.softdropmass() , weight);
     topjet1__tau32->Fill(p.tau3()/p.tau2() , weight);
+    topjet1__NumSubjets->Fill(p.numberOfDaughters() , weight);
+    topjet1__dR->Fill(mindR, weight);
     }
     if(i==1){
     topjet2__pt ->Fill(p.pt()                          , weight);
@@ -420,8 +485,117 @@ void TTbarLJHists::fill(const uhh2::Event& event){
     topjet2__CSV->Fill(p.btag_combinedSecondaryVertex(), weight);
     topjet2__Msdp->Fill(p.softdropmass() , weight);
     topjet2__tau32->Fill(p.tau3()/p.tau2() , weight);
+    topjet2__NumSubjets->Fill(p.numberOfDaughters() , weight);
+    topjet2__dR->Fill(mindR, weight);
     }
   }
+
+ // TOPPUPPIJET
+  const int toppuppijetN_(event.toppuppijets->size());
+  int toppuppiN_tmp = 0;
+  for(const auto & pjet : *event.toppuppijets) {                                                                                                                      
+    if(pjet.numberOfDaughters()<2) continue;   //TEST: skip PUPPI jet if it contains only one daughter  
+    toppuppiN_tmp ++;
+  }
+  //  const int toppuppijetN_(toppuppiN_tmp);
+  toppuppijetN->Fill(toppuppiN_tmp , weight);
+
+
+  for(int i=0; i<std::min(2, toppuppijetN_); ++i){
+    const TopJet& p = event.toppuppijets->at(i);
+    //if(p.numberOfDaughters()<2) continue;
+    float mindR = 9999.0;
+    TopJet MatchedPuppiJet;
+    TLorentzVector PuppiJetv4;
+    TLorentzVector TopJetv4;
+    PuppiJetv4.SetPtEtaPhiE(p.pt(),p.eta(),p.phi(),p.energy());
+    for(const auto & pjet : *event.topjets) {
+      TopJetv4.SetPtEtaPhiE(pjet.pt(),pjet.eta(),pjet.phi(),pjet.energy());
+      float dR = TopJetv4.DeltaR(PuppiJetv4);
+      if (dR < mindR) {
+	MatchedPuppiJet = pjet;
+	mindR = dR;
+      }
+    }
+
+    //    if(mindR<0.8 && p.numberOfDaughters()>1) topjetN_matched++;
+    if(mindR<1.0 && p.numberOfDaughters()>1) topjetN_matched++;
+
+    if(i==0 && p.numberOfDaughters()>1){
+    toppuppijet1__pt ->Fill(p.pt()                          , weight);
+    toppuppijet1__eta->Fill(p.eta()                         , weight);
+    toppuppijet1__phi->Fill(p.phi()                         , weight);
+    toppuppijet1__CSV->Fill(p.btag_combinedSecondaryVertex(), weight);
+    //Calculate SoftDrop on fly
+    TLorentzVector SoftDropv4(0,0,0,0);
+    for(const auto & subjet : p.subjets()) {
+      TLorentzVector SubJetv4;
+      SubJetv4.SetPtEtaPhiE(subjet.pt(),subjet.eta(),subjet.phi(),subjet.energy());
+      SoftDropv4 = SoftDropv4 + SubJetv4;
+    }
+
+    toppuppijet1__Msdp->Fill(SoftDropv4.M(), weight);
+    toppuppijet1__tau32->Fill(p.tau3()/p.tau2() , weight);
+    toppuppijet1__NumSubjets->Fill(p.numberOfDaughters() , weight);
+    }
+    if(i==1 && p.numberOfDaughters()>1){
+    toppuppijet2__pt ->Fill(p.pt()                          , weight);
+    toppuppijet2__eta->Fill(p.eta()                         , weight);
+    toppuppijet2__phi->Fill(p.phi()                         , weight);
+    toppuppijet2__CSV->Fill(p.btag_combinedSecondaryVertex(), weight);
+    //Calculate SoftDrop on fly
+    TLorentzVector SoftDropv4(0,0,0,0);
+    for(const auto & subjet : p.subjets()) {
+      TLorentzVector SubJetv4;
+      SubJetv4.SetPtEtaPhiE(subjet.pt(),subjet.eta(),subjet.phi(),subjet.energy());
+      SoftDropv4 = SoftDropv4 + SubJetv4;
+    }
+    toppuppijet2__Msdp->Fill(SoftDropv4.M() , weight);
+    toppuppijet2__tau32->Fill(p.tau3()/p.tau2() , weight);
+    toppuppijet2__NumSubjets->Fill(p.numberOfDaughters() , weight);
+    }
+  }
+
+
+ // TOPPUPPIJET matched to AK8CHS
+  toppuppijetN_matched->Fill(topjetN_matched, weight);
+
+  for(int i=0; i<std::min(2, toppuppijetN_); ++i){
+    const TopJet& p = event.toppuppijets->at(i);
+    if(p.numberOfDaughters()<2) continue;
+    float mindR = 9999.0;
+    //    TopJet MatchedPuppiJet;
+    TLorentzVector PuppiJetv4;TLorentzVector TopJetv4;
+    PuppiJetv4.SetPtEtaPhiE(p.pt(),p.eta(),p.phi(),p.energy());
+    for(const auto & pjet : *event.topjets) {  
+      TopJetv4.SetPtEtaPhiE(pjet.pt(),pjet.eta(),pjet.phi(),pjet.energy());
+      float dR = TopJetv4.DeltaR(PuppiJetv4);
+      if (dR < mindR) {  
+	//	MatchedPuppiJet = pjet;
+        mindR = dR;                                                                                                                                                   
+      }                                                                                                                                                               
+    }            
+    //    if(mindR<0.8 && p.numberOfDaughters()>1){ 
+    if(mindR<1.0 && p.numberOfDaughters()>1){ 
+      toppuppijet__pt_matched ->Fill(p.pt()                          , weight);
+      toppuppijet__eta_matched->Fill(p.eta()                         , weight);
+      toppuppijet__phi_matched->Fill(p.phi()                         , weight);
+      toppuppijet__CSV_matched->Fill(p.btag_combinedSecondaryVertex(), weight);
+      //Calculate SoftDrop on fly
+      TLorentzVector SoftDropv4(0,0,0,0);
+      for(const auto & subjet : p.subjets()) {
+	TLorentzVector SubJetv4;
+	SubJetv4.SetPtEtaPhiE(subjet.pt(),subjet.eta(),subjet.phi(),subjet.energy());
+	SoftDropv4 = SoftDropv4 + SubJetv4;
+      }
+      toppuppijet__Msdp_matched->Fill(SoftDropv4.M(), weight);
+      toppuppijet__tau32_matched->Fill(p.tau3()/p.tau2() , weight);
+      toppuppijet__NumSubjets_matched->Fill(p.numberOfDaughters() , weight);
+      toppuppijet__jetID_matched->Fill(i, weight);
+      //      if((p.tau3()/p.tau2())>0.65)      std::cout<<"TTbarLJHists: LOOK toppuppijet_matched tau32 = "<<p.tau3()/p.tau2()<<std::endl;
+	}
+  }
+
 
   // TOPTAG
   std::vector<TopJet> toptags;
@@ -436,7 +610,6 @@ void TTbarLJHists::fill(const uhh2::Event& event){
 
   sort_by_pt<TopJet>(toptags);
   for(int i=0; i<std::min(2, toptagN_); ++i){
-
     const TopJet& tj = toptags.at(i);
     if(i==0){
       toptag1__pt ->Fill(tj.pt()                          , weight);
@@ -490,7 +663,45 @@ void TTbarLJHists::fill(const uhh2::Event& event){
       }
       toptag2__Mgro      ->Fill(sum_subj.M(), weight);
     }
+  }
 
+  //Top-tag jets matched to toppuppi jets
+  for(int i=0; i<std::min(2, toppuppijetN_); ++i){
+    const TopJet& p = event.toppuppijets->at(i);
+    if(p.numberOfDaughters()<2) continue;
+    float mindR = 9999.0;
+    //    TopJet MatchedPuppiJet;
+    TLorentzVector PuppiJetv4;TLorentzVector TopJetv4;
+    PuppiJetv4.SetPtEtaPhiE(p.pt(),p.eta(),p.phi(),p.energy());
+    for(int i=0; i<std::min(2, toptagN_); ++i){
+      const TopJet& pjet = toptags.at(i);
+  
+      TopJetv4.SetPtEtaPhiE(pjet.pt(),pjet.eta(),pjet.phi(),pjet.energy());
+      float dR = TopJetv4.DeltaR(PuppiJetv4);
+      if (dR < mindR && p.numberOfDaughters()>1) {  
+	//	MatchedPuppiJet = pjet;
+        mindR = dR;                                                                                                                                                   
+      }                                                                                                                                                               
+    }            
+    //    if(mindR<0.8 && p.numberOfDaughters()>1){ 
+    if(mindR<1.0 && p.numberOfDaughters()>1){ 
+      toppuppijet__pt_matched_ttag ->Fill(p.pt()                          , weight);
+      toppuppijet__eta_matched_ttag->Fill(p.eta()                         , weight);
+      toppuppijet__phi_matched_ttag->Fill(p.phi()                         , weight);
+      toppuppijet__CSV_matched_ttag->Fill(p.btag_combinedSecondaryVertex(), weight);
+      //Calculate SoftDrop on fly
+      TLorentzVector SoftDropv4(0,0,0,0);
+      for(const auto & subjet : p.subjets()) {
+	TLorentzVector SubJetv4;
+	SubJetv4.SetPtEtaPhiE(subjet.pt(),subjet.eta(),subjet.phi(),subjet.energy());
+	SoftDropv4 = SoftDropv4 + SubJetv4;
+      }
+      toppuppijet__Msdp_matched_ttag->Fill(SoftDropv4.M(), weight);
+      toppuppijet__tau32_matched_ttag->Fill(p.tau3()/p.tau2() , weight);
+      toppuppijet__NumSubjets_matched_ttag->Fill(p.numberOfDaughters() , weight);
+      toppuppijet__jetID_matched_ttag->Fill(i, weight);
+      //      if((p.tau3()/p.tau2())>0.65)      std::cout<<"TTbarLJHists: LOOK toppuppijet_matched tau32 = "<<p.tau3()/p.tau2()<<std::endl;
+	}
   }
       
 
@@ -523,7 +734,27 @@ void TTbarLJHists::fill(const uhh2::Event& event){
   lep1__pTrel_jet_norm->Fill(event.get(h_lep1__pTrel_jet_norm),weight);
   s33->Fill(event.get(h_s33),weight);
   //  njets->Fill(event.get(h_njets),weight);
-  
 
+  // // jet flavor for top tagged jet                                                                                                                                    
+  // std::vector<std::string> fla_strs;                                                                                                                                 
+  // fla_strs.reserve(2);                                                                                                                                               
+  // fla_strs.push_back("");                         
+  // int jfla(21);                                                                                                                                            
+  // float tgen_pt(-1.);                                          
+  // if(!event.isRealData){
+  //   const TopJet& tjet = toptags.at(0);  //only one top-tag jet is expected in the semileptonic channel
+  //   for(const auto& genp : *event.genparticles){
+  //     if(std::abs(genp.pdgId()) != 6) continue;
+  //     if(uhh2::deltaR(tjet, genp) < 0.4 ){ 
+  // 	jfla = 6; tgen_pt = genp.pt(); 
+  // 	break; 
+  //     } 
+  //   }
+  //   if  (jfla == 6) fla_strs.push_back("__t");
+  //   else            fla_strs.push_back("__l");                                                                                                                       
+  //   //std::cout<<"jfla = "<<jfla<<std::endl;                                                                                                                         
+  // }                                                                                                                                                                 
+  // for(const auto& fla : fla_strs){
+  // }
   return;
 }
