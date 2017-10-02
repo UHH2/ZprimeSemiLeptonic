@@ -819,9 +819,9 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 	"jet1",
 	"trigger",
 	"met",
-	//"htlep",
-	//"triangc",
-	"topleppt",
+    "htlep",
+    //"triangc",
+    "topleppt",
 	});
 
   for(const auto& tag : htags_1){
@@ -1654,19 +1654,17 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   //  if(event.jet->at(0).photonEnergyFraction()>0.5) return false;
 
   ////
+  //// HT_lep selection
+  const bool pass_htlep = htlep_sel->passes(event);
+  if(!pass_htlep) return false;
+  if(lepN == 1) HFolder("htlep")->fill(event);
+  ////
   /*
-//// HT_lep selection
-const bool pass_htlep = htlep_sel->passes(event);
-if(!pass_htlep) return false;
-//if(lepN == 1) HFolder("htlep")->fill(event);
-////
-
-//// TRIANGULAR-CUTS selection
-const bool pass_triangc = triangc_sel->passes(event);
-if(!pass_triangc) return false;
-
-////
-*/
+  //// TRIANGULAR-CUTS selection
+  const bool pass_triangc = triangc_sel->passes(event);
+  if(!pass_triangc) return false;
+  HFolder("triangc")->fill(event);
+  */
   // // //--------------------------------------------------------------------
 
   //// TTBAR KIN RECO
