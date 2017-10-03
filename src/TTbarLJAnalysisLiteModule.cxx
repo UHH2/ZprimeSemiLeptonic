@@ -108,7 +108,8 @@ protected:
   //!!  std::unique_ptr<weightcalc_elecHLT> elecHLTSF;
 
   //  std::unique_ptr<uhh2::AnalysisModule> btagSF;
-  std::unique_ptr<Hists> h_btagMCeffi;
+  //  std::unique_ptr<Hists> h_btagMCeffi;
+  std::unique_ptr<uhh2::AnalysisModule> csvSF;
 
   std::unique_ptr<weightcalc_ttagging> ttagSF_ct;
   std::unique_ptr<weightcalc_ttagging> ttagSF_upL;
@@ -757,7 +758,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   //  else if(btag_wp == "MVAT") b_working_point = MVABTag::WP_TIGHT;
 
   //  h_btagMCeffi.reset(new BTagMCEfficiencyHists(ctx,"chi2__BTAG",b_working_point));
-  h_btagMCeffi.reset(new BTagMCEfficiencyHists(ctx,"BTAG",b_working_point));
+  //  h_btagMCeffi.reset(new BTagMCEfficiencyHists(ctx,"BTAG",b_working_point));
 
 
   //  t-tagging
@@ -818,9 +819,9 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 	"jet1",
 	"trigger",
 	"met",
-	//"htlep",
-	//"triangc",
-	"topleppt",
+    "htlep",
+    //"triangc",
+    "topleppt",
 	});
 
   for(const auto& tag : htags_1){
@@ -1003,6 +1004,8 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   // btagSF.reset(new MCBTagScaleFactor(ctx, b_working_point,"jets","central","comb","incl","MCBtagEfficiencies"));//CSV
   // //  btagSF.reset(new MCBTagScaleFactor(ctx, b_working_point,"jets","central","ttbar","incl","MCBtagEfficiencies"));//MVA
 
+  // CSVv2 Shape Systematic
+  csvSF.reset(new MCCSVv2ShapeSystematic(ctx, "jets","central","iterativefit","","MCCSVv2ShapeSystematic"));//CSV
 
   // event
   h_run             = ctx.declare_event_output<int>("run");
@@ -1440,6 +1443,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   // // // b-tagging
   // std::cout<<"Before Btag SF: "<<event.weight<<std::endl;
   //  btagSF->process(event);
+  csvSF->process(event);
 
   //  std::cout<<event.weight<<std::endl;
   //  muon-ID
@@ -1650,19 +1654,17 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   //  if(event.jet->at(0).photonEnergyFraction()>0.5) return false;
 
   ////
+  //// HT_lep selection
+  const bool pass_htlep = htlep_sel->passes(event);
+  if(!pass_htlep) return false;
+  if(lepN == 1) HFolder("htlep")->fill(event);
+  ////
   /*
-//// HT_lep selection
-const bool pass_htlep = htlep_sel->passes(event);
-if(!pass_htlep) return false;
-//if(lepN == 1) HFolder("htlep")->fill(event);
-////
-
-//// TRIANGULAR-CUTS selection
-const bool pass_triangc = triangc_sel->passes(event);
-if(!pass_triangc) return false;
-
-////
-*/
+  //// TRIANGULAR-CUTS selection
+  const bool pass_triangc = triangc_sel->passes(event);
+  if(!pass_triangc) return false;
+  HFolder("triangc")->fill(event);
+  */
   // // //--------------------------------------------------------------------
 
   //// TTBAR KIN RECO
@@ -2345,9 +2347,9 @@ if(!pass_triangc) return false;
       HFolder(chi2_posx+"__"+ttag_posx+"__ttbar")->fill(event);
     }
     //    if(pass_chi2 && !event.isRealData){
-    if(!event.isRealData){//TEST
-      h_btagMCeffi->fill(event);
-    }
+    // if(!event.isRealData){//TEST
+    //   h_btagMCeffi->fill(event);
+    // }
 
     //WJets
     bool pass_WJetsMVA = false;
