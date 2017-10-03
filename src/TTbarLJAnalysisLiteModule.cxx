@@ -415,8 +415,8 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
   //  blind_DATA_ = ((ctx.get("dataset_version").find("BLINDED") != std::string::npos) && (ctx.get("dataset_type") == "DATA") && !isMC);
   //  blind_DATA_ = ((ctx.get("dataset_version").find("BLINDED") != std::string::npos) && (ctx.get("dataset_type") == "DATA") && !isMC);
-  //  blind_DATA_ = true;//TEST blind both DATA and MC!
-  blind_DATA_ = false;//TEST unblind both DATA and MC!
+  blind_DATA_ = true;//TEST blind both DATA and MC!
+  //  blind_DATA_ = false;//TEST unblind both DATA and MC!
 
   const std::string& store_PDF_weights = ctx.get("store_PDF_weights", "");
   if     (store_PDF_weights == "true")  store_PDF_weights_ = true;
@@ -1322,7 +1322,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   reader_wjets->AddVariable("lep1__minDR_jet", &mva_lep1__minDR_jet);
   reader_wjets->AddVariable("lep1__pTrel_jet_norm", &mva_ptrel_norm);
   reader_wjets->AddVariable("jet1_csv", &mva_j1CSV);
-  reader_wjets->AddVariable("jet1_pt", &mva_jet1pt_norm);
+  //  reader_wjets->AddVariable("jet1_pt", &mva_jet1pt_norm);
   reader_wjets->AddVariable("jet1_m", &mva_jet1m_norm);
   reader_wjets->AddVariable("jet2_csv", &mva_j2CSV);
   //reader_wjets->AddVariable("jet2_pt",&mva_jet2pt_norm);
