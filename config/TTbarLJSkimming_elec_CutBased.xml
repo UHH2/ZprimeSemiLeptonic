@@ -14,7 +14,9 @@
 <!--  <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJSkimming/CutBased/"> -->
 <!--  <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJSkimming/ElecID_MVA_loose_MET50_elecPt50/"> -->
 <!-- <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJSkimming/ElecID_CutBased_tight_MET50_elecPt50_woEGReg_jetIDtight_slimmedMETs_JLCkey_20170808/"> -->
-<!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJSkimming/ElecID_CutBased_tight_MET50_elecPt50_woEGReg_jetIDtight_slimmedMETs_JLCkey_20170908/"> 
+<!-- <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJSkimming/ElecID_CutBased_tight_MET50_elecPt50_woEGReg_jetIDtight_slimmedMETs_JLCkey_20170908/"> -->
+
+<!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJSkimming/ElecID_CutBased_tight_MET50_elecPt50_woEGReg_jetIDtight_slimmedMETs_JLCkey_20170927/"> 
 
 
  <!ENTITY ZprimeToTT_10w_M1000 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_ZprimeToTT_10w_M1000.xml">
@@ -47,6 +49,8 @@
 <!ENTITY WJetsToLNu_HT-1200To2500 SYSTEM  "../../common/datasets/RunII_80X_v3/MC_WJetsToLNu_HT-1200To2500.xml">
 <!ENTITY WJetsToLNu_HT-2500ToInf SYSTEM  "../../common/datasets/RunII_80X_v3/MC_WJetsToLNu_HT-2500ToInf.xml">
 
+<!ENTITY WJetsToLNu_Pt-000To050 SYSTEM  "../../common/datasets/RunII_80X_v3/MC_WJetsToLNu_Wpt-0To50.xml">
+<!ENTITY WJetsToLNu_Pt-050To100 SYSTEM  "../../common/datasets/RunII_80X_v3/MC_WJetsToLNu_Wpt-50To100.xml">
 <!ENTITY WJetsToLNu_Pt-100To250 SYSTEM  "../../common/datasets/RunII_80X_v3/MC_WJetsToLNu_Pt-100To250.xml">
 <!ENTITY WJetsToLNu_Pt-250To400 SYSTEM  "../../common/datasets/RunII_80X_v3/MC_WJetsToLNu_Pt-250To400.xml">
 <!ENTITY WJetsToLNu_Pt-400To600 SYSTEM  "../../common/datasets/RunII_80X_v3/MC_WJetsToLNu_Pt-400To600.xml">
@@ -198,8 +202,21 @@
 <!-- <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTdir;/" PostFix="" TargetLumi="1.0" RunMode="PROOF" ProofServer="lite://" ProofWorkDir="&PROOFdir;/" ProofNodes="15"> -->
   <!--  <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTdir;/" PostFix="" TargetLumi="1" RunMode="PROOF" ProofServer="pod://"  ProofWorkDir="&PROOFdir;/">
 -->
+<!--
+<InputData Version="WJetsToLNu_Pt-000To050__B" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+&WJetsToLNu_Pt-000To050; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="WJetsToLNu_Pt-000To050__C" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+&WJetsToLNu_Pt-000To050; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="WJetsToLNu_Pt-000To050__L" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+&WJetsToLNu_Pt-000To050; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="WJetsToLNu_Pt-050To100__B" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+&WJetsToLNu_Pt-050To100; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="WJetsToLNu_Pt-050To100__C" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+&WJetsToLNu_Pt-050To100; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="WJetsToLNu_Pt-050To100__L" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+&WJetsToLNu_Pt-050To100; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
 
-<!-- <InputData Version="WJetsToLNu_Pt-250To400__B" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+ <InputData Version="WJetsToLNu_Pt-250To400__B" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
     &WJetsToLNu_Pt-250To400; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
 <InputData Version="WJetsToLNu_Pt-400To600__B" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
     &WJetsToLNu_Pt-400To600; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
@@ -247,7 +264,7 @@
  <InputData Version="DATA_SingleElectron_Run2016H" Lumi="1" Type="DATA" NEventsMax="&NEVT;" Cacheable="False">
   &DATA_SingleElectron_RunH_03Feb;
   <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
-
+-->
  <InputData Version="ZprimeToTT_10w_M0500" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
     &ZprimeToTT_10w_M0500; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
 <InputData Version="ZprimeToTT_10w_M0750" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
@@ -354,7 +371,7 @@
     &ZprimeToTT_30w_M4000; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
  <InputData Version="ZprimeToTT_30w_M5000" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
     &ZprimeToTT_30w_M5000; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
-
+<!--
  <InputData Version="TTbar_part1" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
 &TTbar_part1; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
 <InputData Version="TTbar_part2" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
@@ -411,9 +428,8 @@
 &QCD_HT200to300; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
 <InputData Version="QCD_HT100to200" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
 &QCD_HT100to200; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
--->
 
-<InputData Version="DATA_SingleMuon_Run2016B" Lumi="1" Type="DATA" NEventsMax="&NEVT;" Cacheable="False">
+ <InputData Version="DATA_SingleMuon_Run2016B" Lumi="1" Type="DATA" NEventsMax="&NEVT;" Cacheable="False">
     &DATA_SingleMuon_RunB_03Feb;
     <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
   <InputData Version="DATA_SingleMuon_Run2016C" Lumi="1" Type="DATA" NEventsMax="&NEVT;" Cacheable="False">
@@ -434,7 +450,7 @@
  <InputData Version="DATA_SingleMuon_Run2016H" Lumi="1" Type="DATA" NEventsMax="&NEVT;" Cacheable="False">
   &DATA_SingleMuon_RunH_03Feb;
   <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
-
+-->
 
 <!-- <InputData Version="WJetsToLNu_HT-100To200__B" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
     &WJetsToLNu_HT-100To200; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
