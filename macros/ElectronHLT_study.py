@@ -3,52 +3,34 @@
 # tag: muon HLT, probe: electron HLT 
 # compare results in MC and DATA, derive SFs
 # usage:
-# cd /nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJTrigger/ElectronID_MVAGeneralPurpose_Spring16_loose/
+# cd /nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJTrigger/TTbarLJTriggerStudyLite_elePt40_jet1pt185_jet2pt50_20170922/
 # python /afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/macros/ElectronHLT_study.py
 from ROOT import *
 import sys
 import numpy
 
 #Set names of channels, hists, etc
-samplelist = {'TTbar':'uhh2.AnalysisModuleRunner.MC.TTbar.root'}
+#samplelist = {'TTbar':'uhh2.AnalysisModuleRunner.MC.TTbar.root'}
 #samplelist = {'DATA_Run2016':'uhh2.AnalysisModuleRunner.DATA.DATA_SingleMuon_Run2016.root'}
-#samplelist = {'ZprimeToTT_10w_M3000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_10w_M3000.root'}
-#samplelist = {'RSGluon_M0500':'uhh2.AnalysisModuleRunner.MC.RSGluonToTT_M0500.root','RSGluon_M0750':'uhh2.AnalysisModuleRunner.MC.RSGluonToTT_M0750.root','RSGluon_M1000':'uhh2.AnalysisModuleRunner.MC.RSGluonToTT_M1000.root','RSGluon_M1500':'uhh2.AnalysisModuleRunner.MC.RSGluonToTT_M1500.root','RSGluon_M2000':'uhh2.AnalysisModuleRunner.MC.RSGluonToTT_M2000.root','RSGluon_M2500':'uhh2.AnalysisModuleRunner.MC.RSGluonToTT_M2500.root','RSGluon_M3000':'uhh2.AnalysisModuleRunner.MC.RSGluonToTT_M3000.root','RSGluon_M3500':'uhh2.AnalysisModuleRunner.MC.RSGluonToTT_M3500.root','RSGluon_M4000':'uhh2.AnalysisModuleRunner.MC.RSGluonToTT_M4000.root', 'ZprimeToTTJet_M0750':'uhh2.AnalysisModuleRunner.MC.ZprimeToTTJet_M0750.root','ZprimeToTTJet_M1000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTTJet_M1000.root','ZprimeToTTJet_M1250':'uhh2.AnalysisModuleRunner.MC.ZprimeToTTJet_M1250.root','ZprimeToTTJet_M1500':'uhh2.AnalysisModuleRunner.MC.ZprimeToTTJet_M1500.root','ZprimeToTTJet_M2000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTTJet_M2000.root','ZprimeToTTJet_M2500':'uhh2.AnalysisModuleRunner.MC.ZprimeToTTJet_M2500.root','ZprimeToTTJet_M3000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTTJet_M3000.root','ZprimeToTTJet_M3500':'uhh2.AnalysisModuleRunner.MC.ZprimeToTTJet_M3500.root','ZprimeToTTJet_M4000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTTJet_M4000.root', 'ZprimeToTT_01w_M0500':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_01w_M0500.root','ZprimeToTT_01w_M0750':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_01w_M0750.root','ZprimeToTT_01w_M1000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_01w_M1000.root','ZprimeToTT_01w_M1250':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_01w_M1250.root','ZprimeToTT_01w_M1500':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_01w_M1500.root','ZprimeToTT_01w_M2000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_01w_M2000.root','ZprimeToTT_01w_M2500':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_01w_M2500.root','ZprimeToTT_01w_M3000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_01w_M3000.root','ZprimeToTT_01w_M3500':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_01w_M3500.root','ZprimeToTT_01w_M4000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_01w_M4000.root','ZprimeToTT_10w_M0500':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_10w_M0500.root','ZprimeToTT_10w_M0750':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_10w_M0750.root','ZprimeToTT_10w_M1000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_10w_M1000.root','ZprimeToTT_10w_M1250':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_10w_M1250.root','ZprimeToTT_10w_M1500':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_10w_M1500.root','ZprimeToTT_10w_M2000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_10w_M2000.root','ZprimeToTT_10w_M2500':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_10w_M2500.root','ZprimeToTT_10w_M3000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_10w_M3000.root','ZprimeToTT_10w_M3500':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_10w_M3500.root','ZprimeToTT_10w_M4000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_10w_M4000.root'}
-#samplelist = {'RSGluon_M0500':'uhh2.AnalysisModuleRunner.MC.RSGluonToTT_M0500.root','RSGluon_M0750':'uhh2.AnalysisModuleRunner.MC.RSGluonToTT_M0750.root','RSGluon_M1000':'uhh2.AnalysisModuleRunner.MC.RSGluonToTT_M1000.root','RSGluon_M1500':'uhh2.AnalysisModuleRunner.MC.RSGluonToTT_M1500.root','RSGluon_M2000':'uhh2.AnalysisModuleRunner.MC.RSGluonToTT_M2000.root','RSGluon_M2500':'uhh2.AnalysisModuleRunner.MC.RSGluonToTT_M2500.root','RSGluon_M3000':'uhh2.AnalysisModuleRunner.MC.RSGluonToTT_M3000.root','RSGluon_M3500':'uhh2.AnalysisModuleRunner.MC.RSGluonToTT_M3500.root','RSGluon_M4000':'uhh2.AnalysisModuleRunner.MC.RSGluonToTT_M4000.root'}
-#samplelist = {'ZprimeToTTJet_M0750':'uhh2.AnalysisModuleRunner.MC.ZprimeToTTJet_M0750.root','ZprimeToTTJet_M1000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTTJet_M1000.root','ZprimeToTTJet_M1250':'uhh2.AnalysisModuleRunner.MC.ZprimeToTTJet_M1250.root','ZprimeToTTJet_M1500':'uhh2.AnalysisModuleRunner.MC.ZprimeToTTJet_M1500.root','ZprimeToTTJet_M2000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTTJet_M2000.root','ZprimeToTTJet_M2500':'uhh2.AnalysisModuleRunner.MC.ZprimeToTTJet_M2500.root','ZprimeToTTJet_M3000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTTJet_M3000.root','ZprimeToTTJet_M3500':'uhh2.AnalysisModuleRunner.MC.ZprimeToTTJet_M3500.root','ZprimeToTTJet_M4000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTTJet_M4000.root'}
-#samplelist = {'ZprimeToTT_01w_M0500':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_01w_M0500.root','ZprimeToTT_01w_M0750':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_01w_M0750.root','ZprimeToTT_01w_M1000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_01w_M1000.root','ZprimeToTT_01w_M1250':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_01w_M1250.root','ZprimeToTT_01w_M1500':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_01w_M1500.root','ZprimeToTT_01w_M2000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_01w_M2000.root','ZprimeToTT_01w_M2500':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_01w_M2500.root','ZprimeToTT_01w_M3000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_01w_M3000.root','ZprimeToTT_01w_M3500':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_01w_M3500.root','ZprimeToTT_01w_M4000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_01w_M4000.root','ZprimeToTT_10w_M0500':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_10w_M0500.root','ZprimeToTT_10w_M0750':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_10w_M0750.root','ZprimeToTT_10w_M1000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_10w_M1000.root','ZprimeToTT_10w_M1250':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_10w_M1250.root','ZprimeToTT_10w_M1500':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_10w_M1500.root','ZprimeToTT_10w_M2000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_10w_M2000.root','ZprimeToTT_10w_M2500':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_10w_M2500.root','ZprimeToTT_10w_M3000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_10w_M3000.root','ZprimeToTT_10w_M3500':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_10w_M3500.root','ZprimeToTT_10w_M4000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_10w_M4000.root'}
-#samplelist = {'ZprimeToTT_30w_M1000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_30w_M1000.root','ZprimeToTT_30w_M2000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_30w_M2000.root','ZprimeToTT_30w_M3000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_30w_M3000.root','ZprimeToTT_30w_M4000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_30w_M4000.root'}
-#samplelist = {'DATA_RunC':'uhh2.AnalysisModuleRunner.DATA.DATA_SingleMuon_Run2016C.root'}
-#samplelist = {'ZprimeToTT_01w_M2000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_01w_M2000.root','ZprimeToTT_10w_M3000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_10w_M3000.root'}
-#samplelist = {'ZprimeToTT_10w_M3000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_10w_M3000.root','ZprimeToTT_10w_M3000_IntLumi':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_10w_M3000_IntLumi.root'}
-#samplelist = {'ZprimeToTT_30w_M3000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_30w_M3000.root','ZprimeToTT_30w_M1000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_30w_M1000.root','ZprimeToTT_30w_M2000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_30w_M2000.root','ZprimeToTT_30w_M4000':'uhh2.AnalysisModuleRunner.MC.ZprimeToTT_30w_M4000.root'}
-#samplelist = {'TTbar':'uhh2.AnalysisModuleRunner.MC.TTbar.root',}
-#path = {'Ele50_PFJet165':'Ele50_PFJet165__NULL/','Ele45_PFJet200_PFJet50':'Ele45_PFJet200_PFJet50__NULL/','Ele50_PFJet165 OR Ele115':'Ele50_PFJet165__Ele115/','Ele50_PFJet165 OR PFHT800':'Ele50_PFJet165__PFHT800/'} 
-#path = {'Ele50_PFJet165 OR PFJet450':'Ele50_PFJet165__PFJet450/'} 
-#path = {'Ele50_PFJet165 OR PFHT800':'Ele50_PFJet165__PFHT800/'} 
-#path = {'Ele50_PFJet165 OR Ele115':'Ele50_PFJet165__Ele115_CaloIdVT_GsfTrkIdT/'}
-#path = {'Ele50_PFJet165 OR Ele115':'Ele50_PFJet165__Ele115_CaloIdVT_GsfTrkIdT/','Ele50_PFJet165 OR PFHT800':'Ele50_PFJet165__PFHT800/','Ele50_PFJet165 OR PFJet450':'Ele50_PFJet165__PFJet450/','Ele50_PFJet165 OR PFHT900':'Ele50_PFJet165__PFHT900/'}
-#path = {'Ele50_PFJet165':'Ele50_PFJet165__NULL/','Ele45_PFJet200_PFJet50':'Ele45_PFJet200_PFJet50__NULL/','Ele45_PFJet200_PFJet50 || Ele115 || Ele105':'Ele45_PFJet200_PFJet50__Ele115_CaloIdVT_GsfTrkIdT__Ele105_CaloIdVT_GsfTrkIdT__NULL__NULL__NULL/','Ele45_PFJet200_PFJet50 || Ele115 || Ele105 || PFHT800 || PFHT900':'Ele45_PFJet200_PFJet50__Ele115_CaloIdVT_GsfTrkIdT__Ele105_CaloIdVT_GsfTrkIdT__PFHT800__PFHT900__NULL/'}
-#path = {'Ele45_PFJet200_PFJet50':'Ele45_PFJet200_PFJet50__NULL/','Ele45_PFJet200_PFJet50 || Ele115/105':'Ele45_PFJet200_PFJet50__Ele115_CaloIdVT_GsfTrkIdT__Ele105_CaloIdVT_GsfTrkIdT__NULL__NULL__NULL/','Ele45_PFJet200_PFJet50 || Ele115/105 || PFHT800/900':'Ele45_PFJet200_PFJet50__Ele115_CaloIdVT_GsfTrkIdT__Ele105_CaloIdVT_GsfTrkIdT__PFHT800__PFHT900__NULL/','Ele45_PFJet200_PFJet50 || Ele115/105 || PFHT800/900 || PFJet450':'Ele45_PFJet200_PFJet50__Ele115_CaloIdVT_GsfTrkIdT__Ele105_CaloIdVT_GsfTrkIdT__PFHT800__PFHT900__PFJet450/','Ele45_PFJet200_PFJet50 || Ele115/105 || PFHT800/900 || AK8PFJet450':'Ele45_PFJet200_PFJet50__Ele115_CaloIdVT_GsfTrkIdT__Ele105_CaloIdVT_GsfTrkIdT__PFHT800__PFHT900__AK8PFJet450/'}
-#path = {'Ele50_PFJet165 || Ele115/105':'Ele50_PFJet165__Ele115_CaloIdVT_GsfTrkIdT__Ele105_CaloIdVT_GsfTrkIdT__NULL__NULL__NULL/','Ele50_PFJet165 || Ele115/105 || PFHT800/900 || PFJet450':'Ele50_PFJet165__Ele115_CaloIdVT_GsfTrkIdT__Ele105_CaloIdVT_GsfTrkIdT__PFHT800__PFHT900__PFJet450/','Ele50_PFJet165 || Ele115/105 || PFHT800/900 || AK8PFJet450':'Ele50_PFJet165__Ele115_CaloIdVT_GsfTrkIdT__Ele105_CaloIdVT_GsfTrkIdT__PFHT800__PFHT900__AK8PFJet450/'}
-#path = {'Ele45_PFJet200_PFJet50 || Ele115/105':'Ele45_PFJet200_PFJet50__Ele115_CaloIdVT_GsfTrkIdT__Ele105_CaloIdVT_GsfTrkIdT__NULL__NULL__NULL/','Ele45_PFJet200_PFJet50 || Ele115/105 || PFHT800/900 || PFJet450':'Ele45_PFJet200_PFJet50__Ele115_CaloIdVT_GsfTrkIdT__Ele105_CaloIdVT_GsfTrkIdT__PFHT800__PFHT900__PFJet450/','Ele45_PFJet200_PFJet50 || Ele115/105 || PFHT800/900 || AK8PFJet450':'Ele45_PFJet200_PFJet50__Ele115_CaloIdVT_GsfTrkIdT__Ele105_CaloIdVT_GsfTrkIdT__PFHT800__PFHT900__AK8PFJet450/'}
-#path = {'Ele45_PFJet200_PFJet50 || Ele115/105':'Ele45_PFJet200_PFJet50__Ele115_CaloIdVT_GsfTrkIdT__Ele105_CaloIdVT_GsfTrkIdT__NULL__NULL__NULL/','Ele45_PFJet200_PFJet50 || Ele115/105 || PFHT800/900 || PFJet450':'Ele45_PFJet200_PFJet50__Ele115_CaloIdVT_GsfTrkIdT__Ele105_CaloIdVT_GsfTrkIdT__PFHT800__PFHT900__PFJet450/','Ele45_PFJet200_PFJet50 || Ele115/105 || PFHT800/900 || AK8PFJet450':'Ele45_PFJet200_PFJet50__Ele115_CaloIdVT_GsfTrkIdT__Ele105_CaloIdVT_GsfTrkIdT__PFHT800__PFHT900__AK8PFJet450/', 'Ele50_PFJet165 || Ele115/105':'Ele50_PFJet165__Ele115_CaloIdVT_GsfTrkIdT__Ele105_CaloIdVT_GsfTrkIdT__NULL__NULL__NULL/','Ele50_PFJet165 || Ele115/105 || PFHT800/900 || PFJet450':'Ele50_PFJet165__Ele115_CaloIdVT_GsfTrkIdT__Ele105_CaloIdVT_GsfTrkIdT__PFHT800__PFHT900__PFJet450/','Ele50_PFJet165 || Ele115/105 || PFHT800/900 || AK8PFJet450':'Ele50_PFJet165__Ele115_CaloIdVT_GsfTrkIdT__Ele105_CaloIdVT_GsfTrkIdT__PFHT800__PFHT900__AK8PFJet450/'}
-#path = {'Ele50_PFJet165 || Ele115/105': 'Ele50_PFJet165__Ele115_CaloIdVT_GsfTrkIdT__Ele105_CaloIdVT_GsfTrkIdT__NULL__NULL__NULL/'}
-path = {'Ele50_PFJet165': 'Ele50_PFJet165__NULL__NULL__NULL__NULL__NULL/'}
-#path = {'Ele50_PFJet165 || Ele115/105': 'Ele50_PFJet165__Ele115_CaloIdVT_GsfTrkIdT__Ele105_CaloIdVT_GsfTrkIdT__NULL__NULL__NULL/','Ele50_PFJet165': 'Ele50_PFJet165__NULL__NULL__NULL__NULL__NULL/'}
+samplelist = {'TTbar':'uhh2.AnalysisModuleRunner.MC.TTbar.root','DATA_Run2016':'uhh2.AnalysisModuleRunner.DATA.DATA.root'}
+#path = {'Ele50_PFJet165': 'Ele50_PFJet165__NULL__NULL__NULL__NULL__NULL/'}
+path = {'Ele50PFJet165_OR_Ele115': 'Ele50_PFJet165__Ele115_CaloIdVT_GsfTrkIdT__NULL__NULL__NULL__NULL/'}
 eff = {}
 eff_err = {}
 
-read_hist = {'elec_pt':'ele1__pt','elec_eta':'ele1__eta','jet1_pt':'jet1__pt','jet2_pt':'jet2__pt',}
-name_hist = {'elec_pt':'electron p_{T}, GeV','elec_eta':'electron #eta','jet1_pt':'jet1 p_{T}, GeV','jet2_pt':'jet2 p_{T}, GeV'}
-#read_hist = {'elec_pt':'ele1__pt'}
-#name_hist = {'elec_pt':'electron p_{T}, GeV'}
-#read_hist = {'elec_eta':'ele1__eta'}
-#name_hist = {'elec_eta':'electron #eta'}
-#read_hist = {'jet1_pt':'jet1__pt','jet2_pt':'jet2__pt',}
-#name_hist = {'jet1_pt':'jet1 p_{T}, GeV','jet2_pt':'jet2 p_{T}, GeV'}
-#read_hist = {'muo_pt':'muo1__pt'}
-#name_hist = {'muo_pt':'muon p_{T}, GeV'}
+read_hist = {'elec_pt':'ele1__pt','jet1_pt':'jet1__pt','jet2_pt':'jet2__pt',}
+name_hist = {'elec_pt':'electron p_{T}, GeV','jet1_pt':'jet1 p_{T}, GeV','jet2_pt':'jet2 p_{T}, GeV'}
+
+# read_hist = {'elec_pt':'ele1__pt','elec_eta':'ele1__eta','jet1_pt':'jet1__pt','jet2_pt':'jet2__pt',}
+# name_hist = {'elec_pt':'electron p_{T}, GeV','elec_eta':'electron #eta','jet1_pt':'jet1 p_{T}, GeV','jet2_pt':'jet2 p_{T}, GeV'}
+# read_hist = {'elec_pt':'ele1__pt'}
+# name_hist = {'elec_pt':'electron p_{T}, GeV'}
+# read_hist = {'elec_eta':'ele1__eta'}
+# name_hist = {'elec_eta':'electron #eta'}
+# read_hist = {'jet1_pt':'jet1__pt','jet2_pt':'jet2__pt',}
+# name_hist = {'jet1_pt':'jet1 p_{T}, GeV','jet2_pt':'jet2 p_{T}, GeV'}
+# read_hist = {'muo_pt':'muo1__pt'}
+# name_hist = {'muo_pt':'muon p_{T}, GeV'}
 
 #TH1
 sig_denom = {}
@@ -64,7 +46,7 @@ for key_hist in read_hist:
     #j = j+1 
     for key_sample in samplelist:
         cHLTeff[key_hist+key_sample] = TCanvas("cHLT_Eff_"+key_hist,"HLT_Eff_"+key_hist,800,600)
-        legend = TLegend(.47,.85,.98,.95)
+        legend = TLegend(.45,.85,.98,.95)
         #legend = TLegend(.64,.79,.99,.95)
         #legend = TLegend(.13,.15,.99,.41) 
         #legend = TLegend() 
@@ -134,4 +116,4 @@ for key_hist in read_hist:
         sig_eff_mgr[key_hist+key_sample].GetXaxis().SetTitle(name_hist[key_hist])
         legend.Draw()
         cHLTeff[key_hist+key_sample].SaveAs('HLT_Eff_'+key_hist+'_'+key_sample+'.root')
-        cHLTeff[key_hist+key_sample].SaveAs('/afs/desy.de/user/k/karavdia/www/Zprime_plots/ElecHLTeff/HLT_Eff_'+key_hist+'_'+key_sample+'.pdf')
+        cHLTeff[key_hist+key_sample].SaveAs('/afs/desy.de/user/k/karavdia/www/Zprime_plots/ElecHLTeff_jetCut_MET120_vetoGapEle_HLT1ORHLT2/HLT_Eff_'+key_hist+'_'+key_sample+'.pdf')

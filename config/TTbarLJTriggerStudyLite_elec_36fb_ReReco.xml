@@ -46,7 +46,7 @@
 <!-- <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJTrigger/ElectronID_MVAGeneralPurpose_Spring16_loose_MET50_elecPT65_jet1Pt185_jet2Pt50_NO2D/Ele50_PFJet165__&HLT2;__&HLT3;__&HLT4;__&HLT5;__&HLT6;/"> -->
 <!-- <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJTrigger/ElectronID_Spring16_medium_noIso_MET50_elecPT65_jet1Pt185_jet2Pt50_NO2D/Ele50_PFJet165__&HLT2;__&HLT3;__&HLT4;__&HLT5;__&HLT6;/"> 
 -->
-<!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJTrigger/ElectronID_MVAGeneralPurpose_Spring16_loose_MET50_elecPT65_jet1Pt185_jet2Pt50_noMUONtrkSF_constPtbins/Ele50_PFJet165__&HLT2;__&HLT3;__&HLT4;__&HLT5;__&HLT6;/"> 
+<!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJTrigger/TTbarLJTriggerStudyLite_20170922/Ele50_PFJet165__&HLT2;__&HLT3;__&HLT4;__&HLT5;__&HLT6;/"> 
  <!ENTITY ZprimeToTT_30w_M1000 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_ZprimeToTT_30w_M1000.xml">
  <!ENTITY ZprimeToTT_30w_M2000 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_ZprimeToTT_30w_M2000.xml">
  <!ENTITY ZprimeToTT_30w_M3000 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_ZprimeToTT_30w_M3000.xml">
@@ -111,7 +111,7 @@
 
 <!--
    <ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="10" AutoResubmit="10"/>
-   <ConfigSGE RAM ="4" DISK ="2" Mail="anastasia.karavdina@desy.de" Notification="as" Workdir="workdir_elec_Trigger"/>
+   <ConfigSGE RAM ="4" DISK ="2" Mail="anastasia.karavdina@desy.de" Notification="as" Workdir="/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/workdir_elec_TriggerSF"/>
 -->
 
 
@@ -262,6 +262,9 @@
     <InputData Version="DATA_SingleMuon_Run2016H" Lumi="35921.908907" Type="DATA" NEventsMax="&NEVT;" Cacheable="False">
       &DATA_SingleMuon_RunH; 
       <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+
+    <InputData Version="TTbar" Lumi="186543.350" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+    &TTbar_part1; &TTbar_part2; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
 
 <!--
   <InputData Version="DATA_SingleMuon_Run2016_TEST" Lumi="35921.908907" Type="DATA" NEventsMax="&NEVT;" Cacheable="False">
