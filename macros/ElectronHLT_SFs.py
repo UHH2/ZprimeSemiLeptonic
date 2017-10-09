@@ -13,8 +13,8 @@ import numpy
 samplelist = {'DATA_Run2016':'uhh2.AnalysisModuleRunner.DATA.DATA.root','TTbar':'uhh2.AnalysisModuleRunner.MC.TTbar.root'}
 #samplelist = {'DATA_Run2016':'uhh2.AnalysisModuleRunner.DATA.DATA_SingleMuon_Run2016.root','DATA_Run2016BCD':'uhh2.AnalysisModuleRunner.DATA.DATA_SingleMuon_Run2016BCD.root','DATA_Run2016EF':'uhh2.AnalysisModuleRunner.DATA.DATA_SingleMuon_Run2016EF.root','DATA_Run2016G':'uhh2.AnalysisModuleRunner.DATA.DATA_SingleMuon_Run2016G.root','DATA_Run2016H':'uhh2.AnalysisModuleRunner.DATA.DATA_SingleMuon_Run2016H.root','TTbar':'uhh2.AnalysisModuleRunner.MC.TTbar.root'}
 #path = {'Ele50_PFJet165 || Ele115/105': 'Ele50_PFJet165__Ele115_CaloIdVT_GsfTrkIdT__Ele105_CaloIdVT_GsfTrkIdT__NULL__NULL__NULL/'}
-path = {'Ele50_PFJet165': 'Ele50_PFJet165__NULL__NULL__NULL__NULL__NULL'}
-#path = {'Ele50PFJet165_OR_Ele115': 'Ele50_PFJet165__Ele115_CaloIdVT_GsfTrkIdT__NULL__NULL__NULL__NULL/'} 
+#path = {'Ele50_PFJet165': 'Ele50_PFJet165__NULL__NULL__NULL__NULL__NULL'}
+path = {'Ele50PFJet165_OR_Ele115': 'Ele50_PFJet165__Ele115_CaloIdVT_GsfTrkIdT__NULL__NULL__NULL__NULL/'} 
 eff = {}
 eff_err = {}
 
@@ -80,6 +80,8 @@ for key_hist in read_hist:
                     #sig_eff_gr[key_hists_full].SetBinContent(i,j,0.94/0.962)
                     if sig_eff_gr[key_hists_full].GetBinContent(i,j)==0: 
                         sig_eff_gr[key_hists_full].SetBinContent(i,j,1)
+                    sig_eff_gr[key_hists_full].SetBinError(i,j,0.05)
+
             sig_eff_gr[key_hists_full].SetName('EGamma_SF2D')
             #sig_eff_gr[key_hists_full].SetMarkerStyle(27+i)
             #sig_eff_gr[key_hists_full].SetMarkerSize(1.4)
@@ -102,7 +104,8 @@ for key_hist in read_hist:
 
             sig_eff_gr[key_hists_full].Draw('colz TEXT')
             sig_eff_gr[key_hists_full].GetZaxis().SetRangeUser(0.5,1.6)
-            sig_eff_gr[key_hists_full].GetXaxis().SetRangeUser(0.,2.5)
+            #sig_eff_gr[key_hists_full].GetXaxis().SetRangeUser(0.,2.5)
+            sig_eff_gr[key_hists_full].GetXaxis().SetRangeUser(2.5,2.5)
             gPad.SetLogy();
             #cHLTeff[key_hist+key_sample].SaveAs('SFs_'+key_hist+'_'+key_sample+'.root')
 #            cHLTeff[key_hist+key_sample].SaveAs('/afs/desy.de/user/k/karavdia/www/Zprime_plots/ElecHLTeff_jetCut_MET120_vetoGapEle_HLT1ORHLT2/SFs_'+key_hist+'_'+key_sample+'.pdf')
