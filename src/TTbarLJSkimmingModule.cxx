@@ -305,6 +305,7 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
   ////
 
   //// OBJ CLEANING
+
   //  const     MuonId muoSR(AndId<Muon>    (PtEtaCut  (muon_pt   , 2.4), MuonIDMedium()));
   const     MuonId muoSR(AndId<Muon>    (PtEtaCut  (muon_pt   , 2.4), MuonIDTight()));//temporary switch to TightID due to problems with MediumID in 2016 data
   //  const     MuonId muoSR(AndId<Muon>    (PtEtaCut  (muon_pt   , 2.4), MuonIDLoose()));//temporary switch to LooseID due to problems with MediumID in 2016 data

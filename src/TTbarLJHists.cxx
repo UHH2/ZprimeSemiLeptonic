@@ -75,7 +75,7 @@ void TTbarLJHists::init(){
   muo1__charge = book<TH1F>("muo1__charge","muon charge"        , 5, -2, 3);
   muo1__pt = book<TH1F>("muo1__pt","muon p_{T} [GeV]"            , 45, 0, 900);
   //  muo1__pt = book<TH1F>("muo1__pt","muon p_{T} [GeV]", nptAxis-1, ptAxis);
-  muo1__eta = book<TH1F>("muo1__eta","muon #eta"            ,10,-3,3);
+  muo1__eta = book<TH1F>("muo1__eta","muon #eta"            ,30,-3,3);
 
   muo1__phi = book<TH1F>("muo1__phi","muon #phi"           , 60, -3.15, 3.15);
   muo1__minDR_jet = book<TH1F>("muo1__minDR_jet", "#Delta R_{min}(#mu,jet)"     , 30, 0, 3.2);
@@ -86,7 +86,7 @@ void TTbarLJHists::init(){
   muo2__charge = book<TH1F>("muo2__charge","muon_{2} charge"         , 5, -2, 3);
   muo2__pt = book<TH1F>("muo2__pt","muon_{2} p_{T}[GeV]"             , 45, 0, 900);
   //  muo2__pt = book<TH1F>("muo2__pt","muon p_{T}[GeV]", nptAxis-1, ptAxis);
-  muo2__eta = book<TH1F>("muo2__eta","muon_{2} #eta"            ,10,-3,3);
+  muo2__eta = book<TH1F>("muo2__eta","muon_{2} #eta"            ,30,-3,3);
   muo2__phi = book<TH1F>("muo2__phi","muon_{2} #phi"            , 60, -3.15, 3.15);
   muo2__minDR_jet = book<TH1F>("muo2__minDR_jet", "#Delta R_{min}(#mu_{2},jet)"      , 60, 0, 6);
   muo2__pTrel_jet = book<TH1F>("muo2__pTrel_jet", "p_{T,rel}(#mu_{2},jet) [GeV]"      , 100, 0, 500);
@@ -102,14 +102,14 @@ void TTbarLJHists::init(){
   //  ele1__pt = book<TH1F>("ele1__pt", "electron p_{T} [GeV]", nptAxis-1, ptAxis);
 
   ele1__ptError = book<TH1F>("ele1__ptError","electron #sigma(p_{T}) [GeV]"         , 36, 0, 720);
-  ele1__eta = book<TH1F>("ele1__eta","electron #eta"            ,10,-3,3);
+  ele1__eta = book<TH1F>("ele1__eta","electron #eta"            ,30,-3,3);
   ele1__etaError = book<TH1F>("ele1__etaError","electron #sigma(#eta)"        , 100, 0, 0.01);
   ele1__phi = book<TH1F>("ele1__phi", "electron #phi"            , 60, -3.15, 3.15);
   ele1__phiError = book<TH1F>("ele1__phiError", "electron #sigma(#phi)"            , 60, 0, 1.);
   ele1__minDR_jet = book<TH1F>("ele1__minDR_jet","#Delta R_{min}(e,jet)"      , 60, 0, 6);
   ele1__pTrel_jet = book<TH1F>("ele1__pTrel_jet", "p_{T,rel}(e,jet)[GeV]"     , 100, 0, 500);
   ele1__DPhi_met = book<TH1F>("ele1__DPhi_met","#Delta #phi(e,MET)", 40, 0, 4);
-  ele1__eta_SC = book<TH1F>("ele1__eta_SC","electron SC #eta" ,10,-3,3);
+  ele1__eta_SC = book<TH1F>("ele1__eta_SC","electron SC #eta" ,30,-3,3);
   ele1__Deta_trk_SC = book<TH1F>("ele1__Deta_trk_SC","electron #eta_{trk} -#eta_{SC}",150,-2.5,2.5);
   ele1__triangle = book<TH2F>("ele1__triangle", "#Delta #phi(e,MET) vs MET [GeV]", 45, 0, 900, 40, 0, 4);
 
@@ -118,7 +118,7 @@ void TTbarLJHists::init(){
   ele2__pt = book<TH1F>("ele2__pt", "electron p_{T} [GeV]"             , 45, 0, 900);
   //  ele2__pt = book<TH1F>("ele2__pt", "electron_{2} p_{T} [GeV]", nptAxis-1, ptAxis);
   ele2__ptError = book<TH1F>("ele2__ptError","electron_{2} #sigma(p_{T}) [GeV]"  , 36, 0, 720);
-  ele2__eta = book<TH1F>("ele2__eta", "electron_{2} #eta"            ,10,-3,3);
+  ele2__eta = book<TH1F>("ele2__eta", "electron_{2} #eta"            ,30,-3,3);
   ele2__etaError = book<TH1F>("ele2__etaError","electron_{2} #sigma(#eta)" , 100, 0, 0.01);
   ele2__phi = book<TH1F>("ele2__phi", "electron_{2} #phi"           , 60, -3.15, 3.15);
   ele2__phiError = book<TH1F>("ele2__phiError", "electron_{2} #sigma(#phi)" , 60, 0, 1.);
@@ -134,7 +134,7 @@ void TTbarLJHists::init(){
 
   jet1__pt = book<TH1F>("jet1__pt", "jet p_{T} [GeV]" , 45, 0, 900);
   //  jet1__pt = book<TH1F>("jet1__pt", "jet p_{T} [GeV]", nptAxis-1, ptAxis);
-  jet1__eta = book<TH1F>("jet1__eta", "jet #eta",10,-3,3);
+  jet1__eta = book<TH1F>("jet1__eta", "jet #eta",30,-3,3);
   jet1__phi = book<TH1F>("jet1__phi", "jet #phi", 60, -3.15, 3.15);
   jet1__M = book<TH1F>("jet1__M", "jet mass"  , 360, 0, 360);
   jet1__CSV = book<TH1F>("jet1__CSV","CSV", 60, 0, 1.2);
@@ -148,7 +148,7 @@ void TTbarLJHists::init(){
 
   jet2__pt = book<TH1F>("jet2__pt", "jet_{2} p_{T} [GeV]" , 45, 0, 900);
   //  jet2__pt = book<TH1F>("jet2__pt", "jet p_{T} [GeV]", nptAxis-1, ptAxis);
-  jet2__eta = book<TH1F>("jet2__eta", "jet_{2} #eta",10,-3,3);
+  jet2__eta = book<TH1F>("jet2__eta", "jet_{2} #eta",30,-3,3);
   jet2__phi = book<TH1F>("jet2__phi", "jet_{2} #phi", 60, -3.15, 3.15);
   jet2__M = book<TH1F>("jet2__M", "jet_{2} mass [GeV]"  , 360, 0, 360);
   jet2__NDaughters = book<TH1F>("jet2__NDaughters","jet_{2} NDaughters", 100, 0, 100);
@@ -162,7 +162,7 @@ void TTbarLJHists::init(){
 
   jet3__pt = book<TH1F>("jet3__pt", "jet_{3} p_{T}[GeV]" , 50, 200, 1700);
   //  jet3__pt = book<TH1F>("jet3__pt", "jet_{3} p_{T}[GeV]", nptAxis-1, ptAxis);
-  jet3__eta = book<TH1F>("jet3__eta", "jet_{3} #eta",10,-3,3);
+  jet3__eta = book<TH1F>("jet3__eta", "jet_{3} #eta",30,-3,3);
   jet3__phi = book<TH1F>("jet3__phi", "jet_{3} #phi", 60, -3.15, 3.15);
   jet3__M = book<TH1F>("jet3__M", "jet_{3} mass"  , 360, 0, 360);
   jet3__NDaughters = book<TH1F>("jet3__NDaughters","jet_{3} NDaughters", 100, 0, 100);
@@ -273,6 +273,7 @@ void TTbarLJHists::init(){
   met__phi = book<TH1F>("met__phi", "MET #phi", 60, -3.15, 3.15);
   wlep__ht = book<TH1F>("wlep__ht","W_{leptonic} H_{T} [GeV]", 45, 0, 900);
   wlep__pt = book<TH1F>("wlep__pt","W_{leptonic} p_{T} [GeV]", 45, 0, 900);
+  wlep__pt__jet1__pt = book<TH1F>("wlep__pt__jet1__pt","W_{leptonic} p_{T}/leading jet p_{T}", 100, 0, 10);
   //  wlep__pt = book<TH1F>("wlep__pt","W_{leptonic} p_{T} [GeV]", nptAxis-1, ptAxis);
   wlep__Mt = book<TH1F>("wlep__Mt","W_{leptonic} M_{T} [GeV]", 360, 0,  360);
   TMVA_response = book<TH1F>("TMVA_response", "QCD TMVA response", 50,-1.2,1.8);
@@ -287,7 +288,7 @@ void TTbarLJHists::init(){
    jet1_m = book<TH1F>("jet1_m","jet1_m",50,0,0.1);
    jet2_m = book<TH1F>("jet2_m","jet2_m",50,0,0.1);
    ht_met_lep_norm = book<TH1F>("ht_met_lep_norm","ht_met_lep_norm",50,0,3);
-   lep1__minDR_norm = book<TH1F>("lep1__minDR_norm","lep1__minDR_norm",50,0,3);
+   lep1__minDR_norm = book<TH1F>("lep1__minDR_jet","lep1__minDR_jet",50,0,3);
    lep1__pTrel_jet_norm = book<TH1F>("lep1__pTrel_jet_norm", "lep1__pTrel_jet_norm",50,0,0.5);
 
   return;
@@ -733,6 +734,7 @@ void TTbarLJHists::fill(const uhh2::Event& event){
 
     wlep__ht->Fill( event.met->pt()+lep1->pt()      , weight);
     wlep__pt->Fill((event.met->v4()+lep1->v4()).Pt(), weight);
+    wlep__pt__jet1__pt->Fill((event.met->v4()+lep1->v4()).Pt()/event.jets->at(0).pt(), weight);
     wlep__Mt->Fill(sqrt(2*event.met->pt()*lep1->pt()*(1.-cos(uhh2::deltaPhi(*event.met, *lep1)))), weight);
   }
 

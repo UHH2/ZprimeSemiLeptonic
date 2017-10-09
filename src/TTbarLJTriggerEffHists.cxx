@@ -80,16 +80,24 @@ void TTbarLJTriggerEffHists::init(){
   book_TH1F("ele2__phi"            , 60, -3.15, 3.15);
   book_TH1F("ele2__phiError" , 60, 0, 1.);
  
-  Double_t xAxis1[11] = {-2.5, -2, -1.566, -1.444, -0.8, 0, 0.8, 1.444, 1.566, 2, 2.5}; 
-  Double_t yAxis1[8] = {40, 60, 80, 100, 200, 300, 400, 1000};
-  book_TH2F("ele1__eta__pt", 10, xAxis1, 7, yAxis1);
-  book_TH2F("ele2__eta__pt", 10, xAxis1, 7, yAxis1);
+  const int netabins=11;
+  Double_t xAxis1[netabins] = {-2.5, -2, -1.566, -1.444, -0.8, 0, 0.8, 1.444, 1.566, 2, 2.5};
+  // const int netabins=6;
+  // Double_t xAxis1[netabins] = {0, 0.8, 1.444, 1.566, 2, 2.5};
+  // const int nptbins = 8; 
+  // Double_t yAxis1[nptbins] = {40, 60, 80, 100, 200, 300, 400, 1000};//????
+
+  const int nptbins = 9; 
+  Double_t yAxis1[nptbins] = {50, 60, 70, 80, 100, 200, 300, 400, 1000};//????
+
+  book_TH2F("ele1__eta__pt", netabins-1, xAxis1, nptbins-1, yAxis1);
+  book_TH2F("ele2__eta__pt", netabins-1, xAxis1, nptbins-1, yAxis1);
 
   Double_t xAxis2[8] = {40, 60, 80, 100, 200, 300, 400, 1000};
   Double_t yAxis2[8] = {40, 60, 80, 100, 200, 300, 400, 1000};
   book_TH2F("jet__jet1pt__jet2pt", 7, xAxis2, 7, yAxis2);
-  book_TH2F("jet__ele1pt__jet1pt", 7, yAxis1, 7, xAxis2);
-  book_TH2F("jet__jet1eta__jet2eta", 10, xAxis1, 10, xAxis1);
+  book_TH2F("jet__ele1pt__jet1pt", nptbins-1, yAxis1, 7, xAxis2);
+  book_TH2F("jet__jet1eta__jet2eta", netabins-1, xAxis1, netabins-1, xAxis1);
 
 
 
@@ -176,7 +184,7 @@ void TTbarLJTriggerEffHists::fill(const uhh2::Event& event){
     H1("ele"+std::to_string(i+1)+"__etaError") ->Fill(p.etaError() , weight);
     H1("ele"+std::to_string(i+1)+"__phi")   ->Fill(p.phi()             , weight);
     H1("ele"+std::to_string(i+1)+"__phiError") ->Fill(p.phiError() , weight);
-    H2("ele"+std::to_string(i+1)+"__eta__pt") ->Fill(p.eta(),p.pt(), weight);
+    H2("ele"+std::to_string(i+1)+"__eta__pt") ->Fill(fabs(p.eta()),p.pt(), weight);
 
     int EMclass= p.Class();
     H1("ele"+std::to_string(i+1)+"__class")->Fill(EMclass, weight);

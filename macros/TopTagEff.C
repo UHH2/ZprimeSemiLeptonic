@@ -4,24 +4,27 @@
 // in muon and electron channels separetly
 //
 // 11.07.2016
-// re-worked on 14.09.2017
-//TODO: restore separation to light and heavy quarks for TTBAR!
-// to run it do
-// root TopTagEff.C
+// re-worked on 14.09.2017, updated on 22.09.2017
+// to run it do:
+// root -l TopTagEff.C
 //---------------------------------------------------------------
 
 void TopTagEff(){
+  //  TString path = "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/MisTopTagSF__antiWJetsBDT_woBtag_20170922/T1_v06/";
   TString path = "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/MisTopTagSF__antiWJetsBDT_20170921/T1_v06/";
   const int nch = 2;
   TString channels[nch] = {"muon","elec"};
   //  TString channels[nch] = {"muon"};
   //TString channels[nch] = {"elec"};
-  const int nmth=1;
-  //  TString method [nmth]={"V1","V2","V3"};
-  TString method [nmth]={"V3"};
+  const int nmth=3;
+  TString method [nmth]={"V1","V2","V3"};
+  //const int nmth=1;
+  //  TString method [nmth]={"V3"};
   //  TString channels[nch] = {"/"};
-  for(int chI = 0; chI <nch; chI++){
+  double SFs[nmth][nch];  
+  double SFs_err[nmth][nch];  
   for(int mthI = 0; mthI <nmth; mthI++){
+    for(int chI = 0; chI <nch; chI++){
     cout<<"######### Method "<<method[mthI]<<" #############"<<endl;   
  //DATA
     TString fname_data = path+channels[chI]+"/uhh2.AnalysisModuleRunner.DATA.DATA.root";
@@ -236,6 +239,20 @@ void TopTagEff(){
     if(channels[chI]=="muon")  cout<<"$\\mu$+jets & ";
      cout<<Form("%.3f",eff_DATA)<<" $\\pm$ "<<Form("%.3f",err_eff_DATA)<<" & "<<Form("%.3f",eff_MC)<<" $\\pm$ "<<Form("%.3f",err_eff_MC)
     	 <<" & "<<Form("%.2f",SF)<<" $\\pm$ "<<Form("%.2f",err_SF)<<endl;
+     SFs[mthI][chI]=SF;
+     SFs_err[mthI][chI]=err_SF;
+    }
+    //Calculate average
+    double ave_SF=0;
+    double ave_SF_err=0;
+    for(int chI = 0; chI <nch; chI++){   
+      ave_SF +=SFs[mthI][chI];
+      ave_SF_err +=SFs_err[mthI][chI]*SFs_err[mthI][chI];
+    }
+    ave_SF /=nch;
+    ave_SF_err = sqrt(ave_SF_err)/nch;
+    cout<<"Average: "<<ave_SF<<" $\\pm$ "<<ave_SF_err<<endl;
   }
-  }
+
+
 }

@@ -71,9 +71,9 @@ class TTbarLJTriggerStudyLiteModule : public ModuleBASE {
   std::unique_ptr<MuonCleaner>     muoSR_cleaner;
   std::unique_ptr<ElectronCleaner> eleSR_cleaner;
   //  ElectronId eleID = ElectronID_Spring15_25ns_tight_noIso;
-  //  ElectronId eleID =   ElectronID_Spring16_tight_noIso; //check OLD version
+  ElectronId eleID =   ElectronID_Spring16_tight_noIso; //check OLD version
   //  ElectronId eleID = ElectronID_Spring16_medium_noIso;         // MVA version of Zprime
-  ElectronId eleID = ElectronID_MVAGeneralPurpose_Spring16_loose; //Cut-based version of Zprime
+  //  ElectronId eleID = ElectronID_MVAGeneralPurpose_Spring16_loose; //Cut-based version of Zprime
   std::unique_ptr<JetCleaner>                      jet_IDcleaner;
   std::unique_ptr<JetCorrector>                    jet_corrector, jet_corrector_BCD, jet_corrector_EFearly, jet_corrector_FlateG, jet_corrector_H;
   std::unique_ptr<GenericJetResolutionSmearer>     jetER_smearer;
@@ -164,11 +164,16 @@ TTbarLJTriggerStudyLiteModule::TTbarLJTriggerStudyLiteModule(uhh2::Context& ctx)
   //  bool topleppt_cut(false);
   use_ttagging_ = false;
   muon1_pt = 55.;
-  ele1_pt = 65.; 
+  ele1_pt = 50.; 
   jet1_pt  = 185.;
+  //  ele1_pt = 120.; 
+  //  jet1_pt  = 160.;
+  //  jet1_pt  = 200.;
+
   jet2_pt  = 50.; 
-  MET      =  50.;
-  //  MET      =  120.;
+  //  jet2_pt  = 30.; 
+  //  MET      =  50.;
+  MET      =  120.;
   HT_lep   = 0.;
   // if(keyword == "T0_v01" || keyword == "T1_v01"){
 
@@ -429,6 +434,7 @@ bool TTbarLJTriggerStudyLiteModule::process(uhh2::Event& event){
   if(!pass_dilep) return false;
   //  std::cout<<" Went through dilep_sel "<<std::endl;
   HFolder("dilep")->fill(event);
+  if(event.electrons->at(0).Class()==4) return false;//TEST veto gap electrons  
   
   // // //// JET selection
   jet_IDcleaner->process(event);
@@ -516,8 +522,9 @@ if(event.isRealData){
   HFolder("twodcut")->fill(event);
 
   // // //  std::cout<<" Went through 2D cut "<<std::endl;
+  jet_cleaner2->process(event);                                                                                                                                       
+  sort_by_pt<Jet>(*event.jets);
 
-  
   // /* 2nd AK4 jet selection */
   const bool pass_jet2 = jet2_sel->passes(event);
   if(!pass_jet2) return false;
@@ -556,12 +563,12 @@ if(event.isRealData){
 
   //probe trugger
   bool pass_trigger = false;  
-  //bool pass_trigger2 = false;
+  bool pass_trigger2 = false;
   // bool pass_trigger3 = false;  bool pass_trigger4 = false;
   // bool pass_trigger5 = false;  bool pass_trigger6 = false;
 
   pass_trigger = trigger_sel->passes(event);
-  //  pass_trigger2 = trigger2_sel->passes(event);
+  pass_trigger2 = trigger2_sel->passes(event);
   // pass_trigger3 = trigger3_sel->passes(event);
   // pass_trigger4 = trigger4_sel->passes(event);
   // pass_trigger5 = trigger5_sel->passes(event);
@@ -573,7 +580,8 @@ if(event.isRealData){
   //  if(!pass_trigger && !pass_trigger2 && !pass_trigger3 && !pass_trigger6) return false;//TEST
   //  if(!pass_trigger && !pass_trigger2 && !pass_trigger3) return false;//TEST
   //  std::cout<<"pass_tag_trigger = "<<pass_tag_trigger<<" pass_trigger = "<<pass_trigger<<std::endl;
-  if(!pass_trigger) return false;//TEST with one trigger
+  //  if(!pass_trigger) return false;//TEST with one trigger
+  if(!pass_trigger && !pass_trigger2) return false;
   HFolder("tagNprobe")->fill(event);
   if(event.isRealData) lumihists_probe->fill(event);
 
