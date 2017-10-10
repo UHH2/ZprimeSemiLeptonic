@@ -24,7 +24,8 @@
 <!-- <!ENTITY OUTdir  "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/ElecID_CutBased_tight_MET50_elecPt50_woEGReg_jetIDtight_slimmedMETs_JLCkey_BLINDED_HLT1ORHLT2_wBtagSFs_jet2pt50/&KEYW;/"> -->
 <!-- <!ENTITY OUTdir  "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/ElecID_CutBased_tight_MET50_elecPt50_woEGReg_jetIDtight_slimmedMETs_JLCkey_BLINDED_HLT1ORHLT2_wBtagSFs_jet2pt50_addLeptonVeto_wTtagSFs/&KEYW;/"> -->
 <!-- <!ENTITY OUTdir  "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/ElecID_CutBased_tight_MET50_elecPt50_woEGReg_jetIDtight_slimmedMETs_JLCkey_BLINDED_HLT1ORHLT2_wBtagSFs_jet2pt50_addLeptonVeto_wTtagSFs__20170917/&KEYW;/"> -->
-<!ENTITY OUTdir  "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/TTbarLJAnalysisLiteModule_dRPUPPI10_woBtagSFs_wMisTopTagSF_w2DEleHLTSF_vetoGapElectrons_HLT1HLT2_NOTBLINED_WJetsLbdtg_20171002/&KEYW;/&channel;/"> 
+<!ENTITY OUTdir  "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/TTbarLJAnalysisLiteModule_dRPUPPI10_wCSVshapeSF_wMisTopTagSF_w2DEleHLTSF_vetoGapElectrons_HLT1HLT2_BLINED_WJetsOLDbdt_muRmuF_20171008/&KEYW;/&channel;/"> 
+<!-- <!ENTITY OUTdir  "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/TTbarLJAnalysisLiteModule_dRPUPPI10_wCSVshapeSF_wMisTopTagSF_w2DEleHLTSF_vetoGapElectrons_HLT1HLT2_BLINED_WJetsOLDbdt_20171004/&KEYW;/&channel;/"> -->
 <!-- <!ENTITY OUTdir  "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/ElecID_CutBased_tight_MET50_elecPt50_woEGReg_jetIDtight_slimmedMETs_JLCkey_BLINDED_HLT1ORHLT2_wBtagSFs_jet2pt50_addLeptonVeto_wTtagSFs_afterMLE/&KEYW;/"> -->
 
  <!ENTITY TTbar_part1 SYSTEM "../Skimming_datasets_ElecID_CutBased_tight_MET50_elecPt50_woEGReg_jetIDtight_slimmedMETs_JLCkey_20170927/MC_TTbar_part1.xml">
@@ -189,8 +190,8 @@
 ]>
 
 <!--
-   <ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="4" AutoResubmit="10"/>
-   <ConfigSGE RAM ="8" DISK ="2" Mail="anastasia.karavdina@desy.de" Notification="as" Workdir="/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/workdir_elec_cutBased_Part1_analysis_slimmedMETs_woEGReg_wHLTsf_v06"/>
+   <ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="20" AutoResubmit="10"/>
+   <ConfigSGE RAM ="8" DISK ="2" Mail="anastasia.karavdina@desy.de" Notification="as" Workdir="/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/workdir_elec_cutBased_Part1_analysis_slimmedMETs_woEGReg_wHLTsf_v06b"/>
 -->
 
 
@@ -201,13 +202,40 @@
     <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTdir;/" PostFix="" TargetLumi="35867.05998" > 
 <!-- <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTdir;/" PostFix="" TargetLumi="35921.908907" RunMode="PROOF" ProofServer="lite://" ProofWorkDir="&PROOFdir;/" ProofNodes="15" > 
 --> 
-<!--
+
+<InputData Version="QCD_Pt_80to170_bcToE" Lumi="393.038" Type="MC" NEventsMax="&NEVT;" Cacheable="False"> 
+   &QCD_Pt_80to170_bcToE; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="QCD_Pt_170to250_bcToE" Lumi="3612.916" Type="MC" NEventsMax="&NEVT;" Cacheable="False"> 
+   &QCD_Pt_170to250_bcToE; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="QCD_Pt_250toInf_bcToE" Lumi="13727.433" Type="MC" NEventsMax="&NEVT;" Cacheable="False"> 
+   &QCD_Pt_250toInf_bcToE; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="QCD_Pt50to80_EMEnriched" Lumi="8.120" Type="MC" NEventsMax="&NEVT;" Cacheable="False"> 
+   &QCD_Pt50to80_EMEnriched; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="QCD_Pt80to120_EMEnriched" Lumi="84.771" Type="MC" NEventsMax="&NEVT;" Cacheable="False"> 
+   &QCD_Pt80to120_EMEnriched; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="QCD_Pt120to170_EMEnriched" Lumi="1006.420" Type="MC" NEventsMax="&NEVT;" Cacheable="False"> 
+   &QCD_Pt120to170_EMEnriched; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="QCD_Pt170to300_EMEnriched" Lumi="613.497" Type="MC" NEventsMax="&NEVT;" Cacheable="False"> 
+   &QCD_Pt170to300_EMEnriched; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="QCD_Pt300toInf_EMEnriched" Lumi="5461.578" Type="MC" NEventsMax="&NEVT;" Cacheable="False"> 
+   &QCD_Pt300toInf_EMEnriched; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="GJets_HT-100To200" Lumi="1085.050" Type="MC" NEventsMax="&NEVT;" Cacheable="False"> 
+   &GJets_HT-100To200; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="GJets_HT-200To400" Lumi="8735.676" Type="MC" NEventsMax="&NEVT;" Cacheable="False"> 
+   &GJets_HT-200To400; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="GJets_HT-400To600" Lumi="18404.005" Type="MC" NEventsMax="&NEVT;" Cacheable="False"> 
+   &GJets_HT-400To600; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="GJets_HT-600ToInf" Lumi="54043.955" Type="MC" NEventsMax="&NEVT;" Cacheable="False"> 
+   &GJets_HT-600ToInf; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="GJets_HT-40To100" Lumi="448.583" Type="MC" NEventsMax="&NEVT;" Cacheable="False"> 
+   &GJets_HT-40To100; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+
  <InputData Version="WJetsToLNu_Pt-000To050__B" Lumi="242238207.238" Type="MC" NEventsMax="&NEVT;" Cacheable="False"> 
    &WJetsToLNu_Pt-000To050__B; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
  <InputData Version="WJetsToLNu_Pt-000To050__C" Lumi="242238207.238" Type="MC" NEventsMax="&NEVT;" Cacheable="False"> 
    &WJetsToLNu_Pt-000To050__C; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
--->
-<!-- <InputData Version="WJetsToLNu_Pt-050To100__B" Lumi="160441079.475" Type="MC" NEventsMax="&NEVT;" Cacheable="False"> 
+
+ <InputData Version="WJetsToLNu_Pt-050To100__B" Lumi="160441079.475" Type="MC" NEventsMax="&NEVT;" Cacheable="False"> 
    &WJetsToLNu_Pt-050To100__B; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
  <InputData Version="WJetsToLNu_Pt-050To100__C" Lumi="160441079.475" Type="MC" NEventsMax="&NEVT;" Cacheable="False"> 
    &WJetsToLNu_Pt-050To100__C; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
@@ -215,8 +243,8 @@
    &WJetsToLNu_Pt-000To050__L; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
  <InputData Version="WJetsToLNu_Pt-050To100__L" Lumi="160441079.475" Type="MC" NEventsMax="&NEVT;" Cacheable="False"> 
    &WJetsToLNu_Pt-050To100__L; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
--->
 
+<!--
  <InputData Version="WJetsToLNu_Pt-100To250__B" Lumi="261411503.121" Type="MC" NEventsMax="&NEVT;" Cacheable="False"> 
    &WJetsToLNu_Pt-100To250__B; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
  <InputData Version="WJetsToLNu_Pt-250To400__B" Lumi="25802848.782" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
@@ -405,7 +433,7 @@
     <In FileName="&ZprimeToTT_30w_M4000;" Lumi="0.0"/> <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
    <InputData Version="ZprimeToTT_30w_M5000" Lumi="90987" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
     <In FileName="&ZprimeToTT_30w_M5000;" Lumi="0.0"/> <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
-
+-->
  <!-- <InputData Version="TTbar" Lumi="92847.910" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
     &TTbar_part1; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> -->
 
@@ -434,8 +462,8 @@
         <Item Name="lumi_file" Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/common/data/Cert_271036-284044_13TeV_23Sep2016ReReco_Collisions16_JSON.root"/> 
 	<Item Name="lumihists_lumi_per_bin" Value="250.0"/>
 	<Item Name="qcd_ele_bdt" Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/TMVA_weights/80_19/Homemade_TTbarMVAClassification_BDTG_blep.weights.xml"/>                                                                                                                  
-<!--        <Item Name="wjet_bdt" Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/TMVA_weights/80X/weights_80Xv3BDT_OPTIMIZED_50-001-10-0p2/TMVAClassification_BDT.weights.xml"/> -->
-        <Item Name="wjet_bdt" Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/TMVA_weights/80X/weights_WJetsL_BDTG_20171001/WJets_MVAClassification_BDTG.weights.xml"/> 
+        <Item Name="wjet_bdt" Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/TMVA_weights/80X/weights_80Xv3BDT_OPTIMIZED_50-001-10-0p2/TMVAClassification_BDT.weights.xml"/>
+<!--        <Item Name="wjet_bdt" Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/TMVA_weights/80X/weights_WJetsL_BDTG_20171001/WJets_MVAClassification_BDTG.weights.xml"/> -->
 	<Item Name="pileup_directory"           Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/common/data/MyMCPileupHistogram.root"/>
 	<Item Name="pileup_directory_data"      Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/common/data/MyDataPileupHistogram.root"/>
 	<Item Name="pileup_directory_data_up"   Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/common/data/MyDataPileupHistogram_72383.root"/>
@@ -453,6 +481,7 @@
 <!--	<Item Name="elecID_SF_file"  Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/common/data/egammaEffi.txt_EGM2D_CutBased_Medium_ID.root"/> -->
 <!--	<Item Name="elecID_SF_file"  Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/common/data/egammaEffi.txt_EGM2D_CutBased_Tight_ID.root"/> -->
 	<Item Name="btag_wp"         Value="CSVM"/>
+	<Item Name="MCCSVv2ShapeSystematic" Value = "/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/common/data/CSVv2_Moriond17_B_H.csv" />
 	<Item Name="BTagCalibration" Value = "/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/common/data/CSVv2_Moriond17_B_H.csv" />
 <!--	<Item Name="MCBtagEfficiencies" Value = "/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/data/BTagMCEfficiencyHists_elec_DATA03Feb2016.root"/> -->
 <!--	<Item Name="MCBtagEfficiencies" Value = "/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/data/BTagMCEfficiencyHists_20170522.root"/> --> <!-- ToDo -->

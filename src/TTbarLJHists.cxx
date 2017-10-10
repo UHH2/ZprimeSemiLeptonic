@@ -239,6 +239,8 @@ void TTbarLJHists::init(){
   toppuppijet__tau32_matched_ttag = book<TH1F>("toppuppijet__tau32_matched_ttag","matched to ttag toppuppijet #tau_{32}", 24, 0, 1.2);
   toppuppijet__NumSubjets_matched_ttag = book<TH1F>("toppuppijet__subjN_matched_ttag", "matched to ttag toppuppijet N sub-jets"       , 6, 0, 6);
   toppuppijet__jetID_matched_ttag = book<TH1F>("toppuppijet__jetID_matched_ttag", "matched to ttag toppuppijet  jetID"       , 6, 1, 7);
+  toppuppijet__Msdp_matched_Nminus1 = book<TH1F>("toppuppijet__Msdp_matched_Nminus1","AK8PUPPI softdrop mass [GeV]", 50, 0, 500);
+  toppuppijet__tau32_matched_Nminus1 = book<TH1F>("toppuppijet__tau32_matched_Nminus1","AK8PUPPI #tau_{32}", 24, 0, 1.2);
 
 
 
@@ -608,6 +610,11 @@ void TTbarLJHists::fill(const uhh2::Event& event){
       toppuppijet__tau32_matched->Fill(p.tau3()/p.tau2() , weight);
       toppuppijet__NumSubjets_matched->Fill(p.numberOfDaughters() , weight);
       toppuppijet__jetID_matched->Fill(i, weight);
+      if((p.tau3()/p.tau2())<0.65)
+	toppuppijet__Msdp_matched_Nminus1->Fill(SoftDropv4.M(),weight);
+      if(SoftDropv4.M()>105 && SoftDropv4.M()<210)
+	toppuppijet__tau32_matched_Nminus1->Fill(p.tau3()/p.tau2(),weight); 
+
       //      if((p.tau3()/p.tau2())>0.65)      std::cout<<"TTbarLJHists: LOOK toppuppijet_matched tau32 = "<<p.tau3()/p.tau2()<<std::endl;
 	}
   }

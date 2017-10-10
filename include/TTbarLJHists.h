@@ -51,7 +51,7 @@ class TTbarLJHists : public uhh2::Hists {
   TH1F *topjet2__pt,*topjet2__eta,*topjet2__phi,*topjet2__CSV,*topjet2__Msdp,*topjet2__tau32,*topjet2__NumSubjets,*topjet2__dR;
   TH1F *toppuppijet1__pt,*toppuppijet1__eta,*toppuppijet1__phi,*toppuppijet1__CSV,*toppuppijet1__Msdp,*toppuppijet1__tau32,*toppuppijet1__NumSubjets;
   TH1F *toppuppijet2__pt,*toppuppijet2__eta,*toppuppijet2__phi,*toppuppijet2__CSV,*toppuppijet2__Msdp,*toppuppijet2__tau32,*toppuppijet2__NumSubjets;
-  TH1F *toppuppijet__pt_matched,*toppuppijet__eta_matched,*toppuppijet__phi_matched,*toppuppijet__CSV_matched,*toppuppijet__Msdp_matched,*toppuppijet__tau32_matched,*toppuppijet__NumSubjets_matched,*toppuppijet__jetID_matched,*toppuppijetN_matched;
+  TH1F *toppuppijet__pt_matched,*toppuppijet__eta_matched,*toppuppijet__phi_matched,*toppuppijet__CSV_matched,*toppuppijet__Msdp_matched,*toppuppijet__tau32_matched,*toppuppijet__NumSubjets_matched,*toppuppijet__jetID_matched,*toppuppijetN_matched,*toppuppijet__Msdp_matched_Nminus1,*toppuppijet__tau32_matched_Nminus1;
   TH1F *toppuppijet__pt_matched_ttag,*toppuppijet__eta_matched_ttag,*toppuppijet__phi_matched_ttag,*toppuppijet__CSV_matched_ttag,*toppuppijet__Msdp_matched_ttag,*toppuppijet__tau32_matched_ttag,*toppuppijet__NumSubjets_matched_ttag,*toppuppijet__jetID_matched_ttag;
   TH1F *toptag1__pt,*toptag1__eta,*toptag1__phi,*toptag1__M;
   TH1F *toptag1__Mgro,*toptag1__Mpru,*toptag1__Msdp;

@@ -192,6 +192,9 @@ protected:
   Event::Handle<float> h_wgtMC__muR_dn__muF_ct;
   Event::Handle<float> h_wgtMC__muR_dn__muF_dn;
 
+  Event::Handle<float> h_wgtMC__muRmuF_min; //envelope
+  Event::Handle<float> h_wgtMC__muRmuF_max;
+
   //  Event::Handle<float> h_wgtMC__topptREWGT_ct;
   // Event::Handle<float> h_wgtMC__topptREWGT_up;
   // Event::Handle<float> h_wgtMC__topptREWGT_dn;
@@ -1086,6 +1089,9 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   h_wgtMC__muR_up__muF_up = ctx.declare_event_output<float>("wgtMC__muR_up__muF_up");
   h_wgtMC__muR_dn__muF_ct = ctx.declare_event_output<float>("wgtMC__muR_dn__muF_ct");
   h_wgtMC__muR_dn__muF_dn = ctx.declare_event_output<float>("wgtMC__muR_dn__muF_dn");
+
+  h_wgtMC__muRmuF_min = ctx.declare_event_output<float>("wgtMC__muRmuF_min");
+  h_wgtMC__muRmuF_max = ctx.declare_event_output<float>("wgtMC__muRmuF_max");
 
   // h_wgtMC__topptREWGT_ct  = ctx.declare_event_output<float>("wgtMC__topptREWGT_ct");
   // h_wgtMC__topptREWGT_up  = ctx.declare_event_output<float>("wgtMC__topptREWGT_up");
@@ -2131,6 +2137,25 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   event.set(h_wgtMC__muR_up__muF_up, w_muR_up__muF_up);
   event.set(h_wgtMC__muR_dn__muF_ct, w_muR_dn__muF_ct);
   event.set(h_wgtMC__muR_dn__muF_dn, w_muR_dn__muF_dn);
+
+  double w__muRmuF_min, w__muRmuF_max;
+  w__muRmuF_min = w_muR_ct__muF_up;
+  w__muRmuF_max = w_muR_ct__muF_up;
+  if(w_muR_ct__muF_dn<w__muRmuF_min) w__muRmuF_min = w_muR_ct__muF_dn;
+  if(w_muR_ct__muF_dn>w__muRmuF_max) w__muRmuF_max = w_muR_ct__muF_dn;
+  if(w_muR_up__muF_ct<w__muRmuF_min) w__muRmuF_min = w_muR_up__muF_ct;
+  if(w_muR_up__muF_ct>w__muRmuF_max) w__muRmuF_max = w_muR_up__muF_ct;
+  if(w_muR_up__muF_up<w__muRmuF_min) w__muRmuF_min = w_muR_up__muF_up;
+  if(w_muR_up__muF_up>w__muRmuF_max) w__muRmuF_max = w_muR_up__muF_up;
+  if(w_muR_dn__muF_ct<w__muRmuF_min) w__muRmuF_min = w_muR_dn__muF_ct;
+  if(w_muR_dn__muF_ct>w__muRmuF_max) w__muRmuF_max = w_muR_dn__muF_ct;
+  if(w_muR_dn__muF_dn<w__muRmuF_min) w__muRmuF_min = w_muR_dn__muF_dn;
+  if(w_muR_dn__muF_dn>w__muRmuF_max) w__muRmuF_max = w_muR_dn__muF_dn;
+
+  event.set(h_wgtMC__muRmuF_min, w__muRmuF_min);
+  event.set(h_wgtMC__muRmuF_max, w__muRmuF_max);
+
+  //std::cout<<"w__muRmuF_min = "<<w__muRmuF_min<<" w__muRmuF_max = "<<w__muRmuF_max<<std::endl;
 
   // if(!topptREWGT.get())
   //   event.set(h_wgtMC__topptREWGT_ct , 1.);
