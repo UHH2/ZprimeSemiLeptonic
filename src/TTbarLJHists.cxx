@@ -80,7 +80,8 @@ void TTbarLJHists::init(){
   muo1__phi = book<TH1F>("muo1__phi","muon #phi"           , 60, -3.15, 3.15);
   muo1__minDR_jet = book<TH1F>("muo1__minDR_jet", "#Delta R_{min}(#mu,jet)"     , 30, 0, 3.2);
   muo1__pTrel_jet = book<TH1F>("muo1__pTrel_jet", "p_{T,rel}(#mu,jet) [GeV]"    , 25, 0, 500);
-
+  muo1__DPhi_met = book<TH1F>("muo1__DPhi_met","#Delta #phi(#mu,MET)", 40, 0, 4);
+  muo1__triangle = book<TH2F>("muo1__triangle", "#Delta #phi(#mu,MET) vs MET [GeV]", 45, 0, 900, 40, 0, 4);
 
   muo2__charge = book<TH1F>("muo2__charge","muon_{2} charge"         , 5, -2, 3);
   muo2__pt = book<TH1F>("muo2__pt","muon_{2} p_{T}[GeV]"             , 45, 0, 900);
@@ -89,6 +90,7 @@ void TTbarLJHists::init(){
   muo2__phi = book<TH1F>("muo2__phi","muon_{2} #phi"            , 60, -3.15, 3.15);
   muo2__minDR_jet = book<TH1F>("muo2__minDR_jet", "#Delta R_{min}(#mu_{2},jet)"      , 60, 0, 6);
   muo2__pTrel_jet = book<TH1F>("muo2__pTrel_jet", "p_{T,rel}(#mu_{2},jet) [GeV]"      , 100, 0, 500);
+  muo2__DPhi_met = book<TH1F>("muo2__DPhi_met","#Delta #phi(#mu,MET)", 40, 0, 4);
 
   // ELECTRON
   eleN = book<TH1F>("eleN", "N electrons"               , 20, 0, 20);
@@ -109,6 +111,7 @@ void TTbarLJHists::init(){
   ele1__DPhi_met = book<TH1F>("ele1__DPhi_met","#Delta #phi(e,MET)", 40, 0, 4);
   ele1__eta_SC = book<TH1F>("ele1__eta_SC","electron SC #eta" ,30,-3,3);
   ele1__Deta_trk_SC = book<TH1F>("ele1__Deta_trk_SC","electron #eta_{trk} -#eta_{SC}",150,-2.5,2.5);
+  ele1__triangle = book<TH2F>("ele1__triangle", "#Delta #phi(e,MET) vs MET [GeV]", 45, 0, 900, 40, 0, 4);
 
   ele2__class = book<TH1F>("ele2__class", "electron_{2} class" , 6, -0.5, 5.5);
   ele2__charge = book<TH1F>("ele2__charge", "electron_{2} charge"         , 5, -2, 3);
@@ -140,6 +143,8 @@ void TTbarLJHists::init(){
   jet1__EMfrac = book<TH1F>("jet1__EMfrac", "jet EM fraction" , 22, 0, 1.1);
   jet1__HADfrac = book<TH1F>("jet1__HADfrac", "jet HAD fraction" , 22, 0, 1.1);
   jet1__PHfrac = book<TH1F>("jet1__PHfrac", "jet photon fraction" , 22, 0, 1.1);
+  jet1__DPhi_met = book<TH1F>("jet1__DPhi_met","#Delta #phi(jet_{1},MET)", 40, 0, 4);
+  jet1__triangle = book<TH2F>("jet1__triangle", "#Delta #phi(jet_{1},MET) vs MET [GeV]", 45, 0, 900, 40, 0, 4);
 
   jet2__pt = book<TH1F>("jet2__pt", "jet_{2} p_{T} [GeV]" , 45, 0, 900);
   //  jet2__pt = book<TH1F>("jet2__pt", "jet p_{T} [GeV]", nptAxis-1, ptAxis);
@@ -152,6 +157,8 @@ void TTbarLJHists::init(){
   jet2__EMfrac = book<TH1F>("jet2__EMfrac", "jet_{2} EM fraction" , 22, 0, 1.1);
   jet2__HADfrac = book<TH1F>("jet2__HADfrac", "jet_{2} HAD fraction" , 22, 0, 1.1);
   jet2__PHfrac = book<TH1F>("jet2__PHfrac", "jet_{2} photon fraction" , 22, 0, 1.1);
+  jet2__DPhi_met = book<TH1F>("jet2__DPhi_met","#Delta #phi(jet_{2},MET)", 40, 0, 4);
+  jet2__triangle = book<TH2F>("jet2__triangle", "#Delta #phi(jet_{2},MET) vs MET [GeV]", 45, 0, 900, 40, 0, 4);
 
   jet3__pt = book<TH1F>("jet3__pt", "jet_{3} p_{T}[GeV]" , 50, 200, 1700);
   //  jet3__pt = book<TH1F>("jet3__pt", "jet_{3} p_{T}[GeV]", nptAxis-1, ptAxis);
@@ -285,7 +292,7 @@ void TTbarLJHists::init(){
    ht_met_lep_norm = book<TH1F>("ht_met_lep_norm","ht_met_lep_norm",50,0,3);
    lep1__minDR_norm = book<TH1F>("lep1__minDR_jet","lep1__minDR_jet",50,0,3);
    lep1__pTrel_jet_norm = book<TH1F>("lep1__pTrel_jet_norm", "lep1__pTrel_jet_norm",50,0,0.5);
- 
+
   return;
 
 }
@@ -324,6 +331,8 @@ void TTbarLJHists::fill(const uhh2::Event& event){
       muo1__phi   ->Fill(p.phi()   , weight);
       muo1__minDR_jet->Fill(minDR_jet, weight);
       muo1__pTrel_jet->Fill(pTrel_jet, weight);
+      muo1__DPhi_met->Fill(uhh2::deltaPhi(*event.met,p), weight);
+      muo1__triangle->Fill(uhh2::deltaPhi(*event.met,p), event.met->pt(), weight);
     }
     if(i==1){
       muo2__charge->Fill(p.charge(), weight);
@@ -332,6 +341,7 @@ void TTbarLJHists::fill(const uhh2::Event& event){
       muo2__phi   ->Fill(p.phi()   , weight);
       muo2__minDR_jet->Fill(minDR_jet, weight);
       muo2__pTrel_jet->Fill(pTrel_jet, weight);
+      muo2__DPhi_met->Fill(uhh2::deltaPhi(*event.met,p), weight);
     }
   }
 
@@ -362,6 +372,7 @@ void TTbarLJHists::fill(const uhh2::Event& event){
       ele1__DPhi_met->Fill(uhh2::deltaPhi(*event.met,p), weight);
       ele1__eta_SC->Fill(p.supercluster_eta(), weight);
       ele1__Deta_trk_SC->Fill(p.eta()-p.supercluster_eta(), weight);
+      ele1__triangle->Fill(uhh2::deltaPhi(*event.met,p), event.met->pt(), weight);
     }
     if(i==1){
       ele2__charge->Fill(p.charge()          , weight);
@@ -397,6 +408,8 @@ void TTbarLJHists::fill(const uhh2::Event& event){
       jet1__EMfrac->Fill(p.neutralEmEnergyFraction()+p.chargedEmEnergyFraction(), weight);
       jet1__HADfrac->Fill(p.neutralHadronEnergyFraction()+p.chargedHadronEnergyFraction(), weight);
       jet1__PHfrac->Fill(p.photonEnergyFraction(), weight);
+      jet1__DPhi_met->Fill(uhh2::deltaPhi(*event.met,p), weight);
+      jet1__triangle->Fill(uhh2::deltaPhi(*event.met,p), event.met->pt(), weight);
     }
     if(i==1){
       jet2__pt ->Fill(p.pt()                          , weight);
@@ -409,6 +422,8 @@ void TTbarLJHists::fill(const uhh2::Event& event){
       jet2__EMfrac->Fill(p.neutralEmEnergyFraction()+p.chargedEmEnergyFraction(), weight);
       jet2__HADfrac->Fill(p.neutralHadronEnergyFraction()+p.chargedHadronEnergyFraction(), weight);
       jet2__PHfrac->Fill(p.photonEnergyFraction(), weight);
+      jet2__DPhi_met->Fill(uhh2::deltaPhi(*event.met,p), weight);
+      jet2__triangle->Fill(uhh2::deltaPhi(*event.met,p), event.met->pt(), weight);
     }
     if(i==2){
       jet3__pt ->Fill(p.pt()                          , weight);

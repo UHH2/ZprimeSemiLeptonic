@@ -24,11 +24,14 @@ class TTbarLJHists : public uhh2::Hists {
   TH1F *muo1__minDR_jet,*muo1__pTrel_jet;
   TH1F *muo2__charge,*muo2__pt,*muo2__eta,*muo2__phi;
   TH1F *muo2__minDR_jet,*muo2__pTrel_jet;
+  TH1F *muo2__DPhi_met,*muo1__DPhi_met;
+  TH2F *muo1__triangle;
   TH1F *ele1__class,*ele1__charge,*ele1__pt,*ele1__ptError;
   TH1F *ele1__eta,*ele1__etaError,*ele1__phi,*ele1__phiError;
   TH1F *ele2__DPhi_met,*ele1__DPhi_met;
   TH1F *ele1__minDR_jet,*ele1__pTrel_jet;
   TH1F *ele1__eta_SC, *ele1__Deta_trk_SC;
+  TH2F *ele1__triangle;
 
   TH1F *ele2__class,*ele2__charge,*ele2__pt,*ele2__ptError;
   TH1F *ele2__eta,*ele2__etaError,*ele2__phi,*ele2__phiError;
@@ -40,6 +43,8 @@ class TTbarLJHists : public uhh2::Hists {
   TH1F *jet1__EMfrac,*jet1__HADfrac,*jet1__PHfrac;
   TH1F *jet2__EMfrac,*jet2__HADfrac,*jet2__PHfrac;
   TH1F *jet3__EMfrac,*jet3__HADfrac,*jet3__PHfrac;
+  TH1F *jet1__DPhi_met,*jet2__DPhi_met;
+  TH2F *jet1__triangle, *jet2__triangle;
   TH1F *under_jets__pt;
   TH1F *jet1__NDaughters,*jet2__NDaughters,*jet3__NDaughters;
   TH1F *topjet1__pt,*topjet1__eta,*topjet1__phi,*topjet1__CSV,*topjet1__Msdp,*topjet1__tau32,*topjet1__NumSubjets,*topjet1__dR;

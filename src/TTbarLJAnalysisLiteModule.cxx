@@ -143,6 +143,7 @@ protected:
   Event::Handle<int>            h_lep1__charge;
   Event::Handle<float>          h_lep1__minDR_jet;
   Event::Handle<float>          h_lep1__pTrel_jet;
+
   /*
     Event::Handle<TLorentzVector> h_lep2;
     Event::Handle<int>            h_lep2__pdgID;
@@ -1954,9 +1955,12 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
 	lep2__pTrel_jet = ((Muon*) lep2)->get_tag(Muon::twodcut_pTrel);
 	lep2__p4        = TLorentzVector(lep2->v4().Px(), lep2->v4().Py(), lep2->v4().Pz(), lep2->v4().E());
 	}
-    */ 
-  }
-  else if(channel_ == elec){
+    */
+
+    //Set variables for MVA ------------
+    lep_pt = lep1->pt(); lep_eta = lep1->eta(); fabs_lep_eta = fabs(lep_eta); lep_phi = lep1->phi(); 
+
+  } else if(channel_ == elec){
 
     lep1__pdgID     = lep1->charge() * -11;
     lep1__charge    = lep1->charge();
@@ -1996,6 +2000,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
     //    lep_mvaNonTrigV0 = ((Electron*)lep1)->mvaNonTrigV0();
     lep_dEtaIn = ((Electron*)lep1)->dEtaIn();
     lep_dPhiIn = ((Electron*)lep1)->dPhiIn();
+  }
 
     //the closest to lepton jet
     // find jet with smallest angle to lepton (the closest jet to lepton)
@@ -2028,16 +2033,15 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
     cjet_CSV = jet0->btag_combinedSecondaryVertexMVA();        
 
     //invariant mass
-    const Jet*  jet1 =  &event.jets->at(1); 
-    LorentzVector P12 = jet0->v4()+jet1->v4();
+    const Jet*  jet_sublead =  &event.jets->at(1); 
+    LorentzVector P12 = jet0->v4()+jet_sublead->v4();
     M12jet = P12.M();
     if(jet_n>2){
       const Jet*  jet2 =  &event.jets->at(2); 
       LorentzVector P123 = P12+jet2->v4();
       M123jet = P123.M();
     }
-  }
- 
+  
   event.set(tt_lep_class, lep_class);
   event.set(tt_lep_pt, lep_pt);   event.set(tt_lep_eta, lep_eta); event.set(tt_lep_phi, lep_phi); event.set(tt_lep_eta_SC, lep_eta_SC);
   event.set(tt_lep_pt_err, lep_pt_err); event.set(tt_lep_eta_err, lep_eta_err); event.set(tt_lep_phi_err, lep_phi_err);
@@ -2317,6 +2321,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   event.set(wjets_TMVA_response, WJets_TMVA_response);
   //  std::cout<<" WJets_TMVA_response = "<< WJets_TMVA_response<<std::endl;
   event.set(H_Rec_chi2, rec_chi2);
+  event.set(h_rec_chi2, rec_chi2);
   //  std::cout<<" rec_chi2 = "<< rec_chi2<<std::endl;
   event.set(h_DRpt, DRpt_norm);//1
   //  std::cout<<" DRpt_norm = "<< DRpt_norm<<std::endl;
