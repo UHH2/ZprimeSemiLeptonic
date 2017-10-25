@@ -905,6 +905,7 @@ TTbarLJTopTagStudyModule::TTbarLJTopTagStudyModule(uhh2::Context& ctx){
   
 
   std::vector<std::string> htags_4({
+      "FinalV0",
       "FinalV1",
       "FinalV1__t0",
       "FinalV1__t1",
@@ -2372,14 +2373,19 @@ if(!pass_triangc) return false;
   //3) chi2-cut only on the leptonic term, i.e. chi2_lep > 30
   //4) W+Jets BDT <-0.5 cut
 
-  //1)
-  //  if(event.toppuppijets->size()<1) return false;
-  int topppupi_cand =0;
-  for(const auto & pjet : *event.toppuppijets) { 
-    if(pjet.numberOfDaughters()<2) continue; 
-    topppupi_cand++;
-  }
-  if(topppupi_cand<1) return false;
+  // //1)
+  // //  if(event.toppuppijets->size()<1) return false;
+  // int topppupi_cand =0;
+  // for(const auto & pjet : *event.toppuppijets) { 
+  //   if(pjet.numberOfDaughters()<2) continue; 
+  //   topppupi_cand++;
+  // }
+  // if(topppupi_cand<1) return false;
+
+  HFolder("FinalV0")->fill(event);
+  HFolder("FinalV0__ttbar")->fill(event);
+  HFolder("FinalV0__TTAG")->fill(event);
+
   //2)  
   /* btagN CSVL counters */
   // int jetbtagN(0), subjbtagN(0);
