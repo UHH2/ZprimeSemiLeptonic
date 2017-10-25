@@ -418,8 +418,8 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
   //  blind_DATA_ = ((ctx.get("dataset_version").find("BLINDED") != std::string::npos) && (ctx.get("dataset_type") == "DATA") && !isMC);
   //  blind_DATA_ = ((ctx.get("dataset_version").find("BLINDED") != std::string::npos) && (ctx.get("dataset_type") == "DATA") && !isMC);
-  blind_DATA_ = true;//TEST blind both DATA and MC!
-  //  blind_DATA_ = false;//TEST unblind both DATA and MC!
+  //  blind_DATA_ = true;//TEST blind both DATA and MC!
+  blind_DATA_ = false;//TEST unblind both DATA and MC!
 
   const std::string& store_PDF_weights = ctx.get("store_PDF_weights", "");
   if     (store_PDF_weights == "true")  store_PDF_weights_ = true;
@@ -732,7 +732,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   if(trigger3 != "NULL") trigger3_sel.reset(new TriggerSelection(trigger3)); //now Trigger infor should be added
   else                  trigger3_sel.reset(new uhh2::AndSelection(ctx));
 
-  //std::cout<<"Trigger1 = "<<trigger<<" Trigger2 = "<<trigger2<<" Trigger3 = "<<trigger3<<std::endl;
+  std::cout<<"Trigger1 = "<<trigger<<" Trigger2 = "<<trigger2<<" Trigger3 = "<<trigger3<<std::endl;
   met_sel  .reset(new METCut  (MET   , uhh2::infinity));
   htlep_sel.reset(new HTlepCut(HT_lep, uhh2::infinity));
 
@@ -838,32 +838,100 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   
 
   std::vector<std::string> htags_2({
-      "antichi2",
-	// "antichi2__t0b0",
-	// "antichi2__t0b1",
-	// "antichi2__t0b2",
-
+        "antichi2",
 	"antichi2__t0",
 	"antichi2__t1",
+	"antichi2__b0",
+	"antichi2__b1",
+	"antichi2__t0__b0",
+	"antichi2__t0__b1",
+	"antichi2__t1__b0",
+	"antichi2__t1__b1",
+	"antichi2__WJetsBDT",	
 	"antichi2__t1__WJetsBDT",
 	"antichi2__t0__WJetsBDT",
+	"antichi2__antiWJetsBDT",
 	"antichi2__t1__antiWJetsBDT",
 	"antichi2__t0__antiWJetsBDT",
+	"antichi2__WJetsBDT2",
+	"antichi2__t1__WJetsBDT2",
+	"antichi2__t0__WJetsBDT2",
+	"antichi2__WJetsBDT3",
+	"antichi2__t1__WJetsBDT3",
+	"antichi2__t0__WJetsBDT3",
+	// "antichi2__WJetsBDT_step1",	
+	// "antichi2__t1__WJetsBDT_step1",
+	// "antichi2__t0__WJetsBDT_step1",
+	// "antichi2__WJetsBDT_step2",	
+	// "antichi2__t1__WJetsBDT_step2",
+	// "antichi2__t0__WJetsBDT_step2",
+	// "antichi2__WJetsBDT_step3",	
+	// "antichi2__t1__WJetsBDT_step3",
+	// "antichi2__t0__WJetsBDT_step3",
+	// "antichi2__WJetsBDT_step4",	
+	// "antichi2__t1__WJetsBDT_step4",
+	// "antichi2__t0__WJetsBDT_step4",
+	// "antichi2__WJetsBDT_step5",	
+	// "antichi2__t1__WJetsBDT_step5",
+	// "antichi2__t0__WJetsBDT_step5",
+	// "antichi2__WJetsBDT_step6",	
+	// "antichi2__t1__WJetsBDT_step6",
+	// "antichi2__t0__WJetsBDT_step6",
+	// "antichi2__WJetsBDT_step7",	
+	// "antichi2__t1__WJetsBDT_step7",
+	// "antichi2__t0__WJetsBDT_step7",
+	// "antichi2__WJetsBDT_step8",	
+	// "antichi2__t1__WJetsBDT_step8",
+	// "antichi2__t0__WJetsBDT_step8",
+
+
 
 	"chi2",
 	"chi2__t0",
-	// "chi2__t0b0",
-	// "chi2__t0b1",
-	// "chi2__t0b2",
 	"chi2__t1",
+	"chi2__b0",
+	"chi2__b1",
+	"chi2__t0__b0",
+	"chi2__t0__b1",
+	"chi2__t1__b0",
+	"chi2__t1__b1",
+	"chi2__WJetsBDT",
+	"chi2__antiWJetsBDT",
 	"chi2__t1__WJetsBDT",
 	"chi2__t0__WJetsBDT",
 	"chi2__t1__antiWJetsBDT",
 	"chi2__t0__antiWJetsBDT",
-
-	// "antichi2_antibdt",
-	// "antichi2_antibdt__t1",
-	// "antichi2_antibdt__t0",
+	"chi2__WJetsBDT2",
+	"chi2__t1__WJetsBDT2",
+	"chi2__t0__WJetsBDT2",
+	"chi2__WJetsBDT3",
+	"chi2__t1__WJetsBDT3",
+	"chi2__t0__WJetsBDT3",
+	// "chi2__WJetsBDT_step1",	
+	// "chi2__t1__WJetsBDT_step1",
+	// "chi2__t0__WJetsBDT_step1",
+	// "chi2__WJetsBDT_step2",	
+	// "chi2__t1__WJetsBDT_step2",
+	// "chi2__t0__WJetsBDT_step2",
+	// "chi2__WJetsBDT_step3",	
+	// "chi2__t1__WJetsBDT_step3",
+	// "chi2__t0__WJetsBDT_step3",
+	// "chi2__WJetsBDT_step4",	
+	// "chi2__t1__WJetsBDT_step4",
+	// "chi2__t0__WJetsBDT_step4",
+	// "chi2__WJetsBDT_step5",	
+	// "chi2__t1__WJetsBDT_step5",
+	// "chi2__t0__WJetsBDT_step5",
+	// "chi2__WJetsBDT_step6",	
+	// "chi2__t1__WJetsBDT_step6",
+	// "chi2__t0__WJetsBDT_step6",
+	// "chi2__WJetsBDT_step7",	
+	// "chi2__t1__WJetsBDT_step7",
+	// "chi2__t0__WJetsBDT_step7",
+	// "chi2__WJetsBDT_step8",	
+	// "chi2__t1__WJetsBDT_step8",
+	// "chi2__t0__WJetsBDT_step8",
+	
 	});
 
   for(const auto& tag : htags_2){
@@ -953,12 +1021,12 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   const std::string& ttag_effyL     = ctx.get("ttag_eff__jetL");
   const std::string& ttag_effyT     = ctx.get("ttag_eff__jetT");
 
-  ttagSF_ct.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "CT", "CT", ttag_effy_file, ttag_effyL, ttag_effyT));
-  ttagSF_upL.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "UP", "CT", ttag_effy_file, ttag_effyL, ttag_effyT));
-  ttagSF_dnL.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "DN", "CT", ttag_effy_file, ttag_effyL, ttag_effyT));
+  ttagSF_ct.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "CT", "CT", ttag_effy_file, ttag_effyL, ttag_effyT, false));
+  ttagSF_upL.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "UP", "CT", ttag_effy_file, ttag_effyL, ttag_effyT, false));
+  ttagSF_dnL.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "DN", "CT", ttag_effy_file, ttag_effyL, ttag_effyT, false));
   
-  ttagSF_upT.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "CT", "UP", ttag_effy_file, ttag_effyL, ttag_effyT));
-  ttagSF_dnT.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "CT", "DN", ttag_effy_file, ttag_effyL, ttag_effyT));
+  ttagSF_upT.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "CT", "UP", ttag_effy_file, ttag_effyL, ttag_effyT, false));
+  ttagSF_dnT.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "CT", "DN", ttag_effy_file, ttag_effyL, ttag_effyT, false));
   // //
 
   // // top-pt reweighting
@@ -1410,8 +1478,11 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
 
   //// HLT selection
   const bool pass_trigger = trigger_sel->passes(event);
-  //  bool pass_trigger2 = true;
-  const bool pass_trigger2 = trigger2_sel->passes(event);
+  bool pass_trigger2 = false;
+  if((event.run>275657 && channel_ == muon) || channel_ == elec || !event.isRealData){
+    //  const bool pass_trigger2 = trigger2_sel->passes(event);
+    pass_trigger2 = trigger2_sel->passes(event);
+  }
   const bool pass_trigger3 = trigger3_sel->passes(event);
   // // //  if(event.run>274953 && channel_ == muon)
   // if(channel_ == muon)
@@ -1428,7 +1499,12 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   //  if(!(pass_trigger || pass_trigger2)) return false; 
   //  if(!(pass_trigger || pass_trigger2 || pass_trigger3)) return false; 
   //  if(!pass_trigger) return false; //TEST only 1 trigger
-  if(!pass_trigger && !pass_trigger2) return false; //TEST  
+  // if((event.run>275657 && channel_ == muon) || channel_ == elec){
+    if(!pass_trigger && !pass_trigger2) return false; //TEST 
+    // }
+    //else
+    // if(!pass_trigger) return false; //TEST 
+ 
   //}
   //   else std::cout<<" Passed trigger!!! "<<std::endl;
   //  if(lepN == 1) 
@@ -1769,7 +1845,8 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
 
   const int btagN = jetbtagN + subjbtagN;
   //  std::cout<<"btagN = "<<btagN<<std::endl;
-  const std::string btag_posx = (btagN >= 2 ? "b2" : (btagN >= 1 ? "b1" : "b0"));
+  //  const std::string btag_posx = (btagN >= 2 ? "b2" : (btagN >= 1 ? "b1" : "b0"));
+  const std::string btag_posx = (btagN >= 1 ? "b1" : "b0");
   
   ////const std::string btag_posx =  ( pass_ttagevt ? "b" :(btagN == 0 ? "b0": "b1"));
   //const std::string btag_posx = (btagN >= 2 ? "b2" : (btagN >= 1 ? "b1" : "b0"));
@@ -2376,6 +2453,11 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
     HFolder(chi2_posx+"__ttbar")->fill(event);
     HFolder(chi2_posx+"__"+ttag_posx)          ->fill(event);
     HFolder(chi2_posx+"__"+ttag_posx+"__ttbar")->fill(event);
+    HFolder(chi2_posx+"__"+btag_posx)          ->fill(event);
+    HFolder(chi2_posx+"__"+btag_posx+"__ttbar")->fill(event);
+    HFolder(chi2_posx+"__"+ttag_posx+"__"+btag_posx)          ->fill(event);
+    HFolder(chi2_posx+"__"+ttag_posx+"__"+btag_posx+"__ttbar")->fill(event);
+   
 
     // if(!pass_ttagevt){
     //   HFolder(chi2_posx+"__"+ttag_posx+btag_posx)          ->fill(event);
@@ -2396,6 +2478,74 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
     const std::string wjetsMVA_posx = pass_WJetsMVA ? "WJetsBDT" : "antiWJetsBDT";
     HFolder(chi2_posx+"__"+ttag_posx+"__"+wjetsMVA_posx)          ->fill(event);
     HFolder(chi2_posx+"__"+ttag_posx+"__"+wjetsMVA_posx+"__ttbar")          ->fill(event);
+    HFolder(chi2_posx+"__"+wjetsMVA_posx)->fill(event);
+    HFolder(chi2_posx+"__"+wjetsMVA_posx+"__ttbar")->fill(event);
+
+    if(WJets_TMVA_response<-0.75){
+    HFolder(chi2_posx+"__"+ttag_posx+"__WJetsBDT2")          ->fill(event);
+    HFolder(chi2_posx+"__"+ttag_posx+"__WJetsBDT2__ttbar")          ->fill(event);
+    HFolder(chi2_posx+"__WJetsBDT2")->fill(event);
+    HFolder(chi2_posx+"__WJetsBDT2__ttbar")->fill(event);
+    }
+
+    if(WJets_TMVA_response>0.0 && WJets_TMVA_response<0.5){
+    HFolder(chi2_posx+"__"+ttag_posx+"__WJetsBDT3")          ->fill(event);
+    HFolder(chi2_posx+"__"+ttag_posx+"__WJetsBDT3__ttbar")          ->fill(event);
+    HFolder(chi2_posx+"__WJetsBDT3")->fill(event);
+    HFolder(chi2_posx+"__WJetsBDT3__ttbar")->fill(event);
+    }
+
+    // if(WJets_TMVA_response>-1.0 && WJets_TMVA_response<-0.75){
+    // HFolder(chi2_posx+"__"+ttag_posx+"__WJetsBDT_step1")          ->fill(event);
+    // HFolder(chi2_posx+"__"+ttag_posx+"__WJetsBDT_step1__ttbar")          ->fill(event);
+    // HFolder(chi2_posx+"__WJetsBDT_step1")->fill(event);
+    // HFolder(chi2_posx+"__WJetsBDT_step1__ttbar")->fill(event);
+    // }
+
+    // if(WJets_TMVA_response>-0.75 && WJets_TMVA_response<-0.50){
+    // HFolder(chi2_posx+"__"+ttag_posx+"__WJetsBDT_step2")          ->fill(event);
+    // HFolder(chi2_posx+"__"+ttag_posx+"__WJetsBDT_step2__ttbar")          ->fill(event);
+    // HFolder(chi2_posx+"__WJetsBDT_step2")->fill(event);
+    // HFolder(chi2_posx+"__WJetsBDT_step2__ttbar")->fill(event);
+    // }
+    // if(WJets_TMVA_response>-0.5 && WJets_TMVA_response<-0.25){
+    // HFolder(chi2_posx+"__"+ttag_posx+"__WJetsBDT_step3")          ->fill(event);
+    // HFolder(chi2_posx+"__"+ttag_posx+"__WJetsBDT_step3__ttbar")          ->fill(event);
+    // HFolder(chi2_posx+"__WJetsBDT_step3")->fill(event);
+    // HFolder(chi2_posx+"__WJetsBDT_step3__ttbar")->fill(event);
+    // }
+    // if(WJets_TMVA_response>-0.25 && WJets_TMVA_response<0.00){
+    // HFolder(chi2_posx+"__"+ttag_posx+"__WJetsBDT_step4")          ->fill(event);
+    // HFolder(chi2_posx+"__"+ttag_posx+"__WJetsBDT_step4__ttbar")          ->fill(event);
+    // HFolder(chi2_posx+"__WJetsBDT_step4")->fill(event);
+    // HFolder(chi2_posx+"__WJetsBDT_step4__ttbar")->fill(event);
+    // }
+    // if(WJets_TMVA_response>0.00 && WJets_TMVA_response<0.25){
+    // HFolder(chi2_posx+"__"+ttag_posx+"__WJetsBDT_step5")          ->fill(event);
+    // HFolder(chi2_posx+"__"+ttag_posx+"__WJetsBDT_step5__ttbar")          ->fill(event);
+    // HFolder(chi2_posx+"__WJetsBDT_step5")->fill(event);
+    // HFolder(chi2_posx+"__WJetsBDT_step5__ttbar")->fill(event);
+    // }
+    // if(WJets_TMVA_response>0.25 && WJets_TMVA_response<0.50){
+    // HFolder(chi2_posx+"__"+ttag_posx+"__WJetsBDT_step6")          ->fill(event);
+    // HFolder(chi2_posx+"__"+ttag_posx+"__WJetsBDT_step6__ttbar")          ->fill(event);
+    // HFolder(chi2_posx+"__WJetsBDT_step6")->fill(event);
+    // HFolder(chi2_posx+"__WJetsBDT_step6__ttbar")->fill(event);
+    // }
+    // if(WJets_TMVA_response>0.50 && WJets_TMVA_response<0.75){
+    // HFolder(chi2_posx+"__"+ttag_posx+"__WJetsBDT_step7")          ->fill(event);
+    // HFolder(chi2_posx+"__"+ttag_posx+"__WJetsBDT_step7__ttbar")          ->fill(event);
+    // HFolder(chi2_posx+"__WJetsBDT_step7")->fill(event);
+    // HFolder(chi2_posx+"__WJetsBDT_step7__ttbar")->fill(event);
+    // }
+    // if(WJets_TMVA_response>0.75 && WJets_TMVA_response<1.00){
+    // HFolder(chi2_posx+"__"+ttag_posx+"__WJetsBDT_step8")          ->fill(event);
+    // HFolder(chi2_posx+"__"+ttag_posx+"__WJetsBDT_step8__ttbar")          ->fill(event);
+    // HFolder(chi2_posx+"__WJetsBDT_step8")->fill(event);
+    // HFolder(chi2_posx+"__WJetsBDT_step8__ttbar")->fill(event);
+    // }
+
+
   }
   /*  else if(lepN == 2){
 
@@ -2423,7 +2573,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   /**************/
   // if(event.met->pt()>500) 
   //  std::cout<<"#### N_ele = "<<event.electrons->size()<<" N_muo = "<<event.muons->size()<<" N_jets = "<<event.jets->size()<<" N_topjets = "<<event.topjets->size()<<" met = "<<event.met->pt()<<" raw MET = "<<event.met->uncorr_v4().Pt()<<" event weight = "<<event.weight<<std::endl;
-  // std::cout<<"-- End of Event --"<<std::endl;
+  //  std::cout<<"-- End of Event --"<<std::endl;
   return true;
 }
 

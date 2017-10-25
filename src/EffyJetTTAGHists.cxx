@@ -67,7 +67,7 @@ void EffyJetTTAGHists::init(){
     book_TH2F("tjetA__Msdp__vs__tjetA__subjN"+fla, 240, 0, 600,   8,  0, 8);
     book_TH2F("tjetA__Msdp__vs__tjetA__tau32"+fla, 240, 0, 600, 120,  0, 1.2);
 
-    book_TH2F("TAG__vs__tjetA__pt"     +fla, 5, 0, 5, 360, 0, 3600);
+    book_TH2F("TAG__vs__tjetA__pt"     +fla, 5, 0, 5, 72, 0, 3600);
     book_TH2F("TAG__vs__tjetA__eta"    +fla, 5, 0, 5,  60, -3, 3);
     book_TH2F("TAG__vs__tjetA__phi"    +fla, 5, 0, 5,  60, -3.15, 3.15);
     book_TH2F("TAG__vs__tjetA__subjN"  +fla, 5, 0, 5,   8, 0, 8);
@@ -102,7 +102,8 @@ void EffyJetTTAGHists::fill(const uhh2::Event& event){
   int itop=0;
   for(const auto& tjet : *event.topjets){
     itop++;
-    if(itop>1) continue; //TEST: check only leading jet
+    //    if(itop>1) continue; //TEST: check only leading jet ! used for mistoptag SFs
+
   // for(const auto& tjet : *event.toppuppijets){ //in 2016 we do matching to PUPPI jets
   //   if(tjet.numberOfDaughters()<2) continue;   //TEST: skip PUPPI jet if it contains only one daughter       
     // jet vars
