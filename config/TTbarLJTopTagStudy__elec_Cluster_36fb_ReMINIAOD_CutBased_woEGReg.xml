@@ -18,7 +18,7 @@
 <!ENTITY INdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJSkimming/ElecID_CutBased_tight_MET50_elecPt50_woEGReg_jetIDtight_slimmedMETs_JLCkey_20170908/">
 <!-- <!ENTITY OUTdir  "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/ElecID_CutBased_tight_MET50_elecPt50_woEGReg_jetIDtight_slimmedMETs_JLCkey_BLINDED_HLT1ORHLT2_wBtagSFs_jet2pt50/&KEYW;/"> -->
 <!-- <!ENTITY OUTdir  "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/ElecID_CutBased_tight_MET50_elecPt50_woEGReg_jetIDtight_slimmedMETs_JLCkey_BLINDED_HLT1ORHLT2_wBtagSFs_jet2pt50_addLeptonVeto_wTtagSFs/&KEYW;/"> -->
-<!ENTITY OUTdir  "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/MisTopTagSF__antiWJetsBDT_woBtag_20170922/&KEYW;/&channel;/"> 
+<!ENTITY OUTdir  "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/MisTopTagSF__antiWJetsBDT_woBtag_20171020/&KEYW;/&channel;/"> 
 <!-- <!ENTITY OUTdir  "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/ElecID_CutBased_tight_MET50_elecPt50_woEGReg_jetIDtight_slimmedMETs_JLCkey_BLINDED_HLT1ORHLT2_wBtagSFs_jet2pt50_addLeptonVeto_wTtagSFs_afterMLE/&KEYW;/"> -->
 
  <!ENTITY TTbar_part1 SYSTEM "../Skimming_datasets_ElecID_CutBased_tight_MET50_elecPt50_woEGReg_jetIDtight_slimmedMETs_JLCkey_20170908/MC_TTbar_part1.xml">
@@ -41,6 +41,11 @@
  <!ENTITY WJetsToLNu_Pt-400To600 SYSTEM "../Skimming_datasets_ElecID_CutBased_tight_MET50_elecPt50_woEGReg_jetIDtight_slimmedMETs_JLCkey_20170908/MC_WJetsToLNu_Pt-400To600.xml">
  <!ENTITY WJetsToLNu_Pt-600ToInf SYSTEM "../Skimming_datasets_ElecID_CutBased_tight_MET50_elecPt50_woEGReg_jetIDtight_slimmedMETs_JLCkey_20170908/MC_WJetsToLNu_Pt-600ToInf.xml">
 
+ <!ENTITY WJetsToLNu_Pt-000To050__L SYSTEM "../Skimming_datasets_ElecID_CutBased_tight_MET50_elecPt50_woEGReg_jetIDtight_slimmedMETs_JLCkey_20170908/MC_WJetsToLNu_Pt-000To050__L.xml">
+
+ <!ENTITY WJetsToLNu_Pt-050To100__C SYSTEM "../Skimming_datasets_ElecID_CutBased_tight_MET50_elecPt50_woEGReg_jetIDtight_slimmedMETs_JLCkey_20170908/MC_WJetsToLNu_Pt-050To100__C.xml">
+ <!ENTITY WJetsToLNu_Pt-050To100__B SYSTEM "../Skimming_datasets_ElecID_CutBased_tight_MET50_elecPt50_woEGReg_jetIDtight_slimmedMETs_JLCkey_20170908/MC_WJetsToLNu_Pt-050To100__B.xml">
+ <!ENTITY WJetsToLNu_Pt-050To100__L SYSTEM "../Skimming_datasets_ElecID_CutBased_tight_MET50_elecPt50_woEGReg_jetIDtight_slimmedMETs_JLCkey_20170908/MC_WJetsToLNu_Pt-050To100__L.xml">
  <!ENTITY WJetsToLNu_Pt-100To250__C SYSTEM "../Skimming_datasets_ElecID_CutBased_tight_MET50_elecPt50_woEGReg_jetIDtight_slimmedMETs_JLCkey_20170908/MC_WJetsToLNu_Pt-100To250__C.xml">
  <!ENTITY WJetsToLNu_Pt-250To400__C SYSTEM "../Skimming_datasets_ElecID_CutBased_tight_MET50_elecPt50_woEGReg_jetIDtight_slimmedMETs_JLCkey_20170908/MC_WJetsToLNu_Pt-250To400__C.xml">
  <!ENTITY WJetsToLNu_Pt-400To600__C SYSTEM "../Skimming_datasets_ElecID_CutBased_tight_MET50_elecPt50_woEGReg_jetIDtight_slimmedMETs_JLCkey_20170908/MC_WJetsToLNu_Pt-400To600__C.xml">
@@ -196,6 +201,14 @@
     <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTdir;/" PostFix="" TargetLumi="35867.05998" > 
 <!-- <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTdir;/" PostFix="" TargetLumi="35921.908907" RunMode="PROOF" ProofServer="lite://" ProofWorkDir="&PROOFdir;/" ProofNodes="15" > 
 --> 
+<InputData Version="WJetsToLNu_Pt-050To100__B" Lumi="160441079.475" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+  &WJetsToLNu_Pt-050To100__B; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="WJetsToLNu_Pt-050To100__C" Lumi="160441079.475" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+  &WJetsToLNu_Pt-050To100__C; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="WJetsToLNu_Pt-000To050__L" Lumi="242238207.238" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+  &WJetsToLNu_Pt-000To050__L; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+<InputData Version="WJetsToLNu_Pt-050To100__L" Lumi="160441079.475" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+  &WJetsToLNu_Pt-050To100__L; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
  <InputData Version="WJetsToLNu_Pt-100To250__B" Lumi="261411503.121" Type="MC" NEventsMax="&NEVT;" Cacheable="False"> 
    &WJetsToLNu_Pt-100To250__B; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
  <InputData Version="WJetsToLNu_Pt-250To400__B" Lumi="25802848.782" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
