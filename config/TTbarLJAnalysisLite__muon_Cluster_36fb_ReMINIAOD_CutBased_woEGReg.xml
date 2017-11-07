@@ -3,6 +3,7 @@
 
 <!ENTITY NEVT "-1">
 <!-- <!ENTITY NEVT "10000"> --> 
+<!-- <!ENTITY KEYW "T1_v07"> -->
 <!ENTITY KEYW "T1_v06">
 <!ENTITY btag_workpoint "CSVM">
 <!ENTITY channel "muon">
@@ -11,17 +12,17 @@
 <!ENTITY HLT3 "HLT_Ele105_CaloIdVT_GsfTrkIdT_v*">  -->
 
 <!ENTITY HLT  "HLT_Mu50_v*">
-<!ENTITY HLT2 "HLT_Mu50_v*"> 
+<!-- <!ENTITY HLT2 "HLT_Mu50_v*"> -->
 <!ENTITY HLT3 "HLT_Mu50_v*"> 
-<!-- <!ENTITY HLT2 "HLT_TkMu50_v*"> 
-<!ENTITY HLT3 "HLT_TkMu50_v*"> -->
+<!ENTITY HLT2 "HLT_TkMu50_v*"> 
+<!-- <!ENTITY HLT3 "HLT_TkMu50_v*"> -->
 
  <!ENTITY PROOFdir "/nfs/dust/cms/user/karavdia/PROOF_2">
 
 <!ENTITY INdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJSkimming/ElecID_CutBased_tight_MET50_elecPt50_woEGReg_jetIDtight_slimmedMETs_JLCkey_20170927/">
 <!-- <!ENTITY OUTdir  "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/ElecID_CutBased_tight_MET50_elecPt50_woEGReg_jetIDtight_slimmedMETs_JLCkey_BLINDED_HLT1ORHLT2_wBtagSFs_jet2pt50/&KEYW;/"> -->
 <!-- <!ENTITY OUTdir  "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/ElecID_CutBased_tight_MET50_elecPt50_woEGReg_jetIDtight_slimmedMETs_JLCkey_BLINDED_HLT1ORHLT2_wBtagSFs_jet2pt50_addLeptonVeto_wTtagSFs/&KEYW;/"> -->
-<!ENTITY OUTdir  "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/TTbarLJAnalysisLiteModule_dRPUPPI10_wCSVshapeSF_wMisTopTagSF_wHTlep_BLINED_WJetsOLDbdt_muRmuF_20171008/&KEYW;/&channel;/"> 
+<!ENTITY OUTdir  "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/TTbarLJAnalysisLiteModule_dRPUPPI10_wCSVshapeSF_wMisTopTagSF_wHTlep_NOTBLINED_WJetsOLDbdt_muRmuF_HLT1ORHLT2_updTTAGeff_20171026afterMLE/&KEYW;/&channel;/"> 
 <!-- <!ENTITY OUTdir  "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/TTbarLJAnalysisLiteModule_dRPUPPI10_wCSVshapeSF_wMisTopTagSF_wHTlep_BLINED_WJetsOLDbdt_20171004/&KEYW;/&channel;/"> -->
 <!-- <!ENTITY OUTdir  "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/ElecID_CutBased_tight_MET50_elecPt50_woEGReg_jetIDtight_slimmedMETs_JLCkey_BLINDED_HLT1ORHLT2_wBtagSFs_jet2pt50_addLeptonVeto_wTtagSFs_afterMLE/&KEYW;/"> -->
 
@@ -218,7 +219,7 @@
     <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTdir;/" PostFix="" TargetLumi="35867.05998" > 
 <!-- <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTdir;/" PostFix="" TargetLumi="35921.908907" RunMode="PROOF" ProofServer="lite://" ProofWorkDir="&PROOFdir;/" ProofNodes="15" > 
 --> 
-
+<!--
  <InputData Version="QCD_Pt-50to80_MuEnrichedPt5" Lumi="45.272" Type="MC" NEventsMax="&NEVT;" Cacheable="False"> 
    &QCD_Pt-50to80_MuEnrichedPt5; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
  <InputData Version="QCD_Pt-80to120_MuEnrichedPt5" Lumi="129.942" Type="MC" NEventsMax="&NEVT;" Cacheable="False"> 
@@ -240,7 +241,6 @@
  <InputData Version="WJetsToLNu_Pt-000To050__B" Lumi="242238207.238" Type="MC" NEventsMax="&NEVT;" Cacheable="False"> 
    &WJetsToLNu_Pt-000To050__B; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
 
-<!--
  <InputData Version="WJetsToLNu_Pt-050To100__B" Lumi="160441079.475" Type="MC" NEventsMax="&NEVT;" Cacheable="False"> 
    &WJetsToLNu_Pt-050To100__B; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
  <InputData Version="WJetsToLNu_Pt-000To050__C" Lumi="242238207.238" Type="MC" NEventsMax="&NEVT;" Cacheable="False"> 
@@ -252,7 +252,7 @@
  <InputData Version="WJetsToLNu_Pt-050To100__L" Lumi="160441079.475" Type="MC" NEventsMax="&NEVT;" Cacheable="False"> 
    &WJetsToLNu_Pt-050To100__L; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
 -->
-<!--
+
  <InputData Version="WJetsToLNu_Pt-100To250__B" Lumi="261411503.121" Type="MC" NEventsMax="&NEVT;" Cacheable="False"> 
    &WJetsToLNu_Pt-100To250__B; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
  <InputData Version="WJetsToLNu_Pt-250To400__B" Lumi="25802848.782" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
@@ -441,7 +441,6 @@
     <In FileName="&ZprimeToTT_30w_M4000;" Lumi="0.0"/> <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
    <InputData Version="ZprimeToTT_30w_M5000" Lumi="90987" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
     <In FileName="&ZprimeToTT_30w_M5000;" Lumi="0.0"/> <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
--->
 
  <!-- <InputData Version="TTbar" Lumi="92847.910" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
     &TTbar_part1; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> -->
@@ -505,13 +504,19 @@
 <!--	<Item Name="ttag_wp"        Value="mr030_wp1"/> -->
 	<Item Name="ttag_wp"        Value="mr010_wp1"/> <!-- all hadronic WP -->
    <!--     <Item Name="ttag_SFs"        Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/data/ttagSF__2016_mr010_wp1.csv"/>-->
-        <Item Name="ttag_SFs"        Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/data/ttagSF__2016_mr010_wp1_afterMLE.csv"/>
+<!--        <Item Name="ttag_SFs"        Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/data/ttagSF__2016_mr010_wp1_afterMLE.csv"/> -->
+<!-- <Item Name="ttag_SFs"  Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/data/ttagSF__2016_mr010_wp1_beforeMLE.csv"/> -->
+<Item Name="ttag_SFs"  Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/data/ttagSF__2016_mr010_wp1_afterMLE.csv"/> 
 <!--         <Item Name="ttag_SFs"        Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/data/ttagSF__2016_mr030_wp1_afterMLE.csv"/> -->
 
-	<Item Name="ttag_eff"        Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/data/TTAGeff.root"/>
+<!--	<Item Name="ttag_eff"        Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/data/TTAGeff.root"/>
 	<Item Name="ttag_eff__jetL"  Value="&channel;/wjets/tjpj_chi2tlep__TTAG/tjetA__pt__l"/>
-	<Item Name="ttag_eff__jetT"  Value="&channel;/ttbar/tjpj_chi2tlep__TTAG/tjetA__pt__t"/>
+	<Item Name="ttag_eff__jetT"  Value="&channel;/ttbar/tjpj_chi2tlep__TTAG/tjetA__pt__t"/> -->
 
+        <Item Name="ttag_eff" Value="/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/MisTopTagSF__antiWJetsBDT_woBtag_20171020/T1_v06/TTAGeff.root"/>                                                                                                                                                    
+        <Item Name="ttag_eff__jetL"  Value="&channel;/wjets/tjpj_chi2tlep__TTAG/tjetA__pt__l"/>
+        <Item Name="ttag_eff__jetT"  Value="&channel;/ttbar/tjpj_chi2tlep__TTAG/tjetA__pt__t"/>
+    
 	<Item Name="store_PDF_weights" Value="true"/>
 <!--	<Item Name="blind_DATA" Value="true"/> -->
 	<Item Name="blind_DATA" Value="false"/>

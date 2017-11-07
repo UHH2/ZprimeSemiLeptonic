@@ -419,7 +419,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
   //  blind_DATA_ = ((ctx.get("dataset_version").find("BLINDED") != std::string::npos) && (ctx.get("dataset_type") == "DATA") && !isMC);
   //  blind_DATA_ = ((ctx.get("dataset_version").find("BLINDED") != std::string::npos) && (ctx.get("dataset_type") == "DATA") && !isMC);
-  //  blind_DATA_ = true;//TEST blind both DATA and MC!
+  //    blind_DATA_ = true;//TEST blind both DATA and MC!
   blind_DATA_ = false;//TEST unblind both DATA and MC!
 
   const std::string& store_PDF_weights = ctx.get("store_PDF_weights", "");
@@ -640,27 +640,32 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
     if     (keyword == "T0_v07") use_ttagging_ = false;
     else if(keyword == "T1_v07") use_ttagging_ = true;
     if(channel_ == muon){
-      throw std::runtime_error("TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule -- undefined working-point for \""+keyword+"\" in \"muon\" channel");
+      //throw std::runtime_error("TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule -- undefined working-point for \""+keyword+"\" in \"muon\" channel");
+      lep1_pt_ =   55.;
+      jet1_pt  = 150.;
+      jet2_pt  =  50.;
+      MET      =  120.;
+      HT_lep   = 0.;
+      triangul_cut = false;                                                                                                                                           
+      topleppt_cut = false;                          
+      muo1_pt_max_ = 0.0;
+      muo1_eta_max_ = 0.0;
+      chi2_cut_ = 30.;
+      QCD_BDT_cut = -10;        
     }
     else if(channel_ == elec){
-
-      lep1_pt_ =  120.;
-      jet1_pt  = 200.;
+      //      lep1_pt_ =   65.;
+      lep1_pt_ =   80.;
+      jet1_pt  = 185.;
       jet2_pt  =  50.;
-
-      //      MET      =   0.;
-      MET      =   120.;
+      //      jet2_pt  =  300.; //TEST
+      MET      =  120.;
       HT_lep   =   0.;
-
       triangul_cut = false;
       topleppt_cut = false;
-
       muo1_pt_max_ = 0;
       muo1_eta_max_ = 0;
-      // chi2_cut_ = 30.;
-      //      QCD_BDT_cut = 0.5;
       QCD_BDT_cut = -10;
-      // chi2_cut_ = uhh2::infinity;
     }
   }
   else if(keyword == "T0_v08" || keyword == "T1_v08"){
