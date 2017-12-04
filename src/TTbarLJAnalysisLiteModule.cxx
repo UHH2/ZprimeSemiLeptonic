@@ -712,7 +712,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   metfilters_sel->add<TriggerSelection>("HBHENoiseFilter", "Flag_HBHENoiseFilter");
   metfilters_sel->add<TriggerSelection>("HBHENoiseIsoFilter", "Flag_HBHENoiseIsoFilter");
   metfilters_sel->add<TriggerSelection>("EcalDeadCellTriggerPrimitiveFilter", "Flag_EcalDeadCellTriggerPrimitiveFilter");
-  //  metfilters_sel->add<TriggerSelection>("eeBadScFilter", "Flag_eeBadScFilter");
+  if (!isMC) metfilters_sel->add<TriggerSelection>("eeBadScFilter", "Flag_eeBadScFilter");
   metfilters_sel->add<TriggerSelection>("chargedHadronTrackResolutionFilter", "Flag_chargedHadronTrackResolutionFilter");
   metfilters_sel->add<TriggerSelection>("muonBadTrackFilter", "Flag_muonBadTrackFilter");
   //metantifilters_sel.reset(new uhh2::AndSelection(ctx, "metantifilters"));                                                                                           
