@@ -90,7 +90,8 @@ protected:
   float    ttag_minDR_jet_;
 
   bool blind_DATA_;
-
+  bool photonStream_;
+  bool electronStream_;
   bool store_PDF_weights_;
 
   //  Data/MC scale factors
@@ -195,7 +196,7 @@ protected:
   Event::Handle<float> h_wgtMC__muRmuF_min; //envelope
   Event::Handle<float> h_wgtMC__muRmuF_max;
 
-  //  Event::Handle<float> h_wgtMC__topptREWGT_ct;
+  // Event::Handle<float> h_wgtMC__topptREWGT_ct;
   // Event::Handle<float> h_wgtMC__topptREWGT_up;
   // Event::Handle<float> h_wgtMC__topptREWGT_dn;
 
@@ -419,8 +420,11 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
   //  blind_DATA_ = ((ctx.get("dataset_version").find("BLINDED") != std::string::npos) && (ctx.get("dataset_type") == "DATA") && !isMC);
   //  blind_DATA_ = ((ctx.get("dataset_version").find("BLINDED") != std::string::npos) && (ctx.get("dataset_type") == "DATA") && !isMC);
-  //    blind_DATA_ = true;//TEST blind both DATA and MC!
+  //  blind_DATA_ = true;//TEST blind both DATA and MC!
   blind_DATA_ = false;//TEST unblind both DATA and MC!
+
+  photonStream_ = (ctx.get("dataset_version").find("Photon") != std::string::npos);
+  electronStream_ = (ctx.get("dataset_version").find("Electron") != std::string::npos);
 
   const std::string& store_PDF_weights = ctx.get("store_PDF_weights", "");
   if     (store_PDF_weights == "true")  store_PDF_weights_ = true;
@@ -712,7 +716,8 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   metfilters_sel->add<TriggerSelection>("HBHENoiseFilter", "Flag_HBHENoiseFilter");
   metfilters_sel->add<TriggerSelection>("HBHENoiseIsoFilter", "Flag_HBHENoiseIsoFilter");
   metfilters_sel->add<TriggerSelection>("EcalDeadCellTriggerPrimitiveFilter", "Flag_EcalDeadCellTriggerPrimitiveFilter");
-  //  metfilters_sel->add<TriggerSelection>("eeBadScFilter", "Flag_eeBadScFilter");
+  if(!isMC) 
+    metfilters_sel->add<TriggerSelection>("eeBadScFilter", "Flag_eeBadScFilter");
   metfilters_sel->add<TriggerSelection>("chargedHadronTrackResolutionFilter", "Flag_chargedHadronTrackResolutionFilter");
   metfilters_sel->add<TriggerSelection>("muonBadTrackFilter", "Flag_muonBadTrackFilter");
   //metantifilters_sel.reset(new uhh2::AndSelection(ctx, "metantifilters"));                                                                                           
@@ -1040,7 +1045,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   //   std::cout<<"Set top pt reweighting!"<<std::endl;
   //   topptREWGT.reset(new TopPtReweight(ctx, 0.156, -0.00137, ttbar_gen_label, "wgtMC__topptREWGT_ct"));
   // }
-  //
+  
 
   // // W+jets reweighting (NLO/LO k-factors)
   // if(ctx.get("dataset_version").find("WJets") != std::string::npos){
@@ -1486,32 +1491,19 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   const bool pass_trigger = trigger_sel->passes(event);
   bool pass_trigger2 = false;
   if((event.run>275657 && channel_ == muon) || channel_ == elec || !event.isRealData){
-    //  const bool pass_trigger2 = trigger2_sel->passes(event);
     pass_trigger2 = trigger2_sel->passes(event);
   }
   const bool pass_trigger3 = trigger3_sel->passes(event);
-  // // //  if(event.run>274953 && channel_ == muon)
-  // if(channel_ == muon)
-  //   pass_trigger2 = trigger2_sel->passes(event);
-
-  //  const bool pass_trigger2 = trigger2_sel->passes(event);
-  //  if(!pass_trigger) return false;
-  //  else 
-  //  if(pass_trigger)  std::cout<<"Trigger1!!! HLT_1: "<<pass_trigger<<" HLT_2: "<<pass_trigger2<<std::endl;
-  //  if(pass_trigger2) std::cout<<"Trigger2!!! HLT_1: "<<pass_trigger<<" HLT_2: "<<pass_trigger2<<std::endl;
-  // if(pass_trigger || pass_trigger2) std::cout<<"Event passes the triggers"<<std::endl;
-  //  std::cout<<"Trigger!!! "<<pass_trigger2<<" "<<pass_trigger<<std::endl;
-  //  if(event.isRealData){
-  //  if(!(pass_trigger || pass_trigger2)) return false; 
-  //  if(!(pass_trigger || pass_trigger2 || pass_trigger3)) return false; 
-  //  if(!pass_trigger) return false; //TEST only 1 trigger
-  // if((event.run>275657 && channel_ == muon) || channel_ == elec){
-    if(!pass_trigger && !pass_trigger2) return false; //TEST 
-    // }
-    //else
-    // if(!pass_trigger) return false; //TEST 
- 
-  //}
+  if(photonStream_){
+    //std::cout<<"photonStream_ "<<photonStream_<<std::endl;
+    //    if(!pass_trigger && !pass_trigger2 && !pass_trigger3) return false;
+    if(!pass_trigger3) return false;
+  }
+  else
+{
+  //  std::cout<<"photonStream_ "<<photonStream_<<std::endl;
+    if(!pass_trigger && !pass_trigger2) return false;
+  }
   //   else std::cout<<" Passed trigger!!! "<<std::endl;
   //  if(lepN == 1) 
   HFolder("trigger")->fill(event);
@@ -1526,7 +1518,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   float w_ttagSF_ct(1.), w_ttagSF_upL(1.), w_ttagSF_dnL(1.), w_ttagSF_upT(1.), w_ttagSF_dnT(1.);
 
   float w_muR_ct__muF_up(1.), w_muR_ct__muF_dn(1.), w_muR_up__muF_ct(1.), w_muR_up__muF_up(1.), w_muR_dn__muF_ct(1.), w_muR_dn__muF_dn(1.);
-  //  float w_topptREWGT_up(1.), w_topptREWGT_dn(1.); //w_topptREWGT_ct(1.);
+  //  float w_topptREWGT_up(1.), w_topptREWGT_dn(1.), w_topptREWGT_ct(1.);
   //  float w_wjetsREWGT_ct(1.);
   std::vector<float> w_PDF;
   w_PDF.clear();
@@ -1706,6 +1698,9 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   // pt-leading lepton selection
   const Particle* lep1 = leading_lepton(event);
   if(!(lep1->pt() > lep1_pt_)) return false; 
+  if(electronStream_ && (lep1->pt() > 250.0))  return false; 
+  if(photonStream_ && (lep1->pt() < 250.0)) return false; 
+
   //
   //  std::cout<<"passed lep1_pt "<<std::endl;
   ////

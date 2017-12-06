@@ -564,12 +564,13 @@ if(event.isRealData){
   //probe trugger
   bool pass_trigger = false;  
   bool pass_trigger2 = false;
-  // bool pass_trigger3 = false;  bool pass_trigger4 = false;
+  bool pass_trigger3 = false;  
+  //bool pass_trigger4 = false;
   // bool pass_trigger5 = false;  bool pass_trigger6 = false;
 
   pass_trigger = trigger_sel->passes(event);
   pass_trigger2 = trigger2_sel->passes(event);
-  // pass_trigger3 = trigger3_sel->passes(event);
+  pass_trigger3 = trigger3_sel->passes(event);
   // pass_trigger4 = trigger4_sel->passes(event);
   // pass_trigger5 = trigger5_sel->passes(event);
   // pass_trigger6 = trigger6_sel->passes(event);
@@ -581,7 +582,8 @@ if(event.isRealData){
   //  if(!pass_trigger && !pass_trigger2 && !pass_trigger3) return false;//TEST
   //  std::cout<<"pass_tag_trigger = "<<pass_tag_trigger<<" pass_trigger = "<<pass_trigger<<std::endl;
   //  if(!pass_trigger) return false;//TEST with one trigger
-  if(!pass_trigger && !pass_trigger2) return false;
+  //if(!pass_trigger && !pass_trigger2) return false;
+  if(!pass_trigger && !pass_trigger2 && !pass_trigger3) return false;
   HFolder("tagNprobe")->fill(event);
   if(event.isRealData) lumihists_probe->fill(event);
 
