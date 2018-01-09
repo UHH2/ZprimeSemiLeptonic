@@ -44,7 +44,8 @@ class TTbarLJSkimmingModule : public ModuleBASE {
   std::unique_ptr<JetCleaner>                      jet_IDcleaner;
   //split corrections by run periods 
   std::unique_ptr<JetCorrector>                    jet_corrector, jet_corrector_BCD, jet_corrector_EFearly, jet_corrector_FlateG, jet_corrector_H;
-  std::unique_ptr<GenericJetResolutionSmearer>     jetER_smearer;
+  //  std::unique_ptr<GenericJetResolutionSmearer>     jetER_smearer;
+  std::unique_ptr<JetResolutionSmearer>     jetER_smearer;
   //split cleaners by run periods 
   std::unique_ptr<JetLeptonCleaner_by_KEYmatching> jetlepton_cleaner, JLC_BCD, JLC_EFearly, JLC_FlateG, JLC_H;
   //  std::unique_ptr<JetLeptonCleaner> jetlepton_cleaner, JLC_BCD, JLC_EFearly, JLC_FlateG, JLC_H;//TEST
@@ -273,7 +274,7 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
   metfilters_sel->add<TriggerSelection>("HBHENoiseFilter", "Flag_HBHENoiseFilter");
   metfilters_sel->add<TriggerSelection>("HBHENoiseIsoFilter", "Flag_HBHENoiseIsoFilter");
   metfilters_sel->add<TriggerSelection>("EcalDeadCellTriggerPrimitiveFilter", "Flag_EcalDeadCellTriggerPrimitiveFilter");
-  //  metfilters_sel->add<TriggerSelection>("eeBadScFilter", "Flag_eeBadScFilter");
+  if(!isMC)  metfilters_sel->add<TriggerSelection>("eeBadScFilter", "Flag_eeBadScFilter");
   metfilters_sel->add<TriggerSelection>("chargedHadronTrackResolutionFilter", "Flag_chargedHadronTrackResolutionFilter"); 
   metfilters_sel->add<TriggerSelection>("muonBadTrackFilter", "Flag_muonBadTrackFilter");
   
@@ -375,7 +376,8 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
     jet_corrector.reset(new JetCorrector(ctx, JEC_AK4));
     jetlepton_cleaner.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4));
     //    jetlepton_cleaner.reset(new JetLeptonCleaner(ctx, JEC_AK4));//TEST
-    jetER_smearer.reset(new GenericJetResolutionSmearer(ctx));
+    //    jetER_smearer.reset(new GenericJetResolutionSmearer(ctx));
+    jetER_smearer.reset(new JetResolutionSmearer(ctx)); //TEST
     topjet_corrector.reset(new TopJetCorrector(ctx, JEC_AK8));
     topjet_subjet_corrector.reset(new SubJetCorrector(ctx, JEC_AK4));
     ctx.declare_event_input<std::vector<Particle> >(ctx.get("TopJetCollectionGEN"), "topjetsGEN");
@@ -454,9 +456,9 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
 }
 
 bool TTbarLJSkimmingModule::process(uhh2::Event& event){
- //  std::cout<<" -------------------------- "<<std::endl;
- //  std::cout << " Evt# "<<event.event<<" Run: "<<event.run<<" " <<std::endl;
- // std::cout<<"####BEGIN N_ele = "<<event.electrons->size()<<" N_muo = "<<event.muons->size()<<" N_jets = "<<event.jets->size()<<" N_topjets = "<<event.topjets->size()<<" met = "<<event.met->pt()<<" raw_met = "<<event.met->uncorr_v4().Pt()<<std::endl;
+  // std::cout<<" -------------------------- "<<std::endl;
+  // std::cout << " Evt# "<<event.event<<" Run: "<<event.run<<" " <<std::endl;
+  // std::cout<<"####BEGIN N_ele = "<<event.electrons->size()<<" N_muo = "<<event.muons->size()<<" N_jets = "<<event.jets->size()<<" N_topjets = "<<event.topjets->size()<<" met = "<<event.met->pt()<<" raw_met = "<<event.met->uncorr_v4().Pt()<<std::endl;
 
   // event.set(tt_TMVA_response,-100);//fill with dummy value
   // event.set(wjets_TMVA_response, -100);//fill with dummy value 
@@ -569,7 +571,9 @@ bool TTbarLJSkimmingModule::process(uhh2::Event& event){
     bool jlc_sw = jetlepton_cleaner->process(event); //TEST without JLC
     jet_corrector->process(event);
     //Apply JER to all jet collections
+    //    std::cout<<"####BEFORE JER, N_jets = "<<event.jets->size()<<" N_topjets = "<<event.topjets->size()<<std::endl;
     if(jetER_smearer.get()) jetER_smearer->process(event);  
+    //    std::cout<<"####AFTER JER, N_jets = "<<event.jets->size()<<" N_topjets = "<<event.topjets->size()<<std::endl;
     //correct MET only AFTER smearing the jets
     jet_corrector->correct_met(event);
     topjet_subjet_corrector->process(event);
