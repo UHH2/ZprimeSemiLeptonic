@@ -14,7 +14,8 @@ import numpy
 #samplelist = {'DATA_Run2016':'uhh2.AnalysisModuleRunner.DATA.DATA_SingleMuon_Run2016.root'}
 samplelist = {'TTbar':'uhh2.AnalysisModuleRunner.MC.TTbar.root','DATA_Run2016':'uhh2.AnalysisModuleRunner.DATA.DATA.root'}
 #path = {'Ele50_PFJet165': 'Ele50_PFJet165__NULL__NULL__NULL__NULL__NULL/'}
-path = {'Ele50PFJet165_OR_Ele115': 'Ele50_PFJet165__Ele115_CaloIdVT_GsfTrkIdT__NULL__NULL__NULL__NULL/'}
+#path = {'Ele50PFJet165_OR_Ele115': 'Ele50_PFJet165__Ele115_CaloIdVT_GsfTrkIdT__NULL__NULL__NULL__NULL/'}
+path = {'Ele50PFJet165_OR_Ele115_OR_Photon175': 'Ele50_PFJet165__Ele115_CaloIdVT_GsfTrkIdT__Photon175__NULL__NULL__NULL/'} 
 eff = {}
 eff_err = {}
 
@@ -116,4 +117,4 @@ for key_hist in read_hist:
         sig_eff_mgr[key_hist+key_sample].GetXaxis().SetTitle(name_hist[key_hist])
         legend.Draw()
         cHLTeff[key_hist+key_sample].SaveAs('HLT_Eff_'+key_hist+'_'+key_sample+'.root')
-        cHLTeff[key_hist+key_sample].SaveAs('/afs/desy.de/user/k/karavdia/www/Zprime_plots/ElecHLTeff_jetCut_MET120_vetoGapEle_HLT1ORHLT2/HLT_Eff_'+key_hist+'_'+key_sample+'.pdf')
+        cHLTeff[key_hist+key_sample].SaveAs('/afs/desy.de/user/k/karavdia/www/Zprime_plots/ElecHLTeff_jetCut_MET120_vetoGapEle_HLT1ORHLT2ORHLT3/HLT_Eff_'+key_hist+'_'+key_sample+'.pdf')

@@ -19,8 +19,9 @@
 <!-- <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJSkimming/ElecID_CutBased_tight_MET50_elecPt50_woEGReg_jetIDtight_slimmedMETs_JLCkey_20170927/"> -->
 
 <!-- <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJSkimming/ElecID_CutBased_tight_MET50_elecPt50_woEGReg_jetIDtight_slimmedMETs_JLCkey_20170927_jec_up/"> -->
-<!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJSkimming/ElecID_CutBased_tight_MET50_elecPt50_woEGReg_jetIDtight_slimmedMETs_JLCkey_20170927_jer_up/"> 
+ <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJSkimming/ElecID_CutBased_tight_MET50_elecPt50_woEGReg_jetIDtight_slimmedMETs_JLCkey_20170927_jec_up/"> 
 
+<!-- <!ENTITY OUTdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJSkimming/ElecID_CutBased_tight_MET50_elecPt50_woEGReg_jetIDtight_slimmedMETs_JLCkey_20170927_jer_jec_nominal/"> -->
 
  <!ENTITY ZprimeToTT_10w_M1000 SYSTEM  "../../common/datasets/RunII_80X_v3/Zprime/MC_ZprimeToTT_10w_M1000.xml">
  <!ENTITY DATA_SingleElectron_RunBv2 SYSTEM  "../../common/datasets/RunII_80X_v3/DATA_SingleElectron_Run2016Bv2_23Sep.xml">
@@ -39,6 +40,14 @@
  <!ENTITY DATA_SingleElectron_RunF_03Feb SYSTEM  "../../common/datasets/RunII_80X_v3/DATA_SingleElectron_Run2016F_03Feb.xml">
  <!ENTITY DATA_SingleElectron_RunG_03Feb SYSTEM  "../../common/datasets/RunII_80X_v3/DATA_SingleElectron_Run2016G_03Feb.xml">
  <!ENTITY DATA_SingleElectron_RunH_03Feb SYSTEM  "../../common/datasets/RunII_80X_v3/DATA_SingleElectron_Run2016H_03Feb.xml">
+
+ <!ENTITY DATA_SinglePhoton_RunB_03Feb SYSTEM  "../../common/datasets/RunII_80X_v3/DATA_SinglePhoton_Run2016B_03Feb.xml">
+ <!ENTITY DATA_SinglePhoton_RunC_03Feb SYSTEM  "../../common/datasets/RunII_80X_v3/DATA_SinglePhoton_Run2016C_03Feb.xml">
+ <!ENTITY DATA_SinglePhoton_RunD_03Feb SYSTEM  "../../common/datasets/RunII_80X_v3/DATA_SinglePhoton_Run2016D_03Feb.xml">
+ <!ENTITY DATA_SinglePhoton_RunE_03Feb SYSTEM  "../../common/datasets/RunII_80X_v3/DATA_SinglePhoton_Run2016E_03Feb.xml">
+ <!ENTITY DATA_SinglePhoton_RunF_03Feb SYSTEM  "../../common/datasets/RunII_80X_v3/DATA_SinglePhoton_Run2016F_03Feb.xml">
+ <!ENTITY DATA_SinglePhoton_RunG_03Feb SYSTEM  "../../common/datasets/RunII_80X_v3/DATA_SinglePhoton_Run2016G_03Feb.xml">
+ <!ENTITY DATA_SinglePhoton_RunH_03Feb SYSTEM  "../../common/datasets/RunII_80X_v3/DATA_SinglePhoton_Run2016H_03Feb.xml">
 
  <!ENTITY TTbar_part1 SYSTEM  "../../common/datasets/RunII_80X_v3/MC_TT_TuneCUETP8M2T4.xml">
  <!ENTITY TTbar_part2 SYSTEM  "../../common/datasets/RunII_80X_v3/MC_TT_TuneCUETP8M2T4_ext.xml">
@@ -205,8 +214,8 @@
 ]>
 
 <!--
-   <ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="10" AutoResubmit="100"/>
-   <ConfigSGE RAM ="4" DISK ="2" Mail="anastasia.karavdina@desy.de" Notification="as" Workdir="/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/workdir_Skimming_CutBased_03Feb_woEGReg"/>
+   <ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="25" AutoResubmit="100"/>
+   <ConfigSGE RAM ="4" DISK ="2" Mail="anastasia.karavdina@desy.de" Notification="as" Workdir="/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/workdir_Skimming_CutBased_03Feb_woEGReg_jec_up"/>
 -->
 
 <JobConfiguration JobName="TTbarLJSkimmingJob" OutputLevel="INFO">
@@ -218,7 +227,29 @@
 <!-- <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTdir;/" PostFix="" TargetLumi="1.0" RunMode="PROOF" ProofServer="lite://" ProofWorkDir="&PROOFdir;/" ProofNodes="15"> -->
   <!--  <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTdir;/" PostFix="" TargetLumi="1" RunMode="PROOF" ProofServer="pod://"  ProofWorkDir="&PROOFdir;/">
 -->
+<InputData Version="DATA_SinglePhoton_Run2016B" Lumi="1" Type="DATA" NEventsMax="&NEVT;" Cacheable="False">
+    &DATA_SinglePhoton_RunB_03Feb;
+    <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
+  <InputData Version="DATA_SinglePhoton_Run2016C" Lumi="1" Type="DATA" NEventsMax="&NEVT;" Cacheable="False">
+    &DATA_SinglePhoton_RunC_03Feb;
+    <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
+  <InputData Version="DATA_SinglePhoton_Run2016D" Lumi="1" Type="DATA" NEventsMax="&NEVT;" Cacheable="False">
+  &DATA_SinglePhoton_RunD_03Feb;
+  <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
+<InputData Version="DATA_SinglePhoton_Run2016E" Lumi="1" Type="DATA" NEventsMax="&NEVT;" Cacheable="False">
+  &DATA_SinglePhoton_RunE_03Feb;
+  <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
+<InputData Version="DATA_SinglePhoton_Run2016F" Lumi="1" Type="DATA" NEventsMax="&NEVT;" Cacheable="False">
+  &DATA_SinglePhoton_RunF_03Feb;
+  <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
+ <InputData Version="DATA_SinglePhoton_Run2016G" Lumi="1" Type="DATA" NEventsMax="&NEVT;" Cacheable="False">
+  &DATA_SinglePhoton_RunG_03Feb;
+  <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
+ <InputData Version="DATA_SinglePhoton_Run2016H" Lumi="1" Type="DATA" NEventsMax="&NEVT;" Cacheable="False">
+  &DATA_SinglePhoton_RunH_03Feb;
+  <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
 
+<!--
  <InputData Version="QCD_Pt-15to20_MuEnrichedPt5" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
 &QCD_Pt-15to20_MuEnrichedPt5; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
  <InputData Version="QCD_Pt-20to30_MuEnrichedPt5" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
@@ -465,8 +496,8 @@
     &GJets_HT-600ToInf; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
 <InputData Version="GJets_HT-40To100" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
     &GJets_HT-40To100; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
-
-
+-->
+<!--
  <InputData Version="ZprimeToTT_10w_M0500" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
     &ZprimeToTT_10w_M0500; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
 <InputData Version="ZprimeToTT_10w_M0750" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
@@ -573,7 +604,7 @@
     &ZprimeToTT_30w_M4000; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
  <InputData Version="ZprimeToTT_30w_M5000" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
     &ZprimeToTT_30w_M5000; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
-
+-->
 
 <!-- <InputData Version="WJetsToLNu_HT-100To200" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
     &WJetsToLNu_HT-100To200; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
@@ -631,6 +662,12 @@
     &DATA_SingleMuon_RunF;&DATA_SingleMuon_RunG;&DATA_SingleMuon_RunH; 
     <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
 -->
+<!--
+<InputData Version="TTbar_part1" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+&TTbar_part1; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData> 
+<InputData Version="TTbar_part2" Lumi="1" Type="MC" NEventsMax="&NEVT;" Cacheable="False">
+&TTbar_part2; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+-->
       <UserConfig>
         <Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices"/>
         <Item Name="GenParticleCollection"   Value="GenParticles"/>
@@ -649,7 +686,8 @@
         <Item Name="keyword" Value="&KEYW;"/>
 	<Item Name="twod1" Value="&twod_R;"/> 
 	<Item Name="twod2" Value="&twod_p;"/> 
-	<Item Name="jersmear_direction" Value="up"/>
+	<!-- <Item Name="jersmear_direction" Value="up"/> -->
+	<Item Name="jecsmear_direction" Value="up"/> 
         <Item Name="AnalysisModule" Value="TTbarLJSkimmingModule"/>
       </UserConfig>
 

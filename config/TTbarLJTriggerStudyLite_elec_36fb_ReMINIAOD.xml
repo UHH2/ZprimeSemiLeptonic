@@ -17,7 +17,8 @@
 <!ENTITY HLT3 "Ele105_CaloIdVT_GsfTrkIdT"> -->
 <!--<!ENTITY HLT2 "NULL">-->
 <!ENTITY HLT2 "Ele115_CaloIdVT_GsfTrkIdT"> 
-<!ENTITY HLT3 "NULL">
+<!ENTITY HLT3 "Photon175"> 
+<!-- <!ENTITY HLT3 "NULL"> -->
 <!ENTITY HLT4 "NULL"> 
 <!ENTITY HLT5 "NULL"> 
 <!ENTITY HLT6 "NULL">
