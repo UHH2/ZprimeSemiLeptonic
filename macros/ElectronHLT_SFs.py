@@ -3,12 +3,15 @@
 # tag: muon HLT, probe: electron HLT 
 # compare results in MC and DATA, derive SFs
 # usage:
-# cd /nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJTrigger/ElectronID_MVAGeneralPurpose_Spring16_loose/
+# cd /nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJTrigger/TTbarLJTriggerStudyLite_elePt50_jet1pt185_jet2pt50_MET120_20170922
 # python /afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/macros/ElectronHLT_SFs.py
 from ROOT import *
 import sys
 import numpy
-
+#outputpath = '/afs/desy.de/user/k/karavdia/www/Zprime_plots/ElecHLTeff_jetCut_MET120_vetoGapEle_HLT1ORHLT2ORHLT3'
+#outputpath = '/afs/desy.de/user/k/karavdia/www/Zprime_plots/ElecHLTeff_jetCut_MET120_vetoGapEle_HLT1'
+#outputpath = '/afs/desy.de/user/k/karavdia/www/Zprime_plots/ElecHLTeff_jetCut_MET120_vetoGapEle_HLT1HLT2'
+outputpath = '/afs/desy.de/user/k/karavdia/www/Zprime_plots/ElecHLTeff_jetCut_MET120_vetoGapEle_HLT1HLT2HLT3'
 #Set names of channels, hists, etc
 samplelist = {'DATA_Run2016':'uhh2.AnalysisModuleRunner.DATA.DATA.root','TTbar':'uhh2.AnalysisModuleRunner.MC.TTbar.root'}
 #samplelist = {'DATA_Run2016':'uhh2.AnalysisModuleRunner.DATA.DATA_SingleMuon_Run2016.root','DATA_Run2016BCD':'uhh2.AnalysisModuleRunner.DATA.DATA_SingleMuon_Run2016BCD.root','DATA_Run2016EF':'uhh2.AnalysisModuleRunner.DATA.DATA_SingleMuon_Run2016EF.root','DATA_Run2016G':'uhh2.AnalysisModuleRunner.DATA.DATA_SingleMuon_Run2016G.root','DATA_Run2016H':'uhh2.AnalysisModuleRunner.DATA.DATA_SingleMuon_Run2016H.root','TTbar':'uhh2.AnalysisModuleRunner.MC.TTbar.root'}
@@ -65,15 +68,29 @@ for key_hist in read_hist:
             print "key_hists_full",key_hists_full
             sig_denom[key_hists_full] = myfile_eff.Get('tag/'+read_hist[key_hist]).Clone()
             sig_eleID[key_hists_full] = myfile_eff.Get('tagNprobe/'+read_hist[key_hist]).Clone()
-            #sig_eff_gr[key_hists_full] = TGraphAsymmErrors()
-            #sig_eff_gr[key_hists_full].Divide(sig_eleID[key_hists_full],sig_denom[key_hists_full],"cl=0.68 b(1,1) mode") #calculate efficiency
             sig_eff_gr[key_hists_full] = sig_eleID[key_hists_full]
-            sig_eff_gr[key_hists_full].Divide(sig_denom[key_hists_full])
+           
+
+            sig_denom[key_hists_full].GetZaxis().SetRangeUser(0,20)
+            sig_denom[key_hists_full].Draw('colz')
+            gPad.SetLogy();
+            cHLTeff[key_hist+key_sample].SaveAs(outputpath+'/Yield_denom_'+key_hist+'_'+key_sample+'.pdf')
+            sig_eleID[key_hists_full].GetZaxis().SetRangeUser(0,20)
+            sig_eleID[key_hists_full].Draw('colz')
+            gPad.SetLogy();
+            cHLTeff[key_hist+key_sample].SaveAs(outputpath+'/Yield_nomin_'+key_hist+'_'+key_sample+'.pdf')
+
+            sig_eff_gr[key_hists_full].Divide(sig_denom[key_hists_full]) #calculate efficiency in Data
+            sig_eff_gr[key_hists_full].Draw('colz TEXTE')
+            sig_eff_gr[key_hists_full].GetZaxis().SetRangeUser(0,1.5)
+            gPad.SetLogy();
+            cHLTeff[key_hist+key_sample].SaveAs(outputpath+'/Eff_'+key_hist+'_'+key_sample+'.pdf')
 
             sig_denom[key_TTbar_hists_full] = myfile_ttbar.Get('tag/'+read_hist[key_hist]).Clone()
             sig_eleID[key_TTbar_hists_full] = myfile_ttbar.Get('tagNprobe/'+read_hist[key_hist]).Clone()
             sig_eff_gr[key_TTbar_hists_full] = sig_eleID[key_TTbar_hists_full]
             sig_eff_gr[key_TTbar_hists_full].Divide(sig_denom[key_TTbar_hists_full]) #calculate efficiency in TTbar
+
             sig_eff_gr[key_hists_full].Divide(sig_eff_gr[key_TTbar_hists_full]) #calculate SF #comment this line to get 2D efficiency plots
             #loop over bins to fill empty once with 1
             for i in range(1,sig_eff_gr[key_hists_full].GetNbinsX() + 1):
@@ -110,7 +127,7 @@ for key_hist in read_hist:
             gPad.SetLogy();
             #cHLTeff[key_hist+key_sample].SaveAs('SFs_'+key_hist+'_'+key_sample+'.root')
 #            cHLTeff[key_hist+key_sample].SaveAs('/afs/desy.de/user/k/karavdia/www/Zprime_plots/ElecHLTeff_jetCut_MET120_vetoGapEle_HLT1ORHLT2/SFs_'+key_hist+'_'+key_sample+'.pdf')
-            cHLTeff[key_hist+key_sample].SaveAs('/afs/desy.de/user/k/karavdia/www/Zprime_plots/ElecHLTeff_jetCut_MET120_vetoGapEle_HLT1ORHLT2ORHLT3/SFs_'+key_hist+'_'+key_sample+'.pdf')
+            cHLTeff[key_hist+key_sample].SaveAs(outputpath+'/SFs_'+key_hist+'_'+key_sample+'.pdf')
             f = TFile('SFs_'+key_hist+'_'+key_sample+'_'+key_path+'.root', 'recreate')
             sig_eff_gr[key_hists_full].Write()
             f.Write()
