@@ -119,7 +119,7 @@ protected:
   std::unique_ptr<weightcalc_ttagging> ttagSF_dnT;
 
   //  std::unique_ptr<weightcalc_topptREWGT> topptREWGT;
-  //  std::unique_ptr<TopPtReweight> topptREWGT;
+  std::unique_ptr<TopPtReweight> topptREWGT;
   //  std::unique_ptr<weightcalc_WjetsREWGT> wjetsREWGT;
   
 
@@ -196,9 +196,9 @@ protected:
   Event::Handle<float> h_wgtMC__muRmuF_min; //envelope
   Event::Handle<float> h_wgtMC__muRmuF_max;
 
-  // Event::Handle<float> h_wgtMC__topptREWGT_ct;
-  // Event::Handle<float> h_wgtMC__topptREWGT_up;
-  // Event::Handle<float> h_wgtMC__topptREWGT_dn;
+  Event::Handle<float> h_wgtMC__topptREWGT_ct;
+  Event::Handle<float> h_wgtMC__topptREWGT_up;
+  Event::Handle<float> h_wgtMC__topptREWGT_dn;
 
   // Event::Handle<float> h_wgtMC__wjetsREWGT_ct;
 
@@ -420,7 +420,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
   //  blind_DATA_ = ((ctx.get("dataset_version").find("BLINDED") != std::string::npos) && (ctx.get("dataset_type") == "DATA") && !isMC);
   //  blind_DATA_ = ((ctx.get("dataset_version").find("BLINDED") != std::string::npos) && (ctx.get("dataset_type") == "DATA") && !isMC);
-  //  blind_DATA_ = true;//TEST blind both DATA and MC!
+  //blind_DATA_ = true;//TEST blind both DATA and MC!
   blind_DATA_ = false;//TEST unblind both DATA and MC!
 
   photonStream_ = (ctx.get("dataset_version").find("Photon") != std::string::npos);
@@ -1040,11 +1040,12 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   ttagSF_dnT.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "CT", "DN", ttag_effy_file, ttag_effyL, ttag_effyT, false));
   // //
 
-  // // top-pt reweighting
-  // if(ctx.get("dataset_version").find("TTbar") != std::string::npos || ctx.get("dataset_version").find("TTBar") != std::string::npos){
-  //   std::cout<<"Set top pt reweighting!"<<std::endl;
-  //   topptREWGT.reset(new TopPtReweight(ctx, 0.156, -0.00137, ttbar_gen_label, "wgtMC__topptREWGT_ct"));
-  // }
+  // top-pt reweighting
+  if(ctx.get("dataset_version").find("TTbar") != std::string::npos || ctx.get("dataset_version").find("TTBar") != std::string::npos){
+    std::cout<<"Set top pt reweighting!"<<std::endl;
+    //    topptREWGT.reset(new TopPtReweight(ctx, 0.156, -0.00137, ttbar_gen_label, "wgtMC__topptREWGT_ct",false));
+    topptREWGT.reset(new TopPtReweight(ctx, 0.0615, -0.0005, ttbar_gen_label, "wgtMC__topptREWGT_ct",false));
+  }
   
 
   // // W+jets reweighting (NLO/LO k-factors)
@@ -1065,9 +1066,11 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   // //muon ID scale factors
 
   muonTRK_SF.reset(new MCMuonTrkScaleFactor(ctx, muonTRK_SFac, 0.0, "TRK"));
-  muonID_SF.reset(new MCMuonScaleFactor(ctx, muonID_SFac, muonID_directory, 1., "ID")); //hypot(1.0%,0.5%) //used 1.12
-  muonHLT_SF.reset(new MCMuonScaleFactor(ctx, muonHLT_SFac, muonHLT_directory, 0.5, "HLT"));//TEST
-  //muonHLT_SF.reset(new MCMuonScaleFactor(ctx, muonHLT_SFac, muonHLT_directory, 5.0, "HLT",true));//TEST
+
+  muonID_SF.reset(new MCMuonScaleFactor(ctx, muonID_SFac, muonID_directory, 1., "ID")); //add additional systematic uncertainties of 1% (ID) recommended by the MUO POG
+  muonHLT_SF.reset(new MCMuonScaleFactor(ctx, muonHLT_SFac, muonHLT_directory, 0.5, "HLT"));//add additional systematic uncertainties of 0.5% (trigger) recommended by the MUO POG
+
+
   //lumi_tot = string2double(ctx.get("target_lumi"));
   //lumi1 = 622.;//0.622/fb in 2016 data
   //lumi2 = lumi_tot - lumi1;
@@ -1171,9 +1174,9 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   h_wgtMC__muRmuF_min = ctx.declare_event_output<float>("wgtMC__muRmuF_min");
   h_wgtMC__muRmuF_max = ctx.declare_event_output<float>("wgtMC__muRmuF_max");
 
-  // h_wgtMC__topptREWGT_ct  = ctx.declare_event_output<float>("wgtMC__topptREWGT_ct");
-  // h_wgtMC__topptREWGT_up  = ctx.declare_event_output<float>("wgtMC__topptREWGT_up");
-  // h_wgtMC__topptREWGT_dn  = ctx.declare_event_output<float>("wgtMC__topptREWGT_dn");
+  h_wgtMC__topptREWGT_ct  = ctx.declare_event_output<float>("wgtMC__topptREWGT_ct");
+  h_wgtMC__topptREWGT_up  = ctx.declare_event_output<float>("wgtMC__topptREWGT_up");
+  h_wgtMC__topptREWGT_dn  = ctx.declare_event_output<float>("wgtMC__topptREWGT_dn");
 
   //  h_wgtMC__wjetsREWGT_ct  = ctx.declare_event_output<float>("wgtMC__wjetsREWGT_ct");
   h_wgtMC__PDF            = ctx.declare_event_output<std::vector<float> >("wgtMC__PDF");
@@ -1518,7 +1521,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   float w_ttagSF_ct(1.), w_ttagSF_upL(1.), w_ttagSF_dnL(1.), w_ttagSF_upT(1.), w_ttagSF_dnT(1.);
 
   float w_muR_ct__muF_up(1.), w_muR_ct__muF_dn(1.), w_muR_up__muF_ct(1.), w_muR_up__muF_up(1.), w_muR_dn__muF_ct(1.), w_muR_dn__muF_dn(1.);
-  //  float w_topptREWGT_up(1.), w_topptREWGT_dn(1.), w_topptREWGT_ct(1.);
+  float w_topptREWGT_up(1.), w_topptREWGT_dn(1.), w_topptREWGT_ct(1.);
   //  float w_wjetsREWGT_ct(1.);
   std::vector<float> w_PDF;
   w_PDF.clear();
@@ -1636,18 +1639,18 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
     }
     
 
-    // // top-pt reweighting
-    // if(topptREWGT.get()){
-    //   //      std::cout<<"aw!"<<std::endl;
-    //   topptREWGT->process(event);
-    //   float w_topptREWGT_ct = event.get(h_wgtMC__topptREWGT_ct);
-    //   //      std::cout<<w_topptREWGT_ct<<std::endl;
-    //   //apply twice the shift as uncertainty
-    //   w_topptREWGT_dn = w_topptREWGT_ct*w_topptREWGT_ct;
-    //   w_topptREWGT_up = 1;
-    //   //
-    // }
-    // //  
+    // top-pt reweighting
+    if(topptREWGT.get()){
+      //      std::cout<<"aw!"<<std::endl;
+      topptREWGT->process(event);
+      float w_topptREWGT_ct = event.get(h_wgtMC__topptREWGT_ct);
+      //      std::cout<<w_topptREWGT_ct<<std::endl;
+      // //apply twice the shift as uncertainty
+      w_topptREWGT_dn = w_topptREWGT_ct*w_topptREWGT_ct;
+      w_topptREWGT_up = 1;
+      //
+    }
+    //  
 
 
     // // W+jets reweighting
@@ -2234,13 +2237,12 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
 
   //std::cout<<"w__muRmuF_min = "<<w__muRmuF_min<<" w__muRmuF_max = "<<w__muRmuF_max<<std::endl;
 
-  // if(!topptREWGT.get())
-  //   event.set(h_wgtMC__topptREWGT_ct , 1.);
+  if(!topptREWGT.get())
+    event.set(h_wgtMC__topptREWGT_ct , 1.);
 
-  // event.set(h_wgtMC__topptREWGT_up , w_topptREWGT_up);
-  // event.set(h_wgtMC__topptREWGT_dn , w_topptREWGT_dn);
-
-  // event.set(h_wgtMC__wjetsREWGT_ct , w_wjetsREWGT_ct);
+  event.set(h_wgtMC__topptREWGT_up , w_topptREWGT_up);
+  event.set(h_wgtMC__topptREWGT_dn , w_topptREWGT_dn);
+  //  event.set(h_wgtMC__wjetsREWGT_ct , w_wjetsREWGT_ct);
 
   event.set(h_wgtMC__PDF, std::move(w_PDF));
   //
