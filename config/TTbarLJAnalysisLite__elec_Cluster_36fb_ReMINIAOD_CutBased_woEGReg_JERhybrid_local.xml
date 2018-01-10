@@ -23,7 +23,7 @@
 
 <!ENTITY INdir   "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJSkimming/ElecID_CutBased_tight_MET50_elecPt50_woEGReg_jetIDtight_slimmedMETs_JLCkey_20171210_JERhybridSFs/">
 <!-- <!ENTITY OUTdir  "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/TTbarLJAnalysisLiteModule_dRPUPPI10_wCSVshapeSF_wMisTopTagSF_wNEW2DEleHLTSF_vetoGapElectrons_HLT1HLT2HLT3_NOTBLINED_WJetsOLDbdt_muRmuF_updTTAGeff_20171214_JERhybrid_jer_down/&KEYW;/&channel;/">  -->
-<!ENTITY OUTdir  "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/TTbarLJAnalysisLiteModule_NOTBLINDED_20180108_JERhybrid/&KEYW;/&channel;/"> 
+<!ENTITY OUTdir  "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/TTbarLJAnalysisLiteModule_BLINDED_20180108_JERhybrid/&KEYW;/&channel;/"> 
 
  <!ENTITY TTbar_part1 SYSTEM "../Skimming_datasets_20171212_JERhybrid/MC_TTbar_part1.xml">
  <!ENTITY TTbar_part2 SYSTEM "../Skimming_datasets_20171212_JERhybrid/MC_TTbar_part2.xml">
@@ -488,7 +488,7 @@
         <Item Name="muonHLT_SF_directory"  Value="IsoMu50_OR_IsoTkMu50_PtEtaBins/"/>
 	<Item Name="muonTRK_SF_file"  Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/common/data/general_eff_aeta_dr030e030_corr_ratio.txt"/>
 <!--	<Item Name="elecID_SF_file"  Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/common/data/egammaEffi.txt_EGM2D_MVA90_ID.root"/> -->
-	<Item Name="elecID_SF_file"  Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/common/data/egammaEffi.txt_EGM2D_CutBased_Tight_ID.root"/> <!-- CutBased tight -->
+	<Item Name="elecID_SF_file"  Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/common/data/egammaEffi.txt_EGM2D_CutBased_Tight_ID_woIsoCut.root"/> <!-- CutBased tight -->
 	<Item Name="elecGsf_SF_file"  Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/common/data/egammaEffi.txt_EGM2D_RecEff_Moriond17.root"/> 
 <!--	<Item Name="elecHLT_SF_file"  Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/data/SFs_elec_eta_pt_DATA_Run2016_Ele50_PFJet165__NULL__NULL__NULL__NULL__NULL_const.root"/> -->
 <!--        <Item Name="elecHLT_SF_file"  Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/data/SFs_elec_eta_pt_DATA_Run2016_Ele50PFJet165_OR_Ele115.root"/> -->
