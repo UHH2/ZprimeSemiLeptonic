@@ -91,6 +91,7 @@ protected:
 
   bool blind_DATA_;
   bool photonStream_;
+  bool METStream_;
   bool electronStream_;
   bool store_PDF_weights_;
 
@@ -420,11 +421,14 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
   //  blind_DATA_ = ((ctx.get("dataset_version").find("BLINDED") != std::string::npos) && (ctx.get("dataset_type") == "DATA") && !isMC);
   //  blind_DATA_ = ((ctx.get("dataset_version").find("BLINDED") != std::string::npos) && (ctx.get("dataset_type") == "DATA") && !isMC);
-  //blind_DATA_ = true;//TEST blind both DATA and MC!
-  blind_DATA_ = false;//TEST unblind both DATA and MC!
+
+  //  blind_DATA_ = (ctx.get("dataset_version").find("BLINDED") != std::string::npos);
+  blind_DATA_ = true;//TEST blind both DATA and MC!
+  //  blind_DATA_ = false;//TEST unblind both DATA and MC!
 
   photonStream_ = (ctx.get("dataset_version").find("Photon") != std::string::npos);
   electronStream_ = (ctx.get("dataset_version").find("Electron") != std::string::npos);
+  METStream_ = (ctx.get("dataset_version").find("MET") != std::string::npos);
 
   const std::string& store_PDF_weights = ctx.get("store_PDF_weights", "");
   if     (store_PDF_weights == "true")  store_PDF_weights_ = true;
@@ -1496,17 +1500,31 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   if((event.run>275657 && channel_ == muon) || channel_ == elec || !event.isRealData){
     pass_trigger2 = trigger2_sel->passes(event);
   }
-  const bool pass_trigger3 = trigger3_sel->passes(event);
-  if(photonStream_){
-    //std::cout<<"photonStream_ "<<photonStream_<<std::endl;
-    //    if(!pass_trigger && !pass_trigger2 && !pass_trigger3) return false;
-    if(!pass_trigger3) return false;
+  bool pass_trigger3 = trigger3_sel->passes(event);
+  if(pass_trigger3 && channel_ == muon && event.met->pt()<100) pass_trigger3=false;// attempt to reach plato of HLT_PFMETNoMu90_PFMHTNoMu90_IDTight_v*
+  if(event.isRealData){//DATA
+    if(channel_ == elec){//for electron we need to add photondatastream/HLT due to electronHLT inefficiency
+      if(photonStream_){
+	if(!pass_trigger3) return false;
+      }
+      else{
+	if(!pass_trigger && !pass_trigger2) return false;
+      }
+    }
+    if(channel_ == muon){//for muon we need to add METdatastream/HLT due to muonHLT inefficiency at high pt
+      if(METStream_){
+	if(pass_trigger3 && (pass_trigger || pass_trigger2)) pass_trigger3=false;//veto events passing muon trigger from MET datastream
+	if(!pass_trigger3) return false;
+      }
+      else{
+	if(!pass_trigger && !pass_trigger2) return false;
+      }
+    }
   }
-  else
-{
-  //  std::cout<<"photonStream_ "<<photonStream_<<std::endl;
-    if(!pass_trigger && !pass_trigger2) return false;
+  else{//MC
+    if(!pass_trigger && !pass_trigger2 && !pass_trigger3) return false; //for MC we check all triggers
   }
+
   //   else std::cout<<" Passed trigger!!! "<<std::endl;
   //  if(lepN == 1) 
   HFolder("trigger")->fill(event);
