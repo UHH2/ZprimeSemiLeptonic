@@ -1501,11 +1501,13 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
     pass_trigger2 = trigger2_sel->passes(event);
   }
   bool pass_trigger3 = trigger3_sel->passes(event);
-  if(pass_trigger3 && channel_ == muon && event.met->pt()<100) pass_trigger3=false;// attempt to reach plato of HLT_PFMETNoMu90_PFMHTNoMu90_IDTight_v*
+  //  bool pass_trigger3 = false;//TEST without 3rd trigger
+  //  if(pass_trigger3 && channel_ == muon && event.met->pt()<100) pass_trigger3=false;// attempt to reach plato of HLT_PFMETNoMu90_PFMHTNoMu90_IDTight_v*
   if(event.isRealData){//DATA
     if(channel_ == elec){//for electron we need to add photondatastream/HLT due to electronHLT inefficiency
       if(photonStream_){
-	if(!pass_trigger3) return false;
+	if(pass_trigger3 && (pass_trigger || pass_trigger2)) pass_trigger3=false;//veto events passing electrons trigger from photon datastream
+	//	if(!pass_trigger3) return false;
       }
       else{
 	if(!pass_trigger && !pass_trigger2) return false;
@@ -1525,7 +1527,9 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
     if(!pass_trigger && !pass_trigger2 && !pass_trigger3) return false; //for MC we check all triggers
   }
 
-  //   else std::cout<<" Passed trigger!!! "<<std::endl;
+  //std::cout<<" Passed trigger!!! "<<pass_trigger<<" "<<pass_trigger2<<" "<<pass_trigger3<<std::endl;
+  // if(pass_trigger3)
+  //   std::cout<<" Passed trigger3!!! "<<pass_trigger<<" "<<pass_trigger2<<" "<<pass_trigger3<<std::endl;
   //  if(lepN == 1) 
   HFolder("trigger")->fill(event);
   ////
@@ -1666,6 +1670,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
       // //apply twice the shift as uncertainty
       w_topptREWGT_dn = w_topptREWGT_ct*w_topptREWGT_ct;
       w_topptREWGT_up = 1;
+      event.weight *= w_topptREWGT_ct; //TEST with top-pt applied!!! 
       //
     }
     //  
@@ -1719,8 +1724,8 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   // pt-leading lepton selection
   const Particle* lep1 = leading_lepton(event);
   if(!(lep1->pt() > lep1_pt_)) return false; 
-  if(electronStream_ && (lep1->pt() > 250.0))  return false; 
-  if(photonStream_ && (lep1->pt() < 250.0)) return false; 
+  // if(electronStream_ && (lep1->pt() > 250.0))  return false; 
+  // if(photonStream_ && (lep1->pt() < 250.0)) return false; 
 
   //
   //  std::cout<<"passed lep1_pt "<<std::endl;
