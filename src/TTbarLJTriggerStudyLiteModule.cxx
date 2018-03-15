@@ -96,7 +96,7 @@ class TTbarLJTriggerStudyLiteModule : public ModuleBASE {
   std::unique_ptr<uhh2::AnalysisModule> pileupSF;
   std::unique_ptr<uhh2::AnalysisModule> muonID_SF;
   std::unique_ptr<uhh2::AnalysisModule> muonHLT_SF;
-  //  std::unique_ptr<uhh2::AnalysisModule> muonTRK_SF;
+  std::unique_ptr<uhh2::AnalysisModule> muonTRK_SF;
   std::unique_ptr<uhh2::AnalysisModule> elecID_SF;
   std::unique_ptr<uhh2::AnalysisModule> elecGsf_SF;
 
@@ -164,9 +164,10 @@ TTbarLJTriggerStudyLiteModule::TTbarLJTriggerStudyLiteModule(uhh2::Context& ctx)
   //  bool topleppt_cut(false);
   use_ttagging_ = false;
   muon1_pt = 55.;
-  ele1_pt = 50.; 
-  jet1_pt  = 185.;
-  //  ele1_pt = 120.; 
+  //  ele1_pt = 50.; 
+  //jet1_pt  = 185.;
+    ele1_pt = 100.; 
+    jet1_pt  = 100.;
   //  jet1_pt  = 160.;
   //  jet1_pt  = 200.;
 
@@ -327,7 +328,7 @@ TTbarLJTriggerStudyLiteModule::TTbarLJTriggerStudyLiteModule(uhh2::Context& ctx)
   const std::string& muonHLT_directory   = ctx.get("muonHLT_SF_directory");
 
   // // muon-TRK
-  // const std::string& muonTRK_SFac   = ctx.get("muonTRK_SF_file");
+  const std::string& muonTRK_SFac   = ctx.get("muonTRK_SF_file");
 
 
   // elec-ID
@@ -345,7 +346,7 @@ TTbarLJTriggerStudyLiteModule::TTbarLJTriggerStudyLiteModule(uhh2::Context& ctx)
   //muon scale factors
   muonID_SF.reset(new MCMuonScaleFactor(ctx, muonID_SFac, muonID_directory, 1.0, "ID"));
   muonHLT_SF.reset(new MCMuonScaleFactor(ctx, muonHLT_SFac, muonHLT_directory, 0.5, "HLT"));
-  //  muonTRK_SF.reset(new MCMuonTrkScaleFactor(ctx, muonTRK_SFac, 0.0, "TRK"));
+  muonTRK_SF.reset(new MCMuonTrkScaleFactor(ctx, muonTRK_SFac, 0.0, "TRK"));
 
   //electron scale factors
   elecID_SF.reset(new MCElecScaleFactor(ctx, elecID_SFac, 0.0, "ID"));
@@ -416,7 +417,7 @@ bool TTbarLJTriggerStudyLiteModule::process(uhh2::Event& event){
   // muon SFs
   muonID_SF->process(event);
   muonHLT_SF->process(event);
-  //  muonTRK_SF->process(event);
+  muonTRK_SF->process(event);
   // elec SFs
   elecID_SF->process(event);
   elecGsf_SF->process(event);
@@ -582,8 +583,8 @@ if(event.isRealData){
   //  if(!pass_trigger && !pass_trigger2 && !pass_trigger3) return false;//TEST
   //  std::cout<<"pass_tag_trigger = "<<pass_tag_trigger<<" pass_trigger = "<<pass_trigger<<std::endl;
   //  if(!pass_trigger) return false;//TEST with one trigger
-  //if(!pass_trigger && !pass_trigger2) return false;
-  if(!pass_trigger && !pass_trigger2 && !pass_trigger3) return false;
+  if(!pass_trigger && !pass_trigger2) return false;
+  //  if(!pass_trigger && !pass_trigger2 && !pass_trigger3) return false;
   HFolder("tagNprobe")->fill(event);
   if(event.isRealData) lumihists_probe->fill(event);
 

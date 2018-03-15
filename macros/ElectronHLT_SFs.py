@@ -4,21 +4,21 @@
 # compare results in MC and DATA, derive SFs
 # usage:
 # cd /nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJTrigger/TTbarLJTriggerStudyLite_elePt50_jet1pt185_jet2pt50_MET120_20170922
-# python /afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/macros/ElectronHLT_SFs.py
+# python /nfs/dust/cms/user/karavdia/CMSSW_8_0_27/src/UHH2/ZprimeSemiLeptonic/macros/ElectronHLT_SFs.py 
 from ROOT import *
 import sys
 import numpy
 #outputpath = '/afs/desy.de/user/k/karavdia/www/Zprime_plots/ElecHLTeff_jetCut_MET120_vetoGapEle_HLT1ORHLT2ORHLT3'
 #outputpath = '/afs/desy.de/user/k/karavdia/www/Zprime_plots/ElecHLTeff_jetCut_MET120_vetoGapEle_HLT1'
-#outputpath = '/afs/desy.de/user/k/karavdia/www/Zprime_plots/ElecHLTeff_jetCut_MET120_vetoGapEle_HLT1HLT2'
-outputpath = '/afs/desy.de/user/k/karavdia/www/Zprime_plots/ElecHLTeff_jetCut_MET120_vetoGapEle_HLT1HLT2HLT3'
+outputpath = '/afs/desy.de/user/k/karavdia/www/Zprime_plots/ElecHLTeff_jetCut_MET120_vetoGapEle_HLT1HLT2'
+#outputpath = '/afs/desy.de/user/k/karavdia/www/Zprime_plots/ElecHLTeff_jetCut_MET120_vetoGapEle_HLT1HLT2HLT3'
 #Set names of channels, hists, etc
 samplelist = {'DATA_Run2016':'uhh2.AnalysisModuleRunner.DATA.DATA.root','TTbar':'uhh2.AnalysisModuleRunner.MC.TTbar.root'}
 #samplelist = {'DATA_Run2016':'uhh2.AnalysisModuleRunner.DATA.DATA_SingleMuon_Run2016.root','DATA_Run2016BCD':'uhh2.AnalysisModuleRunner.DATA.DATA_SingleMuon_Run2016BCD.root','DATA_Run2016EF':'uhh2.AnalysisModuleRunner.DATA.DATA_SingleMuon_Run2016EF.root','DATA_Run2016G':'uhh2.AnalysisModuleRunner.DATA.DATA_SingleMuon_Run2016G.root','DATA_Run2016H':'uhh2.AnalysisModuleRunner.DATA.DATA_SingleMuon_Run2016H.root','TTbar':'uhh2.AnalysisModuleRunner.MC.TTbar.root'}
 #path = {'Ele50_PFJet165 || Ele115/105': 'Ele50_PFJet165__Ele115_CaloIdVT_GsfTrkIdT__Ele105_CaloIdVT_GsfTrkIdT__NULL__NULL__NULL/'}
 #path = {'Ele50_PFJet165': 'Ele50_PFJet165__NULL__NULL__NULL__NULL__NULL'}
-#path = {'Ele50PFJet165_OR_Ele115': 'Ele50_PFJet165__Ele115_CaloIdVT_GsfTrkIdT__NULL__NULL__NULL__NULL/'} 
-path = {'Ele50PFJet165_OR_Ele115_OR_Photon175': 'Ele50_PFJet165__Ele115_CaloIdVT_GsfTrkIdT__Photon175__NULL__NULL__NULL/'} 
+path = {'Ele50PFJet165_OR_Ele115': 'Ele50_PFJet165__Ele115_CaloIdVT_GsfTrkIdT__NULL__NULL__NULL__NULL/'} 
+#path = {'Ele50PFJet165_OR_Ele115_OR_Photon175': 'Ele50_PFJet165__Ele115_CaloIdVT_GsfTrkIdT__Photon175__NULL__NULL__NULL/'} 
 eff = {}
 eff_err = {}
 

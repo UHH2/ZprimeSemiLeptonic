@@ -81,7 +81,7 @@ void TTbarLJHists::init(){
   muo1__minDR_jet = book<TH1F>("muo1__minDR_jet", "#Delta R_{min}(#mu,jet)"     , 30, 0, 3.2);
   muo1__pTrel_jet = book<TH1F>("muo1__pTrel_jet", "p_{T,rel}(#mu,jet) [GeV]"    , 25, 0, 500);
   muo1__DPhi_met = book<TH1F>("muo1__DPhi_met","#Delta #phi(#mu,MET)", 40, 0, 4);
-  muo1__triangle = book<TH2F>("muo1__triangle", "#Delta #phi(#mu,MET) vs MET [GeV]", 45, 0, 900, 40, 0, 4);
+  //  muo1__triangle = book<TH2F>("muo1__triangle", "#Delta #phi(#mu,MET) vs MET [GeV]", 45, 0, 900, 40, 0, 4);
 
   muo2__charge = book<TH1F>("muo2__charge","muon_{2} charge"         , 5, -2, 3);
   muo2__pt = book<TH1F>("muo2__pt","muon_{2} p_{T}[GeV]"             , 45, 0, 900);
@@ -111,7 +111,7 @@ void TTbarLJHists::init(){
   ele1__DPhi_met = book<TH1F>("ele1__DPhi_met","#Delta #phi(e,MET)", 40, 0, 4);
   ele1__eta_SC = book<TH1F>("ele1__eta_SC","electron SC #eta" ,30,-3,3);
   ele1__Deta_trk_SC = book<TH1F>("ele1__Deta_trk_SC","electron #eta_{trk} -#eta_{SC}",150,-2.5,2.5);
-  ele1__triangle = book<TH2F>("ele1__triangle", "#Delta #phi(e,MET) vs MET [GeV]", 45, 0, 900, 40, 0, 4);
+  //  ele1__triangle = book<TH2F>("ele1__triangle", "#Delta #phi(e,MET) vs MET [GeV]", 45, 0, 900, 40, 0, 4);
 
   ele2__class = book<TH1F>("ele2__class", "electron_{2} class" , 6, -0.5, 5.5);
   ele2__charge = book<TH1F>("ele2__charge", "electron_{2} charge"         , 5, -2, 3);
@@ -140,11 +140,11 @@ void TTbarLJHists::init(){
   jet1__CSV = book<TH1F>("jet1__CSV","CSV", 60, 0, 1.2);
   jet1__NDaughters = book<TH1F>("jet1__NDaughters","NDaughters", 100, 0, 100);
   jet1__MVAbtag = book<TH1F>("jet1__MVAbtag","MVA b-tag", 60, -1.2, 1.2);
-  jet1__EMfrac = book<TH1F>("jet1__EMfrac", "jet EM fraction" , 22, 0, 1.1);
-  jet1__HADfrac = book<TH1F>("jet1__HADfrac", "jet HAD fraction" , 22, 0, 1.1);
-  jet1__PHfrac = book<TH1F>("jet1__PHfrac", "jet photon fraction" , 22, 0, 1.1);
-  jet1__DPhi_met = book<TH1F>("jet1__DPhi_met","#Delta #phi(jet_{1},MET)", 40, 0, 4);
-  jet1__triangle = book<TH2F>("jet1__triangle", "#Delta #phi(jet_{1},MET) vs MET [GeV]", 45, 0, 900, 40, 0, 4);
+  // jet1__EMfrac = book<TH1F>("jet1__EMfrac", "jet EM fraction" , 22, 0, 1.1);
+  // jet1__HADfrac = book<TH1F>("jet1__HADfrac", "jet HAD fraction" , 22, 0, 1.1);
+  // jet1__PHfrac = book<TH1F>("jet1__PHfrac", "jet photon fraction" , 22, 0, 1.1);
+  // jet1__DPhi_met = book<TH1F>("jet1__DPhi_met","#Delta #phi(jet_{1},MET)", 40, 0, 4);
+  //  jet1__triangle = book<TH2F>("jet1__triangle", "#Delta #phi(jet_{1},MET) vs MET [GeV]", 45, 0, 900, 40, 0, 4);
 
   jet2__pt = book<TH1F>("jet2__pt", "jet_{2} p_{T} [GeV]" , 45, 0, 900);
   //  jet2__pt = book<TH1F>("jet2__pt", "jet p_{T} [GeV]", nptAxis-1, ptAxis);
@@ -154,11 +154,11 @@ void TTbarLJHists::init(){
   jet2__NDaughters = book<TH1F>("jet2__NDaughters","jet_{2} NDaughters", 100, 0, 100);
   jet2__CSV = book<TH1F>("jet2__CSV","jet_{2} CSV", 60, 0, 1.2);
   jet2__MVAbtag = book<TH1F>("jet2__MVAbtag","jet_{2} MVA b-tag", 60, -1.2, 1.2);
-  jet2__EMfrac = book<TH1F>("jet2__EMfrac", "jet_{2} EM fraction" , 22, 0, 1.1);
-  jet2__HADfrac = book<TH1F>("jet2__HADfrac", "jet_{2} HAD fraction" , 22, 0, 1.1);
-  jet2__PHfrac = book<TH1F>("jet2__PHfrac", "jet_{2} photon fraction" , 22, 0, 1.1);
-  jet2__DPhi_met = book<TH1F>("jet2__DPhi_met","#Delta #phi(jet_{2},MET)", 40, 0, 4);
-  jet2__triangle = book<TH2F>("jet2__triangle", "#Delta #phi(jet_{2},MET) vs MET [GeV]", 45, 0, 900, 40, 0, 4);
+  // jet2__EMfrac = book<TH1F>("jet2__EMfrac", "jet_{2} EM fraction" , 22, 0, 1.1);
+  // jet2__HADfrac = book<TH1F>("jet2__HADfrac", "jet_{2} HAD fraction" , 22, 0, 1.1);
+  // jet2__PHfrac = book<TH1F>("jet2__PHfrac", "jet_{2} photon fraction" , 22, 0, 1.1);
+  // jet2__DPhi_met = book<TH1F>("jet2__DPhi_met","#Delta #phi(jet_{2},MET)", 40, 0, 4);
+  // jet2__triangle = book<TH2F>("jet2__triangle", "#Delta #phi(jet_{2},MET) vs MET [GeV]", 45, 0, 900, 40, 0, 4);
 
   jet3__pt = book<TH1F>("jet3__pt", "jet_{3} p_{T}[GeV]" , 50, 200, 1700);
   //  jet3__pt = book<TH1F>("jet3__pt", "jet_{3} p_{T}[GeV]", nptAxis-1, ptAxis);
@@ -168,9 +168,9 @@ void TTbarLJHists::init(){
   jet3__NDaughters = book<TH1F>("jet3__NDaughters","jet_{3} NDaughters", 100, 0, 100);
   jet3__CSV = book<TH1F>("jet3__CSV","jet_{3} CSV", 60, 0, 1.2);
   jet3__MVAbtag = book<TH1F>("jet3__MVAbtag","jet_{3} MVA b-tag", 60, -1.2, 1.2);
-  jet3__EMfrac = book<TH1F>("jet3__EMfrac", "jet_{3} EM fraction" , 22, 0, 1.1);
-  jet3__HADfrac = book<TH1F>("jet3__HADfrac", "jet_{3} HAD fraction" , 22, 0, 1.1);
-  jet3__PHfrac = book<TH1F>("jet3__PHfrac", "jet_{3} photon fraction" , 22, 0, 1.1);
+  // jet3__EMfrac = book<TH1F>("jet3__EMfrac", "jet_{3} EM fraction" , 22, 0, 1.1);
+  // jet3__HADfrac = book<TH1F>("jet3__HADfrac", "jet_{3} HAD fraction" , 22, 0, 1.1);
+  // jet3__PHfrac = book<TH1F>("jet3__PHfrac", "jet_{3} photon fraction" , 22, 0, 1.1);
 
   //  under_jets__pt = book<TH1F>("under_jets__pt", "#sum_{i}{jet_{i} p_{T}} - jet1 [GeV]", nptAxis-1, ptAxis);
   under_jets__pt = book<TH1F>("under_jets__pt", "#sum_{i}{jet_{i} p_{T}} - jet1 [GeV]", 45, 0, 900);
@@ -178,7 +178,7 @@ void TTbarLJHists::init(){
   // TOPJET
   topjetN = book<TH1F>("topjetN","N topjets", 10, 0, 10);
 
-  topjet1__pt = book<TH1F>("topjet1__pt","topjet p_{T} [GeV]" , 80, 100, 1700);
+  topjet1__pt = book<TH1F>("topjet1__pt","topjet p_{T} [GeV]" , 40, 100, 1700);
   //  topjet1__pt = book<TH1F>("topjet1__pt","topjet p_{T} [GeV]", nptAxis-1, ptAxis);
 
   topjet1__eta = book<TH1F>("topjet1__eta","topjet #eta", 30, -3, 3);
@@ -188,7 +188,7 @@ void TTbarLJHists::init(){
   topjet1__tau32 = book<TH1F>("topjet1__tau32","topjet #tau_{32}", 24, 0, 1.2);
   topjet1__NumSubjets = book<TH1F>("topjet1__subjN", "topjet N sub-jets"       , 6, 0, 6);
   topjet1__dR = book<TH1F>("topjet1__dR","#DeltaR(topjet_{1}, toppuppijet)" , 50, 0, 5);
-  topjet2__pt = book<TH1F>("topjet2__pt","topjet_{2} p_{T} [GeV]" , 80, 100, 1700);
+  topjet2__pt = book<TH1F>("topjet2__pt","topjet_{2} p_{T} [GeV]" , 40, 100, 1700);
   //  topjet2__pt = book<TH1F>("topjet2__pt","topjet p_{T} [GeV]", nptAxis-1, ptAxis);
   topjet2__eta = book<TH1F>("topjet2__eta","topjet_{2} #eta", 30, -3, 3);
   topjet2__phi = book<TH1F>("topjet2__phi","topjet_{2} #phi", 30, -3.15, 3.15);
@@ -201,7 +201,7 @@ void TTbarLJHists::init(){
  // TOPPUPPIJET
   toppuppijetN = book<TH1F>("toppuppijetN","N toppuppijets", 10, 0, 10);
 
-  toppuppijet1__pt = book<TH1F>("toppuppijet1__pt","toppuppijet p_{T} [GeV]" , 80, 100, 1700);
+  toppuppijet1__pt = book<TH1F>("toppuppijet1__pt","toppuppijet p_{T} [GeV]" , 40, 100, 1700);
   //  toppuppijet1__pt = book<TH1F>("toppuppijet1__pt","toppuppijet p_{T} [GeV]", nptAxis-1, ptAxis);
 
   toppuppijet1__eta = book<TH1F>("toppuppijet1__eta","toppuppijet #eta", 30, -3, 3);
@@ -210,7 +210,7 @@ void TTbarLJHists::init(){
   toppuppijet1__Msdp = book<TH1F>("toppuppijet1__Msdp","toppuppijet softdrop mass [GeV]", 50, 0, 500);
   toppuppijet1__tau32 = book<TH1F>("toppuppijet1__tau32","toppuppijet #tau_{32}", 24, 0, 1.2);
   toppuppijet1__NumSubjets = book<TH1F>("toppuppijet1__subjN", "toppuppijet N sub-jets"       , 6, 0, 6);
-  toppuppijet2__pt = book<TH1F>("toppuppijet2__pt","toppuppijet_{2} p_{T} [GeV]" , 80, 100, 1700);
+  toppuppijet2__pt = book<TH1F>("toppuppijet2__pt","toppuppijet_{2} p_{T} [GeV]" , 40, 100, 1700);
   //  toppuppijet2__pt = book<TH1F>("toppuppijet2__pt","toppuppijet p_{T} [GeV]", nptAxis-1, ptAxis);
   toppuppijet2__eta = book<TH1F>("toppuppijet2__eta","toppuppijet_{2} #eta", 30, -3, 3);
   toppuppijet2__phi = book<TH1F>("toppuppijet2__phi","toppuppijet_{2} #phi", 30, -3.15, 3.15);
@@ -221,7 +221,7 @@ void TTbarLJHists::init(){
 
  // TOPPUPPIJET matched
   toppuppijetN_matched = book<TH1F>("toppuppijetN_matched","N toppuppijets matched", 10, 0, 10);
-  toppuppijet__pt_matched = book<TH1F>("toppuppijet__pt_matched","matched toppuppijet p_{T} [GeV]" , 80, 100, 1700);
+  toppuppijet__pt_matched = book<TH1F>("toppuppijet__pt_matched","matched toppuppijet p_{T} [GeV]" , 40, 100, 1700);
   toppuppijet__eta_matched = book<TH1F>("toppuppijet__eta_matched","matched toppuppijet #eta", 30, -3, 3);
   toppuppijet__phi_matched = book<TH1F>("toppuppijet__phi_matched","matched toppuppijet #phi", 30, -3.15, 3.15);
   toppuppijet__CSV_matched = book<TH1F>("toppuppijet__CSV_matched", "matched toppuppijet CSV", 30, 0, 1.2);
@@ -231,7 +231,7 @@ void TTbarLJHists::init(){
   toppuppijet__jetID_matched = book<TH1F>("toppuppijet__jetID_matched", "matched toppuppijet  jetID"       , 6, 1, 7);
 
 
-  toppuppijet__pt_matched_ttag = book<TH1F>("toppuppijet__pt_matched_ttag","matched to ttag toppuppijet p_{T} [GeV]" , 80, 100, 1700);
+  toppuppijet__pt_matched_ttag = book<TH1F>("toppuppijet__pt_matched_ttag","matched to ttag toppuppijet p_{T} [GeV]" , 40, 100, 1700);
   toppuppijet__eta_matched_ttag = book<TH1F>("toppuppijet__eta_matched_ttag","matched to ttag toppuppijet #eta", 30, -3, 3);
   toppuppijet__phi_matched_ttag = book<TH1F>("toppuppijet__phi_matched_ttag","matched to ttag toppuppijet #phi", 30, -3.15, 3.15);
   toppuppijet__CSV_matched_ttag = book<TH1F>("toppuppijet__CSV_matched_ttag", "matched to ttag toppuppijet CSV", 30, 0, 1.2);
@@ -246,7 +246,7 @@ void TTbarLJHists::init(){
 
   // TOPTAG
   toptagN = book<TH1F>("toptagN","N top-tagged jets"              , 10, 0, 10);
-  toptag1__pt = book<TH1F>("toptag1__pt","top-tag jet p_{T} [GeV]"          , 80, 100, 1700);
+  toptag1__pt = book<TH1F>("toptag1__pt","top-tag jet p_{T} [GeV]"          , 40, 100, 1700);
   toptag1__eta = book<TH1F>("toptag1__eta", "top-tag jet #eta"         , 30, -3, 3);
   toptag1__phi = book<TH1F>("toptag1__phi","top-tag jet #phi"         , 30, -3.15, 3.15);
   toptag1__M  = book<TH1F>("toptag1__M", "top-tag jet mass [GeV]"           , 50, 0, 500);
@@ -257,16 +257,16 @@ void TTbarLJHists::init(){
   toptag1__CSV  = book<TH1F>("toptag1__CSV","top-tag jet CSV"        , 60, 0, 1.2);
   toptag1__subjN  = book<TH1F>("toptag1__subjN", "top-tag jet N subjettiness"       , 6, 0, 6);
 
-  toptag2__pt = book<TH1F>("toptag2__pt","top-tag jet_{2} p_{T} [GeV]"          , 80, 100, 1700);
-  toptag2__eta = book<TH1F>("toptag2__eta", "top-tag jet_{2} #eta"         , 30, -3, 3);
-  toptag2__phi = book<TH1F>("toptag2__phi","top-tag jet_{2} #phi"         , 30, -3.15, 3.15);
-  toptag2__M  = book<TH1F>("toptag2__M", "top-tag jet_{2} mass [GeV]"           , 50, 0, 500);
-  toptag2__Mgro = book<TH1F>("toptag2__Mgro", "top-tag jet_{2} groomed mass [GeV]"        , 50, 0, 500);
-  toptag2__Mpru  = book<TH1F>("toptag2__Mpru", "top-tag jet_{2} pruned mass [GeV]"        , 50, 0, 500);
-  toptag2__Msdp  = book<TH1F>("toptag2__Msdp", "top-tag jet_{2} softdrop mass [GeV]"        , 50, 0, 500);
-  toptag2__tau32  = book<TH1F>("toptag2__tau32", "top-tag jet_{2} #tau_{32}"       , 24, 0, 1.2);
-  toptag2__CSV  = book<TH1F>("toptag2__CSV","top-tag jet_{2} CSV"        , 60, 0, 1.2);
-  toptag2__subjN  = book<TH1F>("toptag2__subjN", "top-tag jet_{2} N subjettiness"       , 6, 0, 6);
+  // toptag2__pt = book<TH1F>("toptag2__pt","top-tag jet_{2} p_{T} [GeV]"          , 40, 100, 1700);
+  // toptag2__eta = book<TH1F>("toptag2__eta", "top-tag jet_{2} #eta"         , 30, -3, 3);
+  // toptag2__phi = book<TH1F>("toptag2__phi","top-tag jet_{2} #phi"         , 30, -3.15, 3.15);
+  // toptag2__M  = book<TH1F>("toptag2__M", "top-tag jet_{2} mass [GeV]"           , 50, 0, 500);
+  // toptag2__Mgro = book<TH1F>("toptag2__Mgro", "top-tag jet_{2} groomed mass [GeV]"        , 50, 0, 500);
+  // toptag2__Mpru  = book<TH1F>("toptag2__Mpru", "top-tag jet_{2} pruned mass [GeV]"        , 50, 0, 500);
+  // toptag2__Msdp  = book<TH1F>("toptag2__Msdp", "top-tag jet_{2} softdrop mass [GeV]"        , 50, 0, 500);
+  // toptag2__tau32  = book<TH1F>("toptag2__tau32", "top-tag jet_{2} #tau_{32}"       , 24, 0, 1.2);
+  // toptag2__CSV  = book<TH1F>("toptag2__CSV","top-tag jet_{2} CSV"        , 60, 0, 1.2);
+  // toptag2__subjN  = book<TH1F>("toptag2__subjN", "top-tag jet_{2} N subjettiness"       , 6, 0, 6);
 
   // MET
   met__pt = book<TH1F>("met__pt", "MET [GeV]" , 45, 0, 900);
@@ -332,7 +332,7 @@ void TTbarLJHists::fill(const uhh2::Event& event){
       muo1__minDR_jet->Fill(minDR_jet, weight);
       muo1__pTrel_jet->Fill(pTrel_jet, weight);
       muo1__DPhi_met->Fill(uhh2::deltaPhi(*event.met,p), weight);
-      muo1__triangle->Fill(uhh2::deltaPhi(*event.met,p), event.met->pt(), weight);
+      //      muo1__triangle->Fill(uhh2::deltaPhi(*event.met,p), event.met->pt(), weight);
     }
     if(i==1){
       muo2__charge->Fill(p.charge(), weight);
@@ -372,7 +372,7 @@ void TTbarLJHists::fill(const uhh2::Event& event){
       ele1__DPhi_met->Fill(uhh2::deltaPhi(*event.met,p), weight);
       ele1__eta_SC->Fill(p.supercluster_eta(), weight);
       ele1__Deta_trk_SC->Fill(p.eta()-p.supercluster_eta(), weight);
-      ele1__triangle->Fill(uhh2::deltaPhi(*event.met,p), event.met->pt(), weight);
+      //      ele1__triangle->Fill(uhh2::deltaPhi(*event.met,p), event.met->pt(), weight);
     }
     if(i==1){
       ele2__charge->Fill(p.charge()          , weight);
@@ -405,11 +405,11 @@ void TTbarLJHists::fill(const uhh2::Event& event){
       jet1__CSV->Fill(p.btag_combinedSecondaryVertex(), weight);
       jet1__MVAbtag->Fill(p.btag_combinedSecondaryVertexMVA(), weight);
       jet1__NDaughters->Fill(p.numberOfDaughters(), weight);
-      jet1__EMfrac->Fill(p.neutralEmEnergyFraction()+p.chargedEmEnergyFraction(), weight);
-      jet1__HADfrac->Fill(p.neutralHadronEnergyFraction()+p.chargedHadronEnergyFraction(), weight);
-      jet1__PHfrac->Fill(p.photonEnergyFraction(), weight);
-      jet1__DPhi_met->Fill(uhh2::deltaPhi(*event.met,p), weight);
-      jet1__triangle->Fill(uhh2::deltaPhi(*event.met,p), event.met->pt(), weight);
+      // jet1__EMfrac->Fill(p.neutralEmEnergyFraction()+p.chargedEmEnergyFraction(), weight);
+      // jet1__HADfrac->Fill(p.neutralHadronEnergyFraction()+p.chargedHadronEnergyFraction(), weight);
+      // jet1__PHfrac->Fill(p.photonEnergyFraction(), weight);
+      // jet1__DPhi_met->Fill(uhh2::deltaPhi(*event.met,p), weight);
+      // jet1__triangle->Fill(uhh2::deltaPhi(*event.met,p), event.met->pt(), weight);
     }
     if(i==1){
       jet2__pt ->Fill(p.pt()                          , weight);
@@ -419,11 +419,11 @@ void TTbarLJHists::fill(const uhh2::Event& event){
       jet2__CSV->Fill(p.btag_combinedSecondaryVertex(), weight);
       jet2__MVAbtag->Fill(p.btag_combinedSecondaryVertexMVA(), weight);
       jet2__NDaughters->Fill(p.numberOfDaughters(), weight);
-      jet2__EMfrac->Fill(p.neutralEmEnergyFraction()+p.chargedEmEnergyFraction(), weight);
-      jet2__HADfrac->Fill(p.neutralHadronEnergyFraction()+p.chargedHadronEnergyFraction(), weight);
-      jet2__PHfrac->Fill(p.photonEnergyFraction(), weight);
-      jet2__DPhi_met->Fill(uhh2::deltaPhi(*event.met,p), weight);
-      jet2__triangle->Fill(uhh2::deltaPhi(*event.met,p), event.met->pt(), weight);
+      // jet2__EMfrac->Fill(p.neutralEmEnergyFraction()+p.chargedEmEnergyFraction(), weight);
+      // jet2__HADfrac->Fill(p.neutralHadronEnergyFraction()+p.chargedHadronEnergyFraction(), weight);
+      // jet2__PHfrac->Fill(p.photonEnergyFraction(), weight);
+      // jet2__DPhi_met->Fill(uhh2::deltaPhi(*event.met,p), weight);
+      // jet2__triangle->Fill(uhh2::deltaPhi(*event.met,p), event.met->pt(), weight);
     }
     if(i==2){
       jet3__pt ->Fill(p.pt()                          , weight);
@@ -433,9 +433,9 @@ void TTbarLJHists::fill(const uhh2::Event& event){
       jet3__CSV->Fill(p.btag_combinedSecondaryVertex(), weight);
       jet3__MVAbtag->Fill(p.btag_combinedSecondaryVertexMVA(), weight);
       jet3__NDaughters->Fill(p.numberOfDaughters(), weight);
-      jet3__EMfrac->Fill(p.neutralEmEnergyFraction()+p.chargedEmEnergyFraction(), weight);
-      jet3__HADfrac->Fill(p.neutralHadronEnergyFraction()+p.chargedHadronEnergyFraction(), weight);
-      jet3__PHfrac->Fill(p.photonEnergyFraction(), weight);
+      // jet3__EMfrac->Fill(p.neutralEmEnergyFraction()+p.chargedEmEnergyFraction(), weight);
+      // jet3__HADfrac->Fill(p.neutralHadronEnergyFraction()+p.chargedHadronEnergyFraction(), weight);
+      // jet3__PHfrac->Fill(p.photonEnergyFraction(), weight);
     }
   }
 
@@ -660,32 +660,32 @@ void TTbarLJHists::fill(const uhh2::Event& event){
       }
       toptag1__Mgro      ->Fill(sum_subj.M(), weight);
     }
-    if(i==1){
-      toptag2__pt ->Fill(tj.pt()                          , weight);
-      toptag2__eta->Fill(tj.eta()                         , weight);
-      toptag2__phi->Fill(tj.phi()                         , weight);
-      toptag2__M  ->Fill(tj.v4().M()                      , weight);
-      toptag2__CSV->Fill(tj.btag_combinedSecondaryVertex(), weight);
+    // if(i==1){
+    //   toptag2__pt ->Fill(tj.pt()                          , weight);
+    //   toptag2__eta->Fill(tj.eta()                         , weight);
+    //   toptag2__phi->Fill(tj.phi()                         , weight);
+    //   toptag2__M  ->Fill(tj.v4().M()                      , weight);
+    //   toptag2__CSV->Fill(tj.btag_combinedSecondaryVertex(), weight);
 
-      toptag2__Mpru->Fill(tj.prunedmass()   , weight);
-      toptag2__Msdp->Fill(tj.softdropmass() , weight);
-      if(tj.tau2()) toptag2__tau32->Fill(tj.tau3()/tj.tau2(), weight);
-      std::vector<Jet> subjets = tj.subjets();
-      const int subjN(subjets.size());
-      toptag2__subjN->Fill(subjN, weight);
+    //   toptag2__Mpru->Fill(tj.prunedmass()   , weight);
+    //   toptag2__Msdp->Fill(tj.softdropmass() , weight);
+    //   if(tj.tau2()) toptag2__tau32->Fill(tj.tau3()/tj.tau2(), weight);
+    //   std::vector<Jet> subjets = tj.subjets();
+    //   const int subjN(subjets.size());
+    //   toptag2__subjN->Fill(subjN, weight);
 
-      float subj_minDR(-1.);
-      LorentzVector sum_subj(0, 0, 0, 0);
-      for  (int sj1=0    ; sj1<subjN; ++sj1){
-        for(int sj2=sj1+1; sj2<subjN; ++sj2){
+    //   float subj_minDR(-1.);
+    //   LorentzVector sum_subj(0, 0, 0, 0);
+    //   for  (int sj1=0    ; sj1<subjN; ++sj1){
+    //     for(int sj2=sj1+1; sj2<subjN; ++sj2){
 
-          const float dR = uhh2::deltaR(subjets.at(sj1), subjets.at(sj2));
-          if(dR < subj_minDR || (sj1+sj2==1)) subj_minDR = dR;
-        }
-        sum_subj += subjets.at(sj1).v4();
-      }
-      toptag2__Mgro      ->Fill(sum_subj.M(), weight);
-    }
+    //       const float dR = uhh2::deltaR(subjets.at(sj1), subjets.at(sj2));
+    //       if(dR < subj_minDR || (sj1+sj2==1)) subj_minDR = dR;
+    //     }
+    //     sum_subj += subjets.at(sj1).v4();
+    //   }
+    //   toptag2__Mgro      ->Fill(sum_subj.M(), weight);
+    // }
   }
 
   //Top-tag jets matched to toppuppi jets

@@ -204,7 +204,8 @@ protected:
   // Event::Handle<float> h_wgtMC__wjetsREWGT_ct;
 
   Event::Handle<std::vector<float> > h_wgtMC__PDF;
-  
+
+
   //
   //   __   __   __      __   __  ___               __          __        ___  __
   //  /  \ /  ` |  \    |__) |  \  |     \  /  /\  |__) |  /\  |__) |    |__  /__`
@@ -423,8 +424,8 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   //  blind_DATA_ = ((ctx.get("dataset_version").find("BLINDED") != std::string::npos) && (ctx.get("dataset_type") == "DATA") && !isMC);
 
   //  blind_DATA_ = (ctx.get("dataset_version").find("BLINDED") != std::string::npos);
-  blind_DATA_ = true;//TEST blind both DATA and MC!
-  //  blind_DATA_ = false;//TEST unblind both DATA and MC!
+  //  blind_DATA_ = true;//TEST blind both DATA and MC!
+  blind_DATA_ = false;//TEST unblind both DATA and MC!
 
   photonStream_ = (ctx.get("dataset_version").find("Photon") != std::string::npos);
   electronStream_ = (ctx.get("dataset_version").find("Electron") != std::string::npos);
@@ -837,13 +838,13 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
   std::vector<std::string> htags_1({
 
-      "jet2",
-	"jet1",
+      // "jet2",
+      // 	"jet1",
 	"trigger",
 	"met",
-    "htlep",
+    // "htlep",
     //"triangc",
-    "topleppt",
+	  //    "topleppt",
 	});
 
   for(const auto& tag : htags_1){
@@ -853,63 +854,62 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   
 
   std::vector<std::string> htags_2({
-        "antichi2",
-	"antichi2__t0",
-	"antichi2__t1",
-	"antichi2__b0",
-	"antichi2__b1",
-	"antichi2__t0__b0",
-	"antichi2__t0__b1",
-	"antichi2__t1__b0",
-	"antichi2__t1__b1",
-	"antichi2__WJetsBDT",	
-	"antichi2__t1__WJetsBDT",
-	"antichi2__t0__WJetsBDT",
-	"antichi2__antiWJetsBDT",
-	"antichi2__t1__antiWJetsBDT",
-	"antichi2__t0__antiWJetsBDT",
-	"antichi2__WJetsBDT2",
-	"antichi2__t1__WJetsBDT2",
-	"antichi2__t0__WJetsBDT2",
-	"antichi2__WJetsBDT3",
-	"antichi2__t1__WJetsBDT3",
-	"antichi2__t0__WJetsBDT3",
-	// "antichi2__WJetsBDT_step1",	
-	// "antichi2__t1__WJetsBDT_step1",
-	// "antichi2__t0__WJetsBDT_step1",
-	// "antichi2__WJetsBDT_step2",	
-	// "antichi2__t1__WJetsBDT_step2",
-	// "antichi2__t0__WJetsBDT_step2",
-	// "antichi2__WJetsBDT_step3",	
-	// "antichi2__t1__WJetsBDT_step3",
-	// "antichi2__t0__WJetsBDT_step3",
-	// "antichi2__WJetsBDT_step4",	
-	// "antichi2__t1__WJetsBDT_step4",
-	// "antichi2__t0__WJetsBDT_step4",
-	// "antichi2__WJetsBDT_step5",	
-	// "antichi2__t1__WJetsBDT_step5",
-	// "antichi2__t0__WJetsBDT_step5",
-	// "antichi2__WJetsBDT_step6",	
-	// "antichi2__t1__WJetsBDT_step6",
-	// "antichi2__t0__WJetsBDT_step6",
-	// "antichi2__WJetsBDT_step7",	
-	// "antichi2__t1__WJetsBDT_step7",
-	// "antichi2__t0__WJetsBDT_step7",
-	// "antichi2__WJetsBDT_step8",	
-	// "antichi2__t1__WJetsBDT_step8",
-	// "antichi2__t0__WJetsBDT_step8",
-
+        // "antichi2",
+	// "antichi2__t0",
+	// "antichi2__t1",
+	//   //	"antichi2__b0",
+	//   // "antichi2__b1",
+	// // "antichi2__t0__b0",
+	// // "antichi2__t0__b1",
+	// // "antichi2__t1__b0",
+	// // "antichi2__t1__b1",
+	// "antichi2__WJetsBDT",	
+	// "antichi2__t1__WJetsBDT",
+	// "antichi2__t0__WJetsBDT",
+	// "antichi2__antiWJetsBDT",
+	// "antichi2__t1__antiWJetsBDT",
+	// "antichi2__t0__antiWJetsBDT",
+	// "antichi2__WJetsBDT2",
+	// "antichi2__t1__WJetsBDT2",
+	// "antichi2__t0__WJetsBDT2",
+	// "antichi2__WJetsBDT3",
+	// "antichi2__t1__WJetsBDT3",
+	// "antichi2__t0__WJetsBDT3",
+	// // "antichi2__WJetsBDT_step1",	
+	// // "antichi2__t1__WJetsBDT_step1",
+	// // "antichi2__t0__WJetsBDT_step1",
+	// // "antichi2__WJetsBDT_step2",	
+	// // "antichi2__t1__WJetsBDT_step2",
+	// // "antichi2__t0__WJetsBDT_step2",
+	// // "antichi2__WJetsBDT_step3",	
+	// // "antichi2__t1__WJetsBDT_step3",
+	// // "antichi2__t0__WJetsBDT_step3",
+	// // "antichi2__WJetsBDT_step4",	
+	// // "antichi2__t1__WJetsBDT_step4",
+	// // "antichi2__t0__WJetsBDT_step4",
+	// // "antichi2__WJetsBDT_step5",	
+	// // "antichi2__t1__WJetsBDT_step5",
+	// // "antichi2__t0__WJetsBDT_step5",
+	// // "antichi2__WJetsBDT_step6",	
+	// // "antichi2__t1__WJetsBDT_step6",
+	// // "antichi2__t0__WJetsBDT_step6",
+	// // "antichi2__WJetsBDT_step7",	
+	// // "antichi2__t1__WJetsBDT_step7",
+	// // "antichi2__t0__WJetsBDT_step7",
+	// // "antichi2__WJetsBDT_step8",	
+	// // "antichi2__t1__WJetsBDT_step8",
+	// // "antichi2__t0__WJetsBDT_step8",
 
 
 	"chi2",
 	"chi2__t0",
 	"chi2__t1",
-	"chi2__b0",
-	"chi2__b1",
-	"chi2__t0__b0",
-	"chi2__t0__b1",
-	"chi2__t1__b0",
-	"chi2__t1__b1",
+	// "chi2__b0",
+	// "chi2__b1",
+	// "chi2__t0__b0",
+	// "chi2__t0__b1",
+	// "chi2__t1__b0",
+	// "chi2__t1__b1",
 	"chi2__WJetsBDT",
 	"chi2__antiWJetsBDT",
 	"chi2__t1__WJetsBDT",
@@ -1062,7 +1062,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
 
   //// VARS
-  ctx.undeclare_all_event_output();
+  //  ctx.undeclare_all_event_output(); //TEST QCD
 
   //pileup (define it after undeclaring all other variables to keep the weights in the output)
   pileupSF.reset(new MCPileupReweight(ctx));
@@ -1429,7 +1429,12 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 }
 
 bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
-  
+  // double pu_pthat, gen_pthat;
+  // pu_pthat = event.genInfo->PU_pT_hat_max();
+
+  double  gen_pthat = event.genInfo->binningValues()[0];// only for pythia8 samples //todo: for herwig, madgraph
+
+  //if(abs(pu_pthat)>0) std::cout<<"gen_pthat = "<<gen_pthat<<" pu_pthat = "<<pu_pthat<<" pu_pthat/gen_pthat = "<<pu_pthat/gen_pthat<<std::endl;
   event.set(wjets_TMVA_response,0);//set some dummy initial value
   //
   event.set(H_Rec_chi2,0);
@@ -1507,7 +1512,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
     if(channel_ == elec){//for electron we need to add photondatastream/HLT due to electronHLT inefficiency
       if(photonStream_){
 	if(pass_trigger3 && (pass_trigger || pass_trigger2)) pass_trigger3=false;//veto events passing electrons trigger from photon datastream
-	//	if(!pass_trigger3) return false;
+	if(!pass_trigger3) return false;
       }
       else{
 	if(!pass_trigger && !pass_trigger2) return false;
@@ -1524,7 +1529,8 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
     }
   }
   else{//MC
-    if(!pass_trigger && !pass_trigger2 && !pass_trigger3) return false; //for MC we check all triggers
+    //    if(!pass_trigger && !pass_trigger2 && !pass_trigger3) return false; //for MC we check all triggers
+    if(!pass_trigger && !pass_trigger2) return false; //for MC check only 2 basic triggers
   }
 
   //std::cout<<" Passed trigger!!! "<<pass_trigger<<" "<<pass_trigger2<<" "<<pass_trigger3<<std::endl;
@@ -1621,6 +1627,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
 
     // // t-tagging
     w_ttagSF_ct    = ttagSF_ct ->weight(event);
+    std::cout<<" w_ttagSF_ct = "<<w_ttagSF_ct<<std::endl;  
     event.weight *= w_ttagSF_ct;
     if(fabs(w_ttagSF_ct)>10.)
       std::cout<<"!!!!!!!!!!!!!!!! w_ttagSF_ct = "<<w_ttagSF_ct<<std::endl;  
@@ -1741,12 +1748,11 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   /* 1st AK4 jet selection */
   const bool pass_jet1 = jet1_sel->passes(event);
   if(!pass_jet1) return false;
-  if(lepN == 1) HFolder("jet1")->fill(event);
+  //  if(lepN == 1) HFolder("jet1")->fill(event);
 
   ////
 
 
-  // // //TEST: no  MET, HT_lep, TRIANGULAR-CUTS cuts for QCD studies
   /* MET filters */
   if(!metfilters_sel->passes(event)) return false;   
   /**********************************/                                
@@ -1775,7 +1781,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   //// HT_lep selection
   const bool pass_htlep = htlep_sel->passes(event);
   if(!pass_htlep) return false;
-  if(lepN == 1) HFolder("htlep")->fill(event);
+  //  if(lepN == 1) HFolder("htlep")->fill(event);
   ////
   /*
   //// TRIANGULAR-CUTS selection
@@ -1806,7 +1812,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   const bool pass_topleppt = topleppt_sel->passes(event);
   if(!pass_topleppt) return false;
   //  std::cout<<"passed  topleppt"<<std::endl;
-  if(lepN == 1) HFolder("topleppt")->fill(event);
+  //  if(lepN == 1) HFolder("topleppt")->fill(event);
   ////
 
   //// FINAL selection
@@ -1873,7 +1879,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   const int btagN = jetbtagN + subjbtagN;
   //  std::cout<<"btagN = "<<btagN<<std::endl;
   //  const std::string btag_posx = (btagN >= 2 ? "b2" : (btagN >= 1 ? "b1" : "b0"));
-  const std::string btag_posx = (btagN >= 1 ? "b1" : "b0");
+  //  const std::string btag_posx = (btagN >= 1 ? "b1" : "b0");
   
   ////const std::string btag_posx =  ( pass_ttagevt ? "b" :(btagN == 0 ? "b0": "b1"));
   //const std::string btag_posx = (btagN >= 2 ? "b2" : (btagN >= 1 ? "b1" : "b0"));
@@ -2477,16 +2483,17 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
 
 
   /* CHI2 plots */
-  if(lepN == 1){
+  //  if(lepN == 1){
+  if(lepN == 1 && pass_chi2){
 
     HFolder(chi2_posx)          ->fill(event);
     HFolder(chi2_posx+"__ttbar")->fill(event);
     HFolder(chi2_posx+"__"+ttag_posx)          ->fill(event);
     HFolder(chi2_posx+"__"+ttag_posx+"__ttbar")->fill(event);
-    HFolder(chi2_posx+"__"+btag_posx)          ->fill(event);
-    HFolder(chi2_posx+"__"+btag_posx+"__ttbar")->fill(event);
-    HFolder(chi2_posx+"__"+ttag_posx+"__"+btag_posx)          ->fill(event);
-    HFolder(chi2_posx+"__"+ttag_posx+"__"+btag_posx+"__ttbar")->fill(event);
+    //    HFolder(chi2_posx+"__"+btag_posx)          ->fill(event);
+    // HFolder(chi2_posx+"__"+btag_posx+"__ttbar")->fill(event);
+    // HFolder(chi2_posx+"__"+ttag_posx+"__"+btag_posx)          ->fill(event);
+    // HFolder(chi2_posx+"__"+ttag_posx+"__"+btag_posx+"__ttbar")->fill(event);
    
 
     // if(!pass_ttagevt){
