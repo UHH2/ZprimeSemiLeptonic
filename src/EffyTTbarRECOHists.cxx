@@ -56,7 +56,7 @@ void EffyTTbarRECOHists::init(){
   book_TH1F("gen_blep__pz"       , 120, -1200, 1200);
   book_TH1F("gen_blep__cosThetaX", 40, -1, 1);
 
-  book_TH1F("rec_chi2","#chi^{2}", 80, 0, 400);
+  book_TH1F("rec_chi2","#chi^{2}", 20, 0, 200);
   book_TH2F("rec_chi2__VS__rec_ttbar__M", 300, 0, 600, 55, 0, 4500);
 
   book_TH1F("rec_ttbar__M"          , "M_{ttbar} [GeV]", 60, 0, 6000);

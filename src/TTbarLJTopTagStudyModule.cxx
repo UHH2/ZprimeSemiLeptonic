@@ -414,7 +414,8 @@ TTbarLJTopTagStudyModule::TTbarLJTopTagStudyModule(uhh2::Context& ctx){
   use_ttagging_ = true;
 
   //  blind_DATA_ = ((ctx.get("dataset_version").find("BLINDED") != std::string::npos) && (ctx.get("dataset_type") == "DATA") && !isMC);
-  blind_DATA_ = true;//TEST blind both DATA and MC!
+  //blind_DATA_ = true;//TEST blind both DATA and MC!
+  blind_DATA_ = false;
 
   const std::string& store_PDF_weights = ctx.get("store_PDF_weights", "");
   if     (store_PDF_weights == "true")  store_PDF_weights_ = true;
@@ -635,6 +636,7 @@ TTbarLJTopTagStudyModule::TTbarLJTopTagStudyModule(uhh2::Context& ctx){
       jet2_pt  =  50.;
       //      jet2_pt  =  300.; //TEST
       MET      =  120.;
+      //MET      =  50.;
       HT_lep   =   0.;
       triangul_cut = false;
       topleppt_cut = false;
@@ -1418,29 +1420,41 @@ bool TTbarLJTopTagStudyModule::process(uhh2::Event& event){
   ////
 
   //// HLT selection
-  const bool pass_trigger = trigger_sel->passes(event);
-  //  bool pass_trigger2 = true;
-  const bool pass_trigger2 = trigger2_sel->passes(event);
-  const bool pass_trigger3 = trigger3_sel->passes(event);
-  // // //  if(event.run>274953 && channel_ == muon)
-  // if(channel_ == muon)
-  //   pass_trigger2 = trigger2_sel->passes(event);
 
-  //  const bool pass_trigger2 = trigger2_sel->passes(event);
-  //  if(!pass_trigger) return false;
-  //  else 
-  //  if(pass_trigger)  std::cout<<"Trigger1!!! HLT_1: "<<pass_trigger<<" HLT_2: "<<pass_trigger2<<std::endl;
-  //  if(pass_trigger2) std::cout<<"Trigger2!!! HLT_1: "<<pass_trigger<<" HLT_2: "<<pass_trigger2<<std::endl;
-  // if(pass_trigger || pass_trigger2) std::cout<<"Event passes the triggers"<<std::endl;
-  //  std::cout<<"Trigger!!! "<<pass_trigger2<<" "<<pass_trigger<<std::endl;
-  //  if(event.isRealData){
-  //  if(!(pass_trigger || pass_trigger2)) return false; 
-  //  if(!(pass_trigger || pass_trigger2 || pass_trigger3)) return false; 
-  //  if(!pass_trigger) return false; //TEST only 1 trigger
-  if(!pass_trigger && !pass_trigger2) return false; //TEST  
-  //}
-  //   else std::cout<<" Passed trigger!!! "<<std::endl;
-  //  if(lepN == 1) 
+ //// HLT selection
+  const bool pass_trigger = trigger_sel->passes(event);
+  bool pass_trigger2 = false;
+  if((event.run>275657 && channel_ == muon) || channel_ == elec || !event.isRealData){
+    pass_trigger2 = trigger2_sel->passes(event);
+  }
+  //  bool pass_trigger3 = trigger3_sel->passes(event);
+  if(!pass_trigger && !pass_trigger2) return false;
+  //  if(!pass_trigger) return false; //TEST with one trigger only
+
+  // if(event.isRealData){//DATA
+  //   if(channel_ == elec){//for electron we need to add photondatastream/HLT due to electronHLT inefficiency
+  //     // if(photonStream_){
+  //     // 	if(pass_trigger3 && (pass_trigger || pass_trigger2)) pass_trigger3=false;//veto events passing electrons trigger from photon datastream
+  //     // 	if(!pass_trigger3) return false;
+  //     // }
+  //     // else{
+  // 	if(!pass_trigger && !pass_trigger2) return false;
+  // 	//      }
+  //   }
+  //   if(channel_ == muon){//for muon we need to add METdatastream/HLT due to muonHLT inefficiency at high pt
+  //     // if(METStream_){
+  //     // 	if(pass_trigger3 && (pass_trigger || pass_trigger2)) pass_trigger3=false;//veto events passing muon trigger from MET datastream
+  //     // 	if(!pass_trigger3) return false;
+  //     // }
+  //     // else{
+  // 	if(!pass_trigger && !pass_trigger2) return false;
+  // 	//      }
+  //   }
+  // }
+  // else{//MC
+  //   //    if(!pass_trigger && !pass_trigger2 && !pass_trigger3) return false; //for MC we check all triggers
+  //   if(!pass_trigger && !pass_trigger2) return false; //for MC check only 2 basic triggers
+  // }
   HFolder("trigger")->fill(event);
   ////
   lumihists_before->fill(event);
@@ -2374,28 +2388,23 @@ if(!pass_triangc) return false;
   //4) W+Jets BDT <-0.5 cut
 
   // //1)
-  // //  if(event.toppuppijets->size()<1) return false;
-  // int topppupi_cand =0;
-  // for(const auto & pjet : *event.toppuppijets) { 
-  //   if(pjet.numberOfDaughters()<2) continue; 
-  //   topppupi_cand++;
-  // }
-  // if(topppupi_cand<1) return false;
+  if(event.toppuppijets->size()<1) return false;
+  int topppupi_cand =0;
+  for(const auto & pjet : *event.toppuppijets) { 
+    if(pjet.numberOfDaughters()<2) continue; 
+    topppupi_cand++;
+  }
+  if(topppupi_cand<1) return false;
 
   HFolder("FinalV0")->fill(event);
   HFolder("FinalV0__ttbar")->fill(event);
   HFolder("FinalV0__TTAG")->fill(event);
 
   //2)  
-  /* btagN CSVL counters */
-  // int jetbtagN(0), subjbtagN(0);
+  // btagN CSVL counters
+  // int jetbtagN(0);//subjbtagN(0);
   // for(const auto& j : *event.jets) if(btag_ID_(j, event)) ++jetbtagN;
-  //  if(jetbtagN>0) return false;
-  //3)
-  //// inverted CHI2(top-lep) selection
-  const bool pass_chi2tlep = chi2tlep_sel->passes(event);
-  //  if(pass_chi2tlep) return false;
-  if(!pass_chi2tlep){
+  if(jetbtagN<1){
     HFolder("FinalV1")->fill(event);
     HFolder("FinalV1__ttbar")->fill(event);
     HFolder("FinalV1__TTAG")->fill(event);
@@ -2403,6 +2412,13 @@ if(!pass_triangc) return false;
     HFolder("FinalV1__"+ttag_posx)          ->fill(event);
     HFolder("FinalV1__"+ttag_posx+"__ttbar")->fill(event);
     HFolder("FinalV1__"+ttag_posx+"__TTAG")->fill(event);
+  }
+  //3)
+  //// inverted CHI2(top-lep) selection
+  const bool pass_chi2tlep = chi2tlep_sel->passes(event);
+  //  if(pass_chi2tlep) return false;
+  if(!pass_chi2tlep){
+  
     //4)
     //  if(WJets_TMVA_response>=-0.5) return false;
     if(WJets_TMVA_response<-0.5){

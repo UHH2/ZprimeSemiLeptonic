@@ -1038,10 +1038,16 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
   ttagSF_ct.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "CT", "CT", ttag_effy_file, ttag_effyL, ttag_effyT, false));
   ttagSF_upL.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "UP", "CT", ttag_effy_file, ttag_effyL, ttag_effyT, false));
-  ttagSF_dnL.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "DN", "CT", ttag_effy_file, ttag_effyL, ttag_effyT, false));
-  
+  ttagSF_dnL.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "DN", "CT", ttag_effy_file, ttag_effyL, ttag_effyT, false));  
   ttagSF_upT.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "CT", "UP", ttag_effy_file, ttag_effyL, ttag_effyT, false));
   ttagSF_dnT.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "CT", "DN", ttag_effy_file, ttag_effyL, ttag_effyT, false));
+
+  // ttagSF_ct.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "CT", "CT", ttag_effy_file, ttag_effyL, ttag_effyT, true));
+  // ttagSF_upL.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "UP", "CT", ttag_effy_file, ttag_effyL, ttag_effyT, true));
+  // ttagSF_dnL.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "DN", "CT", ttag_effy_file, ttag_effyL, ttag_effyT, true));
+  // ttagSF_upT.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "CT", "UP", ttag_effy_file, ttag_effyL, ttag_effyT, true));
+  // ttagSF_dnT.reset(new weightcalc_ttagging(ttag_SFac_file, ttag_wp, "comb", "comb", "CT", "DN", ttag_effy_file, ttag_effyL, ttag_effyT, true));
+
   // //
 
   // top-pt reweighting
@@ -1062,7 +1068,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
 
   //// VARS
-  //  ctx.undeclare_all_event_output(); //TEST QCD
+  ctx.undeclare_all_event_output(); //TEST QCD
 
   //pileup (define it after undeclaring all other variables to keep the weights in the output)
   pileupSF.reset(new MCPileupReweight(ctx));
@@ -1454,8 +1460,8 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   event.set(h_mttbar_chi2,0);
 
   
-  //  std::cout<<"   --- NEW event ---  "<<std::endl;
-  //  std::cout << " Evt# "<<event.event<<" Run: "<<event.run<<" " << std::endl;
+  // std::cout<<"   --- NEW event ---  "<<std::endl;
+  // std::cout << " Evt# "<<event.event<<" Run: "<<event.run<<" " << std::endl;
   // std::cout<<"   elecs = "<<event.electrons->size()<<" muons = "<<event.muons->size()<<" N_jets = "<<event.jets->size()<<" N_topjets = "<<event.topjets->size()<<std::endl;
   if(channel_ == muon && (event.electrons->size()>0 || event.muons->size()!=1)) return false; //veto additional leptons
   if(channel_ == elec && (event.muons->size()>0 || event.electrons->size()!=1)) return false;//veto additional leptons
@@ -1627,7 +1633,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
 
     // // t-tagging
     w_ttagSF_ct    = ttagSF_ct ->weight(event);
-    std::cout<<" w_ttagSF_ct = "<<w_ttagSF_ct<<std::endl;  
+    //std::cout<<" w_ttagSF_ct = "<<w_ttagSF_ct<<std::endl;  
     event.weight *= w_ttagSF_ct;
     if(fabs(w_ttagSF_ct)>10.)
       std::cout<<"!!!!!!!!!!!!!!!! w_ttagSF_ct = "<<w_ttagSF_ct<<std::endl;  
