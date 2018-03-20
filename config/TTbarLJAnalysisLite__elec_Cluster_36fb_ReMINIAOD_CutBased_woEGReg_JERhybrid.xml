@@ -31,7 +31,7 @@
 
 <!-- <!ENTITY OUTdir  "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/TTbarLJAnalysisLiteModule_NOTBLINDED_20180108_JERhybrid_topptReweight_onlyEleHLT/&KEYW;/&channel;/"> -->
 
-<!ENTITY OUTdir  "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/TTbarLJAnalysisLiteModule_NOTBLINDED_20180312_JERhybrid_topptReweight_oldMuonSF_toptagMLE/&KEYW;/&channel;/"> 
+<!ENTITY OUTdir  "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/TTbarLJAnalysisLiteModule_NOTBLINDED_20180315_JERhybrid_topptReweight_oldMuonSF_toptagMLE2/&KEYW;/&channel;/"> 
 
  <!ENTITY TTbar_part1 SYSTEM "../Skimming_datasets_20171212_JERhybrid/MC_TTbar_part1.xml">
  <!ENTITY TTbar_part2 SYSTEM "../Skimming_datasets_20171212_JERhybrid/MC_TTbar_part2.xml">
@@ -502,34 +502,34 @@
 <!--	<Item Name="elecID_SF_file"  Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/common/data/egammaEffi.txt_EGM2D_MVA90_ID.root"/> -->
 	<Item Name="elecID_SF_file"  Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/common/data/egammaEffi.txt_EGM2D_CutBased_Tight_ID_woIsoCut.root"/> <!-- CutBased tight -->
 	<Item Name="elecGsf_SF_file"  Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/common/data/egammaEffi.txt_EGM2D_RecEff_Moriond17.root"/> 
-<!--	<Item Name="elecHLT_SF_file"  Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/data/SFs_elec_eta_pt_DATA_Run2016_Ele50_PFJet165__NULL__NULL__NULL__NULL__NULL_const.root"/> -->
-        <Item Name="elecHLT_SF_file"  Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/data/SFs_elec_eta_pt_DATA_Run2016_Ele50PFJet165_OR_Ele115.root"/> 
-<!--        <Item Name="elecHLT_SF_file"  Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/data/SFs_elec_eta_pt_DATA_Run2016_Ele50PFJet165_OR_Ele115_OR_Photon175.root"/> -->
+<!--	<Item Name="elecHLT_SF_file"  Value="/nfs/dust/cms/user/karavdia/CMSSW_8_0_27/src/UHH2/ZprimeSemiLeptonic/data/SFs_elec_eta_pt_DATA_Run2016_Ele50_PFJet165__NULL__NULL__NULL__NULL__NULL_const.root"/> -->
+        <Item Name="elecHLT_SF_file"  Value="/nfs/dust/cms/user/karavdia/CMSSW_8_0_27/src/UHH2/ZprimeSemiLeptonic/data/SFs_elec_eta_pt_DATA_Run2016_Ele50PFJet165_OR_Ele115.root"/> 
+<!--        <Item Name="elecHLT_SF_file"  Value="/nfs/dust/cms/user/karavdia/CMSSW_8_0_27/src/UHH2/ZprimeSemiLeptonic/data/SFs_elec_eta_pt_DATA_Run2016_Ele50PFJet165_OR_Ele115_OR_Photon175.root"/> -->
 <!--	<Item Name="elecID_SF_file"  Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/common/data/egammaEffi.txt_EGM2D_CutBased_Medium_ID.root"/> -->
 <!--	<Item Name="elecID_SF_file"  Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/common/data/egammaEffi.txt_EGM2D_CutBased_Tight_ID.root"/> -->
 	<Item Name="btag_wp"         Value="CSVM"/>
 	<Item Name="MCCSVv2ShapeSystematic" Value = "/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/common/data/CSVv2_Moriond17_B_H.csv" />
 	<Item Name="BTagCalibration" Value = "/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/common/data/CSVv2_Moriond17_B_H.csv" />
-<!--	<Item Name="MCBtagEfficiencies" Value = "/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/data/BTagMCEfficiencyHists_elec_DATA03Feb2016.root"/> -->
-<!--	<Item Name="MCBtagEfficiencies" Value = "/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/data/BTagMCEfficiencyHists_20170522.root"/> --> <!-- ToDo -->
-	<Item Name="MCBtagEfficiencies" Value = "/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/data/BTagMCEfficiencyHists_20170910.root"/> <!-- ToDo -->
-<!--	<Item Name="MCBtagEfficiencies" Value = "/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/data/BTagMCEfficiencyHists_elec.root"/> --> <!-- ToDo -->
+<!--	<Item Name="MCBtagEfficiencies" Value = "/nfs/dust/cms/user/karavdia/CMSSW_8_0_27/src/UHH2/ZprimeSemiLeptonic/data/BTagMCEfficiencyHists_elec_DATA03Feb2016.root"/> -->
+<!--	<Item Name="MCBtagEfficiencies" Value = "/nfs/dust/cms/user/karavdia/CMSSW_8_0_27/src/UHH2/ZprimeSemiLeptonic/data/BTagMCEfficiencyHists_20170522.root"/> --> <!-- ToDo -->
+	<Item Name="MCBtagEfficiencies" Value = "/nfs/dust/cms/user/karavdia/CMSSW_8_0_27/src/UHH2/ZprimeSemiLeptonic/data/BTagMCEfficiencyHists_20170910.root"/> <!-- ToDo -->
+<!--	<Item Name="MCBtagEfficiencies" Value = "/nfs/dust/cms/user/karavdia/CMSSW_8_0_27/src/UHH2/ZprimeSemiLeptonic/data/BTagMCEfficiencyHists_elec.root"/> --> <!-- ToDo -->
 
 
 
 <!--	<Item Name="ttag_wp"        Value="mr030_wp1"/> -->
 	<Item Name="ttag_wp"        Value="mr010_wp1"/> <!-- all hadronic WP -->
-   <!--     <Item Name="ttag_SFs"        Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/data/ttagSF__2016_mr010_wp1.csv"/>-->
-        <Item Name="ttag_SFs"        Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/data/ttagSF__2016_mr010_wp1_afterMLE.csv"/>
-<!--        <Item Name="ttag_SFs"        Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/data/ttagSF__2016_mr010_wp1_beforeMLE.csv"/> -->
-<!--         <Item Name="ttag_SFs"        Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/data/ttagSF__2016_mr030_wp1_afterMLE.csv"/> -->
+   <!--     <Item Name="ttag_SFs"        Value="/nfs/dust/cms/user/karavdia/CMSSW_8_0_27/src/UHH2/ZprimeSemiLeptonic/data/ttagSF__2016_mr010_wp1.csv"/>-->
+<!--        <Item Name="ttag_SFs"        Value="/nfs/dust/cms/user/karavdia/CMSSW_8_0_27/src/UHH2/ZprimeSemiLeptonic/data/ttagSF__2016_mr010_wp1_afterMLE.csv"/> -->
+         <Item Name="ttag_SFs"        Value="/nfs/dust/cms/user/karavdia/CMSSW_8_0_27/src/UHH2/ZprimeSemiLeptonic/data/ttagSF__2016_mr010_wp1_beforeMLE.csv"/>
+<!--         <Item Name="ttag_SFs"        Value="/nfs/dust/cms/user/karavdia/CMSSW_8_0_27/src/UHH2/ZprimeSemiLeptonic/data/ttagSF__2016_mr030_wp1_afterMLE.csv"/> -->
 
-<!--	<Item Name="ttag_eff"        Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/data/TTAGeff.root"/>
+<!--	<Item Name="ttag_eff"        Value="/nfs/dust/cms/user/karavdia/CMSSW_8_0_27/src/UHH2/ZprimeSemiLeptonic/data/TTAGeff.root"/>
 	<Item Name="ttag_eff__jetL"  Value="&channel;/wjets/tjpj_chi2tlep__TTAG/tjetA__pt__l"/>
 	<Item Name="ttag_eff__jetT"  Value="&channel;/ttbar/tjpj_chi2tlep__TTAG/tjetA__pt__t"/> -->
 
 <!--	<Item Name="ttag_eff"        Value="/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/MisTopTagSF__antiWJetsBDT_woBtag_20171020/T1_v06/TTAGeff.root"/> -->
-	<Item Name="ttag_eff"        Value="/afs/desy.de/user/k/karavdia/xxl/af-cms/CMSSW_8_0_24_patch1/src/UHH2/ZprimeSemiLeptonic/data/TTAGeff.root"/>
+	<Item Name="ttag_eff"        Value="/nfs/dust/cms/user/karavdia/CMSSW_8_0_27/src/UHH2/ZprimeSemiLeptonic/data/TTAGeff.root"/>
 	<Item Name="ttag_eff__jetL"  Value="&channel;/wjets/tjpj_chi2tlep__TTAG/tjetA__pt__l"/>
 	<Item Name="ttag_eff__jetT"  Value="&channel;/ttbar/tjpj_chi2tlep__TTAG/tjetA__pt__t"/>
 

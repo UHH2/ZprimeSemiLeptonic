@@ -186,19 +186,21 @@ int weightcalc_ttagging::jet_flavor(const TopJet& jet_, const uhh2::Event& evt_)
   if(!evt_.isRealData){
 
     assert(evt_.genparticles);
-
-    for(const auto& genp : *evt_.genparticles){
-
+    int i_count = -1;
+    for(const auto& genp : *evt_.genparticles){ 
+      i_count++;
+      if(genp.status()<22) continue;//skip "incoming" particle with status = 21
+      if(verbose_) std::cout<<i_count<<" status() = "<<genp.status()<<" genp.pdgId() = "<<genp.pdgId()<<" dR="<<uhh2::deltaR(jet_, genp)<<" dRmax="<<tjet_maxDR_gentop_<<std::endl;
       if(std::abs(genp.pdgId()) != 6) continue;
 
       if(uhh2::deltaR(jet_, genp) < tjet_maxDR_gentop_){
-
         jfla = genp.pdgId();
+	 if(verbose_) std::cout<<" -- jet is matched!"<<std::endl;
         break;
       }
     }
   }
-
+  if(verbose_) std::cout<<"||| jet flavor is "<<jfla<<" |||"<<std::endl;
   return jfla;
 }
 
@@ -207,7 +209,7 @@ float weightcalc_ttagging::jet_effy(const TopJet& jet_, const uhh2::Event& evt_)
   TGraphAsymmErrors* geff(0);
 
   const int jetFlavor = jet_flavor(jet_, evt_);
-  //  std::cout<<" jetFlavor = "<<jetFlavor<<std::endl;
+  if(verbose_) std::cout<<" jetFlavor = "<<jetFlavor<<std::endl;
   if     (std::abs(jetFlavor) == 6) geff = effy__graph__jet_t_;
   else if(std::abs(jetFlavor) == 0) geff = effy__graph__jet_l_;
   else throw std::runtime_error("weightcalc_ttagging::jet_effy -- failed to locate graph for jet t-tagging efficiency: "+std::to_string(jetFlavor));
@@ -235,7 +237,7 @@ float weightcalc_ttagging::jet_effy(const TopJet& jet_, const uhh2::Event& evt_)
     }
     //  }
 
-  if(verbose_) std::cout << " eff=" << eff;
+  if(verbose_) std::cout << " eff=" << eff<<std::endl;
 
   return eff;
 }
@@ -267,6 +269,11 @@ float weightcalc_ttagging::jet_SFac(const TopJet& jet_, const uhh2::Event& evt_)
 
             const float pt_lo = ttag_sf.ptMin;
             const float pt_hi = ttag_sf.ptMax;
+	    if(verbose_){
+	      std::cout<<" ttag_sf.ptMin = "<<ttag_sf.ptMin<<" ttag_sf.ptMax = "<<ttag_sf.ptMax<<std::endl;
+	    }
+
+
 
             if     (pt_lo <  jet_pt && jet_pt <  pt_hi){ idx = i; jet_PT = jet_pt; break; }
             else if(pt_lo >= jet_pt && pt_min >= pt_lo){ idx = i; jet_PT = pt_lo; pt_min = pt_lo; }
@@ -289,6 +296,7 @@ float weightcalc_ttagging::jet_SFac(const TopJet& jet_, const uhh2::Event& evt_)
       std::cout <<  " jet_ETA=" << jet_ETA;
       std::cout << " jet_FLAV=" << jet_FLAV;
       std::cout <<       " sf=" << sf;
+      std::cout <<" "<<std::endl;
     }
   }
 
@@ -304,12 +312,12 @@ float weightcalc_ttagging::weight(const uhh2::Event& evt_) const {
   for(const auto& jet : *evt_.topjets){
 
     const float sfac =          jet_SFac(jet, evt_);
-    //    const float effy = std::min(jet_effy(jet, evt_), float(0.99999));
-    const float effy = std::min(jet_effy(jet, evt_), float(0.95));
+    const float effy = std::min(jet_effy(jet, evt_), float(0.99999));
+    //const float effy = std::min(jet_effy(jet, evt_), float(0.95));
 
     const bool pass_ttagWP(ttagWP_(jet, evt_));
 
-    if(verbose_) std::cout << " pass_ttagWP=" << pass_ttagWP << std::endl;
+    if(verbose_) std::cout << " pass_ttagWP=" << bool(pass_ttagWP) << std::endl;
 
     if(pass_ttagWP) wgt *=     sfac;
     else            wgt *= (1.-sfac*effy) / (1.-effy);

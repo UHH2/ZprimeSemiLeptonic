@@ -1,5 +1,4 @@
 #include <UHH2/ZprimeSemiLeptonic/include/EffyJetTTAGHists.h>
-
 #include <UHH2/core/include/Utils.h>
 #include <UHH2/core/include/LorentzVector.h>
 
@@ -10,6 +9,7 @@ EffyJetTTAGHists::EffyJetTTAGHists(uhh2::Context& ctx, const std::string& dirnam
 
   // t-tagger
   ttagID_ = ttag_id;
+  // ttagevt_sel.reset(new TopTagEventSelection(ttagID_, 1.2));
   minDR_ttag_jet_ = min_dr;
   maxDR_tjet_gentop_ = .8;
 
@@ -121,6 +121,12 @@ void EffyJetTTAGHists::fill(const uhh2::Event& event){
     // jet tag
     const bool jtag = ttagID_(tjet, event);
 
+    //in the main analysis we requer dR between top-tagged jet and any AK4CHS jet to be >1.2
+    //this is not needed for SFs/efficiency measurment!
+    // const bool jtagID = ttagID_(tjet, event);//check that jet passed top-tagger 
+    // const bool pass_ttagevt = ttagevt_sel->passes(event);//check that dR(top-tagged jet,AK4 jet)>1.2
+    // const bool jtag = jtagID && pass_ttagevt;
+
     // jet flavor
     std::vector<std::string> fla_strs;
     fla_strs.reserve(2);
@@ -132,7 +138,7 @@ void EffyJetTTAGHists::fill(const uhh2::Event& event){
     if(!event.isRealData){
 
       for(const auto& genp : *event.genparticles){
-
+	if(genp.status()<22) continue;//skip "incoming" particle with status = 21
         if(std::abs(genp.pdgId()) != 6) continue;
         if(uhh2::deltaR(tjet, genp) < maxDR_tjet_gentop_){ jfla = 6; tgen_pt = genp.pt(); break; }
       }
