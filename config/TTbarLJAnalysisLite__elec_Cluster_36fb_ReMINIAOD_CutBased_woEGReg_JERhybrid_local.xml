@@ -30,7 +30,7 @@
 
 <!-- <!ENTITY OUTdir  "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/TTbarLJAnalysisLiteModule_NOTBLINDED_20180108_JERhybrid/&KEYW;/&channel;/">-->
 <!-- <!ENTITY OUTdir  "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/TTbarLJAnalysisLiteModule_NOTBLINDED_20180108_JERhybrid_topptReweight_onlyEleHLT/&KEYW;/&channel;/"> -->
-<!ENTITY OUTdir  "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/TTbarLJAnalysisLiteModule_BLINDED_20180315_JERhybrid_topptReweight_oldMuonSF_toptagMLE2/&KEYW;/&channel;/"> 
+<!ENTITY OUTdir  "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/TTbarLJAnalysisLiteModule_NOTBLINDED_20180331_JERhybrid_topptReweight_oldMuonSF_toptagMLE3//&KEYW;/&channel;/"> 
 
  <!ENTITY TTbar_part1 SYSTEM "../Skimming_datasets_20171212_JERhybrid/MC_TTbar_part1.xml">
  <!ENTITY TTbar_part2 SYSTEM "../Skimming_datasets_20171212_JERhybrid/MC_TTbar_part2.xml">
@@ -620,8 +620,8 @@
 <!--	<Item Name="ttag_wp"        Value="mr030_wp1"/> -->
 	<Item Name="ttag_wp"        Value="mr010_wp1"/> <!-- all hadronic WP -->
    <!--     <Item Name="ttag_SFs"        Value="/nfs/dust/cms/user/karavdia/CMSSW_8_0_27/src/UHH2/ZprimeSemiLeptonic/data/ttagSF__2016_mr010_wp1.csv"/>-->
-<!--        <Item Name="ttag_SFs"        Value="/nfs/dust/cms/user/karavdia/CMSSW_8_0_27/src/UHH2/ZprimeSemiLeptonic/data/ttagSF__2016_mr010_wp1_afterMLE.csv"/> -->
-        <Item Name="ttag_SFs"        Value="/nfs/dust/cms/user/karavdia/CMSSW_8_0_27/src/UHH2/ZprimeSemiLeptonic/data/ttagSF__2016_mr010_wp1_beforeMLE.csv"/>
+<!--       <Item Name="ttag_SFs"        Value="/nfs/dust/cms/user/karavdia/CMSSW_8_0_27/src/UHH2/ZprimeSemiLeptonic/data/ttagSF__2016_mr010_wp1_afterMLE.csv"/> -->
+        <Item Name="ttag_SFs"        Value="/nfs/dust/cms/user/karavdia/CMSSW_8_0_27/src/UHH2/ZprimeSemiLeptonic/data/ttagSF__2016_mr010_wp1_beforeMLE.csv"/> 
 <!--         <Item Name="ttag_SFs"        Value="/nfs/dust/cms/user/karavdia/CMSSW_8_0_27/src/UHH2/ZprimeSemiLeptonic/data/ttagSF__2016_mr030_wp1_afterMLE.csv"/> -->
 
 <!--	<Item Name="ttag_eff"        Value="/nfs/dust/cms/user/karavdia/CMSSW_8_0_27/src/UHH2/ZprimeSemiLeptonic/data/TTAGeff.root"/>

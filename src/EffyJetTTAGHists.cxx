@@ -102,7 +102,7 @@ void EffyJetTTAGHists::fill(const uhh2::Event& event){
   int itop=0;
   for(const auto& tjet : *event.topjets){
     itop++;
-    //    if(itop>1) continue; //TEST: check only leading jet ! used for mistoptag SFs
+    if(itop>1) continue; //TEST: check only leading jet ! used for mistoptag SFs
 
   // for(const auto& tjet : *event.toppuppijets){ //in 2016 we do matching to PUPPI jets
   //   if(tjet.numberOfDaughters()<2) continue;   //TEST: skip PUPPI jet if it contains only one daughter       

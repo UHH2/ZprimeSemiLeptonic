@@ -13,7 +13,8 @@ void TopTagEff(){
   //  TString path = "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/MisTopTagSF__antiWJetsBDT_woBtag_20170922/T1_v06/";
   //  TString path = "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/MisTopTagSF__antiWJetsBDT_20170921/T1_v06/";
   //  TString path = "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/MisTopTagSF__antiWJetsBDT_woBtag_20180317/T1_v06/";
-  TString path = "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/MisTopTagSF__antiWJetsBDT_woBtag_MET50_20180319/T1_v06/";
+  //  TString path = "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/MisTopTagSF__antiWJetsBDT_woBtag_MET50_20180319/T1_v06/";
+  TString path = "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/MisTopTagSF__antiWJetsBDT_woBtag_MET120_20180319/T1_v06/";
   //  TString path = "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/MisTopTagSF__antiWJetsBDT_woBtag_MET50_20180319_1trigger/T1_v06/";
   const int nch = 2;
   TString channels[nch] = {"muon","elec"};
@@ -34,6 +35,7 @@ void TopTagEff(){
     TFile *input_data = TFile::Open(fname_data);
     TH1I *htopjets_data = (TH1I*)input_data->Get("Final"+method[mthI]+"__TTAG/tjetA__eta");
     TH1I *htoptags_data = (TH1I*)input_data->Get("Final"+method[mthI]+"__TTAG/tjetA__toptag__eta");
+
     double err_nevt_topjets_data, err_nevt_toptags_data;
     int nevt_topjets_data = htopjets_data->IntegralAndError(1,htopjets_data->GetNbinsX(),err_nevt_topjets_data);
     int nevt_toptags_data = htoptags_data->IntegralAndError(1,htoptags_data->GetNbinsX(),err_nevt_toptags_data);
@@ -201,14 +203,14 @@ void TopTagEff(){
     // // //QCD
     int nevt_topjets_qcd = 0; int nevt_toptags_qcd = 0;
     double err_nevt_topjets_qcd = 0; double err_nevt_toptags_qcd = 0;
-    //    TString fname_qcd = path+channels[chI]+"/uhh2.AnalysisModuleRunner.MC.QCD_Pt.root";
+    // //       TString fname_qcd = path+channels[chI]+"/uhh2.AnalysisModuleRunner.MC.QCD_Pt.root";
     // TString fname_qcd = path+channels[chI]+"/uhh2.AnalysisModuleRunner.MC.QCD_HT.root";
     // TFile *input_qcd = TFile::Open(fname_qcd);
     // TH1I *htopjets_qcd = (TH1I*)input_qcd->Get("Final"+method[mthI]+"__TTAG/tjetA__eta");
     // TH1I *htoptags_qcd = (TH1I*)input_qcd->Get("Final"+method[mthI]+"__TTAG/tjetA__toptag__eta");
     // //    double err_nevt_topjets_qcd, err_nevt_toptags_qcd;
-    // int nevt_topjets_qcd = htopjets_qcd->IntegralAndError(2,htopjets_qcd->GetNbinsX(),err_nevt_topjets_qcd);
-    // int nevt_toptags_qcd = htoptags_qcd->IntegralAndError(2,htoptags_qcd->GetNbinsX(),err_nevt_toptags_qcd);
+    // nevt_topjets_qcd = htopjets_qcd->IntegralAndError(2,htopjets_qcd->GetNbinsX(),err_nevt_topjets_qcd);
+    // nevt_toptags_qcd = htoptags_qcd->IntegralAndError(2,htoptags_qcd->GetNbinsX(),err_nevt_toptags_qcd);
     cout<<"QCD: "<<endl;
     cout<<"nevt_topjets = "<<nevt_topjets_qcd<<" +/- "<<err_nevt_topjets_qcd<<endl;
     cout<<"nevt_toptags = "<<nevt_toptags_qcd<<" +/- "<<err_nevt_toptags_qcd<<endl;
@@ -255,10 +257,10 @@ void TopTagEff(){
     // 				       +TMath::Power(err_nevt_toptags_qcd,2)+TMath::Power(err_nevt_toptags_dy_l,2)+TMath::Power(err_nevt_toptags_ttbar_l,2));
 
 
-    double MC_yeild_topjets = nevt_topjets_wjetsL+nevt_topjets_wjetsB+nevt_topjets_wjetsC+nevt_topjets_qcd+nevt_topjets_st_l+nevt_topjets_ttbar_l;
+    double MC_yeild_topjets = nevt_topjets_wjetsL+nevt_topjets_wjetsB+nevt_topjets_wjetsC+nevt_topjets_qcd+nevt_topjets_st_l+nevt_topjets_ttbar_l+nevt_topjets_dy_l;
     double err_MC_yeild_topjets = sqrt(TMath::Power(err_nevt_topjets_wjetsL,2)+TMath::Power(err_nevt_topjets_wjetsB,2)+TMath::Power(err_nevt_topjets_wjetsC,2)
     				       +TMath::Power(err_nevt_topjets_qcd,2)+TMath::Power(err_nevt_topjets_st_l,2)+TMath::Power(err_nevt_topjets_ttbar_l,2));
-    double MC_yeild_toptags = nevt_toptags_wjetsL+nevt_toptags_wjetsB+nevt_toptags_wjetsC+nevt_toptags_qcd+nevt_toptags_st_l+nevt_toptags_ttbar_l;
+    double MC_yeild_toptags = nevt_toptags_wjetsL+nevt_toptags_wjetsB+nevt_toptags_wjetsC+nevt_toptags_qcd+nevt_toptags_st_l+nevt_toptags_ttbar_l+nevt_toptags_dy_l;
     double err_MC_yeild_toptags = sqrt(TMath::Power(err_nevt_toptags_wjetsL,2)+TMath::Power(err_nevt_toptags_wjetsB,2)+TMath::Power(err_nevt_toptags_wjetsC,2)
     				       +TMath::Power(err_nevt_toptags_qcd,2)+TMath::Power(err_nevt_toptags_st_l,2)+TMath::Power(err_nevt_toptags_ttbar_l,2));
 
@@ -291,8 +293,7 @@ void TopTagEff(){
     double err_eff_DATA = eff_DATA*sqrt(TMath::Power(err_DATA_yeild_toptags/DATA_yeild_toptags,2)+TMath::Power(err_DATA_yeild_topjets/DATA_yeild_topjets,2)); 
 
     double SF = eff_DATA/eff_MC;
-    double err_SF = SF*sqrt(TMath::Power(err_eff_MC/eff_MC,2)+TMath::Power(err_eff_DATA/eff_DATA,2));
-    // cout<<"DATA: topjets = "<<DATA_yeild_topjets<<" +/- "<<err_DATA_yeild_topjets<<" top-tag = "<<DATA_yeild_toptags<<" +/- "<<err_DATA_yeild_toptags<<endl;
+    double err_SF = SF*sqrt(TMath::Power(err_eff_MC/eff_MC,2)+TMath::Power(err_eff_DATA/eff_DATA,2));    // cout<<"DATA: topjets = "<<DATA_yeild_topjets<<" +/- "<<err_DATA_yeild_topjets<<" top-tag = "<<DATA_yeild_toptags<<" +/- "<<err_DATA_yeild_toptags<<endl;
     // cout<<"Eff DATA = "<<eff_DATA<<" +/- "<<err_eff_DATA<<endl;
     cout<<"CR & $\\varepsilon_{DATA}$ & $\\varepsilon_{MC}$ & DATA/MC SF "<<" \\\\ \\hline"<<endl;
     // cout<<"$\\mu$+jets & "

@@ -99,7 +99,7 @@ protected:
   // std::unique_ptr<weightcalc_elecID>  elecIDSF;
   std::unique_ptr<uhh2::AnalysisModule> elecID_SF;
   std::unique_ptr<uhh2::AnalysisModule> elecGsf_SF;
-  //  std::unique_ptr<uhh2::AnalysisModule> elecHLT_SF;
+  std::unique_ptr<uhh2::AnalysisModule> elecHLT_SF;
 
   std::unique_ptr<uhh2::AnalysisModule> pileupSF;
   std::unique_ptr<uhh2::AnalysisModule> muonID_SF;
@@ -109,8 +109,10 @@ protected:
 
   //!!  std::unique_ptr<weightcalc_elecHLT> elecHLTSF;
 
-  std::unique_ptr<uhh2::AnalysisModule> btagSF;
-  std::unique_ptr<Hists> h_btagMCeffi;
+  // std::unique_ptr<uhh2::AnalysisModule> btagSF;
+  // std::unique_ptr<Hists> h_btagMCeffi;
+
+  std::unique_ptr<uhh2::AnalysisModule> csvSF;
 
   std::unique_ptr<weightcalc_ttagging> ttagSF_ct;
   std::unique_ptr<weightcalc_ttagging> ttagSF_upL;
@@ -288,6 +290,11 @@ protected:
   Event::Handle<float> tt_dPhi_recblep_recneu;//distance in phi for reconstructed neu to b quark from lepton side 
   Event::Handle<float> tt_dR_reclep_recneu;//distance in R for reconstructed neu to lepton  
   Event::Handle<float> tt_dR_recblep_recneu;//distance in R for reconstructed neu to b quark from lepton side 
+
+  Event::Handle<float> tt_toppuppijet_tau32_matched;//toptau32 for PUPPI jets matched to CHS
+  Event::Handle<float> tt_toppuppijet_Msdp_matched;//Msdp for PUPPI jets matched to CHS
+  Event::Handle<float> tt_topjet_pt;//pt for AK8CHS jets
+  Event::Handle<float> tt_topjet_eta;//eta for AK8CHS jets
 
   float met_pt, met_phi, rawmet_pt;//MET
   float lep_pt, lep_eta, lep_eta_SC, fabs_lep_eta, lep_phi;//lepton
@@ -779,7 +786,7 @@ TTbarLJTopTagStudyModule::TTbarLJTopTagStudyModule(uhh2::Context& ctx){
   //  else if(btag_wp == "MVAT") b_working_point = MVABTag::WP_TIGHT;
 
   //  h_btagMCeffi.reset(new BTagMCEfficiencyHists(ctx,"chi2__BTAG",b_working_point));
-  h_btagMCeffi.reset(new BTagMCEfficiencyHists(ctx,"BTAG",b_working_point));
+  // h_btagMCeffi.reset(new BTagMCEfficiencyHists(ctx,"BTAG",b_working_point));
 
 
   //  t-tagging
@@ -957,7 +964,7 @@ TTbarLJTopTagStudyModule::TTbarLJTopTagStudyModule(uhh2::Context& ctx){
   const std::string& elecGsf_SFac    = ctx.get("elecGsf_SF_file");
 
   // //!!  elec-HLT
-  // const std::string& elecHLT_SFac   = ctx.get("elecHLT_SF_file");
+  const std::string& elecHLT_SFac   = ctx.get("elecHLT_SF_file");
 
   //!!  const std::string& elecHLT_SFac   = ctx.get("elecHLT_SF_file");
   //!!  const std::string& elecHLT_hist   = ctx.get("elecHLT_SF_hist");
@@ -1024,13 +1031,15 @@ TTbarLJTopTagStudyModule::TTbarLJTopTagStudyModule(uhh2::Context& ctx){
   // // elec-ID
   elecGsf_SF.reset(new MCElecScaleFactor(ctx, elecGsf_SFac, 0.0, "Gsf"));
   // // elec-HLT
-  // elecHLT_SF.reset(new MCElecScaleFactor(ctx, elecHLT_SFac, 0.0, "HLT"));
+  elecHLT_SF.reset(new MCElecScaleFactor(ctx, elecHLT_SFac, 0.0, "HLT"));
 
   // // //b-tagging scale factors
   // //  btagSF.reset(new MCBTagScaleFactor(ctx, b_working_point));
-  btagSF.reset(new MCBTagScaleFactor(ctx, b_working_point,"jets","central","comb","incl","MCBtagEfficiencies"));//CSV
+  //btagSF.reset(new MCBTagScaleFactor(ctx, b_working_point,"jets","central","comb","incl","MCBtagEfficiencies"));//CSV
   //  btagSF.reset(new MCBTagScaleFactor(ctx, b_working_point,"jets","central","ttbar","incl","MCBtagEfficiencies"));//MVA
 
+  // CSVv2 Shape Systematic
+  csvSF.reset(new MCCSVv2ShapeSystematic(ctx, "jets","central","iterativefit","","MCCSVv2ShapeSystematic"));//CSV
 
   // event
   h_run             = ctx.declare_event_output<int>("run");
@@ -1231,7 +1240,11 @@ TTbarLJTopTagStudyModule::TTbarLJTopTagStudyModule(uhh2::Context& ctx){
 
   /// Homemade ttbar MVA output for QCD
 
-
+  //Add plots for the paper
+  tt_toppuppijet_tau32_matched = ctx.declare_event_output<float>("toppuppijet_tau32_matched");
+  tt_toppuppijet_Msdp_matched = ctx.declare_event_output<float>("toppuppijet_Msdp_matched");
+  tt_topjet_pt = ctx.declare_event_output<float>("topjet_pt");
+  tt_topjet_eta =  ctx.declare_event_output<float>("topjet_eta");
 
 
 
@@ -1479,7 +1492,8 @@ bool TTbarLJTopTagStudyModule::process(uhh2::Event& event){
   //  std::cout<<"Afte PileUp "<<event.weight<<std::endl;
   // // // b-tagging
   // std::cout<<"Before Btag SF: "<<event.weight<<std::endl;
-  btagSF->process(event);
+  //  btagSF->process(event);
+  csvSF->process(event);
 
   //  std::cout<<event.weight<<std::endl;
   //  muon-ID
@@ -1514,7 +1528,7 @@ bool TTbarLJTopTagStudyModule::process(uhh2::Event& event){
   // // elec-Gsf
   elecGsf_SF->process(event);
   // //  std::cout<<"BEFORE "<<event.weight<<std::endl;
-  // elecHLT_SF->process(event);//TEST HLT!!!
+  elecHLT_SF->process(event);//TEST HLT!!!
   //  std::cout<<"AFTER "<<event.weight<<std::endl;
   if(!event.isRealData){
     //    if(channel_ == elec) event.weight *= 0.977;//HLT SF
@@ -1740,6 +1754,7 @@ if(!pass_triangc) return false;
   //TEST
   top_qjets_volatility = -100; top_tau1 = -100; top_tau2 = -100; top_tau3 = -100;
   top_mvahiggsdiscr = -100; top_prunedmass = -100; top_softdropmass = -100;
+  
   //  if(ttagN>0){
   for(const auto& tj : *event.topjets){
     top_qjets_volatility = tj.qjets_volatility();
@@ -1758,7 +1773,13 @@ if(!pass_triangc) return false;
   event.set(tt_mvahiggsdiscr,top_mvahiggsdiscr); 
   event.set(tt_prunedmass,top_prunedmass); 
   event.set(tt_softdropmass,top_softdropmass); 
-  
+  double topjet_pt = -1; double topjet_eta = -1;
+  if(event.topjets->size()>0){
+    topjet_pt = event.topjets->at(0).pt();
+    topjet_eta = event.topjets->at(0).eta();
+  }
+  event.set(tt_topjet_pt,topjet_pt);
+  event.set(tt_topjet_eta,topjet_eta);
 
   //TEST for QCD studies
   // veto on 2-ttag events
@@ -2350,6 +2371,47 @@ if(!pass_triangc) return false;
   //(weight_sfelec_ID)*(wgtMC__elecHLTSF_ct)*(weight_pu)*(weight_btag)*(wgtMC__ttagSF_ct)*(weight_sfelec_Gsf)
   lumihists->fill(event);
 
+  const int toppuppijetN_(event.toppuppijets->size());
+  double toppuppijet__Msdp_matched_ = -1; double toppuppijet__tau32_matched_ = -1;
+  for(int i=0; i<std::min(2, toppuppijetN_); ++i){
+    const TopJet& p = event.toppuppijets->at(i);
+    if(p.numberOfDaughters()<2) continue;
+    float mindR = 9999.0;
+    TLorentzVector PuppiJetv4;TLorentzVector TopJetv4;
+    PuppiJetv4.SetPtEtaPhiE(p.pt(),p.eta(),p.phi(),p.energy());
+    for(const auto & pjet : *event.topjets) {  
+      TopJetv4.SetPtEtaPhiE(pjet.pt(),pjet.eta(),pjet.phi(),pjet.energy());
+      float dR = TopJetv4.DeltaR(PuppiJetv4);
+      if (dR < mindR) {  
+        mindR = dR;                                                                                                                                                   
+      }                                                                                                                                                               
+    }            
+    if(mindR<1.0 && p.numberOfDaughters()>1){ 
+      //Calculate SoftDrop on fly
+      TLorentzVector SoftDropv4(0,0,0,0);
+      for(const auto & subjet : p.subjets()) {
+	TLorentzVector SubJetv4;
+	SubJetv4.SetPtEtaPhiE(subjet.pt(),subjet.eta(),subjet.phi(),subjet.energy());
+	SoftDropv4 = SoftDropv4 + SubJetv4;
+      }
+      toppuppijet__Msdp_matched_ = SoftDropv4.M();
+      toppuppijet__tau32_matched_ = (p.tau3()/p.tau2()); 
+      // if((p.tau3()/p.tau2())<0.65)
+      // 	toppuppijet__Msdp_matched_Nminus1_ = SoftDropv4.M();
+      // if(SoftDropv4.M()>105 && SoftDropv4.M()<210)
+      // 	toppuppijet__tau32_matched_Nminus1_ = (p.tau3()/p.tau2()); 
+      // if((p.tau3()/p.tau2())<0.6 && SoftDropv4.M()>105 && SoftDropv4.M()<210){
+      // 	toppuppijet__Msdp_matched_ = SoftDropv4.M();
+      // 	toppuppijet__tau32_matched_ = (p.tau3()/p.tau2()); 
+      // }
+
+    }
+  }
+  event.set(tt_toppuppijet_Msdp_matched,toppuppijet__Msdp_matched_);
+  event.set(tt_toppuppijet_tau32_matched,toppuppijet__tau32_matched_);
+
+  //  std::cout<<"------ [END] Count N topTAG "<<ttagN<<"-------"<<std::endl;
+  //  if(ttagN==1) std::cout<<"HEY!!! Look at this!"<<std::endl;
 
 
 
