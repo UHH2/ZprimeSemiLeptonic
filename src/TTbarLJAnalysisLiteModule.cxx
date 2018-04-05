@@ -306,6 +306,15 @@ protected:
   float M12jet, M123jet;//invariant mass
   int NDaughters_jet1, NDaughters_jet2;//number of constituets
 
+  Event::Handle<float> tt_mtoplep;//mass of rec. leptonic top
+  Event::Handle<float> tt_mtophad;//mass of rec. hadronic top
+  Event::Handle<float> tt_pttoplep;//pt of rec. leptonic top
+  Event::Handle<float> tt_pttophad;//pt of rec. hadronic top
+  Event::Handle<float> tt_toppuppijet__tau32_matched_Nminus1;//toptau32 without toptagging cut on tau32 for PUPPI jets matched to CHS
+  Event::Handle<float> tt_toppuppijet__Msdp_matched_Nminus1;//Msdp without toptagging cut on Msdp for PUPPI jets matched to CHS
+  Event::Handle<float> tt_toppuppijet__tau32_matched;//toptau32 with toptagging cuts for PUPPI jets matched to CHS
+  Event::Handle<float> tt_toppuppijet__Msdp_matched;//Msdp with toptagging cuts for PUPPI jets matched to CHS
+
   float lep_xy;// x^2+y^2 vertex of the lepton
   float lep_fbrem; 
   float MwT;//Transversal mass
@@ -1077,8 +1086,11 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
   muonTRK_SF.reset(new MCMuonTrkScaleFactor(ctx, muonTRK_SFac, 0.0, "TRK"));
 
-  muonID_SF.reset(new MCMuonScaleFactor(ctx, muonID_SFac, muonID_directory, 1., "ID")); //add additional systematic uncertainties of 1% (ID) recommended by the MUO POG
-  muonHLT_SF.reset(new MCMuonScaleFactor(ctx, muonHLT_SFac, muonHLT_directory, 0.5, "HLT"));//add additional systematic uncertainties of 0.5% (trigger) recommended by the MUO POG
+  // muonID_SF.reset(new MCMuonScaleFactor(ctx, muonID_SFac, muonID_directory, 1., "ID")); //add additional systematic uncertainties of 1% (ID) recommended by the MUO POG
+  // muonHLT_SF.reset(new MCMuonScaleFactor(ctx, muonHLT_SFac, muonHLT_directory, 0.5, "HLT"));//add additional systematic uncertainties of 0.5% (trigger) recommended by the MUO POG
+
+  muonID_SF.reset(new MCMuonScaleFactor(ctx, muonID_SFac, muonID_directory, 2., "ID")); //add additional systematic uncertainties of 1% (ID) recommended by the MUO POG x2
+  muonHLT_SF.reset(new MCMuonScaleFactor(ctx, muonHLT_SFac, muonHLT_directory, 1.0, "HLT"));//add additional systematic uncertainties of 0.5% (trigger) recommended by the MUO POG x2
 
 
   //lumi_tot = string2double(ctx.get("target_lumi"));
@@ -1309,9 +1321,16 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
   /// Homemade ttbar MVA output for QCD
 
+  //Add variables for ploting via theta templates
+  tt_mtoplep = ctx.declare_event_output<float>("Mtoplep");
+  tt_mtophad = ctx.declare_event_output<float>("Mtophad");
+  tt_pttoplep = ctx.declare_event_output<float>("toplep_pt");
+  tt_pttophad = ctx.declare_event_output<float>("tophad_pt");
 
-
-
+  tt_toppuppijet__Msdp_matched_Nminus1 = ctx.declare_event_output<float>("toppuppijet_Msdp_matched_Nminus1");
+  tt_toppuppijet__tau32_matched_Nminus1 = ctx.declare_event_output<float>("toppuppijet_tau32_matched_Nminus1");
+  tt_toppuppijet__Msdp_matched = ctx.declare_event_output<float>("toppuppijet_Msdp_matched");
+  tt_toppuppijet__tau32_matched = ctx.declare_event_output<float>("toppuppijet_tau32_matched");
 
   // --- Create the Reader object
   TMVA_response = -100;
@@ -1681,9 +1700,13 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
       float w_topptREWGT_ct = event.get(h_wgtMC__topptREWGT_ct);
       //      std::cout<<w_topptREWGT_ct<<std::endl;
       // //apply twice the shift as uncertainty
-      w_topptREWGT_dn = w_topptREWGT_ct*w_topptREWGT_ct;
-      w_topptREWGT_up = 1;
+      //    w_topptREWGT_dn = w_topptREWGT_ct*w_topptREWGT_ct;
+      //      w_topptREWGT_up = 1;
+      //      double notweighted_weight = event.weight;
       event.weight *= w_topptREWGT_ct; //TEST with top-pt applied!!! 
+      double diff_topweight = fabs(1-w_topptREWGT_ct);
+      w_topptREWGT_dn = w_topptREWGT_ct -  diff_topweight;
+      w_topptREWGT_up =  w_topptREWGT_ct + diff_topweight;
       //
     }
     //  
@@ -1828,6 +1851,48 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   //  std::cout<<"------ Count N topTAG -------"<<std::endl;
   for(const auto& tj : *event.topjets) if(ttag_ID_(tj, event)) ++ttagN;
   if(ttagN>1) return false; //veto events with 2 and more top-tags
+  // if(event.topjets->size()>0){
+  //   if(event.topjets->at(0).pt()<500) return false;//TEST old higher pt cut to check Mttbar in SR-1T
+  // }
+  const int toppuppijetN_(event.toppuppijets->size());
+  double toppuppijet__Msdp_matched_Nminus1_ = -1; double toppuppijet__tau32_matched_Nminus1_ = -1;
+  double toppuppijet__Msdp_matched_ = -1; double toppuppijet__tau32_matched_ = -1;
+  for(int i=0; i<std::min(2, toppuppijetN_); ++i){
+    const TopJet& p = event.toppuppijets->at(i);
+    if(p.numberOfDaughters()<2) continue;
+    float mindR = 9999.0;
+    TLorentzVector PuppiJetv4;TLorentzVector TopJetv4;
+    PuppiJetv4.SetPtEtaPhiE(p.pt(),p.eta(),p.phi(),p.energy());
+    for(const auto & pjet : *event.topjets) {  
+      TopJetv4.SetPtEtaPhiE(pjet.pt(),pjet.eta(),pjet.phi(),pjet.energy());
+      float dR = TopJetv4.DeltaR(PuppiJetv4);
+      if (dR < mindR) {  
+        mindR = dR;                                                                                                                                                   
+      }                                                                                                                                                               
+    }            
+    if(mindR<1.0 && p.numberOfDaughters()>1){ 
+      //Calculate SoftDrop on fly
+      TLorentzVector SoftDropv4(0,0,0,0);
+      for(const auto & subjet : p.subjets()) {
+	TLorentzVector SubJetv4;
+	SubJetv4.SetPtEtaPhiE(subjet.pt(),subjet.eta(),subjet.phi(),subjet.energy());
+	SoftDropv4 = SoftDropv4 + SubJetv4;
+      }
+      if((p.tau3()/p.tau2())<0.65)
+	toppuppijet__Msdp_matched_Nminus1_ = SoftDropv4.M();
+      if(SoftDropv4.M()>105 && SoftDropv4.M()<210)
+	toppuppijet__tau32_matched_Nminus1_ = (p.tau3()/p.tau2()); 
+      if((p.tau3()/p.tau2())<0.6 && SoftDropv4.M()>105 && SoftDropv4.M()<210){
+	toppuppijet__Msdp_matched_ = SoftDropv4.M();
+	toppuppijet__tau32_matched_ = (p.tau3()/p.tau2()); 
+      }
+
+    }
+  }
+  event.set(tt_toppuppijet__Msdp_matched_Nminus1,toppuppijet__Msdp_matched_Nminus1_);
+  event.set(tt_toppuppijet__tau32_matched_Nminus1,toppuppijet__tau32_matched_Nminus1_);
+  event.set(tt_toppuppijet__Msdp_matched,toppuppijet__Msdp_matched_);
+  event.set(tt_toppuppijet__tau32_matched,toppuppijet__tau32_matched_);
   //  std::cout<<"------ [END] Count N topTAG "<<ttagN<<"-------"<<std::endl;
   //  if(ttagN==1) std::cout<<"HEY!!! Look at this!"<<std::endl;
 
@@ -2299,7 +2364,14 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   event.set(tt_dPhi_recblep_recneu,dPhi_recblep_recneu);
   dR_recblep_recneu  = uhh2::deltaR(rec_blep, rec_neu);
   event.set(tt_dR_recblep_recneu,dR_recblep_recneu);
-
+  float rec_tlep_M (rec_ttbar_->toplep_v4().M());
+  float rec_tlep_pt(rec_ttbar_->toplep_v4().Pt());
+  event.set(tt_mtoplep,rec_tlep_M);
+  event.set(tt_pttoplep,rec_tlep_pt);
+  float rec_thad_M (rec_ttbar_->tophad_v4().M());
+  float rec_thad_pt(rec_ttbar_->tophad_v4().Pt());
+  event.set(tt_mtophad,rec_thad_M);
+  event.set(tt_pttophad,rec_thad_pt);
 
   if(channel_ == elec){
     varMVA[0] = lep_pt/rec_ttbar_M_;

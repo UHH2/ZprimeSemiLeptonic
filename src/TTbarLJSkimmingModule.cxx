@@ -624,7 +624,7 @@ bool TTbarLJSkimmingModule::process(uhh2::Event& event){
   //toppuppijet_IDcleaner->process(event);
   toppuppijetlepton_cleaner->process(event);
   toppuppijet_corrector->process(event);
-  if(toppuppijetER_smearer.get()) toppuppijetER_smearer->process(event);
+  if(!event.isRealData && toppuppijetER_smearer.get()) toppuppijetER_smearer->process(event);
   toppuppijet_cleaner->process(event);
 
   sort_by_pt<TopJet>(*event.topjets);
