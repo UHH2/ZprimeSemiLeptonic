@@ -97,3 +97,28 @@ class TopTagID_SoftDrop {
   float sjbtag_min_;
 };
 ////
+
+class TopTagID_SoftDropCHS {
+
+ public:
+  explicit TopTagID_SoftDropCHS(const std::string&);
+  virtual ~TopTagID_SoftDropCHS() {}
+
+  bool operator()(const TopJet&, const uhh2::Event&) const;
+
+  void cut_mass      (const bool c){ cut_mass_       = c; }
+  void cut_tau32     (const bool c){ cut_tau32_      = c; }
+  void cut_subjetbtag(const bool c){ cut_subjetbtag_ = c; }
+
+ protected:
+  bool cut_mass_;     
+  bool cut_tau32_;    
+  bool cut_subjetbtag_;
+  bool verbose_;
+
+  float   mass_min_;
+  float   mass_max_;
+  float  tau32_max_;
+  float sjbtag_min_;
+};
+////

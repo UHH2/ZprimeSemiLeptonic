@@ -401,6 +401,10 @@ protected:
   Event::Handle<float> h_jet1pt_chi2;
   Event::Handle<float> h_mttbar_chi2;
 
+
+  //some debugging vars
+  Event::Handle<int> tt_n_ttbar_hyps;//number of ttbar hypothesis
+
 };
 
 float TTbarLJAnalysisLiteModule::delta_phi(const float phi1, const float phi2){
@@ -797,6 +801,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   const std::string& ttag_wp = ctx.get("ttag_wp");
 
   ttag_ID_ = TopTagID_SoftDrop(ttag_wp);
+  //  ttag_ID_ = TopTagID_SoftDropCHS(ttag_wp);
   ttag_minDR_jet_ = 1.2;
 
   ttagevt_sel.reset(new TopTagEventSelection(ttag_ID_, ttag_minDR_jet_));
@@ -1061,7 +1066,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
   // top-pt reweighting
   if(ctx.get("dataset_version").find("TTbar") != std::string::npos || ctx.get("dataset_version").find("TTBar") != std::string::npos){
-    std::cout<<"Set top pt reweighting!"<<std::endl;
+    //    std::cout<<"Set top pt reweighting!"<<std::endl;
     //    topptREWGT.reset(new TopPtReweight(ctx, 0.156, -0.00137, ttbar_gen_label, "wgtMC__topptREWGT_ct",false));
     topptREWGT.reset(new TopPtReweight(ctx, 0.0615, -0.0005, ttbar_gen_label, "wgtMC__topptREWGT_ct",false));
   }
@@ -1451,6 +1456,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   TString dirWJetsMVA = ctx.get("wjet_bdt");
   reader_wjets->BookMVA("BDT method", dirWJetsMVA);
 
+  tt_n_ttbar_hyps = ctx.declare_event_output<int>("n_ttbar_hyps"); 
 }
 
 bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
@@ -1481,7 +1487,8 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   
   // std::cout<<"   --- NEW event ---  "<<std::endl;
   // std::cout << " Evt# "<<event.event<<" Run: "<<event.run<<" " << std::endl;
-  // std::cout<<"   elecs = "<<event.electrons->size()<<" muons = "<<event.muons->size()<<" N_jets = "<<event.jets->size()<<" N_topjets = "<<event.topjets->size()<<std::endl;
+  // std::cout<<"   elecs = "<<event.electrons->size()<<" muons = "<<event.muons->size()<<" N_jets = "<<event.jets->size()<<" N_topjets = "<<event.topjets->size()
+  // 	   <<" N_toppuppijets = "<<event.toppuppijets->size()<<std::endl;
   if(channel_ == muon && (event.electrons->size()>0 || event.muons->size()!=1)) return false; //veto additional leptons
   if(channel_ == elec && (event.muons->size()>0 || event.electrons->size()!=1)) return false;//veto additional leptons
 
@@ -1562,6 +1569,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   // if(pass_trigger3)
   //   std::cout<<" Passed trigger3!!! "<<pass_trigger<<" "<<pass_trigger2<<" "<<pass_trigger3<<std::endl;
   //  if(lepN == 1) 
+  //  std::cout<<" fill Trigger hists "<<std::endl;
   HFolder("trigger")->fill(event);
   ////
   lumihists_before->fill(event);
@@ -1583,12 +1591,12 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   //
   //pileup
   pileupSF->process(event);
-  //  std::cout<<"Afte PileUp "<<event.weight<<std::endl;
+  //  std::cout<<" After PileUp "<<event.weight<<std::endl;
   // // // b-tagging
   // std::cout<<"Before Btag SF: "<<event.weight<<std::endl;
   //  btagSF->process(event);
   csvSF->process(event);
-
+  // std::cout<<" After Btag SF: "<<event.weight<<std::endl;
   //  std::cout<<event.weight<<std::endl;
   //  muon-ID
   muonID_SF->process(event);
@@ -1599,6 +1607,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   //double w1 = event.weight;
   //event.weight = w_wo_HLT;
   muonHLT_SF->process(event);
+  // std::cout<<" After Muon SFs: "<<event.weight<<std::endl;
   //double w2 = event.weight;
   ///double w = (lumi1*w1+lumi2*w2)/(lumi_tot);
   // std::cout<<"w1 = "<<w1<<" w2 = "<<w2<<" w = "<<w<<std::endl;
@@ -1623,36 +1632,14 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   elecGsf_SF->process(event);
   // //  std::cout<<"BEFORE "<<event.weight<<std::endl;
   elecHLT_SF->process(event);//TEST HLT!!!
+  //  std::cout<<" After Electron SFs: "<<event.weight<<std::endl;
   //  std::cout<<"AFTER "<<event.weight<<std::endl;
   if(!event.isRealData){
-    // if(channel_ == elec) event.weight *= 0.965657;//HLT SF
-    // //std::cout<<event.weight<<std::endl;
-    // //std::cout<<""<<std::endl;
-    
-    // // w_elecIDSF_ct  = elecIDSF->weight(event, "CT");
-    // // w_elecIDSF_up  = elecIDSF->weight(event, "UP");
-    // // w_elecIDSF_dn  = elecIDSF->weight(event, "DN");
-    // // //
-   
-    // // // elec-HLT
-    // w_elecHLTSF_ct = 0.965657;//!!elecHLTSF->weight(event, "CT");
-    // w_elecHLTSF_up = 0.976657;//!!elecHLTSF->weight(event, "UP");
-    // w_elecHLTSF_dn = 0.954657;//!!elecHLTSF->weight(event, "DN");
-    // // //
-
-
-    // elec-HLT
-    // w_elecHLTSF_ct = 1.0;//!!elecHLTSF->weight(event, "CT");
-    // w_elecHLTSF_up = 1.0;//!!elecHLTSF->weight(event, "UP");
-    // w_elecHLTSF_dn = 1.0;//!!elecHLTSF->weight(event, "DN");
-    //    if(channel_ == elec) event.weight *= w_elecHLTSF_ct;
-    // 
-
     //    std::cout<<"event.weight = "<<event.weight<<std::endl;
 
     // // t-tagging
     w_ttagSF_ct    = ttagSF_ct ->weight(event);
-    //std::cout<<" w_ttagSF_ct = "<<w_ttagSF_ct<<std::endl;  
+    //std::cout<<" Apply ttagSFs,  w_ttagSF_ct = "<<w_ttagSF_ct<<std::endl;  
     event.weight *= w_ttagSF_ct;
     if(fabs(w_ttagSF_ct)>10.)
       std::cout<<"!!!!!!!!!!!!!!!! w_ttagSF_ct = "<<w_ttagSF_ct<<std::endl;  
@@ -1695,7 +1682,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
 
     // top-pt reweighting
     if(topptREWGT.get()){
-      //      std::cout<<"aw!"<<std::endl;
+      //      std::cout<<" --- apply top-pt reweighting ! --- "<<std::endl;
       topptREWGT->process(event);
       float w_topptREWGT_ct = event.get(h_wgtMC__topptREWGT_ct);
       //      std::cout<<w_topptREWGT_ct<<std::endl;
@@ -1823,18 +1810,21 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   //// TTBAR KIN RECO
 
   /* TOPTAG-EVENT boolean */
+  //  std::cout<<" -- pass top-tagging -- "<<std::endl;
   const bool pass_ttagevt = ttagevt_sel->passes(event) && use_ttagging_;
 
   const std::string ttag_posx = (pass_ttagevt ? "t1" : "t0");
   /************************/
 
   reco_primlep->process(event);
+  // std::cout<<" -- process ttbar_reco -- "<<std::endl;
 
   if(!pass_ttagevt){ ttbar_reco__ttag0->process(event); ttbar_chi2__ttag0->process(event); }
   else             { ttbar_reco__ttag1->process(event); ttbar_chi2__ttag1->process(event); }
 
   std::vector<ReconstructionHypothesis>& ttbar_hyps = event.get(h_ttbar_hyps);
 
+  event.set(tt_n_ttbar_hyps, ttbar_hyps.size());
   ////
 
   //// LEPTONIC-TOP pt selection
@@ -1854,6 +1844,10 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   // if(event.topjets->size()>0){
   //   if(event.topjets->at(0).pt()<500) return false;//TEST old higher pt cut to check Mttbar in SR-1T
   // }
+  // if(event.toppuppijets->size()>0){
+  //   if(event.toppuppijets->at(0).pt()<500) return false;//TEST old higher pt cut to check Mttbar in SR-1T
+  // }
+
   const int toppuppijetN_(event.toppuppijets->size());
   double toppuppijet__Msdp_matched_Nminus1_ = -1; double toppuppijet__tau32_matched_Nminus1_ = -1;
   double toppuppijet__Msdp_matched_ = -1; double toppuppijet__tau32_matched_ = -1;
@@ -2351,7 +2345,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
 
   const ReconstructionHypothesis* rec_ttbar_ = get_best_hypothesis(ttbar_hyps, "Chi2");
   rec_ttbar_M_ = ((rec_ttbar_->top_v4()+rec_ttbar_->antitop_v4()).M());
-
+  //  if(rec_ttbar_M_>600) return false;// TEST Mttbar low mass peak in SR-1T
   event.set(tt_mttbar,rec_ttbar_M_);
   const LorentzVector& rec_lep = rec_ttbar_->lepton().v4();
   const LorentzVector& rec_neu = rec_ttbar_->neutrino_v4();
@@ -2533,7 +2527,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   //   //HFolder("antichi2_antibdt__"+ttag_posx+btag_posx)          ->fill(event);
   //   //HFolder("antichi2_antibdt__"+ttag_posx+btag_posx+"__ttbar")->fill(event);   
   // }
-
+  //  std::cout<<"  HEY fill Final hists "<<std::endl;
   HFolder("Final")->fill(event);
   HFolder("Final__ttbar")->fill(event);
   HFolder("Final__"+ttag_posx)          ->fill(event);

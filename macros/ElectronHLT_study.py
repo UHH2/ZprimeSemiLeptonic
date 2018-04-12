@@ -14,8 +14,8 @@ import numpy
 #samplelist = {'DATA_Run2016':'uhh2.AnalysisModuleRunner.DATA.DATA_SingleMuon_Run2016.root'}
 samplelist = {'TTbar':'uhh2.AnalysisModuleRunner.MC.TTbar.root','DATA_Run2016':'uhh2.AnalysisModuleRunner.DATA.DATA.root'}
 #path = {'Ele50_PFJet165': 'Ele50_PFJet165__NULL__NULL__NULL__NULL__NULL/'}
-#path = {'Ele50PFJet165_OR_Ele115': 'Ele50_PFJet165__Ele115_CaloIdVT_GsfTrkIdT__NULL__NULL__NULL__NULL/'}
-path = {'Ele50PFJet165_OR_Ele115_OR_Photon175': 'Ele50_PFJet165__Ele115_CaloIdVT_GsfTrkIdT__Photon175__NULL__NULL__NULL/'} 
+path = {'Ele50PFJet165_OR_Ele115': 'Ele50_PFJet165__Ele115_CaloIdVT_GsfTrkIdT__NULL__NULL__NULL__NULL/'}
+#path = {'Ele50PFJet165_OR_Ele115_OR_Photon175': 'Ele50_PFJet165__Ele115_CaloIdVT_GsfTrkIdT__Photon175__NULL__NULL__NULL/'} 
 eff = {}
 eff_err = {}
 

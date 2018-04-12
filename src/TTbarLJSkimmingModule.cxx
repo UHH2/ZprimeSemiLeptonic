@@ -505,9 +505,18 @@ bool TTbarLJSkimmingModule::process(uhh2::Event& event){
 
   muoSR_cleaner->process(event);
   sort_by_pt<Muon>(*event.muons);
-
+  // int n_ele_before = event.electrons->size();
+  // double ele1_pt_before = 0;
+  // if(n_ele_before>0) ele1_pt_before = event.electrons->at(0).pt();
   eleSR_cleaner->process(event);
   sort_by_pt<Electron>(*event.electrons);
+  // double ele1_pt_after = 0;
+  // int n_ele_after = event.electrons->size();  
+  // if(n_ele_after>0) ele1_pt_after = event.electrons->at(0).pt();
+  
+  // //  if(n_ele_before!=n_ele_after) return false;//TEST skip events where electronID rejected fakes
+  // if(ele1_pt_after>0 && ele1_pt_before!=ele1_pt_after) return false;//TEST skip events where electronID rejected fakes
+
   //const bool pass_lep1 = (event.electrons->size() == 1);
   const bool pass_lep1 = ((event.muons->size() >= 1) || (event.electrons->size() >= 1));
   if(!pass_lep1) return false;

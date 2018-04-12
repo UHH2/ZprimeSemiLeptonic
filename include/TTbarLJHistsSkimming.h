@@ -43,6 +43,7 @@ class TTbarLJHistsSkimming : public uhh2::Hists {
   TH1F *toptag2__Mgro,*toptag2__Mpru,*toptag2__Msdp;
   TH1F *toptag2__tau32,*toptag2__CSV,*toptag2__subjN;
   TH1F *met__pt,*met__phi,*wlep__ht,*wlep__pt,*wlep__Mt;
+  TH2F *ele1__eta__pt;
   //TH1F* TMVA_response;
   //TH1F *lep_eta_err;
   //TH1F *lep_pt;

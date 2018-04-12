@@ -9,15 +9,15 @@ from ROOT import *
 import sys
 import numpy
 #outputpath = '/afs/desy.de/user/k/karavdia/www/Zprime_plots/ElecHLTeff_jetCut_MET120_vetoGapEle_HLT1ORHLT2ORHLT3'
-#outputpath = '/afs/desy.de/user/k/karavdia/www/Zprime_plots/ElecHLTeff_jetCut_MET120_vetoGapEle_HLT1'
-outputpath = '/afs/desy.de/user/k/karavdia/www/Zprime_plots/ElecHLTeff_jetCut_MET120_vetoGapEle_HLT1HLT2'
+outputpath = '/afs/desy.de/user/k/karavdia/www/Zprime_plots/ElecHLTeff_jetCut_MET120_vetoGapEle_HLT1'
+#outputpath = '/afs/desy.de/user/k/karavdia/www/Zprime_plots/ElecHLTeff_jetCut_MET120_vetoGapEle_HLT1HLT2'
 #outputpath = '/afs/desy.de/user/k/karavdia/www/Zprime_plots/ElecHLTeff_jetCut_MET120_vetoGapEle_HLT1HLT2HLT3'
 #Set names of channels, hists, etc
 samplelist = {'DATA_Run2016':'uhh2.AnalysisModuleRunner.DATA.DATA.root','TTbar':'uhh2.AnalysisModuleRunner.MC.TTbar.root'}
 #samplelist = {'DATA_Run2016':'uhh2.AnalysisModuleRunner.DATA.DATA_SingleMuon_Run2016.root','DATA_Run2016BCD':'uhh2.AnalysisModuleRunner.DATA.DATA_SingleMuon_Run2016BCD.root','DATA_Run2016EF':'uhh2.AnalysisModuleRunner.DATA.DATA_SingleMuon_Run2016EF.root','DATA_Run2016G':'uhh2.AnalysisModuleRunner.DATA.DATA_SingleMuon_Run2016G.root','DATA_Run2016H':'uhh2.AnalysisModuleRunner.DATA.DATA_SingleMuon_Run2016H.root','TTbar':'uhh2.AnalysisModuleRunner.MC.TTbar.root'}
 #path = {'Ele50_PFJet165 || Ele115/105': 'Ele50_PFJet165__Ele115_CaloIdVT_GsfTrkIdT__Ele105_CaloIdVT_GsfTrkIdT__NULL__NULL__NULL/'}
-#path = {'Ele50_PFJet165': 'Ele50_PFJet165__NULL__NULL__NULL__NULL__NULL'}
-path = {'Ele50PFJet165_OR_Ele115': 'Ele50_PFJet165__Ele115_CaloIdVT_GsfTrkIdT__NULL__NULL__NULL__NULL/'} 
+path = {'Ele50_PFJet165': 'Ele50_PFJet165__NULL__NULL__NULL__NULL__NULL'}
+#path = {'Ele50PFJet165_OR_Ele115': 'Ele50_PFJet165__Ele115_CaloIdVT_GsfTrkIdT__NULL__NULL__NULL__NULL/'} 
 #path = {'Ele50PFJet165_OR_Ele115_OR_Photon175': 'Ele50_PFJet165__Ele115_CaloIdVT_GsfTrkIdT__Photon175__NULL__NULL__NULL/'} 
 eff = {}
 eff_err = {}
@@ -81,8 +81,17 @@ for key_hist in read_hist:
             cHLTeff[key_hist+key_sample].SaveAs(outputpath+'/Yield_nomin_'+key_hist+'_'+key_sample+'.pdf')
 
             sig_eff_gr[key_hists_full].Divide(sig_denom[key_hists_full]) #calculate efficiency in Data
+            #loop over bins to fill empty once with 1
+            for i in range(1,sig_eff_gr[key_hists_full].GetNbinsX() + 1):
+                for j in range(1,sig_eff_gr[key_hists_full].GetNbinsY() + 1):
+                    #sig_eff_gr[key_hists_full].SetBinContent(i,j,0.94/0.962)
+                    if sig_eff_gr[key_hists_full].GetBinContent(i,j)==0: 
+                        sig_eff_gr[key_hists_full].SetBinContent(i,j,1)
+                        sig_eff_gr[key_hists_full].SetBinError(i,j,0.0)
+
             sig_eff_gr[key_hists_full].Draw('colz TEXTE')
             sig_eff_gr[key_hists_full].GetZaxis().SetRangeUser(0,1.5)
+            sig_eff_gr[key_hists_full].GetXaxis().SetRangeUser(0.,2.5)
             gPad.SetLogy();
             cHLTeff[key_hist+key_sample].SaveAs(outputpath+'/Eff_'+key_hist+'_'+key_sample+'.pdf')
 
@@ -98,7 +107,7 @@ for key_hist in read_hist:
                     #sig_eff_gr[key_hists_full].SetBinContent(i,j,0.94/0.962)
                     if sig_eff_gr[key_hists_full].GetBinContent(i,j)==0: 
                         sig_eff_gr[key_hists_full].SetBinContent(i,j,1)
-                        sig_eff_gr[key_hists_full].SetBinError(i,j,0.05)
+                        sig_eff_gr[key_hists_full].SetBinError(i,j,1.0)
 
             sig_eff_gr[key_hists_full].SetName('EGamma_SF2D')
             #sig_eff_gr[key_hists_full].SetMarkerStyle(27+i)
