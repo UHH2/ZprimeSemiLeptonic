@@ -6,7 +6,7 @@
 
 #include <UHH2/common/include/Utils.h>
 #include <UHH2/common/include/TopJetIds.h>
-
+#include <UHH2/ZprimeSemiLeptonic/include/HistsBASE.h>
 #include "TH1F.h"
 #include "TH2F.h"
 
@@ -146,6 +146,17 @@ void TTbarLJHistsSkimming::init(){
   wlep__ht = book<TH1F>("wlep__ht","W_{leptonic} H_{T} [GeV]", 90, 0, 900);
   wlep__pt = book<TH1F>("wlep__pt","W_{leptonic} p_{T} [GeV]", 90, 0, 900);
   wlep__Mt = book<TH1F>("wlep__Mt","W_{leptonic} M_{T} [GeV]", 360, 0,  360);
+
+  //2D hists for efficiency study
+  // const int netabins=11;                                                                   
+  // Double_t xAxis1[netabins] = {-2.5, -2, -1.566, -1.444, -0.8, 0, 0.8, 1.444, 1.566, 2, 2.5};
+  const int netabins=6;                                                                   
+  Double_t xAxis1[netabins] = {0, 0.8, 1.444, 1.566, 2, 2.5};
+  const int nptbins = 9;                                                                                                                                             
+  Double_t yAxis1[nptbins] = {50, 60, 70, 80, 100, 200, 300, 400, 1000};
+  //  book_TH2F("ele1__eta__pt", netabins-1, xAxis1, nptbins-1, yAxis1);
+  ele1__eta__pt = book<TH2F>("ele1__eta__pt", ";eta;pt", netabins-1, xAxis1, nptbins-1, yAxis1);  
+  //  book_TH2F("ele1__eta__pt", netabins-1, xAxis1, nptbins-1, yAxis1);  
   return ; 
 }
 
@@ -216,6 +227,8 @@ void TTbarLJHistsSkimming::fill(const uhh2::Event& event){
       ele1__class->Fill(EMclass, weight);
       ele1__minDR_jet->Fill(minDR_jet, weight);
       ele1__pTrel_jet->Fill(pTrel_jet, weight);
+      //      H2("ele1__eta__pt") ->Fill(fabs(p.eta()),p.pt(), weight);  
+      ele1__eta__pt->Fill(fabs(p.eta()),p.pt(), weight);  
     }
     if(i==1){
       ele2__charge->Fill(p.charge()          , weight);

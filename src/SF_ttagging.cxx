@@ -23,6 +23,7 @@ weightcalc_ttagging::weightcalc_ttagging(const std::string& sfac_csvfile , const
   measurement_type__jetT_ = meas_key_jetT;
 
   ttagWP_ = TopTagID_SoftDrop(ttagWP_key);
+  //  ttagWP_ = TopTagID_SoftDropCHS(ttagWP_key); //TEST
 
   if     (syst_key_jetL == "CT") sys_key__jetL_ = "central";
   else if(syst_key_jetL == "UP") sys_key__jetL_ = "up";
