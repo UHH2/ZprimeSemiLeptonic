@@ -404,7 +404,7 @@ protected:
 
   //some debugging vars
   Event::Handle<int> tt_n_ttbar_hyps;//number of ttbar hypothesis
-
+  Event::Handle<float> tt_dR_lep_thad;//dR(lepton, top-hadronic)
 };
 
 float TTbarLJAnalysisLiteModule::delta_phi(const float phi1, const float phi2){
@@ -839,7 +839,8 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
 
   if(topleppt_cut){
 
-    if     (channel_ == elec) topleppt_sel.reset(new LeptonicTopPtCut(ctx, 140., uhh2::infinity, ttbar_hyps_label, ttbar_chi2_label));
+    //    if     (channel_ == elec) topleppt_sel.reset(new LeptonicTopPtCut(ctx, 140., uhh2::infinity, ttbar_hyps_label, ttbar_chi2_label));
+    if     (channel_ == elec) topleppt_sel.reset(new uhh2::AndSelection(ctx));//TEST
     else if(channel_ == muon) topleppt_sel.reset(new uhh2::AndSelection(ctx));
   }
   else topleppt_sel.reset(new uhh2::AndSelection(ctx));
@@ -1457,6 +1458,7 @@ TTbarLJAnalysisLiteModule::TTbarLJAnalysisLiteModule(uhh2::Context& ctx){
   reader_wjets->BookMVA("BDT method", dirWJetsMVA);
 
   tt_n_ttbar_hyps = ctx.declare_event_output<int>("n_ttbar_hyps"); 
+  tt_dR_lep_thad = ctx.declare_event_output<float>("dR_lep_thad"); 
 }
 
 bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
@@ -1811,9 +1813,19 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
 
   /* TOPTAG-EVENT boolean */
   //  std::cout<<" -- pass top-tagging -- "<<std::endl;
+
+  //check dR between lepton and AK8 jets
+  // if less than 0.8 do not consider it for 1-top-tag category
+  double dR_lep_AK8 = 100;
+  for(const auto& tj : *event.topjets){
+    double dR_lep_AK8_tmp = uhh2::deltaR(*lep1, tj);
+    if (dR_lep_AK8_tmp<dR_lep_AK8) dR_lep_AK8 = dR_lep_AK8_tmp;
+    // if(ttag_ID_(tj, event)) ++ttagN;
+  }
+
+  //  const bool pass_ttagevt = ttagevt_sel->passes(event) && use_ttagging_ && dR_lep_AK8>0.8;//TEST
   const bool pass_ttagevt = ttagevt_sel->passes(event) && use_ttagging_;
 
-  const std::string ttag_posx = (pass_ttagevt ? "t1" : "t0");
   /************************/
 
   reco_primlep->process(event);
@@ -1835,12 +1847,15 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   ////
 
   //// FINAL selection
-
+ 
+  
   /* ttagN counters */
   int ttagN(0);
   //  std::cout<<"------ Count N topTAG -------"<<std::endl;
   for(const auto& tj : *event.topjets) if(ttag_ID_(tj, event)) ++ttagN;
   if(ttagN>1) return false; //veto events with 2 and more top-tags
+
+
   // if(event.topjets->size()>0){
   //   if(event.topjets->at(0).pt()<500) return false;//TEST old higher pt cut to check Mttbar in SR-1T
   // }
@@ -2011,7 +2026,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   event.set(h_eleN , event.electrons->size());
 
   event.set(h_btagN, btagN);
-  event.set(h_ttagN, ttagN);
+  
 
   event.set(h_ttagevt, pass_ttagevt);
 
@@ -2287,6 +2302,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   event.set(h_rec_thad, TLorentzVector(thad.Px(), thad.Py(), thad.Pz(), thad.E()));
   //
 
+
   // weight
   event.set(h_wgtMC__GEN         , w_GEN);
 
@@ -2366,6 +2382,16 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   float rec_thad_pt(rec_ttbar_->tophad_v4().Pt());
   event.set(tt_mtophad,rec_thad_M);
   event.set(tt_pttophad,rec_thad_pt);
+
+  const LorentzVector& rec_thad = rec_ttbar_->tophad_v4(); 
+
+  double dR_lep_thad = uhh2::deltaR(rec_lep , rec_thad);
+  bool pass_dRlep_thad = true;
+  if(dR_lep_thad<0.8) pass_dRlep_thad = false;
+  if(!pass_dRlep_thad) ttagN = 0;
+  event.set(tt_dR_lep_thad, dR_lep_thad);
+
+  const std::string ttag_posx = (( pass_ttagevt && pass_dRlep_thad) ? "t1" : "t0");
 
   if(channel_ == elec){
     varMVA[0] = lep_pt/rec_ttbar_M_;
@@ -2683,6 +2709,7 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   // if(event.met->pt()>500) 
   //  std::cout<<"#### N_ele = "<<event.electrons->size()<<" N_muo = "<<event.muons->size()<<" N_jets = "<<event.jets->size()<<" N_topjets = "<<event.topjets->size()<<" met = "<<event.met->pt()<<" raw MET = "<<event.met->uncorr_v4().Pt()<<" event weight = "<<event.weight<<std::endl;
   //  std::cout<<"-- End of Event --"<<std::endl;
+  event.set(h_ttagN, ttagN);
   return true;
 }
 

@@ -377,15 +377,15 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
     jetlepton_cleaner.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4));
     //    jetlepton_cleaner.reset(new JetLeptonCleaner(ctx, JEC_AK4));//TEST
     //    jetER_smearer.reset(new GenericJetResolutionSmearer(ctx));
-    jetER_smearer.reset(new JetResolutionSmearer(ctx)); //TEST
+    jetER_smearer.reset(new JetResolutionSmearer(ctx, JERSmearing::SF_13TeV_2016_V10a)); //TEST
     topjet_corrector.reset(new TopJetCorrector(ctx, JEC_AK8));
     topjet_subjet_corrector.reset(new SubJetCorrector(ctx, JEC_AK4));
     ctx.declare_event_input<std::vector<Particle> >(ctx.get("TopJetCollectionGEN"), "topjetsGEN");
-    topjetER_smearer.reset(new GenericJetResolutionSmearer(ctx, "topjets", "topjetsGEN", false));
+    topjetER_smearer.reset(new GenericJetResolutionSmearer(ctx, "topjets", "topjetsGEN", false, JERSmearing::SF_13TeV_2016_V10a));
 
     toppuppijet_corrector.reset(new GenericTopJetCorrector(ctx, JEC_AK8_Puppi, "toppuppijets"));
     toppuppijet_subjet_corrector.reset(new GenericSubJetCorrector(ctx, JEC_AK4_Puppi, "toppuppijets"));
-    toppuppijetER_smearer.reset(new GenericJetResolutionSmearer(ctx, "toppuppijets", "topjetsGEN", false));
+    toppuppijetER_smearer.reset(new GenericJetResolutionSmearer(ctx, "toppuppijets", "topjetsGEN", false, JERSmearing::SF_13TeV_2016_V10a));
 
   }
  
