@@ -187,6 +187,7 @@ void TTbarLJHists::init(){
   topjet1__Msdp = book<TH1F>("topjet1__Msdp","topjet softdrop mass [GeV]", 50, 0, 500);
   topjet1__tau32 = book<TH1F>("topjet1__tau32","topjet #tau_{32}", 24, 0, 1.2);
   topjet1__NumSubjets = book<TH1F>("topjet1__subjN", "topjet N sub-jets"       , 6, 0, 6);
+
   topjet1__dR = book<TH1F>("topjet1__dR","#DeltaR(topjet_{1}, toppuppijet)" , 50, 0, 5);
   topjet2__pt = book<TH1F>("topjet2__pt","topjet_{2} p_{T} [GeV]" , 40, 100, 1700);
   //  topjet2__pt = book<TH1F>("topjet2__pt","topjet p_{T} [GeV]", nptAxis-1, ptAxis);
@@ -197,6 +198,8 @@ void TTbarLJHists::init(){
   topjet2__tau32 = book<TH1F>("topjet2__tau32","topjet_{2} #tau_{32}", 24, 0, 1.2);
   topjet2__NumSubjets = book<TH1F>("topjet2__subjN", "topjet_{2} N sub-jets" , 6, 0, 6);
   topjet2__dR = book<TH1F>("topjet2__dR","#DeltaR(topjet_{2}, toppuppijet)" , 50, 0, 5);
+  topjet1__dRlep = book<TH1F>("topjet1__dRlep","#DeltaR(topjet_{1}, lepton)" , 50, 0, 5);
+  topjet2__dRlep = book<TH1F>("topjet2__dRlep","#DeltaR(topjet_{2}, lepton)" , 50, 0, 5);
 
  // TOPPUPPIJET
   toppuppijetN = book<TH1F>("toppuppijetN","N toppuppijets", 10, 0, 10);
@@ -743,6 +746,17 @@ void TTbarLJHists::fill(const uhh2::Event& event){
     wlep__pt->Fill((event.met->v4()+lep1->v4()).Pt(), weight);
     wlep__pt__jet1__pt->Fill((event.met->v4()+lep1->v4()).Pt()/event.jets->at(0).pt(), weight);
     wlep__Mt->Fill(sqrt(2*event.met->pt()*lep1->pt()*(1.-cos(uhh2::deltaPhi(*event.met, *lep1)))), weight);
+
+    if(event.topjets->size()>0){
+      const TopJet& tjet1 = event.topjets->at(0);
+      double dR_lep_AK8_tmp = uhh2::deltaR(*lep1, tjet1);
+      topjet1__dRlep->Fill(dR_lep_AK8_tmp,weight);
+      if(event.topjets->size()>1){
+      const TopJet& tjet2 = event.topjets->at(1);
+      double dR_lep_AK8_tmp2 = uhh2::deltaR(*lep1, tjet2);
+      topjet1__dRlep->Fill(dR_lep_AK8_tmp2,weight);
+      }
+    }
   }
 
   TMVA_response->Fill(event.get(tt_tmva_response), weight);

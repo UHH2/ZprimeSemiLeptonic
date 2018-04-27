@@ -59,6 +59,7 @@ class TTbarLJHists : public uhh2::Hists {
   TH1F *toptag2__pt,*toptag2__eta,*toptag2__phi,*toptag2__M;
   TH1F *toptag2__Mgro,*toptag2__Mpru,*toptag2__Msdp;
   TH1F *toptag2__tau32,*toptag2__CSV,*toptag2__subjN;
+  TH1F *topjet1__dRlep, *topjet2__dRlep;
   TH1F *met__pt,*met__phi,*wlep__ht,*wlep__pt,*wlep__Mt,*wlep__pt__jet1__pt;
   TH1F* TMVA_response;
   TH1F* WJets_TMVA_response;
