@@ -423,6 +423,8 @@ TTbarLJSkimmingModule::TTbarLJSkimmingModule(uhh2::Context& ctx){
     "jet1",
     "met",
     "htlep",
+    "jetlepcleaning_before",
+    "jetlepcleaning_after",
     "twodcut",
     "lep_eff_sig",
     "lep_eff_bkg"
@@ -541,7 +543,7 @@ bool TTbarLJSkimmingModule::process(uhh2::Event& event){
     else throw std::runtime_error("run number not covered by if-statements in process-routine.");
 
     if(apply_BCD+apply_EFearly+apply_FlateG+apply_H+apply_global != 1) throw std::runtime_error("In TestModule.cxx: Sum of apply_* when applying JECs is not == 1. Fix this.");
-
+    HFolder("jetlepcleaning_before")->fill(event);
     //apply proper JECs
     if(apply_BCD){
       bool jlc_sw =  JLC_BCD->process(event);
@@ -591,6 +593,7 @@ bool TTbarLJSkimmingModule::process(uhh2::Event& event){
   //  std::cout<<"####After JLC, N_jets = "<<event.jets->size()<<" N_topjets = "<<event.topjets->size()<<std::endl;
   jet_cleaner1->process(event);
   sort_by_pt<Jet>(*event.jets);
+  HFolder("jetlepcleaning_after")->fill(event);
   //  std::cout<<"####After jet_cleaner1, N_jets = "<<event.jets->size()<<" N_topjets = "<<event.topjets->size()<<std::endl;
   
   /* lepton-2Dcut variables */
