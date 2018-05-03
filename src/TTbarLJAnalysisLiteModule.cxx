@@ -1815,15 +1815,12 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   //  std::cout<<" -- pass top-tagging -- "<<std::endl;
 
   //check dR between lepton and AK8 jets
-  // if less than 0.8 do not consider it for 1-top-tag category
-  double dR_lep_AK8 = 100;
-  for(const auto& tj : *event.topjets){
-    double dR_lep_AK8_tmp = uhh2::deltaR(*lep1, tj);
-    if (dR_lep_AK8_tmp<dR_lep_AK8) dR_lep_AK8 = dR_lep_AK8_tmp;
-    // if(ttag_ID_(tj, event)) ++ttagN;
+  // if less than 0.8 remove AK8 jet
+  for(auto tj = event.topjets->begin(); tj != event.topjets->end();){
+    double dR_lep_AK8_tmp = uhh2::deltaR(*lep1, *tj);
+    if(dR_lep_AK8_tmp<0.8) tj = event.topjets->erase(tj);
   }
 
-  //  const bool pass_ttagevt = ttagevt_sel->passes(event) && use_ttagging_ && dR_lep_AK8>0.8;//TEST
   const bool pass_ttagevt = ttagevt_sel->passes(event) && use_ttagging_;
 
   /************************/
