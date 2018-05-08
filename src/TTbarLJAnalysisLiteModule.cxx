@@ -2384,11 +2384,11 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
 
   const LorentzVector& rec_thad = rec_ttbar_->tophad_v4(); 
 
-  // double dR_lep_thad = uhh2::deltaR(rec_lep , rec_thad);
+  double dR_lep_thad = uhh2::deltaR(rec_lep , rec_thad);
   // bool pass_dRlep_thad = true;
   // if(dR_lep_thad<0.8) pass_dRlep_thad = false;
   // if(!pass_dRlep_thad) ttagN = 0;
-  // event.set(tt_dR_lep_thad, dR_lep_thad);
+  event.set(tt_dR_lep_thad, dR_lep_thad);
 
   //  const std::string ttag_posx = (( pass_ttagevt && pass_dRlep_thad) ? "t1" : "t0");
   const std::string ttag_posx = ( pass_ttagevt ? "t1" : "t0");
