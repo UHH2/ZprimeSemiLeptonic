@@ -25,7 +25,7 @@
 <!-- <!ENTITY OUTdir  "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/TTbarLJAnalysisLiteModule_dRPUPPI10_wCSVshapeSF_wMisTopTagSF_wNEW2DEleHLTSF_vetoGapElectrons_HLT1HLT2HLT3_NOTBLINED_WJetsOLDbdt_muRmuF_updTTAGeff_20171214_JERhybrid/&KEYW;/&channel;/"> -->
 <!-- <!ENTITY OUTdir  "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/TTbarLJAnalysisLiteModule_BLINDED_20180108_JERhybrid/&KEYW;/&channel;/"> --> 
 
-<!ENTITY OUTdir  "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/TTbarLJAnalysisLiteModule_NOTBLINDED_20180331_JERhybrid_topptReweight_oldMuonSF_toptagMLE3_jer_down/&KEYW;/&channel;/">
+<!ENTITY OUTdir  "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/TTbarLJAnalysisLiteModule_NOTBLINDED_20180331_JERhybrid_topptReweight_oldMuonSF_toptagMLE3_addTTBarRecDebugVars_dRlepAK8_removeAK8_jer_down/&KEYW;/&channel;/">
 
 <!-- <!ENTITY OUTdir  "/nfs/dust/cms/user/karavdia/ttbar_semilep_13TeV/RunII_80X_v3/ttbarLJAnalysis/TTbarLJAnalysisLiteModule_BLINDED_20180108_JERhybrid_2HLTpaths/&KEYW;/&channel;/"> -->
 

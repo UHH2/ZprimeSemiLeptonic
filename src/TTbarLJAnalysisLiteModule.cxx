@@ -1819,6 +1819,8 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   for(auto tj = event.topjets->begin(); tj != event.topjets->end();){
     double dR_lep_AK8_tmp = uhh2::deltaR(*lep1, *tj);
     if(dR_lep_AK8_tmp<0.8) tj = event.topjets->erase(tj);
+    else
+      ++tj;
   }
 
   const bool pass_ttagevt = ttagevt_sel->passes(event) && use_ttagging_;
