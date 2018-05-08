@@ -1819,6 +1819,8 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
   for(auto tj = event.topjets->begin(); tj != event.topjets->end();){
     double dR_lep_AK8_tmp = uhh2::deltaR(*lep1, *tj);
     if(dR_lep_AK8_tmp<0.8) tj = event.topjets->erase(tj);
+    else
+      ++tj;
   }
 
   const bool pass_ttagevt = ttagevt_sel->passes(event) && use_ttagging_;
@@ -2382,13 +2384,14 @@ bool TTbarLJAnalysisLiteModule::process(uhh2::Event& event){
 
   const LorentzVector& rec_thad = rec_ttbar_->tophad_v4(); 
 
-  double dR_lep_thad = uhh2::deltaR(rec_lep , rec_thad);
-  bool pass_dRlep_thad = true;
-  if(dR_lep_thad<0.8) pass_dRlep_thad = false;
-  if(!pass_dRlep_thad) ttagN = 0;
-  event.set(tt_dR_lep_thad, dR_lep_thad);
+  // double dR_lep_thad = uhh2::deltaR(rec_lep , rec_thad);
+  // bool pass_dRlep_thad = true;
+  // if(dR_lep_thad<0.8) pass_dRlep_thad = false;
+  // if(!pass_dRlep_thad) ttagN = 0;
+  // event.set(tt_dR_lep_thad, dR_lep_thad);
 
-  const std::string ttag_posx = (( pass_ttagevt && pass_dRlep_thad) ? "t1" : "t0");
+  //  const std::string ttag_posx = (( pass_ttagevt && pass_dRlep_thad) ? "t1" : "t0");
+  const std::string ttag_posx = ( pass_ttagevt ? "t1" : "t0");
 
   if(channel_ == elec){
     varMVA[0] = lep_pt/rec_ttbar_M_;
