@@ -1,5 +1,5 @@
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicSelections.h>
-#include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicUtils.h>
+#include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicModules.h>
 #include <UHH2/ZprimeSemiLeptonic/include/utils.h>
 
 #include <iostream>
@@ -12,19 +12,42 @@
 #include <UHH2/common/include/ReconstructionHypothesisDiscriminators.h>
 #include <UHH2/common/include/Utils.h>
 
-uhh2::HTlepCut::HTlepCut(float min_htlep, float max_htlep):
-  min_htlep_(min_htlep), max_htlep_(max_htlep) {}
+using namespace std;
 
-bool uhh2::HTlepCut::passes(const uhh2::Event& event){
+uhh2::Chi2Cut::Chi2Cut(Context& ctx, float min, float max): min_(min), max_(max){
+  h_BestZprimeCandidate = ctx.get_handle<ZprimeCandidate>("ZprimeCandidateBestChi2");
+  h_is_zprime_reconstructed = ctx.get_handle<bool>("is_zprime_reconstructed");
+}
 
-  float htlep = HTlep1(event);
+bool uhh2::Chi2Cut::passes(const uhh2::Event& event){
 
-  return (htlep > min_htlep_) && (htlep < max_htlep_);
+  bool is_zprime_reconstructed = event.get(h_is_zprime_reconstructed);
+  // if(!is_zprime_reconstructed) throw runtime_error("In ZprimeSemiLeptonicSelections.cxx: Chi2Cut::passes: The Zprime was never reconstructed. Do this before trying to cut on its chi2.");
+  bool pass = false;
+  if(is_zprime_reconstructed){
+    ZprimeCandidate BestZprimeCandidate = event.get(h_BestZprimeCandidate);
+    double chi2 = BestZprimeCandidate.discriminator("chi2_total");
+    if(chi2 >= min_ && (chi2 <= max_ || max_ < 0)) pass = true;
+  }
+
+  return pass;
+}
+
+uhh2::STlepPlusMetCut::STlepPlusMetCut(float min, float max):
+min_(min), max_(max) {}
+
+bool uhh2::STlepPlusMetCut::passes(const uhh2::Event& event){
+
+  float stlep = STlep(event);
+  float met = event.met->pt();
+  float sum = stlep + met;
+
+  return (sum > min_) && (sum < max_ || max_ < 0.);
 }
 ////////////////////////////////////////////////////////
 
 uhh2::METCut::METCut(float min_met, float max_met):
-  min_met_(min_met), max_met_(max_met) {}
+min_met_(min_met), max_met_(max_met) {}
 
 bool uhh2::METCut::passes(const uhh2::Event& event){
 
@@ -33,37 +56,6 @@ bool uhh2::METCut::passes(const uhh2::Event& event){
   float MET = event.met->pt();
   return (MET > min_met_) && (MET < max_met_);
 }
-////////////////////////////////////////////////////////
-
-//!! uhh2::TTbarNJetSelection::TTbarNJetSelection(const float jet1_pt, const float jet2_pt, const float tjet1_pt):
-//!!   jet1_pt_(jet1_pt), jet2_pt_(jet2_pt), tjet1_pt_(tjet1_pt) {
-//!! 
-//!!   h_jets_    = ctx.get_handle<std::vector<Jet>   >("jets");
-//!!   h_topjets_ = ctx.get_handle<std::vector<TopJet>>("topjets");
-//!! 
-//!! }
-//!! 
-//!! bool uhh2::TTbarNJetSelection::passes(const uhh2::Event& event){
-//!! 
-//!!   const std::vector<Jet>&       jets = event.get(h_jets_);
-//!!   const std::vector<TopJet>& topjets = event.get(h_topjets_);
-//!! 
-//!!   int jetN_1(0), jetN_2(0);
-//!!   for(const auto& j : jets){
-//!! 
-//!!     if(j.pt() > jet1_pt_) ++jetN_1;
-//!!     if(j.pt() > jet2_pt_) ++jetN_2;
-//!!   }
-//!! 
-//!!   int tjetN_1(0);
-//!!   for(const auto& tj : topjets){
-//!! 
-//!!     if(tj.pt() > tjet1_pt_) ++tjetN_1;
-//!!   }
-//!! 
-//!!   return (njet >= nmin) && (njet <= nmax);
-//!! }
-//!! ////////////////////////////////////////////////////////
 
 bool uhh2::TwoDCut1::passes(const uhh2::Event& event){
 
@@ -112,7 +104,7 @@ bool uhh2::TwoDCut::passes(const uhh2::Event& event){
     return false;
   }
 
-  float drmin, ptrel;  
+  float drmin, ptrel;
   if(event.muons->size()) std::tie(drmin, ptrel) = drmin_pTrel(event.muons->at(0), *event.jets);
   else std::tie(drmin, ptrel) = drmin_pTrel(event.electrons->at(0), *event.jets);
 
@@ -176,9 +168,9 @@ bool uhh2::TriangularCutsELE::passes(const uhh2::Event& event){
 ////////////////////////////////////////////////////////
 
 uhh2::DiLeptonSelection::DiLeptonSelection(const std::string& channel, const bool opposite_charge, const bool veto_other_flavor):
-  channel_(channel), opposite_charge_(opposite_charge), veto_other_flavor_(veto_other_flavor) {}
+channel_(channel), opposite_charge_(opposite_charge), veto_other_flavor_(veto_other_flavor) {}
 
-bool uhh2::DiLeptonSelection::passes(const uhh2::Event& event){ 
+bool uhh2::DiLeptonSelection::passes(const uhh2::Event& event){
 
   bool pass(false);
 
@@ -205,9 +197,9 @@ bool uhh2::DiLeptonSelection::passes(const uhh2::Event& event){
 ////////////////////////////////////////////////////////
 
 uhh2::TopJetPlusJetEventSelection::TopJetPlusJetEventSelection(const float topjet_minDR_jet, const float jet_min_pt):
-  topjet_minDR_jet_(topjet_minDR_jet), jet_min_pt_(jet_min_pt) {}
+topjet_minDR_jet_(topjet_minDR_jet), jet_min_pt_(jet_min_pt) {}
 
-bool uhh2::TopJetPlusJetEventSelection::passes(const uhh2::Event& event){ 
+bool uhh2::TopJetPlusJetEventSelection::passes(const uhh2::Event& event){
 
   if(event.topjets->size() != 1) return false;
 
@@ -223,22 +215,27 @@ bool uhh2::TopJetPlusJetEventSelection::passes(const uhh2::Event& event){
 ////////////////////////////////////////////////////////
 
 uhh2::TopTagEventSelection::TopTagEventSelection(const TopJetId& tjetID, const float minDR_jet_ttag):
-  topjetID_(tjetID), minDR_jet_toptag_(minDR_jet_ttag) {
+topjetID_(tjetID), minDR_jet_toptag_(minDR_jet_ttag) {
 
   topjet1_sel_.reset(new NTopJetSelection(1, -1, topjetID_));
 }
 
-bool uhh2::TopTagEventSelection::passes(const uhh2::Event& event){ 
+bool uhh2::TopTagEventSelection::passes(const uhh2::Event& event){
 
   if(!topjet1_sel_->passes(event)) return false;
 
   for(const auto& topjet : *event.topjets){
 
     if(!topjetID_(topjet, event)) continue;
-
+    // cout << "TTbar: TopJet has been tagged" << endl;
+    float max_dr = 0.;
     for(const auto& jet : *event.jets){
-      if(deltaR(jet, topjet) > minDR_jet_toptag_) return true;
+      if(deltaR(jet, topjet) > minDR_jet_toptag_){
+        return true;
+      }
+      if(deltaR(jet, topjet) > max_dr) max_dr = deltaR(jet, topjet);
     }
+    // cout << "TTbar: Apparently there is no AK4 jet well-separated from this top jet. Maximum dR = " << max_dr << endl;
   }
 
   return false;
@@ -246,7 +243,7 @@ bool uhh2::TopTagEventSelection::passes(const uhh2::Event& event){
 ////////////////////////////////////////////////////////
 
 uhh2::LeptonicTopPtCut::LeptonicTopPtCut(uhh2::Context& ctx, float pt_min, float pt_max, const std::string& hyps_name, const std::string& disc_name):
-  tlep_pt_min_(pt_min), tlep_pt_max_(pt_max), h_hyps_(ctx.get_handle<std::vector<ReconstructionHypothesis>>(hyps_name)), disc_name_(disc_name) {}
+tlep_pt_min_(pt_min), tlep_pt_max_(pt_max), h_hyps_(ctx.get_handle<std::vector<ReconstructionHypothesis>>(hyps_name)), disc_name_(disc_name) {}
 
 bool uhh2::LeptonicTopPtCut::passes(const uhh2::Event& event){
 
@@ -262,7 +259,7 @@ bool uhh2::LeptonicTopPtCut::passes(const uhh2::Event& event){
 ////////////////////////////////////////////////////////
 
 uhh2::HypothesisDiscriminatorCut::HypothesisDiscriminatorCut(uhh2::Context& ctx, float disc_min, float disc_max, const std::string& hyps_name, const std::string& disc_bhyp, const std::string& disc_cut):
-  disc_min_(disc_min), disc_max_(disc_max), h_hyps_(ctx.get_handle<std::vector<ReconstructionHypothesis>>(hyps_name)), disc_bhyp_(disc_bhyp), disc_cut_(disc_cut) {}
+disc_min_(disc_min), disc_max_(disc_max), h_hyps_(ctx.get_handle<std::vector<ReconstructionHypothesis>>(hyps_name)), disc_bhyp_(disc_bhyp), disc_cut_(disc_cut) {}
 
 bool uhh2::HypothesisDiscriminatorCut::passes(const uhh2::Event& event){
 
@@ -282,10 +279,10 @@ uhh2::GenFlavorSelection::GenFlavorSelection(const std::string& flav_key){
   flavor_key_ = flav_key;
 
   if(flavor_key_ != "l" && flavor_key_ != "c" && flavor_key_ != "b")
-    throw std::runtime_error("GenFlavorSelection::GenFlavorSelection -- undefined key for parton flavor (must be 'l', 'c' or 'b'): "+flavor_key_);
+  throw std::runtime_error("GenFlavorSelection::GenFlavorSelection -- undefined key for parton flavor (must be 'l', 'c' or 'b'): "+flavor_key_);
 }
 
-bool uhh2::GenFlavorSelection::passes(const uhh2::Event& event){ 
+bool uhh2::GenFlavorSelection::passes(const uhh2::Event& event){
 
   bool pass(false);
 
@@ -319,10 +316,10 @@ uhh2::JetFlavorSelection::JetFlavorSelection(const std::string& flav_key){
   flavor_key_ = flav_key;
 
   if(flavor_key_ != "l" && flavor_key_ != "c" && flavor_key_ != "b")
-    throw std::runtime_error("JetFlavorSelection::JetFlavorSelection -- undefined key for jet flavor (must be 'l', 'c' or 'b'): "+flavor_key_);
+  throw std::runtime_error("JetFlavorSelection::JetFlavorSelection -- undefined key for jet flavor (must be 'l', 'c' or 'b'): "+flavor_key_);
 }
 
-bool uhh2::JetFlavorSelection::passes(const uhh2::Event& event){ 
+bool uhh2::JetFlavorSelection::passes(const uhh2::Event& event){
 
   bool pass(false);
 
@@ -347,7 +344,7 @@ bool uhh2::JetFlavorSelection::passes(const uhh2::Event& event){
 ////////////////////////////////////////////////////////
 
 uhh2::GenHTCut::GenHTCut(uhh2::Context& ctx, const float min, const float max, const std::string& meps_name):
-  genHT_min_(min), genHT_max_(max), h_meps_(ctx.get_handle<std::vector<GenParticle> >(meps_name)) {}
+genHT_min_(min), genHT_max_(max), h_meps_(ctx.get_handle<std::vector<GenParticle> >(meps_name)) {}
 
 bool uhh2::GenHTCut::passes(const uhh2::Event& event){
 
@@ -398,7 +395,7 @@ bool uhh2::RunLumiEventSelection::found(const uhh2::Event& event){
     if(r.first == RUN){
 
       for(const auto& l : r.second){
-	if(is_found) break;
+        if(is_found) break;
 
         if(l.first == LUM){
 

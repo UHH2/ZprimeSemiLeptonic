@@ -1,5 +1,5 @@
 #include <UHH2/ZprimeSemiLeptonic/include/TTbarLJHistsSkimming.h>
-#include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicUtils.h>
+#include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicModules.h>
 #include <UHH2/ZprimeSemiLeptonic/include/utils.h>
 
 #include <UHH2/core/include/Utils.h>
@@ -14,13 +14,13 @@ using namespace uhh2;
 using namespace std;
 
 TTbarLJHistsSkimming::TTbarLJHistsSkimming(uhh2::Context& ctx, const std::string& dirname):
-  Hists(ctx, dirname), tjet_ID_(TopTagID_NO()), tjet_minDR_jet_(0.) {
+Hists(ctx, dirname), tjet_ID_(TopTagID_NO()), tjet_minDR_jet_(0.) {
 
   init();
 }
 
 TTbarLJHistsSkimming::TTbarLJHistsSkimming(uhh2::Context& ctx, const std::string& dirname, const TopJetId& ttag_id, const float dr__ttag_jet):
-  Hists(ctx, dirname), tjet_ID_(ttag_id), tjet_minDR_jet_(dr__ttag_jet) {
+Hists(ctx, dirname), tjet_ID_(ttag_id), tjet_minDR_jet_(dr__ttag_jet) {
 
   init();
 }
@@ -33,7 +33,7 @@ void TTbarLJHistsSkimming::init(){
   pvN = book<TH1F>("pvN","N_{PV}", 60, 0, 60);
 
   // MUON
-  muoN = book<TH1F>("muoN", "N mouns"               , 20, 0, 20);
+  muoN = book<TH1F>("muoN", "N muons"               , 20, 0, 20);
   muo1__charge = book<TH1F>("muo1__charge","muon charge"        , 5, -2, 3);
   muo1__pt = book<TH1F>("muo1__pt","muon p_{T} [GeV]"            , 90, 0, 900);
   muo1__eta = book<TH1F>("muo1__eta","muon #eta"            ,60,-3,3);
@@ -117,7 +117,7 @@ void TTbarLJHistsSkimming::init(){
   // TOPTAG
   toptagN = book<TH1F>("toptagN","N top-tagged jets"              , 10, 0, 10);
 
- 
+
   toptag1__pt = book<TH1F>("toptag1__pt","top-tag jet p_{T} [GeV]"          , 50, 200, 1700);
   toptag1__eta = book<TH1F>("toptag1__eta", "top-tag jet #eta"         , 30, -3, 3);
   toptag1__phi = book<TH1F>("toptag1__phi","top-tag jet #phi"         , 30, -3.15, 3.15);
@@ -129,7 +129,7 @@ void TTbarLJHistsSkimming::init(){
   toptag1__CSV  = book<TH1F>("toptag1__CSV","top-tag jet CSV"        , 60, 0, 1.2);
   toptag1__subjN  = book<TH1F>("toptag1__subjN", "top-tag jet N subjettiness"       , 4, 2, 6);
 
-   toptag2__pt = book<TH1F>("toptag2__pt","top-tag jet p_{T} [GeV]"          , 50, 200, 1700);
+  toptag2__pt = book<TH1F>("toptag2__pt","top-tag jet p_{T} [GeV]"          , 50, 200, 1700);
   toptag2__eta = book<TH1F>("toptag2__eta", "top-tag jet #eta"         , 30, -3, 3);
   toptag2__phi = book<TH1F>("toptag2__phi","top-tag jet #phi"         , 30, -3.15, 3.15);
   toptag2__M  = book<TH1F>("toptag2__M", "top-tag jet mass [GeV]"           , 360, 90, 450);
@@ -148,16 +148,16 @@ void TTbarLJHistsSkimming::init(){
   wlep__Mt = book<TH1F>("wlep__Mt","W_{leptonic} M_{T} [GeV]", 360, 0,  360);
 
   //2D hists for efficiency study
-  // const int netabins=11;                                                                   
+  // const int netabins=11;
   // Double_t xAxis1[netabins] = {-2.5, -2, -1.566, -1.444, -0.8, 0, 0.8, 1.444, 1.566, 2, 2.5};
-  const int netabins=6;                                                                   
+  const int netabins=6;
   Double_t xAxis1[netabins] = {0, 0.8, 1.444, 1.566, 2, 2.5};
-  const int nptbins = 9;                                                                                                                                             
+  const int nptbins = 9;
   Double_t yAxis1[nptbins] = {50, 60, 70, 80, 100, 200, 300, 400, 1000};
   //  book_TH2F("ele1__eta__pt", netabins-1, xAxis1, nptbins-1, yAxis1);
-  ele1__eta__pt = book<TH2F>("ele1__eta__pt", ";eta;pt", netabins-1, xAxis1, nptbins-1, yAxis1);  
-  //  book_TH2F("ele1__eta__pt", netabins-1, xAxis1, nptbins-1, yAxis1);  
-  return ; 
+  ele1__eta__pt = book<TH2F>("ele1__eta__pt", ";eta;pt", netabins-1, xAxis1, nptbins-1, yAxis1);
+  //  book_TH2F("ele1__eta__pt", netabins-1, xAxis1, nptbins-1, yAxis1);
+  return ;
 }
 
 void TTbarLJHistsSkimming::fill(const uhh2::Event& event){
@@ -171,7 +171,15 @@ void TTbarLJHistsSkimming::fill(const uhh2::Event& event){
   // PV
   pvN->Fill(event.pvs->size(), weight);
 
-  // MUON
+  /*
+███    ███ ██    ██  ██████  ███    ██
+████  ████ ██    ██ ██    ██ ████   ██
+██ ████ ██ ██    ██ ██    ██ ██ ██  ██
+██  ██  ██ ██    ██ ██    ██ ██  ██ ██
+██      ██  ██████   ██████  ██   ████
+*/
+
+
   const int muoN_(event.muons->size());
   muoN->Fill(muoN_, weight);
 
@@ -203,7 +211,15 @@ void TTbarLJHistsSkimming::fill(const uhh2::Event& event){
     }
   }
 
-  // ELECTRON
+  /*
+███████ ██      ███████  ██████ ████████ ██████   ██████  ███    ██
+██      ██      ██      ██         ██    ██   ██ ██    ██ ████   ██
+█████   ██      █████   ██         ██    ██████  ██    ██ ██ ██  ██
+██      ██      ██      ██         ██    ██   ██ ██    ██ ██  ██ ██
+███████ ███████ ███████  ██████    ██    ██   ██  ██████  ██   ████
+*/
+
+
   const int eleN_(event.electrons->size());
   eleN->Fill(eleN_, weight);
 
@@ -227,8 +243,8 @@ void TTbarLJHistsSkimming::fill(const uhh2::Event& event){
       ele1__class->Fill(EMclass, weight);
       ele1__minDR_jet->Fill(minDR_jet, weight);
       ele1__pTrel_jet->Fill(pTrel_jet, weight);
-      //      H2("ele1__eta__pt") ->Fill(fabs(p.eta()),p.pt(), weight);  
-      ele1__eta__pt->Fill(fabs(p.eta()),p.pt(), weight);  
+      //      H2("ele1__eta__pt") ->Fill(fabs(p.eta()),p.pt(), weight);
+      ele1__eta__pt->Fill(fabs(p.eta()),p.pt(), weight);
     }
     if(i==1){
       ele2__charge->Fill(p.charge()          , weight);
@@ -243,10 +259,17 @@ void TTbarLJHistsSkimming::fill(const uhh2::Event& event){
       ele2__minDR_jet->Fill(minDR_jet, weight);
       ele2__pTrel_jet->Fill(pTrel_jet, weight);
     }
- 
+
   }
 
-  // JET
+  /*
+       ██ ███████ ████████
+       ██ ██         ██
+       ██ █████      ██
+  ██   ██ ██         ██
+   █████  ███████    ██
+  */
+
   int jetN_(event.jets->size());
 
   for(int i=0; i<jetN_; ++i){
@@ -297,7 +320,15 @@ void TTbarLJHistsSkimming::fill(const uhh2::Event& event){
   jetN__CSVT->Fill(jetN__CSVT_, weight);
   //
 
-  // TOPJET
+  /*
+  ████████  ██████  ██████      ██ ███████ ████████
+     ██    ██    ██ ██   ██     ██ ██         ██
+     ██    ██    ██ ██████      ██ █████      ██
+     ██    ██    ██ ██     ██   ██ ██         ██
+     ██     ██████  ██      █████  ███████    ██
+  */
+
+
   const int topjetN_(event.topjets->size());
   topjetN->Fill(topjetN_, weight);
 
@@ -306,24 +337,32 @@ void TTbarLJHistsSkimming::fill(const uhh2::Event& event){
     //    const Jet& p = event.topjets->at(i);
     const TopJet& p = event.topjets->at(i);
     if(i==0){
-    topjet1__pt ->Fill(p.pt()                          , weight);
-    topjet1__eta->Fill(p.eta()                         , weight);
-    topjet1__phi->Fill(p.phi()                         , weight);
-    topjet1__CSV->Fill(p.btag_combinedSecondaryVertex(), weight);
-    topjet1__Msdp->Fill(p.softdropmass() , weight);
-    topjet1__tau32->Fill(p.tau3()/p.tau2() , weight);
+      topjet1__pt ->Fill(p.pt()                          , weight);
+      topjet1__eta->Fill(p.eta()                         , weight);
+      topjet1__phi->Fill(p.phi()                         , weight);
+      topjet1__CSV->Fill(p.btag_combinedSecondaryVertex(), weight);
+      topjet1__Msdp->Fill(p.softdropmass() , weight);
+      topjet1__tau32->Fill(p.tau3()/p.tau2() , weight);
     }
     if(i==1){
-    topjet2__pt ->Fill(p.pt()                          , weight);
-    topjet2__eta->Fill(p.eta()                         , weight);
-    topjet2__phi->Fill(p.phi()                         , weight);
-    topjet2__CSV->Fill(p.btag_combinedSecondaryVertex(), weight);
-    topjet2__Msdp->Fill(p.softdropmass() , weight);
-    topjet2__tau32->Fill(p.tau3()/p.tau2() , weight);
+      topjet2__pt ->Fill(p.pt()                          , weight);
+      topjet2__eta->Fill(p.eta()                         , weight);
+      topjet2__phi->Fill(p.phi()                         , weight);
+      topjet2__CSV->Fill(p.btag_combinedSecondaryVertex(), weight);
+      topjet2__Msdp->Fill(p.softdropmass() , weight);
+      topjet2__tau32->Fill(p.tau3()/p.tau2() , weight);
     }
   }
 
-  // TOPTAG
+  /*
+████████  ██████  ██████  ████████  █████   ██████
+   ██    ██    ██ ██   ██    ██    ██   ██ ██
+   ██    ██    ██ ██████     ██    ███████ ██   ███
+   ██    ██    ██ ██         ██    ██   ██ ██    ██
+   ██     ██████  ██         ██    ██   ██  ██████
+*/
+
+
   std::vector<TopJet> toptags;
   for(unsigned int i=0; i<event.topjets->size(); ++i){
 
@@ -392,9 +431,17 @@ void TTbarLJHistsSkimming::fill(const uhh2::Event& event){
     }
 
   }
-      
 
-  // MET
+
+  /*
+  ███    ███ ███████ ████████
+  ████  ████ ██         ██
+  ██ ████ ██ █████      ██
+  ██  ██  ██ ██         ██
+  ██      ██ ███████    ██
+  */
+
+
   met__pt->Fill(event.met->pt() , weight);
   met__phi->Fill(event.met->phi(), weight);
 

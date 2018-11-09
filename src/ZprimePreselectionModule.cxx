@@ -23,18 +23,18 @@
 
 #include <UHH2/ZprimeSemiLeptonic/include/ModuleBASE.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicSelections.h>
-#include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicUtils.h>
+#include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicModules.h>
 #include <UHH2/ZprimeSemiLeptonic/include/TTbarLJHistsSkimming.h>
 
 using namespace std;
 
 class ZprimePreselectionModule : public ModuleBASE {
 
- public:
+public:
   explicit ZprimePreselectionModule(uhh2::Context&);
   virtual bool process(uhh2::Event&) override;
 
- protected:
+protected:
 
   // Corrections
   std::unique_ptr<JetCorrector>                    jet_corrector_B, jet_corrector_C, jet_corrector_D, jet_corrector_E, jet_corrector_F, jet_corrector_MC;
@@ -53,8 +53,8 @@ class ZprimePreselectionModule : public ModuleBASE {
 
 
   // Cleaners
-  std::unique_ptr<MuonCleaner>                     muoSR_cleaner;
-  std::unique_ptr<ElectronCleaner>                 eleSR_cleaner;
+  std::unique_ptr<MuonCleaner>                     muon_cleaner;
+  std::unique_ptr<ElectronCleaner>                 electron_cleaner;
 
   std::unique_ptr<JetCleaner>                      jet_IDcleaner, jet_cleaner1, jet_cleaner2;
   std::unique_ptr<TopJetCleaner>                   topjet_IDcleaner, topjet_cleaner, topjet_puppi_IDcleaner, topjet_puppi_cleaner;
@@ -70,13 +70,11 @@ class ZprimePreselectionModule : public ModuleBASE {
   std::unique_ptr<uhh2::Selection> jet1_sel;
   std::unique_ptr<uhh2::Selection> jet2_sel;
   std::unique_ptr<uhh2::Selection> met_sel;
-  std::unique_ptr<uhh2::Selection> htlep_sel;
-  std::unique_ptr<uhh2::Selection> twodcut_sel;
 
-  bool isMC, isQCDstudy;    
+  bool isMC;
 
   std::unique_ptr<Hists> lumihists;
-  std::string METcollection;
+  TString METcollection;
 
 
   // Runnumbers for applying different corrections
@@ -93,154 +91,19 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   for(auto & kv : ctx.get_all()){
     cout << " " << kv.first << " = " << kv.second << endl;
   }
-  
+
   //// CONFIGURATION
- const std::string& _METcollection = ctx.get("METName");
- METcollection = _METcollection;
+  // const std::string& _METcollection = ctx.get("METName");
+  const TString METcollection = ctx.get("METName");
   const bool isMC = (ctx.get("dataset_type") == "MC");
 
-  const std::string& keyword = ctx.get("keyword");
-  const float& _twod1 = string2double(ctx.get("twod1"))*0.1;
-  const float& _twod2 = string2double(ctx.get("twod2"));
-
-  ElectronId eleID;
-  float ele_pt(-1.),muon_pt(-1.), jet1_pt(-1.), jet2_pt(-1.), MET(-1.), HT_lep(-1.);
-  bool use_miniiso(false);
-  float twod1(0.4),twod2(40.);
-  if(keyword == "v01"){ // Cut-based aka 2015
-    isQCDstudy = false;
-    //    isQCDstudy = true;//TEST JLC
-    ele_pt = 50.;
-    //    ele_pt = 0.;
-    muon_pt = 55.;
-    eleID  = ElectronID_Fall17_tight_noIso;
-    //    eleID = ElectronID_MVAGeneralPurpose_Spring16_loose; //The best signal/bkg performance in 2016  
-    //    eleID = ElectronID_HEEP_RunII_25ns; //TEST
-    //    eleID = ElectronID_Spring16_medium_noIso;         
-    use_miniiso = false;
-    jet1_pt = 50.;
-    jet2_pt =  20.;
-
-    //    MET     =  50.;
-    MET     =   0.;
-    HT_lep  =   0.;
-    twod1 = _twod1;
-    twod2 = _twod2;
-  }
-  else {
-    if(keyword == "v02"){ //Skimming for ElecID_MVA_loose
-      //    isQCDstudy = true;
-    isQCDstudy = false;
-    ele_pt = 50.;
-    muon_pt = 0.;
-    //  eleID  = ElectronID_Spring15_25ns_tight_noIso;
-    //    eleID = ElectronID_MVAnotrig_Spring15_25ns_veryloose;//TEST
-    //    eleID = ElectronID_MVAnotrig_Spring15_25ns_loose; //TEST 
-    //    eleID  = ElectronID_Spring15_25ns_tight_noIso;
-    // eleID  = ElectronID_Spring16_tight_noIso;
-    eleID = ElectronID_MVA_Fall17_loose_iso;
-    use_miniiso = false;
-    jet1_pt =   0.;
-    jet2_pt =   0.;
-    MET     =   50.;
-    // MET     =   0.;
-
-    HT_lep  =   0.;
-    }
-    else if(keyword == "v03"){ //Skimming for ElecID_MVA_tight
-      isQCDstudy = false;
-      ele_pt = 50.;     
-      muon_pt = 50.;
-      eleID = ElectronID_MVA_Fall17_loose_iso;
-      use_miniiso = false;
-      jet1_pt = 50.;
-      jet2_pt = 20.; 
-      MET     = 50.;
-      // MET     = 0.;
-      HT_lep  = 0.;
-    }        
-    else if(keyword == "v04"){ //Skimming for ElecID_cut_tight
-      //      isQCDstudy = true;
-      isQCDstudy = false;
-      ele_pt = 50.;     
-      muon_pt = 50.;
-      //      eleID = ElectronID_Spring16_tight_noIso;                                                  
-      eleID = ElectronID_Spring16_tight;                                                  
-      use_miniiso = false;
-      jet1_pt = 50.;
-      jet2_pt = 20.; 
-      MET     = 50.;
-      // MET     = 0.;
-      HT_lep  = 0.;
-    }
-    else if(keyword == "v05"){ //Skimming for ElecID_cut_loose_noIso
-      isQCDstudy = true;
-      ele_pt = 50.;     
-      muon_pt = 0.;
-      eleID = ElectronID_Spring16_loose_noIso;                                                  
-      use_miniiso = false;
-      jet1_pt = 0.;
-      jet2_pt = 0.; 
-      MET     = 50.;
-      // MET     = 0.;
-      HT_lep  = 0.;
-    }
-    else if(keyword == "v06"){ //Skimming for ElecID_cut_medium_noIso
-      isQCDstudy = true;
-      ele_pt = 50.;     
-      muon_pt = 0.;
-      eleID = ElectronID_Spring16_medium_noIso;                                                  
-      use_miniiso = false;
-      jet1_pt = 50.;
-      jet2_pt = 20.; 
-      //      MET     = 50.;
-      MET     = 0.;
-      HT_lep  = 0.;
-    }
-    else if(keyword == "v07"){ //Skimming for ElecID_cut_medium_noIso
-      isQCDstudy = true;
-      ele_pt = 50.;     
-      muon_pt = 0.;
-      // eleID = ElectronID_Spring16_medium_noIso;                                                  
-      use_miniiso = false;
-      jet1_pt = 0.;
-      jet2_pt = 0.; 
-      MET     = 50.;
-      // MET     = 0.;
-      HT_lep  = 0.;
-    }
-    else if(keyword == "v061"){ //Skimming for ElecID_cut_medium_noIso
-      isQCDstudy = false;
-      ele_pt = 50.;     
-      muon_pt = 0.;
-      eleID = ElectronID_Spring16_medium_noIso;                                                  
-      use_miniiso = false;
-      jet1_pt = 0.;
-      jet2_pt = 0.; 
-      MET     = 50.;
-      // MET     = 0.;
-      HT_lep  = 0.;
-      twod1 = _twod1;
-      twod2 = _twod2;
-    }
-    else if(keyword == "v021"){ //Skimming for ElecID_MVA_loose                                                                                             
-      //      isQCDstudy = true;
-      isQCDstudy = false;
-      ele_pt = 50.;     
-      muon_pt = 0.;
-      eleID = ElectronID_MVA_Fall17_loose_iso;
-      use_miniiso = false;
-      jet1_pt = 0.;
-      jet2_pt = 0.; 
-      MET     = 50.;
-      // MET     = 0.;
-      HT_lep  = 0.;
-      twod1 = _twod1;
-      twod2 = _twod2;
-    }       
-    else throw std::runtime_error("ZprimePreselectionModule::ZprimePreselectionModule -- undefined \"keyword\" argument in .xml configuration file: "+keyword);
-  }
-  ////
+  ElectronId eleID = ElectronID_Fall17_tight_noIso;
+  MuonId muID      = MuonID(Muon::CutBasedIdGlobalHighPt);
+  double electron_pt(50.);
+  double muon_pt(55.);
+  double jet1_pt(50.);
+  double jet2_pt(30.);
+  double MET(50.);
 
   //// COMMON MODULES
 
@@ -255,10 +118,10 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
     metfilters_sel->add<TriggerSelection>("HBHENoiseIsoFilter", "Flag_HBHENoiseIsoFilter");
     metfilters_sel->add<TriggerSelection>("EcalDeadCellTriggerPrimitiveFilter", "Flag_EcalDeadCellTriggerPrimitiveFilter");
     if(!isMC)  metfilters_sel->add<TriggerSelection>("eeBadScFilter", "Flag_eeBadScFilter");
-    metfilters_sel->add<TriggerSelection>("chargedHadronTrackResolutionFilter", "Flag_chargedHadronTrackResolutionFilter"); 
+    metfilters_sel->add<TriggerSelection>("chargedHadronTrackResolutionFilter", "Flag_chargedHadronTrackResolutionFilter");
     metfilters_sel->add<TriggerSelection>("muonBadTrackFilter", "Flag_muonBadTrackFilter");
   }
-  
+
 
   /******************************************************************/
 
@@ -277,13 +140,13 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   ////
 
   // Cleaning: Mu, Ele, Jets
-  const MuonId muoSR(AndId<Muon>(PtEtaCut(muon_pt, 2.4), MuonID(Muon::CutBasedIdTight)));//temporary switch to TightID due to problems with MediumID in 2016 data
-  const ElectronId eleSR(AndId<Electron>(PtEtaSCCut(ele_pt, 2.5), eleID));
+  const MuonId muonID(AndId<Muon>(PtEtaCut(muon_pt, 2.4), muID));
+  const ElectronId electronID(AndId<Electron>(PtEtaSCCut(electron_pt, 2.5), eleID));
   const JetId jetID(JetPFID(JetPFID::WP_TIGHT));
 
 
-  muoSR_cleaner.reset(new MuonCleaner(muoSR));
-  eleSR_cleaner.reset(new ElectronCleaner(eleSR));
+  muon_cleaner.reset(new MuonCleaner(muonID));
+  electron_cleaner.reset(new ElectronCleaner(electronID));
   jet_IDcleaner.reset(new JetCleaner(ctx, jetID));
   jet_cleaner1.reset(new JetCleaner(ctx, 15., 3.0));
   jet_cleaner2.reset(new JetCleaner(ctx, 30., 2.4));
@@ -390,49 +253,27 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
     TopJER_puppi_smearer.reset(new GenericJetResolutionSmearer(ctx, "toppuppijets", "topjetsGEN", JERSmearing::SF_13TeV_Summer16_25nsV1, "Fall17_25nsV1_MC_PtResolution_AK8PFPuppi.txt"));
   }
 
-  
- 
-
-
-
-
-
-
 
   //// EVENT SELECTION
   jet1_sel.reset(new NJetSelection(1, -1, JetId(PtEtaCut(jet1_pt, 2.4))));
   jet2_sel.reset(new NJetSelection(2, -1, JetId(PtEtaCut(jet2_pt, 2.4))));
-
   met_sel  .reset(new METCut  (MET   , uhh2::infinity));
-  htlep_sel.reset(new HTlepCut(HT_lep, uhh2::infinity));
-
-  if(use_miniiso) twodcut_sel.reset(new TwoDCut1(-1, 20.));
-  //  else            twodcut_sel.reset(new TwoDCut1(.4, 40.));
-  else            twodcut_sel.reset(new TwoDCut1(twod1, twod2));
 
   ////
 
   //// HISTS
-  std::vector<std::string> htags_1({
-
+  std::vector<std::string> histogram_tags({
     "lep1",
     "jet2",
     "jet1",
     "met",
-    "htlep",
     "jetlepcleaning_before",
-    "jetlepcleaning_after",
-    "twodcut",
-    "lep_eff_sig",
-    "lep_eff_bkg"
+    "jetlepcleaning_after"
   });
 
-  for(const auto& tag : htags_1){
-
-    //book_HFolder(tag, new TTbarLJHists(ctx, tag));
-     book_HFolder(tag, new TTbarLJHistsSkimming(ctx,tag));
+  for(const auto & tag : histogram_tags){
+    book_HFolder(tag, new TTbarLJHistsSkimming(ctx,tag));
   }
-  ////
 
   lumihists.reset(new LuminosityHists(ctx, "lumi"));
 }
@@ -454,7 +295,7 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
 
   // MET filters
   if(!metfilters_sel->passes(event)) return false;
- 
+
   // GEN ME quark-flavor selection
   if(!event.isRealData){
     if(!genflavor_sel->passes(event)) return false;
@@ -462,11 +303,10 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
 
 
   //// LEPTON selection
-
-  muoSR_cleaner->process(event);
+  muon_cleaner->process(event);
   sort_by_pt<Muon>(*event.muons);
 
-  eleSR_cleaner->process(event);
+  electron_cleaner->process(event);
   sort_by_pt<Electron>(*event.electrons);
 
   const bool pass_lep1 = ((event.muons->size() >= 1) || (event.electrons->size() >= 1));
@@ -474,7 +314,7 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
   HFolder("lep1")->fill(event);
   ////
 
- 
+
   //// JET selection
   jet_IDcleaner->process(event);
 
@@ -485,8 +325,8 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
     bool apply_E = false;
     bool apply_F = false;
     if(event.run <= s_runnr_B)  apply_B = true;
-    else if(event.run <= s_runnr_C) apply_C = true; //< is correct, not <=
-    else if(event.run <= s_runnr_D) apply_D = true; 
+    else if(event.run <= s_runnr_C) apply_C = true;
+    else if(event.run <= s_runnr_D) apply_D = true;
     else if(event.run <= s_runnr_E) apply_E = true;
     else if(event.run <= s_runnr_F) apply_F = true;
     else throw std::runtime_error("run number not covered by if-statements in process-routine.");
@@ -495,9 +335,9 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
     HFolder("jetlepcleaning_before")->fill(event);
     //apply proper JECs
     if(apply_B){
-      JLC_B->process(event); 
-      TopJLC_B->process(event); 
-      TopJLC_puppi_B->process(event); 
+      JLC_B->process(event);
+      TopJLC_B->process(event);
+      TopJLC_puppi_B->process(event);
       jet_corrector_B->process(event);
       topjet_corrector_B->process(event);
       topjet_puppi_corrector_B->process(event);
@@ -506,9 +346,9 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
       topjet_puppi_subjet_corrector_B->process(event);
     }
     if(apply_C){
-      JLC_C->process(event); 
-      TopJLC_C->process(event); 
-      TopJLC_puppi_C->process(event); 
+      JLC_C->process(event);
+      TopJLC_C->process(event);
+      TopJLC_puppi_C->process(event);
       jet_corrector_C->process(event);
       topjet_corrector_C->process(event);
       topjet_puppi_corrector_C->process(event);
@@ -517,9 +357,9 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
       topjet_puppi_subjet_corrector_C->process(event);
     }
     if(apply_D){
-      JLC_D->process(event); 
-      TopJLC_D->process(event); 
-      TopJLC_puppi_D->process(event); 
+      JLC_D->process(event);
+      TopJLC_D->process(event);
+      TopJLC_puppi_D->process(event);
       jet_corrector_D->process(event);
       topjet_corrector_D->process(event);
       topjet_puppi_corrector_D->process(event);
@@ -528,9 +368,9 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
       topjet_puppi_subjet_corrector_D->process(event);
     }
     if(apply_E){
-      JLC_E->process(event); 
-      TopJLC_E->process(event); 
-      TopJLC_puppi_E->process(event); 
+      JLC_E->process(event);
+      TopJLC_E->process(event);
+      TopJLC_puppi_E->process(event);
       jet_corrector_E->process(event);
       topjet_corrector_E->process(event);
       topjet_puppi_corrector_E->process(event);
@@ -539,9 +379,9 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
       topjet_puppi_subjet_corrector_E->process(event);
     }
     if(apply_F){
-      JLC_F->process(event); 
-      TopJLC_F->process(event); 
-      TopJLC_puppi_F->process(event); 
+      JLC_F->process(event);
+      TopJLC_F->process(event);
+      TopJLC_puppi_F->process(event);
       jet_corrector_F->process(event);
       topjet_corrector_F->process(event);
       topjet_puppi_corrector_F->process(event);
@@ -551,15 +391,15 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
     }
   }
   else{ //MC
-    JLC_MC->process(event); 
-    TopJLC_MC->process(event); 
-    TopJLC_puppi_MC->process(event); 
+    JLC_MC->process(event);
+    TopJLC_MC->process(event);
+    TopJLC_puppi_MC->process(event);
     jet_corrector_MC->process(event);
     topjet_corrector_MC->process(event);
     topjet_puppi_corrector_MC->process(event);
-    if(JER_smearer.get()) JER_smearer->process(event);  
-    if(TopJER_smearer.get()) TopJER_smearer->process(event); 
-    if(TopJER_puppi_smearer.get()) TopJER_puppi_smearer->process(event);  
+    if(JER_smearer.get()) JER_smearer->process(event);
+    if(TopJER_smearer.get()) TopJER_smearer->process(event);
+    if(TopJER_puppi_smearer.get()) TopJER_puppi_smearer->process(event);
     jet_corrector_MC->correct_met(event);
     topjet_subjet_corrector_MC->process(event);
     topjet_puppi_subjet_corrector_MC->process(event);
@@ -569,28 +409,26 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
   sort_by_pt<Jet>(*event.jets);
   HFolder("jetlepcleaning_after")->fill(event);
 
-  
+
   // Lepton-2Dcut variables
-  const bool pass_twodcut = twodcut_sel->passes(event); {
+  for(auto& muo : *event.muons){
 
-    for(auto& muo : *event.muons){
+    float    dRmin, pTrel;
+    std::tie(dRmin, pTrel) = drmin_pTrel(muo, *event.jets);
 
-      float    dRmin, pTrel;
-      std::tie(dRmin, pTrel) = drmin_pTrel(muo, *event.jets);
-
-      muo.set_tag(Muon::twodcut_dRmin, dRmin);
-      muo.set_tag(Muon::twodcut_pTrel, pTrel);
-    }
-
-    for(auto& ele : *event.electrons){
-
-      float    dRmin, pTrel;
-      std::tie(dRmin, pTrel) = drmin_pTrel(ele, *event.jets);
-
-      ele.set_tag(Electron::twodcut_dRmin, dRmin);
-      ele.set_tag(Electron::twodcut_pTrel, pTrel);
-    }
+    muo.set_tag(Muon::twodcut_dRmin, dRmin);
+    muo.set_tag(Muon::twodcut_pTrel, pTrel);
   }
+
+  for(auto& ele : *event.electrons){
+
+    float    dRmin, pTrel;
+    std::tie(dRmin, pTrel) = drmin_pTrel(ele, *event.jets);
+
+    ele.set_tag(Electron::twodcut_dRmin, dRmin);
+    ele.set_tag(Electron::twodcut_pTrel, pTrel);
+  }
+
 
   jet_cleaner2->process(event);
   sort_by_pt<Jet>(*event.jets);
@@ -608,7 +446,7 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
   if(!pass_jet1) return false;
   HFolder("jet1")->fill(event);
 
-  // 2nd AK4 jet selection 
+  // 2nd AK4 jet selection
   const bool pass_jet2 = jet2_sel->passes(event);
   if(!pass_jet2) return false;
   HFolder("jet2")->fill(event);
@@ -618,35 +456,6 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
   if(!pass_met) return false;
   HFolder("met")->fill(event);
 
-  // ST_lep selection
-  const bool pass_htlep = htlep_sel->passes(event);
-  if(!pass_htlep) return false;
-  HFolder("htlep")->fill(event);
-  
-  // Lepton-2Dcut selection
-  if(!pass_twodcut) return false;
-  HFolder("twodcut")->fill(event);
-
-  // // GEN matching for the electron ID studies
-  // if(!event.isRealData){
-  //   const auto& ttgen = event.get(h_ttbar_gen);
-  //   if(ttgen.IsSemiLeptonicDecay()){
-  //     //    GenParticle lep =  ttgen.ChargedLepton();
-  //     for(auto& ele : *event.electrons){
-  // 	double dR_gen_rec_lep = uhh2::deltaR(ele, ttgen.ChargedLepton()); //<0.1
-  // 	double pt_diff = fabs(ele.pt()-ttgen.ChargedLepton().pt())/ttgen.ChargedLepton().pt(); //<0.3
-  // 	if(dR_gen_rec_lep<0.1 && pt_diff<0.3 && (ttgen.ChargedLepton().charge()*ele.charge())>0 && fabs(ttgen.ChargedLepton().pdgId())==11){
-  // 	  HFolder("lep_eff_sig")->fill(event);
-  // 	}
-  // 	else
-  // 	  HFolder("lep_eff_bkg")->fill(event);
-  //     }
-  //   }
-  //   else
-  //     HFolder("lep_eff_bkg")->fill(event);
-  // }
-    // std::cout<<"####END N_ele = "<<event.electrons->size()<<" N_muo = "<<event.muons->size()<<" N_jets = "<<event.jets->size()<<" N_topjets = "<<event.topjets->size()<<" met = "<<event.met->pt()<<" raw_met = "<<event.met->uncorr_v4().Pt()<<std::endl;
-    // std::cout<<""<<std::endl;
   return true;
 }
 

@@ -10,6 +10,7 @@
 #include <UHH2/common/include/ObjectIdUtils.h>
 #include <UHH2/common/include/TopJetIds.h>
 #include <UHH2/common/include/TTbarGen.h>
+#include <UHH2/ZprimeSemiLeptonic/include/ZprimeCandidate.h>
 
 #include <string>
 #include <vector>
@@ -17,16 +18,26 @@
 
 namespace uhh2 {
 
-  class HTlepCut : public Selection {
+  class Chi2Cut : public Selection{
+  public:
+    explicit Chi2Cut(uhh2::Context&, float, float max=-1);
+    virtual bool passes(const Event&) override;
+
+  private:
+    float min_, max_;
+    uhh2::Event::Handle<ZprimeCandidate> h_BestZprimeCandidate;
+    uhh2::Event::Handle<bool> h_is_zprime_reconstructed;
+  };
+
+  class STlepPlusMetCut : public Selection {
 
    public:
-    explicit HTlepCut(float, float max_htlep=infinity);
+    explicit STlepPlusMetCut(float, float max=-1);
     virtual bool passes(const Event&) override;
 
    private:
-    float min_htlep_, max_htlep_;
+    float min_, max_;
   };
-  ////
 
   class METCut : public Selection {
 
