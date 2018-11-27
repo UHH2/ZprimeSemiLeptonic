@@ -18,6 +18,37 @@
 
 namespace uhh2 {
 
+
+
+  class ZprimeTopTagSelection : public Selection{
+  public:
+    explicit ZprimeTopTagSelection(uhh2::Context&);
+    virtual bool passes(const Event&) override;
+
+  private:
+    uhh2::Event::Handle<ZprimeCandidate*> h_BestZprimeCandidate_chi2;
+    uhh2::Event::Handle<bool> h_is_zprime_reconstructed_chi2;
+  };
+
+  class Chi2CandidateMatchedSelection : public Selection{
+  public:
+    explicit Chi2CandidateMatchedSelection(uhh2::Context&);
+    virtual bool passes(const Event&) override;
+
+  private:
+    uhh2::Event::Handle<ZprimeCandidate*> h_BestZprimeCandidate_chi2;
+    uhh2::Event::Handle<bool> h_is_zprime_reconstructed_chi2;
+    uhh2::Event::Handle<bool> h_is_zprime_reconstructed_correctmatch;
+  };
+
+  class TTbarSemiLepMatchableSelection: public uhh2::Selection{
+  public:
+    TTbarSemiLepMatchableSelection();
+    ~TTbarSemiLepMatchableSelection(){};
+    virtual bool passes(const uhh2::Event & event);
+  private:
+  };
+
   class Chi2Cut : public Selection{
   public:
     explicit Chi2Cut(uhh2::Context&, float, float max=-1);
@@ -25,93 +56,93 @@ namespace uhh2 {
 
   private:
     float min_, max_;
-    uhh2::Event::Handle<ZprimeCandidate> h_BestZprimeCandidate;
+    uhh2::Event::Handle<ZprimeCandidate*> h_BestZprimeCandidate;
     uhh2::Event::Handle<bool> h_is_zprime_reconstructed;
   };
 
   class STlepPlusMetCut : public Selection {
 
-   public:
+  public:
     explicit STlepPlusMetCut(float, float max=-1);
     virtual bool passes(const Event&) override;
 
-   private:
+  private:
     float min_, max_;
   };
 
   class METCut : public Selection {
 
-   public:
+  public:
     explicit METCut(float, float max_met=infinity);
     virtual bool passes(const Event&) override;
 
-   private:
+  private:
     float min_met_, max_met_;
   };
   ////
 
   class TwoDCut : public Selection {
 
-   public:
+  public:
     explicit TwoDCut(float min_deltaR, float min_pTrel): min_deltaR_(min_deltaR), min_pTrel_(min_pTrel) {}
     virtual bool passes(const Event&) override;
 
-   private:
+  private:
     float min_deltaR_, min_pTrel_;
   };
   ////
 
   class TwoDCut1 : public Selection {
 
-   public:
+  public:
     explicit TwoDCut1(float min_deltaR, float min_pTrel): min_deltaR_(min_deltaR), min_pTrel_(min_pTrel) {}
     virtual bool passes(const Event&) override;
 
-   private:
+  private:
     float min_deltaR_, min_pTrel_;
   };
   ////
 
   class TwoDCutALL : public Selection {
 
-   public:
+  public:
     explicit TwoDCutALL(float min_deltaR, float min_pTrel): min_deltaR_(min_deltaR), min_pTrel_(min_pTrel) {}
     virtual bool passes(const Event&) override;
 
-   private:
+  private:
     float min_deltaR_, min_pTrel_;
   };
   ////
 
   class TriangularCuts : public Selection {
 
-   public:
+  public:
     explicit TriangularCuts(const float a, const float b): a_(a), b_(b) {}
     virtual bool passes(const Event&) override;
 
-   private:
+  private:
     float a_, b_;
   };
   ////
 
   class TriangularCutsELE : public Selection {
 
-   public:
+  public:
     explicit TriangularCutsELE(const float a, const float b): a_(a), b_(b) {}
     virtual bool passes(const Event&) override;
 
-   private:
+  private:
     float a_, b_;
   };
   ////
 
   class DiLeptonSelection: public Selection {
 
-   public:
+  public:
     explicit DiLeptonSelection(const std::string&, const bool, const bool);
     virtual bool passes(const Event&) override;
 
-   private:
+  private:
     std::string channel_;
     bool opposite_charge_;
     bool veto_other_flavor_;
@@ -120,11 +151,11 @@ namespace uhh2 {
 
   class TopJetPlusJetEventSelection: public Selection {
 
-   public:
+  public:
     explicit TopJetPlusJetEventSelection(const float, const float);
     virtual bool passes(const Event&) override;
 
-   private:
+  private:
     float topjet_minDR_jet_;
     float jet_min_pt_;
   };
@@ -132,11 +163,11 @@ namespace uhh2 {
 
   class TopTagEventSelection: public Selection {
 
-   public:
+  public:
     explicit TopTagEventSelection(const TopJetId& tjet_id=CMSTopTag(), const float minDR_jet_ttag=1.2);
     virtual bool passes(const Event&) override;
 
-   private:
+  private:
     std::unique_ptr<Selection> topjet1_sel_;
     TopJetId topjetID_;
     float minDR_jet_toptag_;
@@ -145,11 +176,11 @@ namespace uhh2 {
 
   class LeptonicTopPtCut: public Selection {
 
-   public:
+  public:
     explicit LeptonicTopPtCut(Context&, float, float, const std::string& hyps="TTbarReconstruction", const std::string& disc="Chi2");
     virtual bool passes(const Event&) override;
 
-   private:
+  private:
     float tlep_pt_min_, tlep_pt_max_;
     Event::Handle<std::vector<ReconstructionHypothesis>> h_hyps_;
     std::string disc_name_;
@@ -158,11 +189,11 @@ namespace uhh2 {
 
   class HypothesisDiscriminatorCut: public Selection {
 
-   public:
+  public:
     explicit HypothesisDiscriminatorCut(Context&, float, float, const std::string& hyps="TTbarReconstruction", const std::string& disc_bhyp="Chi2", const std::string& disc_cut="Chi2");
     virtual bool passes(const Event&) override;
 
-   private:
+  private:
     float disc_min_, disc_max_;
     Event::Handle<std::vector<ReconstructionHypothesis>> h_hyps_;
     std::string disc_bhyp_;
@@ -172,29 +203,29 @@ namespace uhh2 {
 
   class GenFlavorSelection: public Selection {
 
-   public:
+  public:
     explicit GenFlavorSelection(const std::string&);
     virtual bool passes(const Event&) override;
 
-   private:
+  private:
     std::string flavor_key_;
   };
   ////
 
   class JetFlavorSelection: public Selection {
 
-   public:
+  public:
     explicit JetFlavorSelection(const std::string&);
     virtual bool passes(const Event&) override;
 
-   private:
+  private:
     std::string flavor_key_;
   };
   ////
 
   class GenHTCut : public Selection {
 
-   public:
+  public:
     explicit GenHTCut(Context&, const float, const float, const std::string&);
     virtual bool passes(const Event&) override;
 
@@ -206,14 +237,14 @@ namespace uhh2 {
 
   class RunLumiEventSelection : public Selection {
 
-   public:
+  public:
     explicit RunLumiEventSelection(const std::string&, const std::string& sep=":");
     virtual ~RunLumiEventSelection() {}
 
     virtual bool passes(const Event&) override;
     virtual bool found (const Event&);
 
-   protected:
+  protected:
     std::unordered_map<unsigned long int, std::unordered_map<unsigned long int, std::vector<unsigned long int> > > rle_map_;
   };
   ////

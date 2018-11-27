@@ -5,11 +5,14 @@
 #include <UHH2/core/include/NtupleObjects.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeCandidate.h>
 #include <UHH2/core/include/LorentzVector.h>
+#include <UHH2/common/include/TTbarGen.h>
+
+float inv_mass(const LorentzVector&);
 
 class ZprimeCandidateBuilder : uhh2::AnalysisModule{
 
 public:
-  explicit ZprimeCandidateBuilder(uhh2::Context&, float minDR = 1.2);
+  explicit ZprimeCandidateBuilder(uhh2::Context&, TString mode, float minDR = 1.2);
   virtual bool process(uhh2::Event&) override;
 
 private:
@@ -17,6 +20,7 @@ private:
   uhh2::Event::Handle< std::vector<TopJet> > h_AK8TopTags;
 
   float minDR_;
+  TString mode_;
 
 };
 
@@ -28,12 +32,29 @@ public:
 
 private:
   uhh2::Event::Handle< std::vector<ZprimeCandidate> > h_ZprimeCandidates_;
-  uhh2::Event::Handle<ZprimeCandidate> h_BestCandidate_;
+  uhh2::Event::Handle<ZprimeCandidate*> h_BestCandidate_;
   uhh2::Event::Handle<bool> h_is_zprime_reconstructed_;
   float mtoplep_, mtoplep_ttag_;
   float sigmatoplep_, sigmatoplep_ttag_;
   float mtophad_, mtophad_ttag_;
   float sigmatophad_, sigmatophad_ttag_;
+
+};
+
+class ZprimeCorrectMatchDiscriminator : uhh2::AnalysisModule{
+
+public:
+  explicit ZprimeCorrectMatchDiscriminator(uhh2::Context&);
+  virtual bool process(uhh2::Event&) override;
+
+private:
+  uhh2::Event::Handle< std::vector<ZprimeCandidate> > h_ZprimeCandidates_;
+  uhh2::Event::Handle<TTbarGen> h_ttbargen_;
+  uhh2::Event::Handle<ZprimeCandidate*> h_BestCandidate_;
+  uhh2::Event::Handle<bool> h_is_zprime_reconstructed_;
+
+  bool is_mc;
+  std::unique_ptr<TTbarGenProducer> ttgenprod;
 
 };
 
@@ -109,64 +130,5 @@ public:
 
 protected:
   uhh2::Event::Handle<std::vector<GenParticle> > h_meps_;
-};
-////
-
-class TopTagID_NO {
-
-public:
-  explicit TopTagID_NO() {}
-
-  bool operator()(const TopJet&, const uhh2::Event&) const { return false; }
-};
-//
-
-class TopTagID_SoftDrop {
-
-public:
-  explicit TopTagID_SoftDrop(const std::string&);
-  virtual ~TopTagID_SoftDrop() {}
-
-  bool operator()(const TopJet&, const uhh2::Event&) const;
-
-  void cut_mass      (const bool c){ cut_mass_       = c; }
-  void cut_tau32     (const bool c){ cut_tau32_      = c; }
-  void cut_subjetbtag(const bool c){ cut_subjetbtag_ = c; }
-
-protected:
-  bool cut_mass_;
-  bool cut_tau32_;
-  bool cut_subjetbtag_;
-  bool verbose_;
-
-  float   mass_min_;
-  float   mass_max_;
-  float  tau32_max_;
-  float sjbtag_min_;
-};
-////
-
-class TopTagID_SoftDropCHS {
-
-public:
-  explicit TopTagID_SoftDropCHS(const std::string&);
-  virtual ~TopTagID_SoftDropCHS() {}
-
-  bool operator()(const TopJet&, const uhh2::Event&) const;
-
-  void cut_mass      (const bool c){ cut_mass_       = c; }
-  void cut_tau32     (const bool c){ cut_tau32_      = c; }
-  void cut_subjetbtag(const bool c){ cut_subjetbtag_ = c; }
-
-protected:
-  bool cut_mass_;
-  bool cut_tau32_;
-  bool cut_subjetbtag_;
-  bool verbose_;
-
-  float   mass_min_;
-  float   mass_max_;
-  float  tau32_max_;
-  float sjbtag_min_;
 };
 ////

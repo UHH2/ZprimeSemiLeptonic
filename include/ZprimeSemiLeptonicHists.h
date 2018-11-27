@@ -32,14 +32,16 @@ TH1F *N_AK8Puppijets, *pt_AK8Puppijet, *pt_AK8Puppijet1, *pt_AK8Puppijet2, *pt_A
 
 TH1F *N_AK8PuppiTaggedjets, *pt_AK8PuppiTaggedjet, *pt_AK8PuppiTaggedjet1, *pt_AK8PuppiTaggedjet2, *pt_AK8PuppiTaggedjet3, *eta_AK8PuppiTaggedjet, *eta_AK8PuppiTaggedjet1, *eta_AK8PuppiTaggedjet2, *eta_AK8PuppiTaggedjet3, *phi_AK8PuppiTaggedjet, *phi_AK8PuppiTaggedjet1, *phi_AK8PuppiTaggedjet2, *phi_AK8PuppiTaggedjet3, *mSD_AK8PuppiTaggedjet, *mSD_AK8PuppiTaggedjet1, *mSD_AK8PuppiTaggedjet2, *mSD_AK8PuppiTaggedjet3, *N_subjets_AK8PuppiTaggedjet, *N_subjets_AK8PuppiTaggedjet1, *N_subjets_AK8PuppiTaggedjet2, *N_subjets_AK8PuppiTaggedjet3, *N_daughters_AK8PuppiTaggedjet, *N_daughters_AK8PuppiTaggedjet1, *N_daughters_AK8PuppiTaggedjet2, *N_daughters_AK8PuppiTaggedjet3, *dRmin_AK8CHS_AK8PuppiTaggedjet, *dRmin_AK8CHS_AK8PuppiTaggedjet1, *dRmin_AK8CHS_AK8PuppiTaggedjet2, *dRmin_AK8CHS_AK8PuppiTaggedjet3, *dRmin_mu_AK8PuppiTaggedjet, *dRmin_mu_AK8PuppiTaggedjet1, *dRmin_mu_AK8PuppiTaggedjet2, *dRmin_mu_AK8PuppiTaggedjet3, *tau1_AK8PuppiTaggedjet, *tau1_AK8PuppiTaggedjet1, *tau1_AK8PuppiTaggedjet2, *tau1_AK8PuppiTaggedjet3, *tau2_AK8PuppiTaggedjet, *tau2_AK8PuppiTaggedjet1, *tau2_AK8PuppiTaggedjet2, *tau2_AK8PuppiTaggedjet3, *tau3_AK8PuppiTaggedjet, *tau3_AK8PuppiTaggedjet1, *tau3_AK8PuppiTaggedjet2, *tau3_AK8PuppiTaggedjet3, *tau21_AK8PuppiTaggedjet, *tau21_AK8PuppiTaggedjet1, *tau21_AK8PuppiTaggedjet2, *tau21_AK8PuppiTaggedjet3, *tau32_AK8PuppiTaggedjet, *tau32_AK8PuppiTaggedjet1, *tau32_AK8PuppiTaggedjet2, *tau32_AK8PuppiTaggedjet3;
 
-TH1F *NPV, *MET, *MET_rebin, *MET_rebin2, *MET_rebin3, *ST, *ST_rebin, *ST_rebin2, *ST_rebin3, *STjets, *STjets_rebin, *STjets_rebin2, *STjets_rebin3, *STlep, *STlep_rebin, *STlep_rebin2, *STlep_rebin3, *M_Zprime, *M_Zprime_rebin, *M_Zprime_rebin2, *M_Zprime_rebin3, *chi2_Zprime, *chi2_Zprime_rebin, *chi2_Zprime_rebin2, *S11, *S12, *S13, *S22, *S23, *S33, *sum_event_weights;
+TH1F *NPV, *MET, *MET_rebin, *MET_rebin2, *MET_rebin3, *ST, *ST_rebin, *ST_rebin2, *ST_rebin3, *STjets, *STjets_rebin, *STjets_rebin2, *STjets_rebin3, *STlep, *STlep_rebin, *STlep_rebin2, *STlep_rebin3, *M_Zprime, *M_Zprime_rebin, *M_Zprime_rebin2, *M_Zprime_rebin3, *M_Zprime_rebin4, *M_Zprime_rebin5, *chi2_Zprime, *chi2_Zprime_rebin, *chi2_Zprime_rebin2, *M_tophad, *M_toplep, *M_Zprime_ak4, *M_Zprime_ak4_rebin, *M_Zprime_ak4_rebin2, *M_Zprime_ak4_rebin3, *M_Zprime_ak4_rebin4, *M_Zprime_ak4_rebin5, *chi2_Zprime_ak4, *chi2_Zprime_ak4_rebin, *chi2_Zprime_ak4_rebin2, *M_tophad_ak4, *M_toplep_ak4, *M_Zprime_ttag, *M_Zprime_ttag_rebin, *M_Zprime_ttag_rebin2, *M_Zprime_ttag_rebin3, *M_Zprime_ttag_rebin4, *M_Zprime_ttag_rebin5, *chi2_Zprime_ttag, *chi2_Zprime_ttag_rebin, *chi2_Zprime_ttag_rebin2, *M_tophad_ttag, *M_toplep_ttag, *M_tophad_dr_ak4, *M_toplep_dr_ak4, *M_tophad_dr_ttag, *M_toplep_dr_ttag, *dr_discr_Zprime, *M_Zprime_dr, *M_Zprime_dr_rebin, *M_Zprime_dr_rebin2, *M_Zprime_dr_rebin3, *S11, *S12, *S13, *S22, *S23, *S33, *sum_event_weights;
 
 TH2F *dRmin_ptrel_mu, *dRmin_ptrel_mu1, *dRmin_ptrel_ele, *dRmin_ptrel_ele1;
 
 
 uhh2::Event::Handle< std::vector<TopJet> > h_AK8PuppiTopTags;
-uhh2::Event::Handle<bool> h_is_zprime_reconstructed;
-uhh2::Event::Handle<ZprimeCandidate> h_BestZprimeCandidate;
+uhh2::Event::Handle<bool> h_is_zprime_reconstructed_chi2;
+uhh2::Event::Handle<bool> h_is_zprime_reconstructed_correctmatch;
+uhh2::Event::Handle<ZprimeCandidate*> h_BestZprimeCandidateChi2;
+uhh2::Event::Handle<ZprimeCandidate*> h_BestZprimeCandidateCorrectMatch;
 uhh2::Event::Handle<std::vector<ReconstructionHypothesis>> h_ttbar_hyps;
 
   virtual ~ZprimeSemiLeptonicHists();

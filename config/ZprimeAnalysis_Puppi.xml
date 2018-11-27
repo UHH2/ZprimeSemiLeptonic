@@ -6,9 +6,9 @@
 <!ENTITY PREFIX          "uhh2.AnalysisModuleRunner.">
 <!ENTITY b_Cacheable     "False">
 <!ENTITY NEVT            "-1">
-<!ENTITY PRESELdir       "/nfs/dust/cms/user/reimersa/ZprimeSemiLeptonic/94X_v1/Preselection/2017_Initial/NOMINAL">
-<!ENTITY OUTPUTdir       "/nfs/dust/cms/user/reimersa/ZprimeSemiLeptonic/94X_v1/Fullselection/2017_Initial/CrossCheck">
-<!ENTITY IS_PUPPI        "false">
+<!ENTITY PRESELdir       "/nfs/dust/cms/user/reimersa/ZprimeSemiLeptonic/94X_v1/Preselection/2017_Initial_Puppi/NOMINAL">
+<!ENTITY OUTPUTdir       "/nfs/dust/cms/user/reimersa/ZprimeSemiLeptonic/94X_v1/Fullselection/2017_Initial_Puppi/NOMINAL">
+<!ENTITY IS_PUPPI        "true">
 
 
 
@@ -73,7 +73,7 @@
 
 <!--
 <ConfigParse NEventsBreak="200000" LastBreak="0" FileSplit="0" AutoResubmit="100"/>
-<ConfigSGE RAM ="4" DISK ="2" Mail="arne.reimers@desy.de" Notification="as" Workdir="workdir_SR_crosscheck"/>
+<ConfigSGE RAM ="4" DISK ="2" Mail="arne.reimers@desy.de" Notification="as" Workdir="workdir_SR_Puppi"/>
 -->
 
 <JobConfiguration JobName="ZprimePreselectionJob" OutputLevel="INFO">
@@ -406,12 +406,12 @@
   <Item Name="ElectronCollection"      Value="slimmedElectronsUSER"/>
   <Item Name="MuonCollection"          Value="slimmedMuonsUSER"/>
   <Item Name="TauCollection"           Value="slimmedTaus"/>
-  <Item Name="JetCollection"           Value="slimmedJets"/>
+  <Item Name="JetCollection"           Value="updatedPatJetsSlimmedJetsPuppi"/>
   <Item Name="GenJetCollection"        Value="slimmedGenJets"/>
   <Item Name="TopJetCollection"        Value="packedPatJetsAk8CHSJets_SoftDropCHS"/>
   <Item Name="TopJetCollectionGEN"     Value="slimmedGenJetsAK8"/>
   <Item Name="TopPuppiJetCollection"   Value="updatedPatJetsSlimmedJetsAK8_SoftDropPuppi"/>
-  <Item Name="METName"                 Value="slimmedMETs"/>
+  <Item Name="METName"                 Value="slimmedMETsPuppi"/>
 
   <Item Name="lumi_file" Value="/nfs/dust/cms/user/reimersa/CMSSW_9_4_1/src/UHH2/common/data/Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON_v1_normTag.root"/>
   <Item Name="lumihists_lumi_per_bin" Value="1000.0"/>

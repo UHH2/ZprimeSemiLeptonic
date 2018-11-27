@@ -3,7 +3,7 @@
 
 
 <!ENTITY TargetLumi      "41529">
-<!ENTITY PRESELdir       "/nfs/dust/cms/user/reimersa/ZprimeSemiLeptonic/94X_v1/Preselection/2017_Initial/NOMINAL">
+<!ENTITY PRESELdir       "/nfs/dust/cms/user/reimersa/ZprimeSemiLeptonic/94X_v1/Preselection/2017_Initial_Puppi/NOMINAL">
 <!ENTITY b_Cacheable     "False">
 <!ENTITY NEVT            "-1">
 <!ENTITY IS_PUPPI        "true">
@@ -71,7 +71,7 @@
 ]>
 
 <!--
-<ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="5" AutoResubmit="100"/>
+<ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="30" AutoResubmit="100"/>
 <ConfigSGE RAM ="4" DISK ="2" Mail="arne.reimers@desy.de" Notification="as" Workdir="workdir_SR_Pre"/>
 -->
 
@@ -406,12 +406,12 @@
 			<Item Name="ElectronCollection"      Value="slimmedElectronsUSER"/>
 			<Item Name="MuonCollection"          Value="slimmedMuonsUSER"/>
 			<Item Name="TauCollection"           Value="slimmedTaus"/>
-			<Item Name="JetCollection"           Value="slimmedJets"/>
+			<Item Name="JetCollection"           Value="updatedPatJetsSlimmedJetsPuppi"/>
 			<Item Name="GenJetCollection"        Value="slimmedGenJets"/>
 			<Item Name="TopJetCollection"        Value="packedPatJetsAk8CHSJets_SoftDropCHS"/>
 			<Item Name="TopJetCollectionGEN"     Value="slimmedGenJetsAK8"/>
 			<Item Name="TopPuppiJetCollection"   Value="updatedPatJetsSlimmedJetsAK8_SoftDropPuppi"/>
-			<Item Name="METName"                 Value="slimmedMETs"/>
+			<Item Name="METName"                 Value="slimmedMETsPuppi"/>
 
 			<Item Name="lumi_file" Value="/nfs/dust/cms/user/reimersa/CMSSW_9_4_1/src/UHH2/common/data/Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON_v1_normTag.root"/>
 			<Item Name="lumihists_lumi_per_bin" Value="1000.0"/>

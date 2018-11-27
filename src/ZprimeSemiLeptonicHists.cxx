@@ -1,7 +1,8 @@
 #include "UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicHists.h"
 #include "UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicModules.h"
 #include "UHH2/core/include/Event.h"
-#include "UHH2/common/include/Utils.h"
+#include <UHH2/core/include/Utils.h>
+#include <UHH2/common/include/Utils.h>
 #include "UHH2/common/include/JetIds.h"
 #include <math.h>
 
@@ -22,8 +23,10 @@ Hists(ctx, dirname) {
 
   is_mc = ctx.get("dataset_type") == "MC";
   h_AK8PuppiTopTags = ctx.get_handle<std::vector<TopJet>>("AK8PuppiTopTags");
-  h_BestZprimeCandidate = ctx.get_handle<ZprimeCandidate>("ZprimeCandidateBestChi2");
-  h_is_zprime_reconstructed = ctx.get_handle<bool>("is_zprime_reconstructed");
+  h_BestZprimeCandidateChi2 = ctx.get_handle<ZprimeCandidate*>("ZprimeCandidateBestChi2");
+  h_BestZprimeCandidateCorrectMatch = ctx.get_handle<ZprimeCandidate*>("ZprimeCandidateBestCorrectMatch");
+  h_is_zprime_reconstructed_chi2 = ctx.get_handle<bool>("is_zprime_reconstructed_chi2");
+  h_is_zprime_reconstructed_correctmatch = ctx.get_handle<bool>("is_zprime_reconstructed_correctmatch");
   init();
 }
 
@@ -292,13 +295,52 @@ void ZprimeSemiLeptonicHists::init(){
   STlep_rebin       = book<TH1F>("STlep_rebin", "S_{T}^{lep} [GeV]", 50, 0, 1500);
   STlep_rebin2      = book<TH1F>("STlep_rebin2", "S_{T}^{lep} [GeV]", 30, 0, 1500);
   STlep_rebin3      = book<TH1F>("STlep_rebin3", "S_{T}^{lep} [GeV]", 15, 0, 1500);
-  M_Zprime          = book<TH1F>("M_Zprime", "M_{t#bar{t}} [GeV]", 280, 0, 7000);
-  M_Zprime_rebin    = book<TH1F>("M_Zprime_rebin", "M_{t#bar{t}} [GeV]", 140, 0, 7000);
-  M_Zprime_rebin2   = book<TH1F>("M_Zprime_rebin2", "M_{t#bar{t}} [GeV]", 70, 0, 7000);
-  M_Zprime_rebin3   = book<TH1F>("M_Zprime_rebin3", "M_{t#bar{t}} [GeV]", 35, 0, 7000);
-  chi2_Zprime       = book<TH1F>("chi2_Zprime", "#chi^2", 50, 0, 500);
-  chi2_Zprime_rebin = book<TH1F>("chi2_Zprime_rebin", "#chi^2", 20, 0, 100);
-  chi2_Zprime_rebin2= book<TH1F>("chi2_Zprime_rebin2", "#chi^2", 15, 0, 30);
+
+  // Zprime reconstruction
+  vector<float> bins_Zprime4 = {0,400,600,800,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200,3400,3600,3800,4000,4400,4800,5200,5600,6000,6100};
+  vector<float> bins_Zprime5 = {0,200,400,600,800,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3300,3600,3900,4200,4500,5000,5100};
+  M_Zprime                 = book<TH1F>("M_Zprime", "M_{t#bar{t}} [GeV]", 280, 0, 7000);
+  M_Zprime_rebin           = book<TH1F>("M_Zprime_rebin", "M_{t#bar{t}} [GeV]", 140, 0, 7000);
+  M_Zprime_rebin2          = book<TH1F>("M_Zprime_rebin2", "M_{t#bar{t}} [GeV]", 70, 0, 7000);
+  M_Zprime_rebin3          = book<TH1F>("M_Zprime_rebin3", "M_{t#bar{t}} [GeV]", 35, 0, 7000);
+  M_Zprime_rebin4          = book<TH1F>("M_Zprime_rebin4", "M_{t#bar{t}} [GeV]", bins_Zprime4.size()-1, &bins_Zprime4[0]);
+  M_Zprime_rebin5          = book<TH1F>("M_Zprime_rebin5", "M_{t#bar{t}} [GeV]", bins_Zprime5.size()-1, &bins_Zprime5[0]);
+  M_tophad                 = book<TH1F>("M_tophad", "M_{t}^{had} [GeV]", 70, 0, 700);
+  M_toplep                 = book<TH1F>("M_toplep", "M_{t}^{lep} [GeV]", 70, 0, 700);
+  chi2_Zprime              = book<TH1F>("chi2_Zprime", "#chi^{2}", 50, 0, 500);
+  chi2_Zprime_rebin        = book<TH1F>("chi2_Zprime_rebin", "#chi^{2}", 20, 0, 100);
+  chi2_Zprime_rebin2       = book<TH1F>("chi2_Zprime_rebin2", "#chi^{2}", 15, 0, 30);
+  M_Zprime_ak4             = book<TH1F>("M_Zprime_ak4", "M_{t#bar{t}} (AK4 reconstruction) [GeV]", 280, 0, 7000);
+  M_Zprime_ak4_rebin       = book<TH1F>("M_Zprime_ak4_rebin", "M_{t#bar{t}} (AK4 reconstruction) [GeV]", 140, 0, 7000);
+  M_Zprime_ak4_rebin2      = book<TH1F>("M_Zprime_ak4_rebin2", "M_{t#bar{t}} (AK4 reconstruction) [GeV]", 70, 0, 7000);
+  M_Zprime_ak4_rebin3      = book<TH1F>("M_Zprime_ak4_rebin3", "M_{t#bar{t}} (AK4 reconstruction) [GeV]", 35, 0, 7000);
+  M_Zprime_ak4_rebin4      = book<TH1F>("M_Zprime_ak4_rebin4", "M_{t#bar{t}} (AK4 reconstruction [GeV]", bins_Zprime4.size()-1, &bins_Zprime4[0]);
+  M_Zprime_ak4_rebin5      = book<TH1F>("M_Zprime_ak4_rebin5", "M_{t#bar{t}} (AK4 reconstruction [GeV]", bins_Zprime5.size()-1, &bins_Zprime5[0]);
+  M_tophad_ak4             = book<TH1F>("M_tophad_ak4", "M_{t}^{had, AK4} (AK4 reconstruction) [GeV]", 70, 0, 700);
+  M_toplep_ak4             = book<TH1F>("M_toplep_ak4", "M_{t}^{lep, AK4} (AK4 reconstruction) [GeV]", 70, 0, 700);
+  chi2_Zprime_ak4          = book<TH1F>("chi2_Zprime_ak4", "#chi^{2} (AK4 reconstruction)", 50, 0, 500);
+  chi2_Zprime_ak4_rebin    = book<TH1F>("chi2_Zprime_ak4_rebin", "#chi^{2} (AK4 reconstruction)", 20, 0, 100);
+  chi2_Zprime_ak4_rebin2   = book<TH1F>("chi2_Zprime_ak4_rebin2", "#chi^{2} (AK4 reconstruction)", 15, 0, 30);
+  M_Zprime_ttag            = book<TH1F>("M_Zprime_ttag", "M_{t#bar{t}} (t-tag reconstruction) [GeV]", 280, 0, 7000);
+  M_Zprime_ttag_rebin      = book<TH1F>("M_Zprime_ttag_rebin", "M_{t#bar{t}} (t-tag reconstruction) [GeV]", 140, 0, 7000);
+  M_Zprime_ttag_rebin2     = book<TH1F>("M_Zprime_ttag_rebin2", "M_{t#bar{t}} (t-tag reconstruction) [GeV]", 70, 0, 7000);
+  M_Zprime_ttag_rebin3     = book<TH1F>("M_Zprime_ttag_rebin3", "M_{t#bar{t}} (t-tag reconstruction) [GeV]", 35, 0, 7000);
+  M_Zprime_ttag_rebin4     = book<TH1F>("M_Zprime_ttag_rebin4", "M_{t#bar{t}} (t-tag reconstruction [GeV]", bins_Zprime4.size()-1, &bins_Zprime4[0]);
+  M_Zprime_ttag_rebin5     = book<TH1F>("M_Zprime_ttag_rebin5", "M_{t#bar{t}} (t-tag reconstruction [GeV]", bins_Zprime5.size()-1, &bins_Zprime5[0]);
+  M_tophad_ttag            = book<TH1F>("M_tophad_ttag", "M_{t}^{had, top-tag} (t-tag reconstruction) [GeV]", 70, 0, 700);
+  M_toplep_ttag            = book<TH1F>("M_toplep_ttag", "M_{t}^{lep, top-tag} (t-tag reconstruction) [GeV]", 70, 0, 700);
+  chi2_Zprime_ttag         = book<TH1F>("chi2_Zprime_ttag", "#chi^{2} (t-tag reconstruction)", 50, 0, 500);
+  chi2_Zprime_ttag_rebin   = book<TH1F>("chi2_Zprime_ttag_rebin", "#chi^{2} (t-tag reconstruction)", 20, 0, 100);
+  chi2_Zprime_ttag_rebin2  = book<TH1F>("chi2_Zprime_ttag_rebin2", "#chi^{2} (t-tag reconstruction)", 15, 0, 30);
+  M_tophad_dr_ak4          = book<TH1F>("M_tophad_dr_ak4", "M_{t}^{had, AK4} (correctly matched) [GeV]", 70, 0, 700);
+  M_toplep_dr_ak4          = book<TH1F>("M_toplep_dr_ak4", "M_{t}^{lep, AK4} (correctly matched) [GeV]", 70, 0, 700);
+  M_tophad_dr_ttag         = book<TH1F>("M_tophad_dr_ttag", "M_{t}^{had, top-tag} (correctly matched) [GeV]", 70, 0, 700);
+  M_toplep_dr_ttag         = book<TH1F>("M_toplep_dr_ttag", "M_{t}^{lep, top-tag} (correctly matched) [GeV]", 70, 0, 700);
+  dr_discr_Zprime          = book<TH1F>("dr_discr_Zprime", "dR best hypothesis (correctly matched)", 30, 0, 3);
+  M_Zprime_dr              = book<TH1F>("M_Zprime_dr", "M_{t#bar{t}} (correctly matched) [GeV]", 280, 0, 7000);
+  M_Zprime_dr_rebin        = book<TH1F>("M_Zprime_dr_rebin", "M_{t#bar{t}} (correctly matched) [GeV]", 140, 0, 7000);
+  M_Zprime_dr_rebin2       = book<TH1F>("M_Zprime_dr_rebin2", "M_{t#bar{t}} (correctly matched) [GeV]", 70, 0, 7000);
+  M_Zprime_dr_rebin3       = book<TH1F>("M_Zprime_dr_rebin3", "M_{t#bar{t}} (correctly matched) [GeV]", 35, 0, 7000);
 
   // Sphericity tensor
   S11 = book<TH1F>("S11", "S_{11}", 50, 0, 1);
@@ -793,18 +835,81 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
   STlep_rebin3->Fill(st_lep, weight);
 
   // Zprime reco
-  bool is_zprime_reconstructed = event.get(h_is_zprime_reconstructed);
-  if(is_zprime_reconstructed){
-    ZprimeCandidate BestZprimeCandidate = event.get(h_BestZprimeCandidate);
-    float Mreco = BestZprimeCandidate.Zprime_v4().M();
-    float chi2 = BestZprimeCandidate.discriminator("chi2_total");
+  bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2);
+  bool is_zprime_reconstructed_correctmatch = event.get(h_is_zprime_reconstructed_correctmatch);
+  if(is_zprime_reconstructed_chi2){
+    ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
+    float Mreco = BestZprimeCandidate->Zprime_v4().M();
+    float chi2 = BestZprimeCandidate->discriminator("chi2_total");
     M_Zprime->Fill(Mreco, weight);
     M_Zprime_rebin->Fill(Mreco, weight);
     M_Zprime_rebin2->Fill(Mreco, weight);
     M_Zprime_rebin3->Fill(Mreco, weight);
+    if(Mreco < 6000.) M_Zprime_rebin4->Fill(Mreco, weight);
+    else M_Zprime_rebin4->Fill(6050., weight);
+    if(Mreco < 5000.) M_Zprime_rebin5->Fill(Mreco, weight);
+    else M_Zprime_rebin5->Fill(5050., weight);
     chi2_Zprime->Fill(chi2, weight);
     chi2_Zprime_rebin->Fill(chi2, weight);
     chi2_Zprime_rebin2->Fill(chi2, weight);
+    if(BestZprimeCandidate->is_toptag_reconstruction()){
+      M_tophad->Fill(BestZprimeCandidate->tophad_topjet_ptr()->softdropmass(), weight);
+      M_toplep->Fill(inv_mass(BestZprimeCandidate->top_leptonic_v4()), weight);
+
+      M_Zprime_ttag->Fill(Mreco, weight);
+      M_Zprime_ttag_rebin->Fill(Mreco, weight);
+      M_Zprime_ttag_rebin2->Fill(Mreco, weight);
+      M_Zprime_ttag_rebin3->Fill(Mreco, weight);
+      if(Mreco < 6000.) M_Zprime_ttag_rebin4->Fill(Mreco, weight);
+      else M_Zprime_ttag_rebin4->Fill(6050., weight);
+      if(Mreco < 5000.) M_Zprime_ttag_rebin5->Fill(Mreco, weight);
+      else M_Zprime_ttag_rebin5->Fill(5050., weight);
+      chi2_Zprime_ttag->Fill(chi2, weight);
+      chi2_Zprime_ttag_rebin->Fill(chi2, weight);
+      chi2_Zprime_ttag_rebin2->Fill(chi2, weight);
+      M_tophad_ttag->Fill(BestZprimeCandidate->tophad_topjet_ptr()->softdropmass(), weight);
+      M_toplep_ttag->Fill(inv_mass(BestZprimeCandidate->top_leptonic_v4()), weight);
+    }
+    else{
+      M_tophad->Fill(inv_mass(BestZprimeCandidate->top_hadronic_v4()), weight);
+      M_toplep->Fill(inv_mass(BestZprimeCandidate->top_leptonic_v4()), weight);
+
+      M_Zprime_ak4->Fill(Mreco, weight);
+      M_Zprime_ak4_rebin->Fill(Mreco, weight);
+      M_Zprime_ak4_rebin2->Fill(Mreco, weight);
+      M_Zprime_ak4_rebin3->Fill(Mreco, weight);
+      if(Mreco < 6000.) M_Zprime_ak4_rebin4->Fill(Mreco, weight);
+      else M_Zprime_ak4_rebin4->Fill(6050., weight);
+      if(Mreco < 5000.) M_Zprime_ak4_rebin5->Fill(Mreco, weight);
+      else M_Zprime_ak4_rebin5->Fill(5050., weight);
+      chi2_Zprime_ak4->Fill(chi2, weight);
+      chi2_Zprime_ak4_rebin->Fill(chi2, weight);
+      chi2_Zprime_ak4_rebin2->Fill(chi2, weight);
+      M_tophad_ak4->Fill(inv_mass(BestZprimeCandidate->top_hadronic_v4()), weight);
+      M_toplep_ak4->Fill(inv_mass(BestZprimeCandidate->top_leptonic_v4()), weight);
+    }
+  }
+  if(is_zprime_reconstructed_correctmatch){
+    // cout << "Correct match is filled" << endl;
+    ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateCorrectMatch);
+    float Mreco = BestZprimeCandidate->Zprime_v4().M();
+    float dr = BestZprimeCandidate->discriminator("correct_match");
+    if(dr < 10.){
+      // cout << "dr < 10" << endl;
+      if(BestZprimeCandidate->is_toptag_reconstruction()){
+        M_tophad_dr_ttag->Fill(BestZprimeCandidate->tophad_topjet_ptr()->softdropmass(), weight);
+        M_toplep_dr_ttag->Fill(inv_mass(BestZprimeCandidate->top_leptonic_v4()), weight);
+      }
+      else{
+        M_tophad_dr_ak4->Fill(inv_mass(BestZprimeCandidate->top_hadronic_v4()), weight);
+        M_toplep_dr_ak4->Fill(inv_mass(BestZprimeCandidate->top_leptonic_v4()), weight);
+      }
+      dr_discr_Zprime->Fill(dr, weight);
+      M_Zprime_dr->Fill(Mreco, weight);
+      M_Zprime_dr_rebin->Fill(Mreco, weight);
+      M_Zprime_dr_rebin2->Fill(Mreco, weight);
+      M_Zprime_dr_rebin3->Fill(Mreco, weight);
+    }
   }
 
   // Sphericity tensor

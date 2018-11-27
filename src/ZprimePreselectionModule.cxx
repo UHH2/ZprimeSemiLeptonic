@@ -71,7 +71,7 @@ protected:
   std::unique_ptr<uhh2::Selection> jet2_sel;
   std::unique_ptr<uhh2::Selection> met_sel;
 
-  bool isMC;
+  bool isMC, ispuppi;
 
   std::unique_ptr<Hists> lumihists;
   TString METcollection;
@@ -96,6 +96,8 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   // const std::string& _METcollection = ctx.get("METName");
   const TString METcollection = ctx.get("METName");
   const bool isMC = (ctx.get("dataset_type") == "MC");
+  const bool ispuppi = (ctx.get("is_puppi") == "true");
+  cout << "Is this running on puppi: " << ispuppi << endl;
 
   ElectronId eleID = ElectronID_Fall17_tight_noIso;
   MuonId muID      = MuonID(Muon::CutBasedIdGlobalHighPt);
@@ -105,11 +107,11 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   double jet2_pt(30.);
   double MET(50.);
 
-  //// COMMON MODULES
+  // COMMON MODULES
 
   if(!isMC) lumi_sel.reset(new LumiSelection(ctx));
 
-  /* MET filters */
+  // MET filters
   metfilters_sel.reset(new uhh2::AndSelection(ctx, "metfilters"));
   if(!isMC){
     metfilters_sel->add<TriggerSelection>("1-good-vtx", "Flag_goodVertices");
@@ -190,12 +192,22 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   JEC_AK8_F_Puppi = JERFiles::Fall17_17Nov2017_V6_F_L123_AK8PFPuppi_DATA;
   JEC_AK8_MC_Puppi = JERFiles::Fall17_17Nov2017_V6_L123_AK8PFPuppi_MC;
 
-  jet_corrector_B.reset(new JetCorrector(ctx,             JEC_AK4_B));
-  jet_corrector_C.reset(new JetCorrector(ctx,             JEC_AK4_C));
-  jet_corrector_D.reset(new JetCorrector(ctx,             JEC_AK4_D));
-  jet_corrector_E.reset(new JetCorrector(ctx,             JEC_AK4_E));
-  jet_corrector_F.reset(new JetCorrector(ctx,             JEC_AK4_F));
-  jet_corrector_MC.reset(new JetCorrector(ctx,            JEC_AK4_MC));
+  if(!ispuppi){
+    jet_corrector_B.reset(new JetCorrector(ctx,             JEC_AK4_B));
+    jet_corrector_C.reset(new JetCorrector(ctx,             JEC_AK4_C));
+    jet_corrector_D.reset(new JetCorrector(ctx,             JEC_AK4_D));
+    jet_corrector_E.reset(new JetCorrector(ctx,             JEC_AK4_E));
+    jet_corrector_F.reset(new JetCorrector(ctx,             JEC_AK4_F));
+    jet_corrector_MC.reset(new JetCorrector(ctx,            JEC_AK4_MC));
+  }
+  else{
+    jet_corrector_B.reset(new JetCorrector(ctx,             JEC_AK4_B_Puppi));
+    jet_corrector_C.reset(new JetCorrector(ctx,             JEC_AK4_C_Puppi));
+    jet_corrector_D.reset(new JetCorrector(ctx,             JEC_AK4_D_Puppi));
+    jet_corrector_E.reset(new JetCorrector(ctx,             JEC_AK4_E_Puppi));
+    jet_corrector_F.reset(new JetCorrector(ctx,             JEC_AK4_F_Puppi));
+    jet_corrector_MC.reset(new JetCorrector(ctx,            JEC_AK4_MC_Puppi));
+  }
 
   topjet_corrector_B.reset(new TopJetCorrector(ctx,       JEC_AK8_B));
   topjet_corrector_C.reset(new TopJetCorrector(ctx,       JEC_AK8_C));
@@ -225,12 +237,22 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   topjet_puppi_subjet_corrector_F.reset(new GenericSubJetCorrector(ctx,  JEC_AK4_F_Puppi, "toppuppijets"));
   topjet_puppi_subjet_corrector_MC.reset(new GenericSubJetCorrector(ctx, JEC_AK4_MC_Puppi, "toppuppijets"));
 
-  JLC_B.reset(new JetLeptonCleaner_by_KEYmatching(ctx,           JEC_AK4_B));
-  JLC_C.reset(new JetLeptonCleaner_by_KEYmatching(ctx,           JEC_AK4_C));
-  JLC_D.reset(new JetLeptonCleaner_by_KEYmatching(ctx,           JEC_AK4_D));
-  JLC_E.reset(new JetLeptonCleaner_by_KEYmatching(ctx,           JEC_AK4_E));
-  JLC_F.reset(new JetLeptonCleaner_by_KEYmatching(ctx,           JEC_AK4_F));
-  JLC_MC.reset(new JetLeptonCleaner_by_KEYmatching(ctx,          JEC_AK4_MC));
+  if(!ispuppi){
+    JLC_B.reset(new JetLeptonCleaner_by_KEYmatching(ctx,           JEC_AK4_B));
+    JLC_C.reset(new JetLeptonCleaner_by_KEYmatching(ctx,           JEC_AK4_C));
+    JLC_D.reset(new JetLeptonCleaner_by_KEYmatching(ctx,           JEC_AK4_D));
+    JLC_E.reset(new JetLeptonCleaner_by_KEYmatching(ctx,           JEC_AK4_E));
+    JLC_F.reset(new JetLeptonCleaner_by_KEYmatching(ctx,           JEC_AK4_F));
+    JLC_MC.reset(new JetLeptonCleaner_by_KEYmatching(ctx,          JEC_AK4_MC));
+  }
+  else{
+    JLC_B.reset(new JetLeptonCleaner_by_KEYmatching(ctx,           JEC_AK4_B_Puppi));
+    JLC_C.reset(new JetLeptonCleaner_by_KEYmatching(ctx,           JEC_AK4_C_Puppi));
+    JLC_D.reset(new JetLeptonCleaner_by_KEYmatching(ctx,           JEC_AK4_D_Puppi));
+    JLC_E.reset(new JetLeptonCleaner_by_KEYmatching(ctx,           JEC_AK4_E_Puppi));
+    JLC_F.reset(new JetLeptonCleaner_by_KEYmatching(ctx,           JEC_AK4_F_Puppi));
+    JLC_MC.reset(new JetLeptonCleaner_by_KEYmatching(ctx,          JEC_AK4_MC_Puppi));
+  }
 
   TopJLC_B.reset(new JetLeptonCleaner_by_KEYmatching(ctx,        JEC_AK8_B, "topjets"));
   TopJLC_C.reset(new JetLeptonCleaner_by_KEYmatching(ctx,        JEC_AK8_C, "topjets"));
@@ -272,7 +294,7 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   });
 
   for(const auto & tag : histogram_tags){
-    book_HFolder(tag, new TTbarLJHistsSkimming(ctx,tag));
+    // book_HFolder(tag, new TTbarLJHistsSkimming(ctx,tag));
   }
 
   lumihists.reset(new LuminosityHists(ctx, "lumi"));
@@ -311,7 +333,7 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
 
   const bool pass_lep1 = ((event.muons->size() >= 1) || (event.electrons->size() >= 1));
   if(!pass_lep1) return false;
-  HFolder("lep1")->fill(event);
+  // HFolder("lep1")->fill(event);
   ////
 
 
@@ -332,7 +354,7 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
     else throw std::runtime_error("run number not covered by if-statements in process-routine.");
 
     if(apply_B+apply_C+apply_D+apply_E+apply_F != 1) throw std::runtime_error("In ZprimePreselectionModule.cxx: Sum of apply_* when applying JECs is not == 1. Fix this.");
-    HFolder("jetlepcleaning_before")->fill(event);
+    // HFolder("jetlepcleaning_before")->fill(event);
     //apply proper JECs
     if(apply_B){
       JLC_B->process(event);
@@ -407,7 +429,7 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
 
   jet_cleaner1->process(event);
   sort_by_pt<Jet>(*event.jets);
-  HFolder("jetlepcleaning_after")->fill(event);
+  // HFolder("jetlepcleaning_after")->fill(event);
 
 
   // Lepton-2Dcut variables
@@ -444,17 +466,17 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
   // 1st AK4 jet selection
   const bool pass_jet1 = jet1_sel->passes(event);
   if(!pass_jet1) return false;
-  HFolder("jet1")->fill(event);
+  // HFolder("jet1")->fill(event);
 
   // 2nd AK4 jet selection
   const bool pass_jet2 = jet2_sel->passes(event);
   if(!pass_jet2) return false;
-  HFolder("jet2")->fill(event);
+  // HFolder("jet2")->fill(event);
 
   // MET selection
   const bool pass_met = met_sel->passes(event);
   if(!pass_met) return false;
-  HFolder("met")->fill(event);
+  // HFolder("met")->fill(event);
 
   return true;
 }

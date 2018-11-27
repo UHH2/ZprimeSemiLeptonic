@@ -14,9 +14,217 @@
 
 using namespace std;
 
+
+ZprimeTopTagSelection::ZprimeTopTagSelection(Context& ctx){
+  h_BestZprimeCandidate_chi2 = ctx.get_handle<ZprimeCandidate*>("ZprimeCandidateBestChi2");
+  h_is_zprime_reconstructed_chi2 = ctx.get_handle<bool>("is_zprime_reconstructed_chi2");
+}
+bool ZprimeTopTagSelection::passes(const Event & event){
+
+  bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2);
+  if(!is_zprime_reconstructed_chi2) throw runtime_error("In ZprimeSemiLeptonicSelections.cxx:ZprimeTopTagSelection::passes(): The Zprime was never reconstructed via the chi2 method. This must be done before looking for the way it was reconstructed.");
+
+  ZprimeCandidate* cand = event.get(h_BestZprimeCandidate_chi2);
+
+  return cand->is_toptag_reconstruction();
+
+}
+
+Chi2CandidateMatchedSelection::Chi2CandidateMatchedSelection(Context& ctx){
+  h_BestZprimeCandidate_chi2 = ctx.get_handle<ZprimeCandidate*>("ZprimeCandidateBestChi2");
+  h_is_zprime_reconstructed_chi2 = ctx.get_handle<bool>("is_zprime_reconstructed_chi2");
+  h_is_zprime_reconstructed_correctmatch = ctx.get_handle<bool>("is_zprime_reconstructed_correctmatch");
+}
+bool Chi2CandidateMatchedSelection::passes(const Event & event){
+
+  bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2);
+  bool is_zprime_reconstructed_correctmatch = event.get(h_is_zprime_reconstructed_correctmatch);
+
+  if(!(is_zprime_reconstructed_chi2 && is_zprime_reconstructed_correctmatch)) return false;
+  ZprimeCandidate* cand_chi2 = event.get(h_BestZprimeCandidate_chi2);
+  float dr_chi2 = cand_chi2->discriminator("correct_match");
+  return dr_chi2 < 10.;
+
+}
+
+TTbarSemiLepMatchableSelection::TTbarSemiLepMatchableSelection(){}
+bool TTbarSemiLepMatchableSelection::passes(const Event & event){
+  if(event.isRealData) return false;
+  assert(event.genparticles);
+
+  //check, if one top decays had and one decays lep
+  bool found_had = false, found_lep = false;
+
+  //Loop over genparticles
+  for(const auto & gp : *event.genparticles){
+
+    //Get tops
+    if(fabs(gp.pdgId()) == 6){
+
+      //Get b and W
+      auto b = gp.daughter(event.genparticles,1);
+      auto W = gp.daughter(event.genparticles,2);
+      if(fabs(W->pdgId()) == 5 && fabs(b->pdgId()) == 24){
+        b = gp.daughter(event.genparticles,2);
+        W = gp.daughter(event.genparticles,1);
+      }
+      if(abs(W->pdgId()) != 24) {
+        for(unsigned int j = 0; j < event.genparticles->size(); ++j) {
+          const GenParticle & genp = event.genparticles->at(j);
+          auto m1 = genp.mother(event.genparticles, 1);
+          auto m2 = genp.mother(event.genparticles, 2);
+          bool has_top_mother = ((m1 && m1->index() == gp.index()) || (m2 && m2->index() == gp.index()));
+          if(has_top_mother && (abs(genp.pdgId()) == 24)) {
+            W = &genp;
+            break;
+          }
+        }
+      }
+      if(abs(b->pdgId()) != 5 && abs(b->pdgId()) != 3 && abs(b->pdgId()) != 1) {
+        for(unsigned int j = 0; j < event.genparticles->size(); ++j) {
+          const GenParticle & genp = event.genparticles->at(j);
+          auto m1 = genp.mother(event.genparticles, 1);
+          auto m2 = genp.mother(event.genparticles, 2);
+          bool has_top_mother = ((m1 && m1->index() == gp.index()) || (m2 && m2->index() == gp.index()));
+          if(has_top_mother && (abs(genp.pdgId()) == 5 || abs(genp.pdgId()) == 3 || abs(genp.pdgId()) == 1)) {
+            b = &genp;
+            break;
+          }
+        }
+      }
+      if(!((fabs(b->pdgId()) == 5 || fabs(b->pdgId()) == 3 || fabs(b->pdgId()) == 1) && fabs(W->pdgId()) == 24)) return false;
+
+      //try to match the b quarks
+      bool matched_b_ak4 = false;
+
+      // Consider AK4 jets first
+      for(const auto & jet : *event.jets){
+        if(deltaR(*b,jet) <= 0.4) matched_b_ak4 = true;
+      }
+
+      bool matched_b_ak8 = false;
+      // Now consider AK8 jets
+      int idx_matched_topjet = -1;
+      int idx = 0;
+      for(const auto & jet : *event.topjets){
+        if(deltaR(*b,jet) <= 0.8){
+          matched_b_ak8 = true;
+          idx_matched_topjet = idx;
+        }
+        idx++;
+      }
+
+      if(!matched_b_ak4 && !matched_b_ak8) return false;
+
+      //Check decaymodes of W
+      auto Wd1 = W->daughter(event.genparticles,1);
+      auto Wd2 = W->daughter(event.genparticles,2);
+
+      //hadronic
+      if(fabs(Wd1->pdgId()) < 7 && fabs(Wd2->pdgId()) < 7){
+        if(found_had) return false;
+        found_had = true;
+
+        //check if both daughters can be matched by jets
+        bool matched_d1_ak4 = false, matched_d2_ak4 = false;
+        bool matched_d1_ak8 = false, matched_d2_ak8 = false;
+        // Consider AK4 jets first
+        for(const auto & jet : *event.jets){
+          if(deltaR(*Wd1, jet) <= 0.4) matched_d1_ak4 = true;
+          if(deltaR(*Wd2, jet) <= 0.4) matched_d2_ak4 = true;
+        }
+
+        // Now consider the one AK8 jet also used for the b-jet
+        if(!matched_b_ak8){
+          matched_d1_ak8 = false;
+          matched_d2_ak8 = false;
+        }
+        else{
+          if(deltaR(*Wd1, event.topjets->at(idx_matched_topjet)) <= 0.8) matched_d1_ak8 = true;
+          if(deltaR(*Wd2, event.topjets->at(idx_matched_topjet)) <= 0.8) matched_d2_ak8 = true;
+        }
+
+        // if(!(matched_d1 && matched_d2)) return false;
+        if(!(matched_b_ak4 && matched_d1_ak4 && matched_d2_ak4) && !(matched_b_ak8 && matched_d1_ak8 && matched_d2_ak8)) return false;
+      }
+
+      //leptonic
+      else if((abs(Wd1->pdgId()) == 11 || abs(Wd1->pdgId()) == 13) || (abs(Wd2->pdgId()) == 11 || abs(Wd2->pdgId()) == 13)){
+        if(found_lep) return false;
+
+        // Escape cases where the W radiates an intermediate photon, that splits into llbar
+        if(Wd1->pdgId() == -Wd2->pdgId()){
+          // cout << "Entered the escape-part" << endl;
+          // Find 2 genparts with 11,12,13,14 that follow each other in the list and don't have the same fabs
+          int idx = 0;
+          for(const auto & genp : *event.genparticles){
+            if(found_lep) break;
+            if(abs(genp.pdgId()) >= 11 && abs(genp.pdgId()) <= 14){
+              bool is_charged = (abs(genp.pdgId()) == 11 || abs(genp.pdgId()) == 13);
+              // cout << "Found a genpart at index " << idx << " with id " << genp.pdgId() << ", is_charged: " << is_charged << endl;
+
+              // if the first one is charged, the second one has to have pdgId of +1 wrt. this genpart
+              if(is_charged){
+                // cout << "(charged) Going to check for next particle in list" << endl;
+                if(abs(event.genparticles->at(idx+1).pdgId()) == abs(genp.pdgId()) + 1){
+                  Wd1 = &genp;
+                  Wd2 = &event.genparticles->at(idx+1);
+                  found_lep = true;
+                }
+              }
+              else{
+                // cout << "(neutral) Going to check for next particle in list" << endl;
+                if(abs(event.genparticles->at(idx+1).pdgId()) == abs(genp.pdgId()) - 1){
+                  Wd2 = &genp;
+                  Wd1 = &event.genparticles->at(idx+1);
+                  found_lep = true;
+                }
+              }
+            }
+            idx++;
+          }
+          if(!found_lep) return false;
+        }
+
+        found_lep = true;
+
+        //Find charged lepton
+        auto lep = Wd1;
+        auto nu = Wd2;
+        if(fabs(Wd2->pdgId()) == 11 || fabs(Wd2->pdgId()) == 13){
+          lep = Wd2;
+          nu = Wd1;
+        }
+        if(!(abs(lep->pdgId()) == 11 && abs(nu->pdgId()) == 12) && !(abs(lep->pdgId()) == 13 && abs(nu->pdgId()) == 14)) throw runtime_error("In TTbarSemiLepMatchable: The leptonic W does not decay into a lepton and its neutrino.");
+
+        //check, if lepton can be matched
+        bool matched_lep = false;
+        if(fabs(lep->pdgId()) == 11){
+          for(const auto & ele : *event.electrons){
+            if(deltaR(*lep,ele) <= 0.1) matched_lep = true;
+          }
+        }
+        else if(fabs(lep->pdgId()) == 13){
+          for(const auto & mu : *event.muons){
+            if(deltaR(mu,*lep) <= 0.1) matched_lep = true;
+          }
+        }
+        else throw runtime_error("In TTbarSemiLepMatchable: Lepton from W decay is neither e nor mu.");
+        if(!matched_lep) return false;
+      }
+      //tau-decays
+      else return false;
+    }
+  }
+
+  if(!(found_had && found_lep)) return false;
+
+  return true;
+}
+
 uhh2::Chi2Cut::Chi2Cut(Context& ctx, float min, float max): min_(min), max_(max){
-  h_BestZprimeCandidate = ctx.get_handle<ZprimeCandidate>("ZprimeCandidateBestChi2");
-  h_is_zprime_reconstructed = ctx.get_handle<bool>("is_zprime_reconstructed");
+  h_BestZprimeCandidate = ctx.get_handle<ZprimeCandidate*>("ZprimeCandidateBestChi2");
+  h_is_zprime_reconstructed = ctx.get_handle<bool>("is_zprime_reconstructed_chi2");
 }
 
 bool uhh2::Chi2Cut::passes(const uhh2::Event& event){
@@ -25,8 +233,8 @@ bool uhh2::Chi2Cut::passes(const uhh2::Event& event){
   // if(!is_zprime_reconstructed) throw runtime_error("In ZprimeSemiLeptonicSelections.cxx: Chi2Cut::passes: The Zprime was never reconstructed. Do this before trying to cut on its chi2.");
   bool pass = false;
   if(is_zprime_reconstructed){
-    ZprimeCandidate BestZprimeCandidate = event.get(h_BestZprimeCandidate);
-    double chi2 = BestZprimeCandidate.discriminator("chi2_total");
+    ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidate);
+    double chi2 = BestZprimeCandidate->discriminator("chi2_total");
     if(chi2 >= min_ && (chi2 <= max_ || max_ < 0)) pass = true;
   }
 

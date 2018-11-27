@@ -6,7 +6,7 @@ import signal
 from multiprocessing import Process
 from multiprocessing import Pool
 
-txtfile = open('workdir_SR_Pre/missing_files.txt','r')
+txtfile = open('workdir_SR/missing_files.txt','r')
 lines = txtfile.readlines()
 ntotal = len(lines)
 processes = []
@@ -37,7 +37,7 @@ for line in lines:
             print 'only %i jobs are running, going to spawn new ones.' % nrunning
             wait = False    
             
-    xmlfilename = 'workdir_SR_Pre/' + command.split(' ')[1]
+    xmlfilename = 'workdir_SR/' + command.split(' ')[1]
     logfilename = xmlfilename[:len(xmlfilename)-5]+'_log.txt'
     f = open(logfilename,'w')
     logfiles.append(f)
