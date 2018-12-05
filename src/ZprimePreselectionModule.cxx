@@ -20,11 +20,16 @@
 #include <UHH2/common/include/Utils.h>
 #include <UHH2/common/include/AdditionalSelections.h>
 #include "UHH2/common/include/LuminosityHists.h"
+#include <UHH2/common/include/MuonHists.h>
+#include <UHH2/common/include/ElectronHists.h>
+#include <UHH2/common/include/JetHists.h>
+#include <UHH2/common/include/EventHists.h>
 
 #include <UHH2/ZprimeSemiLeptonic/include/ModuleBASE.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicSelections.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicModules.h>
-#include <UHH2/ZprimeSemiLeptonic/include/TTbarLJHistsSkimming.h>
+#include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicPreselectionHists.h>
+#include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicGeneratorHists.h>
 
 using namespace std;
 
@@ -33,6 +38,8 @@ class ZprimePreselectionModule : public ModuleBASE {
 public:
   explicit ZprimePreselectionModule(uhh2::Context&);
   virtual bool process(uhh2::Event&) override;
+  void book_histograms(uhh2::Context&, vector<string>);
+  void fill_histograms(uhh2::Event&, string);
 
 protected:
 
@@ -85,6 +92,39 @@ protected:
   constexpr static int s_runnr_F = 306462; //up to this one, including this one
 
 };
+
+void ZprimePreselectionModule::book_histograms(uhh2::Context& ctx, vector<string> tags){
+  for(const auto & tag : tags){
+    string mytag = tag+"_General";
+    book_HFolder(mytag, new ZprimeSemiLeptonicPreselectionHists(ctx,mytag));
+    mytag = tag+"_Muons";
+    book_HFolder(mytag, new MuonHists(ctx,mytag));
+    mytag = tag+"_Electrons";
+    book_HFolder(mytag, new ElectronHists(ctx,mytag));
+    mytag = tag+"_Jets";
+    book_HFolder(mytag, new JetHists(ctx,mytag));
+    mytag = tag+"_Event";
+    book_HFolder(mytag, new EventHists(ctx,mytag));
+    mytag = tag+"_Generator";
+    book_HFolder(mytag, new ZprimeSemiLeptonicGeneratorHists(ctx,mytag));
+  }
+}
+
+void ZprimePreselectionModule::fill_histograms(uhh2::Event& event, string tag){
+  string mytag = tag+"_General";
+  HFolder(mytag)->fill(event);
+  mytag = tag+"_Muons";
+  HFolder(mytag)->fill(event);
+  mytag = tag+"_Electrons";
+  HFolder(mytag)->fill(event);
+  mytag = tag+"_Jets";
+  HFolder(mytag)->fill(event);
+  mytag = tag+"_Event";
+  HFolder(mytag)->fill(event);
+  mytag = tag+"_Generator";
+  HFolder(mytag)->fill(event);
+}
+
 
 ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
 
@@ -281,21 +321,11 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   jet2_sel.reset(new NJetSelection(2, -1, JetId(PtEtaCut(jet2_pt, 2.4))));
   met_sel  .reset(new METCut  (MET   , uhh2::infinity));
 
-  ////
 
-  //// HISTS
-  std::vector<std::string> histogram_tags({
-    "lep1",
-    "jet2",
-    "jet1",
-    "met",
-    "jetlepcleaning_before",
-    "jetlepcleaning_after"
-  });
+  // Book histograms
+  vector<string> histogram_tags = {"Input", "Lumiselection", "Metfilters", "Lepton1", "JetCleaner1", "JetCleaner2", "TopjetCleaner", "Jet1", "Jet2", "MET"};
+  book_histograms(ctx, histogram_tags);
 
-  for(const auto & tag : histogram_tags){
-    // book_HFolder(tag, new TTbarLJHistsSkimming(ctx,tag));
-  }
 
   lumihists.reset(new LuminosityHists(ctx, "lumi"));
 }
@@ -309,14 +339,18 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
 
 bool ZprimePreselectionModule::process(uhh2::Event& event){
 
+
+  fill_histograms(event, "Input");
   // Lumi selection
   if(event.isRealData){
     if(!lumi_sel->passes(event)) return false;
     lumihists->fill(event);
   }
+  fill_histograms(event, "Lumiselection");
 
   // MET filters
   if(!metfilters_sel->passes(event)) return false;
+  fill_histograms(event, "Metfilters");
 
   // GEN ME quark-flavor selection
   if(!event.isRealData){
@@ -333,8 +367,8 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
 
   const bool pass_lep1 = ((event.muons->size() >= 1) || (event.electrons->size() >= 1));
   if(!pass_lep1) return false;
-  // HFolder("lep1")->fill(event);
-  ////
+
+  fill_histograms(event, "Lepton1");
 
 
   //// JET selection
@@ -354,7 +388,7 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
     else throw std::runtime_error("run number not covered by if-statements in process-routine.");
 
     if(apply_B+apply_C+apply_D+apply_E+apply_F != 1) throw std::runtime_error("In ZprimePreselectionModule.cxx: Sum of apply_* when applying JECs is not == 1. Fix this.");
-    // HFolder("jetlepcleaning_before")->fill(event);
+
     //apply proper JECs
     if(apply_B){
       JLC_B->process(event);
@@ -429,8 +463,7 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
 
   jet_cleaner1->process(event);
   sort_by_pt<Jet>(*event.jets);
-  // HFolder("jetlepcleaning_after")->fill(event);
-
+  fill_histograms(event, "JetCleaner1");
 
   // Lepton-2Dcut variables
   for(auto& muo : *event.muons){
@@ -454,6 +487,7 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
 
   jet_cleaner2->process(event);
   sort_by_pt<Jet>(*event.jets);
+  fill_histograms(event, "JetCleaner2");
 
   topjet_IDcleaner->process(event);
   topjet_cleaner->process(event);
@@ -462,21 +496,22 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
   topjet_puppi_IDcleaner->process(event);
   topjet_puppi_cleaner->process(event);
   sort_by_pt<TopJet>(*event.toppuppijets);
+  fill_histograms(event, "TopjetCleaner");
 
   // 1st AK4 jet selection
   const bool pass_jet1 = jet1_sel->passes(event);
   if(!pass_jet1) return false;
-  // HFolder("jet1")->fill(event);
+  fill_histograms(event, "Jet1");
 
   // 2nd AK4 jet selection
   const bool pass_jet2 = jet2_sel->passes(event);
   if(!pass_jet2) return false;
-  // HFolder("jet2")->fill(event);
+  fill_histograms(event, "Jet2");
 
   // MET selection
   const bool pass_met = met_sel->passes(event);
   if(!pass_met) return false;
-  // HFolder("met")->fill(event);
+  fill_histograms(event, "MET");
 
   return true;
 }

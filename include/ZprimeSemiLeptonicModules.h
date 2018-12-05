@@ -18,6 +18,7 @@ public:
 private:
   uhh2::Event::Handle< std::vector<ZprimeCandidate> > h_ZprimeCandidates_;
   uhh2::Event::Handle< std::vector<TopJet> > h_AK8TopTags;
+  uhh2::Event::Handle< std::vector<const TopJet*> > h_AK8TopTagsPtr;
 
   float minDR_;
   TString mode_;
@@ -71,6 +72,7 @@ private:
   float max_mass_;
   float max_tau32_;
   uhh2::Event::Handle< std::vector<TopJet> > h_AK8PuppiTopTags_;
+  uhh2::Event::Handle< std::vector<const TopJet*> > h_AK8PuppiTopTagsPtr_;
 };
 
 class JetLeptonDeltaRCleaner : public uhh2::AnalysisModule {

@@ -6,7 +6,9 @@ import signal
 from multiprocessing import Process
 from multiprocessing import Pool
 
-txtfile = open('workdir_SR/missing_files.txt','r')
+if len(sys.argv) != 2: raise ValueError('Didn\'t pass exactly one additional argument (which should be the workdir-string) to the script! Exit.')
+workdirname = sys.argv[1]
+txtfile = open(workdirname+'/missing_files.txt','r')
 lines = txtfile.readlines()
 ntotal = len(lines)
 processes = []
@@ -34,14 +36,16 @@ for line in lines:
             sys.stdout.flush()
             time.sleep(10)
         else:
-            print 'only %i jobs are running, going to spawn new ones.' % nrunning
-            wait = False    
-            
-    xmlfilename = 'workdir_SR/' + command.split(' ')[1]
-    logfilename = xmlfilename[:len(xmlfilename)-5]+'_log.txt'
+            # print 'only %i jobs are running, going to spawn new ones.' % nrunning
+            wait = False
+
+    xmlfilename = workdirname + '/' + command.split(' ')[1]
+    logfilename = xmlfilename[:len(xmlfilename)-4]+'log.txt'
+    print 'Spawning job: %s' % xmlfilename[:len(xmlfilename)-4]
     f = open(logfilename,'w')
     logfiles.append(f)
-    command = ['sframe_main', xmlfilename] 
+    command = ['sframe_main', xmlfilename]
     processes.append(subprocess.Popen(command, stdout=f))
+
 for proc in processes:
     proc.wait()

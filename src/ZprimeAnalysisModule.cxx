@@ -30,7 +30,6 @@
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicSelections.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicModules.h>
 #include <UHH2/ZprimeSemiLeptonic/include/TTbarLJHists.h>
-#include <UHH2/ZprimeSemiLeptonic/include/TTbarLJHistsSkimming.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicHists.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicGeneratorHists.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeCandidate.h>
@@ -181,7 +180,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   NMuon1_selection.reset(new NMuonSelection(nmuon_min1, nmuon_max1));
   NMuon2_selection.reset(new NMuonSelection(nmuon_min2, nmuon_max2));
   NElectron_selection.reset(new NElectronSelection(nele_min, nele_max));
-  TwoDCut_selection.reset(new TwoDCut1(TwoD_dr, TwoD_ptrel));
+  TwoDCut_selection.reset(new TwoDCut(TwoD_dr, TwoD_ptrel));
   Jet1_selection.reset(new NJetSelection(1, -1, JetId(PtEtaCut(jet1_pt, 2.4))));
   Jet2_selection.reset(new NJetSelection(2, -1, JetId(PtEtaCut(jet2_pt, 2.4))));
   STlepPlusMet_selection.reset(new STlepPlusMetCut(stlep_plus_met, -1.));
@@ -217,7 +216,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
 
 bool ZprimeAnalysisModule::process(uhh2::Event& event){
 
-  cout << "++++++++++++ NEW EVENT ++++++++++++++" << endl;
+  // cout << "++++++++++++ NEW EVENT ++++++++++++++" << endl;
 
   // Initialize reco flags with false
   event.set(h_is_zprime_reconstructed_chi2, false);
@@ -234,7 +233,6 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   PUWeight_module->process(event);
   CSVWeight_module->process(event);
   MuonID_module->process(event);
-  cout << "after modules" << endl;
 
   // Run top-tagging
   TopTaggerPuppi->process(event);
@@ -242,14 +240,6 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
 
   if(!NMuon1_selection->passes(event)) return false;
   fill_histograms(event, "Muon1");
-  cout << "before reco" << endl;
-
-
-  // Here, the Zprime can be reconstructed (have >= 2 AK4 jets, >= 1 muon)
-  CandidateBuilder->process(event);
-  Chi2DiscriminatorZprime->process(event);
-  CorrectMatchDiscriminatorZprime->process(event);
-  cout << "after reco" << endl;
 
   if(!Trigger_selection->passes(event)) return false;
   MuonTrigger_module->process_onemuon(event, 0);
@@ -273,16 +263,19 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   if(!STlepPlusMet_selection->passes(event)) return false;
   fill_histograms(event, "STlepPlusMet");
 
+    // Here, the Zprime must be reconstructed (we ensured to have >= 2 AK4 jets, >= 1 muon)
+    CandidateBuilder->process(event);
+    Chi2DiscriminatorZprime->process(event);
+    CorrectMatchDiscriminatorZprime->process(event);
+
   if(TTbarMatchable_selection->passes(event)) fill_histograms(event, "MatchableBeforeChi2Cut");
   else fill_histograms(event, "NotMatchableBeforeChi2Cut");
 
   if(Chi2CandidateMatched_selection->passes(event)) fill_histograms(event, "CorrectMatchBeforeChi2Cut");
   else fill_histograms(event, "NotCorrectMatchBeforeChi2Cut");
-  cout << "before chi2" << endl;
 
   if(!Chi2_selection->passes(event)) return false;
   fill_histograms(event, "Chi2");
-  cout << "after chi2" << endl;
 
   if(TTbarMatchable_selection->passes(event)) fill_histograms(event, "Matchable");
   else fill_histograms(event, "NotMatchable");
@@ -292,7 +285,6 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
 
   if(ZprimeTopTag_selection->passes(event)) fill_histograms(event, "TopTagReconstruction");
   else fill_histograms(event, "NotTopTagReconstruction");
-
 
 
 

@@ -3,10 +3,10 @@
 
 
 <!ENTITY TargetLumi      "41529">
-<!ENTITY PRESELdir       "/nfs/dust/cms/user/reimersa/ZprimeSemiLeptonic/94X_v1/Preselection/2017_Initial/NOMINAL">
+<!ENTITY PRESELdir       "/nfs/dust/cms/user/reimersa/ZprimeSemiLeptonic/94X_v1/Preselection/2017_Initial/CrossCheck">
 <!ENTITY b_Cacheable     "False">
 <!ENTITY NEVT            "-1">
-<!ENTITY IS_PUPPI        "true">
+<!ENTITY IS_PUPPI        "false">
 
 
 
@@ -81,7 +81,7 @@
 
 	<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="&TargetLumi;">
 
-
+<!--
 		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_RunB" Cacheable="&b_Cacheable;">
 			&DATA_SingleMuon_RunB;
 			<InputTree Name="AnalysisTree" />
@@ -156,13 +156,13 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-
+-->
 		<InputData Lumi="200000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M3000" Cacheable="&b_Cacheable;">
 			&RSGluon_M3000;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-
+<!--
 		<InputData Lumi="192000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M3500" Cacheable="&b_Cacheable;">
 			&RSGluon_M3500;
 			<InputTree Name="AnalysisTree" />
@@ -394,7 +394,7 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-
+-->
 
 
 

@@ -72,6 +72,7 @@ ZprimeCandidateBuilder::ZprimeCandidateBuilder(uhh2::Context& ctx, TString mode,
 
   h_ZprimeCandidates_ = ctx.get_handle< vector<ZprimeCandidate> >("ZprimeCandidates");
   h_AK8TopTags = ctx.get_handle<std::vector<TopJet>>("AK8PuppiTopTags");
+  h_AK8TopTagsPtr = ctx.get_handle<std::vector<const TopJet*>>("AK8PuppiTopTagsPtr");
 
   if(mode_ != "chs" && mode_ != "puppi") throw runtime_error("In ZprimeCandidateBuilder::ZprimeCandidateBuilder(): 'mode' must be 'chs' or 'puppi'");
 
@@ -95,6 +96,7 @@ bool ZprimeCandidateBuilder::process(uhh2::Event& event){
 
   // Build all necessary loops
   vector<TopJet> TopTags = event.get(h_AK8TopTags);
+  vector<const TopJet*> TopTagsPtr = event.get(h_AK8TopTagsPtr);
   if((event.muons->size() < 1 && event.electrons->size() < 1)) throw runtime_error("Event content did not allow reconstructing the Zprime: Leptons");
   if((event.jets->size() < 2 && TopTags.size() == 0)) throw runtime_error("Event content did not allow reconstructing the Zprime: AK4");
   if((event.jets->size() < 1 && TopTags.size() >= 1)) throw runtime_error("Event content did not allow reconstructing the Zprime: Top-tag");
@@ -122,9 +124,16 @@ bool ZprimeCandidateBuilder::process(uhh2::Event& event){
   vector<bool> has_separated_jet;
   for(unsigned int i=0; i<TopTags.size(); i++){
     bool is_sep = false;
-    for(unsigned int j=0; j<chs_matched[i].size(); j++){
+    if(mode_ == "chs"){
+      for(unsigned int j=0; j<chs_matched[i].size(); j++){
+        for(unsigned int k = 0; k < event.jets->size(); k++){
+          if(deltaR(event.jets->at(k), chs_matched[i][j]) > 1.2) is_sep = true;
+        }
+      }
+    }
+    else{
       for(unsigned int k = 0; k < event.jets->size(); k++){
-        if(deltaR(event.jets->at(k), chs_matched[i][j]) > 1.2) is_sep = true;
+        if(deltaR(event.jets->at(k), TopTags[i]) > 1.2) is_sep = true;
       }
     }
     has_separated_jet.emplace_back(is_sep);
@@ -278,7 +287,7 @@ bool ZprimeCandidateBuilder::process(uhh2::Event& event){
           if(!(has_separated_jet[j] &&  !overlap_with_lepton[j])) continue;
 
           TopJet toptag = TopTags.at(j);
-          const TopJet* toptag_ptr = &TopTags.at(j);
+          const TopJet* toptag_ptr = TopTagsPtr.at(j);
 
           // Only consider well-separated AK4 jets
           vector<Jet> separated_jets;
@@ -579,13 +588,15 @@ bool ZprimeCorrectMatchDiscriminator::process(uhh2::Event& event){
 
 AK8PuppiTopTagger::AK8PuppiTopTagger(uhh2::Context& ctx, int min_num_daughters, float max_dR, float min_mass, float max_mass, float max_tau32) : min_num_daughters_(min_num_daughters), max_dR_(max_dR), min_mass_(min_mass), max_mass_(max_mass), max_tau32_(max_tau32) {
 
-  h_AK8PuppiTopTags_ = ctx.declare_event_output< std::vector<TopJet> >("AK8PuppiTopTags");
+  h_AK8PuppiTopTags_ = ctx.get_handle< std::vector<TopJet> >("AK8PuppiTopTags");
+  h_AK8PuppiTopTagsPtr_ = ctx.get_handle< std::vector<const TopJet*> >("AK8PuppiTopTagsPtr");
 
 }
 
 bool AK8PuppiTopTagger::process(uhh2::Event& event){
 
   std::vector<TopJet> toptags;
+  vector<const TopJet*> toptags_ptr;
   for(const TopJet & puppijet : *event.toppuppijets){
 
     // 1) Jet should have at least two daughters
@@ -613,8 +624,10 @@ bool AK8PuppiTopTagger::process(uhh2::Event& event){
 
     // All jets at this point are top-tagged
     toptags.emplace_back(puppijet);
+    toptags_ptr.emplace_back(&puppijet);
   }
   event.set(h_AK8PuppiTopTags_, toptags);
+  event.set(h_AK8PuppiTopTagsPtr_, toptags_ptr);
   return (toptags.size() >= 1);
 }
 
