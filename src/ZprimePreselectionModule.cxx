@@ -54,7 +54,7 @@ protected:
   std::unique_ptr<JetLeptonCleaner_by_KEYmatching> TopJLC_B, TopJLC_C, TopJLC_D, TopJLC_E, TopJLC_F, TopJLC_MC;
   std::unique_ptr<JetLeptonCleaner_by_KEYmatching> TopJLC_puppi_B, TopJLC_puppi_C, TopJLC_puppi_D, TopJLC_puppi_E, TopJLC_puppi_F, TopJLC_puppi_MC;
 
-  std::unique_ptr<JetResolutionSmearer>            JER_smearer;
+  std::unique_ptr<GenericJetResolutionSmearer>     JER_smearer;
   std::unique_ptr<GenericJetResolutionSmearer>     TopJER_smearer;
   std::unique_ptr<GenericJetResolutionSmearer>     TopJER_puppi_smearer;
 
@@ -310,7 +310,8 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
 
   if(isMC){
     ctx.declare_event_input<std::vector<Particle> >(ctx.get("TopJetCollectionGEN"), "topjetsGEN");
-    JER_smearer.reset(new JetResolutionSmearer(ctx, JERSmearing::SF_13TeV_Summer16_25nsV1));
+    if(!ispuppi) JER_smearer.reset(new GenericJetResolutionSmearer(ctx, "jets", "genjets", JERSmearing::SF_13TeV_Summer16_25nsV1, "Fall17_25nsV1_MC_PtResolution_AK4PFchs.txt"));
+    else JER_smearer.reset(new GenericJetResolutionSmearer(ctx, "jets", "genjets", JERSmearing::SF_13TeV_Summer16_25nsV1, "Fall17_25nsV1_MC_PtResolution_AK4PFPuppi.txt"));
     TopJER_smearer.reset(new GenericJetResolutionSmearer(ctx, "topjets", "topjetsGEN", JERSmearing::SF_13TeV_Summer16_25nsV1, "Fall17_25nsV1_MC_PtResolution_AK8PFchs.txt"));
     TopJER_puppi_smearer.reset(new GenericJetResolutionSmearer(ctx, "toppuppijets", "topjetsGEN", JERSmearing::SF_13TeV_Summer16_25nsV1, "Fall17_25nsV1_MC_PtResolution_AK8PFPuppi.txt"));
   }
