@@ -1,8 +1,33 @@
+#include "../include/cosmetics.h"
+#include "../include/Tools.h"
+#include <TString.h>
+#include <iostream>
+#include <TStyle.h>
+#include <TFile.h>
+#include <TH1.h>
+#include <TH1D.h>
+#include <TCanvas.h>
+#include <TText.h>
+#include <TPaveText.h>
+#include <TGaxis.h>
+#include <TGraph.h>
+#include <TStyle.h>
+#include <TGraphAsymmErrors.h>
+#include <TLegend.h>
+#include <TLegendEntry.h>
+#include <TROOT.h>
+#include <TKey.h>
+#include <TLatex.h>
+#include <TClass.h>
+#include <fstream>
+
+using namespace std;
+
 void cosmetics();
 
 
 
-void PlotLimits(){
+void AnalysisTool::PlotLimits(bool draw_data){
   /*
   ==========================================
   |                                          |
@@ -14,9 +39,12 @@ void PlotLimits(){
   //0) general cosmetics
   cosmetics();
 
-  bool draw_data = false;
 
-  TString filename = "/nfs/dust/cms/user/reimersa/theta_Zprime/utils2/Limits_MC/output/expected_limits.txt";
+  TString filename = AnalysisTool::path_theta + "output/";
+  TString txtname;
+  if(AnalysisTool::do_puppi) txtname = "expected_limits_puppi.txt";
+  else txtname = "expected_limits.txt";
+  filename += txtname;
   ifstream myfile(filename);
 
   vector<double> mass, expected, expected_low_68, expected_high_68, expected_low_95, expected_high_95, observed;
@@ -41,7 +69,7 @@ void PlotLimits(){
     cout << "Mass: " << mass[i] << ", expected: " << expected[i] << endl;
   }
 
-  filename.ReplaceAll("expected_limits.txt", "observed_limits.txt");
+  filename.ReplaceAll("expected_limits", "observed_limits");
   myfile = ifstream(filename);
   while(!myfile.eof()){
     myfile >> val; // Skip the mass-line, jump to the observed limit directly
@@ -59,7 +87,7 @@ void PlotLimits(){
 
   //5) convert to upper and lower errors to be used in TGraphAsymmErrors
   vector<double> expected_up_68, expected_down_68, expected_up_95, expected_down_95;
-  for(int i=0; i<expected.size(); i++){
+  for(unsigned int i=0; i<expected.size(); i++){
     expected_up_68.push_back(expected_high_68[i] - expected[i]);
     expected_up_95.push_back(expected_high_95[i] - expected[i]);
     expected_down_68.push_back(expected[i] - expected_low_68[i]);
@@ -150,7 +178,7 @@ void PlotLimits(){
   TH1D* h = (TH1D*)g_expected_95->GetHistogram();
   h->GetXaxis()->SetRangeUser(mass[0], mass[expected.size()-1]);
   h->SetXTitle("M_{RSG} [GeV]");
-  h->SetYTitle("#sigma_{RSG} #times #bf{#it{#Beta}}^{2} [pb]");
+  h->SetYTitle("#sigma_{RSG} #times #bf{#it{#Beta}} [pb]");
   h->GetYaxis()->SetTitleSize(0.048);
   h->GetYaxis()->SetTitleOffset(1.05);
   h->Draw("AXIS SAME");
@@ -158,11 +186,16 @@ void PlotLimits(){
   gPad->SetRightMargin(0.035);
   gPad->SetBottomMargin(0.11);
 
-
-  c->SaveAs("/nfs/dust/cms/user/reimersa/ZprimeSemiLeptonic/94X_v1/Fullselection/2017_Initial/NOMINAL/Plots/limitplot.eps");
-  c->SaveAs("/nfs/dust/cms/user/reimersa/ZprimeSemiLeptonic/94X_v1/Fullselection/2017_Initial/NOMINAL/Plots/limitplot.pdf");
-  c->SaveAs("Plots/limitplot.eps");
-  c->SaveAs("Plots/limitplot.pdf");
+  TString outfilename = "limitplot";
+  if(!draw_data) outfilename+="_blinded";
+  TString outpath;
+  if(AnalysisTool::do_puppi) outpath = AnalysisTool::base_path_puppi + "NOMINAL/Plots/";
+  else outpath = AnalysisTool::base_path_chs + "NOMINAL/Plots/";
+  outpath += outfilename;
+  c->SaveAs(outpath + ".eps");
+  c->SaveAs(outpath + ".pdf");
+  c->SaveAs("Plots/"+outfilename+".eps");
+  c->SaveAs("Plots/"+outfilename+".pdf");
 
 
 }

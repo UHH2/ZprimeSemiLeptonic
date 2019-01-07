@@ -1,7 +1,35 @@
-{
+#include "../include/cosmetics.h"
+#include "../include/Tools.h"
+#include <TString.h>
+#include <iostream>
+#include <TStyle.h>
+#include <TFile.h>
+#include <TH1.h>
+#include <TH1D.h>
+#include <TCanvas.h>
+#include <TText.h>
+#include <TPaveText.h>
+#include <TGaxis.h>
+#include <TGraph.h>
+#include <TStyle.h>
+#include <TGraphAsymmErrors.h>
+#include <TLegend.h>
+#include <TLegendEntry.h>
+#include <TROOT.h>
+#include <TKey.h>
+#include <TLatex.h>
+#include <TClass.h>
+#include <fstream>
 
-  // TFile* infile = new TFile("/nfs/dust/cms/user/reimersa/ZprimeSemiLeptonic/94X_v1/Fullselection/2017_Initial/NOMINAL/uhh2.AnalysisModuleRunner.MC.TTbar_SemiLep.root", "READ");
-  TFile* infile = new TFile("/nfs/dust/cms/user/reimersa/ZprimeSemiLeptonic/94X_v1/Fullselection/2017_Initial/NOMINAL/uhh2.AnalysisModuleRunner.MC.TTbar_SemiLep.root", "READ");
+using namespace std;
+
+void AnalysisTool::CalculateChi2Values(){
+
+  TString infilename = "";
+  if(AnalysisTool::do_puppi) infilename = base_path_puppi;
+  else infilename = base_path_chs;
+  infilename += "NOMINAL/uhh2.AnalysisModuleRunner.MC.TTbar_SemiLep.root";
+  TFile* infile = new TFile(infilename, "READ");
 
   TH1F* h_had_ak4  = (TH1F*)infile->Get("STlepPlusMet_General/M_tophad_dr_ak4");
   TH1F* h_lep_ak4  = (TH1F*)infile->Get("STlepPlusMet_General/M_toplep_dr_ak4");
@@ -21,9 +49,10 @@
 
     c->SaveAs("Plots/" + names.at(i) + ".eps");
     c->SaveAs("Plots/" + names.at(i) + ".pdf");
+    delete c;
   }
 
-
+  delete infile;
 
 
 

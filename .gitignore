@@ -9,3 +9,5 @@ obj/*
 *.d
 *.txt
 *.log
+*.eps
+*.pdf

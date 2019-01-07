@@ -1,8 +1,35 @@
-{
+#include "../include/cosmetics.h"
+#include "../include/Tools.h"
+#include <TString.h>
+#include <iostream>
+#include <TStyle.h>
+#include <TFile.h>
+#include <TH1.h>
+#include <TH1D.h>
+#include <TCanvas.h>
+#include <TText.h>
+#include <TPaveText.h>
+#include <TGaxis.h>
+#include <TGraph.h>
+#include <TStyle.h>
+#include <TGraphAsymmErrors.h>
+#include <TLegend.h>
+#include <TLegendEntry.h>
+#include <TROOT.h>
+#include <TKey.h>
+#include <TLatex.h>
+#include <TClass.h>
+#include <fstream>
+
+using namespace std;
+
+
+void AnalysisTool::PlotPostfitDistributions(){
 
   // Get the postfit file for backgrounds, input file for data (data is not modified by MLE fit)
-  TFile* f_pre = new TFile("/nfs/dust/cms/user/reimersa/theta_Zprime/utils2/Limits_MC/input/theta_histograms.root", "READ");
-  TFile* f_post = new TFile("/nfs/dust/cms/user/reimersa/theta_Zprime/utils2/Limits_MC/output/postfit_histograms_bkgonly_data.root", "READ");
+  TString basepath = AnalysisTool::path_theta;
+  TFile* f_pre = new TFile(basepath + "input/theta_histograms.root", "READ");
+  TFile* f_post = new TFile(basepath + "output/postfit_histograms_bkgonly_data.root", "READ");
 
   // Container to store all histograms for postfit distributions
   vector <TH1F*> histograms_to_add;
@@ -10,7 +37,7 @@
   //Go to input file, look for all nominal histograms given to theta (each variable for each process)
   // All of these histograms are needed later, store all of them
   f_pre->cd();
-  int n_histos_prefit = 0;
+  unsigned int n_histos_prefit = 0;
   vector<string> nominalnames_str, nominalnames;
   TDirectory* dir = gDirectory;
   TIter iter(dir->GetListOfKeys());
@@ -28,6 +55,9 @@
       n_histos_prefit++;
     }
   }
+  delete h;
+  // delete key;
+  // delete dir;
 
   // Look for different variable names, each one is a new plot to create
   vector<TString> varnames;
@@ -46,11 +76,11 @@
       if(procnames[j].Contains(procname)) already_added_proc = true;
     }
     if(!already_added_var){
-      cout << "Adding this variable: " << varname << endl;
+      // cout << "Adding this variable: " << varname << endl;
       varnames.emplace_back((TString)varname);
     }
     if(!already_added_proc){
-      cout << "Adding this process: " << procname << endl;
+      // cout << "Adding this process: " << procname << endl;
       procnames.emplace_back((TString)procname);
     }
   }
@@ -82,7 +112,7 @@
 
         vector<double> bins;
         for(int i=1; i<blueprint->GetNbinsX()+2; i++){
-          cout << "bin no. " << i << " begins at " << blueprint->GetBinLowEdge(i) << endl;
+          // cout << "bin no. " << i << " begins at " << blueprint->GetBinLowEdge(i) << endl;
           bins.emplace_back(blueprint->GetBinLowEdge(i));
         }
 
@@ -92,18 +122,24 @@
           tmp->SetBinError(n,post->GetBinError(n));
         }
         histograms_to_add.emplace_back(tmp);
-
       }
     }
   }
 
   if(n_histos_prefit != histograms_to_add.size()) throw runtime_error("Didn't find all histograms...");
 
-  TFile* f_out = new TFile("/nfs/dust/cms/user/reimersa/ZprimeSemiLeptonic/94X_v1/Fullselection/2017_Initial/NOMINAL/PostfitDistributions.root", "RECREATE");
+  TString outfilename;
+  if(AnalysisTool::do_puppi) outfilename = AnalysisTool::base_path_puppi;
+  else outfilename = AnalysisTool::base_path_chs;
+  outfilename += "NOMINAL/PostfitDistributions.root";
+  TFile* f_out = new TFile(outfilename, "RECREATE");
   for(unsigned int i=0; i<histograms_to_add.size(); i++){
-    cout << "Writing: " << histograms_to_add[i]->GetName() << endl;
+    // cout << "Writing: " << histograms_to_add[i]->GetName() << endl;
     histograms_to_add[i]->Write();
   }
   f_out->Close();
-
+  for(unsigned int i=0; i<histograms_to_add.size(); i++) delete histograms_to_add[i];
+  delete f_out;
+  delete f_pre;
+  delete f_post;
 }

@@ -7,7 +7,7 @@
 <!ENTITY b_Cacheable     "False">
 <!ENTITY NEVT            "-1">
 <!ENTITY PRESELdir       "/nfs/dust/cms/user/reimersa/ZprimeSemiLeptonic/94X_v1/Preselection/2017_Initial/NOMINAL">
-<!ENTITY OUTPUTdir       "/nfs/dust/cms/user/reimersa/ZprimeSemiLeptonic/94X_v1/Fullselection/2017_Initial/CrossCheck">
+<!ENTITY OUTPUTdir       "/nfs/dust/cms/user/reimersa/ZprimeSemiLeptonic/94X_v1/Fullselection/2017_Initial/NOMINAL">
 <!ENTITY IS_PUPPI        "false">
 
 
@@ -73,7 +73,7 @@
 
 <!--
 <ConfigParse NEventsBreak="200000" LastBreak="0" FileSplit="0" AutoResubmit="100"/>
-<ConfigSGE RAM ="4" DISK ="2" Mail="arne.reimers@desy.de" Notification="as" Workdir="workdir_SR_crosscheck"/>
+<ConfigSGE RAM ="4" DISK ="2" Mail="arne.reimers@desy.de" Notification="as" Workdir="workdir_SR"/>
 -->
 
 <JobConfiguration JobName="ZprimePreselectionJob" OutputLevel="INFO">
@@ -112,116 +112,146 @@
       <OutputTree Name="AnalysisTree" />
     </InputData>
 
+    <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_RunB_blinded" Cacheable="&b_Cacheable;">
+      <In FileName="&DATA_SingleMuon_RunB;" Lumi="0.0" />
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
+
+    <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_RunC_blinded" Cacheable="&b_Cacheable;">
+      <In FileName="&DATA_SingleMuon_RunC;" Lumi="0.0" />
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
+
+    <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_RunD_blinded" Cacheable="&b_Cacheable;">
+      <In FileName="&DATA_SingleMuon_RunD;" Lumi="0.0" />
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
+
+    <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_RunE_blinded" Cacheable="&b_Cacheable;">
+      <In FileName="&DATA_SingleMuon_RunE;" Lumi="0.0" />
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
+
+    <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_RunF_blinded" Cacheable="&b_Cacheable;">
+      <In FileName="&DATA_SingleMuon_RunF;" Lumi="0.0" />
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
+
 
 
 
     <InputData Lumi="200000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M500" Cacheable="&b_Cacheable;">
-    	<In FileName="&RSGluon_M500;" Lumi="0.0" />
-    	<InputTree Name="AnalysisTree" />
-    	<OutputTree Name="AnalysisTree" />
+      <In FileName="&RSGluon_M500;" Lumi="0.0" />
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
     </InputData>
 
-		<InputData Lumi="184000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M750" Cacheable="&b_Cacheable;">
-			<In FileName="&RSGluon_M750;" Lumi="0.0" />
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData>
+    <InputData Lumi="184000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M750" Cacheable="&b_Cacheable;">
+      <In FileName="&RSGluon_M750;" Lumi="0.0" />
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
 
-		<InputData Lumi="200000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M1000" Cacheable="&b_Cacheable;">
-			<In FileName="&RSGluon_M1000;" Lumi="0.0" />
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData>
+    <InputData Lumi="200000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M1000" Cacheable="&b_Cacheable;">
+      <In FileName="&RSGluon_M1000;" Lumi="0.0" />
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
 
-		<InputData Lumi="192000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M1250" Cacheable="&b_Cacheable;">
-			<In FileName="&RSGluon_M1250;" Lumi="0.0" />
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData>
+    <InputData Lumi="192000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M1250" Cacheable="&b_Cacheable;">
+      <In FileName="&RSGluon_M1250;" Lumi="0.0" />
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
 
-		<InputData Lumi="200000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M1500" Cacheable="&b_Cacheable;">
-			<In FileName="&RSGluon_M1500;" Lumi="0.0" />
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData>
+    <InputData Lumi="200000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M1500" Cacheable="&b_Cacheable;">
+      <In FileName="&RSGluon_M1500;" Lumi="0.0" />
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
 
-		<InputData Lumi="200000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M2000" Cacheable="&b_Cacheable;">
-			<In FileName="&RSGluon_M2000;" Lumi="0.0" />
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData>
+    <InputData Lumi="200000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M2000" Cacheable="&b_Cacheable;">
+      <In FileName="&RSGluon_M2000;" Lumi="0.0" />
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
 
-		<InputData Lumi="188000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M2500" Cacheable="&b_Cacheable;">
-			<In FileName="&RSGluon_M2500;" Lumi="0.0" />
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData>
+    <InputData Lumi="188000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M2500" Cacheable="&b_Cacheable;">
+      <In FileName="&RSGluon_M2500;" Lumi="0.0" />
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
 
-		<InputData Lumi="200000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M3000" Cacheable="&b_Cacheable;">
-			<In FileName="&RSGluon_M3000;" Lumi="0.0" />
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData>
+    <InputData Lumi="200000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M3000" Cacheable="&b_Cacheable;">
+      <In FileName="&RSGluon_M3000;" Lumi="0.0" />
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
 
-		<InputData Lumi="192000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M3500" Cacheable="&b_Cacheable;">
-			<In FileName="&RSGluon_M3500;" Lumi="0.0" />
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData>
+    <InputData Lumi="192000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M3500" Cacheable="&b_Cacheable;">
+      <In FileName="&RSGluon_M3500;" Lumi="0.0" />
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
 
-		<InputData Lumi="184000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M4000" Cacheable="&b_Cacheable;">
-			<In FileName="&RSGluon_M4000;" Lumi="0.0" />
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData>
+    <InputData Lumi="184000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M4000" Cacheable="&b_Cacheable;">
+      <In FileName="&RSGluon_M4000;" Lumi="0.0" />
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
 
-		<InputData Lumi="194000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M4500" Cacheable="&b_Cacheable;">
-			<In FileName="&RSGluon_M4500;" Lumi="0.0" />
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData>
+    <InputData Lumi="194000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M4500" Cacheable="&b_Cacheable;">
+      <In FileName="&RSGluon_M4500;" Lumi="0.0" />
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
 
-		<InputData Lumi="197000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M5000" Cacheable="&b_Cacheable;">
-			<In FileName="&RSGluon_M5000;" Lumi="0.0" />
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData>
+    <InputData Lumi="197000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M5000" Cacheable="&b_Cacheable;">
+      <In FileName="&RSGluon_M5000;" Lumi="0.0" />
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
 
-		<InputData Lumi="194000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M5500" Cacheable="&b_Cacheable;">
-			<In FileName="&RSGluon_M5500;" Lumi="0.0" />
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData>
+    <InputData Lumi="194000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M5500" Cacheable="&b_Cacheable;">
+      <In FileName="&RSGluon_M5500;" Lumi="0.0" />
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
 
-		<InputData Lumi="200000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M6000" Cacheable="&b_Cacheable;">
-			<In FileName="&RSGluon_M6000;" Lumi="0.0" />
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData>
+    <InputData Lumi="200000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M6000" Cacheable="&b_Cacheable;">
+      <In FileName="&RSGluon_M6000;" Lumi="0.0" />
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
 
-		<InputData Lumi="197000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M6500" Cacheable="&b_Cacheable;">
-			<In FileName="&RSGluon_M6500;" Lumi="0.0" />
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData>
+    <InputData Lumi="197000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M6500" Cacheable="&b_Cacheable;">
+      <In FileName="&RSGluon_M6500;" Lumi="0.0" />
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
 
-		<InputData Lumi="196000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M7000" Cacheable="&b_Cacheable;">
-			<In FileName="&RSGluon_M7000;" Lumi="0.0" />
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData>
+    <InputData Lumi="196000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M7000" Cacheable="&b_Cacheable;">
+      <In FileName="&RSGluon_M7000;" Lumi="0.0" />
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
 
-		<InputData Lumi="192000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M7500" Cacheable="&b_Cacheable;">
-			<In FileName="&RSGluon_M7500;" Lumi="0.0" />
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData>
+    <InputData Lumi="192000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M7500" Cacheable="&b_Cacheable;">
+      <In FileName="&RSGluon_M7500;" Lumi="0.0" />
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
 
-		<InputData Lumi="200000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M8000" Cacheable="&b_Cacheable;">
-			<In FileName="&RSGluon_M8000;" Lumi="0.0" />
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData>
+    <InputData Lumi="200000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M8000" Cacheable="&b_Cacheable;">
+      <In FileName="&RSGluon_M8000;" Lumi="0.0" />
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
 
 
 
@@ -400,43 +430,43 @@
 
 
 
-<UserConfig>
-  <Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices"/>
-  <Item Name="GenParticleCollection"   Value="GenParticles"/>
-  <Item Name="ElectronCollection"      Value="slimmedElectronsUSER"/>
-  <Item Name="MuonCollection"          Value="slimmedMuonsUSER"/>
-  <Item Name="TauCollection"           Value="slimmedTaus"/>
-  <Item Name="JetCollection"           Value="slimmedJets"/>
-  <Item Name="GenJetCollection"        Value="slimmedGenJets"/>
-  <Item Name="TopJetCollection"        Value="packedPatJetsAk8CHSJets_SoftDropCHS"/>
-  <Item Name="TopJetCollectionGEN"     Value="slimmedGenJetsAK8"/>
-  <Item Name="TopPuppiJetCollection"   Value="updatedPatJetsSlimmedJetsAK8_SoftDropPuppi"/>
-  <Item Name="METName"                 Value="slimmedMETs"/>
+    <UserConfig>
+      <Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices"/>
+      <Item Name="GenParticleCollection"   Value="GenParticles"/>
+      <Item Name="ElectronCollection"      Value="slimmedElectronsUSER"/>
+      <Item Name="MuonCollection"          Value="slimmedMuonsUSER"/>
+      <Item Name="TauCollection"           Value="slimmedTaus"/>
+      <Item Name="JetCollection"           Value="slimmedJets"/>
+      <Item Name="GenJetCollection"        Value="slimmedGenJets"/>
+      <Item Name="TopJetCollection"        Value="packedPatJetsAk8CHSJets_SoftDropCHS"/>
+      <Item Name="TopJetCollectionGEN"     Value="slimmedGenJetsAK8"/>
+      <Item Name="TopPuppiJetCollection"   Value="updatedPatJetsSlimmedJetsAK8_SoftDropPuppi"/>
+      <Item Name="METName"                 Value="slimmedMETs"/>
 
-  <Item Name="lumi_file" Value="/nfs/dust/cms/user/reimersa/CMSSW_9_4_1/src/UHH2/common/data/Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON_v1_normTag.root"/>
-  <Item Name="lumihists_lumi_per_bin" Value="1000.0"/>
+      <Item Name="lumi_file" Value="/nfs/dust/cms/user/reimersa/CMSSW_9_4_1/src/UHH2/common/data/Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON_v1_normTag.root"/>
+      <Item Name="lumihists_lumi_per_bin" Value="1000.0"/>
 
-  <Item Name="pileup_directory" Value="/nfs/dust/cms/user/reimersa/CMSSW_9_4_1/src/UHH2/common/data/MyMCPileupHistogram.root" />
-  <Item Name="pileup_directory_data" Value="/nfs/dust/cms/user/reimersa/CMSSW_9_4_1/src/UHH2/common/data/MyDataPileupHistogram.root" />
-  <Item Name="pileup_directory_data_up" Value="/nfs/dust/cms/user/reimersa/CMSSW_9_4_1/src/UHH2/common/data/MyDataPileupHistogram_72383.root" />
-  <Item Name="pileup_directory_data_down" Value="/nfs/dust/cms/user/reimersa/CMSSW_9_4_1/src/UHH2/common/data/MyDataPileupHistogram_66017.root" />
+      <Item Name="pileup_directory" Value="/nfs/dust/cms/user/reimersa/CMSSW_9_4_1/src/UHH2/common/data/MyMCPileupHistogram.root" />
+      <Item Name="pileup_directory_data" Value="/nfs/dust/cms/user/reimersa/CMSSW_9_4_1/src/UHH2/common/data/MyDataPileupHistogram.root" />
+      <Item Name="pileup_directory_data_up" Value="/nfs/dust/cms/user/reimersa/CMSSW_9_4_1/src/UHH2/common/data/MyDataPileupHistogram_72383.root" />
+      <Item Name="pileup_directory_data_down" Value="/nfs/dust/cms/user/reimersa/CMSSW_9_4_1/src/UHH2/common/data/MyDataPileupHistogram_66017.root" />
 
-  	<Item Name="MCCSVv2ShapeSystematic" Value = "/nfs/dust/cms/user/reimersa/CMSSW_9_4_1/src/UHH2/common/data/CSVv2_Moriond17_B_H.csv" />
+      <Item Name="MCCSVv2ShapeSystematic" Value = "/nfs/dust/cms/user/reimersa/CMSSW_9_4_1/src/UHH2/common/data/CSVv2_Moriond17_B_H.csv" />
 
-    <Item Name="is_puppi" Value="&IS_PUPPI;"/>
-
-
-  <Item Name="use_sframe_weight"  Value="false"/>
-  <Item Name="jersmear_direction" Value="nominal"/>
-  <Item Name="jecsmear_direction" Value="nominal"/>
-  <Item Name="Sys_MuonID"         Value="nominal"/>
-  <Item Name="Sys_MuonTrigger"    Value="nominal"/>
-  <Item Name="Sys_PU"             Value="central"/>
+      <Item Name="is_puppi" Value="&IS_PUPPI;"/>
 
 
+      <Item Name="use_sframe_weight"  Value="false"/>
+      <Item Name="jersmear_direction" Value="nominal"/>
+      <Item Name="jecsmear_direction" Value="nominal"/>
+      <Item Name="Sys_MuonID"         Value="nominal"/>
+      <Item Name="Sys_MuonTrigger"    Value="nominal"/>
+      <Item Name="Sys_PU"             Value="central"/>
 
-  <Item Name="AnalysisModule" Value="ZprimeAnalysisModule"/>
-</UserConfig>
 
-</Cycle>
+
+      <Item Name="AnalysisModule" Value="ZprimeAnalysisModule"/>
+    </UserConfig>
+
+  </Cycle>
 </JobConfiguration>

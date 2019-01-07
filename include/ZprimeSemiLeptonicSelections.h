@@ -20,6 +20,18 @@ namespace uhh2 {
 
 
 
+  class BlindDataSelection : public Selection{
+  public:
+    explicit BlindDataSelection(uhh2::Context&, float mtt_max);
+    virtual bool passes(const Event&) override;
+
+  private:
+    uhh2::Event::Handle<ZprimeCandidate*> h_BestZprimeCandidate_chi2;
+    uhh2::Event::Handle<bool> h_is_zprime_reconstructed_chi2;
+    bool isMC;
+    float mtt_max_;
+  };
+
   class ZprimeTopTagSelection : public Selection{
   public:
     explicit ZprimeTopTagSelection(uhh2::Context&);

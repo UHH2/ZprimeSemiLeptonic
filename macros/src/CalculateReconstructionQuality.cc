@@ -1,14 +1,38 @@
-{
+#include "../include/cosmetics.h"
+#include "../include/Tools.h"
+#include <TString.h>
+#include <iostream>
+#include <TStyle.h>
+#include <TFile.h>
+#include <TH1.h>
+#include <TH1D.h>
+#include <TCanvas.h>
+#include <TText.h>
+#include <TPaveText.h>
+#include <TGaxis.h>
+#include <TGraph.h>
+#include <TStyle.h>
+#include <TGraphAsymmErrors.h>
+#include <TLegend.h>
+#include <TLegendEntry.h>
+#include <TROOT.h>
+#include <TKey.h>
+#include <TLatex.h>
+#include <TClass.h>
+#include <fstream>
 
-  vector<float> masses = {500, 750, 1000, 1250, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500, 7000, 7500, 8000};
-  vector<TString> masses_str = {};
-  for(unsigned int i=0; i<masses.size(); i++){
-    TString t = "";
-    t += masses[i];
-    masses_str.emplace_back(t);
-  }
+using namespace std;
 
-  TString filename_base = "/nfs/dust/cms/user/reimersa/ZprimeSemiLeptonic/94X_v1/Fullselection/2017_Initial/NOMINAL/uhh2.AnalysisModuleRunner.MC.RSGluon_M";
+void AnalysisTool::CalculateReconstructionQuality(){
+
+
+  vector<float> masses = AnalysisTool::signalmasses;
+  vector<TString> masses_str = AnalysisTool::signalmasses_str;
+
+  TString filename_base = "";
+  if(AnalysisTool::do_puppi) filename_base = base_path_puppi;
+  else filename_base = base_path_chs;
+  filename_base += "NOMINAL/uhh2.AnalysisModuleRunner.MC.RSGluon_M";
 
   vector<float> before_matchable, before_correct_matchable, after_matchable, after_correct_matchable;
   for(unsigned int i=0; i<masses.size(); i++){
@@ -41,6 +65,7 @@
     // cout << "Before chi2: " << frac_matchable_before*100. << "% are matchable, out of which " << frac_correct_matchable_before*100. << "% are correctly matched. " << endl;
     // cout << "After chi2: " << frac_matchable_after*100. << "% are matchable, out of which " << frac_correct_matchable_after*100. << "% are correctly matched. " << endl << endl;
 
+    delete f_in;
   }
 
   // Put everything in TGraphs
@@ -109,5 +134,8 @@
   c2->SaveAs("Plots/ReconstructionQuality_CorrectlyMatched.eps");
   c2->SaveAs("Plots/ReconstructionQuality_CorrectlyMatched.pdf");
 
-
+  delete g_after_matchable;
+  delete g_after_correct_matchable;
+  delete g_before_matchable;
+  delete g_before_correct_matchable;
 }

@@ -15,6 +15,22 @@
 using namespace std;
 
 
+BlindDataSelection::BlindDataSelection(Context& ctx, float mtt_max) : mtt_max_(mtt_max){
+  h_BestZprimeCandidate_chi2 = ctx.get_handle<ZprimeCandidate*>("ZprimeCandidateBestChi2");
+  h_is_zprime_reconstructed_chi2 = ctx.get_handle<bool>("is_zprime_reconstructed_chi2");
+  string dataset_type = ctx.get("dataset_type");
+  isMC = dataset_type == "MC";
+}
+bool BlindDataSelection::passes(const Event & event){
+
+  if(isMC) return true;
+  bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2);
+  if(!is_zprime_reconstructed_chi2) throw runtime_error("In ZprimeSemiLeptonicSelections.cxx:BlindDataSelection::passes(): The Zprime was never reconstructed via the chi2 method. This must be done before looking for the way it was reconstructed.");
+
+  ZprimeCandidate* cand = event.get(h_BestZprimeCandidate_chi2);
+  return cand->Zprime_v4().M() <= mtt_max_;
+}
+
 ZprimeTopTagSelection::ZprimeTopTagSelection(Context& ctx){
   h_BestZprimeCandidate_chi2 = ctx.get_handle<ZprimeCandidate*>("ZprimeCandidateBestChi2");
   h_is_zprime_reconstructed_chi2 = ctx.get_handle<bool>("is_zprime_reconstructed_chi2");

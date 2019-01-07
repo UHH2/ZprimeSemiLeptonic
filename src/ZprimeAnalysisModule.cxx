@@ -79,7 +79,7 @@ protected:
   unique_ptr<ZprimeCorrectMatchDiscriminator> CorrectMatchDiscriminatorZprime;
 
   // Selections
-  unique_ptr<Selection> Trigger_selection, NMuon1_selection, NMuon2_selection, NElectron_selection, TwoDCut_selection, Jet1_selection, Jet2_selection, STlepPlusMet_selection, Chi2_selection, TTbarMatchable_selection, Chi2CandidateMatched_selection, ZprimeTopTag_selection;
+  unique_ptr<Selection> Trigger1_selection, Trigger2_selection, Trigger3_selection, NMuon1_selection, NMuon2_selection, NElectron_selection, TwoDCut_selection, Jet1_selection, Jet2_selection, STlepPlusMet_selection, Chi2_selection, TTbarMatchable_selection, Chi2CandidateMatched_selection, ZprimeTopTag_selection, BlindData_selection;
 
   //Handles
   Event::Handle<bool> h_is_zprime_reconstructed_chi2, h_is_zprime_reconstructed_correctmatch;
@@ -88,6 +88,7 @@ protected:
   bool isMC, ispuppi;
   string Sys_MuonID, Sys_MuonTrigger, Sys_PU;
   TString sample;
+  int runnr_oldtriggers = 299368;
 };
 
 void ZprimeAnalysisModule::book_histograms(uhh2::Context& ctx, vector<string> tags){
@@ -146,10 +147,13 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   double jet2_pt(50.);
   double stlep_plus_met(150.);
   double chi2_max(30.);
+  double mtt_blind(3000.);
   int nmuon_min1 = 1, nmuon_max1 = -1;
   int nmuon_min2 = 1, nmuon_max2 = 1;
   int nele_min = 0  , nele_max = 0;
-  string trigger = "HLT_Mu50_v*";
+  string trigger1 = "HLT_Mu50_v*";
+  string trigger2 = "HLT_OldMu100_v*";
+  string trigger3 = "HLT_TkMu100_v*";
   double TwoD_dr = 0.4, TwoD_ptrel = 25.;
   const MuonId muonID(PtEtaCut(muon_pt, 2.4));
 
@@ -176,7 +180,9 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   CSVWeight_module.reset(new MCCSVv2ShapeSystematic(ctx, "jets","central","iterativefit","","MCCSVv2ShapeSystematic"));
 
   // Selection modules
-  Trigger_selection.reset(new TriggerSelection(trigger));
+  Trigger1_selection.reset(new TriggerSelection(trigger1));
+  Trigger2_selection.reset(new TriggerSelection(trigger2));
+  Trigger3_selection.reset(new TriggerSelection(trigger3));
   NMuon1_selection.reset(new NMuonSelection(nmuon_min1, nmuon_max1));
   NMuon2_selection.reset(new NMuonSelection(nmuon_min2, nmuon_max2));
   NElectron_selection.reset(new NElectronSelection(nele_min, nele_max));
@@ -188,6 +194,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   TTbarMatchable_selection.reset(new TTbarSemiLepMatchableSelection());
   Chi2CandidateMatched_selection.reset(new Chi2CandidateMatchedSelection(ctx));
   ZprimeTopTag_selection.reset(new ZprimeTopTagSelection(ctx));
+  BlindData_selection.reset(new BlindDataSelection(ctx, mtt_blind));
 
   // Taggers
   TopTaggerPuppi.reset(new AK8PuppiTopTagger(ctx));
@@ -241,7 +248,13 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   if(!NMuon1_selection->passes(event)) return false;
   fill_histograms(event, "Muon1");
 
-  if(!Trigger_selection->passes(event)) return false;
+  // if(isMC || (!isMC && event.run >= runnr_oldtriggers)){
+  //   if(!(Trigger1_selection->passes(event) || Trigger2_selection->passes(event) || Trigger3_selection->passes(event))) return false;
+  // }
+  // else{
+  //   if(!(Trigger1_selection->passes(event))) return false;
+  // }
+  if(!(Trigger1_selection->passes(event))) return false;
   MuonTrigger_module->process_onemuon(event, 0);
   fill_histograms(event, "Trigger");
 
@@ -254,6 +267,15 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   if(!TwoDCut_selection->passes(event)) return false;
   fill_histograms(event, "TwoDCut");
 
+  // Here, the Zprime must be reconstructed (we ensured to have >= 2 AK4 jets, >= 1 muon)
+  CandidateBuilder->process(event);
+  Chi2DiscriminatorZprime->process(event);
+  CorrectMatchDiscriminatorZprime->process(event);
+
+  if(sample.Contains("_blinded")){
+    if(!BlindData_selection->passes(event)) return false;
+  }
+
   if(!Jet1_selection->passes(event)) return false;
   fill_histograms(event, "Jet1");
 
@@ -262,11 +284,6 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
 
   if(!STlepPlusMet_selection->passes(event)) return false;
   fill_histograms(event, "STlepPlusMet");
-
-    // Here, the Zprime must be reconstructed (we ensured to have >= 2 AK4 jets, >= 1 muon)
-    CandidateBuilder->process(event);
-    Chi2DiscriminatorZprime->process(event);
-    CorrectMatchDiscriminatorZprime->process(event);
 
   if(TTbarMatchable_selection->passes(event)) fill_histograms(event, "MatchableBeforeChi2Cut");
   else fill_histograms(event, "NotMatchableBeforeChi2Cut");
