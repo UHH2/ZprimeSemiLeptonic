@@ -25,8 +25,14 @@
 using namespace std;
 
 // Declare functions used later on
+struct parameter{
+  TString name;
+  float value;
+  float error;
+};
+
 vector<parameter> get_parameters_from_file(TString infilename);
-void do_nuisance_plot(TString infilename, TString orientation, TString tag, TString outname, TString outpath);
+void do_nuisance_plot(TString infilename, TString orientation, TString tag, TString outname, TString outpath, TString outname_local);
 
 
 
@@ -40,10 +46,12 @@ void AnalysisTool::PlotPostfitParameters(){
   infilename_data.ReplaceAll("_toys", "_data");
 
   TString outpath;
-  if(AnalysisTool::do_puppi) outpath = AnalysisTool::base_path_puppi + "NOMINAL/Plots/";
-  else outpath = AnalysisTool::base_path_chs + "NOMINAL/Plots/";
-  do_nuisance_plot(infilename_toys, "vertical", "background-only", "Parameters_postfit_toys", outpath);
-  do_nuisance_plot(infilename_data, "vertical", "background-only", "Parameters_postfit_data", outpath);
+  if(AnalysisTool::do_puppi) outpath = AnalysisTool::base_path_puppi + "/NOMINAL/Plots/";
+  else outpath = AnalysisTool::base_path_chs + "/NOMINAL/Plots/";
+
+  TString outname_local = "Plots/" + AnalysisTool::tag + "/Parameters_postfit";
+  do_nuisance_plot(infilename_toys, "vertical", "background-only", "Parameters_postfit_toys", outpath, outname_local+"_toys");
+  do_nuisance_plot(infilename_data, "vertical", "background-only", "Parameters_postfit_data", outpath, outname_local+"_data");
 }
 
 
@@ -51,13 +59,6 @@ void AnalysisTool::PlotPostfitParameters(){
 
 
 // Function definitions
-struct parameter{
-  TString name;
-  float value;
-  float error;
-};
-
-
 vector<parameter> get_parameters_from_file(TString infilename){
 
   vector<parameter> par_list;
@@ -80,7 +81,7 @@ vector<parameter> get_parameters_from_file(TString infilename){
 }
 
 
-void do_nuisance_plot(TString infilename, TString orientation, TString tag, TString outname, TString outpath){
+void do_nuisance_plot(TString infilename, TString orientation, TString tag, TString outname, TString outpath, TString outname_local){
 
   // def nuisance_plot(input_file_, orien_, sticker_, oname_):
   vector<parameter> pars = get_parameters_from_file(infilename);
@@ -201,8 +202,8 @@ void do_nuisance_plot(TString infilename, TString orientation, TString tag, TStr
 
   g95->GetHistogram()->Draw("axis,same");
 
-  c->SaveAs("Plots/"+outname+".eps");
-  c->SaveAs("Plots/"+outname+".pdf");
+  c->SaveAs(outname_local+".eps");
+  c->SaveAs(outname_local+".pdf");
   c->SaveAs(outpath+outname+".eps");
   c->SaveAs(outpath+outname+".pdf");
 

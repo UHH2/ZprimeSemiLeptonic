@@ -4,6 +4,7 @@ import subprocess
 from multiprocessing import Process
 
 from functions import *
+from constants import *
 
 
 #This file contains aaaaall the fancy functions and classes to clean up the steer.py code
@@ -65,6 +66,8 @@ class ModuleRunner:
         else:
             name = filename[:len(filename)-4] + '_' + sys + '_' + direction + '.xml'
             RunBatch(self.path, name, 'a')
+        time.sleep(10)
+        self.WaitForProcess('hadd')
 
 
     def ForceAddBatch(self, filename, sys = '', direction = ''):
@@ -73,6 +76,9 @@ class ModuleRunner:
         else:
             name = filename[:len(filename)-4] + '_' + sys + '_' + direction + '.xml'
             RunBatch(self.path, name, 'f')
+        time.sleep(10)
+        self.WaitForProcess('hadd')
+
 
 
     #adds files that were produced with a given .xml file (like the SPlotter)
@@ -144,133 +150,17 @@ class ModuleRunner:
             delete_workdir(self.path, name)
 
 
-    def ModifyEntity(self, filename, entityname, replaceby, postfix):
+    def ModifyEntity(self, filename, entityname, replaceby, postfix=''):
         lines = get_lines(self.path+'/config/', filename)
         lines = modify_xml_entity(lines, entityname, replaceby)
-        write_lines(self.path+'/config/', filename[:len(filename)-4]+'_'+postfix+'.xml', lines)
+        if not postfix=='': write_lines(self.path+'/config/', filename[:len(filename)-4]+'_'+postfix+'.xml', lines)
+        else: write_lines(self.path+'/config/', filename+'', lines)
 
 
     def ModifyItemValue(self, filename, itemname, newval, postfix):
         lines = get_lines(self.path+'/config/', filename)
         lines = modify_xml_item(lines, itemname, newval)
         write_lines(self.path+'/config/', filename[:len(filename)-4]+'_'+postfix+'.xml', lines)
-
-
-    def CreateSystXMLFiles(self, filename, systematics, dictionary, outdirname):
-        fullnames = []
-        fullsysts = []
-        for syst in systematics:
-            #if syst in ['JEC', 'JER']: continue
-            if syst == 'NOMINAL':
-                fullsysts.append(syst)
-            elif 'SCALE' not in syst:
-                for direction in ['up', 'down']:
-                    fullsysts.append(syst+'_'+direction)
-            else:
-                for direction in ['upup', 'upnone', 'noneup', 'nonedown', 'downnone', 'downdown']:
-                    fullsysts.append(syst+'_'+direction)
-
-        outpath = self.path+'/config/'+outdirname+'/'
-        if os.path.exists(outpath):
-            raise RuntimeError('Outdir %s already exists. Abort.' % (outpath))
-        else:
-            os.mkdir(outpath)
-        """
-        #first of all: JEC, JER
-        if 'JEC' in systematics:
-            lines = create_syst_lines_JECJER(self.path + '/config/', filename, 'JEC', 'up')
-            #write_lines(outpath, filename[:len(filename)-4]+'_JEC_up.xml', lines)
-            lines = create_syst_lines_JECJER(self.path + '/config/', filename, 'JEC', 'down')
-            #write_lines(outpath, filename[:len(filename)-4]+'_JEC_down.xml', lines)
-        if 'JER' in systematics:
-            lines = create_syst_lines_JECJER(self.path + '/config/', filename, 'JER', 'up')
-            #write_lines(outpath, filename[:len(filename)-4]+'_JER_up.xml', lines)
-            lines = create_syst_lines_JECJER(self.path + '/config/', filename, 'JER', 'down')
-            #write_lines(outpath, filename[:len(filename)-4]+'_JER_down.xml', lines)
-        """
-
-        #now follow the instructions from the dict.
-        # 1) modify output entity
-        for syst in fullsysts:
-            if syst == 'JEC_up':
-                lines = create_syst_lines_JECJER(self.path + '/config/', filename, 'JEC', 'up')
-            elif syst == 'JEC_down':
-                lines = create_syst_lines_JECJER(self.path + '/config/', filename, 'JEC', 'down')
-            elif syst == 'JER_up':
-                lines = create_syst_lines_JECJER(self.path + '/config/', filename, 'JER', 'up')
-            elif syst == 'JER_down':
-                lines = create_syst_lines_JECJER(self.path + '/config/', filename, 'JER', 'down')
-            else:
-                lines = get_lines(self.path+'/config/', filename)
-                entval = get_xml_entity(lines, 'SELdir')
-                newentval = entval.replace('NOMINAL', syst)
-                lines = modify_xml_entity(lines, 'SELdir', newentval)
-
-            # 1.1) Set JobConfig path
-            newlines = []
-            for line in lines:
-                if not '<!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd"[' in line:
-                    newlines.append(line)
-                else:
-                    newlines.append('<!DOCTYPE JobConfiguration PUBLIC "" "../JobConfig.dtd"[')
-            lines = newlines
-
-            # 2) go through dict and follow instructions
-            todo = dictionary[syst]
-            for key in todo:
-                # key contains the item name, todo[key] contains the new value
-                lines = modify_xml_item(lines, key, todo[key])
-
-            # 3) write a new file with these lines to an extra directory
-            write_lines(outpath, filename[:len(filename)-4]+'_'+syst+'.xml', lines)
-            fullname = outpath+filename[:len(filename)-4]+'_'+syst+'.xml'
-            fullnames.append(fullname)
-        return fullnames
-
-
-    def RunSystJobsLocal(self, listofxmlfiles):
-        processes = []
-        logfiles = []
-        ntotal = len(listofxmlfiles)
-        for xmlfilename in listofxmlfiles:
-            #print xmlfilename
-            shortname = xmlfilename[len(self.path+'/config/'):]
-            #print shortname
-            self.MakeOutDir(shortname)
-            wait = True
-            while wait:
-                nrunning = 0
-                ncompleted = 0
-                idx=0
-                for proc in processes:
-                    if proc.poll() == None : nrunning += 1
-                    else:
-                        ncompleted += 1
-                        if not logfiles[idx].closed:
-                            logfiles[idx].close()
-                            print 'Job "%s" has finished.' % logfiles[idx].name
-                    idx += 1
-                if nrunning >= 25:
-                    percentage = float(ncompleted)/float(ntotal)*100
-                    sys.stdout.write( 'Already completed '+str(ncompleted)+' out of '+str(ntotal)+' jobs --> '+str(percentage)+'%. Currently running: '+str(nrunning)+' \r')
-                    sys.stdout.flush()
-                    time.sleep(10)
-                else:
-                    print 'only %i jobs are running, going to spawn new ones.' % nrunning
-                    wait = False
-            #command = 'sframe_main ' + xmlfilename
-            command = ['sframe_main', xmlfilename]
-            logfilename = xmlfilename[:len(xmlfilename)-4]+'_log.txt'
-            f = open(logfilename,'w')
-            logfiles.append(f)
-            processes.append(subprocess.Popen(command, shell=False, stdout=f))
-            #print ('Executing sframe_main %s' % (xmlfilename))
-            #processes.append(subprocess.Popen(['sframe_main', xmlfilename],  shell=True))
-            """ """
-        for proc in processes:
-            print 'Now waiting for missing jobs to finish.'
-            proc.wait()
-
 
 
     def MakeOutDir(self, filename):
@@ -289,35 +179,131 @@ class ModuleRunner:
             os.mkdir(directory)
             print 'created directory %s' % directory
 
+    def WaitForProcess(self, proc):
+        wait = isThisRunning(proc)
+        while wait:
+            time.sleep(10)
+            wait = isThisRunning(proc)
 
-    def PrepareBTagSF(self, filename, switch_btag_off):
-        #First the Module
-        prepare_module_btagsf(self.path, filename, switch_btag_off)
+    def CreateMacroPrerequisites(self):
+        outdir = out_dir(path_ZPRIMEDIR, name_SEL_SR)
+        path_to_create = outdir + '/Plots/SingleEPS'
+        create_path(path_to_create)
+        create_path(path_theta + 'input')
+        create_path(path_theta + 'output')
+        create_path('Plots/' + tag + '/CHSPuppiComparison')
+
+        processes = []
+        command = 'cp ' + path_theta_to_copy_from + '{limits_mc.py,limits_mc_puppi.py} ' + path_theta
+        # print command
+        processes.append(subprocess.Popen(command, shell=True))
+        for p in processes:
+            p.wait()
+
+    def SetupMacros(self):
+
+        #Get Tools.cc lines
+        lines = get_lines('src/', 'Tools.cc')
+        newlines = []
+        for line in lines:
+            newline = ''
+            if 'base_path_puppi' in line:
+                parts = line.split('"')
+                newline = parts[0] + '"' + fullsel_path_puppi + '"' + parts[2]
+            elif 'base_path_chs' in line:
+                parts = line.split('"')
+                newline = parts[0] + '"' + fullsel_path_chs + '"' + parts[2]
+            elif 'path_theta' in line:
+                parts = line.split('"')
+                newline = parts[0] + '"' + path_theta + '"' + parts[2]
+            elif 'tag = ' in line:
+                parts = line.split('"')
+                newline = parts[0] + '"' + tag + '"' + parts[2]
+            elif 'signalmasses = {' in line:
+                parts = line.split('=')
+                newline = parts[0] + '= {'
+                for i in range(len(signalmasses)):
+                    if i < len(signalmasses)-1: newline += str(signalmasses[i]) + ', '
+                    else: newline += str(signalmasses[i]) + '};\n'
+            else: newline = line
+            newlines.append(newline)
+        write_lines('src/', 'Tools.cc', newlines)
 
 
-    def CreateSCALEDirs(self, filename, systematics):
-        outdir_base = out_dir(self.path, filename)
-        outdir_base = outdir_base[:len(outdir_base)-len('/NOMINAL')]
-        dirs_to_create = []
-        for syst in systematics:
-            if 'SCALE' in syst:
-                dirs_to_create.append(outdir_base+'/'+syst+'_up')
-                dirs_to_create.append(outdir_base+'/'+syst+'_down')
 
-        createdirs = []
-        for mydir in dirs_to_create:
-            outdir = mydir
-            while not os.path.exists(outdir):
-                createdirs[:0] = [outdir]
-                split_dir = outdir.split('/')
-                outdir = ''
-                for i in range(len(split_dir)-2):
-                    outdir += '/'
-                    outdir = outdir+split_dir[i+1]
+    def CompileMacros(self):
+        processes = []
+        command = 'make'
+        processes.append(subprocess.Popen(command, shell=True))
+        for p in processes:
+            p.wait()
+        print 'Compiled macros!'
 
-        for directory in createdirs:
-            if os.path.exists(directory):
-                print 'Outdir %s already exists. Not creating it.' % outdir
-            else :
-                os.mkdir(directory)
-                print 'created directory %s' % directory
+
+    def RunMacros(self, function):
+        processes = []
+        command = './main ' + function
+        if do_puppi: command += ' true'
+        else: command += ' false'
+        # print command
+        processes.append(subprocess.Popen(command, shell=True))
+        for p in processes:
+            p.wait()
+
+    def RunTheta(self):
+        name_exec = 'limits_mc_puppi'
+        if not do_puppi: name_exec = 'limits_mc'
+        # 'eval `scramv1 runtime -sh`' is what 'cmsenv' is an alias for!
+        command = 'cd /nfs/dust/cms/user/reimersa/CMSSW_8_0_8_patch1/src; '
+        command += 'eval `scramv1 runtime -sh`; '
+        command += 'cd ' + path_theta + '; '
+        command += './../theta-auto.py ' + name_exec + '.py; '
+        command += 'rm -rf ' + name_exec
+        print 'executing theta now'
+        logfilename = path_theta + 'theta_output.log'
+        logfile = open(logfilename,'w')
+        proc = subprocess.Popen(command, shell=True, stdout=logfile, stderr=logfile)
+        proc.wait()
+        print 'theta finished!'
+
+    def CreateSteerfile(self, do_singleeps):
+        filename = steerfilename[:steerfilename.rfind('.')] + '_template.steer'
+        # print filename
+        lines = get_lines(path_plotter, filename)
+        inpath = fullsel_path_puppi
+        if not do_puppi: inpath = fullsel_path_chs
+        newlines = []
+        for line in lines:
+            # print line
+            if 'fCycleName' in line:
+                parts = line.split('"')
+                newline = parts[0] + '"' + inpath + '/NOMINAL/uhh2.AnalysisModuleRunner"' + parts[2]
+            elif 'fOutputPsFile' in line:
+                parts = line.split('"')
+                if not do_singleeps: newline = parts[0] + '"' + inpath + '/NOMINAL/Plots/Plots_blinded.ps"' + parts[2]
+                else: newline = parts[0] + '"' + inpath + '/NOMINAL/Plots/SingleEPS/Plots_blinded.ps"' + parts[2]
+            elif 'bSingleEPS' in line:
+                parts = line.split('=')
+                newline = parts[0] + '= '
+                if do_singleeps: newline += 'true;\n'
+                else: newline += 'false;\n'
+            else:
+                newline = line
+            newlines.append(newline)
+
+        write_lines(path_plotter, steerfilename, newlines)
+
+    def RunPlotter(self, do_singleeps):
+        self.CreateSteerfile(do_singleeps)
+        command = 'cd /nfs/dust/cms/user/reimersa/CMSSW_8_0_24_patch1/src; '
+        command += 'eval `scramv1 runtime -sh`; '
+        command += 'cd ' + path_plotter + '; '
+        command += 'make; '
+        command += 'Plots -f Zprime/Fullselection_blinded.steer'
+        print 'executing plotter'
+        # print command
+        logfilename = path_plotter + 'plotter_output.log'
+        logfile = open(logfilename,'w')
+        proc = subprocess.Popen(command, shell=True, stdout=logfile, stderr=logfile)
+        proc.wait()
+        print 'plotter finished!'

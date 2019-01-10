@@ -28,8 +28,16 @@ void AnalysisTool::PlotPostfitDistributions(){
 
   // Get the postfit file for backgrounds, input file for data (data is not modified by MLE fit)
   TString basepath = AnalysisTool::path_theta;
-  TFile* f_pre = new TFile(basepath + "input/theta_histograms.root", "READ");
-  TFile* f_post = new TFile(basepath + "output/postfit_histograms_bkgonly_data.root", "READ");
+  TString prename = basepath + "input/theta_histograms";
+  TString postname = basepath + "output/postfit_histograms_bkgonly_data";
+  if(AnalysisTool::do_puppi){
+    prename += "_puppi";
+    postname += "_puppi";
+  }
+  prename += ".root";
+  postname += ".root";
+  TFile* f_pre = new TFile(prename, "READ");
+  TFile* f_post = new TFile(postname, "READ");
 
   // Container to store all histograms for postfit distributions
   vector <TH1F*> histograms_to_add;
@@ -131,7 +139,7 @@ void AnalysisTool::PlotPostfitDistributions(){
   TString outfilename;
   if(AnalysisTool::do_puppi) outfilename = AnalysisTool::base_path_puppi;
   else outfilename = AnalysisTool::base_path_chs;
-  outfilename += "NOMINAL/PostfitDistributions.root";
+  outfilename += "/NOMINAL/PostfitDistributions.root";
   TFile* f_out = new TFile(outfilename, "RECREATE");
   for(unsigned int i=0; i<histograms_to_add.size(); i++){
     // cout << "Writing: " << histograms_to_add[i]->GetName() << endl;

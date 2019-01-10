@@ -22,9 +22,11 @@ public:
   void PlotLimits(bool draw_data = false);
   void PlotPostfitDistributions();
   void PlotPostfitParameters();
+  void ProduceThetaHistograms();
 
 private:
   bool do_puppi;
+  TString tag;
   TString base_path_puppi;
   TString base_path_chs;
   TString path_theta;

@@ -35,7 +35,6 @@ void AnalysisTool::PlotLimits(bool draw_data){
   |                                          |
   ==========================================   */
 
-
   //0) general cosmetics
   cosmetics();
 
@@ -80,7 +79,6 @@ void AnalysisTool::PlotLimits(bool draw_data){
 
 
   myfile.clear();
-
 
 
 
@@ -189,13 +187,13 @@ void AnalysisTool::PlotLimits(bool draw_data){
   TString outfilename = "limitplot";
   if(!draw_data) outfilename+="_blinded";
   TString outpath;
-  if(AnalysisTool::do_puppi) outpath = AnalysisTool::base_path_puppi + "NOMINAL/Plots/";
-  else outpath = AnalysisTool::base_path_chs + "NOMINAL/Plots/";
+  if(AnalysisTool::do_puppi) outpath = AnalysisTool::base_path_puppi + "/NOMINAL/Plots/";
+  else outpath = AnalysisTool::base_path_chs + "/NOMINAL/Plots/";
   outpath += outfilename;
   c->SaveAs(outpath + ".eps");
   c->SaveAs(outpath + ".pdf");
-  c->SaveAs("Plots/"+outfilename+".eps");
-  c->SaveAs("Plots/"+outfilename+".pdf");
+  c->SaveAs("Plots/" + AnalysisTool::tag + "/" + outfilename + ".eps");
+  c->SaveAs("Plots/" + AnalysisTool::tag + "/" + outfilename + ".pdf");
 
 
 }

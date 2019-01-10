@@ -71,7 +71,7 @@ def hadd_files(dottbar):
         thisproc = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         tuple = thisproc.communicate()
         list = tuple[0].split('\n')[:-1]
-        list.remove(key)
+        if key in list: list.remove(key)
         # print list
 
         string = ''
@@ -202,7 +202,7 @@ def submit_missing(path, filename, nice=10, maxjobs=25):
                     proc[1].close()
                     # print 'Job "%s" has finished.' % proc[1].name
                     print 'Job with logfile {} has finished.'.format(proc[1].name[proc[1].name.rfind('/')+1:proc[1].name.rfind('.')])
-        percent = float(n_completed)/float(n_jobs)*100
+        percent = float(ncompleted)/float(ntotal)*100
         sys.stdout.write( '{0:d} of {1:d} ({2:4.2f} %) jobs done.\r'.format(ncompleted, njobs, percent))
         sys.stdout.flush()
         time.sleep(10)
@@ -331,7 +331,7 @@ def out_dir(path, filename):
         if '<!ENTITY PRESELdir' in line and 'Preselection' in filename:
             outputconf = line.split('"')[1]
             outputdir = outputconf.replace('&TargetLumi;', str(lumi))
-        elif '<!ENTITY SELdir' in line and 'Analysis' in filename:
+        elif '<!ENTITY OUTPUTdir' in line and 'Analysis' in filename:
             outputconf = line.split('"')[1]
             outputdir = outputconf.replace('&TargetLumi;', str(lumi))
     return outputdir
@@ -339,9 +339,13 @@ def out_dir(path, filename):
 
 def isThisRunning( process_name ):
 
-    tmp = os.popen("ps").read()
-    proccount = tmp.count(process_name)
-    if proccount > 0: return True
+    tmp = os.popen("ps -eF").readlines()
+    count = 0
+    for line in tmp:
+        if line[:len('reimersa')] == 'reimersa':
+            if process_name in line:
+                count += 1
+    if count > 0: return True
     else: return False
 
 
@@ -377,3 +381,10 @@ def uncomment_line(line):
         newline = line[0:n]
         newline += line[n+2:]
         return newline
+
+def create_path(path):
+    if os.path.isdir(path):
+        print 'path "%s" already exists, not creating it.' % (path)
+    else:
+        os.makedirs(path)
+        print 'Created path "%s"' % (path)

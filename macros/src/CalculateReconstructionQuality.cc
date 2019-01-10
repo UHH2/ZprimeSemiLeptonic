@@ -32,7 +32,7 @@ void AnalysisTool::CalculateReconstructionQuality(){
   TString filename_base = "";
   if(AnalysisTool::do_puppi) filename_base = base_path_puppi;
   else filename_base = base_path_chs;
-  filename_base += "NOMINAL/uhh2.AnalysisModuleRunner.MC.RSGluon_M";
+  filename_base += "/NOMINAL/uhh2.AnalysisModuleRunner.MC.RSGluon_M";
 
   vector<float> before_matchable, before_correct_matchable, after_matchable, after_correct_matchable;
   for(unsigned int i=0; i<masses.size(); i++){
@@ -114,8 +114,9 @@ void AnalysisTool::CalculateReconstructionQuality(){
   leg1->AddEntry(g_after_matchable, "After cut on #chi^{2} < 30", "L");
   leg1->Draw("SAME");
 
-  c->SaveAs("Plots/ReconstructionQuality_Matchable.eps");
-  c->SaveAs("Plots/ReconstructionQuality_Matchable.pdf");
+  TString outname = "Plots/" + AnalysisTool::tag + "/ReconstructionQuality_Matchable";
+  c->SaveAs(outname + ".eps");
+  c->SaveAs(outname + ".pdf");
 
   TCanvas* c2 = new TCanvas("c2", "c2", 600, 600);
   g_before_correct_matchable->Draw("AL");
@@ -131,8 +132,9 @@ void AnalysisTool::CalculateReconstructionQuality(){
   leg2->AddEntry(g_after_correct_matchable, "After cut on #chi^{2} < 30", "L");
   leg2->Draw("SAME");
 
-  c2->SaveAs("Plots/ReconstructionQuality_CorrectlyMatched.eps");
-  c2->SaveAs("Plots/ReconstructionQuality_CorrectlyMatched.pdf");
+  outname = "Plots/" + AnalysisTool::tag + "/ReconstructionQuality_CorrectlyMatched";
+  c2->SaveAs(outname + ".eps");
+  c2->SaveAs(outname + ".pdf");
 
   delete g_after_matchable;
   delete g_after_correct_matchable;

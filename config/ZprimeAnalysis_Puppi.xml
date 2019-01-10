@@ -2,13 +2,14 @@
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
 
 
-<!ENTITY TargetLumi      "41529">
-<!ENTITY PREFIX          "uhh2.AnalysisModuleRunner.">
-<!ENTITY b_Cacheable     "False">
-<!ENTITY NEVT            "-1">
-<!ENTITY PRESELdir       "/nfs/dust/cms/user/reimersa/ZprimeSemiLeptonic/94X_v1/Preselection/2017_Moriond19JEC_Puppi/NOMINAL">
-<!ENTITY OUTPUTdir       "/nfs/dust/cms/user/reimersa/ZprimeSemiLeptonic/94X_v1/Fullselection/2017_Moriond19JEC_Puppi/NOMINAL">
-<!ENTITY IS_PUPPI        "true">
+<!ENTITY TargetLumi          "41529">
+<!ENTITY PREFIX              "uhh2.AnalysisModuleRunner.">
+<!ENTITY b_Cacheable         "False">
+<!ENTITY NEVT                "-1">
+<!ENTITY PRESELdir           "/nfs/dust/cms/user/reimersa/ZprimeSemiLeptonic/94X_v1/Preselection/2017_Moriond19JEC_Puppi/NOMINAL">
+<!ENTITY OUTPUTdir           "/nfs/dust/cms/user/reimersa/ZprimeSemiLeptonic/94X_v1/Fullselection/2017_Moriond19JEC_looserselection_Puppi/NOMINAL">
+<!ENTITY IS_PUPPI            "true">
+<!ENTITY IS_LOOSER_SELECTION "true">
 
 
 
@@ -547,6 +548,7 @@
       <Item Name="MCCSVv2ShapeSystematic" Value = "/nfs/dust/cms/user/reimersa/CMSSW_9_4_1/src/UHH2/common/data/CSVv2_Moriond17_B_H.csv" />
 
       <Item Name="is_puppi" Value="&IS_PUPPI;"/>
+      <Item Name="is_looser_selection" Value="&IS_LOOSER_SELECTION;"/>
 
 
       <Item Name="use_sframe_weight"  Value="false"/>

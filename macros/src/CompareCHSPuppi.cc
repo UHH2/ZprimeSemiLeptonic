@@ -35,8 +35,8 @@ void AnalysisTool::CompareCHSPuppi(){
   samplemap["SingleTop"] = "uhh2.AnalysisModuleRunner.MC.ST.root";
   samplemap["QCD"] = "uhh2.AnalysisModuleRunner.MC.QCD_Mu.root";
 
-  TString chsdir = AnalysisTool::base_path_chs + "NOMINAL/";
-  TString puppidir = AnalysisTool::base_path_puppi + "NOMINAL/";
+  TString chsdir = AnalysisTool::base_path_chs + "/NOMINAL/";
+  TString puppidir = AnalysisTool::base_path_puppi + "/NOMINAL/";
   TString outdir = puppidir + "Plots/SingleEPS/";
 
   DoComparison(chsdir, puppidir, outdir, samplemap, "Data");

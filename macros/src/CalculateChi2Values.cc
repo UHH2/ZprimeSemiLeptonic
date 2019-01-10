@@ -28,7 +28,7 @@ void AnalysisTool::CalculateChi2Values(){
   TString infilename = "";
   if(AnalysisTool::do_puppi) infilename = base_path_puppi;
   else infilename = base_path_chs;
-  infilename += "NOMINAL/uhh2.AnalysisModuleRunner.MC.TTbar_SemiLep.root";
+  infilename += "/NOMINAL/uhh2.AnalysisModuleRunner.MC.TTbar_SemiLep.root";
   TFile* infile = new TFile(infilename, "READ");
 
   TH1F* h_had_ak4  = (TH1F*)infile->Get("STlepPlusMet_General/M_tophad_dr_ak4");
@@ -47,8 +47,8 @@ void AnalysisTool::CalculateChi2Values(){
     hists.at(i)->Fit("gaus", "", "", 130, 210);
     gStyle->SetOptFit(1);
 
-    c->SaveAs("Plots/" + names.at(i) + ".eps");
-    c->SaveAs("Plots/" + names.at(i) + ".pdf");
+    c->SaveAs("Plots/" + AnalysisTool::tag + "/" + names.at(i) + ".eps");
+    c->SaveAs("Plots/" + AnalysisTool::tag + "/" + names.at(i) + ".pdf");
     delete c;
   }
 

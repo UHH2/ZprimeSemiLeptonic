@@ -85,7 +85,7 @@ protected:
   Event::Handle<bool> h_is_zprime_reconstructed_chi2, h_is_zprime_reconstructed_correctmatch;
 
   // Configuration
-  bool isMC, ispuppi;
+  bool isMC, ispuppi, islooserselection;
   string Sys_MuonID, Sys_MuonTrigger, Sys_PU;
   TString sample;
   int runnr_oldtriggers = 299368;
@@ -142,6 +142,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   }
 
   // Important selection values
+  islooserselection = (ctx.get("is_looser_selection") == "true");
   double muon_pt(55.);
   double jet1_pt(150.);
   double jet2_pt(50.);
@@ -155,6 +156,12 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   string trigger2 = "HLT_OldMu100_v*";
   string trigger3 = "HLT_TkMu100_v*";
   double TwoD_dr = 0.4, TwoD_ptrel = 25.;
+  if(islooserselection){
+    jet1_pt = 100.;
+    TwoD_dr = 0.2;
+    TwoD_ptrel = 10.;
+    stlep_plus_met = 100.;
+  }
   const MuonId muonID(PtEtaCut(muon_pt, 2.4));
 
 
