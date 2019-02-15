@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
+
+
+<!ENTITY TargetLumi      "41529">
+<!ENTITY PRESELdir       "/nfs/dust/cms/user/karavdia/ZprimeSemiLeptonic/102X_v1/Preselection/RunIIall_test/">
+<!ENTITY b_Cacheable     "False">
+<!ENTITY NEVT            "-1">
+<!ENTITY IS_PUPPI        "true">
+
+
+
+
+<!ENTITY RSGluon_M4000_2017   SYSTEM   "../../common/datasets/RunII_102X_v1/2017/MC_RSGluonToTT_M-4000_2017.xml">
+<!ENTITY RSGluon_M4000_2016v2   SYSTEM  "../../common/datasets/RunII_102X_v1/2016v2/MC_RSGluonToTT_M-4000_2016v2.xml">
+<!ENTITY ZprimeToTT_M1500_W450_2018   SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_ZprimeToTT_M1500_W450_2018.xml">
+
+]>
+
+<!--
+<ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="30" AutoResubmit="100"/>
+<ConfigSGE RAM="4" DISK="2" Mail="arne.reimers@desy.de" Notification="as" Workdir="workdir_SR_Puppi_Pre"/>
+-->
+
+<JobConfiguration JobName="ZprimePreselectionJob" OutputLevel="INFO">
+	<Library Name="libSUHH2ZprimeSemiLeptonic"/>
+	<Package Name="SUHH2ZprimeSemiLeptonic.par"/>
+
+	<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="&TargetLumi;">
+
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M4000_2017" Cacheable="&b_Cacheable;">
+			&RSGluon_M4000_2017;
+			<InputTree Name="AnalysisTree" />
+			<OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M4000_2016v2" Cacheable="&b_Cacheable;">
+			&RSGluon_M4000_2016v2;
+			<InputTree Name="AnalysisTree" />
+			<OutputTree Name="AnalysisTree" />
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTT_M1500_W450_2018" Cacheable="&b_Cacheable;">
+			&ZprimeToTT_M1500_W450_2018;
+			<InputTree Name="AnalysisTree" />
+			<OutputTree Name="AnalysisTree" />
+		</InputData>
+
+
+		<UserConfig>
+			<Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices"/>
+			<Item Name="GenParticleCollection"   Value="GenParticles"/>
+			<Item Name="ElectronCollection"      Value="slimmedElectronsUSER"/>
+			<Item Name="MuonCollection"          Value="slimmedMuonsUSER"/>
+			<Item Name="JetCollection"           Value="jetsAk4Puppi"/>
+			<Item Name="GenJetCollection"        Value="slimmedGenJets"/> 
+			<Item Name="TopJetCollection"        Value="jetsAk8CHSSubstructure_SoftDropCHS"/>
+<!--			<Item Name="TopJetCollectionGEN"     Value="ak8GenJetsSoftDrop"/> --> <!-- Check odinary ak8GenJetsFat !-->
+			<Item Name="GenTopJetCollection"     Value="ak8GenJetsSoftDrop"/> <!-- Check odinary ak8GenJetsFat !-->
+			<Item Name="TopPuppiJetCollection"   Value="jetsAk8PuppiSubstructure_SoftDropPuppi"/>
+			<Item Name="METName"                 Value="slimmedMETsPuppi"/>
+			<Item Name="genMETName"              Value="slimmedMETs_GenMET"/>
+
+			<Item Name="lumi_file" Value="/nfs/dust/cms/user/reimersa/CMSSW_9_4_1/src/UHH2/common/data/Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON_v1_normTag.root"/>
+			<Item Name="lumihists_lumi_per_bin" Value="1000.0"/>
+
+			<Item Name="is_puppi" Value="&IS_PUPPI;"/>
+
+
+			<Item Name="use_sframe_weight" Value="false"/>
+			<Item Name="jersmear_direction" Value="nominal"/>
+			<Item Name="jecsmear_direction" Value="nominal"/>
+
+
+
+			<Item Name="AnalysisModule" Value="ZprimePreselectionModule"/>
+		</UserConfig>
+
+	</Cycle>
+</JobConfiguration>
