@@ -40,19 +40,27 @@ public:
   virtual bool process(uhh2::Event&) override;
   void book_histograms(uhh2::Context&, vector<string>);
   void fill_histograms(uhh2::Event&, string);
+  void init_JEC_JLC(uhh2::Context& ctx);
 
 protected:
 
   // Corrections
-  std::unique_ptr<JetCorrector>                    jet_corrector_B, jet_corrector_C, jet_corrector_DE, jet_corrector_F, jet_corrector_MC;
-  std::unique_ptr<TopJetCorrector>                 topjet_corrector_B, topjet_corrector_C, topjet_corrector_DE, topjet_corrector_F, topjet_corrector_MC;
-  std::unique_ptr<GenericTopJetCorrector>          topjet_puppi_corrector_B, topjet_puppi_corrector_C, topjet_puppi_corrector_DE, topjet_puppi_corrector_F, topjet_puppi_corrector_MC;
-  std::unique_ptr<SubJetCorrector>                 topjet_subjet_corrector_B, topjet_subjet_corrector_C, topjet_subjet_corrector_DE, topjet_subjet_corrector_F, topjet_subjet_corrector_MC;
-  std::unique_ptr<GenericSubJetCorrector>          topjet_puppi_subjet_corrector_B, topjet_puppi_subjet_corrector_C, topjet_puppi_subjet_corrector_DE, topjet_puppi_subjet_corrector_F, topjet_puppi_subjet_corrector_MC;
+  std::unique_ptr<JetCorrector>                    jet_corrector_A,jet_corrector_B, jet_corrector_C, jet_corrector_D, jet_corrector_E, jet_corrector_F, 
+    jet_corrector_G,jet_corrector_H, jet_corrector_MC;
+  std::unique_ptr<TopJetCorrector>                 topjet_corrector_A,topjet_corrector_B, topjet_corrector_C, topjet_corrector_D,topjet_corrector_E, topjet_corrector_F, 
+    topjet_corrector_G,  topjet_corrector_H, topjet_corrector_MC;
+  std::unique_ptr<GenericTopJetCorrector>          topjet_puppi_corrector_A, topjet_puppi_corrector_B, topjet_puppi_corrector_C, topjet_puppi_corrector_D,
+    topjet_puppi_corrector_E, topjet_puppi_corrector_F, topjet_puppi_corrector_G, topjet_puppi_corrector_H, topjet_puppi_corrector_MC;
+  std::unique_ptr<SubJetCorrector>                 topjet_subjet_corrector_A, topjet_subjet_corrector_B, topjet_subjet_corrector_C, topjet_subjet_corrector_D,
+    topjet_subjet_corrector_E, topjet_subjet_corrector_F, topjet_subjet_corrector_G, topjet_subjet_corrector_H, topjet_subjet_corrector_MC;
+  std::unique_ptr<GenericSubJetCorrector>          topjet_puppi_subjet_corrector_A, topjet_puppi_subjet_corrector_B, topjet_puppi_subjet_corrector_C, 
+    topjet_puppi_subjet_corrector_D, topjet_puppi_subjet_corrector_E, topjet_puppi_subjet_corrector_F, topjet_puppi_subjet_corrector_G, 
+    topjet_puppi_subjet_corrector_H, topjet_puppi_subjet_corrector_MC;
 
-  std::unique_ptr<JetLeptonCleaner_by_KEYmatching> JLC_B, JLC_C, JLC_DE, JLC_F, JLC_MC;
-  std::unique_ptr<JetLeptonCleaner_by_KEYmatching> TopJLC_B, TopJLC_C, TopJLC_DE, TopJLC_F, TopJLC_MC;
-  std::unique_ptr<JetLeptonCleaner_by_KEYmatching> TopJLC_puppi_B, TopJLC_puppi_C, TopJLC_puppi_DE, TopJLC_puppi_F, TopJLC_puppi_MC;
+  std::unique_ptr<JetLeptonCleaner_by_KEYmatching> JLC_A, JLC_B, JLC_C, JLC_D,JLC_E, JLC_F, JLC_G, JLC_H, JLC_MC;
+  std::unique_ptr<JetLeptonCleaner_by_KEYmatching> TopJLC_A, TopJLC_B, TopJLC_C, TopJLC_D, TopJLC_E, TopJLC_F, TopJLC_G, TopJLC_H, TopJLC_MC;
+  std::unique_ptr<JetLeptonCleaner_by_KEYmatching> TopJLC_puppi_A, TopJLC_puppi_B, TopJLC_puppi_C, TopJLC_puppi_D,TopJLC_puppi_E, TopJLC_puppi_F,
+    TopJLC_puppi_G, TopJLC_puppi_H, TopJLC_puppi_MC;
 
   std::unique_ptr<GenericJetResolutionSmearer>     JER_smearer;
   std::unique_ptr<GenericJetResolutionSmearer>     TopJER_smearer;
@@ -85,11 +93,12 @@ protected:
 
 
   // Runnumbers for applying different corrections
-  constexpr static int s_runnr_B  = 299329; //up to this one, including this one
-  constexpr static int s_runnr_C  = 302029; //up to this one, including this one
-  constexpr static int s_runnr_DE = 304826; //up to this one, including this one
-  constexpr static int s_runnr_F  = 306462; //up to this one, including this one
-
+  constexpr static int s_runnr_B_2017  = 299329; //up to this one, including this one
+  constexpr static int s_runnr_C_2017  = 302029; //up to this one, including this one
+  constexpr static int s_runnr_D_2017 =  303434; //up to this one, including this one
+  constexpr static int s_runnr_E_2017 =  304826; //up to this one, including this one
+  constexpr static int s_runnr_F_2017  = 306462; //up to this one, including this one
+  bool is2016v2, is2016v3, is2017, is2018;
 };
 
 void ZprimePreselectionModule::book_histograms(uhh2::Context& ctx, vector<string> tags){
@@ -124,6 +133,271 @@ void ZprimePreselectionModule::fill_histograms(uhh2::Event& event, string tag){
   HFolder(mytag)->fill(event);
 }
 
+void ZprimePreselectionModule::init_JEC_JLC(uhh2::Context& ctx){
+  // Jet energy corrections
+  std::vector<std::string> JEC_AK4CHS_MC, JEC_AK8CHS_MC, JEC_AK4Puppi_MC, JEC_AK8Puppi_MC;
+  std::vector<std::string> JEC_AK4CHS_A, JEC_AK4CHS_B, JEC_AK4CHS_C, JEC_AK4CHS_D, JEC_AK4CHS_E, JEC_AK4CHS_F, JEC_AK4CHS_G, JEC_AK4CHS_H;
+  std::vector<std::string> JEC_AK4Puppi_A, JEC_AK4Puppi_B, JEC_AK4Puppi_C, JEC_AK4Puppi_D, JEC_AK4Puppi_E, JEC_AK4Puppi_F, JEC_AK4Puppi_G, JEC_AK4Puppi_H;
+  std::vector<std::string> JEC_AK8CHS_A, JEC_AK8CHS_B, JEC_AK8CHS_C, JEC_AK8CHS_D, JEC_AK8CHS_E, JEC_AK8CHS_F, JEC_AK8CHS_G, JEC_AK8CHS_H;
+  std::vector<std::string> JEC_AK8Puppi_A, JEC_AK8Puppi_B, JEC_AK8Puppi_C, JEC_AK8Puppi_D, JEC_AK8Puppi_E, JEC_AK8Puppi_F, JEC_AK8Puppi_G, JEC_AK8Puppi_H;
+
+  if(!is2017 && !is2018 && !is2016v2 && !is2016v3) cout<<"Hm, some is wrong. Did you mention year in Version parameter of xml file?"<<endl;
+  if(is2016v2){
+    cout<<"ZprimePreselectionModule uses JEC for 2016 data/MC"<<endl;
+    JEC_AK4CHS_B       = JERFiles::Summer16_07Aug2017_V11_B_L123_AK4PFchs_DATA;
+    JEC_AK4CHS_C       = JERFiles::Summer16_07Aug2017_V11_C_L123_AK4PFchs_DATA;
+    JEC_AK4CHS_D       = JERFiles::Summer16_07Aug2017_V11_D_L123_AK4PFchs_DATA;
+    JEC_AK4CHS_E       = JERFiles::Summer16_07Aug2017_V11_E_L123_AK4PFchs_DATA;
+    JEC_AK4CHS_F       = JERFiles::Summer16_07Aug2017_V11_F_L123_AK4PFchs_DATA;
+    JEC_AK4CHS_G       = JERFiles::Summer16_07Aug2017_V11_G_L123_AK4PFchs_DATA;
+    JEC_AK4CHS_H       = JERFiles::Summer16_07Aug2017_V11_H_L123_AK4PFchs_DATA;
+    JEC_AK4CHS_MC       = JERFiles::Summer16_07Aug2017_V11_L123_AK4PFchs_MC;
+
+    JEC_AK8CHS_B       = JERFiles::Summer16_07Aug2017_V11_B_L123_AK8PFchs_DATA;
+    JEC_AK8CHS_C       = JERFiles::Summer16_07Aug2017_V11_C_L123_AK8PFchs_DATA;
+    JEC_AK8CHS_D       = JERFiles::Summer16_07Aug2017_V11_D_L123_AK8PFchs_DATA;
+    JEC_AK8CHS_E       = JERFiles::Summer16_07Aug2017_V11_E_L123_AK8PFchs_DATA;
+    JEC_AK8CHS_F       = JERFiles::Summer16_07Aug2017_V11_F_L123_AK8PFchs_DATA;
+    JEC_AK8CHS_G       = JERFiles::Summer16_07Aug2017_V11_G_L123_AK8PFchs_DATA;
+    JEC_AK8CHS_H       = JERFiles::Summer16_07Aug2017_V11_H_L123_AK8PFchs_DATA;
+    JEC_AK8CHS_MC       = JERFiles::Summer16_07Aug2017_V11_L123_AK8PFchs_MC;
+
+    JEC_AK4Puppi_B = JERFiles::Summer16_07Aug2017_V11_B_L123_AK4PFPuppi_DATA;
+    JEC_AK4Puppi_C = JERFiles::Summer16_07Aug2017_V11_C_L123_AK4PFPuppi_DATA;
+    JEC_AK4Puppi_D = JERFiles::Summer16_07Aug2017_V11_D_L123_AK4PFPuppi_DATA;
+    JEC_AK4Puppi_E = JERFiles::Summer16_07Aug2017_V11_E_L123_AK4PFPuppi_DATA;
+    JEC_AK4Puppi_F = JERFiles::Summer16_07Aug2017_V11_F_L123_AK4PFPuppi_DATA;
+    JEC_AK4Puppi_G = JERFiles::Summer16_07Aug2017_V11_G_L123_AK4PFPuppi_DATA;
+    JEC_AK4Puppi_H = JERFiles::Summer16_07Aug2017_V11_H_L123_AK4PFPuppi_DATA;
+    JEC_AK4Puppi_MC = JERFiles::Summer16_07Aug2017_V11_L123_AK4PFPuppi_MC;
+
+    JEC_AK8Puppi_B = JERFiles::Summer16_07Aug2017_V11_B_L123_AK8PFPuppi_DATA;
+    JEC_AK8Puppi_C = JERFiles::Summer16_07Aug2017_V11_C_L123_AK8PFPuppi_DATA;
+    JEC_AK8Puppi_D = JERFiles::Summer16_07Aug2017_V11_D_L123_AK8PFPuppi_DATA;
+    JEC_AK8Puppi_E = JERFiles::Summer16_07Aug2017_V11_E_L123_AK8PFPuppi_DATA;
+    JEC_AK8Puppi_F = JERFiles::Summer16_07Aug2017_V11_F_L123_AK8PFPuppi_DATA;
+    JEC_AK8Puppi_G = JERFiles::Summer16_07Aug2017_V11_G_L123_AK8PFPuppi_DATA;
+    JEC_AK8Puppi_H = JERFiles::Summer16_07Aug2017_V11_H_L123_AK8PFPuppi_DATA;
+    JEC_AK8Puppi_MC = JERFiles::Summer16_07Aug2017_V11_L123_AK8PFPuppi_MC;
+  }
+
+  if(is2017){
+    cout<<"ZprimePreselectionModule uses JEC for 2017 data/MC"<<endl;
+    JEC_AK4CHS_B       = JERFiles::Fall17_17Nov2017_V32_B_L123_AK4PFchs_DATA;
+    JEC_AK4CHS_C       = JERFiles::Fall17_17Nov2017_V32_C_L123_AK4PFchs_DATA;
+    JEC_AK4CHS_D       = JERFiles::Fall17_17Nov2017_V32_D_L123_AK4PFchs_DATA;
+    JEC_AK4CHS_E       = JERFiles::Fall17_17Nov2017_V32_E_L123_AK4PFchs_DATA;
+    JEC_AK4CHS_F       = JERFiles::Fall17_17Nov2017_V32_F_L123_AK4PFchs_DATA;
+    JEC_AK4CHS_MC       = JERFiles::Fall17_17Nov2017_V32_L123_AK4PFchs_MC;
+
+    JEC_AK8CHS_B       = JERFiles::Fall17_17Nov2017_V32_B_L123_AK8PFchs_DATA;
+    JEC_AK8CHS_C       = JERFiles::Fall17_17Nov2017_V32_C_L123_AK8PFchs_DATA;
+    JEC_AK8CHS_D       = JERFiles::Fall17_17Nov2017_V32_D_L123_AK8PFchs_DATA;
+    JEC_AK8CHS_E       = JERFiles::Fall17_17Nov2017_V32_E_L123_AK8PFchs_DATA;
+    JEC_AK8CHS_F       = JERFiles::Fall17_17Nov2017_V32_F_L123_AK8PFchs_DATA;
+    JEC_AK8CHS_MC       = JERFiles::Fall17_17Nov2017_V32_L123_AK8PFchs_MC;
+
+    JEC_AK4Puppi_B = JERFiles::Fall17_17Nov2017_V32_B_L123_AK4PFPuppi_DATA;
+    JEC_AK4Puppi_C = JERFiles::Fall17_17Nov2017_V32_C_L123_AK4PFPuppi_DATA;
+    JEC_AK4Puppi_D = JERFiles::Fall17_17Nov2017_V32_D_L123_AK4PFPuppi_DATA;
+    JEC_AK4Puppi_E = JERFiles::Fall17_17Nov2017_V32_E_L123_AK4PFPuppi_DATA;
+    JEC_AK4Puppi_F = JERFiles::Fall17_17Nov2017_V32_F_L123_AK4PFPuppi_DATA;
+    JEC_AK4Puppi_MC = JERFiles::Fall17_17Nov2017_V32_L123_AK4PFPuppi_MC;
+
+    JEC_AK8Puppi_B = JERFiles::Fall17_17Nov2017_V32_B_L123_AK8PFPuppi_DATA;
+    JEC_AK8Puppi_C = JERFiles::Fall17_17Nov2017_V32_C_L123_AK8PFPuppi_DATA;
+    JEC_AK8Puppi_D = JERFiles::Fall17_17Nov2017_V32_D_L123_AK8PFPuppi_DATA;
+    JEC_AK8Puppi_E = JERFiles::Fall17_17Nov2017_V32_E_L123_AK8PFPuppi_DATA;
+    JEC_AK8Puppi_F = JERFiles::Fall17_17Nov2017_V32_F_L123_AK8PFPuppi_DATA;
+    JEC_AK8Puppi_MC = JERFiles::Fall17_17Nov2017_V32_L123_AK8PFPuppi_MC;
+  }
+  if(is2018){
+    cout<<"ZprimePreselectionModule uses JEC for 2018 data/MC"<<endl;
+    JEC_AK4CHS_A       = JERFiles::Autumn18_V4_A_L123_AK4PFchs_DATA;
+    JEC_AK4CHS_B       = JERFiles::Autumn18_V4_B_L123_AK4PFchs_DATA;
+    JEC_AK4CHS_C       = JERFiles::Autumn18_V4_C_L123_AK4PFchs_DATA;
+    //    JEC_AK4CHS_D       = JERFiles::Autumn18_V4_D_L123_AK4PFchs_DATA;
+    JEC_AK4CHS_MC       = JERFiles::Autumn18_V4_L123_AK4PFchs_MC;
+
+    JEC_AK8CHS_A       = JERFiles::Autumn18_V4_A_L123_AK8PFchs_DATA;
+    JEC_AK8CHS_B       = JERFiles::Autumn18_V4_B_L123_AK8PFchs_DATA;
+    JEC_AK8CHS_C       = JERFiles::Autumn18_V4_C_L123_AK8PFchs_DATA;
+    //    JEC_AK8CHS_D       = JERFiles::Autumn18_V4_D_L123_AK8PFchs_DATA;
+    JEC_AK8CHS_MC       = JERFiles::Autumn18_V4_L123_AK8PFchs_MC;
+
+    JEC_AK4Puppi_A = JERFiles::Autumn18_V4_A_L123_AK4PFPuppi_DATA;
+    JEC_AK4Puppi_B = JERFiles::Autumn18_V4_B_L123_AK4PFPuppi_DATA;
+    JEC_AK4Puppi_C = JERFiles::Autumn18_V4_C_L123_AK4PFPuppi_DATA;
+    //    JEC_AK4Puppi_D = JERFiles::Autumn18_V4_D_L123_AK4PFPuppi_DATA;
+    JEC_AK4Puppi_MC = JERFiles::Autumn18_V4_L123_AK4PFPuppi_MC;
+
+    JEC_AK8Puppi_A = JERFiles::Autumn18_V4_A_L123_AK8PFPuppi_DATA;
+    JEC_AK8Puppi_B = JERFiles::Autumn18_V4_B_L123_AK8PFPuppi_DATA;
+    JEC_AK8Puppi_C = JERFiles::Autumn18_V4_C_L123_AK8PFPuppi_DATA;
+    //    JEC_AK8Puppi_D = JERFiles::Autumn18_V4_D_L123_AK8PFPuppi_DATA;
+    JEC_AK8Puppi_MC = JERFiles::Autumn18_V4_L123_AK8PFPuppi_MC;
+  }
+
+
+ if(!ispuppi){
+   if(is2018) jet_corrector_A.reset(new JetCorrector(ctx, JEC_AK4CHS_A));
+    jet_corrector_B.reset(new JetCorrector(ctx, JEC_AK4CHS_B));
+    jet_corrector_C.reset(new JetCorrector(ctx, JEC_AK4CHS_C));
+    //    jet_corrector_D.reset(new JetCorrector(ctx, JEC_AK4CHS_D));
+    if(is2017 or is2016v2 or is2016v3){
+      jet_corrector_D.reset(new JetCorrector(ctx, JEC_AK4CHS_D));//tmp
+      jet_corrector_E.reset(new JetCorrector(ctx, JEC_AK4CHS_E));
+      jet_corrector_F.reset(new JetCorrector(ctx, JEC_AK4CHS_F));
+      if(is2016v2 or is2016v3){
+	jet_corrector_G.reset(new JetCorrector(ctx, JEC_AK4CHS_G));
+	jet_corrector_H.reset(new JetCorrector(ctx, JEC_AK4CHS_H));
+      }
+    }
+    jet_corrector_MC.reset(new JetCorrector(ctx,            JEC_AK4CHS_MC));
+
+    //Jet-lepton cleaning
+    if(is2018) JLC_A.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4CHS_A));
+    JLC_B.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4CHS_B));
+    JLC_C.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4CHS_C));
+    //    JLC_D.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4CHS_D));
+    if(is2017 or is2016v2 or is2016v3){
+      JLC_D.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4CHS_D));//tmp
+      JLC_E.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4CHS_E));
+      JLC_F.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4CHS_F));
+      if(is2016v2 or is2016v3){
+	JLC_G.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4CHS_G));
+	JLC_H.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4CHS_H));
+      }
+    }
+    JLC_MC.reset(new JetLeptonCleaner_by_KEYmatching(ctx,            JEC_AK4CHS_MC));
+ }
+  else{
+    if(is2018) jet_corrector_A.reset(new JetCorrector(ctx, JEC_AK4Puppi_A));
+    jet_corrector_B.reset(new JetCorrector(ctx, JEC_AK4Puppi_B));
+    jet_corrector_C.reset(new JetCorrector(ctx, JEC_AK4Puppi_C));
+    //    jet_corrector_D.reset(new JetCorrector(ctx, JEC_AK4Puppi_D));
+    if(is2017 or is2016v2 or is2016v3){
+      jet_corrector_D.reset(new JetCorrector(ctx, JEC_AK4Puppi_D));//tmp
+      jet_corrector_E.reset(new JetCorrector(ctx, JEC_AK4Puppi_E));
+      jet_corrector_F.reset(new JetCorrector(ctx, JEC_AK4Puppi_F));
+      if(is2016v2 or is2016v3){
+	jet_corrector_G.reset(new JetCorrector(ctx, JEC_AK4Puppi_G));
+	jet_corrector_H.reset(new JetCorrector(ctx, JEC_AK4Puppi_H));
+      }
+    }
+    jet_corrector_MC.reset(new JetCorrector(ctx, JEC_AK4Puppi_MC));
+
+    //Jet-lepton cleaning
+    if(is2018) JLC_A.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4Puppi_A));
+    JLC_B.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4Puppi_B));
+    JLC_C.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4Puppi_C));
+    //    JLC_D.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4Puppi_D));
+    if(is2017 or is2016v2 or is2016v3){
+      JLC_D.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4Puppi_D));//tmp
+      JLC_E.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4Puppi_E));
+      JLC_F.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4Puppi_F));
+      if(is2016v2 or is2016v3){
+	JLC_G.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4Puppi_G));
+	JLC_H.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4Puppi_H));
+      }
+    }
+    JLC_MC.reset(new JetLeptonCleaner_by_KEYmatching(ctx,            JEC_AK4Puppi_MC));
+  }
+
+  if(is2018) topjet_corrector_A.reset(new TopJetCorrector(ctx,       JEC_AK8CHS_A));
+  topjet_corrector_B.reset(new TopJetCorrector(ctx,       JEC_AK8CHS_B));
+  topjet_corrector_C.reset(new TopJetCorrector(ctx,       JEC_AK8CHS_C));
+  //  topjet_corrector_D.reset(new TopJetCorrector(ctx,      JEC_AK8CHS_D));
+  if(is2017 or is2016v2 or is2016v3){
+    topjet_corrector_D.reset(new TopJetCorrector(ctx,      JEC_AK8CHS_D));//tmp
+    topjet_corrector_E.reset(new TopJetCorrector(ctx,      JEC_AK8CHS_E));
+    topjet_corrector_F.reset(new TopJetCorrector(ctx,       JEC_AK8CHS_F));
+    if(is2016v2 or is2016v3){
+    topjet_corrector_G.reset(new TopJetCorrector(ctx,      JEC_AK8CHS_G));
+    topjet_corrector_H.reset(new TopJetCorrector(ctx,      JEC_AK8CHS_H));
+    }
+  }
+  topjet_corrector_MC.reset(new TopJetCorrector(ctx,      JEC_AK8CHS_MC));
+
+  if(is2018) topjet_puppi_corrector_A.reset(new GenericTopJetCorrector(ctx,   JEC_AK8Puppi_A, "toppuppijets"));
+  topjet_puppi_corrector_B.reset(new GenericTopJetCorrector(ctx,       JEC_AK8Puppi_B, "toppuppijets"));
+  topjet_puppi_corrector_C.reset(new GenericTopJetCorrector(ctx,       JEC_AK8Puppi_C, "toppuppijets"));
+  //  topjet_puppi_corrector_D.reset(new GenericTopJetCorrector(ctx,      JEC_AK8Puppi_D, "toppuppijets"));
+  if(is2017 or is2016v2 or is2016v3){
+    topjet_puppi_corrector_D.reset(new GenericTopJetCorrector(ctx,      JEC_AK8Puppi_D, "toppuppijets"));//tmp
+    topjet_puppi_corrector_E.reset(new GenericTopJetCorrector(ctx,      JEC_AK8Puppi_E, "toppuppijets"));
+    topjet_puppi_corrector_F.reset(new GenericTopJetCorrector(ctx,       JEC_AK8Puppi_F, "toppuppijets"));
+    if(is2016v2 or is2016v3){
+    topjet_puppi_corrector_G.reset(new GenericTopJetCorrector(ctx,      JEC_AK8Puppi_G, "toppuppijets"));
+    topjet_puppi_corrector_H.reset(new GenericTopJetCorrector(ctx,      JEC_AK8Puppi_H, "toppuppijets"));
+    }
+  }
+  topjet_puppi_corrector_MC.reset(new GenericTopJetCorrector(ctx,      JEC_AK8Puppi_MC, "toppuppijets"));
+
+  //Jet subjet corrector
+  if(is2018) topjet_subjet_corrector_A.reset(new SubJetCorrector(ctx,       JEC_AK4CHS_A));
+  topjet_subjet_corrector_B.reset(new SubJetCorrector(ctx,       JEC_AK4CHS_B));
+  topjet_subjet_corrector_C.reset(new SubJetCorrector(ctx,       JEC_AK4CHS_C));
+  //  topjet_subjet_corrector_D.reset(new SubJetCorrector(ctx,      JEC_AK4CHS_D));
+  if(is2017 or is2016v2 or is2016v3){
+    topjet_subjet_corrector_D.reset(new SubJetCorrector(ctx,      JEC_AK4CHS_D));//tmp
+    topjet_subjet_corrector_E.reset(new SubJetCorrector(ctx,      JEC_AK4CHS_E));
+    topjet_subjet_corrector_F.reset(new SubJetCorrector(ctx,       JEC_AK4CHS_F));
+    if(is2016v2 or is2016v3){
+    topjet_subjet_corrector_G.reset(new SubJetCorrector(ctx,      JEC_AK4CHS_G));
+    topjet_subjet_corrector_H.reset(new SubJetCorrector(ctx,      JEC_AK4CHS_H));
+    }
+  }
+  topjet_subjet_corrector_MC.reset(new SubJetCorrector(ctx,      JEC_AK4CHS_MC));
+
+ if(is2018) topjet_puppi_subjet_corrector_A.reset(new GenericSubJetCorrector(ctx,  JEC_AK4Puppi_A, "toppuppijets"));
+  topjet_puppi_subjet_corrector_B.reset(new GenericSubJetCorrector(ctx,       JEC_AK4Puppi_B, "toppuppijets"));
+  topjet_puppi_subjet_corrector_C.reset(new GenericSubJetCorrector(ctx,       JEC_AK4Puppi_C, "toppuppijets"));
+  //  topjet_puppi_subjet_corrector_D.reset(new GenericSubJetCorrector(ctx,      JEC_AK4Puppi_D, "toppuppijets"));
+  if(is2017 or is2016v2 or is2016v3){
+    topjet_puppi_subjet_corrector_D.reset(new GenericSubJetCorrector(ctx,      JEC_AK4Puppi_D, "toppuppijets"));//tmp
+    topjet_puppi_subjet_corrector_E.reset(new GenericSubJetCorrector(ctx,      JEC_AK4Puppi_E, "toppuppijets"));
+    topjet_puppi_subjet_corrector_F.reset(new GenericSubJetCorrector(ctx,       JEC_AK4Puppi_F, "toppuppijets"));
+    if(is2016v2 or is2016v3){
+    topjet_puppi_subjet_corrector_G.reset(new GenericSubJetCorrector(ctx,      JEC_AK4Puppi_G, "toppuppijets"));
+    topjet_puppi_subjet_corrector_H.reset(new GenericSubJetCorrector(ctx,      JEC_AK4Puppi_H, "toppuppijets"));
+    }
+  }
+  topjet_puppi_subjet_corrector_MC.reset(new GenericSubJetCorrector(ctx,      JEC_AK4Puppi_MC, "toppuppijets"));
+
+
+  //Jet lepton cleaning
+  if(is2018) TopJLC_A.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK8CHS_A, "topjets"));
+  TopJLC_B.reset(new JetLeptonCleaner_by_KEYmatching(ctx,       JEC_AK8CHS_B, "topjets"));
+  TopJLC_C.reset(new JetLeptonCleaner_by_KEYmatching(ctx,       JEC_AK8CHS_C, "topjets"));
+  //  TopJLC_D.reset(new JetLeptonCleaner_by_KEYmatching(ctx,      JEC_AK8CHS_D, "topjets"));
+  if(is2017 or is2016v2 or is2016v3){
+    TopJLC_D.reset(new JetLeptonCleaner_by_KEYmatching(ctx,      JEC_AK8CHS_D, "topjets"));//tmp
+    TopJLC_E.reset(new JetLeptonCleaner_by_KEYmatching(ctx,      JEC_AK8CHS_E, "topjets"));
+    TopJLC_F.reset(new JetLeptonCleaner_by_KEYmatching(ctx,       JEC_AK8CHS_F, "topjets"));
+    if(is2016v2 or is2016v3){
+    TopJLC_G.reset(new JetLeptonCleaner_by_KEYmatching(ctx,      JEC_AK8CHS_G, "topjets"));
+    TopJLC_H.reset(new JetLeptonCleaner_by_KEYmatching(ctx,      JEC_AK8CHS_H, "topjets"));
+    }
+  }
+  TopJLC_MC.reset(new JetLeptonCleaner_by_KEYmatching(ctx,      JEC_AK8CHS_MC, "topjets"));
+
+  if(is2018) TopJLC_puppi_A.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK8Puppi_A, "toppuppijets"));
+  TopJLC_puppi_B.reset(new JetLeptonCleaner_by_KEYmatching(ctx,       JEC_AK8Puppi_B, "toppuppijets"));
+  TopJLC_puppi_C.reset(new JetLeptonCleaner_by_KEYmatching(ctx,       JEC_AK8Puppi_C, "toppuppijets"));
+  //  TopJLC_puppi_D.reset(new JetLeptonCleaner_by_KEYmatching(ctx,      JEC_AK8Puppi_D, "toppuppijets"));
+  if(is2017 or is2016v2 or is2016v3){
+    TopJLC_puppi_D.reset(new JetLeptonCleaner_by_KEYmatching(ctx,      JEC_AK8Puppi_D, "toppuppijets"));//tmp
+    TopJLC_puppi_E.reset(new JetLeptonCleaner_by_KEYmatching(ctx,      JEC_AK8Puppi_E, "toppuppijets"));
+    TopJLC_puppi_F.reset(new JetLeptonCleaner_by_KEYmatching(ctx,       JEC_AK8Puppi_F, "toppuppijets"));
+    if(is2016v2 or is2016v3){
+    TopJLC_puppi_G.reset(new JetLeptonCleaner_by_KEYmatching(ctx,      JEC_AK8Puppi_G, "toppuppijets"));
+    TopJLC_puppi_H.reset(new JetLeptonCleaner_by_KEYmatching(ctx,      JEC_AK8Puppi_H, "toppuppijets"));
+    }
+  }
+  TopJLC_puppi_MC.reset(new JetLeptonCleaner_by_KEYmatching(ctx,      JEC_AK8Puppi_MC, "toppuppijets"));
+}
+
 
 ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
 
@@ -136,6 +410,11 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   const TString METcollection = ctx.get("METName");
   const bool isMC = (ctx.get("dataset_type") == "MC");
   const bool ispuppi = (ctx.get("is_puppi") == "true");
+  is2016v2 = (ctx.get("dataset_version").find("2016v2") != std::string::npos);
+  is2016v3 = (ctx.get("dataset_version").find("2016v2") != std::string::npos);
+  is2017 = (ctx.get("dataset_version").find("2017") != std::string::npos);
+  is2018 = (ctx.get("dataset_version").find("2018") != std::string::npos);
+ 
   cout << "Is this running on puppi: " << ispuppi << endl;
 
   ElectronId eleID = ElectronID_Fall17_tight_noIso;
@@ -196,109 +475,17 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   topjet_puppi_IDcleaner.reset(new TopJetCleaner(ctx, jetID, "toppuppijets"));
   topjet_puppi_cleaner.reset(new TopJetCleaner(ctx, TopJetId(PtEtaCut(400., 2.4)), "toppuppijets"));
 
-  // Jet energy corrections
-  std::vector<std::string> JEC_AK4_MC, JEC_AK8_MC, JEC_AK4_MC_Puppi, JEC_AK8_MC_Puppi;
-  std::vector<std::string> JEC_AK4_B,       JEC_AK4_C,       JEC_AK4_DE,       JEC_AK4_F;
-  std::vector<std::string> JEC_AK4_B_Puppi, JEC_AK4_C_Puppi, JEC_AK4_DE_Puppi, JEC_AK4_F_Puppi;
-  std::vector<std::string> JEC_AK8_B,       JEC_AK8_C,       JEC_AK8_DE,       JEC_AK8_F;
-  std::vector<std::string> JEC_AK8_B_Puppi, JEC_AK8_C_Puppi, JEC_AK8_DE_Puppi, JEC_AK8_F_Puppi;
+  //set up JEC and JLC
+  init_JEC_JLC(ctx);
+  
 
-  JEC_AK4_B       = JERFiles::Fall17_17Nov2017_V32_B_L123_AK4PFchs_DATA;
-  JEC_AK4_C       = JERFiles::Fall17_17Nov2017_V32_C_L123_AK4PFchs_DATA;
-  JEC_AK4_DE       = JERFiles::Fall17_17Nov2017_V32_DE_L123_AK4PFchs_DATA;
-  JEC_AK4_F       = JERFiles::Fall17_17Nov2017_V32_F_L123_AK4PFchs_DATA;
-  JEC_AK4_MC       = JERFiles::Fall17_17Nov2017_V32_L123_AK4PFchs_MC;
-
-  JEC_AK8_B       = JERFiles::Fall17_17Nov2017_V32_B_L123_AK8PFchs_DATA;
-  JEC_AK8_C       = JERFiles::Fall17_17Nov2017_V32_C_L123_AK8PFchs_DATA;
-  JEC_AK8_DE       = JERFiles::Fall17_17Nov2017_V32_DE_L123_AK8PFchs_DATA;
-  JEC_AK8_F       = JERFiles::Fall17_17Nov2017_V32_F_L123_AK8PFchs_DATA;
-  JEC_AK8_MC       = JERFiles::Fall17_17Nov2017_V32_L123_AK8PFchs_MC;
-
-  JEC_AK4_B_Puppi = JERFiles::Fall17_17Nov2017_V32_B_L123_AK4PFPuppi_DATA;
-  JEC_AK4_C_Puppi = JERFiles::Fall17_17Nov2017_V32_C_L123_AK4PFPuppi_DATA;
-  JEC_AK4_DE_Puppi = JERFiles::Fall17_17Nov2017_V32_DE_L123_AK4PFPuppi_DATA;
-  JEC_AK4_F_Puppi = JERFiles::Fall17_17Nov2017_V32_F_L123_AK4PFPuppi_DATA;
-  JEC_AK4_MC_Puppi = JERFiles::Fall17_17Nov2017_V32_L123_AK4PFPuppi_MC;
-
-  JEC_AK8_B_Puppi = JERFiles::Fall17_17Nov2017_V32_B_L123_AK8PFPuppi_DATA;
-  JEC_AK8_C_Puppi = JERFiles::Fall17_17Nov2017_V32_C_L123_AK8PFPuppi_DATA;
-  JEC_AK8_DE_Puppi = JERFiles::Fall17_17Nov2017_V32_DE_L123_AK8PFPuppi_DATA;
-  JEC_AK8_F_Puppi = JERFiles::Fall17_17Nov2017_V32_F_L123_AK8PFPuppi_DATA;
-  JEC_AK8_MC_Puppi = JERFiles::Fall17_17Nov2017_V32_L123_AK8PFPuppi_MC;
-
-  if(!ispuppi){
-    jet_corrector_B.reset(new JetCorrector(ctx,             JEC_AK4_B));
-    jet_corrector_C.reset(new JetCorrector(ctx,             JEC_AK4_C));
-    jet_corrector_DE.reset(new JetCorrector(ctx,            JEC_AK4_DE));
-    jet_corrector_F.reset(new JetCorrector(ctx,             JEC_AK4_F));
-    jet_corrector_MC.reset(new JetCorrector(ctx,            JEC_AK4_MC));
-  }
-  else{
-    jet_corrector_B.reset(new JetCorrector(ctx,             JEC_AK4_B_Puppi));
-    jet_corrector_C.reset(new JetCorrector(ctx,             JEC_AK4_C_Puppi));
-    jet_corrector_DE.reset(new JetCorrector(ctx,            JEC_AK4_DE_Puppi));
-    jet_corrector_F.reset(new JetCorrector(ctx,             JEC_AK4_F_Puppi));
-    jet_corrector_MC.reset(new JetCorrector(ctx,            JEC_AK4_MC_Puppi));
-  }
-
-  topjet_corrector_B.reset(new TopJetCorrector(ctx,       JEC_AK8_B));
-  topjet_corrector_C.reset(new TopJetCorrector(ctx,       JEC_AK8_C));
-  topjet_corrector_DE.reset(new TopJetCorrector(ctx,      JEC_AK8_DE));
-  topjet_corrector_F.reset(new TopJetCorrector(ctx,       JEC_AK8_F));
-  topjet_corrector_MC.reset(new TopJetCorrector(ctx,      JEC_AK8_MC));
-
-  topjet_puppi_corrector_B.reset(new GenericTopJetCorrector(ctx,  JEC_AK8_B_Puppi, "toppuppijets"));
-  topjet_puppi_corrector_C.reset(new GenericTopJetCorrector(ctx,  JEC_AK8_C_Puppi, "toppuppijets"));
-  topjet_puppi_corrector_DE.reset(new GenericTopJetCorrector(ctx, JEC_AK8_DE_Puppi, "toppuppijets"));
-  topjet_puppi_corrector_F.reset(new GenericTopJetCorrector(ctx,  JEC_AK8_F_Puppi, "toppuppijets"));
-  topjet_puppi_corrector_MC.reset(new GenericTopJetCorrector(ctx, JEC_AK8_MC_Puppi, "toppuppijets"));
-
-  topjet_subjet_corrector_B.reset(new SubJetCorrector(ctx,               JEC_AK4_B));
-  topjet_subjet_corrector_C.reset(new SubJetCorrector(ctx,               JEC_AK4_C));
-  topjet_subjet_corrector_DE.reset(new SubJetCorrector(ctx,              JEC_AK4_DE));
-  topjet_subjet_corrector_F.reset(new SubJetCorrector(ctx,               JEC_AK4_F));
-  topjet_subjet_corrector_MC.reset(new SubJetCorrector(ctx,              JEC_AK4_MC));
-
-  topjet_puppi_subjet_corrector_B.reset(new GenericSubJetCorrector(ctx,  JEC_AK4_B_Puppi, "toppuppijets"));
-  topjet_puppi_subjet_corrector_C.reset(new GenericSubJetCorrector(ctx,  JEC_AK4_C_Puppi, "toppuppijets"));
-  topjet_puppi_subjet_corrector_DE.reset(new GenericSubJetCorrector(ctx,  JEC_AK4_DE_Puppi, "toppuppijets"));
-  topjet_puppi_subjet_corrector_F.reset(new GenericSubJetCorrector(ctx,  JEC_AK4_F_Puppi, "toppuppijets"));
-  topjet_puppi_subjet_corrector_MC.reset(new GenericSubJetCorrector(ctx, JEC_AK4_MC_Puppi, "toppuppijets"));
-
-  if(!ispuppi){
-    JLC_B.reset(new JetLeptonCleaner_by_KEYmatching(ctx,           JEC_AK4_B));
-    JLC_C.reset(new JetLeptonCleaner_by_KEYmatching(ctx,           JEC_AK4_C));
-    JLC_DE.reset(new JetLeptonCleaner_by_KEYmatching(ctx,          JEC_AK4_DE));
-    JLC_F.reset(new JetLeptonCleaner_by_KEYmatching(ctx,           JEC_AK4_F));
-    JLC_MC.reset(new JetLeptonCleaner_by_KEYmatching(ctx,          JEC_AK4_MC));
-  }
-  else{
-    JLC_B.reset(new JetLeptonCleaner_by_KEYmatching(ctx,           JEC_AK4_B_Puppi));
-    JLC_C.reset(new JetLeptonCleaner_by_KEYmatching(ctx,           JEC_AK4_C_Puppi));
-    JLC_DE.reset(new JetLeptonCleaner_by_KEYmatching(ctx,          JEC_AK4_DE_Puppi));
-    JLC_F.reset(new JetLeptonCleaner_by_KEYmatching(ctx,           JEC_AK4_F_Puppi));
-    JLC_MC.reset(new JetLeptonCleaner_by_KEYmatching(ctx,          JEC_AK4_MC_Puppi));
-  }
-
-  TopJLC_B.reset(new JetLeptonCleaner_by_KEYmatching(ctx,        JEC_AK8_B, "topjets"));
-  TopJLC_C.reset(new JetLeptonCleaner_by_KEYmatching(ctx,        JEC_AK8_C, "topjets"));
-  TopJLC_DE.reset(new JetLeptonCleaner_by_KEYmatching(ctx,       JEC_AK8_DE, "topjets"));
-  TopJLC_F.reset(new JetLeptonCleaner_by_KEYmatching(ctx,        JEC_AK8_F, "topjets"));
-  TopJLC_MC.reset(new JetLeptonCleaner_by_KEYmatching(ctx,       JEC_AK8_MC, "topjets"));
-
-  TopJLC_puppi_B.reset(new JetLeptonCleaner_by_KEYmatching(ctx,  JEC_AK8_B_Puppi, "toppuppijets"));
-  TopJLC_puppi_C.reset(new JetLeptonCleaner_by_KEYmatching(ctx,  JEC_AK8_C_Puppi, "toppuppijets"));
-  TopJLC_puppi_DE.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK8_DE_Puppi, "toppuppijets"));
-  TopJLC_puppi_F.reset(new JetLeptonCleaner_by_KEYmatching(ctx,  JEC_AK8_F_Puppi, "toppuppijets"));
-  TopJLC_puppi_MC.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK8_MC_Puppi, "toppuppijets"));
-
+ 
   if(isMC){
-    ctx.declare_event_input<std::vector<Particle> >(ctx.get("TopJetCollectionGEN"), "topjetsGEN");
+    //    ctx.declare_event_input<std::vector<Particle> >(ctx.get("TopJetCollectionGEN"), "topjetsGEN");
     if(!ispuppi) JER_smearer.reset(new GenericJetResolutionSmearer(ctx, "jets", "genjets", JERSmearing::SF_13TeV_Fall17_V3, "Fall17_V3_MC_PtResolution_AK4PFchs.txt"));
     else JER_smearer.reset(new GenericJetResolutionSmearer(ctx, "jets", "genjets", JERSmearing::SF_13TeV_Fall17_V3, "Fall17_V3_MC_PtResolution_AK4PFPuppi.txt"));
-    TopJER_smearer.reset(new GenericJetResolutionSmearer(ctx, "topjets", "topjetsGEN", JERSmearing::SF_13TeV_Fall17_V3, "Fall17_V3_MC_PtResolution_AK8PFchs.txt"));
-    TopJER_puppi_smearer.reset(new GenericJetResolutionSmearer(ctx, "toppuppijets", "topjetsGEN", JERSmearing::SF_13TeV_Fall17_V3, "Fall17_V3_MC_PtResolution_AK8PFPuppi.txt"));
+    TopJER_smearer.reset(new GenericJetResolutionSmearer(ctx, "topjets", "gentopjets", JERSmearing::SF_13TeV_Fall17_V3, "Fall17_V3_MC_PtResolution_AK8PFchs.txt"));
+    TopJER_puppi_smearer.reset(new GenericJetResolutionSmearer(ctx, "toppuppijets", "gentopjets", JERSmearing::SF_13TeV_Fall17_V3, "Fall17_V3_MC_PtResolution_AK8PFPuppi.txt"));
   }
 
 
@@ -363,15 +550,17 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
   if(event.isRealData){
     bool apply_B = false;
     bool apply_C = false;
-    bool apply_DE = false;
+    bool apply_D = false;
+    bool apply_E = false;
     bool apply_F = false;
-    if(event.run <= s_runnr_B)  apply_B = true;
-    else if(event.run <= s_runnr_C) apply_C = true;
-    else if(event.run <= s_runnr_DE) apply_DE = true;
-    else if(event.run <= s_runnr_F) apply_F = true;
+    if(event.run <= s_runnr_B_2017)  apply_B = true;
+    else if(event.run <= s_runnr_C_2017) apply_C = true;
+    else if(event.run <= s_runnr_D_2017) apply_D = true;
+    else if(event.run <= s_runnr_E_2017) apply_E = true;
+    else if(event.run <= s_runnr_F_2017) apply_F = true;
     else throw std::runtime_error("run number not covered by if-statements in process-routine.");
 
-    if(apply_B+apply_C+apply_DE+apply_F != 1) throw std::runtime_error("In ZprimePreselectionModule.cxx: Sum of apply_* when applying JECs is not == 1. Fix this.");
+    if(apply_B+apply_C+apply_D+apply_E+apply_F != 1) throw std::runtime_error("In ZprimePreselectionModule.cxx: Sum of apply_* when applying JECs is not == 1. Fix this.");
 
     //apply proper JECs
     if(apply_B){
@@ -396,16 +585,27 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
       topjet_subjet_corrector_C->process(event);
       topjet_puppi_subjet_corrector_C->process(event);
     }
-    if(apply_DE){
-      JLC_DE->process(event);
-      TopJLC_DE->process(event);
-      TopJLC_puppi_DE->process(event);
-      jet_corrector_DE->process(event);
-      topjet_corrector_DE->process(event);
-      topjet_puppi_corrector_DE->process(event);
-      jet_corrector_DE->correct_met(event);
-      topjet_subjet_corrector_DE->process(event);
-      topjet_puppi_subjet_corrector_DE->process(event);
+    if(apply_D){
+      JLC_D->process(event);
+      TopJLC_D->process(event);
+      TopJLC_puppi_D->process(event);
+      jet_corrector_D->process(event);
+      topjet_corrector_D->process(event);
+      topjet_puppi_corrector_D->process(event);
+      jet_corrector_D->correct_met(event);
+      topjet_subjet_corrector_D->process(event);
+      topjet_puppi_subjet_corrector_D->process(event);
+    }
+    if(apply_E){
+      JLC_E->process(event);
+      TopJLC_E->process(event);
+      TopJLC_puppi_E->process(event);
+      jet_corrector_E->process(event);
+      topjet_corrector_E->process(event);
+      topjet_puppi_corrector_E->process(event);
+      jet_corrector_E->correct_met(event);
+      topjet_subjet_corrector_E->process(event);
+      topjet_puppi_subjet_corrector_E->process(event);
     }
     if(apply_F){
       JLC_F->process(event);
