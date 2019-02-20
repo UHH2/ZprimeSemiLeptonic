@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
+
+<!-- 58.827000 in 2018, 41.790000 in 2017,36.773 in 2016  -->
+<!ENTITY TargetLumi          "137390">
+<!ENTITY PREFIX              "uhh2.AnalysisModuleRunner.">
+<!ENTITY b_Cacheable         "False">
+<!ENTITY NEVT                "-1">
+<!ENTITY PRESELdir           "/nfs/dust/cms/user/karavdia/ZprimeSemiLeptonic/102X_v1/Preselection/RunIIall_test/">
+
+<!ENTITY IS_PUPPI            "true">
+<!ENTITY IS_LOOSER_SELECTION "false">
+<!ENTITY CHANNEL "muon">
+<!-- <!ENTITY CHANNEL "electron"> -->
+<!ENTITY OUTPUTdir           "/nfs/dust/cms/user/karavdia/ZprimeSemiLeptonic/102X_v1/Analysis/RunIIall_test/&CHANNEL;/">
+
+<!ENTITY ZprimeToTT_M4000_W400_2016v2 "&PRESELdir;/&PREFIX;MC.ZprimeToTT_M4000_W400_2016v2.root">
+<!ENTITY ZprimeToTT_M4000_W400_2017   "&PRESELdir;/&PREFIX;MC.ZprimeToTT_M4000_W400_2017.root">
+<!ENTITY ZprimeToTT_M4000_W400_2018   "&PRESELdir;/&PREFIX;MC.ZprimeToTT_M4000_W400_2018.root">
+
+]>
+
+<!--
+<ConfigParse NEventsBreak="200000" LastBreak="0" FileSplit="0" AutoResubmit="100"/>
+<ConfigSGE RAM="4" DISK="2" Mail="arne.reimers@desy.de" Notification="as" Workdir="workdir_SR_Puppi"/>
+-->
+
+<JobConfiguration JobName="ZprimePreselectionJob" OutputLevel="INFO">
+  <Library Name="libSUHH2ZprimeSemiLeptonic"/>
+  <Package Name="SUHH2ZprimeSemiLeptonic.par"/>
+
+  <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTPUTdir;/" PostFix="" TargetLumi="&TargetLumi;">
+
+
+
+    <InputData Lumi="102320" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTT_M4000_W400_2016v2" Cacheable="&b_Cacheable;">
+      <In FileName="&ZprimeToTT_M4000_W400_2016v2;" Lumi="0.0" />
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
+
+    <InputData Lumi="185583" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTT_M4000_W400_2017" Cacheable="&b_Cacheable;">
+      <In FileName="&ZprimeToTT_M4000_W400_2017;" Lumi="0.0" />
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
+
+    <InputData Lumi="177764" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTT_M4000_W400_2018" Cacheable="&b_Cacheable;">
+      <In FileName="&ZprimeToTT_M4000_W400_2018;" Lumi="0.0" />
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
+
+    
+
+
+
+
+    <UserConfig>
+      <Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices"/>
+      <Item Name="GenParticleCollection"   Value="GenParticles"/>
+      <Item Name="ElectronCollection"      Value="slimmedElectronsUSER"/>
+      <Item Name="MuonCollection"          Value="slimmedMuonsUSER"/>
+      <Item Name="JetCollection"           Value="jetsAk4Puppi"/>
+      <Item Name="GenJetCollection"        Value="slimmedGenJets"/>
+      <Item Name="TopJetCollection"        Value="jetsAk8CHSSubstructure_SoftDropCHS"/>
+<!--      <Item Name="TopJetCollectionGEN"     Value="slimmedGenJetsAK8"/> -->
+      <Item Name="GenTopJetCollection"     Value="ak8GenJetsSoftDrop"/> <!-- Check odinary ak8GenJetsFat !-->
+      <Item Name="TopPuppiJetCollection"   Value="jetsAk8PuppiSubstructure_SoftDropPuppi"/>
+      <Item Name="METName"                 Value="slimmedMETsPuppi"/>
+      <Item Name="genMETName"              Value="slimmedMETs_GenMET"/>
+
+      <Item Name="lumi_file" Value="/nfs/dust/cms/user/reimersa/CMSSW_9_4_1/src/UHH2/common/data/Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON_v1_normTag.root"/>
+      <Item Name="lumihists_lumi_per_bin" Value="1000.0"/>
+
+      <Item Name="pileup_directory" Value="/nfs/dust/cms/user/reimersa/CMSSW_9_4_1/src/UHH2/common/data/MyMCPileupHistogram.root" />
+      <Item Name="pileup_directory_data" Value="/nfs/dust/cms/user/reimersa/CMSSW_9_4_1/src/UHH2/common/data/MyDataPileupHistogram.root" />
+      <Item Name="pileup_directory_data_up" Value="/nfs/dust/cms/user/reimersa/CMSSW_9_4_1/src/UHH2/common/data/MyDataPileupHistogram_72383.root" />
+      <Item Name="pileup_directory_data_down" Value="/nfs/dust/cms/user/reimersa/CMSSW_9_4_1/src/UHH2/common/data/MyDataPileupHistogram_66017.root" />
+
+      <Item Name="MCCSVv2ShapeSystematic" Value = "/nfs/dust/cms/user/reimersa/CMSSW_9_4_1/src/UHH2/common/data/CSVv2_Moriond17_B_H.csv" />
+
+      <Item Name="is_puppi" Value="&IS_PUPPI;"/>
+      <Item Name="is_looser_selection" Value="&IS_LOOSER_SELECTION;"/>
+
+
+      <Item Name="use_sframe_weight"  Value="false"/>
+      <Item Name="jersmear_direction" Value="nominal"/>
+      <Item Name="jecsmear_direction" Value="nominal"/>
+      <Item Name="Sys_MuonID"         Value="nominal"/>
+      <Item Name="Sys_MuonTrigger"    Value="nominal"/>
+      <Item Name="Sys_PU"             Value="central"/>
+      <Item Name="channel"             Value="&CHANNEL;"/>
+
+
+      <Item Name="AnalysisModule" Value="ZprimeAnalysisModule"/>
+    </UserConfig>
+
+  </Cycle>
+</JobConfiguration>
