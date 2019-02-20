@@ -15,6 +15,10 @@
 <!ENTITY RSGluon_M4000_2016v2   SYSTEM  "../../common/datasets/RunII_102X_v1/2016v2/MC_RSGluonToTT_M-4000_2016v2.xml">
 <!ENTITY ZprimeToTT_M1500_W450_2018   SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_ZprimeToTT_M1500_W450_2018.xml">
 
+<!ENTITY ZprimeToTT_M4000_W400_2016v2   SYSTEM  "../../common/datasets/RunII_102X_v1/2016v2/MC_ZprimeToTT_M4000_W400_2016v2TEST.xml">
+<!ENTITY ZprimeToTT_M4000_W400_2017   SYSTEM  "../../common/datasets/RunII_102X_v1/2017/MC_ZprimeToTT_M4000_W400_2017TEST.xml">
+<!ENTITY ZprimeToTT_M4000_W400_2018   SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_ZprimeToTT_M4000_W400_2018TEST.xml">
+
 ]>
 
 <!--
@@ -28,8 +32,26 @@
 
 	<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="&TargetLumi;">
 
+	  <InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTT_M4000_W400_2016v2" Cacheable="&b_Cacheable;">
+	    &ZprimeToTT_M4000_W400_2016v2;
+	    <InputTree Name="AnalysisTree" />
+	    <OutputTree Name="AnalysisTree" />
+	  </InputData>
 
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M4000_2017" Cacheable="&b_Cacheable;">
+	  <InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTT_M4000_W400_2017" Cacheable="&b_Cacheable;">
+	    &ZprimeToTT_M4000_W400_2017;
+	    <InputTree Name="AnalysisTree" />
+	    <OutputTree Name="AnalysisTree" />
+	  </InputData>
+
+	  <InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTT_M4000_W400_2018" Cacheable="&b_Cacheable;">
+	    &ZprimeToTT_M4000_W400_2018;
+	    <InputTree Name="AnalysisTree" />
+	    <OutputTree Name="AnalysisTree" />
+	  </InputData>
+
+
+	<!--	<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="RSGluon_M4000_2017" Cacheable="&b_Cacheable;">
 			&RSGluon_M4000_2017;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
@@ -45,8 +67,8 @@
 			&ZprimeToTT_M1500_W450_2018;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
-		</InputData>
-
+		</InputData> 
+-->
 
 		<UserConfig>
 			<Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices"/>

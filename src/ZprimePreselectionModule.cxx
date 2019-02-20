@@ -93,11 +93,26 @@ protected:
 
 
   // Runnumbers for applying different corrections
+
+  constexpr static int s_runnr_B_2016  = 275376; //up to this one, including this one
+  constexpr static int s_runnr_C_2016  = 276283; //up to this one, including this one
+  constexpr static int s_runnr_D_2016 =  276811; //up to this one, including this one
+  constexpr static int s_runnr_E_2016 =  277420; //up to this one, including this one
+  constexpr static int s_runnr_F_2016 =  278801; //up to this one, including this one = Fearly
+  constexpr static int s_runnr_G_2016 =  280385; //up to this one, including this one
+  constexpr static int s_runnr_H_2016 =  284044; //up to this one, including this one
+
   constexpr static int s_runnr_B_2017  = 299329; //up to this one, including this one
   constexpr static int s_runnr_C_2017  = 302029; //up to this one, including this one
   constexpr static int s_runnr_D_2017 =  303434; //up to this one, including this one
   constexpr static int s_runnr_E_2017 =  304826; //up to this one, including this one
   constexpr static int s_runnr_F_2017  = 306462; //up to this one, including this one
+
+  constexpr static int s_runnr_A_2018  = 316995; //up to this one, including this one
+  constexpr static int s_runnr_B_2018  = 319310; //up to this one, including this one
+  constexpr static int s_runnr_C_2018  = 320065; //up to this one, including this one
+  constexpr static int s_runnr_D_2018 =  325175; //up to this one, including this one
+
   bool is2016v2, is2016v3, is2017, is2018;
 };
 
@@ -417,8 +432,15 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
  
   cout << "Is this running on puppi: " << ispuppi << endl;
 
-  ElectronId eleID = ElectronID_Fall17_tight_noIso;
-  MuonId muID      = MuonID(Muon::CutBasedIdGlobalHighPt);
+  ElectronId eleID;  MuonId muID;
+  if(is2017 || is2018){
+    eleID = ElectronID_Fall17_tight_noIso;//ToDo: compare cutBased without iso and MVA-based via wp in UHH2
+    muID      = MuonID(Muon::CutBasedIdGlobalHighPt);
+  }
+  if(is2016v2 || is2016v3){
+    eleID = ElectronID_Summer16_tight_noIso;//ToDo: compare cutBased without iso and MVA-based via wp in UHH2
+    muID      = MuonID(Muon::Highpt);
+  }
   double electron_pt(50.);
   double muon_pt(55.);
   double jet1_pt(50.);
@@ -462,17 +484,18 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   // Cleaning: Mu, Ele, Jets
   const MuonId muonID(AndId<Muon>(PtEtaCut(muon_pt, 2.4), muID));
   const ElectronId electronID(AndId<Electron>(PtEtaSCCut(electron_pt, 2.5), eleID));
-  const JetId jetID(JetPFID(JetPFID::WP_TIGHT));
-
+  const JetPFID jetID_CHS(JetPFID::WP_TIGHT_CHS); 
+  const JetPFID jetID_PUPPI(JetPFID::WP_TIGHT_PUPPI); 
 
   muon_cleaner.reset(new MuonCleaner(muonID));
   electron_cleaner.reset(new ElectronCleaner(electronID));
-  jet_IDcleaner.reset(new JetCleaner(ctx, jetID));
+  //  jet_IDcleaner.reset(new JetCleaner(ctx, jetID_CHS));
+  jet_IDcleaner.reset(new JetCleaner(ctx, jetID_PUPPI));
   jet_cleaner1.reset(new JetCleaner(ctx, 15., 3.0));
   jet_cleaner2.reset(new JetCleaner(ctx, 30., 2.4));
-  topjet_IDcleaner.reset(new TopJetCleaner(ctx, jetID, "topjets"));
+  topjet_IDcleaner.reset(new TopJetCleaner(ctx, jetID_CHS, "topjets"));
   topjet_cleaner.reset(new TopJetCleaner(ctx, TopJetId(PtEtaCut(400., 2.4)), "topjets"));
-  topjet_puppi_IDcleaner.reset(new TopJetCleaner(ctx, jetID, "toppuppijets"));
+  topjet_puppi_IDcleaner.reset(new TopJetCleaner(ctx, jetID_PUPPI, "toppuppijets"));
   topjet_puppi_cleaner.reset(new TopJetCleaner(ctx, TopJetId(PtEtaCut(400., 2.4)), "toppuppijets"));
 
   //set up JEC and JLC
@@ -496,18 +519,12 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
 
 
   // Book histograms
-  vector<string> histogram_tags = {"Input", "Lumiselection", "Metfilters", "Lepton1", "JetCleaner1", "JetCleaner2", "TopjetCleaner", "Jet1", "Jet2", "MET"};
+  vector<string> histogram_tags = {"Input", "Lumiselection", "Metfilters", "Lepton1", "JetID", "JetCleaner1", "JetCleaner2", "TopjetCleaner", "Jet1", "Jet2", "MET"};
   book_histograms(ctx, histogram_tags);
 
 
   lumihists.reset(new LuminosityHists(ctx, "lumi"));
 }
-
-
-
-
-
-
 
 
 bool ZprimePreselectionModule::process(uhh2::Event& event){
@@ -546,6 +563,7 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
 
   //// JET selection
   jet_IDcleaner->process(event);
+  fill_histograms(event, "JetID");
 
   if(event.isRealData){
     bool apply_B = false;

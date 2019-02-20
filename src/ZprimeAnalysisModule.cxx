@@ -61,6 +61,7 @@ protected:
 
   // Cleaners (to make sure the pre-selection did everything right)
   std::unique_ptr<MuonCleaner> muon_cleaner;
+  std::unique_ptr<ElectronCleaner> electron_cleaner;
 
   // Scale Factors -- Systematics
   unique_ptr<MCMuonScaleFactor> MuonID_module, MuonTrigger_module;
@@ -79,8 +80,8 @@ protected:
   unique_ptr<ZprimeCorrectMatchDiscriminator> CorrectMatchDiscriminatorZprime;
 
   // Selections
-  unique_ptr<Selection> Trigger1_selection, Trigger2_selection, Trigger3_selection, NMuon1_selection, NMuon2_selection, NElectron_selection, TwoDCut_selection, Jet1_selection, Jet2_selection, STlepPlusMet_selection, Chi2_selection, TTbarMatchable_selection, Chi2CandidateMatched_selection, ZprimeTopTag_selection, BlindData_selection;
-
+  unique_ptr<Selection> Trigger1_selection, Trigger2_selection, NMuon1_selection, NMuon2_selection, NElectron_selection, TwoDCut_selection, Jet1_selection, Jet2_selection, Met_selection, Chi2_selection, TTbarMatchable_selection, Chi2CandidateMatched_selection, ZprimeTopTag_selection, BlindData_selection;
+  std::unique_ptr<uhh2::Selection> met_sel;
   //Handles
   Event::Handle<bool> h_is_zprime_reconstructed_chi2, h_is_zprime_reconstructed_correctmatch;
 
@@ -89,6 +90,9 @@ protected:
   string Sys_MuonID, Sys_MuonTrigger, Sys_PU;
   TString sample;
   int runnr_oldtriggers = 299368;
+
+  bool is2016v2, is2016v3, is2017, is2018;
+  bool isMuon, isElectron;
 };
 
 void ZprimeAnalysisModule::book_histograms(uhh2::Context& ctx, vector<string> tags){
@@ -144,26 +148,53 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   // Important selection values
   islooserselection = (ctx.get("is_looser_selection") == "true");
   double muon_pt(55.);
+  double elec_pt(80.);
   double jet1_pt(150.);
   double jet2_pt(50.);
-  double stlep_plus_met(150.);
+  //  double stlep_plus_met(150.);
   double chi2_max(30.);
   double mtt_blind(3000.);
-  int nmuon_min1 = 1, nmuon_max1 = -1;
-  int nmuon_min2 = 1, nmuon_max2 = 1;
-  int nele_min = 0  , nele_max = 0;
-  string trigger1 = "HLT_Mu50_v*";
-  string trigger2 = "HLT_OldMu100_v*";
-  string trigger3 = "HLT_TkMu100_v*";
+  int nmuon_min1, nmuon_max1;
+  int nmuon_min2, nmuon_max2;
+  int nele_min, nele_max;
+  string trigger1,trigger2;// trigger3;
+  double MET_cut;
+  isMuon = false; isElectron = false;
+  if(ctx.get("channel") == "muon") isMuon = true;
+  if(ctx.get("channel") == "electron") isElectron = true;
+
+  if(isMuon){//semileptonic muon channel
+    trigger1 = "HLT_Mu50_v*";
+    trigger2 = "HLT_Mu50_v*";
+    //  trigger2 = "HLT_TrkMu50_v*";
+  //  trigger3 = "HLT_TkMu50_v*";
+    nmuon_min1 = 1, nmuon_max1 = -1;
+    nmuon_min2 = 1, nmuon_max2 = 1;
+    nele_min = 0; nele_max = 0;
+    MET_cut = 50;
+    jet1_pt = 150.;
+  }
+  if(isElectron){//semileptonic electron channel
+    nmuon_min1 = 0; nmuon_max1 = 0;
+    nmuon_min2 = 0; nmuon_max2 = 0;
+    nele_min = 1; nele_max = 1;
+    trigger1 = "HLT_Ele50_CaloIdVT_GsfTrkIdT_PFJet165_v*";
+    trigger2 = "HLT_Ele115_CaloIdVT_GsfTrkIdT_v*";
+    MET_cut = 120;
+    jet1_pt = 185.;
+    //    trigger3 = "HLT\_Ele115_v*";
+  }
+
+ 
   double TwoD_dr = 0.4, TwoD_ptrel = 25.;
   if(islooserselection){
     jet1_pt = 100.;
     TwoD_dr = 0.2;
     TwoD_ptrel = 10.;
-    stlep_plus_met = 100.;
+    //    stlep_plus_met = 100.;
   }
   const MuonId muonID(PtEtaCut(muon_pt, 2.4));
-
+  const ElectronId electronID(PtEtaSCCut(elec_pt, 2.5));
 
   // Configuration
   isMC = (ctx.get("dataset_type") == "MC");
@@ -172,6 +203,11 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   if(ispuppi) mode = "puppi";
   string tmp = ctx.get("dataset_version");
   sample = tmp;
+  is2016v2 = (ctx.get("dataset_version").find("2016v2") != std::string::npos);
+  is2016v3 = (ctx.get("dataset_version").find("2016v2") != std::string::npos);
+  is2017 = (ctx.get("dataset_version").find("2017") != std::string::npos);
+  is2018 = (ctx.get("dataset_version").find("2018") != std::string::npos);
+
   Sys_MuonID = ctx.get("Sys_MuonID");
   Sys_MuonTrigger = ctx.get("Sys_MuonTrigger");
   Sys_PU = ctx.get("Sys_PU");
@@ -179,24 +215,32 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   // Modules
   printer_genparticles.reset(new GenParticlesPrinter(ctx));
   muon_cleaner.reset(new MuonCleaner(muonID));
-  MuonID_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/reimersa/CMSSW_9_4_1/src/UHH2/common/data/MuonID_94X_RunBCDEF_SF_ID.root", "NUM_HighPtID_DEN_genTracks_pair_newTuneP_probe_pt_abseta", 0., "HighPtID", true, Sys_MuonID));
-  MuonTrigger_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/reimersa/CMSSW_9_4_1/src/UHH2/common/data/MuonTrigger_EfficienciesAndSF_RunBtoF_Nov17Nov2017.root", "Mu50_PtEtaBins/pt_abseta_ratio", 0.5, "Trigger", true, Sys_MuonTrigger));
-
+  electron_cleaner.reset(new ElectronCleaner(electronID));
   LumiWeight_module.reset(new MCLumiWeight(ctx));
-  PUWeight_module.reset(new MCPileupReweight(ctx, Sys_PU));
-  CSVWeight_module.reset(new MCCSVv2ShapeSystematic(ctx, "jets","central","iterativefit","","MCCSVv2ShapeSystematic"));
+  //  PUWeight_module.reset(new MCPileupReweight(ctx, Sys_PU));
+  //  CSVWeight_module.reset(new MCCSVv2ShapeSystematic(ctx, "jets","central","iterativefit","","MCCSVv2ShapeSystematic"));
+
+  // if(is2016v2){
+  //   MuonID_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/karavdia/CMSSW_10_2_11/src/UHH2/common/data/2017/MuonID_94X_RunBCDEF_SF_ID.root", "NUM_HighPtID_DEN_genTracks_pair_newTuneP_probe_pt_abseta", 0., "HighPtID", true, Sys_MuonID));
+  //   MuonTrigger_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/karavdia/CMSSW_10_2_11/src/UHH2/common/data/2017/MuonTrigger_EfficienciesAndSF_RunBtoF_Nov17Nov2017.root", "Mu50_PtEtaBins/pt_abseta_ratio", 0.5, "Trigger", true, Sys_MuonTrigger));
+  // }
+  // if(is2017 || is2018){
+  //   MuonID_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/karavdia/CMSSW_10_2_11/src/UHH2/common/data/2017/MuonID_94X_RunBCDEF_SF_ID.root", "NUM_HighPtID_DEN_genTracks_pair_newTuneP_probe_pt_abseta", 0., "HighPtID", true, Sys_MuonID));
+  //   MuonTrigger_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/karavdia/CMSSW_10_2_11/src/UHH2/common/data/2017/MuonTrigger_EfficienciesAndSF_RunBtoF_Nov17Nov2017.root", "Mu50_PtEtaBins/pt_abseta_ratio", 0.5, "Trigger", true, Sys_MuonTrigger));
+  // }
 
   // Selection modules
   Trigger1_selection.reset(new TriggerSelection(trigger1));
   Trigger2_selection.reset(new TriggerSelection(trigger2));
-  Trigger3_selection.reset(new TriggerSelection(trigger3));
+  //  Trigger3_selection.reset(new TriggerSelection(trigger3));
   NMuon1_selection.reset(new NMuonSelection(nmuon_min1, nmuon_max1));
   NMuon2_selection.reset(new NMuonSelection(nmuon_min2, nmuon_max2));
   NElectron_selection.reset(new NElectronSelection(nele_min, nele_max));
   TwoDCut_selection.reset(new TwoDCut(TwoD_dr, TwoD_ptrel));
   Jet1_selection.reset(new NJetSelection(1, -1, JetId(PtEtaCut(jet1_pt, 2.4))));
   Jet2_selection.reset(new NJetSelection(2, -1, JetId(PtEtaCut(jet2_pt, 2.4))));
-  STlepPlusMet_selection.reset(new STlepPlusMetCut(stlep_plus_met, -1.));
+  //  STlepPlusMet_selection.reset(new STlepPlusMetCut(stlep_plus_met, -1.));
+  met_sel.reset(new METCut  (MET_cut   , uhh2::infinity));
   Chi2_selection.reset(new Chi2Cut(ctx, 0., chi2_max));
   TTbarMatchable_selection.reset(new TTbarSemiLepMatchableSelection());
   Chi2CandidateMatched_selection.reset(new Chi2CandidateMatchedSelection(ctx));
@@ -216,7 +260,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   h_is_zprime_reconstructed_correctmatch = ctx.get_handle<bool>("is_zprime_reconstructed_correctmatch");
 
   // Book histograms
-  vector<string> histogram_tags = {"Weights", "Muon1", "Trigger", "Muon2", "Electron1", "TwoDCut", "Jet1", "Jet2", "STlepPlusMet", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction"};
+  vector<string> histogram_tags = {"Weights", "Muon1", "Trigger", "Muon2", "Electron1", "TwoDCut", "Jet1", "Jet2", "MET", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction"};
   book_histograms(ctx, histogram_tags);
 }
 
@@ -240,14 +284,16 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   // if(!event.isRealData) printer_genparticles->process(event);
 
   // TODO Apply things that should've been done in the pre-selection already... Fix pre-selection and then remove these steps
-  muon_cleaner->process(event);
+  if(isMuon) muon_cleaner->process(event);
+  if(isElectron) electron_cleaner->process(event);
 
   // Weight modules
   LumiWeight_module->process(event);
-  PUWeight_module->process(event);
-  CSVWeight_module->process(event);
-  MuonID_module->process(event);
-
+  // in fisrt round re-weighting is switched off
+  // PUWeight_module->process(event);
+  // CSVWeight_module->process(event);
+  //  MuonID_module->process(event);
+  
   // Run top-tagging
   TopTaggerPuppi->process(event);
   fill_histograms(event, "Weights");
@@ -261,8 +307,8 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   // else{
   //   if(!(Trigger1_selection->passes(event))) return false;
   // }
-  if(!(Trigger1_selection->passes(event))) return false;
-  MuonTrigger_module->process_onemuon(event, 0);
+  if(!(Trigger1_selection->passes(event)|| Trigger2_selection->passes(event))) return false;
+  //  MuonTrigger_module->process_onemuon(event, 0);
   fill_histograms(event, "Trigger");
 
   if(!NMuon2_selection->passes(event)) return false;
@@ -289,8 +335,12 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   if(!Jet2_selection->passes(event)) return false;
   fill_histograms(event, "Jet2");
 
-  if(!STlepPlusMet_selection->passes(event)) return false;
-  fill_histograms(event, "STlepPlusMet");
+  // if(!STlepPlusMet_selection->passes(event)) return false;
+  // fill_histograms(event, "STlepPlusMet");
+
+  // MET selection
+  if(!met_sel->passes(event)) return false;
+  fill_histograms(event, "MET");
 
   if(TTbarMatchable_selection->passes(event)) fill_histograms(event, "MatchableBeforeChi2Cut");
   else fill_histograms(event, "NotMatchableBeforeChi2Cut");
@@ -309,11 +359,6 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
 
   if(ZprimeTopTag_selection->passes(event)) fill_histograms(event, "TopTagReconstruction");
   else fill_histograms(event, "NotTopTagReconstruction");
-
-
-
-
-
 
 
   return true;
