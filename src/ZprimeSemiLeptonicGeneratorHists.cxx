@@ -57,6 +57,7 @@ void ZprimeSemiLeptonicGeneratorHists::fill(const Event & event){
   GenParticle zprime, top, antitop;
   bool found_zprime = false, found_top = false, found_antitop = false;
   for(const GenParticle & gp : *event.genparticles){
+    //    if(gp.status()==22) cout<<"gp.pdgId() = "<<gp.pdgId()<<" status() = "<<gp.status()<<endl;
     if(gp.pdgId() == 6){
       top = gp;
       found_top = true;
@@ -65,7 +66,8 @@ void ZprimeSemiLeptonicGeneratorHists::fill(const Event & event){
       antitop = gp;
       found_antitop = true;
     }
-    else if(gp.pdgId() == 5100021){
+    // else if(gp.pdgId() == 5100021){
+    else if(gp.pdgId() == 6000047){
       zprime = gp;
       found_zprime = true;
     }

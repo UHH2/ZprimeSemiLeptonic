@@ -186,6 +186,18 @@ namespace uhh2 {
   };
   ////
 
+  class ZprimeBTagFatSubJetSelection: public Selection {
+  public:
+    explicit ZprimeBTagFatSubJetSelection(Context& ctx);
+    virtual bool passes(const Event&) override;
+
+  private:
+    std::unique_ptr<Selection> sel_1btag;
+  };
+  ////
+
+
+
   class LeptonicTopPtCut: public Selection {
 
   public:

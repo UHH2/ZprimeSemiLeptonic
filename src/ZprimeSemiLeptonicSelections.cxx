@@ -46,6 +46,35 @@ bool ZprimeTopTagSelection::passes(const Event & event){
 
 }
 
+ZprimeBTagFatSubJetSelection::ZprimeBTagFatSubJetSelection(Context& ctx){
+  // btag 
+  // CSVBTag::wp btag_wp = CSVBTag::WP_TIGHT; // b-tag workingpoint
+  // JetId id_btag = CSVBTag(btag_wp);
+
+  // DeepCSVBTag::wp btag_wp = DeepCSVBTag::WP_TIGHT; // b-tag workingpoint
+  // JetId id_btag = DeepCSVBTag(btag_wp);
+
+  DeepJetBTag::wp btag_wp = DeepJetBTag::WP_TIGHT; // b-tag workingpoint
+  JetId id_btag = DeepJetBTag(btag_wp);
+
+  sel_1btag.reset(new NJetSelection(1, 1, id_btag));
+  //  cout<<" init ZprimeBTagFatSubJetSelection"<<endl;
+}
+bool ZprimeBTagFatSubJetSelection::passes(const Event & event){
+  int btag_subjet=0;
+  for(auto & topjet : *event.topjets){
+    auto subjets = topjet.subjets();
+    for (auto & subjet : subjets) {
+      if(sel_1btag->passes(event)) btag_subjet++;
+    }
+  }
+  //  cout<<"btag_subjet = "<<btag_subjet<<endl;
+  if(btag_subjet>0)  return true;
+  return false;
+}
+
+
+
 Chi2CandidateMatchedSelection::Chi2CandidateMatchedSelection(Context& ctx){
   h_BestZprimeCandidate_chi2 = ctx.get_handle<ZprimeCandidate*>("ZprimeCandidateBestChi2");
   h_is_zprime_reconstructed_chi2 = ctx.get_handle<bool>("is_zprime_reconstructed_chi2");
