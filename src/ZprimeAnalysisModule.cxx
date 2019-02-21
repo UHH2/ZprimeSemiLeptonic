@@ -82,6 +82,8 @@ protected:
   // Selections
   unique_ptr<Selection> Trigger1_selection, Trigger2_selection, NMuon1_selection, NMuon2_selection, NElectron_selection, TwoDCut_selection, Jet1_selection, Jet2_selection, Met_selection, Chi2_selection, TTbarMatchable_selection, Chi2CandidateMatched_selection, ZprimeTopTag_selection, BlindData_selection;
   std::unique_ptr<uhh2::Selection> met_sel;
+  std::unique_ptr<Selection> sel_1btag, sel_2btag;
+  std::unique_ptr<Selection> TopJetBtagSubjet_selection;
   //Handles
   Event::Handle<bool> h_is_zprime_reconstructed_chi2, h_is_zprime_reconstructed_correctmatch;
 
@@ -259,8 +261,24 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   CorrectMatchDiscriminatorZprime.reset(new ZprimeCorrectMatchDiscriminator(ctx));
   h_is_zprime_reconstructed_correctmatch = ctx.get_handle<bool>("is_zprime_reconstructed_correctmatch");
 
+  // btag 
+  // CSVBTag::wp btag_wp = CSVBTag::WP_TIGHT; // b-tag workingpoint
+  // JetId id_btag = CSVBTag(btag_wp);
+
+  DeepCSVBTag::wp btag_wp = DeepCSVBTag::WP_TIGHT; // b-tag workingpoint
+  JetId id_btag = DeepCSVBTag(btag_wp);
+
+  // DeepJetBTag::wp btag_wp = DeepJetBTag::WP_TIGHT; // b-tag workingpoint
+  // JetId id_btag = DeepJetBTag(btag_wp);
+
+  sel_1btag.reset(new NJetSelection(1, 1, id_btag));
+  sel_2btag.reset(new NJetSelection(2,-1, id_btag));
+
+
+  TopJetBtagSubjet_selection.reset(new ZprimeBTagFatSubJetSelection(ctx));
+
   // Book histograms
-  vector<string> histogram_tags = {"Weights", "Muon1", "Trigger", "Muon2", "Electron1", "TwoDCut", "Jet1", "Jet2", "MET", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction"};
+  vector<string> histogram_tags = {"Weights", "Muon1", "Trigger", "Muon2", "Electron1", "TwoDCut", "Jet1", "Jet2", "MET", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction", "Btags2", "Btags1","TopJetBtagSubjet"};
   book_histograms(ctx, histogram_tags);
 }
 
@@ -360,7 +378,11 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   if(ZprimeTopTag_selection->passes(event)) fill_histograms(event, "TopTagReconstruction");
   else fill_histograms(event, "NotTopTagReconstruction");
 
+  //Test with b-tagging
+  if(sel_2btag->passes(event)) fill_histograms(event, "Btags2");
+  if(sel_1btag->passes(event)) fill_histograms(event, "Btags1");
 
+  if(TopJetBtagSubjet_selection->passes(event)) fill_histograms(event, "TopJetBtagSubjet");
   return true;
 }
 
