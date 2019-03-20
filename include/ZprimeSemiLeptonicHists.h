@@ -36,6 +36,19 @@ TH1F *NPV, *MET, *MET_rebin, *MET_rebin2, *MET_rebin3, *ST, *ST_rebin, *ST_rebin
 
 TH2F *dRmin_ptrel_mu, *dRmin_ptrel_mu1, *dRmin_ptrel_ele, *dRmin_ptrel_ele1;
 
+ TH1F *deepjetbscore_jet,*deepjetbscore_jet1,*deepjetbscore_jet2,*deepjetbscore_jet3;
+
+ TH1F *deepjet_topscore_jet,*deepjet_topscore_jet1,*deepjet_topscore_jet2;
+ TH1F *deepjet_wscore_jet,*deepjet_wscore_jet1,*deepjet_wscore_jet2;
+ TH1F *deepjet_zscore_jet,*deepjet_zscore_jet1,*deepjet_zscore_jet2;
+ TH1F *deepjet_higgsscore_jet,*deepjet_higgsscore_jet1,*deepjet_higgsscore_jet2;
+ TH1F *deepjet_qcdscore_jet,*deepjet_qcdscore_jet1,*deepjet_qcdscore_jet2;
+
+ TH1F *massdecordeepjet_topscore_jet,*massdecordeepjet_topscore_jet1,*massdecordeepjet_topscore_jet2;
+ TH1F *massdecordeepjet_wscore_jet,*massdecordeepjet_wscore_jet1,*massdecordeepjet_wscore_jet2;
+ TH1F *massdecordeepjet_zscore_jet,*massdecordeepjet_zscore_jet1,*massdecordeepjet_zscore_jet2;
+ TH1F *massdecordeepjet_higgsscore_jet,*massdecordeepjet_higgsscore_jet1,*massdecordeepjet_higgsscore_jet2;
+ TH1F *massdecordeepjet_qcdscore_jet,*massdecordeepjet_qcdscore_jet1,*massdecordeepjet_qcdscore_jet2;
 
 uhh2::Event::Handle< std::vector<TopJet> > h_AK8PuppiTopTags;
 uhh2::Event::Handle<bool> h_is_zprime_reconstructed_chi2;
