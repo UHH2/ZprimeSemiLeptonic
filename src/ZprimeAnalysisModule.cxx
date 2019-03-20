@@ -265,11 +265,11 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   // CSVBTag::wp btag_wp = CSVBTag::WP_TIGHT; // b-tag workingpoint
   // JetId id_btag = CSVBTag(btag_wp);
 
-  DeepCSVBTag::wp btag_wp = DeepCSVBTag::WP_TIGHT; // b-tag workingpoint
-  JetId id_btag = DeepCSVBTag(btag_wp);
+  // DeepCSVBTag::wp btag_wp = DeepCSVBTag::WP_TIGHT; // b-tag workingpoint
+  // JetId id_btag = DeepCSVBTag(btag_wp);
 
-  // DeepJetBTag::wp btag_wp = DeepJetBTag::WP_TIGHT; // b-tag workingpoint
-  // JetId id_btag = DeepJetBTag(btag_wp);
+  DeepJetBTag::wp btag_wp = DeepJetBTag::WP_TIGHT; // b-tag workingpoint
+  JetId id_btag = DeepJetBTag(btag_wp);
 
   sel_1btag.reset(new NJetSelection(1, 1, id_btag));
   sel_2btag.reset(new NJetSelection(2,-1, id_btag));

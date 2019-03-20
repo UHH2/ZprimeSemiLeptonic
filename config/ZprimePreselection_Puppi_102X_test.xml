@@ -3,7 +3,7 @@
 
 
 <!ENTITY TargetLumi      "41529">
-<!ENTITY PRESELdir       "/nfs/dust/cms/user/karavdia/ZprimeSemiLeptonic/102X_v1/Preselection/RunIIall_test/">
+<!ENTITY PRESELdir       "/nfs/dust/cms/user/karavdia/ZprimeSemiLeptonic/102X_v1/Preselection/RunIIall_test_new/">
 <!ENTITY b_Cacheable     "False">
 <!ENTITY NEVT            "-1">
 <!ENTITY IS_PUPPI        "true">
@@ -11,9 +11,10 @@
 
 
 
-<!ENTITY RSGluon_M4000_2017   SYSTEM   "../../common/datasets/RunII_102X_v1/2017/MC_RSGluonToTT_M-4000_2017.xml">
+<!-- <!ENTITY RSGluon_M4000_2017   SYSTEM   "../../common/datasets/RunII_102X_v1/2017/MC_RSGluonToTT_M-4000_2017.xml">
 <!ENTITY RSGluon_M4000_2016v2   SYSTEM  "../../common/datasets/RunII_102X_v1/2016v2/MC_RSGluonToTT_M-4000_2016v2.xml">
 <!ENTITY ZprimeToTT_M1500_W450_2018   SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_ZprimeToTT_M1500_W450_2018.xml">
+-->
 
 <!ENTITY ZprimeToTT_M4000_W400_2016v2   SYSTEM  "../../common/datasets/RunII_102X_v1/2016v2/MC_ZprimeToTT_M4000_W400_2016v2TEST.xml">
 <!ENTITY ZprimeToTT_M4000_W400_2017   SYSTEM  "../../common/datasets/RunII_102X_v1/2017/MC_ZprimeToTT_M4000_W400_2017TEST.xml">
@@ -22,7 +23,7 @@
 ]>
 
 <!--
-<ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="30" AutoResubmit="100"/>
+<ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="2" AutoResubmit="100"/>
 <ConfigSGE RAM="4" DISK="2" Mail="arne.reimers@desy.de" Notification="as" Workdir="workdir_SR_Puppi_Pre"/>
 -->
 
@@ -31,6 +32,7 @@
 	<Package Name="SUHH2ZprimeSemiLeptonic.par"/>
 
 	<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="&TargetLumi;">
+
 
 	  <InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTT_M4000_W400_2016v2" Cacheable="&b_Cacheable;">
 	    &ZprimeToTT_M4000_W400_2016v2;
@@ -79,7 +81,8 @@
 			<Item Name="GenJetCollection"        Value="slimmedGenJets"/> 
 			<Item Name="TopJetCollection"        Value="jetsAk8CHSSubstructure_SoftDropCHS"/>
 <!--			<Item Name="TopJetCollectionGEN"     Value="ak8GenJetsSoftDrop"/> --> <!-- Check odinary ak8GenJetsFat !-->
-			<Item Name="GenTopJetCollection"     Value="ak8GenJetsSoftDrop"/> <!-- Check odinary ak8GenJetsFat !-->
+			<!-- <Item Name="GenTopJetCollection"     Value="ak8GenJetsSoftDrop"/>--> <!-- Check odinary ak8GenJetsFat !-->
+			<Item Name="GenTopJetCollection"     Value="genjetsAk8SubstructureSoftDrop"/> <!-- Check odinary ak8GenJetsFat !--> <!-- new in ntuples! -->
 			<Item Name="TopPuppiJetCollection"   Value="jetsAk8PuppiSubstructure_SoftDropPuppi"/>
 			<Item Name="METName"                 Value="slimmedMETsPuppi"/>
 			<Item Name="genMETName"              Value="slimmedMETs_GenMET"/>
