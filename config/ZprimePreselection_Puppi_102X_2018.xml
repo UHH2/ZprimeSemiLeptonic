@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
+
+
+<!ENTITY TargetLumi      "14000">
+<!ENTITY PRESELdir       "/nfs/dust/cms/user/karavdia/ZprimeSemiLeptonic/102X_v1/Preselection/RunII_2018/">
+<!ENTITY b_Cacheable     "False">
+<!ENTITY NEVT            "-1">
+<!ENTITY IS_PUPPI        "true">
+
+
+
+
+<!-- <!ENTITY RSGluon_M4000_2017   SYSTEM   "../../common/datasets/RunII_102X_v1/2017/MC_RSGluonToTT_M-4000_2017.xml">
+<!ENTITY RSGluon_M4000_2016v2   SYSTEM  "../../common/datasets/RunII_102X_v1/2016v2/MC_RSGluonToTT_M-4000_2016v2.xml">
+<!ENTITY ZprimeToTT_M1500_W450_2018   SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_ZprimeToTT_M1500_W450_2018.xml">
+-->
+<!--
+<!ENTITY ZprimeToTT_M4000_W400_2016v2   SYSTEM  "../../common/datasets/RunII_102X_v1/2016v2/MC_ZprimeToTT_M4000_W400_2016v2TEST.xml">
+<!ENTITY ZprimeToTT_M4000_W400_2017   SYSTEM  "../../common/datasets/RunII_102X_v1/2017/MC_ZprimeToTT_M4000_W400_2017TEST.xml">
+-->
+
+<!ENTITY DATA_EGamma_Run2018A   SYSTEM  "../../common/datasets/RunII_102X_v1/2018/DATA_EGamma2018_RunA.xml">
+<!ENTITY DATA_SingleMuon_Run2018A   SYSTEM  "../../common/datasets/RunII_102X_v1/2018/DATA_SingleMuon2018_RunA.xml">
+
+<!ENTITY TTToSemiLeptonic_2018  SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_TTToSemiLeptonic.xml">
+<!ENTITY WJetsToLNu_HT-70To100_2018  SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_WJetsToLNu_HT-70To100.xml">
+<!ENTITY WJetsToLNu_HT-100To200_2018  SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_WJetsToLNu_HT-100To200.xml">
+<!ENTITY WJetsToLNu_HT-200To400_2018  SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_WJetsToLNu_HT-200To400.xml">
+<!ENTITY WJetsToLNu_HT-400To600_2018  SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_WJetsToLNu_HT-400To600.xml">
+<!ENTITY WJetsToLNu_HT-600To800_2018  SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_WJetsToLNu_HT-600To800.xml">
+<!ENTITY WJetsToLNu_HT-800To1200_2018  SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_WJetsToLNu_HT-800To1200.xml">
+<!ENTITY WJetsToLNu_HT-1200To2500_2018  SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_WJetsToLNu_HT-1200To2500.xml">
+<!ENTITY WJetsToLNu_HT-2500ToInf_2018  SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_WJetsToLNu_HT-2500ToInf.xml">
+
+<!ENTITY ZprimeToTTJet_M500_2018 SYSTEM  "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTTJet_M500.xml">
+<!ENTITY ZprimeToTTJet_M750_2018 SYSTEM  "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTTJet_M750.xml">
+<!ENTITY ZprimeToTTJet_M1000_2018 SYSTEM  "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTTJet_M1000.xml">
+<!ENTITY ZprimeToTTJet_M1250_2018 SYSTEM  "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTTJet_M1250.xml">
+<!ENTITY ZprimeToTTJet_M1500_2018 SYSTEM  "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTTJet_M1500.xml">
+<!ENTITY ZprimeToTTJet_M2000_2018 SYSTEM  "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTTJet_M2000.xml">
+<!ENTITY ZprimeToTTJet_M2500_2018 SYSTEM  "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTTJet_M2500.xml">
+<!ENTITY ZprimeToTTJet_M3000_2018 SYSTEM  "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTTJet_M3000.xml">
+<!ENTITY ZprimeToTTJet_M3500_2018 SYSTEM  "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTTJet_M3500.xml">
+<!ENTITY ZprimeToTTJet_M4000_2018 SYSTEM  "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTTJet_M4000.xml">
+<!ENTITY ZprimeToTTJet_M5000_2018 SYSTEM  "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTTJet_M5000.xml">
+<!ENTITY ZprimeToTTJet_M6000_2018 SYSTEM  "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTTJet_M6000.xml">
+<!ENTITY ZprimeToTTJet_M7000_2018 SYSTEM  "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTTJet_M7000.xml">
+
+
+]>
+
+<!--
+<ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="10" AutoResubmit="100"/>
+<ConfigSGE RAM="2" DISK="2" Mail="anastasia.karavdina@desy.de" Notification="as" Workdir="workdir_Zprime_PreSelec_2018_2"/>
+-->
+
+<JobConfiguration JobName="ZprimePreselectionJob" OutputLevel="INFO">
+	<Library Name="libSUHH2ZprimeSemiLeptonic"/>
+	<Package Name="SUHH2ZprimeSemiLeptonic.par"/>
+
+	<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="&TargetLumi;">
+
+
+	  <InputData Lumi="198000" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTTJet_M500_2018" Cacheable="&b_Cacheable;">
+	    &ZprimeToTTJet_M500_2018;
+	    <InputTree Name="AnalysisTree" />
+	    <OutputTree Name="AnalysisTree" />
+	  </InputData>
+	  <InputData Lumi="200000" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTTJet_M750_2018" Cacheable="&b_Cacheable;">
+	    &ZprimeToTTJet_M750_2018;
+	    <InputTree Name="AnalysisTree" />
+	    <OutputTree Name="AnalysisTree" />
+	  </InputData>
+	  <InputData Lumi="200000" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTTJet_M1000_2018" Cacheable="&b_Cacheable;">
+	    &ZprimeToTTJet_M1000_2018;
+	    <InputTree Name="AnalysisTree" />
+	    <OutputTree Name="AnalysisTree" />
+	  </InputData>
+	  <InputData Lumi="194000" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTTJet_M1250_2018" Cacheable="&b_Cacheable;">
+	    &ZprimeToTTJet_M1250_2018;
+	    <InputTree Name="AnalysisTree" />
+	    <OutputTree Name="AnalysisTree" />
+	  </InputData>
+	  <InputData Lumi="200000" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTTJet_M1500_2018" Cacheable="&b_Cacheable;">
+	    &ZprimeToTTJet_M1500_2018;
+	    <InputTree Name="AnalysisTree" />
+	    <OutputTree Name="AnalysisTree" />
+	  </InputData>
+	  <InputData Lumi="200000" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTTJet_M2000_2018" Cacheable="&b_Cacheable;">
+	    &ZprimeToTTJet_M2000_2018;
+	    <InputTree Name="AnalysisTree" />
+	    <OutputTree Name="AnalysisTree" />
+	  </InputData>
+	  <InputData Lumi="200000" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTTJet_M2500_2018" Cacheable="&b_Cacheable;">
+	    &ZprimeToTTJet_M2500_2018;
+	    <InputTree Name="AnalysisTree" />
+	    <OutputTree Name="AnalysisTree" />
+	  </InputData>
+	  <InputData Lumi="200000" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTTJet_M3000_2018" Cacheable="&b_Cacheable;">
+	    &ZprimeToTTJet_M3000_2018;
+	    <InputTree Name="AnalysisTree" />
+	    <OutputTree Name="AnalysisTree" />
+	  </InputData>
+	  <InputData Lumi="200000" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTTJet_M3500_2018" Cacheable="&b_Cacheable;">
+	    &ZprimeToTTJet_M3500_2018;
+	    <InputTree Name="AnalysisTree" />
+	    <OutputTree Name="AnalysisTree" />
+	  </InputData>
+	  <InputData Lumi="200000" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTTJet_M4000_2018" Cacheable="&b_Cacheable;">
+	    &ZprimeToTTJet_M4000_2018;
+	    <InputTree Name="AnalysisTree" />
+	    <OutputTree Name="AnalysisTree" />
+	  </InputData>
+	  <InputData Lumi="200000" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTTJet_M5000_2018" Cacheable="&b_Cacheable;">
+	    &ZprimeToTTJet_M5000_2018;
+	    <InputTree Name="AnalysisTree" />
+	    <OutputTree Name="AnalysisTree" />
+	  </InputData>
+	  <InputData Lumi="197000" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTTJet_M6000_2018" Cacheable="&b_Cacheable;">
+	    &ZprimeToTTJet_M6000_2018;
+	    <InputTree Name="AnalysisTree" />
+	    <OutputTree Name="AnalysisTree" />
+	  </InputData>
+	  <InputData Lumi="185000" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTTJet_M7000_2018" Cacheable="&b_Cacheable;">
+	    &ZprimeToTTJet_M7000_2018;
+	    <InputTree Name="AnalysisTree" />
+	    <OutputTree Name="AnalysisTree" />
+	  </InputData>
+
+	  <InputData Lumi="21389.37091" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-70To100_2018" Cacheable="&b_Cacheable;">
+	    &WJetsToLNu_HT-70To100_2018;
+	    <InputTree Name="AnalysisTree" />
+	    <OutputTree Name="AnalysisTree" />
+	  </InputData>
+
+	  <InputData Lumi="21390.21465" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-100To200_2018" Cacheable="&b_Cacheable;">
+	    &WJetsToLNu_HT-100To200_2018;
+	    <InputTree Name="AnalysisTree" />
+	    <OutputTree Name="AnalysisTree" />
+	  </InputData>
+
+	  <InputData Lumi="59161.06487" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-200To400_2018" Cacheable="&b_Cacheable;">
+	    &WJetsToLNu_HT-200To400_2018;
+	    <InputTree Name="AnalysisTree" />
+	    <OutputTree Name="AnalysisTree" />
+	  </InputData>
+
+	  <InputData Lumi="101396.3596" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-400To600_2018" Cacheable="&b_Cacheable;">
+	    &WJetsToLNu_HT-400To600_2018;
+	    <InputTree Name="AnalysisTree" />
+	    <OutputTree Name="AnalysisTree" />
+	  </InputData>
+
+	  <InputData Lumi="1459136.089" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-600To800_2018" Cacheable="&b_Cacheable;">
+	    &WJetsToLNu_HT-600To800_2018;
+	    <InputTree Name="AnalysisTree" />
+	    <OutputTree Name="AnalysisTree" />
+	  </InputData>
+
+	  <InputData Lumi="1597710.71" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-800To1200_2018" Cacheable="&b_Cacheable;">
+	    &WJetsToLNu_HT-800To1200_2018;
+	    <InputTree Name="AnalysisTree" />
+	    <OutputTree Name="AnalysisTree" />
+	  </InputData>
+
+	  <InputData Lumi="6855855.856" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-1200To2500_2018" Cacheable="&b_Cacheable;">
+	    &WJetsToLNu_HT-1200To2500_2018;
+	    <InputTree Name="AnalysisTree" />
+	    <OutputTree Name="AnalysisTree" />
+	  </InputData>
+
+	  <InputData Lumi="402938600.9" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-2500ToInf_2018" Cacheable="&b_Cacheable;">
+	    &WJetsToLNu_HT-2500ToInf_2018;
+	    <InputTree Name="AnalysisTree" />
+	    <OutputTree Name="AnalysisTree" />
+	  </InputData>
+
+	  <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_Run2018A" Cacheable="&b_Cacheable;">
+	    &DATA_EGamma_Run2018A;
+	    <InputTree Name="AnalysisTree" />
+	    <OutputTree Name="AnalysisTree" />
+	  </InputData>
+
+	  <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_Run2018A" Cacheable="&b_Cacheable;">
+	    &DATA_SingleMuon_Run2018A;
+	    <InputTree Name="AnalysisTree" />
+	    <OutputTree Name="AnalysisTree" />
+	  </InputData>
+
+
+	  <InputData Lumi="336939.1825" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_2018" Cacheable="&b_Cacheable;">
+	    &TTToSemiLeptonic_2018;
+	    <InputTree Name="AnalysisTree" />
+	    <OutputTree Name="AnalysisTree" />
+	  </InputData>
+
+
+		<UserConfig>
+			<Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices"/>
+			<Item Name="GenParticleCollection"   Value="GenParticles"/>
+			<Item Name="ElectronCollection"      Value="slimmedElectronsUSER"/>
+			<Item Name="MuonCollection"          Value="slimmedMuonsUSER"/>
+			<Item Name="JetCollection"           Value="jetsAk4Puppi"/>
+			<Item Name="GenJetCollection"        Value="slimmedGenJets"/> 
+			<Item Name="TopJetCollection"        Value="jetsAk8CHSSubstructure_SoftDropCHS"/>
+<!--			<Item Name="TopJetCollectionGEN"     Value="ak8GenJetsSoftDrop"/> --> <!-- Check odinary ak8GenJetsFat !-->
+			<!-- <Item Name="GenTopJetCollection"     Value="ak8GenJetsSoftDrop"/>--> <!-- Check odinary ak8GenJetsFat !-->
+			<Item Name="GenTopJetCollection"     Value="genjetsAk8SubstructureSoftDrop"/> <!-- Check odinary ak8GenJetsFat !--> <!-- new in ntuples! -->
+			<Item Name="TopPuppiJetCollection"   Value="jetsAk8PuppiSubstructure_SoftDropPuppi"/>
+			<Item Name="METName"                 Value="slimmedMETsPuppi"/>
+			<Item Name="genMETName"              Value="slimmedMETs_GenMET"/>
+
+			<Item Name="lumi_file" Value="/nfs/dust/cms/user/karavdia/CMSSW_10_2_10/src/UHH2/common/data/2018/Cert_314472-325175_13TeV_PromptReco_Collisions18_JSON.root"/>
+			<Item Name="lumihists_lumi_per_bin" Value="500.0"/>
+
+			<Item Name="is_puppi" Value="&IS_PUPPI;"/>
+
+
+			<Item Name="use_sframe_weight" Value="false"/>
+			<Item Name="jersmear_direction" Value="nominal"/>
+			<Item Name="jecsmear_direction" Value="nominal"/>
+
+
+
+			<Item Name="AnalysisModule" Value="ZprimePreselectionModule"/>
+		</UserConfig>
+
+	</Cycle>
+</JobConfiguration>

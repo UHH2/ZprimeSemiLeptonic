@@ -252,7 +252,7 @@ void ZprimePreselectionModule::init_JEC_JLC(uhh2::Context& ctx){
     JEC_AK8Puppi_D = JERFiles::Autumn18_V8_D_L123_AK8PFPuppi_DATA;
     JEC_AK8Puppi_MC = JERFiles::Autumn18_V8_L123_AK8PFPuppi_MC;
   }
-
+  cout<<"And now read JECs"<<endl;
 
  if(!ispuppi){
    if(is2018) jet_corrector_A.reset(new JetCorrector(ctx, JEC_AK4CHS_A));
@@ -318,7 +318,7 @@ void ZprimePreselectionModule::init_JEC_JLC(uhh2::Context& ctx){
     }
     JLC_MC.reset(new JetLeptonCleaner_by_KEYmatching(ctx,            JEC_AK4Puppi_MC));
   }
-
+  cout<<"And now read top JECs"<<endl;
   if(is2018) topjet_corrector_A.reset(new TopJetCorrector(ctx,       JEC_AK8CHS_A));
   topjet_corrector_B.reset(new TopJetCorrector(ctx,       JEC_AK8CHS_B));
   topjet_corrector_C.reset(new TopJetCorrector(ctx,       JEC_AK8CHS_C));
@@ -411,6 +411,8 @@ void ZprimePreselectionModule::init_JEC_JLC(uhh2::Context& ctx){
     }
   }
   TopJLC_puppi_MC.reset(new JetLeptonCleaner_by_KEYmatching(ctx,      JEC_AK8Puppi_MC, "toppuppijets"));
+
+  cout<<"done with init JEC and JLC"<<endl;
 }
 
 
@@ -501,8 +503,6 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   //set up JEC and JLC
   init_JEC_JLC(ctx);
   
-
- 
   if(isMC){
     //    ctx.declare_event_input<std::vector<Particle> >(ctx.get("TopJetCollectionGEN"), "topjetsGEN");
     if(!ispuppi) JER_smearer.reset(new GenericJetResolutionSmearer(ctx, "jets", "genjets", JERSmearing::SF_13TeV_Fall17_V3, "2017/Fall17_V3_MC_PtResolution_AK4PFchs.txt"));
@@ -570,21 +570,57 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
 
 
   if(event.isRealData){
+    bool apply_A = false;
     bool apply_B = false;
     bool apply_C = false;
     bool apply_D = false;
     bool apply_E = false;
     bool apply_F = false;
-    if(event.run <= s_runnr_B_2017)  apply_B = true;
-    else if(event.run <= s_runnr_C_2017) apply_C = true;
-    else if(event.run <= s_runnr_D_2017) apply_D = true;
-    else if(event.run <= s_runnr_E_2017) apply_E = true;
-    else if(event.run <= s_runnr_F_2017) apply_F = true;
-    else throw std::runtime_error("run number not covered by if-statements in process-routine.");
+    bool apply_G = false;
+    bool apply_H = false;
+    if(is2016v2 || is2016v3){
+      if(event.run <= s_runnr_B_2016)  apply_B = true;
+      else if(event.run <= s_runnr_C_2016) apply_C = true;
+      else if(event.run <= s_runnr_D_2016) apply_D = true;
+      else if(event.run <= s_runnr_E_2016) apply_E = true;
+      else if(event.run <= s_runnr_F_2016) apply_F = true;
+      else if(event.run <= s_runnr_G_2016) apply_G = true;
+      else if(event.run <= s_runnr_H_2016) apply_H = true;
+      else throw std::runtime_error("run number not covered by if-statements in process-routine.");
+    }
 
-    if(apply_B+apply_C+apply_D+apply_E+apply_F != 1) throw std::runtime_error("In ZprimePreselectionModule.cxx: Sum of apply_* when applying JECs is not == 1. Fix this.");
+    if(is2017){
+      if(event.run <= s_runnr_B_2017)  apply_B = true;
+      else if(event.run <= s_runnr_C_2017) apply_C = true;
+      else if(event.run <= s_runnr_D_2017) apply_D = true;
+      else if(event.run <= s_runnr_E_2017) apply_E = true;
+      else if(event.run <= s_runnr_F_2017) apply_F = true;
+      else throw std::runtime_error("run number not covered by if-statements in process-routine.");
+    }
+    if(is2018){
+      if(event.run <= s_runnr_A_2018)  apply_A = true;
+      else if(event.run <= s_runnr_B_2018)  apply_B = true;
+      else if(event.run <= s_runnr_C_2018) apply_C = true;
+      else if(event.run <= s_runnr_D_2018) apply_D = true;
+      else throw std::runtime_error("run number not covered by if-statements in process-routine.");
+    }
+    
+
+
+    if(apply_A+apply_B+apply_C+apply_D+apply_E+apply_F+apply_G+apply_H != 1) throw std::runtime_error("In ZprimePreselectionModule.cxx: Sum of apply_* when applying JECs is not == 1. Fix this.");
 
     //apply proper JECs
+    if(apply_A){
+      JLC_A->process(event);
+      TopJLC_A->process(event);
+      TopJLC_puppi_A->process(event);
+      jet_corrector_A->process(event);
+      topjet_corrector_A->process(event);
+      topjet_puppi_corrector_A->process(event);
+      jet_corrector_A->correct_met(event);
+      topjet_subjet_corrector_A->process(event);
+      topjet_puppi_subjet_corrector_A->process(event);
+    }
     if(apply_B){
       JLC_B->process(event);
       TopJLC_B->process(event);
@@ -639,6 +675,28 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
       jet_corrector_F->correct_met(event);
       topjet_subjet_corrector_F->process(event);
       topjet_puppi_subjet_corrector_F->process(event);
+    }    
+    if(apply_G){
+      JLC_G->process(event);
+      TopJLC_G->process(event);
+      TopJLC_puppi_G->process(event);
+      jet_corrector_G->process(event);
+      topjet_corrector_G->process(event);
+      topjet_puppi_corrector_G->process(event);
+      jet_corrector_G->correct_met(event);
+      topjet_subjet_corrector_G->process(event);
+      topjet_puppi_subjet_corrector_G->process(event);
+    }
+    if(apply_H){
+      JLC_H->process(event);
+      TopJLC_H->process(event);
+      TopJLC_puppi_H->process(event);
+      jet_corrector_H->process(event);
+      topjet_corrector_H->process(event);
+      topjet_puppi_corrector_H->process(event);
+      jet_corrector_H->correct_met(event);
+      topjet_subjet_corrector_H->process(event);
+      topjet_puppi_subjet_corrector_H->process(event);
     }
   }
   else{ //MC
@@ -706,7 +764,7 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
   topjet_puppi_cleaner->process(event);
   sort_by_pt<TopJet>(*event.toppuppijets);
   fill_histograms(event, "TopjetCleaner");
-  //cout<<"TopjetCleaner ... "<<event.event<<endl;
+  //  cout<<"TopjetCleaner ... "<<event.event<<endl;
 
   // 1st AK4 jet selection
   const bool pass_jet1 = jet1_sel->passes(event);
