@@ -452,7 +452,8 @@ bool ZprimeCorrectMatchDiscriminator::process(uhh2::Event& event){
     else if(gp.pdgId() == -6) n_antitop++;
   }
   if(n_top != 1 || n_antitop != 1) return false;
-  ttgenprod->process(event);
+  bool check_decay = ttgenprod->process(event);
+  if(!check_decay) return false; //FixME: sometimes decay prodcts of ttbar are not Wb+Wb. Why?
 
   vector<ZprimeCandidate>& candidates = event.get(h_ZprimeCandidates_);
   if(candidates.size() < 1) return false;

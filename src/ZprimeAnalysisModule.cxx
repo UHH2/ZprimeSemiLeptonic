@@ -34,7 +34,7 @@
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicGeneratorHists.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeCandidate.h>
 
-#include <UHH2/common/include/TTbarGen.h>
+//#include <UHH2/common/include/TTbarGen.h>
 #include <UHH2/common/include/TTbarReconstruction.h>
 #include <UHH2/common/include/ReconstructionHypothesisDiscriminators.h>
 
@@ -206,7 +206,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   string tmp = ctx.get("dataset_version");
   sample = tmp;
   is2016v2 = (ctx.get("dataset_version").find("2016v2") != std::string::npos);
-  is2016v3 = (ctx.get("dataset_version").find("2016v2") != std::string::npos);
+  is2016v3 = (ctx.get("dataset_version").find("2016v3") != std::string::npos);
   is2017 = (ctx.get("dataset_version").find("2017") != std::string::npos);
   is2018 = (ctx.get("dataset_version").find("2018") != std::string::npos);
 
@@ -292,7 +292,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
 
 bool ZprimeAnalysisModule::process(uhh2::Event& event){
 
-  // cout << "++++++++++++ NEW EVENT ++++++++++++++" << endl;
+  //  cout << "++++++++++++ NEW EVENT ++++++++++++++" << endl;
 
   // Initialize reco flags with false
   event.set(h_is_zprime_reconstructed_chi2, false);
@@ -346,7 +346,6 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   if(sample.Contains("_blinded")){
     if(!BlindData_selection->passes(event)) return false;
   }
-
   if(!Jet1_selection->passes(event)) return false;
   fill_histograms(event, "Jet1");
 
@@ -359,10 +358,8 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   // MET selection
   if(!met_sel->passes(event)) return false;
   fill_histograms(event, "MET");
-
   if(TTbarMatchable_selection->passes(event)) fill_histograms(event, "MatchableBeforeChi2Cut");
   else fill_histograms(event, "NotMatchableBeforeChi2Cut");
-
   if(Chi2CandidateMatched_selection->passes(event)) fill_histograms(event, "CorrectMatchBeforeChi2Cut");
   else fill_histograms(event, "NotCorrectMatchBeforeChi2Cut");
 
