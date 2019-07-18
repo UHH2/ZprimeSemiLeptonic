@@ -175,7 +175,7 @@ bool ZprimeCandidateBuilder::process(uhh2::Event& event){
   if(!do_toptag_reco){ // AK4 reconstruction
 
     unsigned int njets = event.jets->size();
-    if(njets > 7) njets = 7;
+    if(njets > 10) njets = 10;
 
     unsigned int jetiters = pow(3, njets);
     for(const auto & neutrino_v4 : neutrinos) {
@@ -242,8 +242,9 @@ bool ZprimeCandidateBuilder::process(uhh2::Event& event){
               if(deltaR(event.jets->at(k), chsjet_matched) > minDR_) separated_jets.emplace_back(event.jets->at(k));
             }
             unsigned int njets = separated_jets.size();
-            if(njets < 1) throw runtime_error("In TopTagReco (CHS): This toptag does not have >= 1 well-separated AK4 jet. This should have been caught by earlier messages. There is a logic error.");
-            if(njets > 7) njets = 7;
+	    if(njets < 1)  continue; //only consider AK8 jets not overlaping with AK4
+	    //            if(njets < 1) throw runtime_error("In TopTagReco (CHS): This toptag does not have >= 1 well-separated AK4 jet. This should have been caught by earlier messages. There is a logic error.");
+            if(njets > 10) njets = 10;
 
             unsigned int jetiters = pow(2, njets);
             for (unsigned int k=0; k < jetiters; k++) {
@@ -296,7 +297,7 @@ bool ZprimeCandidateBuilder::process(uhh2::Event& event){
           }
           unsigned int njets = separated_jets.size();
           if(njets < 1) throw runtime_error("In TopTagReco (PUPPI): This toptag does not have >= 1 well-separated AK4 jet. This should have been caught by earlier messages. There is a logic error.");
-          if(njets > 7) njets = 7;
+          if(njets > 10) njets = 10;
 
           unsigned int jetiters = pow(2, njets);
           for (unsigned int k=0; k < jetiters; k++) {
@@ -353,14 +354,25 @@ ZprimeChi2Discriminator::ZprimeChi2Discriminator(uhh2::Context& ctx){
   h_is_zprime_reconstructed_ = ctx.get_handle< bool >("is_zprime_reconstructed_chi2");
   h_BestCandidate_ = ctx.get_handle<ZprimeCandidate*>("ZprimeCandidateBestChi2");
 
-  mtophad_ = 175.;
-  mtophad_ttag_ = 177.;
-  sigmatophad_ = 20.;
-  sigmatophad_ttag_ = 17.;
-  mtoplep_ = 173.;
-  mtoplep_ttag_ = 173.;
-  sigmatoplep_ = 29.;
-  sigmatoplep_ttag_ = 29.;
+  // mtophad_ = 175.;
+  // mtophad_ttag_ = 177.;
+  // sigmatophad_ = 20.;
+  // sigmatophad_ttag_ = 17.;
+  // mtoplep_ = 173.;
+  // mtoplep_ttag_ = 173.;
+  // sigmatoplep_ = 29.;
+  // sigmatoplep_ttag_ = 29.;
+
+  mtoplep_ = 175.;
+  sigmatoplep_ = 19.;
+  mtophad_ = 177.;
+  sigmatophad_ = 16.;
+
+  mtoplep_ttag_ = 175.;
+  sigmatoplep_ttag_ = 19.;
+  mtophad_ttag_ = 173.;
+  sigmatophad_ttag_ = 15.;
+
 }
 
 bool ZprimeChi2Discriminator::process(uhh2::Event& event){

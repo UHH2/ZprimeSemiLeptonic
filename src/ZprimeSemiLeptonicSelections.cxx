@@ -299,6 +299,19 @@ bool uhh2::STlepPlusMetCut::passes(const uhh2::Event& event){
 }
 ////////////////////////////////////////////////////////
 
+uhh2::HTlepCut::HTlepCut(float min_htlep, float max_htlep):
+  min_htlep_(min_htlep), max_htlep_(max_htlep) {}
+
+
+bool uhh2::HTlepCut::passes(const uhh2::Event& event){
+  float lep_pt = 0;
+  if(event.muons) lep_pt = event.muons->at(0).pt(); //FixMe: find leading lepton first
+  float htlep =  event.met->pt() + lep_pt;
+
+  return (htlep > min_htlep_) && (htlep < max_htlep_);
+}
+////////////////////////////////////////////////////////
+
 uhh2::METCut::METCut(float min_met, float max_met):
 min_met_(min_met), max_met_(max_met) {}
 

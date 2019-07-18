@@ -27,6 +27,7 @@ Hists(ctx, dirname) {
   h_BestZprimeCandidateCorrectMatch = ctx.get_handle<ZprimeCandidate*>("ZprimeCandidateBestCorrectMatch");
   h_is_zprime_reconstructed_chi2 = ctx.get_handle<bool>("is_zprime_reconstructed_chi2");
   h_is_zprime_reconstructed_correctmatch = ctx.get_handle<bool>("is_zprime_reconstructed_correctmatch");
+  //  h_chi2 = ctx.get_handle<float>("chi2");
   init();
 }
 
@@ -34,10 +35,10 @@ void ZprimeSemiLeptonicHists::init(){
 
   // jets
   N_jets            = book<TH1F>("N_jets", "N_{jets}", 21, -0.5, 20.5);
-  pt_jet            = book<TH1F>("pt_jet", "p_{T}^{jets} [GeV]", 50, 0, 1500);
-  pt_jet1           = book<TH1F>("pt_jet1", "p_{T}^{jet 1} [GeV]", 50, 0, 1500);
-  pt_jet2           = book<TH1F>("pt_jet2", "p_{T}^{jet 2} [GeV]", 50, 0, 1500);
-  pt_jet3           = book<TH1F>("pt_jet3", "p_{T}^{jet 3} [GeV]", 50, 0, 1500);
+  pt_jet            = book<TH1F>("pt_jet", "p_{T}^{jets} [GeV]", 45, 0, 900);
+  pt_jet1           = book<TH1F>("pt_jet1", "p_{T}^{jet 1} [GeV]", 45, 0, 900);
+  pt_jet2           = book<TH1F>("pt_jet2", "p_{T}^{jet 2} [GeV]", 45, 0, 900);
+  pt_jet3           = book<TH1F>("pt_jet3", "p_{T}^{jet 3} [GeV]", 45, 0, 900);
   eta_jet           = book<TH1F>("eta_jet", "#eta^{jets}", 50, -2.5, 2.5);
   eta_jet1          = book<TH1F>("eta_jet1", "#eta^{jet 1}", 50, -2.5, 2.5);
   eta_jet2          = book<TH1F>("eta_jet2", "#eta^{jet 2}", 50, -2.5, 2.5);
@@ -66,9 +67,9 @@ void ZprimeSemiLeptonicHists::init(){
 
   // leptons
   N_mu              = book<TH1F>("N_mu", "N^{#mu}", 11, -0.5, 10.5);
-  pt_mu             = book<TH1F>("pt_mu", "p_{T}^{#mu} [GeV]", 50, 0, 1500);
-  pt_mu1            = book<TH1F>("pt_mu1", "p_{T}^{#mu 1} [GeV]", 50, 0, 1500);
-  pt_mu2            = book<TH1F>("pt_mu2", "p_{T}^{#mu 2} [GeV]", 50, 0, 1500);
+  pt_mu             = book<TH1F>("pt_mu", "p_{T}^{#mu} [GeV]", 45, 0, 900);
+  pt_mu1            = book<TH1F>("pt_mu1", "p_{T}^{#mu 1} [GeV]", 45, 0, 900);
+  pt_mu2            = book<TH1F>("pt_mu2", "p_{T}^{#mu 2} [GeV]", 45, 0, 900);
   eta_mu            = book<TH1F>("eta_mu", "#eta^{#mu}", 50, -2.5, 2.5);
   eta_mu1           = book<TH1F>("eta_mu1", "#eta^{#mu 1}", 50, -2.5, 2.5);
   eta_mu2           = book<TH1F>("eta_mu2", "#eta^{#mu 2}", 50, -2.5, 2.5);
@@ -82,9 +83,9 @@ void ZprimeSemiLeptonicHists::init(){
   reliso_mu1_rebin  = book<TH1F>("reliso_mu1_rebin", "#mu 1 rel. Iso ", 400, 0, 5);
   reliso_mu2_rebin  = book<TH1F>("reliso_mu2_rebin", "#mu 2 rel. Iso ", 400, 0, 5);
   N_ele             = book<TH1F>("N_ele", "N^{e}", 11, -0.5, 10.5);
-  pt_ele            = book<TH1F>("pt_ele", "p_{T}^{e} [GeV]", 50, 0, 1500);
-  pt_ele1           = book<TH1F>("pt_ele1", "p_{T}^{e 1} [GeV]", 50, 0, 1500);
-  pt_ele2           = book<TH1F>("pt_ele2", "p_{T}^{e 2} [GeV]", 50, 0, 1500);
+  pt_ele            = book<TH1F>("pt_ele", "p_{T}^{e} [GeV]", 45, 0, 900);
+  pt_ele1           = book<TH1F>("pt_ele1", "p_{T}^{e 1} [GeV]", 45, 0, 900);
+  pt_ele2           = book<TH1F>("pt_ele2", "p_{T}^{e 2} [GeV]", 45, 0, 900);
   eta_ele           = book<TH1F>("eta_ele", "#eta^{e}", 50, -2.5, 2.5);
   eta_ele1          = book<TH1F>("eta_ele1", "#eta^{ele 1}", 50, -2.5, 2.5);
   eta_ele2          = book<TH1F>("eta_ele2", "#eta^{ele 2}", 50, -2.5, 2.5);
@@ -120,10 +121,10 @@ void ZprimeSemiLeptonicHists::init(){
 
   // AK8CHS jets
   N_AK8CHSjets              = book<TH1F>("N_AK8CHSjets", "N_{AK8CHS jets}", 6, -0.5, 5.5);
-  pt_AK8CHSjet              = book<TH1F>("pt_AK8CHSjet", "p_{T}^{AK8CHS jets} [GeV]", 50, 0, 1500);
-  pt_AK8CHSjet1             = book<TH1F>("pt_AK8CHSjet1", "p_{T}^{AK8CHS jet 1} [GeV]", 50, 0, 1500);
-  pt_AK8CHSjet2             = book<TH1F>("pt_AK8CHSjet2", "p_{T}^{AK8CHS jet 2} [GeV]", 50, 0, 1500);
-  pt_AK8CHSjet3             = book<TH1F>("pt_AK8CHSjet3", "p_{T}^{AK8CHS jet 3} [GeV]", 50, 0, 1500);
+  pt_AK8CHSjet              = book<TH1F>("pt_AK8CHSjet", "p_{T}^{AK8CHS jets} [GeV]", 45, 0, 900);
+  pt_AK8CHSjet1             = book<TH1F>("pt_AK8CHSjet1", "p_{T}^{AK8CHS jet 1} [GeV]", 45, 0, 900);
+  pt_AK8CHSjet2             = book<TH1F>("pt_AK8CHSjet2", "p_{T}^{AK8CHS jet 2} [GeV]", 45, 0, 900);
+  pt_AK8CHSjet3             = book<TH1F>("pt_AK8CHSjet3", "p_{T}^{AK8CHS jet 3} [GeV]", 45, 0, 900);
   eta_AK8CHSjet             = book<TH1F>("eta_AK8CHSjet", "#eta^{AK8CHS jets}", 50, -2.5, 2.5);
   eta_AK8CHSjet1            = book<TH1F>("eta_AK8CHSjet1", "#eta^{AK8CHS jet 1}", 50, -2.5, 2.5);
   eta_AK8CHSjet2            = book<TH1F>("eta_AK8CHSjet2", "#eta^{AK8CHS jet 2}", 50, -2.5, 2.5);
@@ -175,10 +176,10 @@ void ZprimeSemiLeptonicHists::init(){
 
   // AK8Puppi jets
   N_AK8Puppijets            = book<TH1F>("N_AK8Puppijets", "N_{AK8Puppi jets}", 6, -0.5, 5.5);
-  pt_AK8Puppijet            = book<TH1F>("pt_AK8Puppijet", "p_{T}^{AK8Puppi jets} [GeV]", 50, 0, 1500);
-  pt_AK8Puppijet1           = book<TH1F>("pt_AK8Puppijet1", "p_{T}^{AK8Puppi jet 1} [GeV]", 50, 0, 1500);
-  pt_AK8Puppijet2           = book<TH1F>("pt_AK8Puppijet2", "p_{T}^{AK8Puppi jet 2} [GeV]", 50, 0, 1500);
-  pt_AK8Puppijet3           = book<TH1F>("pt_AK8Puppijet3", "p_{T}^{AK8Puppi jet 3} [GeV]", 50, 0, 1500);
+  pt_AK8Puppijet            = book<TH1F>("pt_AK8Puppijet", "p_{T}^{AK8Puppi jets} [GeV]", 45, 0, 900);
+  pt_AK8Puppijet1           = book<TH1F>("pt_AK8Puppijet1", "p_{T}^{AK8Puppi jet 1} [GeV]", 45, 0, 900);
+  pt_AK8Puppijet2           = book<TH1F>("pt_AK8Puppijet2", "p_{T}^{AK8Puppi jet 2} [GeV]", 45, 0, 900);
+  pt_AK8Puppijet3           = book<TH1F>("pt_AK8Puppijet3", "p_{T}^{AK8Puppi jet 3} [GeV]", 45, 0, 900);
   eta_AK8Puppijet           = book<TH1F>("eta_AK8Puppijet", "#eta^{AK8Puppi jets}", 50, -2.5, 2.5);
   eta_AK8Puppijet1          = book<TH1F>("eta_AK8Puppijet1", "#eta^{AK8Puppi jet 1}", 50, -2.5, 2.5);
   eta_AK8Puppijet2          = book<TH1F>("eta_AK8Puppijet2", "#eta^{AK8Puppi jet 2}", 50, -2.5, 2.5);
@@ -230,10 +231,10 @@ void ZprimeSemiLeptonicHists::init(){
 
   // AK8Puppi t-tagged
   N_AK8PuppiTaggedjets            = book<TH1F>("N_AK8PuppiTaggedjets", "N_{AK8Puppi Tagged jets}", 6, -0.5, 5.5);
-  pt_AK8PuppiTaggedjet            = book<TH1F>("pt_AK8PuppiTaggedjet", "p_{T}^{AK8Puppi Tagged jets} [GeV]", 50, 0, 1500);
-  pt_AK8PuppiTaggedjet1           = book<TH1F>("pt_AK8PuppiTaggedjet1", "p_{T}^{AK8Puppi Tagged jet 1} [GeV]", 50, 0, 1500);
-  pt_AK8PuppiTaggedjet2           = book<TH1F>("pt_AK8PuppiTaggedjet2", "p_{T}^{AK8Puppi Tagged jet 2} [GeV]", 50, 0, 1500);
-  pt_AK8PuppiTaggedjet3           = book<TH1F>("pt_AK8PuppiTaggedjet3", "p_{T}^{AK8Puppi Tagged jet 3} [GeV]", 50, 0, 1500);
+  pt_AK8PuppiTaggedjet            = book<TH1F>("pt_AK8PuppiTaggedjet", "p_{T}^{AK8Puppi Tagged jets} [GeV]", 45, 0, 900);
+  pt_AK8PuppiTaggedjet1           = book<TH1F>("pt_AK8PuppiTaggedjet1", "p_{T}^{AK8Puppi Tagged jet 1} [GeV]", 45, 0, 900);
+  pt_AK8PuppiTaggedjet2           = book<TH1F>("pt_AK8PuppiTaggedjet2", "p_{T}^{AK8Puppi Tagged jet 2} [GeV]", 45, 0, 900);
+  pt_AK8PuppiTaggedjet3           = book<TH1F>("pt_AK8PuppiTaggedjet3", "p_{T}^{AK8Puppi Tagged jet 3} [GeV]", 45, 0, 900);
   eta_AK8PuppiTaggedjet           = book<TH1F>("eta_AK8PuppiTaggedjet", "#eta^{AK8Puppi Tagged jets}", 50, -2.5, 2.5);
   eta_AK8PuppiTaggedjet1          = book<TH1F>("eta_AK8PuppiTaggedjet1", "#eta^{AK8Puppi Tagged jet 1}", 50, -2.5, 2.5);
   eta_AK8PuppiTaggedjet2          = book<TH1F>("eta_AK8PuppiTaggedjet2", "#eta^{AK8Puppi Tagged jet 2}", 50, -2.5, 2.5);
@@ -319,7 +320,7 @@ void ZprimeSemiLeptonicHists::init(){
   // general
   NPV               = book<TH1F>("NPV", "number of primary vertices", 91, -0.50, 90.5);
   MET               = book<TH1F>("MET", "missing E_{T} [GeV]", 50, 0, 7000);
-  MET_rebin         = book<TH1F>("MET_rebin", "missing E_{T} [GeV]", 50, 0, 1500);
+  MET_rebin         = book<TH1F>("MET_rebin", "missing E_{T} [GeV]", 45, 0, 900);
   MET_rebin2        = book<TH1F>("MET_rebin2", "missing E_{T} [GeV]", 30, 0, 1500);
   MET_rebin3        = book<TH1F>("MET_rebin3", "missing E_{T} [GeV]", 15, 0, 1500);
   ST                = book<TH1F>("ST", "S_{T} [GeV]", 50, 0, 7000);
@@ -331,7 +332,7 @@ void ZprimeSemiLeptonicHists::init(){
   STjets_rebin2     = book<TH1F>("STjets_rebin2", "S_{T}^{jets} [GeV]", 100, 0, 5000);
   STjets_rebin3     = book<TH1F>("STjets_rebin3", "S_{T}^{jets} [GeV]", 50, 0, 5000);
   STlep             = book<TH1F>("STlep", "S_{T}^{lep} [GeV]", 50, 0, 7000);
-  STlep_rebin       = book<TH1F>("STlep_rebin", "S_{T}^{lep} [GeV]", 50, 0, 1500);
+  STlep_rebin       = book<TH1F>("STlep_rebin", "S_{T}^{lep} [GeV]", 45, 0, 900);
   STlep_rebin2      = book<TH1F>("STlep_rebin2", "S_{T}^{lep} [GeV]", 30, 0, 1500);
   STlep_rebin3      = book<TH1F>("STlep_rebin3", "S_{T}^{lep} [GeV]", 15, 0, 1500);
 
@@ -346,7 +347,7 @@ void ZprimeSemiLeptonicHists::init(){
   M_Zprime_rebin5          = book<TH1F>("M_Zprime_rebin5", "M_{t#bar{t}} [GeV]", bins_Zprime5.size()-1, &bins_Zprime5[0]);
   M_tophad                 = book<TH1F>("M_tophad", "M_{t}^{had} [GeV]", 70, 0, 700);
   M_toplep                 = book<TH1F>("M_toplep", "M_{t}^{lep} [GeV]", 70, 0, 700);
-  chi2_Zprime              = book<TH1F>("chi2_Zprime", "#chi^{2}", 50, 0, 500);
+  chi2_Zprime              = book<TH1F>("chi2_Zprime", "#chi^{2}", 300, 0, 600);
   chi2_Zprime_rebin        = book<TH1F>("chi2_Zprime_rebin", "#chi^{2}", 20, 0, 100);
   chi2_Zprime_rebin2       = book<TH1F>("chi2_Zprime_rebin2", "#chi^{2}", 15, 0, 30);
   M_Zprime_ak4             = book<TH1F>("M_Zprime_ak4", "M_{t#bar{t}} (AK4 reconstruction) [GeV]", 280, 0, 7000);

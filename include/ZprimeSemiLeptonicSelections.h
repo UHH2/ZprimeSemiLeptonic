@@ -82,6 +82,17 @@ namespace uhh2 {
     float min_, max_;
   };
 
+  class HTlepCut : public Selection {
+    
+  public:
+    explicit HTlepCut(float, float max_htlep=infinity);
+    virtual bool passes(const Event&) override;
+
+  private:
+    float min_htlep_, max_htlep_;
+  };
+  ////
+
   class METCut : public Selection {
 
   public:

@@ -82,6 +82,13 @@
 	<Package Name="SUHH2ZprimeSemiLeptonic.par"/>
 
 	<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="&TargetLumi;">
+
+	  <InputData Lumi="198000" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTTJet_M500_2018" Cacheable="&b_Cacheable;">
+	    &ZprimeToTTJet_M500_2018;
+	    <InputTree Name="AnalysisTree" />
+	    <OutputTree Name="AnalysisTree" />
+	  </InputData>
+
 	  <!--
 	  <InputData Lumi="217986.8459" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_inclusiveDecays_2018" Cacheable="&b_Cacheable;">
 	    &ST_tW_antitop_5f_inclusiveDecays;
@@ -301,7 +308,7 @@
 	    <OutputTree Name="AnalysisTree" />
 	  </InputData>
 -->
-
+<!--
          <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_Run2018B" Cacheable="&b_Cacheable;">
 	    &DATA_EGamma_Run2018B;
 	    <InputTree Name="AnalysisTree" />
@@ -313,6 +320,7 @@
 	    <InputTree Name="AnalysisTree" />
 	    <OutputTree Name="AnalysisTree" />
 	  </InputData>
+-->
 		<UserConfig>
 			<Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices"/>
 			<Item Name="GenParticleCollection"   Value="GenParticles"/>
