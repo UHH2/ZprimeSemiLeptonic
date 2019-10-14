@@ -8,20 +8,20 @@
 <!ENTITY IS_PUPPI        "true">
 
 <!-- <!ENTITY DATA_SingleMuon_Run2017B   SYSTEM  "../../common/datasets/RunII_102X_v1/2017/DATA_SingleMuon2017_RunB.xml"> -->
-<!ENTITY DATA_SingleMuon_Run2017C   SYSTEM  "../../common/datasets/RunII_102X_v1/2017/DATA_SingleMuon2017_RunC.xml">
+<!--<!ENTITY DATA_SingleMuon_Run2017C   SYSTEM  "../../common/datasets/RunII_102X_v1/2017/DATA_SingleMuon2017_RunC.xml">
 <!ENTITY DATA_SingleMuon_Run2017D   SYSTEM  "../../common/datasets/RunII_102X_v1/2017/DATA_SingleMuon2017_RunD.xml">
 <!ENTITY DATA_SingleMuon_Run2017E   SYSTEM  "../../common/datasets/RunII_102X_v1/2017/DATA_SingleMuon2017_RunE.xml">
-<!ENTITY DATA_SingleMuon_Run2017F   SYSTEM  "../../common/datasets/RunII_102X_v1/2017/DATA_SingleMuon2017_RunF.xml">
+<!ENTITY DATA_SingleMuon_Run2017F   SYSTEM  "../../common/datasets/RunII_102X_v1/2017/DATA_SingleMuon2017_RunF.xml">-->
 <!-- <!ENTITY DATA_SingleElectron_Run2017B   SYSTEM  "../../common/datasets/RunII_102X_v1/2017/DATA_SingleElectron_Run2017B.xml"> -->
-<!ENTITY DATA_SingleElectron_Run2017C   SYSTEM  "../../common/datasets/RunII_102X_v1/2017/DATA_SingleElectron_Run2017C.xml">
+<!--<!ENTITY DATA_SingleElectron_Run2017C   SYSTEM  "../../common/datasets/RunII_102X_v1/2017/DATA_SingleElectron_Run2017C.xml">
 <!ENTITY DATA_SingleElectron_Run2017D   SYSTEM  "../../common/datasets/RunII_102X_v1/2017/DATA_SingleElectron_Run2017D.xml">
 <!ENTITY DATA_SingleElectron_Run2017E   SYSTEM  "../../common/datasets/RunII_102X_v1/2017/DATA_SingleElectron_Run2017E.xml">
 <!ENTITY DATA_SingleElectron_Run2017F   SYSTEM  "../../common/datasets/RunII_102X_v1/2017/DATA_SingleElectron_Run2017F.xml">
-
+-->
 <!ENTITY TTToSemiLeptonic_2017          SYSTEM  "../../common/datasets/RunII_102X_v1/2017/MC_TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8.xml">
-<!ENTITY TTToHadronic_2017              SYSTEM  "../../common/datasets/RunII_102X_v1/2017/MC_TTToHadronic_TuneCP5_13TeV-powheg-pythia8.xml">
+<!--<!ENTITY TTToHadronic_2017              SYSTEM  "../../common/datasets/RunII_102X_v1/2017/MC_TTToHadronic_TuneCP5_13TeV-powheg-pythia8.xml">-->
 <!ENTITY TTTo2L2Nu_2017                 SYSTEM  "../../common/datasets/RunII_102X_v1/2017/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8.xml">         
-
+<!--
 <!ENTITY WW_2017  SYSTEM  "../../common/datasets/RunII_102X_v1/2017/WW_TuneCP5_13TeV-pythia8.xml">
 <!ENTITY WZ_2017  SYSTEM  "../../common/datasets/RunII_102X_v1/2017/MC_WZ_TuneCP5_13TeV-pythia8.xml">
 <!ENTITY ZZ_2017  SYSTEM  "../../common/datasets/RunII_102X_v1/2017/MC_ZZ_TuneCP5_13TeV-pythia8.xml">
@@ -57,11 +57,11 @@
 <!ENTITY WJetsToLNu_HT-2500ToInf_2017   SYSTEM  "../../common/datasets/RunII_102X_v1/2017/WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8.xml">
 
 <!ENTITY ZprimeToTTJet_M1000_2017 SYSTEM  "../../common/datasets/RunII_102X_v1/2017/ZprimeToTTbar/MC_ZprimeToTTJet_M1000.xml">
-
+-->
 ]>
 
 <!--
-<ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="25" AutoResubmit="100"/>
+<ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="10" AutoResubmit="100"/>
 <ConfigSGE RAM="2" DISK="2" Mail="ksenia.de.leo@desy.de" Notification="as" Workdir="workdir_Zprime_PreSelec_2017"/>
 -->
 
@@ -70,7 +70,7 @@
 	<Package Name="SUHH2ZprimeSemiLeptonic.par"/>
 
 	<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="&TargetLumi;">
-
+<!--
      	  <InputData Lumi="3386024.049" NEventsMax="&NEVT;" Type="MC" Version="ST_t-channel_antitop_2017" Cacheable="&b_Cacheable;">
 	    &ST_t-channel_antitop;
 	    <InputTree Name="AnalysisTree" />
@@ -112,7 +112,7 @@
 	    <InputTree Name="AnalysisTree" />
 	    <OutputTree Name="AnalysisTree" />
 	  </InputData>
-
+-->
 <!--
 	  <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_Run2017B" Cacheable="&b_Cacheable;">
 	    &DATA_SingleMuon_Run2017B;
@@ -120,7 +120,7 @@
 	    <OutputTree Name="AnalysisTree" />
 	  </InputData>
 -->
-
+<!--
           <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_Run2017C" Cacheable="&b_Cacheable;">
             &DATA_SingleMuon_Run2017C;
             <InputTree Name="AnalysisTree" />
@@ -144,6 +144,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
+-->
 <!--
 	  <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleElectron_Run2017B" Cacheable="&b_Cacheable;">
 	    &DATA_SingleElectron_Run2017B;
@@ -151,6 +152,7 @@
 	    <OutputTree Name="AnalysisTree" />
 	  </InputData>
 -->
+<!--
           <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleElectron_Run2017C" Cacheable="&b_Cacheable;">
             &DATA_SingleElectron_Run2017C;
             <InputTree Name="AnalysisTree" />
@@ -174,25 +176,25 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
-
+-->
 	  <InputData Lumi="35279949.78" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_2017" Cacheable="&b_Cacheable;">
 	    &TTToSemiLeptonic_2017;
 	    <InputTree Name="AnalysisTree" />
 	    <OutputTree Name="AnalysisTree" />
 	  </InputData>
-
+<!--
           <InputData Lumi="109490.4712" NEventsMax="&NEVT;" Type="MC" Version="TTToHadronic_2017" Cacheable="&b_Cacheable;">
             &TTToHadronic_2017;
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
-
+-->
           <InputData Lumi="7428080.259" NEventsMax="&NEVT;" Type="MC" Version="TTTo2L2Nu_2017" Cacheable="&b_Cacheable;">
             &TTTo2L2Nu_2017;
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
-
+<!--
           <InputData Lumi="0.01265239372" NEventsMax="&NEVT;" Type="MC" Version="QCD_Pt-15to30_2017" Cacheable="&b_Cacheable;">
             &QCD_Pt-15to30;
             <InputTree Name="AnalysisTree"/>
@@ -336,7 +338,7 @@
             <InputTree Name="AnalysisTree"/>
             <OutputTree Name="AnalysisTree"/>
           </InputData>
-
+-->
 		<UserConfig>
 			<Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices"/>
 			<Item Name="GenParticleCollection"   Value="GenParticles"/>

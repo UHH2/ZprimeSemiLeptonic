@@ -239,8 +239,8 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   //  CSVWeight_module.reset(new MCCSVv2ShapeSystematic(ctx, "jets","central","iterativefit","","MCCSVv2ShapeSystematic"));
 
   if((is2016v3 || is2016v2) && isMuon){
-    MuonID_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/karavdia/CMSSW_10_2_10/src/UHH2/common/data/2016/MuonID_EfficienciesAndSF_average_RunBtoH.root", "MC_NUM_TightID_DEN_genTracks_PAR_pt_eta", 0., "MuonID", true, Sys_MuonID));
-    MuonTrigger_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/karavdia/CMSSW_10_2_10/src/UHH2/common/data/2016/MuonTrigger_EfficienciesAndSF_average_RunBtoH.root", "IsoMu50_OR_IsoTkMu50_PtEtaBins", 0.5, "MuonTrigger", true, Sys_MuonTrigger));
+    MuonID_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2016/MuonID_EfficienciesAndSF_average_RunBtoH.root", "MC_NUM_TightID_DEN_genTracks_PAR_pt_eta", 0., "MuonID", true, Sys_MuonID));
+    MuonTrigger_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2016/MuonTrigger_EfficienciesAndSF_average_RunBtoH.root", "IsoMu50_OR_IsoTkMu50_PtEtaBins", 0.5, "MuonTrigger", true, Sys_MuonTrigger));
   }
   // if(is2017 || is2018){
   //   MuonID_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/karavdia/CMSSW_10_2_11/src/UHH2/common/data/2017/MuonID_94X_RunBCDEF_SF_ID.root", "NUM_HighPtID_DEN_genTracks_pair_newTuneP_probe_pt_abseta", 0., "HighPtID", true, Sys_MuonID));
@@ -352,12 +352,12 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   if(debug)  cout<<"LumiWeight ok"<<endl;
   // in fisrt round re-weighting is switched off
   PUWeight_module->process(event);
-  if(debug)  cout<<"PUWeight ok"<<endl;
+  //if(debug)  cout<<"PUWeight ok"<<endl;
   // CSVWeight_module->process(event);
-  if(isMuon){
-    MuonID_module->process(event);
-    if(debug)  cout<<"MuonID ok"<<endl;
-  }
+  //if(isMuon){
+  //  MuonID_module->process(event);
+  //  if(debug)  cout<<"MuonID ok"<<endl;
+  //}
   // Run top-tagging
   TopTaggerPuppi->process(event);
   if(debug) cout<<"Top Tagger ok"<<endl;
@@ -373,7 +373,7 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   if(isMuon){
     if(!NMuon1_selection->passes(event)) return false;
     fill_histograms(event, "Muon1");
-    MuonTrigger_module->process_onemuon(event, 0);
+//    MuonTrigger_module->process_onemuon(event, 0);
     fill_histograms(event, "Trigger");
     if(!NMuon2_selection->passes(event)) return false;
     fill_histograms(event, "Muon2");
