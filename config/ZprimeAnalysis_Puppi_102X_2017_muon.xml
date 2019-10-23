@@ -10,13 +10,18 @@
 <!ENTITY IS_PUPPI            "true">
 <!ENTITY IS_LOOSER_SELECTION "false">
 <!ENTITY CHANNEL "muon">
-<!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/analysis/ZprimeSemileptonic/Analysis_QCD_HT_2017/&CHANNEL;/">
+<!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/analysis/ZprimeSemileptonic/Analysis_QCD_HT_2017_newdata/&CHANNEL;/">
 
 
 <!ENTITY DATA_SingleMuon_Run2017C   SYSTEM  "../data/Skimming_datasets_20191016/DATA_DATA_SingleMuon_Run2017C.xml">
 <!ENTITY DATA_SingleMuon_Run2017D   SYSTEM  "../data/Skimming_datasets_20191016/DATA_DATA_SingleMuon_Run2017D.xml">
 <!ENTITY DATA_SingleMuon_Run2017E   SYSTEM  "../data/Skimming_datasets_20191016/DATA_DATA_SingleMuon_Run2017E.xml">
 <!ENTITY DATA_SingleMuon_Run2017F   SYSTEM  "../data/Skimming_datasets_20191016/DATA_DATA_SingleMuon_Run2017F.xml">
+
+<!ENTITY DATA_SingleElectron_Run2017C   SYSTEM  "../data/Skimming_datasets_20191016/DATA_DATA_SingleElectron_Run2017C.xml">
+<!ENTITY DATA_SingleElectron_Run2017D   SYSTEM  "../data/Skimming_datasets_20191016/DATA_DATA_SingleElectron_Run2017D.xml">
+<!ENTITY DATA_SingleElectron_Run2017E   SYSTEM  "../data/Skimming_datasets_20191016/DATA_DATA_SingleElectron_Run2017E.xml">
+<!ENTITY DATA_SingleElectron_Run2017F   SYSTEM  "../data/Skimming_datasets_20191016/DATA_DATA_SingleElectron_Run2017F.xml">
 
 <!ENTITY TTToSemiLeptonic_2017          SYSTEM  "../data/Skimming_datasets_20191016/MC_TTToSemiLeptonic_2017.xml">
 <!ENTITY TTToHadronic_2017              SYSTEM  "../data/Skimming_datasets_20191016/MC_TTToHadronic_2017.xml">
@@ -135,6 +140,31 @@
 
           <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_Run2017F_blinded" Cacheable="&b_Cacheable;">
             &DATA_SingleMuon_Run2017F;
+            <InputTree Name="AnalysisTree" />
+            <OutputTree Name="AnalysisTree" />
+          </InputData>
+
+
+          <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleElectron_Run2017C_blinded" Cacheable="&b_Cacheable;">
+            &DATA_SingleElectron_Run2017C;
+            <InputTree Name="AnalysisTree" />
+            <OutputTree Name="AnalysisTree" />
+          </InputData>
+
+          <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleElectron_Run2017D_blinded" Cacheable="&b_Cacheable;">
+            &DATA_SingleElectron_Run2017D;
+            <InputTree Name="AnalysisTree" />
+            <OutputTree Name="AnalysisTree" />
+          </InputData>
+
+          <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleElectron_Run2017E_blinded" Cacheable="&b_Cacheable;">
+            &DATA_SingleElectron_Run2017E;
+            <InputTree Name="AnalysisTree" />
+            <OutputTree Name="AnalysisTree" />
+          </InputData>
+
+          <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleElectron_Run2017F_blinded" Cacheable="&b_Cacheable;">
+            &DATA_SingleElectron_Run2017F;
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>

@@ -49,7 +49,7 @@ def findEmptyRootFilesBySize(rootFileStore):
     emptyRootFiles = []
     for rootFile in rootFileStore:
         statinfo = os.stat(rootFile)
-        if statinfo.st_size < 1900000:
+        if statinfo.st_size < 1800000:
             emptyRootFiles.append(rootFile)
     return emptyRootFiles
 
@@ -62,7 +62,7 @@ def commentOutEmptyRootFiles(xmlfiles):
         emptyRootFiles_allxmls.append(emptyRootFiles)
         xmlFile_in = open(str(xml))
         xmlFile_out_path = str(xml)
-        xmlFile_out_path = os.path.splitext(xmlFile_out_path)[0]+'_wout.xml'
+        xmlFile_out_path = os.path.splitext(xmlFile_out_path)[0]+'_withoutEmptyNtuples.xml'
         xmlFile_out = open(xmlFile_out_path,"wt")
         for line in xmlFile_in:
             newline = line
