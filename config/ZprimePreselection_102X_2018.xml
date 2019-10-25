@@ -2,8 +2,8 @@
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
 
 
-<!ENTITY TargetLumi      "27940"> <!--RunA to D 59970-->
-<!ENTITY PRESELdir       "/nfs/dust/cms/user/deleokse/analysis/ZPrime_2018/Output_2018_AtoC/">
+<!ENTITY TargetLumi      "21100"> <!--RunA to D 59970, RunA to C 27940-->
+<!ENTITY PRESELdir       "/nfs/dust/cms/user/deleokse/analysis/ZPrime_2018/Output_2018_AtoB/">
 <!ENTITY b_Cacheable     "False">
 <!ENTITY NEVT            "-1">
 <!ENTITY IS_PUPPI        "true">
@@ -14,9 +14,9 @@
 <!ENTITY DATA_SingleMuon_Run2018A   SYSTEM  "../../common/datasets/RunII_102X_v1/2018/DATA_SingleMuon2018_RunA.xml">
 <!ENTITY DATA_EGamma_Run2018B       SYSTEM  "../../common/datasets/RunII_102X_v1/2018/DATA_EGamma2018_RunB.xml">
 <!ENTITY DATA_SingleMuon_Run2018B   SYSTEM  "../../common/datasets/RunII_102X_v1/2018/DATA_SingleMuon2018_RunB.xml">
-<!ENTITY DATA_EGamma_Run2018C       SYSTEM  "../../common/datasets/RunII_102X_v1/2018/DATA_EGamma2018_RunC.xml">
+<!--<!ENTITY DATA_EGamma_Run2018C       SYSTEM  "../../common/datasets/RunII_102X_v1/2018/DATA_EGamma2018_RunC.xml">
 <!ENTITY DATA_SingleMuon_Run2018C   SYSTEM  "../../common/datasets/RunII_102X_v1/2018/DATA_SingleMuon2018_RunC.xml">
-<!--<!ENTITY DATA_EGamma_Run2018D       SYSTEM  "../../common/datasets/RunII_102X_v1/2018/DATA_EGamma2018_RunD.xml">
+<!ENTITY DATA_EGamma_Run2018D       SYSTEM  "../../common/datasets/RunII_102X_v1/2018/DATA_EGamma2018_RunD.xml">
 <!ENTITY DATA_SingleMuon_Run2018D   SYSTEM  "../../common/datasets/RunII_102X_v1/2018/DATA_SingleMuon2018_RunD.xml">
 -->
 <!ENTITY TTToSemiLeptonic_2018          SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_TTToSemiLeptonic.xml">
@@ -131,7 +131,7 @@
 
 <!--
 <ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="25" AutoResubmit="100"/>
-<ConfigSGE RAM="2" DISK="2" Mail="ksenia.de.leo@desy.de" Notification="as" Workdir="workdir_Zprime_PreSelec_2018_AtoC"/>
+<ConfigSGE RAM="2" DISK="2" Mail="ksenia.de.leo@desy.de" Notification="as" Workdir="workdir_Zprime_PreSelec_2018_AtoB"/>
 -->
 
 <JobConfiguration JobName="ZprimePreselectionJob" OutputLevel="INFO">
@@ -590,7 +590,7 @@
 	    <InputTree Name="AnalysisTree" />
 	    <OutputTree Name="AnalysisTree" />
 	  </InputData>
-
+<!--
           <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_Run2018C" Cacheable="&b_Cacheable;">
             &DATA_EGamma_Run2018C;
             <InputTree Name="AnalysisTree" />
@@ -602,7 +602,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
-<!--
+
           <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_Run2018D" Cacheable="&b_Cacheable;">
             &DATA_EGamma_Run2018D;
             <InputTree Name="AnalysisTree" />
