@@ -406,4 +406,27 @@ bool uhh2::GenFlavorSelection::passes(const uhh2::Event& event){
   //  std::cout<<"bottomN = "<<bottomN<<" charmN = "<<charmN<<std::endl;
 
   return pass;
+
 }
+////////////////////////////////////////////////////////
+
+HEMSelection::HEMSelection(Context& ctx){
+}
+bool HEMSelection::passes(const Event & event){
+
+   for(const Electron & ele : *event.electrons){
+      if ( ele.eta() < eta_up && ele.phi() < phi_up && ele.phi() > phi_down) return false;
+   }
+
+   for(const auto & jet : *event.jets){
+      if ( jet.eta() < eta_up && jet.phi() < phi_up && jet.phi() > phi_down) return false;
+   }
+
+   for(const auto & jet : *event.topjets){
+      if ( jet.eta() < eta_up && jet.phi() < phi_up && jet.phi() > phi_down) return false;
+   }
+ 
+return true;
+}
+
+

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
+
+
+<!ENTITY TargetLumi      "31950"> <!--RunA to D 59970, RunA to C 27940-->
+<!ENTITY PRESELdir       "/nfs/dust/cms/user/deleokse/analysis/ZPrime_2018/Output_2018_RunD/">
+<!ENTITY b_Cacheable     "False">
+<!ENTITY NEVT            "-1">
+<!ENTITY IS_PUPPI        "true">
+
+
+<!--
+<!ENTITY DATA_EGamma_Run2018A       SYSTEM  "../../common/datasets/RunII_102X_v1/2018/DATA_EGamma2018_RunA.xml">
+<!ENTITY DATA_SingleMuon_Run2018A   SYSTEM  "../../common/datasets/RunII_102X_v1/2018/DATA_SingleMuon2018_RunA.xml">
+<!ENTITY DATA_EGamma_Run2018B       SYSTEM  "../../common/datasets/RunII_102X_v1/2018/DATA_EGamma2018_RunB.xml">
+<!ENTITY DATA_SingleMuon_Run2018B   SYSTEM  "../../common/datasets/RunII_102X_v1/2018/DATA_SingleMuon2018_RunB.xml">
+<!ENTITY DATA_EGamma_Run2018C       SYSTEM  "../../common/datasets/RunII_102X_v1/2018/DATA_EGamma2018_RunC.xml">
+<!ENTITY DATA_SingleMuon_Run2018C   SYSTEM  "../../common/datasets/RunII_102X_v1/2018/DATA_SingleMuon2018_RunC.xml">
+-->
+<!ENTITY DATA_EGamma_Run2018D       SYSTEM  "../../common/datasets/RunII_102X_v1/2018/DATA_EGamma2018_RunD.xml">
+<!ENTITY DATA_SingleMuon_Run2018D   SYSTEM  "../../common/datasets/RunII_102X_v1/2018/DATA_SingleMuon2018_RunD.xml">
+
+<!ENTITY TTToSemiLeptonic_2018          SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_TTToSemiLeptonic.xml">
+<!ENTITY TTToHadronic_2018              SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_TTToHadronic.xml">
+<!ENTITY TTTo2L2Nu_2018                 SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_TTTo2L2Nu.xml">
+
+<!ENTITY WJetsToLNu_HT-70To100_2018     SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_WJetsToLNu_HT-70To100.xml">
+<!ENTITY WJetsToLNu_HT-100To200_2018    SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_WJetsToLNu_HT-100To200.xml">
+<!ENTITY WJetsToLNu_HT-200To400_2018    SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_WJetsToLNu_HT-200To400.xml">
+<!ENTITY WJetsToLNu_HT-400To600_2018    SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_WJetsToLNu_HT-400To600.xml">
+<!ENTITY WJetsToLNu_HT-600To800_2018    SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_WJetsToLNu_HT-600To800.xml">
+<!ENTITY WJetsToLNu_HT-800To1200_2018   SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_WJetsToLNu_HT-800To1200.xml">
+<!ENTITY WJetsToLNu_HT-1200To2500_2018  SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_WJetsToLNu_HT-1200To2500.xml">
+<!ENTITY WJetsToLNu_HT-2500ToInf_2018   SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_WJetsToLNu_HT-2500ToInf.xml">
+<!--
+<!ENTITY ZprimeToTTJet_M500_2018  SYSTEM  "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTTJet_M500.xml">
+<!ENTITY ZprimeToTTJet_M750_2018  SYSTEM  "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTTJet_M750.xml">
+<!ENTITY ZprimeToTTJet_M1000_2018 SYSTEM  "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTTJet_M1000.xml">
+<!ENTITY ZprimeToTTJet_M1250_2018 SYSTEM  "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTTJet_M1250.xml">
+<!ENTITY ZprimeToTTJet_M1500_2018 SYSTEM  "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTTJet_M1500.xml">
+<!ENTITY ZprimeToTTJet_M2000_2018 SYSTEM  "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTTJet_M2000.xml">
+<!ENTITY ZprimeToTTJet_M2500_2018 SYSTEM  "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTTJet_M2500.xml">
+<!ENTITY ZprimeToTTJet_M3000_2018 SYSTEM  "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTTJet_M3000.xml">
+<!ENTITY ZprimeToTTJet_M3500_2018 SYSTEM  "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTTJet_M3500.xml">
+<!ENTITY ZprimeToTTJet_M4000_2018 SYSTEM  "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTTJet_M4000.xml">
+<!ENTITY ZprimeToTTJet_M5000_2018 SYSTEM  "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTTJet_M5000.xml">
+<!ENTITY ZprimeToTTJet_M6000_2018 SYSTEM  "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTTJet_M6000.xml">
+<!ENTITY ZprimeToTTJet_M7000_2018 SYSTEM  "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTTJet_M7000.xml">
+-->
+<!ENTITY ZprimeToTT_M1000_W100_2018 SYSTEM   "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTT_M1000_W100.xml">
+<!--
+<!ENTITY ZprimeToTT_M1000_W300_2018 SYSTEM   "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTT_M1000_W300.xml">
+<!ENTITY ZprimeToTT_M1250_W375_2018 SYSTEM   "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTT_M1250_W375.xml">
+<!ENTITY ZprimeToTT_M1500_W150_2018 SYSTEM   "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTT_M1500_W150.xml">
+<!ENTITY ZprimeToTT_M1500_W450_2018 SYSTEM   "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTT_M1500_W450.xml">
+<!ENTITY ZprimeToTT_M2000_W200_2018 SYSTEM   "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTT_M2000_W200.xml">
+<!ENTITY ZprimeToTT_M2000_W600_2018 SYSTEM   "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTT_M2000_W600.xml">
+<!ENTITY ZprimeToTT_M2500_W250_2018 SYSTEM   "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTT_M2500_W250.xml">
+<!ENTITY ZprimeToTT_M2500_W750_2018 SYSTEM   "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTT_M2500_W750.xml">
+<!ENTITY ZprimeToTT_M3000_W300_2018 SYSTEM   "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTT_M3000_W300.xml">
+<!ENTITY ZprimeToTT_M3000_W900_2018 SYSTEM   "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTT_M3000_W900.xml">
+<!ENTITY ZprimeToTT_M3500_W1050_2018 SYSTEM  "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTT_M3500_W1050.xml">
+<!ENTITY ZprimeToTT_M3500_W350_2018 SYSTEM   "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTT_M3500_W350.xml">
+<!ENTITY ZprimeToTT_M4000_W1200_2018 SYSTEM  "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTT_M4000_W1200.xml">
+<!ENTITY ZprimeToTT_M4000_W400_2018 SYSTEM   "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTT_M4000_W400.xml">
+<!ENTITY ZprimeToTT_M5000_W1500_2018 SYSTEM  "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTT_M5000_W1500.xml">
+<!ENTITY ZprimeToTT_M5000_W500_2018 SYSTEM   "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTT_M5000_W500.xml">
+<!ENTITY ZprimeToTT_M500_W150_2018 SYSTEM    "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTT_M500_W150.xml">
+<!ENTITY ZprimeToTT_M500_W50_2018 SYSTEM     "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTT_M500_W50.xml">
+<!ENTITY ZprimeToTT_M6000_W1800_2018 SYSTEM  "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTT_M6000_W1800.xml">
+<!ENTITY ZprimeToTT_M6000_W600_2018 SYSTEM   "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTT_M6000_W600.xml">
+<!ENTITY ZprimeToTT_M7000_W2100_2018 SYSTEM  "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTT_M7000_W2100.xml">
+<!ENTITY ZprimeToTT_M7000_W700_2018 SYSTEM   "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTT_M7000_W700.xml">
+<!ENTITY ZprimeToTT_M750_W225_2018 SYSTEM    "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTT_M750_W225.xml">
+<!ENTITY ZprimeToTT_M750_W75_2018 SYSTEM     "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTT_M750_W75.xml">
+<!ENTITY ZprimeToTT_M8000_W2400_2018 SYSTEM  "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTT_M8000_W2400.xml">
+<!ENTITY ZprimeToTT_M8000_W800_2018 SYSTEM   "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTT_M8000_W800.xml">
+<!ENTITY ZprimeToTT_M9000_W2700_2018 SYSTEM  "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTT_M9000_W2700.xml">
+<!ENTITY ZprimeToTT_M9000_W900_2018 SYSTEM   "../../common/datasets/RunII_102X_v1/2018/ZprimeToTTbar/MC_ZprimeToTT_M9000_W900.xml">
+
+
+<!ENTITY ZprimeToTT_M1000_W10_2018 SYSTEM   "../../common/datasets/RunII_102X_v1/2018/MC_ZprimeToTT_M1000_W10.xml">
+<!ENTITY ZprimeToTT_M1500_W15_2018 SYSTEM   "../../common/datasets/RunII_102X_v1/2018/MC_ZprimeToTT_M1500_W15.xml">
+<!ENTITY ZprimeToTT_M2000_W20_2018 SYSTEM   "../../common/datasets/RunII_102X_v1/2018/MC_ZprimeToTT_M2000_W20.xml">
+<!ENTITY ZprimeToTT_M2500_W25_2018 SYSTEM   "../../common/datasets/RunII_102X_v1/2018/MC_ZprimeToTT_M2500_W25.xml">
+<!ENTITY ZprimeToTT_M3000_W30_2018 SYSTEM   "../../common/datasets/RunII_102X_v1/2018/MC_ZprimeToTT_M3000_W30.xml">
+<!ENTITY ZprimeToTT_M3500_W35_2018 SYSTEM   "../../common/datasets/RunII_102X_v1/2018/MC_ZprimeToTT_M3500_W35.xml">
+<!ENTITY ZprimeToTT_M4000_W40_2018 SYSTEM   "../../common/datasets/RunII_102X_v1/2018/MC_ZprimeToTT_M4000_W40.xml">
+<!ENTITY ZprimeToTT_M5000_W50_2018 SYSTEM   "../../common/datasets/RunII_102X_v1/2018/MC_ZprimeToTT_M5000_W50.xml">
+<!ENTITY ZprimeToTT_M500_W5_2018  SYSTEM    "../../common/datasets/RunII_102X_v1/2018/MC_ZprimeToTT_M500_W5.xml">
+<!ENTITY ZprimeToTT_M6000_W60_2018 SYSTEM   "../../common/datasets/RunII_102X_v1/2018/MC_ZprimeToTT_M6000_W60.xml">
+<!ENTITY ZprimeToTT_M7000_W70_2018 SYSTEM   "../../common/datasets/RunII_102X_v1/2018/MC_ZprimeToTT_M7000_W70.xml">
+<!ENTITY ZprimeToTT_M8000_W80_2018 SYSTEM   "../../common/datasets/RunII_102X_v1/2018/MC_ZprimeToTT_M8000_W80.xml">
+<!ENTITY ZprimeToTT_M750_W7p5_2018 SYSTEM   "../../common/datasets/RunII_102X_v1/2018/MC_ZprimeToTT_M750_W7p5.xml">
+-->
+
+
+<!ENTITY WW_2018  SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_WW_TuneCP5_13TeV-pythia8.xml">
+<!ENTITY WZ_2018  SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_WZ_TuneCP5_13TeV-pythia8.xml">
+<!ENTITY ZZ_2018  SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_ZZ_TuneCP5_13TeV-pythia8.xml">
+
+<!ENTITY ST_tW_antitop_5f_inclusiveDecays  SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_ST_tW_antitop_5f_inclusiveDecays.xml">
+<!ENTITY ST_tW_top_5f_inclusiveDecays      SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_ST_tW_top_5f_inclusiveDecays.xml">
+<!ENTITY ST_t-channel_antitop              SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_SingleTop_t-channel_antitop.xml">
+<!ENTITY ST_t-channel_top                  SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_SingleTop_t-channel_top.xml">
+<!ENTITY ST_s-channel_hadronic             SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_ST_s-channel_4f_hadronicDecays.xml">
+<!ENTITY ST_s-channel_lepton               SYSTEM  "../../common/datasets/RunII_102X_v1/2018/MC_ST_s-channel_4f_leptonDecays.xml">
+
+<!ENTITY QCD_Pt-15to20_EMEnriched        SYSTEM "../../common/datasets/RunII_102X_v1/2018/MC_QCD_Pt-15to20_EMEnriched_ext1-v2.xml">
+<!ENTITY QCD_Pt-20to30_EMEnriched        SYSTEM "../../common/datasets/RunII_102X_v1/2018/MC_QCD_Pt-20to30_EMEnriched.xml">
+<!ENTITY QCD_Pt-30to50_EMEnriched        SYSTEM "../../common/datasets/RunII_102X_v1/2018/MC_QCD_Pt-30to50_EMEnriched.xml">
+<!ENTITY QCD_Pt-50to80_EMEnriched        SYSTEM "../../common/datasets/RunII_102X_v1/2018/MC_QCD_Pt-50to80_EMEnriched.xml">
+<!ENTITY QCD_Pt-80to120_EMEnriched       SYSTEM "../../common/datasets/RunII_102X_v1/2018/MC_QCD_Pt-80to120_EMEnriched.xml">
+<!ENTITY QCD_Pt-120to170_EMEnriched      SYSTEM "../../common/datasets/RunII_102X_v1/2018/MC_QCD_Pt-120to170_EMEnriched.xml">
+<!ENTITY QCD_Pt-170to300_EMEnriched      SYSTEM "../../common/datasets/RunII_102X_v1/2018/MC_QCD_Pt-170to300_EMEnriched.xml">
+<!ENTITY QCD_Pt-300toInf_EMEnriched      SYSTEM "../../common/datasets/RunII_102X_v1/2018/MC_QCD_Pt-300toInf_EMEnriched.xml">
+
+<!ENTITY QCD_Pt-15to20_MuEnrichedPt5        SYSTEM "../../common/datasets/RunII_102X_v1/2018/MC_QCD_Pt-15to20_MuEnrichedPt5.xml">
+<!ENTITY QCD_Pt-20to30_MuEnrichedPt5        SYSTEM "../../common/datasets/RunII_102X_v1/2018/MC_QCD_Pt-20to30_MuEnrichedPt5.xml">
+<!ENTITY QCD_Pt-30to50_MuEnrichedPt5        SYSTEM "../../common/datasets/RunII_102X_v1/2018/MC_QCD_Pt-30to50_MuEnrichedPt5.xml">
+<!ENTITY QCD_Pt-50to80_MuEnrichedPt5        SYSTEM "../../common/datasets/RunII_102X_v1/2018/MC_QCD_Pt-50to80_MuEnrichedPt5.xml">
+<!ENTITY QCD_Pt-80to120_MuEnrichedPt5       SYSTEM "../../common/datasets/RunII_102X_v1/2018/MC_QCD_Pt-80to120_MuEnrichedPt5.xml">
+<!ENTITY QCD_Pt-120to170_MuEnrichedPt5      SYSTEM "../../common/datasets/RunII_102X_v1/2018/MC_QCD_Pt-120to170_MuEnrichedPt5.xml">
+<!ENTITY QCD_Pt-170to300_MuEnrichedPt5      SYSTEM "../../common/datasets/RunII_102X_v1/2018/MC_QCD_Pt-170to300_MuEnrichedPt5.xml">
+<!ENTITY QCD_Pt-300to470_MuEnrichedPt5      SYSTEM "../../common/datasets/RunII_102X_v1/2018/MC_QCD_Pt-300to470_MuEnrichedPt5.xml">
+<!ENTITY QCD_Pt-470to600_MuEnrichedPt5      SYSTEM "../../common/datasets/RunII_102X_v1/2018/MC_QCD_Pt-470to600_MuEnrichedPt5.xml">
+<!ENTITY QCD_Pt-600to800_MuEnrichedPt5      SYSTEM "../../common/datasets/RunII_102X_v1/2018/MC_QCD_Pt-600to800_MuEnrichedPt5.xml">
+<!ENTITY QCD_Pt-800to1000_MuEnrichedPt5     SYSTEM "../../common/datasets/RunII_102X_v1/2018/MC_QCD_Pt-800to1000_MuEnrichedPt5_ext3-v2.xml">
+<!ENTITY QCD_Pt-1000toInf_MuEnrichedPt5     SYSTEM "../../common/datasets/RunII_102X_v1/2018/MC_QCD_Pt-1000toInf_MuEnrichedPt5.xml">
+
+]>
+
+<!--
+<ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="10" AutoResubmit="100"/>
+<ConfigSGE RAM="2" DISK="2" Mail="ksenia.de.leo@desy.de" Notification="as" Workdir="workdir_Zprime_PreSelec_2018_RunD_test"/>
+-->
+
+<JobConfiguration JobName="ZprimePreselectionJob" OutputLevel="INFO">
+	<Library Name="libSUHH2ZprimeSemiLeptonic"/>
+	<Package Name="libSUHH2ZprimeSemiLeptonic"/>
+	<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="/nfs/dust/cms/user/deleokse/analysis/ZPrime_2018/Output_2018_RunD///workdir_Zprime_PreSelec_2018_RunD/" PostFix="_42" TargetLumi="31950">
+		<InputData Cacheable="False" Lumi="5891712.126" Type="MC" Version="ST_s-channel_lepton_2018">
+			<In FileName="/pnfs/desy.de/cms/tier2/store/user/akaravdi/RunII_102X_v1_ProductionJune19_2018_LZMA9/ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-madgraph-pythia8/crab_ST_s-channel_4f_leptonDecays_ext1/190616_195327/0001/Ntuple_1064.root" Lumi="0.0"/>
+<!--			<In FileName="/pnfs/desy.de/cms/tier2/store/user/akaravdi/RunII_102X_v1_ProductionJune19_2018_LZMA9/ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-madgraph-pythia8/crab_ST_s-channel_4f_leptonDecays_ext1/190616_195327/0001/Ntuple_1065.root" Lumi="0.0"/>
+			<In FileName="/pnfs/desy.de/cms/tier2/store/user/akaravdi/RunII_102X_v1_ProductionJune19_2018_LZMA9/ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-madgraph-pythia8/crab_ST_s-channel_4f_leptonDecays_ext1/190616_195327/0001/Ntuple_1066.root" Lumi="0.0"/>
+			<In FileName="/pnfs/desy.de/cms/tier2/store/user/akaravdi/RunII_102X_v1_ProductionJune19_2018_LZMA9/ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-madgraph-pythia8/crab_ST_s-channel_4f_leptonDecays_ext1/190616_195327/0001/Ntuple_1067.root" Lumi="0.0"/>
+			<In FileName="/pnfs/desy.de/cms/tier2/store/user/akaravdi/RunII_102X_v1_ProductionJune19_2018_LZMA9/ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-madgraph-pythia8/crab_ST_s-channel_4f_leptonDecays_ext1/190616_195327/0001/Ntuple_1068.root" Lumi="0.0"/>
+			<In FileName="/pnfs/desy.de/cms/tier2/store/user/akaravdi/RunII_102X_v1_ProductionJune19_2018_LZMA9/ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-madgraph-pythia8/crab_ST_s-channel_4f_leptonDecays_ext1/190616_195327/0001/Ntuple_1069.root" Lumi="0.0"/>
+			<In FileName="/pnfs/desy.de/cms/tier2/store/user/akaravdi/RunII_102X_v1_ProductionJune19_2018_LZMA9/ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-madgraph-pythia8/crab_ST_s-channel_4f_leptonDecays_ext1/190616_195327/0001/Ntuple_1070.root" Lumi="0.0"/>
+			<In FileName="/pnfs/desy.de/cms/tier2/store/user/akaravdi/RunII_102X_v1_ProductionJune19_2018_LZMA9/ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-madgraph-pythia8/crab_ST_s-channel_4f_leptonDecays_ext1/190616_195327/0001/Ntuple_1071.root" Lumi="0.0"/>
+			<In FileName="/pnfs/desy.de/cms/tier2/store/user/akaravdi/RunII_102X_v1_ProductionJune19_2018_LZMA9/ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-madgraph-pythia8/crab_ST_s-channel_4f_leptonDecays_ext1/190616_195327/0001/Ntuple_1072.root" Lumi="0.0"/>
+			<In FileName="/pnfs/desy.de/cms/tier2/store/user/akaravdi/RunII_102X_v1_ProductionJune19_2018_LZMA9/ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-madgraph-pythia8/crab_ST_s-channel_4f_leptonDecays_ext1/190616_195327/0001/Ntuple_1073.root" Lumi="0.0"/>
+			<In FileName="/pnfs/desy.de/cms/tier2/store/user/akaravdi/RunII_102X_v1_ProductionJune19_2018_LZMA9/ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-madgraph-pythia8/crab_ST_s-channel_4f_leptonDecays_ext1/190616_195327/0001/Ntuple_1074.root" Lumi="0.0"/>
+			<In FileName="/pnfs/desy.de/cms/tier2/store/user/akaravdi/RunII_102X_v1_ProductionJune19_2018_LZMA9/ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-madgraph-pythia8/crab_ST_s-channel_4f_leptonDecays_ext1/190616_195327/0001/Ntuple_1075.root" Lumi="0.0"/>
+			<In FileName="/pnfs/desy.de/cms/tier2/store/user/akaravdi/RunII_102X_v1_ProductionJune19_2018_LZMA9/ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-madgraph-pythia8/crab_ST_s-channel_4f_leptonDecays_ext1/190616_195327/0001/Ntuple_1076.root" Lumi="0.0"/>
+			<In FileName="/pnfs/desy.de/cms/tier2/store/user/akaravdi/RunII_102X_v1_ProductionJune19_2018_LZMA9/ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-madgraph-pythia8/crab_ST_s-channel_4f_leptonDecays_ext1/190616_195327/0001/Ntuple_1077.root" Lumi="0.0"/>
+			<In FileName="/pnfs/desy.de/cms/tier2/store/user/akaravdi/RunII_102X_v1_ProductionJune19_2018_LZMA9/ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-madgraph-pythia8/crab_ST_s-channel_4f_leptonDecays_ext1/190616_195327/0001/Ntuple_1078.root" Lumi="0.0"/>
+			<In FileName="/pnfs/desy.de/cms/tier2/store/user/akaravdi/RunII_102X_v1_ProductionJune19_2018_LZMA9/ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-madgraph-pythia8/crab_ST_s-channel_4f_leptonDecays_ext1/190616_195327/0001/Ntuple_1079.root" Lumi="0.0"/>
+			<In FileName="/pnfs/desy.de/cms/tier2/store/user/akaravdi/RunII_102X_v1_ProductionJune19_2018_LZMA9/ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-madgraph-pythia8/crab_ST_s-channel_4f_leptonDecays_ext1/190616_195327/0001/Ntuple_1080.root" Lumi="0.0"/>
+			<In FileName="/pnfs/desy.de/cms/tier2/store/user/akaravdi/RunII_102X_v1_ProductionJune19_2018_LZMA9/ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-madgraph-pythia8/crab_ST_s-channel_4f_leptonDecays_ext1/190616_195327/0001/Ntuple_1081.root" Lumi="0.0"/>
+			<In FileName="/pnfs/desy.de/cms/tier2/store/user/akaravdi/RunII_102X_v1_ProductionJune19_2018_LZMA9/ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-madgraph-pythia8/crab_ST_s-channel_4f_leptonDecays_ext1/190616_195327/0001/Ntuple_1082.root" Lumi="0.0"/>
+			<In FileName="/pnfs/desy.de/cms/tier2/store/user/akaravdi/RunII_102X_v1_ProductionJune19_2018_LZMA9/ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-madgraph-pythia8/crab_ST_s-channel_4f_leptonDecays_ext1/190616_195327/0001/Ntuple_1083.root" Lumi="0.0"/>
+			<In FileName="/pnfs/desy.de/cms/tier2/store/user/akaravdi/RunII_102X_v1_ProductionJune19_2018_LZMA9/ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-madgraph-pythia8/crab_ST_s-channel_4f_leptonDecays_ext1/190616_195327/0001/Ntuple_1084.root" Lumi="0.0"/>
+			<In FileName="/pnfs/desy.de/cms/tier2/store/user/akaravdi/RunII_102X_v1_ProductionJune19_2018_LZMA9/ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-madgraph-pythia8/crab_ST_s-channel_4f_leptonDecays_ext1/190616_195327/0001/Ntuple_1085.root" Lumi="0.0"/>
+			<In FileName="/pnfs/desy.de/cms/tier2/store/user/akaravdi/RunII_102X_v1_ProductionJune19_2018_LZMA9/ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-madgraph-pythia8/crab_ST_s-channel_4f_leptonDecays_ext1/190616_195327/0001/Ntuple_1086.root" Lumi="0.0"/>
+			<In FileName="/pnfs/desy.de/cms/tier2/store/user/akaravdi/RunII_102X_v1_ProductionJune19_2018_LZMA9/ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-madgraph-pythia8/crab_ST_s-channel_4f_leptonDecays_ext1/190616_195327/0001/Ntuple_1088.root" Lumi="0.0"/>
+			<In FileName="/pnfs/desy.de/cms/tier2/store/user/akaravdi/RunII_102X_v1_ProductionJune19_2018_LZMA9/ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-madgraph-pythia8/crab_ST_s-channel_4f_leptonDecays_ext1/190616_195327/0001/Ntuple_1089.root" Lumi="0.0"/>-->
+			<OutputTree Name="AnalysisTree"/>
+			<InputTree Name="AnalysisTree"/>
+		</InputData>
+		<UserConfig>
+			<Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices"/>
+			<Item Name="GenParticleCollection" Value="GenParticles"/>
+			<Item Name="ElectronCollection" Value="slimmedElectronsUSER"/>
+			<Item Name="MuonCollection" Value="slimmedMuonsUSER"/>
+			<Item Name="JetCollection" Value="jetsAk4Puppi"/>
+			<Item Name="GenJetCollection" Value="slimmedGenJets"/>
+			<Item Name="TopJetCollection" Value="jetsAk8CHSSubstructure_SoftDropCHS"/>
+			<Item Name="GenTopJetCollection" Value="genjetsAk8SubstructureSoftDrop"/>
+			<Item Name="TopPuppiJetCollection" Value="jetsAk8PuppiSubstructure_SoftDropPuppi"/>
+			<Item Name="METName" Value="slimmedMETsPuppi"/>
+			<Item Name="genMETName" Value="slimmedMETs_GenMET"/>
+			<Item Name="lumi_file" Value="/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2018/Cert_314472-325175_13TeV_PromptReco_Collisions18_JSON.root"/>
+			<Item Name="lumihists_lumi_per_bin" Value="500.0"/>
+			<Item Name="is_puppi" Value="true"/>
+			<Item Name="use_sframe_weight" Value="false"/>
+			<Item Name="jersmear_direction" Value="nominal"/>
+			<Item Name="jecsmear_direction" Value="nominal"/>
+			<Item Name="AnalysisModule" Value="ZprimePreselectionModule"/>
+		</UserConfig>
+	</Cycle>
+</JobConfiguration>

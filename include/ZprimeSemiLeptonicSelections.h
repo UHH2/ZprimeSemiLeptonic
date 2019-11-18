@@ -284,4 +284,18 @@ namespace uhh2 {
   };
   ////
 
+
+
+  class HEMSelection : public Selection{
+  public:
+    explicit HEMSelection(uhh2::Context&);
+    virtual bool passes(const Event&) override;
+
+  private:
+  double eta_up = -1.3;
+  double phi_up = -0.87;
+  double phi_down = -1.57;
+  };
+
+
 }
