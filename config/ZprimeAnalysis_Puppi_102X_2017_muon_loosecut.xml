@@ -11,7 +11,7 @@
 <!ENTITY IS_LOOSER_SELECTION "false">
 <!ENTITY CHANNEL "muon">
 <!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/analysis/ZPrime_2017/Test_Analysis_loosecuts/&CHANNEL;/">
-
+<!--
 <!ENTITY DATA_SingleMuon_Run2017C   SYSTEM  "../data/Skimming_datasets_2017/DATA_DATA_SingleMuon_Run2017C.xml">
 <!ENTITY DATA_SingleMuon_Run2017D   SYSTEM  "../data/Skimming_datasets_2017/DATA_DATA_SingleMuon_Run2017D.xml">
 <!ENTITY DATA_SingleMuon_Run2017E   SYSTEM  "../data/Skimming_datasets_2017/DATA_DATA_SingleMuon_Run2017E.xml">
@@ -21,7 +21,8 @@
 <!ENTITY DATA_SingleElectron_Run2017D   SYSTEM  "../data/Skimming_datasets_2017/DATA_DATA_SingleElectron_Run2017D.xml">
 <!ENTITY DATA_SingleElectron_Run2017E   SYSTEM  "../data/Skimming_datasets_2017/DATA_DATA_SingleElectron_Run2017E.xml">
 <!ENTITY DATA_SingleElectron_Run2017F   SYSTEM  "../data/Skimming_datasets_2017/DATA_DATA_SingleElectron_Run2017F.xml">
-
+-->
+<!--
 <!ENTITY TTToSemiLeptonic_2017          SYSTEM  "../data/Skimming_datasets_2017/MC_TTToSemiLeptonic_2017.xml">
 <!ENTITY TTToHadronic_2017              SYSTEM  "../data/Skimming_datasets_2017/MC_TTToHadronic_2017.xml">
 <!ENTITY TTTo2L2Nu_2017                 SYSTEM  "../data/Skimming_datasets_2017/MC_TTTo2L2Nu_2017.xml">         
@@ -54,6 +55,15 @@
 <!ENTITY WJetsToLNu_HT-2500ToInf_2017   SYSTEM  "../data/Skimming_datasets_2017/MC_WJetsToLNu_HT-2500ToInf_2017.xml">
 
 <!ENTITY ZprimeToTTJet_M1000_2017 SYSTEM  "../data/Skimming_datasets_2017/MC_ZprimeToTTJet_M1000_2017.xml">
+-->
+
+<!ENTITY DYJetsToLL_M-50_HT-100to200_2017     SYSTEM  "../data/Skimming_datasets_2017/MC_DYJetsToLL_M-50_HT-100to200_2017_withoutEmptyNtuples.xml">
+<!ENTITY DYJetsToLL_M-50_HT-200to400_2017     SYSTEM  "../data/Skimming_datasets_2017/MC_DYJetsToLL_M-50_HT-200to400_2017_withoutEmptyNtuples.xml">
+<!ENTITY DYJetsToLL_M-50_HT-400to600_2017     SYSTEM  "../data/Skimming_datasets_2017/MC_DYJetsToLL_M-50_HT-400to600_2017_withoutEmptyNtuples.xml">
+<!ENTITY DYJetsToLL_M-50_HT-600to800_2017     SYSTEM  "../data/Skimming_datasets_2017/MC_DYJetsToLL_M-50_HT-600to800_2017_withoutEmptyNtuples.xml">
+<!ENTITY DYJetsToLL_M-50_HT-800to1200_2017    SYSTEM  "../data/Skimming_datasets_2017/MC_DYJetsToLL_M-50_HT-800to1200_2017_withoutEmptyNtuples.xml">
+<!ENTITY DYJetsToLL_M-50_HT-1200to2500_2017   SYSTEM  "../data/Skimming_datasets_2017/MC_DYJetsToLL_M-50_HT-1200to2500_2017_withoutEmptyNtuples.xml">
+<!ENTITY DYJetsToLL_M-50_HT-2500toInf_2017    SYSTEM  "../data/Skimming_datasets_2017/MC_DYJetsToLL_M-50_HT-2500toInf_2017_withoutEmptyNtuples.xml">
 
 ]>
 
@@ -67,7 +77,7 @@
   <Package Name="SUHH2ZprimeSemiLeptonic.par"/>
 
   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTPUTdir;/" PostFix="" TargetLumi="&TargetLumi;">
-
+<!--
           <InputData Lumi="3386024.049" NEventsMax="&NEVT;" Type="MC" Version="ST_t-channel_antitop_2017" Cacheable="&b_Cacheable;">
             &ST_t-channel_antitop_2017;
             <InputTree Name="AnalysisTree" />
@@ -109,13 +119,8 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
-<!--
-          <InpitData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_Run2017B_blinded" Cacheable="&b_Cacheable;">
-            &DATA_SingleMuon_Run2017B;
-            <InputTree Name="AnalysisTree" />
-            <OutputTree Name="AnalysisTree" />
-          </InputData>
 -->
+<!--
           <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_Run2017C_blinded" Cacheable="&b_Cacheable;">
             &DATA_SingleMuon_Run2017C;
             <InputTree Name="AnalysisTree" />
@@ -163,7 +168,8 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
-
+-->
+<!--
           <InputData Lumi="35279949.78" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_2017" Cacheable="&b_Cacheable;">
             &TTToSemiLeptonic_2017;
             <InputTree Name="AnalysisTree" />
@@ -283,6 +289,51 @@
             <InputTree Name="AnalysisTree"/>
             <OutputTree Name="AnalysisTree"/>
           </InputData>
+-->
+
+          <InputData Lumi="69226.78638" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-100to200_2017" Cacheable="&b_Cacheable;">
+            &DYJetsToLL_M-50_HT-100to200_2017;
+            <InputTree Name="AnalysisTree"/>
+            <OutputTree Name="AnalysisTree"/>
+          </InputData>
+
+          <InputData Lumi="219614.0918" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-200to400_2017" Cacheable="&b_Cacheable;">
+            &DYJetsToLL_M-50_HT-200to400_2017;
+            <InputTree Name="AnalysisTree"/>
+            <OutputTree Name="AnalysisTree"/>
+          </InputData>
+
+          <InputData Lumi="1476963.275" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-400to600_2017" Cacheable="&b_Cacheable;">
+            &DYJetsToLL_M-50_HT-400to600_2017;
+            <InputTree Name="AnalysisTree"/>
+            <OutputTree Name="AnalysisTree"/>
+          </InputData>
+
+          <InputData Lumi="4907740.26" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-600to800_2017" Cacheable="&b_Cacheable;">
+            &DYJetsToLL_M-50_HT-600to800_2017;
+            <InputTree Name="AnalysisTree"/>
+            <OutputTree Name="AnalysisTree"/>
+          </InputData>
+
+          <InputData Lumi="3804595.493" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-800to1200_2017" Cacheable="&b_Cacheable;">
+            &DYJetsToLL_M-50_HT-800to1200_2017;
+            <InputTree Name="AnalysisTree"/>
+            <OutputTree Name="AnalysisTree"/>
+          </InputData>
+
+          <InputData Lumi="3218169.014" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-1200to2500_2017" Cacheable="&b_Cacheable;">
+            &DYJetsToLL_M-50_HT-1200to2500_2017;
+            <InputTree Name="AnalysisTree"/>
+            <OutputTree Name="AnalysisTree"/>
+          </InputData>
+
+          <InputData Lumi="114568655.4" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-2500toInf_2017" Cacheable="&b_Cacheable;">
+            &DYJetsToLL_M-50_HT-2500toInf_2017;
+            <InputTree Name="AnalysisTree"/>
+            <OutputTree Name="AnalysisTree"/>
+          </InputData>
+
+
 
     <UserConfig>
       <Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices"/>

@@ -128,12 +128,18 @@ protected:
   Event::Handle<float> h_DeltaR_j1_lep; 
   Event::Handle<float> h_DeltaR_j1_nu; 
   Event::Handle<float> h_DeltaR_tlep_thad; 
-  Event::Handle<float> h_S11; 
-  Event::Handle<float> h_S12; 
-  Event::Handle<float> h_S13; 
-  Event::Handle<float> h_S22; 
-  Event::Handle<float> h_S23; 
-  Event::Handle<float> h_S33; 
+  Event::Handle<float> h_S11_lep; 
+  Event::Handle<float> h_S12_lep; 
+  Event::Handle<float> h_S13_lep; 
+  Event::Handle<float> h_S22_lep; 
+  Event::Handle<float> h_S23_lep; 
+  Event::Handle<float> h_S33_lep; 
+  Event::Handle<float> h_S11_had; 
+  Event::Handle<float> h_S12_had; 
+  Event::Handle<float> h_S13_had; 
+  Event::Handle<float> h_S22_had; 
+  Event::Handle<float> h_S23_had; 
+  Event::Handle<float> h_S33_had; 
 
   uhh2::Event::Handle<ZprimeCandidate*> h_BestZprimeCandidateChi2;
 
@@ -357,12 +363,18 @@ ZprimeAnalysisModule_LooseCuts::ZprimeAnalysisModule_LooseCuts(uhh2::Context& ct
   h_DeltaR_j1_lep = ctx.declare_event_output<float> ("DeltaR_j1_lep");
   h_DeltaR_j1_nu = ctx.declare_event_output<float> ("DeltaR_j1_nu");
   h_DeltaR_tlep_thad = ctx.declare_event_output<float> ("DeltaR_tlep_thad");
-  h_S11 = ctx.declare_event_output<float> ("S11");
-  h_S12 = ctx.declare_event_output<float> ("S12");
-  h_S13 = ctx.declare_event_output<float> ("S13");
-  h_S22 = ctx.declare_event_output<float> ("S22");
-  h_S23 = ctx.declare_event_output<float> ("S23");
-  h_S33 = ctx.declare_event_output<float> ("S33");
+  h_S11_lep = ctx.declare_event_output<float> ("S11_lep");
+  h_S12_lep = ctx.declare_event_output<float> ("S12_lep");
+  h_S13_lep = ctx.declare_event_output<float> ("S13_lep");
+  h_S22_lep = ctx.declare_event_output<float> ("S22_lep");
+  h_S23_lep = ctx.declare_event_output<float> ("S23_lep");
+  h_S33_lep = ctx.declare_event_output<float> ("S33_lep");
+  h_S11_had = ctx.declare_event_output<float> ("S11_had");
+  h_S12_had = ctx.declare_event_output<float> ("S12_had");
+  h_S13_had = ctx.declare_event_output<float> ("S13_had");
+  h_S22_had = ctx.declare_event_output<float> ("S22_had");
+  h_S23_had = ctx.declare_event_output<float> ("S23_had");
+  h_S33_had = ctx.declare_event_output<float> ("S33_had");
 
   h_lep1_pt = ctx.declare_event_output<float> ("lep1_pt");
   h_lep1_eta = ctx.declare_event_output<float> ("lep1_eta");
@@ -455,12 +467,18 @@ bool ZprimeAnalysisModule_LooseCuts::process(uhh2::Event& event){
   event.set(h_DeltaR_j1_lep,0);
   event.set(h_DeltaR_j1_nu,0);
   event.set(h_DeltaR_tlep_thad,0);
-  event.set(h_S11,0);
-  event.set(h_S12,0);
-  event.set(h_S13,0);
-  event.set(h_S22,0);
-  event.set(h_S23,0);
-  event.set(h_S33,0);
+  event.set(h_S11_lep,0);
+  event.set(h_S12_lep,0);
+  event.set(h_S13_lep,0);
+  event.set(h_S22_lep,0);
+  event.set(h_S23_lep,0);
+  event.set(h_S33_lep,0);
+  event.set(h_S11_had,0);
+  event.set(h_S12_had,0);
+  event.set(h_S13_had,0);
+  event.set(h_S22_had,0);
+  event.set(h_S23_had,0);
+  event.set(h_S33_had,0);
  
   // Printing
   // if(!event.isRealData) printer_genparticles->process(event);
@@ -634,32 +652,57 @@ bool ZprimeAnalysisModule_LooseCuts::process(uhh2::Event& event){
     event.set(h_DeltaR_tlep_thad,deltaR(BestZprimeCandidate->top_leptonic_v4(),BestZprimeCandidate->top_hadronic_v4()));
 
 
-  // Sphericity tensors
-    double s11 = -1., s12 = -1., s13 = -1., s22 = -1., s23 = -1., s33 = -1., mag = -1.;
-    for(const Jet jet : *event.jets){
-      mag += (jet.v4().Px()*jet.v4().Px()+jet.v4().Py()*jet.v4().Py()+jet.v4().Pz()*jet.v4().Pz());
-      s11 += jet.v4().Px()*jet.v4().Px();
-      s12 += jet.v4().Px()*jet.v4().Py();
-      s13 += jet.v4().Px()*jet.v4().Pz();
-      s22 += jet.v4().Py()*jet.v4().Py();
-      s23 += jet.v4().Py()*jet.v4().Pz();
-      s33 += jet.v4().Pz()*jet.v4().Pz();
+  // Sphericity tensors jets leptonic side
+    double s11_lep = -1., s12_lep = -1., s13_lep = -1., s22_lep = -1., s23_lep = -1., s33_lep = -1., mag_lep = -1.;
+    for(const Particle jet : BestZprimeCandidate->jets_leptonic()){
+      mag_lep += (jet.v4().Px()*jet.v4().Px()+jet.v4().Py()*jet.v4().Py()+jet.v4().Pz()*jet.v4().Pz());
+      s11_lep += jet.v4().Px()*jet.v4().Px();
+      s12_lep += jet.v4().Px()*jet.v4().Py();
+      s13_lep += jet.v4().Px()*jet.v4().Pz();
+      s22_lep += jet.v4().Py()*jet.v4().Py();
+      s23_lep += jet.v4().Py()*jet.v4().Pz();
+      s33_lep += jet.v4().Pz()*jet.v4().Pz();
     }
 
-    s11 = s11 / mag;
-    s12 = s12 / mag;
-    s13 = s13 / mag;
-    s22 = s22 / mag;
-    s23 = s23 / mag;
-    s33 = s33 / mag;
+    s11_lep = s11_lep / mag_lep;
+    s12_lep = s12_lep / mag_lep;
+    s13_lep = s13_lep / mag_lep;
+    s22_lep = s22_lep / mag_lep;
+    s23_lep = s23_lep / mag_lep;
+    s33_lep = s33_lep / mag_lep;
 
-    event.set(h_S11,s11);
-    event.set(h_S12,s12);
-    event.set(h_S13,s13);
-    event.set(h_S22,s22);
-    event.set(h_S23,s23);
-    event.set(h_S33,s33);
+    event.set(h_S11_lep,s11_lep);
+    event.set(h_S12_lep,s12_lep);
+    event.set(h_S13_lep,s13_lep);
+    event.set(h_S22_lep,s22_lep);
+    event.set(h_S23_lep,s23_lep);
+    event.set(h_S33_lep,s33_lep);
 
+  // Sphericity tensors jets hadronic side
+    double s11_had = -1., s12_had = -1., s13_had = -1., s22_had = -1., s23_had = -1., s33_had = -1., mag_had = -1.;
+    for(const Particle jet : BestZprimeCandidate->jets_hadronic()){
+      mag_had += (jet.v4().Px()*jet.v4().Px()+jet.v4().Py()*jet.v4().Py()+jet.v4().Pz()*jet.v4().Pz());
+      s11_had += jet.v4().Px()*jet.v4().Px();
+      s12_had += jet.v4().Px()*jet.v4().Py();
+      s13_had += jet.v4().Px()*jet.v4().Pz();
+      s22_had += jet.v4().Py()*jet.v4().Py();
+      s23_had += jet.v4().Py()*jet.v4().Pz();
+      s33_had += jet.v4().Pz()*jet.v4().Pz();
+    }
+
+    s11_had = s11_had / mag_had;
+    s12_had = s12_had / mag_had;
+    s13_had = s13_had / mag_had;
+    s22_had = s22_had / mag_had;
+    s23_had = s23_had / mag_had;
+    s33_had = s33_had / mag_had;
+
+    event.set(h_S11_had,s11_had);
+    event.set(h_S12_had,s12_had);
+    event.set(h_S13_had,s13_had);
+    event.set(h_S22_had,s22_had);
+    event.set(h_S23_had,s23_had);
+    event.set(h_S33_had,s33_had);
   
   }
 

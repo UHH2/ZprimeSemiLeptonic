@@ -58,7 +58,7 @@
 <!ENTITY QCD_HT1000to1500      SYSTEM "../../common/datasets/RunII_102X_v1/2017/MC_QCD_HT1000to1500_TuneCP5_13TeV-madgraph-pythia8.xml">
 <!ENTITY QCD_HT1500to2000      SYSTEM "../../common/datasets/RunII_102X_v1/2017/MC_QCD_HT1500to2000_TuneCP5_13TeV-madgraph-pythia8.xml">
 <!ENTITY QCD_HT2000toInf      SYSTEM "../../common/datasets/RunII_102X_v1/2017/MC_QCD_HT2000toInf_TuneCP5_13TeV-madgraph-pythia8.xml">
--->
+
 <!ENTITY WJetsToLNu_HT-70To100_2017     SYSTEM  "../../common/datasets/RunII_102X_v1/2017/WJetsToLNu_HT-70To100_TuneCP5_13TeV-madgraphMLM-pythia8.xml">
 <!ENTITY WJetsToLNu_HT-100To200_2017    SYSTEM  "../../common/datasets/RunII_102X_v1/2017/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8.xml">
 <!ENTITY WJetsToLNu_HT-200To400_2017    SYSTEM  "../../common/datasets/RunII_102X_v1/2017/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8.xml">
@@ -67,6 +67,16 @@
 <!ENTITY WJetsToLNu_HT-800To1200_2017   SYSTEM  "../../common/datasets/RunII_102X_v1/2017/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8.xml">
 <!ENTITY WJetsToLNu_HT-1200To2500_2017  SYSTEM  "../../common/datasets/RunII_102X_v1/2017/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8.xml">
 <!ENTITY WJetsToLNu_HT-2500ToInf_2017   SYSTEM  "../../common/datasets/RunII_102X_v1/2017/WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8.xml">
+-->
+
+<!ENTITY DYJetsToLL_M-50_HT-100to200_2017     SYSTEM  "../../common/datasets/RunII_102X_v1/2017/MC_DYJetsToLL_M-50_HT-100to200.xml">
+<!ENTITY DYJetsToLL_M-50_HT-200to400_2017     SYSTEM  "../../common/datasets/RunII_102X_v1/2017/MC_DYJetsToLL_M-50_HT-200to400.xml">
+<!ENTITY DYJetsToLL_M-50_HT-400to600_2017     SYSTEM  "../../common/datasets/RunII_102X_v1/2017/MC_DYJetsToLL_M-50_HT-400to600.xml">
+<!ENTITY DYJetsToLL_M-50_HT-600to800_2017     SYSTEM  "../../common/datasets/RunII_102X_v1/2017/MC_DYJetsToLL_M-50_HT-600to800.xml">
+<!ENTITY DYJetsToLL_M-50_HT-800to1200_2017    SYSTEM  "../../common/datasets/RunII_102X_v1/2017/MC_DYJetsToLL_M-50_HT-800to1200.xml">
+<!ENTITY DYJetsToLL_M-50_HT-1200to2500_2017   SYSTEM  "../../common/datasets/RunII_102X_v1/2017/MC_DYJetsToLL_M-50_HT-1200to2500.xml">
+<!ENTITY DYJetsToLL_M-50_HT-2500toInf_2017    SYSTEM  "../../common/datasets/RunII_102X_v1/2017/MC_DYJetsToLL_M-50_HT-2500toInf.xml">
+
 <!--
 <!ENTITY ZprimeToTTJet_M1000_2017 SYSTEM  "../../common/datasets/RunII_102X_v1/2017/ZprimeToTTbar/MC_ZprimeToTTJet_M1000.xml">
 -->
@@ -346,7 +356,7 @@
             <InputTree Name="AnalysisTree"/>
             <OutputTree Name="AnalysisTree"/>
           </InputData>
--->
+
           <InputData Lumi="7337.300986" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-70To100_2017" Cacheable="&b_Cacheable;">
             &WJetsToLNu_HT-70To100_2017;
             <InputTree Name="AnalysisTree"/>
@@ -394,6 +404,53 @@
             <InputTree Name="AnalysisTree"/>
             <OutputTree Name="AnalysisTree"/>
           </InputData>
+-->
+
+          <InputData Lumi="69226.78638" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-100to200_2017" Cacheable="&b_Cacheable;">
+            &DYJetsToLL_M-50_HT-100to200_2017;
+            <InputTree Name="AnalysisTree"/>
+            <OutputTree Name="AnalysisTree"/>
+          </InputData>
+
+          <InputData Lumi="219614.0918" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-200to400_2017" Cacheable="&b_Cacheable;">
+            &DYJetsToLL_M-50_HT-200to400_2017;
+            <InputTree Name="AnalysisTree"/>
+            <OutputTree Name="AnalysisTree"/>
+          </InputData>
+
+          <InputData Lumi="1476963.275" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-400to600_2017" Cacheable="&b_Cacheable;">
+            &DYJetsToLL_M-50_HT-400to600_2017;
+            <InputTree Name="AnalysisTree"/>
+            <OutputTree Name="AnalysisTree"/>
+          </InputData>
+
+          <InputData Lumi="4907740.26" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-600to800_2017" Cacheable="&b_Cacheable;">
+            &DYJetsToLL_M-50_HT-600to800_2017;
+            <InputTree Name="AnalysisTree"/>
+            <OutputTree Name="AnalysisTree"/>
+          </InputData>
+
+          <InputData Lumi="3804595.493" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-800to1200_2017" Cacheable="&b_Cacheable;">
+            &DYJetsToLL_M-50_HT-800to1200_2017;
+            <InputTree Name="AnalysisTree"/>
+            <OutputTree Name="AnalysisTree"/>
+          </InputData>
+
+          <InputData Lumi="3218169.014" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-1200to2500_2017" Cacheable="&b_Cacheable;">
+            &DYJetsToLL_M-50_HT-1200to2500_2017;
+            <InputTree Name="AnalysisTree"/>
+            <OutputTree Name="AnalysisTree"/>
+          </InputData>
+
+          <InputData Lumi="114568655.4" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-2500toInf_2017" Cacheable="&b_Cacheable;">
+            &DYJetsToLL_M-50_HT-2500toInf_2017;
+            <InputTree Name="AnalysisTree"/>
+            <OutputTree Name="AnalysisTree"/>
+          </InputData>
+
+
+
+
 <!--
           <InputData Lumi="20000" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTTJet_M1000_2017" Cacheable="&b_Cacheable;">
             &ZprimeToTTJet_M1000_2017;
