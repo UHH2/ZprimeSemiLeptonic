@@ -149,7 +149,7 @@ protected:
   TString sample;
   int runnr_oldtriggers = 299368;
 
-  bool is2016v2, is2016v3, is2017, is2018;
+  bool is2016v2, is2016v3, is2017v2, is2018;
   bool isMuon, isElectron;
 };
 
@@ -212,7 +212,7 @@ ZprimeAnalysisModule_LooseCuts::ZprimeAnalysisModule_LooseCuts(uhh2::Context& ct
   sample = tmp;
   is2016v2 = (ctx.get("dataset_version").find("2016v2") != std::string::npos);
   is2016v3 = (ctx.get("dataset_version").find("2016v3") != std::string::npos);
-  is2017 = (ctx.get("dataset_version").find("2017") != std::string::npos);
+  is2017v2 = (ctx.get("dataset_version").find("2017v2") != std::string::npos);
   is2018 = (ctx.get("dataset_version").find("2018") != std::string::npos);
 
   // Important selection values
@@ -253,20 +253,22 @@ ZprimeAnalysisModule_LooseCuts::ZprimeAnalysisModule_LooseCuts(uhh2::Context& ct
     nele_min = 1; nele_max = 1;
     trigger1 = "HLT_Ele50_CaloIdVT_GsfTrkIdT_PFJet165_v*";
     trigger2 = "HLT_Ele115_CaloIdVT_GsfTrkIdT_v*";
-    MET_cut = 500;
+    MET_cut = 50;
     jet1_pt = 185.;
     HT_lep_cut = 0;
     //    trigger3 = "HLT\_Ele115_v*";
   }
 
- // Remove TwoD cut 
- // double TwoD_dr = 0.4, TwoD_ptrel = 25.;
- // if(islooserselection){
- //   jet1_pt = 100.;
- //   TwoD_dr = 0.2;
- //   TwoD_ptrel = 10.;
- //   //    stlep_plus_met = 100.;
- // }
+ // Remove TwoD cut for DNN 
+ /*
+  double TwoD_dr = 0.4, TwoD_ptrel = 25.;
+  if(islooserselection){
+    jet1_pt = 100.;
+    TwoD_dr = 0.2;
+    TwoD_ptrel = 10.;
+    //    stlep_plus_met = 100.;
+  }
+ */
   const MuonId muonID(PtEtaCut(muon_pt, 2.4));
   const ElectronId electronID(PtEtaSCCut(elec_pt, 2.5));
 
@@ -282,16 +284,16 @@ ZprimeAnalysisModule_LooseCuts::ZprimeAnalysisModule_LooseCuts(uhh2::Context& ct
   electron_cleaner.reset(new ElectronCleaner(electronID));
   LumiWeight_module.reset(new MCLumiWeight(ctx));
   PUWeight_module.reset(new MCPileupReweight(ctx, Sys_PU));
-  //  CSVWeight_module.reset(new MCCSVv2ShapeSystematic(ctx, "jets","central","iterativefit","","MCCSVv2ShapeSystematic"));
+  CSVWeight_module.reset(new MCCSVv2ShapeSystematic(ctx, "jets","central","iterativefit","","MCCSVv2ShapeSystematic"));
 
   //if((is2016v3 || is2016v2) && isMuon){
   //  MuonID_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2016/MuonID_EfficienciesAndSF_average_RunBtoH.root", "MC_NUM_TightID_DEN_genTracks_PAR_pt_eta", 0., "MuonID", true, Sys_MuonID));
   //  MuonTrigger_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2016/MuonTrigger_EfficienciesAndSF_average_RunBtoH.root", "IsoMu50_OR_IsoTkMu50_PtEtaBins", 0.5, "MuonTrigger", true, Sys_MuonTrigger));
   //}
-  // if(is2017 || is2018){
-  //   MuonID_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2017/MuonID_94X_RunBCDEF_SF_ID.root", "NUM_HighPtID_DEN_genTracks_pair_newTuneP_probe_pt_abseta", 0., "HighPtID", true, Sys_MuonID));
-  //   MuonTrigger_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2017/MuonTrigger_EfficienciesAndSF_RunBtoF_Nov17Nov2017.root", "Mu50_PtEtaBins/pt_abseta_ratio", 0.5, "Trigger", true, Sys_MuonTrigger));
-  // }
+  //if(is2017v2 || is2018){
+  //  MuonID_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2017/MuonID_94X_RunBCDEF_SF_ID.root", "NUM_HighPtID_DEN_genTracks_pair_newTuneP_probe_pt_abseta", 0., "HighPtID", true, Sys_MuonID));
+  //  MuonTrigger_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2017/MuonTrigger_EfficienciesAndSF_RunBtoF_Nov17Nov2017.root", "Mu50_PtEtaBins/pt_abseta_ratio", 0.5, "Trigger", true, Sys_MuonTrigger));
+  //}
 
   // Selection modules
   Trigger1_selection.reset(new TriggerSelection(trigger1));
@@ -313,7 +315,7 @@ ZprimeAnalysisModule_LooseCuts::ZprimeAnalysisModule_LooseCuts(uhh2::Context& ct
   ZprimeTopTag_selection.reset(new ZprimeTopTagSelection(ctx));
   BlindData_selection.reset(new BlindDataSelection(ctx, mtt_blind));
 
-  HEM_selection.reset(new HEMSelection(ctx));
+  HEM_selection.reset(new HEMSelection(ctx)); // HEM issue in 2017, veto on electron and jets
 
   // Taggers
   TopTaggerPuppi.reset(new AK8PuppiTopTagger(ctx));
@@ -494,7 +496,7 @@ bool ZprimeAnalysisModule_LooseCuts::process(uhh2::Event& event){
   // in fisrt round re-weighting is switched off
   PUWeight_module->process(event);
   //if(debug)  cout<<"PUWeight ok"<<endl;
-  // CSVWeight_module->process(event);
+  CSVWeight_module->process(event);
   //if(isMuon){
   //  MuonID_module->process(event);
   //  if(debug)  cout<<"MuonID ok"<<endl;

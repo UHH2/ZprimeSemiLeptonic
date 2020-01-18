@@ -960,7 +960,14 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
 
 
     //////////////////////////////////////////////////////////////////////////
-    // Variables for NN
+     /*
+     ██████   ███    ██ ███    ██ 
+     ██   ██  ████   ██ ████   ██
+     ██    ██ ██ ██  ██ ██ ██  ██
+     ██   ██  ██  ██ ██ ██  ██ ██
+     ██████   ██   ████ ██   ████
+     */ 
+
     //////////////////////////////////////////////////////////////////////////
     float ptlep = BestZprimeCandidate->lepton().pt();
     float etalep = BestZprimeCandidate->lepton().eta();

@@ -113,7 +113,7 @@ protected:
   constexpr static int s_runnr_C_2018  = 320065; //up to this one, including this one
   constexpr static int s_runnr_D_2018 =  325175; //up to this one, including this one
 
-  bool is2016v2, is2016v3, is2017, is2018;
+  bool is2016v2, is2016v3, is2017v2, is2018;
 };
 
 void ZprimePreselectionModule::book_histograms(uhh2::Context& ctx, vector<string> tags){
@@ -158,7 +158,7 @@ void ZprimePreselectionModule::init_JEC_JLC(uhh2::Context& ctx){
   std::vector<std::string> JEC_AK8CHS_A, JEC_AK8CHS_B, JEC_AK8CHS_C, JEC_AK8CHS_D, JEC_AK8CHS_E, JEC_AK8CHS_F, JEC_AK8CHS_G, JEC_AK8CHS_H;
   std::vector<std::string> JEC_AK8Puppi_A, JEC_AK8Puppi_B, JEC_AK8Puppi_C, JEC_AK8Puppi_D, JEC_AK8Puppi_E, JEC_AK8Puppi_F, JEC_AK8Puppi_G, JEC_AK8Puppi_H;
 
-  if(!is2017 && !is2018 && !is2016v2 && !is2016v3) cout<<"Hm, some is wrong. Did you mention year in Version parameter of xml file?"<<endl;
+  if(!is2017v2 && !is2018 && !is2016v2 && !is2016v3) cout<<"Hm, some is wrong. Did you mention year in Version parameter of xml file?"<<endl;
   if(is2016v2 || is2016v3){
     cout<<"ZprimePreselectionModule uses JEC for 2016 data/MC"<<endl;
     JEC_AK4CHS_B       = JERFiles::Summer16_07Aug2017_V11_B_L123_AK4PFchs_DATA;
@@ -236,7 +236,7 @@ void ZprimePreselectionModule::init_JEC_JLC(uhh2::Context& ctx){
     */
   }
 
-  if(is2017){
+  if(is2017v2){
     cout<<"ZprimePreselectionModule uses JEC for 2017 data/MC"<<endl;
     JEC_AK4CHS_B       = JERFiles::Fall17_17Nov2017_V32_B_L123_AK4PFchs_DATA;
     JEC_AK4CHS_C       = JERFiles::Fall17_17Nov2017_V32_C_L123_AK4PFchs_DATA;
@@ -299,7 +299,7 @@ void ZprimePreselectionModule::init_JEC_JLC(uhh2::Context& ctx){
     jet_corrector_B.reset(new JetCorrector(ctx, JEC_AK4CHS_B));
     jet_corrector_C.reset(new JetCorrector(ctx, JEC_AK4CHS_C));
     jet_corrector_D.reset(new JetCorrector(ctx, JEC_AK4CHS_D));
-    if(is2017 or is2016v2 or is2016v3){
+    if(is2017v2 or is2016v2 or is2016v3){
       //      jet_corrector_D.reset(new JetCorrector(ctx, JEC_AK4CHS_D));//tmp
       jet_corrector_E.reset(new JetCorrector(ctx, JEC_AK4CHS_E));
       jet_corrector_F.reset(new JetCorrector(ctx, JEC_AK4CHS_F));
@@ -315,7 +315,7 @@ void ZprimePreselectionModule::init_JEC_JLC(uhh2::Context& ctx){
     JLC_B.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4CHS_B));
     JLC_C.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4CHS_C));
     JLC_D.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4CHS_D));
-    if(is2017 or is2016v2 or is2016v3){
+    if(is2017v2 or is2016v2 or is2016v3){
       //  JLC_D.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4CHS_D));//tmp
       JLC_E.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4CHS_E));
       JLC_F.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4CHS_F));
@@ -331,7 +331,7 @@ void ZprimePreselectionModule::init_JEC_JLC(uhh2::Context& ctx){
     jet_corrector_B.reset(new JetCorrector(ctx, JEC_AK4Puppi_B));
     jet_corrector_C.reset(new JetCorrector(ctx, JEC_AK4Puppi_C));
     jet_corrector_D.reset(new JetCorrector(ctx, JEC_AK4Puppi_D));
-    if(is2017 or is2016v2 or is2016v3){
+    if(is2017v2 or is2016v2 or is2016v3){
       //  jet_corrector_D.reset(new JetCorrector(ctx, JEC_AK4Puppi_D));//tmp
       jet_corrector_E.reset(new JetCorrector(ctx, JEC_AK4Puppi_E));
       jet_corrector_F.reset(new JetCorrector(ctx, JEC_AK4Puppi_F));
@@ -347,7 +347,7 @@ void ZprimePreselectionModule::init_JEC_JLC(uhh2::Context& ctx){
     JLC_B.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4Puppi_B));
     JLC_C.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4Puppi_C));
     JLC_D.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4Puppi_D));
-    if(is2017 or is2016v2 or is2016v3){
+    if(is2017v2 or is2016v2 or is2016v3){
       //  JLC_D.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4Puppi_D));//tmp
       JLC_E.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4Puppi_E));
       JLC_F.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4Puppi_F));
@@ -363,7 +363,7 @@ void ZprimePreselectionModule::init_JEC_JLC(uhh2::Context& ctx){
   topjet_corrector_B.reset(new TopJetCorrector(ctx,       JEC_AK8CHS_B));
   topjet_corrector_C.reset(new TopJetCorrector(ctx,       JEC_AK8CHS_C));
   topjet_corrector_D.reset(new TopJetCorrector(ctx,      JEC_AK8CHS_D));
-  if(is2017 or is2016v2 or is2016v3){
+  if(is2017v2 or is2016v2 or is2016v3){
     //  topjet_corrector_D.reset(new TopJetCorrector(ctx,      JEC_AK8CHS_D));//tmp
     topjet_corrector_E.reset(new TopJetCorrector(ctx,      JEC_AK8CHS_E));
     topjet_corrector_F.reset(new TopJetCorrector(ctx,       JEC_AK8CHS_F));
@@ -378,7 +378,7 @@ void ZprimePreselectionModule::init_JEC_JLC(uhh2::Context& ctx){
   topjet_puppi_corrector_B.reset(new GenericTopJetCorrector(ctx,       JEC_AK8Puppi_B, "toppuppijets"));
   topjet_puppi_corrector_C.reset(new GenericTopJetCorrector(ctx,       JEC_AK8Puppi_C, "toppuppijets"));
   topjet_puppi_corrector_D.reset(new GenericTopJetCorrector(ctx,      JEC_AK8Puppi_D, "toppuppijets"));
-  if(is2017 or is2016v2 or is2016v3){
+  if(is2017v2 or is2016v2 or is2016v3){
     //  topjet_puppi_corrector_D.reset(new GenericTopJetCorrector(ctx,      JEC_AK8Puppi_D, "toppuppijets"));//tmp
     topjet_puppi_corrector_E.reset(new GenericTopJetCorrector(ctx,      JEC_AK8Puppi_E, "toppuppijets"));
     topjet_puppi_corrector_F.reset(new GenericTopJetCorrector(ctx,       JEC_AK8Puppi_F, "toppuppijets"));
@@ -394,7 +394,7 @@ void ZprimePreselectionModule::init_JEC_JLC(uhh2::Context& ctx){
   topjet_subjet_corrector_B.reset(new SubJetCorrector(ctx,       JEC_AK4CHS_B));
   topjet_subjet_corrector_C.reset(new SubJetCorrector(ctx,       JEC_AK4CHS_C));
   topjet_subjet_corrector_D.reset(new SubJetCorrector(ctx,      JEC_AK4CHS_D));
-  if(is2017 or is2016v2 or is2016v3){
+  if(is2017v2 or is2016v2 or is2016v3){
     //  topjet_subjet_corrector_D.reset(new SubJetCorrector(ctx,      JEC_AK4CHS_D));//tmp
     topjet_subjet_corrector_E.reset(new SubJetCorrector(ctx,      JEC_AK4CHS_E));
     topjet_subjet_corrector_F.reset(new SubJetCorrector(ctx,       JEC_AK4CHS_F));
@@ -409,7 +409,7 @@ void ZprimePreselectionModule::init_JEC_JLC(uhh2::Context& ctx){
   topjet_puppi_subjet_corrector_B.reset(new GenericSubJetCorrector(ctx,       JEC_AK4Puppi_B, "toppuppijets"));
   topjet_puppi_subjet_corrector_C.reset(new GenericSubJetCorrector(ctx,       JEC_AK4Puppi_C, "toppuppijets"));
   topjet_puppi_subjet_corrector_D.reset(new GenericSubJetCorrector(ctx,      JEC_AK4Puppi_D, "toppuppijets"));
-  if(is2017 or is2016v2 or is2016v3){
+  if(is2017v2 or is2016v2 or is2016v3){
     //  topjet_puppi_subjet_corrector_D.reset(new GenericSubJetCorrector(ctx,      JEC_AK4Puppi_D, "toppuppijets"));//tmp
     topjet_puppi_subjet_corrector_E.reset(new GenericSubJetCorrector(ctx,      JEC_AK4Puppi_E, "toppuppijets"));
     topjet_puppi_subjet_corrector_F.reset(new GenericSubJetCorrector(ctx,       JEC_AK4Puppi_F, "toppuppijets"));
@@ -426,7 +426,7 @@ void ZprimePreselectionModule::init_JEC_JLC(uhh2::Context& ctx){
   TopJLC_B.reset(new JetLeptonCleaner_by_KEYmatching(ctx,       JEC_AK8CHS_B, "topjets"));
   TopJLC_C.reset(new JetLeptonCleaner_by_KEYmatching(ctx,       JEC_AK8CHS_C, "topjets"));
   TopJLC_D.reset(new JetLeptonCleaner_by_KEYmatching(ctx,      JEC_AK8CHS_D, "topjets"));
-  if(is2017 or is2016v2 or is2016v3){
+  if(is2017v2 or is2016v2 or is2016v3){
     //  TopJLC_D.reset(new JetLeptonCleaner_by_KEYmatching(ctx,      JEC_AK8CHS_D, "topjets"));//tmp
     TopJLC_E.reset(new JetLeptonCleaner_by_KEYmatching(ctx,      JEC_AK8CHS_E, "topjets"));
     TopJLC_F.reset(new JetLeptonCleaner_by_KEYmatching(ctx,       JEC_AK8CHS_F, "topjets"));
@@ -441,7 +441,7 @@ void ZprimePreselectionModule::init_JEC_JLC(uhh2::Context& ctx){
   TopJLC_puppi_B.reset(new JetLeptonCleaner_by_KEYmatching(ctx,       JEC_AK8Puppi_B, "toppuppijets"));
   TopJLC_puppi_C.reset(new JetLeptonCleaner_by_KEYmatching(ctx,       JEC_AK8Puppi_C, "toppuppijets"));
   TopJLC_puppi_D.reset(new JetLeptonCleaner_by_KEYmatching(ctx,      JEC_AK8Puppi_D, "toppuppijets"));
-  if(is2017 or is2016v2 or is2016v3){
+  if(is2017v2 or is2016v2 or is2016v3){
     //  TopJLC_puppi_D.reset(new JetLeptonCleaner_by_KEYmatching(ctx,      JEC_AK8Puppi_D, "toppuppijets"));//tmp
     TopJLC_puppi_E.reset(new JetLeptonCleaner_by_KEYmatching(ctx,      JEC_AK8Puppi_E, "toppuppijets"));
     TopJLC_puppi_F.reset(new JetLeptonCleaner_by_KEYmatching(ctx,       JEC_AK8Puppi_F, "toppuppijets"));
@@ -469,13 +469,13 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   const bool ispuppi = (ctx.get("is_puppi") == "true");
   is2016v2 = (ctx.get("dataset_version").find("2016v2") != std::string::npos);
   is2016v3 = (ctx.get("dataset_version").find("2016v3") != std::string::npos);
-  is2017 = (ctx.get("dataset_version").find("2017") != std::string::npos);
+  is2017v2 = (ctx.get("dataset_version").find("2017v2") != std::string::npos);
   is2018 = (ctx.get("dataset_version").find("2018") != std::string::npos);
  
   cout << "Is this running on puppi: " << ispuppi << endl;
 
   ElectronId eleID;  MuonId muID;
-  if(is2017 || is2018){
+  if(is2017v2 || is2018){
     eleID = ElectronID_Fall17_tight_noIso;//ToDo: compare cutBased without iso and MVA-based via wp in UHH2
     muID      = MuonID(Muon::CutBasedIdGlobalHighPt);
   }
@@ -553,7 +553,7 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
       TopJER_smearer.reset(new GenericJetResolutionSmearer(ctx, "topjets", "gentopjets", JERSmearing::SF_13TeV_Summer16_25nsV1, "2016/Summer16_25nsV1_MC_PtResolution_AK8PFchs.txt"));
       TopJER_puppi_smearer.reset(new GenericJetResolutionSmearer(ctx, "toppuppijets", "gentopjets", JERSmearing::SF_13TeV_Summer16_25nsV1, "2016/Summer16_25nsV1_MC_PtResolution_AK8PFPuppi.txt"));
     }
-    if(is2017){
+    if(is2017v2){
       if(!ispuppi) JER_smearer.reset(new GenericJetResolutionSmearer(ctx, "jets", "genjets", JERSmearing::SF_13TeV_Fall17_V3, "2017/Fall17_V3_MC_PtResolution_AK4PFchs.txt"));
       else JER_smearer.reset(new GenericJetResolutionSmearer(ctx, "jets", "genjets", JERSmearing::SF_13TeV_Fall17_V3, "2017/Fall17_V3_MC_PtResolution_AK4PFPuppi.txt"));
       TopJER_smearer.reset(new GenericJetResolutionSmearer(ctx, "topjets", "gentopjets", JERSmearing::SF_13TeV_Fall17_V3, "2017/Fall17_V3_MC_PtResolution_AK8PFchs.txt"));
@@ -647,7 +647,7 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
       else throw std::runtime_error("run number not covered by if-statements in process-routine.");
     }
 
-    if(is2017){
+    if(is2017v2){
       if(event.run <= s_runnr_B_2017)  apply_B = true;
       else if(event.run <= s_runnr_C_2017) apply_C = true;
       else if(event.run <= s_runnr_D_2017) apply_D = true;
