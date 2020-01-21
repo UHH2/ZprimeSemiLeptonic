@@ -1,6 +1,6 @@
 #include "../include/cosmetics.h"
 #include "../include/Tools.h"
-#include <TString.h>
+#include "TString.h"
 #include <iostream>
 #include <TStyle.h>
 #include <TFile.h>
@@ -28,13 +28,13 @@ void AnalysisTool::CalculateChi2Values(){
   TString infilename = "";
   if(AnalysisTool::do_puppi) infilename = base_path_puppi;
   else infilename = base_path_chs;
-  infilename += "/NOMINAL/uhh2.AnalysisModuleRunner.MC.TTbar_SemiLep.root";
+  infilename += "/nfs/dust/cms/user/deleokse/analysis/ZPrime_2017/Analysis_2017v2_ttbarReco/muon/uhh2.AnalysisModuleRunner.MC.TTToSemiLeptonic_2017v2.root";
   TFile* infile = new TFile(infilename, "READ");
 
-  TH1F* h_had_ak4  = (TH1F*)infile->Get("STlepPlusMet_General/M_tophad_dr_ak4");
-  TH1F* h_lep_ak4  = (TH1F*)infile->Get("STlepPlusMet_General/M_toplep_dr_ak4");
-  TH1F* h_had_ttag = (TH1F*)infile->Get("STlepPlusMet_General/M_tophad_dr_ttag");
-  TH1F* h_lep_ttag = (TH1F*)infile->Get("STlepPlusMet_General/M_toplep_dr_ttag");
+  TH1F* h_had_ak4  = (TH1F*)infile->Get("Matchable_General/M_tophad_dr_ak4");
+  TH1F* h_lep_ak4  = (TH1F*)infile->Get("Matchable_General/M_toplep_dr_ak4");
+  TH1F* h_had_ttag = (TH1F*)infile->Get("Matchable_General/M_tophad_dr_ttag");
+  TH1F* h_lep_ttag = (TH1F*)infile->Get("Matchable_General/M_toplep_dr_ttag");
 
   vector<TH1F*> hists = {h_had_ak4, h_lep_ak4, h_had_ttag, h_lep_ttag};
   vector<TString> names = {"Mtop_hadronic_AK4", "Mtop_leptonic_AK4", "Mtop_hadronic_TTag", "Mtop_leptonic_TTag"};

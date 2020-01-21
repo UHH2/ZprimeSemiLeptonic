@@ -58,8 +58,12 @@ namespace uhh2 {
     TTbarSemiLepMatchableSelection();
     ~TTbarSemiLepMatchableSelection(){};
     virtual bool passes(const uhh2::Event & event);
+    std::pair<bool,double> check_reco(const ReconstructionHypothesis hyp);//compares match between reconstructed hypothesis vs gen tops and products of their decays filled in passes()
   private:
+    GenParticle Wlep, Whad, blep, bhad, thad, tlep, lepton, neutrino, Whadd1,Whadd2;
   };
+
+
 
   class Chi2Cut : public Selection{
   public:

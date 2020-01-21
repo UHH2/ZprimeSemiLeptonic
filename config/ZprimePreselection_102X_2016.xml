@@ -3,11 +3,11 @@
 
 
 <!ENTITY TargetLumi      "35920">
-<!ENTITY PRESELdir       "/nfs/dust/cms/user/deleokse/analysis/ZPrime_2016/Output_2016_noQCD/">
+<!ENTITY PRESELdir       "/nfs/dust/cms/user/deleokse/analysis/ZPrime_2016/Preselection_ttbarReco/">
 <!ENTITY b_Cacheable     "False">
 <!ENTITY NEVT            "-1">
 <!ENTITY IS_PUPPI        "true">
-
+<!--
 <!ENTITY DATA_SingleElectron_Run2016v3B   SYSTEM  "../../common/datasets/RunII_102X_v1/2016v3/DATA_SingleElectron2016_RunB.xml">
 <!ENTITY DATA_SingleMuon_Run2016v3B   SYSTEM  "../../common/datasets/RunII_102X_v1/2016v3/DATA_SingleMuon2016_RunB.xml">
 <!ENTITY DATA_SingleElectron_Run2016v3C   SYSTEM  "../../common/datasets/RunII_102X_v1/2016v3/DATA_SingleElectron2016_RunC.xml">
@@ -44,6 +44,7 @@
 <!ENTITY ST_t-channel_antitop_2016v3              SYSTEM  "../../common/datasets/RunII_102X_v1/2016v3/MC_ST_t-channel_antitop_inclusiveDecays.xml">
 <!ENTITY ST_t-channel_top_2016v3                  SYSTEM  "../../common/datasets/RunII_102X_v1/2016v3/MC_ST_t-channel_top_inclusiveDecays.xml">
 <!ENTITY ST_s-channel_2016v3                      SYSTEM  "../../common/datasets/RunII_102X_v1/2016v3/MC_ST_s-channel_inclusiveDecays.xml">
+-->
 <!--
 <!ENTITY QCD_Pt-15to20_MuEnrichedPt5_2016v3  SYSTEM  "../../common/datasets/RunII_102X_v1/2016v3/MC_QCD_Pt-15to20_MuEnrichedPt5.xml">
 <!ENTITY QCD_Pt-20to30_MuEnrichedPt5_2016v3  SYSTEM  "../../common/datasets/RunII_102X_v1/2016v3/MC_QCD_Pt-20to30_MuEnrichedPt5.xml">
@@ -79,7 +80,7 @@
 
 <!--
 <ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="25" AutoResubmit="100"/>
-<ConfigSGE RAM="2" DISK="2" Mail="ksenia.de.leo@desy.de" Notification="as" Workdir="workdir_Zprime_PreSelec_2016_noQCD"/>
+<ConfigSGE RAM="2" DISK="2" Mail="ksenia.de.leo@desy.de" Notification="as" Workdir="workdir_Zprime_PreSelec_2016_ttbarReco"/>
 -->
 
 <JobConfiguration JobName="ZprimePreselectionJob" OutputLevel="INFO">
@@ -87,7 +88,7 @@
 	<Package Name="SUHH2ZprimeSemiLeptonic.par"/>
 
 	<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="&TargetLumi;">
-
+<!--
           <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleElectron_Run2016v3B" Cacheable="&b_Cacheable;">
             &DATA_SingleElectron_Run2016v3B;
             <InputTree Name="AnalysisTree" />
@@ -273,6 +274,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
+-->
 <!--
           <InputData Lumi="18.03933848" NEventsMax="&NEVT;" Type="MC" Version="QCD_Pt-30to50_MuEnrichedPt5_2016v3" Cacheable="&b_Cacheable;">
             &QCD_Pt-30to50_MuEnrichedPt5_2016v3;

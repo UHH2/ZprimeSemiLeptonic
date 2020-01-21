@@ -374,15 +374,25 @@ ZprimeChi2Discriminator::ZprimeChi2Discriminator(uhh2::Context& ctx){
   //sigmatophad_ttag_ = 15.;
 
   // New fit 2017 MC
-  mtoplep_ = 164.;
-  sigmatoplep_ = 22.;
-  mtophad_ = 166.;
-  sigmatophad_ = 16.;
+  //mtoplep_ = 164.;
+  //sigmatoplep_ = 22.;
+  //mtophad_ = 166.;
+  //sigmatophad_ = 16.;
 
-  mtoplep_ttag_ = 164.;
-  sigmatoplep_ttag_ = 22.;
-  mtophad_ttag_ = 166.;
-  sigmatophad_ttag_ = 16.;
+  //mtoplep_ttag_ = 164.;
+  //sigmatoplep_ttag_ = 22.;
+  //mtophad_ttag_ = 166.;
+  //sigmatophad_ttag_ = 16.;
+
+  mtoplep_ = 173.;
+  sigmatoplep_ = 15.;
+  mtophad_ = 173.;
+  sigmatophad_ = 15.;
+
+  mtoplep_ttag_ = 173.;
+  sigmatoplep_ttag_ = 15.;
+  mtophad_ttag_ = 173.;
+  sigmatophad_ttag_ = 15.;
 
 }
 
