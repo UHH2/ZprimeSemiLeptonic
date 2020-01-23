@@ -307,8 +307,9 @@ ZprimeAnalysisModule_LooseCuts::ZprimeAnalysisModule_LooseCuts(uhh2::Context& ct
   met_sel.reset(new METCut  (MET_cut   , uhh2::infinity));
   htlep_sel.reset(new HTlepCut(HT_lep_cut, uhh2::infinity));
 
-  Chi2_selection.reset(new Chi2Cut(ctx, 0., chi2_max));
   TTbarMatchable_selection.reset(new TTbarSemiLepMatchableSelection());
+  Chi2_selection.reset(new Chi2Cut(ctx, 0., chi2_max));
+  //TTbarMatchable_selection.reset(new TTbarSemiLepMatchableSelection());
   Chi2CandidateMatched_selection.reset(new Chi2CandidateMatchedSelection(ctx));
   ZprimeTopTag_selection.reset(new ZprimeTopTagSelection(ctx));
   BlindData_selection.reset(new BlindDataSelection(ctx, mtt_blind));
@@ -322,10 +323,12 @@ ZprimeAnalysisModule_LooseCuts::ZprimeAnalysisModule_LooseCuts(uhh2::Context& ct
   CandidateBuilder.reset(new ZprimeCandidateBuilder(ctx, mode));
 
   // Zprime discriminators
-  Chi2DiscriminatorZprime.reset(new ZprimeChi2Discriminator(ctx));
-  h_is_zprime_reconstructed_chi2 = ctx.get_handle<bool>("is_zprime_reconstructed_chi2");
   CorrectMatchDiscriminatorZprime.reset(new ZprimeCorrectMatchDiscriminator(ctx));
   h_is_zprime_reconstructed_correctmatch = ctx.get_handle<bool>("is_zprime_reconstructed_correctmatch");
+  Chi2DiscriminatorZprime.reset(new ZprimeChi2Discriminator(ctx));
+  h_is_zprime_reconstructed_chi2 = ctx.get_handle<bool>("is_zprime_reconstructed_chi2");
+  //CorrectMatchDiscriminatorZprime.reset(new ZprimeCorrectMatchDiscriminator(ctx));
+  //h_is_zprime_reconstructed_correctmatch = ctx.get_handle<bool>("is_zprime_reconstructed_correctmatch");
   h_BestZprimeCandidateChi2 = ctx.get_handle<ZprimeCandidate*>("ZprimeCandidateBestChi2");
   //  h_chi2 = ctx.get_handle<float>("rec_chi2");
   h_chi2 = ctx.declare_event_output<float> ("rec_chi2");
@@ -543,10 +546,10 @@ bool ZprimeAnalysisModule_LooseCuts::process(uhh2::Event& event){
 
   CandidateBuilder->process(event);
   if(debug) cout<<"CandidateBuilder is ok"<<endl;
-  Chi2DiscriminatorZprime->process(event);
-  if(debug)  cout<<"Chi2DiscriminatorZprime is ok"<<endl;
-  CorrectMatchDiscriminatorZprime->process(event);
-  if(debug) cout<<"CorrectMatchDiscriminatorZprime is ok"<<endl;
+  //Chi2DiscriminatorZprime->process(event);
+  //if(debug)  cout<<"Chi2DiscriminatorZprime is ok"<<endl;
+  //CorrectMatchDiscriminatorZprime->process(event);
+  //if(debug) cout<<"CorrectMatchDiscriminatorZprime is ok"<<endl;
   if(sample.Contains("_blinded")){
     if(!BlindData_selection->passes(event)) return false;
   }
@@ -571,9 +574,20 @@ bool ZprimeAnalysisModule_LooseCuts::process(uhh2::Event& event){
     if(debug) cout<<"HTlep is ok"<<endl;
   }
 
+//
+  CorrectMatchDiscriminatorZprime->process(event);
+  if(debug) cout<<"CorrectMatchDiscriminatorZprime is ok"<<endl;
   if(TTbarMatchable_selection->passes(event)) fill_histograms(event, "MatchableBeforeChi2Cut");
   else fill_histograms(event, "NotMatchableBeforeChi2Cut");
   if(debug) cout<<"TTbarMatchable_selection is ok"<<endl;
+//
+
+ // if(TTbarMatchable_selection->passes(event)) fill_histograms(event, "MatchableBeforeChi2Cut");
+ // else fill_histograms(event, "NotMatchableBeforeChi2Cut");
+ // if(debug) cout<<"TTbarMatchable_selection is ok"<<endl;
+
+  Chi2DiscriminatorZprime->process(event);
+  if(debug)  cout<<"Chi2DiscriminatorZprime is ok"<<endl;
 
   if(Chi2CandidateMatched_selection->passes(event)) fill_histograms(event, "CorrectMatchBeforeChi2Cut");
   else fill_histograms(event, "NotCorrectMatchBeforeChi2Cut");
