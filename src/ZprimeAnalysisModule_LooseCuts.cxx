@@ -17,6 +17,7 @@
 #include <UHH2/common/include/JetIds.h>
 #include <UHH2/common/include/TopJetIds.h>
 #include <UHH2/common/include/TTbarGen.h>
+#include <UHH2/common/include/TopPtReweight.h>
 #include <UHH2/common/include/Utils.h>
 #include <UHH2/common/include/AdditionalSelections.h>
 #include "UHH2/common/include/LuminosityHists.h"
@@ -88,6 +89,10 @@ protected:
   std::unique_ptr<Selection> sel_1btag, sel_2btag;
   std::unique_ptr<Selection> TopJetBtagSubjet_selection;
   std::unique_ptr<Selection> HEM_selection;
+
+  // top pt reweight module?? Used in 80X
+  std::unique_ptr<TopPtReweight> ttbar_reweight;
+
   //Handles
   Event::Handle<bool> h_is_zprime_reconstructed_chi2, h_is_zprime_reconstructed_correctmatch;
   Event::Handle<float> h_chi2;   Event::Handle<float> h_weight;
@@ -214,6 +219,9 @@ ZprimeAnalysisModule_LooseCuts::ZprimeAnalysisModule_LooseCuts(uhh2::Context& ct
   is2016v3 = (ctx.get("dataset_version").find("2016v3") != std::string::npos);
   is2017v2 = (ctx.get("dataset_version").find("2017v2") != std::string::npos);
   is2018 = (ctx.get("dataset_version").find("2018") != std::string::npos);
+
+  // Top PT reweight
+  ttbar_reweight.reset(new TopPtReweight(ctx,0.0615,-0.0005,"","weight_ttbar",true)); // 13 TeV
 
   // Important selection values
   islooserselection = (ctx.get("is_looser_selection") == "true");
@@ -491,6 +499,9 @@ bool ZprimeAnalysisModule_LooseCuts::process(uhh2::Event& event){
   if(isElectron) electron_cleaner->process(event);
   if(debug)  cout<<"Muon and Electron cleaner ok"<<endl;
   if(isElectron && !HEM_selection->passes(event)) return false;
+
+    ttbar_reweight->process(event);
+
   // Weight modules
   LumiWeight_module->process(event);
   if(debug)  cout<<"LumiWeight ok"<<endl;

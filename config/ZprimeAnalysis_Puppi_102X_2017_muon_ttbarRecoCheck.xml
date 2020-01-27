@@ -13,14 +13,14 @@
 <!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/analysis/ZPrime_2017/Analysis_2017v2_ttbarReco_bins/&CHANNEL;/">
 
 
-<!ENTITY TTToSemiLeptonic_2017v2_newpars          SYSTEM  "../data/Skimming_datasets_2017v2/MC_TTToSemiLeptonic_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY TTToSemiLeptonic_2017v2_ptweight          SYSTEM  "../data/Skimming_datasets_2017v2/MC_TTToSemiLeptonic_2017v2_withoutEmptyNtuples.xml">
 
 
 ]>
 
 <!--
 <ConfigParse NEventsBreak="200000" LastBreak="0" FileSplit="10" AutoResubmit="100"/>
-<ConfigSGE RAM="1" DISK="2" Mail="ksenia.de.leo@desy.de" Notification="as" Workdir="workdir_Zprime_Analysis_2017_ttbarReco_newpars"/>
+<ConfigSGE RAM="1" DISK="2" Mail="ksenia.de.leo@desy.de" Notification="as" Workdir="workdir_Zprime_Analysis_2017_ttbarReco_ptweight"/>
 -->
 
 <JobConfiguration JobName="ZprimePreselectionJob" OutputLevel="INFO">
@@ -31,8 +31,8 @@
 
 
 
-          <InputData Lumi="35279949.78" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_2017v2_newpars" Cacheable="&b_Cacheable;">
-            &TTToSemiLeptonic_2017v2_newpars;
+          <InputData Lumi="35279949.78" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_2017v2_ptweight" Cacheable="&b_Cacheable;">
+            &TTToSemiLeptonic_2017v2_ptweight;
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
