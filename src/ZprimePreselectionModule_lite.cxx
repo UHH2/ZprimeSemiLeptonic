@@ -46,6 +46,7 @@ protected:
 
   // NN vars
   Event::Handle<float> h_MET;
+  Event::Handle<float> h_weight;
   Event::Handle<float> h_ST;
   Event::Handle<float> h_STjets;
   Event::Handle<float> h_STlep;
@@ -63,10 +64,10 @@ protected:
   Event::Handle<float> h_phi_jet1;
   Event::Handle<float> h_phi_jet2;
   Event::Handle<float> h_phi_jet3;
-  Event::Handle<float> h_m_jet;
-  Event::Handle<float> h_m_jet1;
-  Event::Handle<float> h_m_jet2;
-  Event::Handle<float> h_m_jet3;
+  Event::Handle<float> h_mass_jet;
+  Event::Handle<float> h_mass_jet1;
+  Event::Handle<float> h_mass_jet2;
+  Event::Handle<float> h_mass_jet3;
   Event::Handle<float> h_csv_jet;
   Event::Handle<float> h_csv_jet1;
   Event::Handle<float> h_csv_jet2;
@@ -643,6 +644,7 @@ ZprimePreselectionModule_lite::ZprimePreselectionModule_lite(uhh2::Context& ctx)
   met_sel  .reset(new METCut  (MET   , uhh2::infinity));
 
   h_MET = ctx.declare_event_output<float> ("met");
+  h_weight = ctx.declare_event_output<float> ("weight");
   h_ST = ctx.declare_event_output<float> ("st");
   h_STjets = ctx.declare_event_output<float> ("st_jets");
   h_STlep = ctx.declare_event_output<float> ("st_lep");
@@ -660,10 +662,10 @@ ZprimePreselectionModule_lite::ZprimePreselectionModule_lite(uhh2::Context& ctx)
   h_phi_jet1 = ctx.declare_event_output<float> ("phi_jet1");
   h_phi_jet2 = ctx.declare_event_output<float> ("phi_jet2");
   h_phi_jet3 = ctx.declare_event_output<float> ("phi_jet3");
-  h_m_jet = ctx.declare_event_output<float> ("m_jet");
-  h_m_jet1 = ctx.declare_event_output<float> ("m_jet1");
-  h_m_jet2 = ctx.declare_event_output<float> ("m_jet2");
-  h_m_jet3 = ctx.declare_event_output<float> ("m_jet3");
+  h_mass_jet = ctx.declare_event_output<float> ("mass_jet");
+  h_mass_jet1 = ctx.declare_event_output<float> ("mass_jet1");
+  h_mass_jet2 = ctx.declare_event_output<float> ("mass_jet2");
+  h_mass_jet3 = ctx.declare_event_output<float> ("mass_jet3");
   h_csv_jet = ctx.declare_event_output<float> ("csv_jet");
   h_csv_jet1 = ctx.declare_event_output<float> ("csv_jet1");
   h_csv_jet2 = ctx.declare_event_output<float> ("csv_jet2");
@@ -724,6 +726,7 @@ ZprimePreselectionModule_lite::ZprimePreselectionModule_lite(uhh2::Context& ctx)
 bool ZprimePreselectionModule_lite::process(uhh2::Event& event){
 
   event.set(h_MET,0);
+  event.set(h_weight,0);
   event.set(h_ST,0);
   event.set(h_STjets,0);
   event.set(h_STlep,0);
@@ -741,10 +744,10 @@ bool ZprimePreselectionModule_lite::process(uhh2::Event& event){
   event.set(h_phi_jet1,0);
   event.set(h_phi_jet2,0);
   event.set(h_phi_jet3,0);
-  event.set(h_m_jet,0);
-  event.set(h_m_jet1,0);
-  event.set(h_m_jet2,0);
-  event.set(h_m_jet3,0);
+  event.set(h_mass_jet,0);
+  event.set(h_mass_jet1,0);
+  event.set(h_mass_jet2,0);
+  event.set(h_mass_jet3,0);
   event.set(h_csv_jet,0);
   event.set(h_csv_jet1,0);
   event.set(h_csv_jet2,0);
@@ -1050,6 +1053,8 @@ bool ZprimePreselectionModule_lite::process(uhh2::Event& event){
 ////////////////////////////////////////////////
 
   // General
+  event.set(h_weight,event.weight);
+  
   event.set(h_NPV,event.pvs->size());
 
   event.set(h_MET,event.met->pt());
@@ -1080,7 +1085,7 @@ bool ZprimePreselectionModule_lite::process(uhh2::Event& event){
     event.set(h_pt_jet,jets->at(i).pt());
     event.set(h_eta_jet,jets->at(i).eta());
     event.set(h_phi_jet,jets->at(i).phi());
-    event.set(h_m_jet,jets->at(i).v4().M());
+    event.set(h_mass_jet,jets->at(i).v4().M());
     event.set(h_csv_jet,jets->at(i).btag_combinedSecondaryVertex());
 
     double dRmin_muon_jet = 99999;
@@ -1101,21 +1106,21 @@ bool ZprimePreselectionModule_lite::process(uhh2::Event& event){
       event.set(h_pt_jet1,jets->at(i).pt());
       event.set(h_eta_jet1,jets->at(i).eta());
       event.set(h_phi_jet1,jets->at(i).phi());
-      event.set(h_m_jet1,jets->at(i).v4().M());
+      event.set(h_mass_jet1,jets->at(i).v4().M());
       event.set(h_csv_jet1,jets->at(i).btag_combinedSecondaryVertex());
     }
     else if(i==1){
       event.set(h_pt_jet2,jets->at(i).pt());
       event.set(h_eta_jet2,jets->at(i).eta());
       event.set(h_phi_jet2,jets->at(i).phi());
-      event.set(h_m_jet2,jets->at(i).v4().M());
+      event.set(h_mass_jet2,jets->at(i).v4().M());
       event.set(h_csv_jet2,jets->at(i).btag_combinedSecondaryVertex());
     }
     else if(i==2){
       event.set(h_pt_jet3,jets->at(i).pt());
       event.set(h_eta_jet3,jets->at(i).eta());
       event.set(h_phi_jet3,jets->at(i).phi());
-      event.set(h_m_jet3,jets->at(i).v4().M());
+      event.set(h_mass_jet3,jets->at(i).v4().M());
       event.set(h_csv_jet3,jets->at(i).btag_combinedSecondaryVertex());
     }
   }

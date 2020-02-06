@@ -8,20 +8,21 @@
 <!ENTITY IS_PUPPI        "true">
 
 <!-- <!ENTITY DATA_SingleMuon_Run2017v2_B   SYSTEM  "../../common/datasets/RunII_102X_v1/2017/DATA_SingleMuon2017_RunB.xml"> -->
-
+<!--
 <!ENTITY DATA_SingleMuon_Run2017v2_C   SYSTEM  "../../common/datasets/RunII_102X_v1/2017/DATA_SingleMuon2017_RunC.xml">
 <!ENTITY DATA_SingleMuon_Run2017v2_D   SYSTEM  "../../common/datasets/RunII_102X_v1/2017/DATA_SingleMuon2017_RunD.xml">
 <!ENTITY DATA_SingleMuon_Run2017v2_E   SYSTEM  "../../common/datasets/RunII_102X_v1/2017/DATA_SingleMuon2017_RunE.xml">
 <!ENTITY DATA_SingleMuon_Run2017v2_F   SYSTEM  "../../common/datasets/RunII_102X_v1/2017/DATA_SingleMuon2017_RunF.xml">
-
+-->
 <!-- <!ENTITY DATA_SingleElectron_Run2017v2_B   SYSTEM  "../../common/datasets/RunII_102X_v1/2017/DATA_SingleElectron_Run2017B.xml"> -->
-
+<!--
 <!ENTITY DATA_SingleElectron_Run2017v2_C   SYSTEM  "../../common/datasets/RunII_102X_v1/2017/DATA_SingleElectron_Run2017C.xml">
 <!ENTITY DATA_SingleElectron_Run2017v2_D   SYSTEM  "../../common/datasets/RunII_102X_v1/2017/DATA_SingleElectron_Run2017D.xml">
 <!ENTITY DATA_SingleElectron_Run2017v2_E   SYSTEM  "../../common/datasets/RunII_102X_v1/2017/DATA_SingleElectron_Run2017E.xml">
 <!ENTITY DATA_SingleElectron_Run2017v2_F   SYSTEM  "../../common/datasets/RunII_102X_v1/2017/DATA_SingleElectron_Run2017F.xml">
-
-<!ENTITY TTToSemiLeptonic_2017          SYSTEM  "../../common/datasets/RunII_102X_v1/2017/MC_TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8.xml">
+-->
+<!ENTITY TTToSemiLeptonic_2017_check          SYSTEM  "../../common/datasets/RunII_102X_v1/2017/MC_TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8.xml">
+<!--
 <!ENTITY TTToHadronic_2017              SYSTEM  "../../common/datasets/RunII_102X_v1/2017/MC_TTToHadronic_TuneCP5_13TeV-powheg-pythia8.xml">
 <!ENTITY TTTo2L2Nu_2017                 SYSTEM  "../../common/datasets/RunII_102X_v1/2017/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8.xml">         
 
@@ -59,8 +60,8 @@
 <!ENTITY DYJetsToLL_M-50_HT-800to1200_2017    SYSTEM  "../../common/datasets/RunII_102X_v1/2017/MC_DYJetsToLL_M-50_HT-800to1200.xml">
 <!ENTITY DYJetsToLL_M-50_HT-1200to2500_2017   SYSTEM  "../../common/datasets/RunII_102X_v1/2017/MC_DYJetsToLL_M-50_HT-1200to2500.xml">
 <!ENTITY DYJetsToLL_M-50_HT-2500toInf_2017    SYSTEM  "../../common/datasets/RunII_102X_v1/2017/MC_DYJetsToLL_M-50_HT-2500toInf.xml">
-
-<!ENTITY ZprimeToTTJet_M1000_2017 SYSTEM  "../../common/datasets/RunII_102X_v1/2017/ZprimeToTTbar/MC_ZprimeToTTJet_M1000.xml">
+-->
+<!ENTITY ZprimeToTT_M3000_W300_2017_check SYSTEM  "../../common/datasets/RunII_102X_v1/2017/ZprimeToTTbar/MC_ZprimeToTT_M3000_W300.xml">
 
 ]>
 
@@ -74,7 +75,7 @@
 	<Package Name="SUHH2ZprimeSemiLeptonic.par"/>
 
 	<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="&TargetLumi;">
-
+<!--
      	  <InputData Lumi="3386024.049" NEventsMax="&NEVT;" Type="MC" Version="ST_t-channel_antitop_2017v2" Cacheable="&b_Cacheable;">
 	    &ST_t-channel_antitop;
 	    <InputTree Name="AnalysisTree" />
@@ -116,7 +117,7 @@
 	    <InputTree Name="AnalysisTree" />
 	    <OutputTree Name="AnalysisTree" />
 	  </InputData>
-
+-->
 <!--
 	  <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_Run2017v2_B" Cacheable="&b_Cacheable;">
 	    &DATA_SingleMuon_Run2017v2_B;
@@ -124,7 +125,7 @@
 	    <OutputTree Name="AnalysisTree" />
 	  </InputData>
 -->
-
+<!--
           <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_Run2017v2_C" Cacheable="&b_Cacheable;">
             &DATA_SingleMuon_Run2017v2_C;
             <InputTree Name="AnalysisTree" />
@@ -148,7 +149,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
-
+-->
 <!--
 	  <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleElectron_Run2017v2_B" Cacheable="&b_Cacheable;">
 	    &DATA_SingleElectron_Run2017v2_B;
@@ -156,7 +157,7 @@
 	    <OutputTree Name="AnalysisTree" />
 	  </InputData>
 -->
-
+<!--
           <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleElectron_Run2017v2_C" Cacheable="&b_Cacheable;">
             &DATA_SingleElectron_Run2017v2_C;
             <InputTree Name="AnalysisTree" />
@@ -180,13 +181,13 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
-
-	  <InputData Lumi="35279949.78" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_2017v2" Cacheable="&b_Cacheable;">
-	    &TTToSemiLeptonic_2017;
+-->
+	  <InputData Lumi="35279949.78" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_2017v2_check" Cacheable="&b_Cacheable;">
+	    &TTToSemiLeptonic_2017_check;
 	    <InputTree Name="AnalysisTree" />
 	    <OutputTree Name="AnalysisTree" />
 	  </InputData>
-
+<!--
           <InputData Lumi="109490.4712" NEventsMax="&NEVT;" Type="MC" Version="TTToHadronic_2017v2" Cacheable="&b_Cacheable;">
             &TTToHadronic_2017;
             <InputTree Name="AnalysisTree" />
@@ -302,7 +303,7 @@
 
 
 
-
+-->
 
 <!--
           <InputData Lumi="7337.300986" NEventsMax="&NEVT;" Type="MC" Version="WJets_ToLNu_HT-70To100_2017v2_B" Cacheable="&b_Cacheable;">
@@ -464,7 +465,7 @@
 -->
 
 
-
+<!--
           <InputData Lumi="69226.78638" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-100to200_2017v2" Cacheable="&b_Cacheable;">
             &DYJetsToLL_M-50_HT-100to200_2017;
             <InputTree Name="AnalysisTree"/>
@@ -506,9 +507,9 @@
             <InputTree Name="AnalysisTree"/>
             <OutputTree Name="AnalysisTree"/>
           </InputData>
-
-          <InputData Lumi="20000" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTTJet_M1000_2017v2" Cacheable="&b_Cacheable;">
-            &ZprimeToTTJet_M1000_2017;
+-->
+          <InputData Lumi="17236" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTT_M3000_W300_2017v2_check" Cacheable="&b_Cacheable;">
+            &ZprimeToTT_M3000_W300_2017_check;
             <InputTree Name="AnalysisTree"/>
             <OutputTree Name="AnalysisTree"/>
           </InputData>
