@@ -540,8 +540,8 @@ bool ZprimeAnalysisModule_LooseCuts::process(uhh2::Event& event){
   //  if(event.electrons->size()<1 && event.muons->size()<1) return false; //veto events without leptons
   if((event.muons->size()+event.electrons->size()) != 1) return false; //veto events without leptons or with too many 
   if(debug) cout<<"N leptons ok: Nelectrons="<<event.electrons->size()<<" Nmuons="<<event.muons->size()<<endl;
-  if(!TwoDCut_selection->passes(event)) return false;
-  fill_histograms(event, "TwoDCut");
+  //if(!TwoDCut_selection->passes(event)) return false;
+  //fill_histograms(event, "TwoDCut");
 
   // Here, the Zprime must be reconstructed (we ensured to have >= 2 AK4 jets, >= 1 muon)
   // Only consider well-separated AK4 jets
@@ -571,6 +571,9 @@ bool ZprimeAnalysisModule_LooseCuts::process(uhh2::Event& event){
   if(!Jet2_selection->passes(event)) return false;
   if(debug) cout<<"Jet2_selection is ok"<<endl;
   fill_histograms(event, "Jet2");
+
+  if(!TwoDCut_selection->passes(event)) return false;
+  fill_histograms(event, "TwoDCut");
 
   // if(!STlepPlusMet_selection->passes(event)) return false;
   // fill_histograms(event, "STlepPlusMet");
