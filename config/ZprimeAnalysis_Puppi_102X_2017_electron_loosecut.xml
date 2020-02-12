@@ -9,7 +9,7 @@
 
 <!ENTITY IS_PUPPI            "true">
 <!ENTITY IS_LOOSER_SELECTION "false">
-<!ENTITY CHANNEL "muon">
+<!ENTITY CHANNEL "electron">
 <!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/analysis/ZPrime_2017/Analysis_2017v2_0802/&CHANNEL;/">
 <!--
 <!ENTITY DATA_SingleMuon_Run2017v2_C   SYSTEM  "../data/Skimming_datasets_2017v2_0802/DATA_DATA_SingleMuon_Run2017v2_C_withoutEmptyNtuples.xml">
@@ -21,7 +21,7 @@
 <!ENTITY DATA_SingleElectron_Run2017v2_D   SYSTEM  "../data/Skimming_datasets_2017v2_0802/DATA_DATA_SingleElectron_Run2017v2_D_withoutEmptyNtuples.xml">
 <!ENTITY DATA_SingleElectron_Run2017v2_E   SYSTEM  "../data/Skimming_datasets_2017v2_0802/DATA_DATA_SingleElectron_Run2017v2_E_withoutEmptyNtuples.xml">
 <!ENTITY DATA_SingleElectron_Run2017v2_F   SYSTEM  "../data/Skimming_datasets_2017v2_0802/DATA_DATA_SingleElectron_Run2017v2_F_withoutEmptyNtuples.xml">
--->
+
 <!ENTITY TTToSemiLeptonic_2017v2          SYSTEM  "../data/Skimming_datasets_2017v2_0802/MC_TTToSemiLeptonic_2017v2_withoutEmptyNtuples.xml">
 <!ENTITY TTToHadronic_2017v2              SYSTEM  "../data/Skimming_datasets_2017v2_0802/MC_TTToHadronic_2017v2_withoutEmptyNtuples.xml">
 <!ENTITY TTTo2L2Nu_2017v2                 SYSTEM  "../data/Skimming_datasets_2017v2_0802/MC_TTTo2L2Nu_2017v2_withoutEmptyNtuples.xml">         
@@ -52,7 +52,7 @@
 <!ENTITY WJetsToLNu_HT-800To1200_2017v2   SYSTEM  "../data/Skimming_datasets_2017v2_0802/MC_WJets_ToLNu_HT-800To1200_2017v2_withoutEmptyNtuples.xml">
 <!ENTITY WJetsToLNu_HT-1200To2500_2017v2  SYSTEM  "../data/Skimming_datasets_2017v2_0802/MC_WJets_ToLNu_HT-1200To2500_2017v2_withoutEmptyNtuples.xml">
 <!ENTITY WJetsToLNu_HT-2500ToInf_2017v2   SYSTEM  "../data/Skimming_datasets_2017v2_0802/MC_WJets_ToLNu_HT-2500ToInf_2017v2_withoutEmptyNtuples.xml">
-
+-->
 <!ENTITY WJetsToLNu_HT-70To100_2017v2_B     SYSTEM  "../data/Skimming_datasets_2017v2_0802/MC_WJets_ToLNu_HT-70To100_2017v2_B_withoutEmptyNtuples.xml">
 <!ENTITY WJetsToLNu_HT-100To200_2017v2_B    SYSTEM  "../data/Skimming_datasets_2017v2_0802/MC_WJets_ToLNu_HT-100To200_2017v2_B_withoutEmptyNtuples.xml">
 <!ENTITY WJetsToLNu_HT-200To400_2017v2_B    SYSTEM  "../data/Skimming_datasets_2017v2_0802/MC_WJets_ToLNu_HT-200To400_2017v2_B_withoutEmptyNtuples.xml">
@@ -61,7 +61,7 @@
 <!ENTITY WJetsToLNu_HT-800To1200_2017v2_B   SYSTEM  "../data/Skimming_datasets_2017v2_0802/MC_WJets_ToLNu_HT-800To1200_2017v2_B_withoutEmptyNtuples.xml">
 <!ENTITY WJetsToLNu_HT-1200To2500_2017v2_B  SYSTEM  "../data/Skimming_datasets_2017v2_0802/MC_WJets_ToLNu_HT-1200To2500_2017v2_B_withoutEmptyNtuples.xml">
 <!ENTITY WJetsToLNu_HT-2500ToInf_2017v2_B   SYSTEM  "../data/Skimming_datasets_2017v2_0802/MC_WJets_ToLNu_HT-2500ToInf_2017v2_B_withoutEmptyNtuples.xml">
-
+<!--
 <!ENTITY WJetsToLNu_HT-70To100_2017v2_C     SYSTEM  "../data/Skimming_datasets_2017v2_0802/MC_WJets_ToLNu_HT-70To100_2017v2_C_withoutEmptyNtuples.xml">
 <!ENTITY WJetsToLNu_HT-100To200_2017v2_C    SYSTEM  "../data/Skimming_datasets_2017v2_0802/MC_WJets_ToLNu_HT-100To200_2017v2_C_withoutEmptyNtuples.xml">
 <!ENTITY WJetsToLNu_HT-200To400_2017v2_C    SYSTEM  "../data/Skimming_datasets_2017v2_0802/MC_WJets_ToLNu_HT-200To400_2017v2_C_withoutEmptyNtuples.xml">
@@ -87,12 +87,12 @@
 <!ENTITY DYJetsToLL_M-50_HT-800to1200_2017v2    SYSTEM  "../data/Skimming_datasets_2017v2_0802/MC_DYJetsToLL_M-50_HT-800to1200_2017v2_withoutEmptyNtuples.xml">
 <!ENTITY DYJetsToLL_M-50_HT-1200to2500_2017v2   SYSTEM  "../data/Skimming_datasets_2017v2_0802/MC_DYJetsToLL_M-50_HT-1200to2500_2017v2_withoutEmptyNtuples.xml">
 <!ENTITY DYJetsToLL_M-50_HT-2500toInf_2017v2    SYSTEM  "../data/Skimming_datasets_2017v2_0802/MC_DYJetsToLL_M-50_HT-2500toInf_2017v2_withoutEmptyNtuples.xml">
-
+-->
 ]>
 
 <!--
 <ConfigParse NEventsBreak="200000" LastBreak="0" FileSplit="10" AutoResubmit="100"/>
-<ConfigSGE RAM="1" DISK="2" Mail="ksenia.de.leo@desy.de" Notification="as" Workdir="workdir_Zprime_Analysis_2017_muon_NN"/>
+<ConfigSGE RAM="1" DISK="2" Mail="ksenia.de.leo@desy.de" Notification="as" Workdir="workdir_Zprime_Analysis_2017_electron_NN"/>
 -->
 
 <JobConfiguration JobName="ZprimePreselectionJob" OutputLevel="INFO">
@@ -101,7 +101,7 @@
 
   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTPUTdir;/" PostFix="" TargetLumi="&TargetLumi;">
 
-
+<!--
           <InputData Lumi="3386024.049" NEventsMax="&NEVT;" Type="MC" Version="ST_t-channel_antitop_2017v2" Cacheable="&b_Cacheable;">
             &ST_t-channel_antitop_2017v2;
             <InputTree Name="AnalysisTree" />
@@ -143,7 +143,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
-<!--
+
           <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_Run2017v2_C_blinded" Cacheable="&b_Cacheable;">
             &DATA_SingleMuon_Run2017v2_C;
             <InputTree Name="AnalysisTree" />
@@ -191,7 +191,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
--->
+
           <InputData Lumi="35279949.78" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_2017v2" Cacheable="&b_Cacheable;">
             &TTToSemiLeptonic_2017v2;
             <InputTree Name="AnalysisTree" />
@@ -307,7 +307,7 @@
           </InputData>
 
 
-
+-->
 
 
 
@@ -360,7 +360,7 @@
           </InputData>
 
 
-
+<!--
 
 
 
@@ -509,7 +509,7 @@
             <InputTree Name="AnalysisTree"/>
             <OutputTree Name="AnalysisTree"/>
           </InputData>
-
+-->
 
 
     <UserConfig>

@@ -83,7 +83,7 @@ protected:
 
   // Selections
   unique_ptr<Selection> Trigger1_selection, Trigger2_selection, NMuon1_selection, NMuon2_selection, NElectron_selection, Jet1_selection, Jet2_selection, Met_selection, Chi2_selection, TTbarMatchable_selection, Chi2CandidateMatched_selection, ZprimeTopTag_selection, BlindData_selection;
-  unique_ptr<Selection> TwoDCut_selection;
+//  unique_ptr<Selection> TwoDCut_selection;
   std::unique_ptr<uhh2::Selection> met_sel;
   std::unique_ptr<uhh2::Selection> htlep_sel;
   std::unique_ptr<Selection> sel_1btag, sel_2btag;
@@ -133,18 +133,12 @@ protected:
   Event::Handle<float> h_DeltaR_j1_lep; 
   Event::Handle<float> h_DeltaR_j1_nu; 
   Event::Handle<float> h_DeltaR_tlep_thad; 
-  Event::Handle<float> h_S11_lep; 
-  Event::Handle<float> h_S12_lep; 
-  Event::Handle<float> h_S13_lep; 
-  Event::Handle<float> h_S22_lep; 
-  Event::Handle<float> h_S23_lep; 
-  Event::Handle<float> h_S33_lep; 
-  Event::Handle<float> h_S11_had; 
-  Event::Handle<float> h_S12_had; 
-  Event::Handle<float> h_S13_had; 
-  Event::Handle<float> h_S22_had; 
-  Event::Handle<float> h_S23_had; 
-  Event::Handle<float> h_S33_had; 
+  Event::Handle<float> h_S11; 
+  Event::Handle<float> h_S12; 
+  Event::Handle<float> h_S13; 
+  Event::Handle<float> h_S22; 
+  Event::Handle<float> h_S23; 
+  Event::Handle<float> h_S33; 
 
   uhh2::Event::Handle<ZprimeCandidate*> h_BestZprimeCandidateChi2;
 
@@ -253,7 +247,8 @@ ZprimeAnalysisModule_LooseCuts::ZprimeAnalysisModule_LooseCuts(uhh2::Context& ct
     nele_min = 0; nele_max = 0;
     MET_cut = 50;
     jet1_pt = 150.;
-    HT_lep_cut = 150;
+    //HT_lep_cut = 150;
+    HT_lep_cut = 0; //loose cuts
   }
   if(isElectron){//semileptonic electron channel
     nmuon_min1 = 0; nmuon_max1 = 0;
@@ -261,20 +256,21 @@ ZprimeAnalysisModule_LooseCuts::ZprimeAnalysisModule_LooseCuts(uhh2::Context& ct
     nele_min = 1; nele_max = 1;
     trigger1 = "HLT_Ele50_CaloIdVT_GsfTrkIdT_PFJet165_v*";
     trigger2 = "HLT_Ele115_CaloIdVT_GsfTrkIdT_v*";
-    MET_cut = 50;
+    //MET_cut = 120;
+    MET_cut = 50; // loose cuts
     jet1_pt = 185.;
     HT_lep_cut = 0;
     //    trigger3 = "HLT\_Ele115_v*";
   }
 
  // Remove TwoD cut for DNN 
-  double TwoD_dr = 0.4, TwoD_ptrel = 25.;
-  if(islooserselection){
-    jet1_pt = 100.;
-    TwoD_dr = 0.2;
-    TwoD_ptrel = 10.;
-    //    stlep_plus_met = 100.;
-  }
+ // double TwoD_dr = 0.4, TwoD_ptrel = 25.;
+ // if(islooserselection){
+ //   jet1_pt = 100.;
+ //   TwoD_dr = 0.2;
+ //   TwoD_ptrel = 10.;
+ //   //    stlep_plus_met = 100.;
+ // }
   const MuonId muonID(PtEtaCut(muon_pt, 2.4));
   const ElectronId electronID(PtEtaSCCut(elec_pt, 2.5));
 
@@ -308,7 +304,7 @@ ZprimeAnalysisModule_LooseCuts::ZprimeAnalysisModule_LooseCuts(uhh2::Context& ct
   NMuon1_selection.reset(new NMuonSelection(nmuon_min1, nmuon_max1));
   NMuon2_selection.reset(new NMuonSelection(nmuon_min2, nmuon_max2));
   NElectron_selection.reset(new NElectronSelection(nele_min, nele_max));
-  TwoDCut_selection.reset(new TwoDCut(TwoD_dr, TwoD_ptrel));
+  //TwoDCut_selection.reset(new TwoDCut(TwoD_dr, TwoD_ptrel));
   Jet1_selection.reset(new NJetSelection(1, -1, JetId(PtEtaCut(jet1_pt, 2.4))));
   Jet2_selection.reset(new NJetSelection(2, -1, JetId(PtEtaCut(jet2_pt, 2.4))));
   //  STlepPlusMet_selection.reset(new STlepPlusMetCut(stlep_plus_met, -1.));
@@ -374,18 +370,12 @@ ZprimeAnalysisModule_LooseCuts::ZprimeAnalysisModule_LooseCuts(uhh2::Context& ct
   h_DeltaR_j1_lep = ctx.declare_event_output<float> ("DeltaR_j1_lep");
   h_DeltaR_j1_nu = ctx.declare_event_output<float> ("DeltaR_j1_nu");
   h_DeltaR_tlep_thad = ctx.declare_event_output<float> ("DeltaR_tlep_thad");
-  h_S11_lep = ctx.declare_event_output<float> ("S11_lep");
-  h_S12_lep = ctx.declare_event_output<float> ("S12_lep");
-  h_S13_lep = ctx.declare_event_output<float> ("S13_lep");
-  h_S22_lep = ctx.declare_event_output<float> ("S22_lep");
-  h_S23_lep = ctx.declare_event_output<float> ("S23_lep");
-  h_S33_lep = ctx.declare_event_output<float> ("S33_lep");
-  h_S11_had = ctx.declare_event_output<float> ("S11_had");
-  h_S12_had = ctx.declare_event_output<float> ("S12_had");
-  h_S13_had = ctx.declare_event_output<float> ("S13_had");
-  h_S22_had = ctx.declare_event_output<float> ("S22_had");
-  h_S23_had = ctx.declare_event_output<float> ("S23_had");
-  h_S33_had = ctx.declare_event_output<float> ("S33_had");
+  h_S11 = ctx.declare_event_output<float> ("S11");
+  h_S12 = ctx.declare_event_output<float> ("S12");
+  h_S13 = ctx.declare_event_output<float> ("S13");
+  h_S22 = ctx.declare_event_output<float> ("S22");
+  h_S23 = ctx.declare_event_output<float> ("S23");
+  h_S33 = ctx.declare_event_output<float> ("S33");
 
   h_lep1_pt = ctx.declare_event_output<float> ("lep1_pt");
   h_lep1_eta = ctx.declare_event_output<float> ("lep1_eta");
@@ -414,7 +404,7 @@ ZprimeAnalysisModule_LooseCuts::ZprimeAnalysisModule_LooseCuts(uhh2::Context& ct
   TopJetBtagSubjet_selection.reset(new ZprimeBTagFatSubJetSelection(ctx));
 
   // Book histograms
-  vector<string> histogram_tags = {"Weights", "Muon1", "Trigger", "Muon2", "Electron1", "TwoDCut", "Jet1", "Jet2", "MET", "HTlep", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction", "Btags2", "Btags1","TopJetBtagSubjet"};
+  vector<string> histogram_tags = {"Weights", "Muon1", "Trigger", "Muon2", "Electron1", "Jet1", "Jet2", "MET", "HTlep", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction", "Btags2", "Btags1","TopJetBtagSubjet"};
   book_histograms(ctx, histogram_tags);
 }
 
@@ -446,50 +436,44 @@ bool ZprimeAnalysisModule_LooseCuts::process(uhh2::Event& event){
   event.set(h_weight,-100);
 
   // Variables for NN
-  event.set(h_Lep_pt,0);
-  event.set(h_Lep_eta,0);
-  event.set(h_Lep_phi,0);
-  event.set(h_Nu_pt,0);
-  event.set(h_Nu_eta,0);
-  event.set(h_Nu_phi,0);
-  event.set(h_JetLep_pt,0);
-  event.set(h_JetLep_eta,0);
-  event.set(h_JetLep_phi,0);
-  event.set(h_JetHadAK8_pt,0);
-  event.set(h_JetHadAK8_eta,0);
-  event.set(h_JetHadAK8_phi,0);
-  event.set(h_JetHadAK4_1j_pt,0);
-  event.set(h_JetHadAK4_1j_eta,0);
-  event.set(h_JetHadAK4_1j_phi,0);
-  event.set(h_N_AK4_HadJets,0);
-  event.set(h_N_AK4_LepJets,0);
-  event.set(h_JetHadAK4_2j_pt,0);
-  event.set(h_JetHadAK4_2j_eta,0);
-  event.set(h_JetHadAK4_2j_phi,0);
-  event.set(h_TopLep_pt,0);
-  event.set(h_TopLep_eta,0);
-  event.set(h_TopLep_phi,0);
-  event.set(h_TopHad_pt,0);
-  event.set(h_TopHad_eta,0);
-  event.set(h_TopHad_phi,0);
-  event.set(h_TopHadOverLep_pt,0);
-  event.set(h_DeltaR_j1j2_had,0);
-  event.set(h_DeltaR_j1lep_j1had,0);
-  event.set(h_DeltaR_j1_lep,0);
-  event.set(h_DeltaR_j1_nu,0);
-  event.set(h_DeltaR_tlep_thad,0);
-  event.set(h_S11_lep,0);
-  event.set(h_S12_lep,0);
-  event.set(h_S13_lep,0);
-  event.set(h_S22_lep,0);
-  event.set(h_S23_lep,0);
-  event.set(h_S33_lep,0);
-  event.set(h_S11_had,0);
-  event.set(h_S12_had,0);
-  event.set(h_S13_had,0);
-  event.set(h_S22_had,0);
-  event.set(h_S23_had,0);
-  event.set(h_S33_had,0);
+  event.set(h_Lep_pt,-100);
+  event.set(h_Lep_eta,-100);
+  event.set(h_Lep_phi,-100);
+  event.set(h_Nu_pt,-100);
+  event.set(h_Nu_eta,-100);
+  event.set(h_Nu_phi,-100);
+  event.set(h_JetLep_pt,-100);
+  event.set(h_JetLep_eta,-100);
+  event.set(h_JetLep_phi,-100);
+  event.set(h_JetHadAK8_pt,-100);
+  event.set(h_JetHadAK8_eta,-100);
+  event.set(h_JetHadAK8_phi,-100);
+  event.set(h_JetHadAK4_1j_pt,-100);
+  event.set(h_JetHadAK4_1j_eta,-100);
+  event.set(h_JetHadAK4_1j_phi,-100);
+  event.set(h_N_AK4_HadJets,-100);
+  event.set(h_N_AK4_LepJets,-100);
+  event.set(h_JetHadAK4_2j_pt,-100);
+  event.set(h_JetHadAK4_2j_eta,-100);
+  event.set(h_JetHadAK4_2j_phi,-100);
+  event.set(h_TopLep_pt,-100);
+  event.set(h_TopLep_eta,-100);
+  event.set(h_TopLep_phi,-100);
+  event.set(h_TopHad_pt,-100);
+  event.set(h_TopHad_eta,-100);
+  event.set(h_TopHad_phi,-100);
+  event.set(h_TopHadOverLep_pt,-100);
+  event.set(h_DeltaR_j1j2_had,-100);
+  event.set(h_DeltaR_j1lep_j1had,-100);
+  event.set(h_DeltaR_j1_lep,-100);
+  event.set(h_DeltaR_j1_nu,-100);
+  event.set(h_DeltaR_tlep_thad,-100);
+  event.set(h_S11,-100);
+  event.set(h_S12,-100);
+  event.set(h_S13,-100);
+  event.set(h_S22,-100);
+  event.set(h_S23,-100);
+  event.set(h_S33,-100);
  
   // Printing
   // if(!event.isRealData) printer_genparticles->process(event);
@@ -498,7 +482,7 @@ bool ZprimeAnalysisModule_LooseCuts::process(uhh2::Event& event){
   if(isMuon) muon_cleaner->process(event);
   if(isElectron) electron_cleaner->process(event);
   if(debug)  cout<<"Muon and Electron cleaner ok"<<endl;
-  if(isElectron && !HEM_selection->passes(event)) return false;
+  //if(isElectron && !HEM_selection->passes(event)) return false;
 
     ttbar_reweight->process(event);
 
@@ -557,10 +541,10 @@ bool ZprimeAnalysisModule_LooseCuts::process(uhh2::Event& event){
 
   CandidateBuilder->process(event);
   if(debug) cout<<"CandidateBuilder is ok"<<endl;
-  //Chi2DiscriminatorZprime->process(event);
-  //if(debug)  cout<<"Chi2DiscriminatorZprime is ok"<<endl;
-  //CorrectMatchDiscriminatorZprime->process(event);
-  //if(debug) cout<<"CorrectMatchDiscriminatorZprime is ok"<<endl;
+  Chi2DiscriminatorZprime->process(event);
+  if(debug)  cout<<"Chi2DiscriminatorZprime is ok"<<endl;
+  CorrectMatchDiscriminatorZprime->process(event);
+  if(debug) cout<<"CorrectMatchDiscriminatorZprime is ok"<<endl;
   if(sample.Contains("_blinded")){
     if(!BlindData_selection->passes(event)) return false;
   }
@@ -571,9 +555,6 @@ bool ZprimeAnalysisModule_LooseCuts::process(uhh2::Event& event){
   if(!Jet2_selection->passes(event)) return false;
   if(debug) cout<<"Jet2_selection is ok"<<endl;
   fill_histograms(event, "Jet2");
-
-  if(!TwoDCut_selection->passes(event)) return false;
-  fill_histograms(event, "TwoDCut");
 
   // if(!STlepPlusMet_selection->passes(event)) return false;
   // fill_histograms(event, "STlepPlusMet");
@@ -588,20 +569,9 @@ bool ZprimeAnalysisModule_LooseCuts::process(uhh2::Event& event){
     if(debug) cout<<"HTlep is ok"<<endl;
   }
 
-//
-  CorrectMatchDiscriminatorZprime->process(event);
-  if(debug) cout<<"CorrectMatchDiscriminatorZprime is ok"<<endl;
   if(TTbarMatchable_selection->passes(event)) fill_histograms(event, "MatchableBeforeChi2Cut");
   else fill_histograms(event, "NotMatchableBeforeChi2Cut");
   if(debug) cout<<"TTbarMatchable_selection is ok"<<endl;
-//
-
- // if(TTbarMatchable_selection->passes(event)) fill_histograms(event, "MatchableBeforeChi2Cut");
- // else fill_histograms(event, "NotMatchableBeforeChi2Cut");
- // if(debug) cout<<"TTbarMatchable_selection is ok"<<endl;
-
-  Chi2DiscriminatorZprime->process(event);
-  if(debug)  cout<<"Chi2DiscriminatorZprime is ok"<<endl;
 
   if(Chi2CandidateMatched_selection->passes(event)) fill_histograms(event, "CorrectMatchBeforeChi2Cut");
   else fill_histograms(event, "NotCorrectMatchBeforeChi2Cut");
@@ -681,56 +651,31 @@ bool ZprimeAnalysisModule_LooseCuts::process(uhh2::Event& event){
 
 
   // Sphericity tensors jets leptonic side
-    double s11_lep = -1., s12_lep = -1., s13_lep = -1., s22_lep = -1., s23_lep = -1., s33_lep = -1., mag_lep = -1.;
-    for(const Particle jet : BestZprimeCandidate->jets_leptonic()){
-      mag_lep += (jet.v4().Px()*jet.v4().Px()+jet.v4().Py()*jet.v4().Py()+jet.v4().Pz()*jet.v4().Pz());
-      s11_lep += jet.v4().Px()*jet.v4().Px();
-      s12_lep += jet.v4().Px()*jet.v4().Py();
-      s13_lep += jet.v4().Px()*jet.v4().Pz();
-      s22_lep += jet.v4().Py()*jet.v4().Py();
-      s23_lep += jet.v4().Py()*jet.v4().Pz();
-      s33_lep += jet.v4().Pz()*jet.v4().Pz();
+    double s11 = -1., s12 = -1., s13 = -1., s22 = -1., s23 = -1., s33 = -1., mag = -1.;
+    for(const Jet jet : *event.jets){
+      mag += (jet.v4().Px()*jet.v4().Px()+jet.v4().Py()*jet.v4().Py()+jet.v4().Pz()*jet.v4().Pz());
+      s11 += jet.v4().Px()*jet.v4().Px();
+      s12 += jet.v4().Px()*jet.v4().Py();
+      s13 += jet.v4().Px()*jet.v4().Pz();
+      s22 += jet.v4().Py()*jet.v4().Py();
+      s23 += jet.v4().Py()*jet.v4().Pz();
+      s33 += jet.v4().Pz()*jet.v4().Pz();
     }
 
-    s11_lep = s11_lep / mag_lep;
-    s12_lep = s12_lep / mag_lep;
-    s13_lep = s13_lep / mag_lep;
-    s22_lep = s22_lep / mag_lep;
-    s23_lep = s23_lep / mag_lep;
-    s33_lep = s33_lep / mag_lep;
+    s11 = s11 / mag;
+    s12 = s12 / mag;
+    s13 = s13 / mag;
+    s22 = s22 / mag;
+    s23 = s23 / mag;
+    s33 = s33 / mag;
 
-    event.set(h_S11_lep,s11_lep);
-    event.set(h_S12_lep,s12_lep);
-    event.set(h_S13_lep,s13_lep);
-    event.set(h_S22_lep,s22_lep);
-    event.set(h_S23_lep,s23_lep);
-    event.set(h_S33_lep,s33_lep);
+    event.set(h_S11,s11);
+    event.set(h_S12,s12);
+    event.set(h_S13,s13);
+    event.set(h_S22,s22);
+    event.set(h_S23,s23);
+    event.set(h_S33,s33);
 
-  // Sphericity tensors jets hadronic side
-    double s11_had = -1., s12_had = -1., s13_had = -1., s22_had = -1., s23_had = -1., s33_had = -1., mag_had = -1.;
-    for(const Particle jet : BestZprimeCandidate->jets_hadronic()){
-      mag_had += (jet.v4().Px()*jet.v4().Px()+jet.v4().Py()*jet.v4().Py()+jet.v4().Pz()*jet.v4().Pz());
-      s11_had += jet.v4().Px()*jet.v4().Px();
-      s12_had += jet.v4().Px()*jet.v4().Py();
-      s13_had += jet.v4().Px()*jet.v4().Pz();
-      s22_had += jet.v4().Py()*jet.v4().Py();
-      s23_had += jet.v4().Py()*jet.v4().Pz();
-      s33_had += jet.v4().Pz()*jet.v4().Pz();
-    }
-
-    s11_had = s11_had / mag_had;
-    s12_had = s12_had / mag_had;
-    s13_had = s13_had / mag_had;
-    s22_had = s22_had / mag_had;
-    s23_had = s23_had / mag_had;
-    s33_had = s33_had / mag_had;
-
-    event.set(h_S11_had,s11_had);
-    event.set(h_S12_had,s12_had);
-    event.set(h_S13_had,s13_had);
-    event.set(h_S22_had,s22_had);
-    event.set(h_S23_had,s23_had);
-    event.set(h_S33_had,s33_had);
   
   }
 

@@ -104,11 +104,17 @@ protected:
   Event::Handle<float> h_mSD_Ak8Puppijet1;
   Event::Handle<float> h_mSD_Ak8Puppijet2;
   Event::Handle<float> h_mSD_Ak8Puppijet3;
-  Event::Handle<float> h_dR_mu_jet;
   Event::Handle<float> h_dR_mu_Ak8Puppijet;
-  Event::Handle<float> h_dR_ele_jet;
   Event::Handle<float> h_dR_ele_Ak8Puppijet;
   Event::Handle<float> h_dR_jet_Ak8Puppijet;
+  Event::Handle<float> h_dRmin_mu_jet;
+  Event::Handle<float> h_dRmin_ele_jet;
+  Event::Handle<float> h_ptrel_mu_jet;
+  Event::Handle<float> h_ptrel_ele_jet;
+  Event::Handle<float> h_dphi_mu_jet1;
+  Event::Handle<float> h_dphi_ele_jet1;
+  Event::Handle<float> h_dphi_mu_Ak8Puppijet1;
+  Event::Handle<float> h_dphi_ele_Ak8Puppijet1;
 
 
   // Corrections
@@ -706,11 +712,17 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   h_mSD_Ak8Puppijet1 = ctx.declare_event_output<float> ("mSD_Ak8Puppijet1");
   h_mSD_Ak8Puppijet2 = ctx.declare_event_output<float> ("mSD_Ak8Puppijet2");
   h_mSD_Ak8Puppijet3 = ctx.declare_event_output<float> ("mSD_Ak8Puppijet3");
-  h_dR_mu_jet = ctx.declare_event_output<float> ("dR_mu_jet");
   h_dR_mu_Ak8Puppijet = ctx.declare_event_output<float> ("dR_mu_Ak8Puppijet");
-  h_dR_ele_jet = ctx.declare_event_output<float> ("dR_ele_jet");
   h_dR_ele_Ak8Puppijet = ctx.declare_event_output<float> ("dR_ele_Ak8Puppijet");
   h_dR_jet_Ak8Puppijet = ctx.declare_event_output<float> ("dR_jet_Ak8Puppijet");
+  h_dRmin_mu_jet = ctx.declare_event_output<float> ("dRmin_mu_jet");
+  h_dRmin_ele_jet = ctx.declare_event_output<float> ("dRmin_ele_jet");
+  h_ptrel_mu_jet = ctx.declare_event_output<float> ("ptrel_mu_jet");
+  h_ptrel_ele_jet = ctx.declare_event_output<float> ("ptrel_ele_jet");
+  h_dphi_mu_jet1 = ctx.declare_event_output<float> ("dphi_mu_jet1");
+  h_dphi_ele_jet1 = ctx.declare_event_output<float> ("dphi_ele_jet1");
+  h_dphi_mu_Ak8Puppijet1 = ctx.declare_event_output<float> ("dphi_mu_Ak8Puppijet1");
+  h_dphi_ele_Ak8Puppijet1 = ctx.declare_event_output<float> ("dphi_ele_Ak8Puppijet1");
 
   // Book histograms
   vector<string> histogram_tags = {"Input", "Lumiselection", "Metfilters", "Lepton1", "JetID", "JetCleaner1", "JetCleaner2", "TopjetCleaner", "Jet1", "Jet2", "MET"};
@@ -782,11 +794,17 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
   event.set(h_mSD_Ak8Puppijet1,0);
   event.set(h_mSD_Ak8Puppijet2,0);
   event.set(h_mSD_Ak8Puppijet3,0);
-  event.set(h_dR_mu_jet,0);
   event.set(h_dR_mu_Ak8Puppijet,0);
-  event.set(h_dR_ele_jet,0);
   event.set(h_dR_ele_Ak8Puppijet,0);
   event.set(h_dR_jet_Ak8Puppijet,0);
+  event.set(h_dRmin_mu_jet,0);
+  event.set(h_dRmin_ele_jet,0);
+  event.set(h_ptrel_mu_jet,0);
+  event.set(h_ptrel_ele_jet,0);
+  event.set(h_dphi_mu_jet1,0);
+  event.set(h_dphi_ele_jet1,0);
+  event.set(h_dphi_mu_Ak8Puppijet1,0);
+  event.set(h_dphi_ele_Ak8Puppijet1,0);
 
   //  cout<<"Getting started... "<<event.event<<endl;
   fill_histograms(event, "Input");
@@ -1083,19 +1101,6 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
     event.set(h_m_jet,jets->at(i).v4().M());
     event.set(h_csv_jet,jets->at(i).btag_combinedSecondaryVertex());
 
-    double dRmin_muon_jet = 99999;
-    for(unsigned int j=0; j<event.muons->size(); j++){
-      double dR_mu_jet = deltaR(jets->at(i), event.muons->at(j));
-      if(dR_mu_jet < dRmin_muon_jet) dRmin_muon_jet = dR_mu_jet;
-      event.set(h_dR_mu_jet,dR_mu_jet);
-    }
-
-    double dRmin_ele_jet = 99999;
-    for(unsigned int j=0; j<event.electrons->size(); j++){
-      double dR_ele_jet = deltaR(jets->at(i), event.electrons->at(j));
-      if(dR_ele_jet < dRmin_ele_jet) dRmin_ele_jet = dR_ele_jet;
-      event.set(h_dR_ele_jet,dR_ele_jet);
-    }
 
     if(i==0){
       event.set(h_pt_jet1,jets->at(i).pt());
@@ -1157,6 +1162,20 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
     event.set(h_eta_mu,muons->at(i).eta());
     event.set(h_phi_mu,muons->at(i).phi());
     event.set(h_reliso_mu,muons->at(i).relIso());
+    if(muons->at(i).has_tag(Muon::twodcut_dRmin) && muons->at(i).has_tag(Muon::twodcut_pTrel)){
+      event.set(h_dRmin_mu_jet,muons->at(i).get_tag(Muon::twodcut_dRmin));
+      event.set(h_ptrel_mu_jet,muons->at(i).get_tag(Muon::twodcut_pTrel));
+    }
+      for(unsigned int j=0; j<jets->size(); j++){
+       if(j==0){
+       event.set(h_dphi_mu_jet1,deltaPhi(muons->at(i),jets->at(j)));
+       }
+      }
+      for(unsigned int k=0; k<event.toppuppijets->size(); k++){
+       if(k==0){
+       event.set(h_dphi_mu_Ak8Puppijet1,deltaPhi(muons->at(i),event.toppuppijets->at(k)));
+       }
+      }
   }
 
 
@@ -1170,6 +1189,20 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
     event.set(h_eta_ele,electrons->at(i).eta());
     event.set(h_phi_ele,electrons->at(i).phi());
     event.set(h_reliso_ele,electrons->at(i).relIso());
+    if(electrons->at(i).has_tag(Electron::twodcut_dRmin) && electrons->at(i).has_tag(Electron::twodcut_pTrel)){
+      event.set(h_dRmin_ele_jet,electrons->at(i).get_tag(Electron::twodcut_dRmin));
+      event.set(h_ptrel_ele_jet,electrons->at(i).get_tag(Electron::twodcut_pTrel));
+    }
+      for(unsigned int j=0; j<jets->size(); j++){
+       if(j==0){
+       event.set(h_dphi_ele_jet1,deltaPhi(electrons->at(i),jets->at(j)));
+       }
+      }
+      for(unsigned int k=0; k<event.toppuppijets->size(); k++){
+       if(k==0){
+       event.set(h_dphi_ele_Ak8Puppijet1,deltaPhi(electrons->at(i),event.toppuppijets->at(k)));
+       }
+      }
   }
 
 

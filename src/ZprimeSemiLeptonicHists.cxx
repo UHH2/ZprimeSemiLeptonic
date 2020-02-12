@@ -417,18 +417,12 @@ void ZprimeSemiLeptonicHists::init(){
   M_Zprime_dr_rebin3       = book<TH1F>("M_Zprime_dr_rebin3", "M_{t#bar{t}} (correctly matched) [GeV]", 35, 0, 7000);
 
   // Sphericity tensor
-  S11_lep = book<TH1F>("S11_lep", "S_{11}^{lep}", 50, 0, 1);
-  S12_lep = book<TH1F>("S12_lep", "S_{12}^{lep}", 50, 0, 1);
-  S13_lep = book<TH1F>("S13_lep", "S_{13}^{lep}", 50, 0, 1);
-  S22_lep = book<TH1F>("S22_lep", "S_{22}^{lep}", 50, 0, 1);
-  S23_lep = book<TH1F>("S23_lep", "S_{23}^{lep}", 50, 0, 1);
-  S33_lep = book<TH1F>("S33_lep", "S_{33}^{lep}", 50, 0, 1);
-  S11_had = book<TH1F>("S11_had", "S_{11}^{had}", 50, 0, 1);
-  S12_had = book<TH1F>("S12_had", "S_{12}^{had}", 50, 0, 1);
-  S13_had = book<TH1F>("S13_had", "S_{13}^{had}", 50, 0, 1);
-  S22_had = book<TH1F>("S22_had", "S_{22}^{had}", 50, 0, 1);
-  S23_had = book<TH1F>("S23_had", "S_{23}^{had}", 50, 0, 1);
-  S33_had = book<TH1F>("S33_had", "S_{33}^{had}", 50, 0, 1);
+  S11 = book<TH1F>("S11", "S_{11}", 50, 0, 1);
+  S12 = book<TH1F>("S12", "S_{12}", 50, 0, 1);
+  S13 = book<TH1F>("S13", "S_{13}", 50, 0, 1);
+  S22 = book<TH1F>("S22", "S_{22}", 50, 0, 1);
+  S23 = book<TH1F>("S23", "S_{23}", 50, 0, 1);
+  S33 = book<TH1F>("S33", "S_{33}", 50, 0, 1);
 
   sum_event_weights = book<TH1F>("sum_event_weights", "counting experiment", 1, 0.5, 1.5);
 
@@ -991,56 +985,31 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
     float phi_tophad = BestZprimeCandidate->top_hadronic_v4().phi();
     float pt_tophadlep = (BestZprimeCandidate->top_hadronic_v4().pt())/(BestZprimeCandidate->top_leptonic_v4().pt());
     // Sphericity tensors leptonic side
-    double s11_lep = -1., s12_lep = -1., s13_lep = -1., s22_lep = -1., s23_lep = -1., s33_lep = -1., mag_lep = -1.;
-    for(const Particle jet : BestZprimeCandidate->jets_leptonic()){
-      mag_lep += (jet.v4().Px()*jet.v4().Px()+jet.v4().Py()*jet.v4().Py()+jet.v4().Pz()*jet.v4().Pz());
-      s11_lep += jet.v4().Px()*jet.v4().Px();
-      s12_lep += jet.v4().Px()*jet.v4().Py();
-      s13_lep += jet.v4().Px()*jet.v4().Pz();
-      s22_lep += jet.v4().Py()*jet.v4().Py();
-      s23_lep += jet.v4().Py()*jet.v4().Pz();
-      s33_lep += jet.v4().Pz()*jet.v4().Pz();
+    double s11 = -1., s12 = -1., s13 = -1., s22 = -1., s23 = -1., s33 = -1., mag = -1.;
+    for(const Jet jet : *event.jets){
+      mag += (jet.v4().Px()*jet.v4().Px()+jet.v4().Py()*jet.v4().Py()+jet.v4().Pz()*jet.v4().Pz());
+      s11 += jet.v4().Px()*jet.v4().Px();
+      s12 += jet.v4().Px()*jet.v4().Py();
+      s13 += jet.v4().Px()*jet.v4().Pz();
+      s22 += jet.v4().Py()*jet.v4().Py();
+      s23 += jet.v4().Py()*jet.v4().Pz();
+      s33 += jet.v4().Pz()*jet.v4().Pz();
     }
 
-    s11_lep = s11_lep / mag_lep;
-    s12_lep = s12_lep / mag_lep;
-    s13_lep = s13_lep / mag_lep;
-    s22_lep = s22_lep / mag_lep;
-    s23_lep = s23_lep / mag_lep;
-    s33_lep = s33_lep / mag_lep;
+    s11 = s11 / mag;
+    s12 = s12 / mag;
+    s13 = s13 / mag;
+    s22 = s22 / mag;
+    s23 = s23 / mag;
+    s33 = s33 / mag;
 
-    S11_lep->Fill(s11_lep, weight);
-    S12_lep->Fill(s12_lep, weight);
-    S13_lep->Fill(s13_lep, weight);
-    S22_lep->Fill(s22_lep, weight);
-    S23_lep->Fill(s23_lep, weight);
-    S33_lep->Fill(s33_lep, weight);
+    S11->Fill(s11, weight);
+    S12->Fill(s12, weight);
+    S13->Fill(s13, weight);
+    S22->Fill(s22, weight);
+    S23->Fill(s23, weight);
+    S33->Fill(s33, weight);
 
-    // Sphericity tensors hadronic side
-    double s11_had = -1., s12_had = -1., s13_had = -1., s22_had = -1., s23_had = -1., s33_had = -1., mag_had = -1.;
-    for(const Particle jet : BestZprimeCandidate->jets_hadronic()){
-      mag_had += (jet.v4().Px()*jet.v4().Px()+jet.v4().Py()*jet.v4().Py()+jet.v4().Pz()*jet.v4().Pz());
-      s11_had += jet.v4().Px()*jet.v4().Px();
-      s12_had += jet.v4().Px()*jet.v4().Py();
-      s13_had += jet.v4().Px()*jet.v4().Pz();
-      s22_had += jet.v4().Py()*jet.v4().Py();
-      s23_had += jet.v4().Py()*jet.v4().Pz();
-      s33_had += jet.v4().Pz()*jet.v4().Pz();
-    }
-
-    s11_had = s11_had / mag_had;
-    s12_had = s12_had / mag_had;
-    s13_had = s13_had / mag_had;
-    s22_had = s22_had / mag_had;
-    s23_had = s23_had / mag_had;
-    s33_had = s33_had / mag_had;
-
-    S11_had->Fill(s11_had, weight);
-    S12_had->Fill(s12_had, weight);
-    S13_had->Fill(s13_had, weight);
-    S22_had->Fill(s22_had, weight);
-    S23_had->Fill(s23_had, weight);
-    S33_had->Fill(s33_had, weight);
 
     Lep_pt->Fill(ptlep, weight);
     Lep_eta->Fill(etalep, weight);
