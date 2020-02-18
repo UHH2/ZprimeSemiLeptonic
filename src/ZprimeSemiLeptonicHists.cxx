@@ -341,6 +341,7 @@ void ZprimeSemiLeptonicHists::init(){
   vector<float> bins_Zprime5 = {0,200,400,600,800,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3300,3600,3900,4200,4500,5000,5100};
   M_Zprime                 = book<TH1F>("M_Zprime", "M_{t#bar{t}} [GeV]", 280, 0, 7000);
 
+  M_out                    = book<TH1F>("M_out", "M_{Zprime}^{out} [GeV]", 70, 0, 7000);
   Lep_pt                   = book<TH1F>("Lep_pt", "p_{T}^{lep} [GeV]", 45, 0, 900);
   Lep_eta                  = book<TH1F>("Lep_eta", "#eta^{lep}", 50, -2.5, 2.5);
   Lep_phi                  = book<TH1F>("Lep_phi", "#phi^{lep}", 35, -3.5, 3.5);
@@ -1012,6 +1013,7 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
     S33->Fill(s33, weight);
 
 
+    M_out->Fill(BestZprimeCandidate->Zprime_v4().M(), weight);
     Lep_pt->Fill(ptlep, weight);
     Lep_eta->Fill(etalep, weight);
     Lep_phi->Fill(philep, weight);
