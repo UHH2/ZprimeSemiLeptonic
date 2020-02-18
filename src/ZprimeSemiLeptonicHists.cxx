@@ -357,6 +357,7 @@ void ZprimeSemiLeptonicHists::init(){
   JetHadAK4_1j_eta         = book<TH1F>("JetHadAK4_1j_eta", "#eta^{AK4jet1_{had}}", 50, -2.5, 2.5);
   JetHadAK4_1j_phi         = book<TH1F>("JetHadAK4_1j_phi", "#phi^{AK4jet1_{had}}", 35, -3.5, 3.5);
   N_AK4_HadJets            = book<TH1F>("N_AK4_HadJets", "N AK4 jet had", 10, 0.0, 10);
+  N_AK8_Jets               = book<TH1F>("N_AK8_Jets", "N AK8 jet", 10, 0.0, 10);
   N_AK4_LepJets            = book<TH1F>("N_AK4_LepJets", "N AK4 jet lep", 10, 0.0, 10);
   JetHadAK4_2j_pt          = book<TH1F>("JetHadAK4_2j_pt", "p_{T}^{AK4jet2_{had}} [GeV]", 45, 0, 900);
   JetHadAK4_2j_eta         = book<TH1F>("JetHadAK4_2j_eta", "#eta^{AK4jet2_{had}}", 50, -2.5, 2.5);
@@ -1022,6 +1023,7 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
     JetLep_phi->Fill(phi_jetlep, weight);
     N_AK4_LepJets->Fill(n_AK4_LepJets, weight);
     if(BestZprimeCandidate->is_toptag_reconstruction()){
+       N_AK8_Jets->Fill(BestZprimeCandidate->jets_hadronic().size(), weight);
        JetHadAK8_pt->Fill(pt_jethadAK8, weight);
        JetHadAK8_eta->Fill(eta_jethadAK8, weight);
        JetHadAK8_phi->Fill(phi_jethadAK8, weight);

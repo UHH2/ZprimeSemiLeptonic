@@ -2,7 +2,7 @@
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
 
 <!ENTITY TargetLumi      "36734"> <!-- 41557 runs B-F, 36734 runs C-F  -->
-<!ENTITY PRESELdir       "/nfs/dust/cms/user/deleokse/analysis/ZPrime_2017/Preselection_0702/">
+<!ENTITY PRESELdir       "/nfs/dust/cms/user/deleokse/analysis/ZPrime_2017/Preselection_1202/">
 <!ENTITY b_Cacheable     "False">
 <!ENTITY NEVT            "-1">
 <!ENTITY IS_PUPPI        "true">
@@ -90,7 +90,7 @@
 	<Package Name="SUHH2ZprimeSemiLeptonic.par"/>
 
 	<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="&TargetLumi;">
-<!--
+
      	  <InputData Lumi="3386024.049" NEventsMax="&NEVT;" Type="MC" Version="ST_t-channel_antitop_2017v2" Cacheable="&b_Cacheable;">
 	    &ST_t-channel_antitop;
 	    <InputTree Name="AnalysisTree" />
@@ -132,7 +132,7 @@
 	    <InputTree Name="AnalysisTree" />
 	    <OutputTree Name="AnalysisTree" />
 	  </InputData>
--->
+
 <!--
 	  <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_Run2017v2_B" Cacheable="&b_Cacheable;">
 	    &DATA_SingleMuon_Run2017v2_B;
@@ -196,7 +196,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
-
+-->
 	  <InputData Lumi="35279949.78" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_2017v2" Cacheable="&b_Cacheable;">
 	    &TTToSemiLeptonic_2017;
 	    <InputTree Name="AnalysisTree" />
@@ -214,7 +214,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
--->
+
 <!--
           <InputData Lumi="0.01265239372" NEventsMax="&NEVT;" Type="MC" Version="QCD_Pt-15to30_2017" Cacheable="&b_Cacheable;">
             &QCD_Pt-15to30;
@@ -306,7 +306,6 @@
             <OutputTree Name="AnalysisTree"/>
           </InputData>
 -->
-<!--
           <InputData Lumi="7.277908556" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT100to200_2017v2" Cacheable="&b_Cacheable;">
             &QCD_HT100to200;
             <InputTree Name="AnalysisTree"/>
@@ -409,7 +408,6 @@
 
 
 
--->
 
 
 
@@ -462,7 +460,6 @@
           </InputData>
 
 
-<!--
 
 
 
@@ -620,7 +617,7 @@
             <InputTree Name="AnalysisTree"/>
             <OutputTree Name="AnalysisTree"/>
           </InputData>
--->
+
 		<UserConfig>
 			<Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices"/>
 			<Item Name="GenParticleCollection"   Value="GenParticles"/>

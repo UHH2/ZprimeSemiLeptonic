@@ -117,6 +117,7 @@ protected:
   Event::Handle<float> h_JetHadAK4_1j_eta; 
   Event::Handle<float> h_JetHadAK4_1j_phi; 
   Event::Handle<float> h_N_AK4_HadJets; 
+  Event::Handle<float> h_N_AK8_Jets; 
   Event::Handle<float> h_N_AK4_LepJets; 
   Event::Handle<float> h_JetHadAK4_2j_pt; 
   Event::Handle<float> h_JetHadAK4_2j_eta; 
@@ -354,6 +355,7 @@ ZprimeAnalysisModule_LooseCuts::ZprimeAnalysisModule_LooseCuts(uhh2::Context& ct
   h_JetHadAK4_1j_eta = ctx.declare_event_output<float> ("JetHadAK4_1j_eta");
   h_JetHadAK4_1j_phi = ctx.declare_event_output<float> ("JetHadAK4_1j_phi");
   h_N_AK4_HadJets = ctx.declare_event_output<float> ("N_AK4_HadJets");
+  h_N_AK8_Jets = ctx.declare_event_output<float> ("N_AK8_Jets");
   h_N_AK4_LepJets = ctx.declare_event_output<float> ("N_AK4_LepJets");
   h_JetHadAK4_2j_pt = ctx.declare_event_output<float> ("JetHadAK4_2j_pt");
   h_JetHadAK4_2j_eta = ctx.declare_event_output<float> ("JetHadAK4_2j_eta");
@@ -433,47 +435,48 @@ bool ZprimeAnalysisModule_LooseCuts::process(uhh2::Event& event){
   event.set(h_ak8jet1_pt,-100);
   event.set(h_ak8jet1_eta,-100);
   event.set(h_NPV,-100);
-  event.set(h_weight,-100);
+  event.set(h_weight,0);
 
   // Variables for NN
-  event.set(h_Lep_pt,-100);
-  event.set(h_Lep_eta,-100);
-  event.set(h_Lep_phi,-100);
-  event.set(h_Nu_pt,-100);
-  event.set(h_Nu_eta,-100);
-  event.set(h_Nu_phi,-100);
-  event.set(h_JetLep_pt,-100);
-  event.set(h_JetLep_eta,-100);
-  event.set(h_JetLep_phi,-100);
-  event.set(h_JetHadAK8_pt,-100);
-  event.set(h_JetHadAK8_eta,-100);
-  event.set(h_JetHadAK8_phi,-100);
-  event.set(h_JetHadAK4_1j_pt,-100);
-  event.set(h_JetHadAK4_1j_eta,-100);
-  event.set(h_JetHadAK4_1j_phi,-100);
-  event.set(h_N_AK4_HadJets,-100);
-  event.set(h_N_AK4_LepJets,-100);
-  event.set(h_JetHadAK4_2j_pt,-100);
-  event.set(h_JetHadAK4_2j_eta,-100);
-  event.set(h_JetHadAK4_2j_phi,-100);
-  event.set(h_TopLep_pt,-100);
-  event.set(h_TopLep_eta,-100);
-  event.set(h_TopLep_phi,-100);
-  event.set(h_TopHad_pt,-100);
-  event.set(h_TopHad_eta,-100);
-  event.set(h_TopHad_phi,-100);
-  event.set(h_TopHadOverLep_pt,-100);
-  event.set(h_DeltaR_j1j2_had,-100);
-  event.set(h_DeltaR_j1lep_j1had,-100);
-  event.set(h_DeltaR_j1_lep,-100);
-  event.set(h_DeltaR_j1_nu,-100);
-  event.set(h_DeltaR_tlep_thad,-100);
-  event.set(h_S11,-100);
-  event.set(h_S12,-100);
-  event.set(h_S13,-100);
-  event.set(h_S22,-100);
-  event.set(h_S23,-100);
-  event.set(h_S33,-100);
+  event.set(h_Lep_pt,0);
+  event.set(h_Lep_eta,0);
+  event.set(h_Lep_phi,0);
+  event.set(h_Nu_pt,0);
+  event.set(h_Nu_eta,0);
+  event.set(h_Nu_phi,0);
+  event.set(h_JetLep_pt,0);
+  event.set(h_JetLep_eta,0);
+  event.set(h_JetLep_phi,0);
+  event.set(h_JetHadAK8_pt,0);
+  event.set(h_JetHadAK8_eta,0);
+  event.set(h_JetHadAK8_phi,0);
+  event.set(h_JetHadAK4_1j_pt,0);
+  event.set(h_JetHadAK4_1j_eta,0);
+  event.set(h_JetHadAK4_1j_phi,0);
+  event.set(h_N_AK4_HadJets,0);
+  event.set(h_N_AK8_Jets,0);
+  event.set(h_N_AK4_LepJets,0);
+  event.set(h_JetHadAK4_2j_pt,0);
+  event.set(h_JetHadAK4_2j_eta,0);
+  event.set(h_JetHadAK4_2j_phi,0);
+  event.set(h_TopLep_pt,0);
+  event.set(h_TopLep_eta,0);
+  event.set(h_TopLep_phi,0);
+  event.set(h_TopHad_pt,0);
+  event.set(h_TopHad_eta,0);
+  event.set(h_TopHad_phi,0);
+  event.set(h_TopHadOverLep_pt,0);
+  event.set(h_DeltaR_j1j2_had,0);
+  event.set(h_DeltaR_j1lep_j1had,0);
+  event.set(h_DeltaR_j1_lep,0);
+  event.set(h_DeltaR_j1_nu,0);
+  event.set(h_DeltaR_tlep_thad,0);
+  event.set(h_S11,0);
+  event.set(h_S12,0);
+  event.set(h_S13,0);
+  event.set(h_S22,0);
+  event.set(h_S23,0);
+  event.set(h_S33,0);
  
   // Printing
   // if(!event.isRealData) printer_genparticles->process(event);
@@ -619,11 +622,12 @@ bool ZprimeAnalysisModule_LooseCuts::process(uhh2::Event& event){
     event.set(h_JetLep_phi,BestZprimeCandidate->jets_leptonic().at(0).phi());
     event.set(h_N_AK4_LepJets,BestZprimeCandidate->jets_leptonic().size());
    if(BestZprimeCandidate->is_toptag_reconstruction()){
-   if(BestZprimeCandidate->jets_hadronic().size()>0){
+       if(BestZprimeCandidate->jets_hadronic().size()>0){
+       event.set(h_N_AK8_Jets,BestZprimeCandidate->jets_hadronic().size());
        event.set(h_JetHadAK8_pt,BestZprimeCandidate->jets_hadronic().at(0).pt());
        event.set(h_JetHadAK8_eta,BestZprimeCandidate->jets_hadronic().at(0).eta());
        event.set(h_JetHadAK8_phi,BestZprimeCandidate->jets_hadronic().at(0).phi());
-    }
+       }
     }
     else{
        event.set(h_N_AK4_HadJets,BestZprimeCandidate->jets_hadronic().size());
