@@ -161,7 +161,12 @@ protected:
 
   // Neural network: Define network and input variables as the module variables
   std::unique_ptr<lwt::LightweightNeuralNetwork> NeuralNetwork;
+  std::vector<string> config_in_names;
+  std::string config_out_names;
+  std::vector<Event::Handle<double>> h_input_handles;
+  Event::Handle<double> h_dnnoutput;
   std::map<std::string, double> in_vals;//input for NN
+  std::map<std::string,double>::iterator it;
 
 };
 
@@ -401,6 +406,7 @@ ZprimeAnalysisModule_DNN::ZprimeAnalysisModule_DNN(uhh2::Context& ctx){
   h_NPV = ctx.declare_event_output<int> ("NPV");
   h_weight = ctx.declare_event_output<float> ("weight");
 
+
   // btag 
   CSVBTag::wp btag_wp = CSVBTag::WP_TIGHT; // b-tag workingpoint
   JetId id_btag = CSVBTag(btag_wp);
@@ -425,25 +431,25 @@ ZprimeAnalysisModule_DNN::ZprimeAnalysisModule_DNN(uhh2::Context& ctx){
   std::ifstream in_file("/nfs/dust/cms/user/deleokse/lwtnn_dir/CMSSW_11_0_0_pre7/src/neural_net.json");
   // build the network
   auto config = lwt::parse_json(in_file);
-  // vector<char> outputs_names;
-  // outputs_names.push_back("QCD_Mu");//TEST
   NeuralNetwork.reset(new lwt::LightweightNeuralNetwork(config.inputs, config.layers, config.outputs));
-  //    NeuralNetwork.reset(new lwt::LightweightNeuralNetwork(config.inputs, config.layers, outputs_names));
-  //  std::map<std::string, double> in_vals;
   const size_t total_inputs = config.inputs.size();
   for (size_t nnn = 0; nnn < total_inputs; nnn++) {
     const auto& input = config.inputs.at(nnn);
-    //    double ramp_val = ramp(input, nnn, total_inputs);
     cout<<"input.name: "<<input.name<<endl;
-    in_vals[input.name] = 0.9;
+    config_in_names.push_back(input.name);
   }
   const size_t total_outputs = config.outputs.size();
   cout<<"total_outputs = "<<total_outputs<<endl;
   for (size_t nnn = 0; nnn < total_outputs; nnn++) {
     const auto& output = config.outputs.at(nnn);
     cout<<"output.name: "<<output<<endl;
+    config_out_names = output;
   }
 
+  for(uint i = 0; i < config_in_names.size(); i++) {
+    h_input_handles.push_back(ctx.get_handle<double>(config_in_names.at(i)));
+  }
+  //h_dnnoutput = ctx.declare_event_output<double>("DNN_Output");
 
 }
 
@@ -718,21 +724,32 @@ bool ZprimeAnalysisModule_DNN::process(uhh2::Event& event){
     event.set(h_S23,s23);
     event.set(h_S33,s33);
 
-  // Neural network: In the 'process' function after updating in_vals with values from the event, get network response
-  auto out_vals = NeuralNetwork->compute(in_vals);
-  cout<<"out_vals: "<<endl;
-  for (const auto& out: out_vals) {
-    std::cout << out.first << " " << out.second << std::endl;
-      if( out.second>=0.9 ){
-      std::cout << out.first << std::endl;
-      event.set(h_M_out,BestZprimeCandidate->Zprime_v4().M());
-      }
-  }
+//  // Neural network: In the 'process' function after updating in_vals with values from the event, get network response
+//  auto out_vals = NeuralNetwork->compute(in_vals);
+//  cout<<"out_vals: "<<endl;
+//  //it = out_vals.find("WJB+WJC+WJL+DY");
+//  //cout<<"value WJ+DY: "<<it->second<<endl;
+//  //if(it->second<0.1) return false;
+//  //event.set(h_M_out,BestZprimeCandidate->Zprime_v4().M());
+//
+//  //if (it != out_vals.end()){
+//  //out_vals.erase (it);
+//    for (const auto& out: out_vals) {
+//    std::cout << out.first << " " << out.second << std::endl;
+//      //if( out.second>=0.9 ){
+//      //std::cout << out.first << std::endl;
+//      //event.set(h_M_out,BestZprimeCandidate->Zprime_v4().M());
+//      //}
+//    }
+
+//  // Neural network: In the 'process' function after updating in_vals with values from the event, get network response
+//    for(uint i = 0; i < config_in_names.size(); i++) {
+//      in_vals[config_in_names.at(i)] = (double)event.get(h_input_handles.at(i));
+//    }
+//    auto out_vals = NeuralNetwork->compute(in_vals);
+//    event.set(h_dnn_output_val, (double)out_vals[config_out_names]);
 
 
-  //for (const auto& out: out_vals) {
-  // if( out.first==0 && out.second>=0.9 ) event.set(h_M_out,BestZprimeCandidate->Zprime_v4().M());
-  //}
   
   }
 
@@ -759,18 +776,16 @@ bool ZprimeAnalysisModule_DNN::process(uhh2::Event& event){
   event.set(h_NPV,event.pvs->size());
   if(debug) cout<<"Set some vars for monitoring"<<endl;
 
-
-  //// Neural network: In the 'process' function after updating in_vals with values from the event, get network response
-  //auto out_vals = NeuralNetwork->compute(in_vals);
-  //cout<<"out_vals: "<<endl;
-  //for (const auto& out: out_vals) {
-  //  std::cout << out.first << " " << out.second << std::endl;
-  //}
-
-
-  //for (const auto& out: out_vals) {
-  // if(out.first==TTbar && out.second>=0.9) event.set(h_M_out,BestZprimeCandidate->Zprime_v4().M());
-  //}
+  // Neural network: In the 'process' function after updating in_vals with values from the event, get network response
+    for(uint i = 0; i < config_in_names.size(); i++) {
+      in_vals[config_in_names.at(i)] = (double)event.get(h_input_handles.at(i));
+      //in_vals[config_in_names.at(i)] = 0.1;
+    }
+    auto out_vals = NeuralNetwork->compute(in_vals);
+    cout<<"out_vals: "<<endl;
+    for (const auto& out: out_vals) {
+    std::cout << out.first << " " << out.second << std::endl;
+    }
 
   return true;
     
