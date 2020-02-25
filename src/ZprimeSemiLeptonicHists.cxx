@@ -342,6 +342,9 @@ void ZprimeSemiLeptonicHists::init(){
   M_Zprime                 = book<TH1F>("M_Zprime", "M_{t#bar{t}} [GeV]", 280, 0, 7000);
 
   M_out                    = book<TH1F>("M_out", "M_{Zprime}^{out} [GeV]", 70, 0, 7000);
+  out_0                    = book<TH1F>("out_0", "output0", 100, 0, 1);
+  out_1                    = book<TH1F>("out_1", "output1", 100, 0, 1);
+  out_2                    = book<TH1F>("out_2", "output2", 100, 0, 1);
   Lep_pt                   = book<TH1F>("Lep_pt", "p_{T}^{lep} [GeV]", 45, 0, 900);
   Lep_eta                  = book<TH1F>("Lep_eta", "#eta^{lep}", 50, -2.5, 2.5);
   Lep_phi                  = book<TH1F>("Lep_phi", "#phi^{lep}", 35, -3.5, 3.5);
@@ -364,9 +367,11 @@ void ZprimeSemiLeptonicHists::init(){
   JetHadAK4_2j_eta         = book<TH1F>("JetHadAK4_2j_eta", "#eta^{AK4jet2_{had}}", 50, -2.5, 2.5);
   JetHadAK4_2j_phi         = book<TH1F>("JetHadAK4_2j_phi", "#phi^{AK4jet2_{had}}", 35, -3.5, 3.5);
   TopLep_pt                = book<TH1F>("TopLep_pt", "p_{T}^{t_{lep}} [GeV]", 45, 0, 900);
+  TopHad_m                 = book<TH1F>("TopHad_m", "m^{t_{had}} [GeV]", 60, 0, 300);
   TopLep_eta               = book<TH1F>("TopLep_eta", "#eta^{t_{lep}}", 50, -2.5, 2.5);
   TopLep_phi               = book<TH1F>("TopLep_phi", "#phi^{t_{lep}}", 35, -3.5, 3.5);
   TopHad_pt                = book<TH1F>("TopHad_pt", "p_{T}^{t_{had}} [GeV]", 45, 0, 900);
+  TopLep_m                 = book<TH1F>("TopLep_m", "m^{t_{lep}} [GeV]", 60, 0, 300);
   TopHad_eta               = book<TH1F>("TopHad_eta", "#eta^{t_{had}}", 50, -2.5, 2.5);
   TopHad_phi               = book<TH1F>("TopHad_phi", "#phi^{t_{had}}", 35, -3.5, 3.5);
   TopHadOverLep_pt         = book<TH1F>("TopHadOverLep_pt", "p_{T}^{t_{had}}/p_{T}^{t_{lep}}", 1200, -20, 100);
@@ -1048,9 +1053,11 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
     DeltaR_j1_lep->Fill(deltaR(BestZprimeCandidate->jets_leptonic().at(0),BestZprimeCandidate->lepton()),weight);
     DeltaR_j1_nu->Fill(deltaR(BestZprimeCandidate->jets_leptonic().at(0),BestZprimeCandidate->neutrino_v4()),weight);
     TopLep_pt->Fill(pt_toplep, weight);
+    TopLep_m->Fill(inv_mass(BestZprimeCandidate->top_leptonic_v4()), weight);
     TopLep_eta->Fill(eta_toplep, weight);
     TopLep_phi->Fill(phi_toplep, weight);
     TopHad_pt->Fill(pt_tophad, weight);
+    TopHad_m->Fill(inv_mass(BestZprimeCandidate->top_hadronic_v4()), weight);
     TopHad_eta->Fill(eta_tophad, weight);
     TopHad_phi->Fill(phi_tophad, weight);
     TopHadOverLep_pt->Fill(pt_tophadlep, weight);

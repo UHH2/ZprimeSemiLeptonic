@@ -90,7 +90,7 @@
 	<Package Name="SUHH2ZprimeSemiLeptonic.par"/>
 
 	<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="&TargetLumi;">
-
+<!--
      	  <InputData Lumi="3386024.049" NEventsMax="&NEVT;" Type="MC" Version="ST_t-channel_antitop_2017v2" Cacheable="&b_Cacheable;">
 	    &ST_t-channel_antitop;
 	    <InputTree Name="AnalysisTree" />
@@ -133,6 +133,7 @@
 	    <OutputTree Name="AnalysisTree" />
 	  </InputData>
 
+-->
 <!--
 	  <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_Run2017v2_B" Cacheable="&b_Cacheable;">
 	    &DATA_SingleMuon_Run2017v2_B;
@@ -196,7 +197,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
--->
+
 	  <InputData Lumi="35279949.78" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_2017v2" Cacheable="&b_Cacheable;">
 	    &TTToSemiLeptonic_2017;
 	    <InputTree Name="AnalysisTree" />
@@ -215,7 +216,7 @@
             <OutputTree Name="AnalysisTree" />
           </InputData>
 
-<!--
+
           <InputData Lumi="0.01265239372" NEventsMax="&NEVT;" Type="MC" Version="QCD_Pt-15to30_2017" Cacheable="&b_Cacheable;">
             &QCD_Pt-15to30;
             <InputTree Name="AnalysisTree"/>
@@ -305,7 +306,7 @@
             <InputTree Name="AnalysisTree"/>
             <OutputTree Name="AnalysisTree"/>
           </InputData>
--->
+
           <InputData Lumi="7.277908556" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT100to200_2017v2" Cacheable="&b_Cacheable;">
             &QCD_HT100to200;
             <InputTree Name="AnalysisTree"/>
@@ -356,7 +357,7 @@
 
 
 
-
+-->
           <InputData Lumi="7337.300986" NEventsMax="&NEVT;" Type="MC" Version="WJets_ToLNu_HT-70To100_2017v2" Cacheable="&b_Cacheable;">
             &WJets_ToLNu_HT-70To100_2017;
             <InputTree Name="AnalysisTree"/>
@@ -567,7 +568,7 @@
           </InputData>
 
 
-
+<!--
 
 
           <InputData Lumi="69226.78638" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-100to200_2017v2" Cacheable="&b_Cacheable;">
@@ -617,7 +618,7 @@
             <InputTree Name="AnalysisTree"/>
             <OutputTree Name="AnalysisTree"/>
           </InputData>
-
+-->
 		<UserConfig>
 			<Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices"/>
 			<Item Name="GenParticleCollection"   Value="GenParticles"/>

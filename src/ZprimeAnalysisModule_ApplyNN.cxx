@@ -119,6 +119,9 @@ protected:
   Event::Handle<float> h_ak8jet1_pt; Event::Handle<float> h_ak8jet1_eta; 
   Event::Handle<float> h_Mttbar; 
   Event::Handle<float> h_M_out;
+  Event::Handle<float> h_out_0;
+  Event::Handle<float> h_out_1;
+  Event::Handle<float> h_out_2;
   Event::Handle<float> h_Lep_pt; 
   Event::Handle<float> h_Lep_eta; 
   Event::Handle<float> h_Lep_phi; 
@@ -141,9 +144,11 @@ protected:
   Event::Handle<float> h_JetHadAK4_2j_eta; 
   Event::Handle<float> h_JetHadAK4_2j_phi; 
   Event::Handle<float> h_TopLep_pt; 
+  Event::Handle<float> h_TopLep_m; 
   Event::Handle<float> h_TopLep_eta; 
   Event::Handle<float> h_TopLep_phi; 
   Event::Handle<float> h_TopHad_pt; 
+  Event::Handle<float> h_TopHad_m; 
   Event::Handle<float> h_TopHad_eta; 
   Event::Handle<float> h_TopHad_phi; 
   Event::Handle<float> h_TopHadOverLep_pt; 
@@ -160,6 +165,8 @@ protected:
   Event::Handle<float> h_S33; 
 
   uhh2::Event::Handle<ZprimeCandidate*> h_BestZprimeCandidateChi2;
+
+  float inv_mass(const LorentzVector& p4){ return p4.isTimelike() ? p4.mass() : -sqrt(-p4.mass2()); }
 
   // Configuration
   bool isMC, ispuppi, islooserselection;
@@ -359,6 +366,9 @@ ZprimeAnalysisModule_ApplyNN::ZprimeAnalysisModule_ApplyNN(uhh2::Context& ctx){
   h_MET = ctx.declare_event_output<float> ("met_pt");
   h_Mttbar = ctx.declare_event_output<float> ("Mttbar");
   h_M_out = ctx.declare_event_output<float> ("M_out");
+  h_out_0 = ctx.declare_event_output<float> ("out_0");
+  h_out_1 = ctx.declare_event_output<float> ("out_1");
+  h_out_2 = ctx.declare_event_output<float> ("out_2");
   h_Lep_pt = ctx.declare_event_output<float> ("Lep_pt");
   h_Lep_eta = ctx.declare_event_output<float> ("Lep_eta");
   h_Lep_phi = ctx.declare_event_output<float> ("Lep_phi");
@@ -381,9 +391,11 @@ ZprimeAnalysisModule_ApplyNN::ZprimeAnalysisModule_ApplyNN(uhh2::Context& ctx){
   h_JetHadAK4_2j_eta = ctx.declare_event_output<float> ("JetHadAK4_2j_eta");
   h_JetHadAK4_2j_phi = ctx.declare_event_output<float> ("JetHadAK4_2j_phi");
   h_TopLep_pt = ctx.declare_event_output<float> ("TopLep_pt");
+  h_TopLep_m = ctx.declare_event_output<float> ("TopLep_m");
   h_TopLep_eta = ctx.declare_event_output<float> ("TopLep_eta");
   h_TopLep_phi = ctx.declare_event_output<float> ("TopLep_phi");
   h_TopHad_pt = ctx.declare_event_output<float> ("TopHad_pt");
+  h_TopHad_m = ctx.declare_event_output<float> ("TopHad_m");
   h_TopHad_eta = ctx.declare_event_output<float> ("TopHad_eta");
   h_TopHad_phi = ctx.declare_event_output<float> ("TopHad_phi");
   h_TopHadOverLep_pt = ctx.declare_event_output<float> ("TopHadOverLep_pt");
@@ -426,7 +438,7 @@ ZprimeAnalysisModule_ApplyNN::ZprimeAnalysisModule_ApplyNN(uhh2::Context& ctx){
   TopJetBtagSubjet_selection.reset(new ZprimeBTagFatSubJetSelection(ctx));
 
   // Book histograms
-  vector<string> histogram_tags = {"Weights", "Muon1", "Trigger", "Muon2", "Electron1", "Jet1", "Jet2", "MET", "HTlep", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction", "Btags2", "Btags1","TopJetBtagSubjet"};
+  vector<string> histogram_tags = {"Weights", "Muon1", "Trigger", "Muon2", "Electron1", "Jet1", "Jet2", "MET", "HTlep", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction", "Btags2", "Btags1","TopJetBtagSubjet","DNN_output0","DNN_output1","DNN_output2"};
   book_histograms(ctx, histogram_tags);
 
 
@@ -434,7 +446,7 @@ ZprimeAnalysisModule_ApplyNN::ZprimeAnalysisModule_ApplyNN(uhh2::Context& ctx){
   tensorflow::setThreading(sessionOptions, 1, "no_threads");
   tensorflow::setLogging("3");
 
-  session = tensorflow::createSession(tensorflow::loadGraphDef("/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/ZprimeSemiLeptonic/KeranNN/KerasNN/model.pb"),sessionOptions);
+  session = tensorflow::createSession(tensorflow::loadGraphDef("/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/ZprimeSemiLeptonic/KeranNN/model.pb"),sessionOptions);
 }
 
 /*
@@ -464,6 +476,9 @@ bool ZprimeAnalysisModule_ApplyNN::process(uhh2::Event& event){
   event.set(h_NPV,-100);
   event.set(h_weight,0);
   event.set(h_M_out,0);
+  event.set(h_out_0,0);
+  event.set(h_out_1,0);
+  event.set(h_out_2,0);
 
   // Variables for NN
   event.set(h_Lep_pt,0);
@@ -488,9 +503,11 @@ bool ZprimeAnalysisModule_ApplyNN::process(uhh2::Event& event){
   event.set(h_JetHadAK4_2j_eta,0);
   event.set(h_JetHadAK4_2j_phi,0);
   event.set(h_TopLep_pt,0);
+  event.set(h_TopLep_m,0);
   event.set(h_TopLep_eta,0);
   event.set(h_TopLep_phi,0);
   event.set(h_TopHad_pt,0);
+  event.set(h_TopHad_m,0);
   event.set(h_TopHad_eta,0);
   event.set(h_TopHad_phi,0);
   event.set(h_TopHadOverLep_pt,0);
@@ -673,9 +690,11 @@ bool ZprimeAnalysisModule_ApplyNN::process(uhh2::Event& event){
     event.set(h_DeltaR_j1_lep,deltaR(BestZprimeCandidate->jets_leptonic().at(0),BestZprimeCandidate->lepton()));
     event.set(h_DeltaR_j1_nu,deltaR(BestZprimeCandidate->jets_leptonic().at(0),BestZprimeCandidate->neutrino_v4()));
     event.set(h_TopLep_pt,BestZprimeCandidate->top_leptonic_v4().pt());
+    event.set(h_TopLep_m,inv_mass(BestZprimeCandidate->top_leptonic_v4()));
     event.set(h_TopLep_eta,BestZprimeCandidate->top_leptonic_v4().eta());
     event.set(h_TopLep_phi,BestZprimeCandidate->top_leptonic_v4().phi());
     event.set(h_TopHad_pt,BestZprimeCandidate->top_hadronic_v4().pt());
+    event.set(h_TopHad_m,inv_mass(BestZprimeCandidate->top_hadronic_v4()));
     event.set(h_TopHad_eta,BestZprimeCandidate->top_hadronic_v4().eta());
     event.set(h_TopHad_phi,BestZprimeCandidate->top_hadronic_v4().phi());
     event.set(h_TopHadOverLep_pt,(BestZprimeCandidate->top_hadronic_v4().pt())/(BestZprimeCandidate->top_leptonic_v4().pt()));
@@ -735,8 +754,7 @@ bool ZprimeAnalysisModule_ApplyNN::process(uhh2::Event& event){
 
 
 
-
-  tensorflow::Tensor inputs(tensorflow::DT_FLOAT, {1,39});
+  tensorflow::Tensor inputs(tensorflow::DT_FLOAT, {1,43});
   inputs.tensor<float, 2>()(0,0) = event.get(h_DeltaR_j1_lep);
   inputs.tensor<float, 2>()(0,1) = event.get(h_DeltaR_j1_nu);
   inputs.tensor<float, 2>()(0,2) = event.get(h_DeltaR_j1j2_had);
@@ -759,26 +777,30 @@ bool ZprimeAnalysisModule_ApplyNN::process(uhh2::Event& event){
   inputs.tensor<float, 2>()(0,19) = event.get(h_Lep_pt);
   inputs.tensor<float, 2>()(0,20) = event.get(h_N_AK4_HadJets);
   inputs.tensor<float, 2>()(0,21) = event.get(h_N_AK4_LepJets);
-  inputs.tensor<float, 2>()(0,22) = event.get(h_Nu_eta);
-  inputs.tensor<float, 2>()(0,23) = event.get(h_Nu_phi);
-  inputs.tensor<float, 2>()(0,24) = event.get(h_Nu_pt);
-  inputs.tensor<float, 2>()(0,25) = event.get(h_S11);
-  inputs.tensor<float, 2>()(0,26) = event.get(h_S12);
-  inputs.tensor<float, 2>()(0,27) = event.get(h_S13);
-  inputs.tensor<float, 2>()(0,28) = event.get(h_S22);
-  inputs.tensor<float, 2>()(0,29) = event.get(h_S23);
-  inputs.tensor<float, 2>()(0,30) = event.get(h_S33);
-  inputs.tensor<float, 2>()(0,31) = event.get(h_TopHadOverLep_pt);
-  inputs.tensor<float, 2>()(0,32) = event.get(h_TopHad_eta);
-  inputs.tensor<float, 2>()(0,33) = event.get(h_TopHad_phi);
-  inputs.tensor<float, 2>()(0,34) = event.get(h_TopHad_pt);
-  inputs.tensor<float, 2>()(0,35) = event.get(h_TopLep_eta);
-  inputs.tensor<float, 2>()(0,36) = event.get(h_TopLep_phi);
-  inputs.tensor<float, 2>()(0,37) = event.get(h_TopLep_pt);
-  inputs.tensor<float, 2>()(0,38) = event.get(h_weight);
+  inputs.tensor<float, 2>()(0,22) = event.get(h_N_AK8_Jets);
+  inputs.tensor<float, 2>()(0,23) = event.get(h_Nu_eta);
+  inputs.tensor<float, 2>()(0,24) = event.get(h_Nu_phi);
+  inputs.tensor<float, 2>()(0,25) = event.get(h_Nu_pt);
+  inputs.tensor<float, 2>()(0,26) = event.get(h_S11);
+  inputs.tensor<float, 2>()(0,27) = event.get(h_S12);
+  inputs.tensor<float, 2>()(0,28) = event.get(h_S13);
+  inputs.tensor<float, 2>()(0,29) = event.get(h_S22);
+  inputs.tensor<float, 2>()(0,30) = event.get(h_S23);
+  inputs.tensor<float, 2>()(0,31) = event.get(h_S33);
+  inputs.tensor<float, 2>()(0,32) = event.get(h_TopHadOverLep_pt);
+  inputs.tensor<float, 2>()(0,33) = event.get(h_TopHad_eta);
+  inputs.tensor<float, 2>()(0,34) = event.get(h_TopHad_m);
+  inputs.tensor<float, 2>()(0,35) = event.get(h_TopHad_phi);
+  inputs.tensor<float, 2>()(0,36) = event.get(h_TopHad_pt);
+  inputs.tensor<float, 2>()(0,37) = event.get(h_TopLep_eta);
+  inputs.tensor<float, 2>()(0,38) = event.get(h_TopLep_m);
+  inputs.tensor<float, 2>()(0,39) = event.get(h_TopLep_phi);
+  inputs.tensor<float, 2>()(0,40) = event.get(h_TopLep_pt);
+  inputs.tensor<float, 2>()(0,41) = event.get(h_chi2);
+  inputs.tensor<float, 2>()(0,42) = event.get(h_weight);
 
   //std::cout << "inputs " << '\n';
-  //for (int n = 0; n < 39; n++) {
+  //for (int n = 0; n < 43; n++) {
   //std::cout << inputs.tensor<float, 2>()(0,n) << " ";
   //}
   //std::cout<< '\n';
@@ -786,13 +808,26 @@ bool ZprimeAnalysisModule_ApplyNN::process(uhh2::Event& event){
 
   std::vector<tensorflow::Tensor> outputs;
   tensorflow::run(session, {"dense_1_input"}, {inputs}, {"dense_4/Softmax"}, &outputs);
-  cout << "output0 = " << outputs[0].tensor<float, 2>()(0,0) << '\n';
-  cout << "output1 = " << outputs[0].tensor<float, 2>()(0,1) << '\n';
-  cout << "output2 = " << outputs[0].tensor<float, 2>()(0,2) << '\n';
+  //cout << "output0 = " << outputs[0].tensor<float, 2>()(0,0) << '\n';
+  //cout << "output1 = " << outputs[0].tensor<float, 2>()(0,1) << '\n';
+  //cout << "output2 = " << outputs[0].tensor<float, 2>()(0,2) << '\n';
 
-  ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2); 
-  if(outputs[0].tensor<float, 2>()(0,0)>0.9) event.set(h_M_out,BestZprimeCandidate->Zprime_v4().M());
+      event.set(h_out_0,outputs[0].tensor<float, 2>()(0,0));
+      event.set(h_out_1,outputs[0].tensor<float, 2>()(0,1));
+      event.set(h_out_2,outputs[0].tensor<float, 2>()(0,2));
 
+      if(outputs[0].tensor<float, 2>()(0,0)>0.6){ // ST
+      fill_histograms(event, "DNN_output0");
+      //event.set(h_out_0,outputs[0].tensor<float, 2>()(0,0));
+      }
+      if(outputs[0].tensor<float, 2>()(0,1)>0.8){ // TTbar
+      fill_histograms(event, "DNN_output1");
+      //event.set(h_out_1,outputs[0].tensor<float, 2>()(0,1));
+      }
+      if(outputs[0].tensor<float, 2>()(0,2)>0.9){ // WJets+DY
+      fill_histograms(event, "DNN_output2");
+      //event.set(h_out_2,outputs[0].tensor<float, 2>()(0,2));
+      }
 
 
   if(debug) cout<<"Set some vars for monitoring"<<endl;
