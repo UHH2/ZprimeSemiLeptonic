@@ -28,6 +28,7 @@ Hists(ctx, dirname) {
   h_is_zprime_reconstructed_chi2 = ctx.get_handle<bool>("is_zprime_reconstructed_chi2");
   h_is_zprime_reconstructed_correctmatch = ctx.get_handle<bool>("is_zprime_reconstructed_correctmatch");
   //  h_chi2 = ctx.get_handle<float>("chi2");
+  h_dnnoutput = ctx.get_handle<vector<double>>("dnnoutput");
   init();
 }
 
@@ -342,9 +343,9 @@ void ZprimeSemiLeptonicHists::init(){
   M_Zprime                 = book<TH1F>("M_Zprime", "M_{t#bar{t}} [GeV]", 280, 0, 7000);
 
   M_out                    = book<TH1F>("M_out", "M_{Zprime}^{out} [GeV]", 70, 0, 7000);
-  out_0                    = book<TH1F>("out_0", "output0", 100, 0, 1);
-  out_1                    = book<TH1F>("out_1", "output1", 100, 0, 1);
-  out_2                    = book<TH1F>("out_2", "output2", 100, 0, 1);
+  out0                     = book<TH1F>("out", "out0", 100, 0, 100);
+  out1                     = book<TH1F>("out1", "out1", 100, 0, 100);
+  out2                     = book<TH1F>("out2", "out2", 100, 0, 100);
   Lep_pt                   = book<TH1F>("Lep_pt", "p_{T}^{lep} [GeV]", 45, 0, 900);
   Lep_eta                  = book<TH1F>("Lep_eta", "#eta^{lep}", 50, -2.5, 2.5);
   Lep_phi                  = book<TH1F>("Lep_phi", "#phi^{lep}", 35, -3.5, 3.5);

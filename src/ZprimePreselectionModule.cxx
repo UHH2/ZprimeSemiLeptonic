@@ -45,6 +45,7 @@ public:
 protected:
 
   // NN vars
+
   Event::Handle<float> h_MET;
   Event::Handle<float> h_ST;
   Event::Handle<float> h_STjets;
@@ -92,7 +93,8 @@ protected:
   Event::Handle<float> h_pt_Ak8Puppijet1;
   Event::Handle<float> h_pt_Ak8Puppijet2;
   Event::Handle<float> h_pt_Ak8Puppijet3;
-  Event::Handle<float> h_eta_Ak8Puppijets;
+  
+Event::Handle<float> h_eta_Ak8Puppijets;
   Event::Handle<float> h_eta_Ak8Puppijet1;
   Event::Handle<float> h_eta_Ak8Puppijet2;
   Event::Handle<float> h_eta_Ak8Puppijet3;
@@ -207,7 +209,7 @@ void ZprimePreselectionModule::book_histograms(uhh2::Context& ctx, vector<string
 }
 
 void ZprimePreselectionModule::fill_histograms(uhh2::Event& event, string tag){
-  string mytag = tag+"_General";
+  /*string mytag = tag+"_General";
   HFolder(mytag)->fill(event);
   mytag = tag+"_Muons";
   HFolder(mytag)->fill(event);
@@ -218,7 +220,7 @@ void ZprimePreselectionModule::fill_histograms(uhh2::Event& event, string tag){
   mytag = tag+"_Event";
   HFolder(mytag)->fill(event);
   mytag = tag+"_Generator";
-  HFolder(mytag)->fill(event);
+  HFolder(mytag)->fill(event);*/
 }
 
 
@@ -653,7 +655,7 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   h_STjets = ctx.declare_event_output<float> ("st_jets");
   h_STlep = ctx.declare_event_output<float> ("st_lep");
   h_NPV = ctx.declare_event_output<float> ("npv_pt");
-  h_N_jets = ctx.declare_event_output<float> ("N_jets");
+/*  h_N_jets = ctx.declare_event_output<float> ("N_jets");
   h_pt_jet = ctx.declare_event_output<float> ("pt_jet");
   h_pt_jet1 = ctx.declare_event_output<float> ("pt_jet1");
   h_pt_jet2 = ctx.declare_event_output<float> ("pt_jet2");
@@ -695,11 +697,6 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   h_pt_Ak8Puppijet1 = ctx.declare_event_output<float> ("pt_Ak8Puppijet1");
   h_pt_Ak8Puppijet2 = ctx.declare_event_output<float> ("pt_Ak8Puppijet2");
   h_pt_Ak8Puppijet3 = ctx.declare_event_output<float> ("pt_Ak8Puppijet3");
-  h_N_Ak8Puppijets = ctx.declare_event_output<float> ("N_Ak8Puppijets");
-  h_pt_Ak8Puppijets = ctx.declare_event_output<float> ("pt_Ak8Puppijets");
-  h_pt_Ak8Puppijet1 = ctx.declare_event_output<float> ("pt_Ak8Puppijet1");
-  h_pt_Ak8Puppijet2 = ctx.declare_event_output<float> ("pt_Ak8Puppijet2");
-  h_pt_Ak8Puppijet3 = ctx.declare_event_output<float> ("pt_Ak8Puppijet3");
   h_eta_Ak8Puppijets = ctx.declare_event_output<float> ("eta_Ak8Puppijets");
   h_eta_Ak8Puppijet1 = ctx.declare_event_output<float> ("eta_Ak8Puppijet1");
   h_eta_Ak8Puppijet2 = ctx.declare_event_output<float> ("eta_Ak8Puppijet2");
@@ -723,7 +720,7 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   h_dphi_ele_jet1 = ctx.declare_event_output<float> ("dphi_ele_jet1");
   h_dphi_mu_Ak8Puppijet1 = ctx.declare_event_output<float> ("dphi_mu_Ak8Puppijet1");
   h_dphi_ele_Ak8Puppijet1 = ctx.declare_event_output<float> ("dphi_ele_Ak8Puppijet1");
-
+*/
   // Book histograms
   vector<string> histogram_tags = {"Input", "Lumiselection", "Metfilters", "Lepton1", "JetID", "JetCleaner1", "JetCleaner2", "TopjetCleaner", "Jet1", "Jet2", "MET"};
   book_histograms(ctx, histogram_tags);
@@ -734,13 +731,38 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
 
 
 bool ZprimePreselectionModule::process(uhh2::Event& event){
+////debug
+if(event.event!=35002146) return false;
+//uint jetInd = 0;
+//for (const Jet & jet: *event.jets) {
+//cout << "--- jet pt raw = " << jet.pt()* jet.JEC_factor_raw()<< "	" << " jet pt = " << jet.pt() << "	"  << "for jet#" << jetInd << endl;
+//jetInd++;
+//}
+//uint genjetInd = 0;
+//for (const GenJet & genjet: *event.genjets) {
+//cout << " genjet pt = " << genjet.pt() << "	"  << "for jet#" << genjetInd << endl;
+//genjetInd++;
+//}
+cout << "start process " << endl;
+uint jetInd = 0;
+uint genjetInd = 0;
+for (const Jet & jet: *event.jets) {
+for (const GenJet & genjet: *event.genjets) {
+if(deltaR(jet,genjet)<=0.4){
+cout << "--- jet pt raw = " << jet.pt()* jet.JEC_factor_raw()<< "       " << " jet pt = " << jet.pt() << "      " << " genjet pt = " << genjet.pt() << "     "   << "for jet#" << jetInd << endl;
+}
+jetInd++;
+genjetInd++;
+}
+}
+////////
 
   event.set(h_MET,0);
   event.set(h_ST,0);
   event.set(h_STjets,0);
   event.set(h_STlep,0);
   event.set(h_NPV,0);
-  event.set(h_N_jets,0);
+/*  event.set(h_N_jets,0);
   event.set(h_pt_jet,0);
   event.set(h_pt_jet1,0);
   event.set(h_pt_jet2,0);
@@ -805,7 +827,7 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
   event.set(h_dphi_ele_jet1,0);
   event.set(h_dphi_mu_Ak8Puppijet1,0);
   event.set(h_dphi_ele_Ak8Puppijet1,0);
-
+*/
   //  cout<<"Getting started... "<<event.event<<endl;
   fill_histograms(event, "Input");
   // Lumi selection
@@ -977,40 +999,80 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
     }
   }
   else{ //MC
-    //    cout<<"JLC, JEC, JER ..."<<endl;
+        cout<<"JLC, JEC, JER ..."<<endl;
+cout << "before JLC " << endl;
+uint jetInd6 = 0;
+for (const Jet & jet: *event.jets) {
+cout << "--- jet pt raw = " << jet.pt()* jet.JEC_factor_raw() << "      " << " jet pt = " << jet.pt() << "      " << "for jet#" << jetInd6 << endl;
+jetInd6++;
+}
     JLC_MC->process(event);
-    //    cout<<"  JLC_MC done!"<<endl;
+        cout<<"  JLC_MC done!"<<endl;
+cout << "after JLC " << endl;
+uint jetInd7 = 0;
+for (const Jet & jet: *event.jets) {
+cout << "--- jet pt raw = " << jet.pt()* jet.JEC_factor_raw() << "      " << " jet pt = " << jet.pt() << "      " << "for jet#" << jetInd7 << endl;
+jetInd7++;
+}
+
     TopJLC_MC->process(event);
-    //    cout<<"  TopJLC_MC done!"<<endl;
+        //cout<<"  TopJLC_MC done!"<<endl;
     TopJLC_puppi_MC->process(event);
 
+cout << "before jet corrector " << endl;
+uint jetInd4 = 0;
+for (const Jet & jet: *event.jets) {
+cout << "--- jet pt raw = " << jet.pt()* jet.JEC_factor_raw() << "      " << " jet pt = " << jet.pt() << "      " << "for jet#" << jetInd4 << endl;
+jetInd4++;
+}
+
     jet_corrector_MC->process(event);
-    //    cout<<" jet_corrector_MC done!"<<endl;
+        cout<<" jet_corrector_MC done!"<<endl;
+
+cout << "after jet corrector " << endl;
+uint jetInd5 = 0;
+for (const Jet & jet: *event.jets) {
+cout << "--- jet pt raw = " << jet.pt()* jet.JEC_factor_raw() << "      " << " jet pt = " << jet.pt() << "      " << "for jet#" << jetInd5 << endl;
+jetInd5++;
+}
+
     topjet_corrector_MC->process(event);
-    //    cout<<" topjet_corrector_MC done!"<<endl;
+        //cout<<" topjet_corrector_MC done!"<<endl;
     topjet_puppi_corrector_MC->process(event);
-    //    cout<<" topjet_puppi_corrector_MC done!"<<endl;
+        //cout<<" topjet_puppi_corrector_MC done!"<<endl;
     if(JER_smearer.get()){
-      //      cout<<" Start JER_smearer "<<endl;
+            cout<<" Start JER_smearer "<<endl;
       JER_smearer->process(event);
     }
-    //    cout<<" JER_smearer done!"<<endl;
+        cout<<" JER_smearer done!"<<endl;
     if(TopJER_smearer.get()) TopJER_smearer->process(event);
-    // cout<<" TopJER_smearer done!"<<endl;
+     //cout<<" TopJER_smearer done!"<<endl;
     if(TopJER_puppi_smearer.get()) TopJER_puppi_smearer->process(event);
-    // cout<<" TopJER_puppi_smearer done!"<<endl;
+     //cout<<" TopJER_puppi_smearer done!"<<endl;
     jet_corrector_MC->correct_met(event);
-    // cout<<" jet_corrector_MC done!"<<endl;
+     //cout<<" jet_corrector_MC done!"<<endl;
     topjet_subjet_corrector_MC->process(event);
-    // cout<<" topjet_subjet_corrector_MC done!"<<endl;
+     //cout<<" topjet_subjet_corrector_MC done!"<<endl;
     topjet_puppi_subjet_corrector_MC->process(event);
-    // cout<<" topjet_puppi_subjet_corrector_MC done!"<<endl;
+     //cout<<" topjet_puppi_subjet_corrector_MC done!"<<endl;
   }
-
+cout << "before jet cleaner 1 " << endl;
+uint jetInd2 = 0;
+for (const Jet & jet: *event.jets) {
+cout << "--- jet pt raw = " << jet.pt()* jet.JEC_factor_raw() << "      " << " jet pt = " << jet.pt() << "      " << "for jet#" << jetInd2 << endl;
+jetInd2++;
+}
   jet_cleaner1->process(event);
   sort_by_pt<Jet>(*event.jets);
   fill_histograms(event, "JetCleaner1");
-  //cout<<"JetCleaner1 ... "<<event.event<<endl;
+  cout<<"JetCleaner1 ... "<<event.event<<endl;
+
+cout << "after jet cleaner 1 " << endl;
+uint jetInd3 = 0;
+for (const Jet & jet: *event.jets) {
+cout << "--- jet pt raw = " << jet.pt()* jet.JEC_factor_raw() << "	" << " jet pt = " << jet.pt() << "	" << "for jet#" << jetInd3 << endl;
+jetInd3++;
+}
   // Lepton-2Dcut variables
   for(auto& muo : *event.muons){
 
@@ -1090,7 +1152,7 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
   event.set(h_ST,st);
   event.set(h_STjets,st_jets);
   event.set(h_STlep,st_lep);
-
+/*
   // Ak4 jets
   event.set(h_N_jets,jets->size());
 
@@ -1210,7 +1272,7 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
   vector<TopJet>* AK8Puppijets = event.toppuppijets;
   unsigned int NAK8Puppijets = 0;
   for(unsigned int i=0; i<AK8Puppijets->size(); i++){
-    if(AK8Puppijets->at(i).numberOfDaughters()<2) continue;
+//    if(AK8Puppijets->at(i).numberOfDaughters()<2) continue;
     NAK8Puppijets++;
   
     event.set(h_pt_Ak8Puppijets,AK8Puppijets->at(i).pt());
@@ -1263,7 +1325,7 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
 
     event.set(h_N_Ak8Puppijets,NAK8Puppijets);
   }
-
+*/
 
   return true;
 

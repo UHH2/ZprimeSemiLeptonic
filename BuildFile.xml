@@ -4,3 +4,7 @@
 <use name="UHH2/common" />
 <use name="UHH2/core" />
 <use name="lwtnn"/>
+<use name="PhysicsTools/TensorFlow"/>
+<use name="tensorflow"/>
+<use name="tensorflow-cc"/>
+<use name="protobuf"/>

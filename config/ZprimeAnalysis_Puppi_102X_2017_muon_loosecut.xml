@@ -5,12 +5,11 @@
 <!ENTITY PREFIX              "uhh2.AnalysisModuleRunner.">
 <!ENTITY b_Cacheable         "False">
 <!ENTITY NEVT                "-1">
-<!ENTITY PRESELdir           "/nfs/dust/cms/user/deleokse/analysis/ZPrime_2017/Preselection_1202/">
 
 <!ENTITY IS_PUPPI            "true">
 <!ENTITY IS_LOOSER_SELECTION "false">
 <!ENTITY CHANNEL "muon">
-<!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/analysis/ZPrime_2017/Analysis_2017v2_1902/&CHANNEL;/">
+<!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/analysis/ZPrime_2017/CheckRecoTTbar_Analysis_2017v2_0303/&CHANNEL;/">
 <!--
 <!ENTITY DATA_SingleMuon_Run2017v2_C   SYSTEM  "../data/Skimming_datasets_2017v2_1902/DATA_DATA_SingleMuon_Run2017v2_C_withoutEmptyNtuples.xml">
 <!ENTITY DATA_SingleMuon_Run2017v2_D   SYSTEM  "../data/Skimming_datasets_2017v2_1902/DATA_DATA_SingleMuon_Run2017v2_D_withoutEmptyNtuples.xml">
@@ -22,7 +21,7 @@
 <!ENTITY DATA_SingleElectron_Run2017v2_E   SYSTEM  "../data/Skimming_datasets_2017v2_1902/DATA_DATA_SingleElectron_Run2017v2_E_withoutEmptyNtuples.xml">
 <!ENTITY DATA_SingleElectron_Run2017v2_F   SYSTEM  "../data/Skimming_datasets_2017v2_1902/DATA_DATA_SingleElectron_Run2017v2_F_withoutEmptyNtuples.xml">
 -->
-<!ENTITY TTToSemiLeptonic_2017v2          SYSTEM  "../data/Skimming_datasets_2017v2_1902/MC_TTToSemiLeptonic_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY TTToSemiLeptonic_2017v2          SYSTEM  "../data/Skimming_datasets_2017v2_0303/MC_TTToSemiLeptonic_2017v2_withoutEmptyNtuples.xml">
 <!--
 <!ENTITY TTToHadronic_2017v2              SYSTEM  "../data/Skimming_datasets_2017v2_1902/MC_TTToHadronic_2017v2_withoutEmptyNtuples.xml">
 <!ENTITY TTTo2L2Nu_2017v2                 SYSTEM  "../data/Skimming_datasets_2017v2_1902/MC_TTTo2L2Nu_2017v2_withoutEmptyNtuples.xml">         
@@ -96,7 +95,7 @@
 
 <!--
 <ConfigParse NEventsBreak="200000" LastBreak="0" FileSplit="10" AutoResubmit="100"/>
-<ConfigSGE RAM="1" DISK="2" Mail="ksenia.de.leo@desy.de" Notification="as" Workdir="workdir_Zprime_Analysis_2017_muon_NN"/>
+<ConfigSGE RAM="1" DISK="2" Mail="ksenia.de.leo@desy.de" Notification="as" Workdir="workdir_Zprime_Analysis_2017_muon_CheckRecoTTbar"/>
 -->
 
 <JobConfiguration JobName="ZprimePreselectionJob" OutputLevel="INFO">
@@ -105,13 +104,13 @@
 
   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTPUTdir;/" PostFix="" TargetLumi="&TargetLumi;">
 
-
+<!--
           <InputData Lumi="3386024.049" NEventsMax="&NEVT;" Type="MC" Version="ST_t-channel_antitop_2017v2" Cacheable="&b_Cacheable;">
             &ST_t-channel_antitop_2017v2;
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
-<!--
+
           <InputData Lumi="5192499.578" NEventsMax="&NEVT;" Type="MC" Version="ST_t-channel_top_2017v2" Cacheable="&b_Cacheable;">
             &ST_t-channel_top_2017v2;
             <InputTree Name="AnalysisTree" />
@@ -313,7 +312,6 @@
           </InputData>
 
 
--->
 
 
 
@@ -322,7 +320,7 @@
             <InputTree Name="AnalysisTree"/>
             <OutputTree Name="AnalysisTree"/>
           </InputData>
-<!--
+
           <InputData Lumi="24497.36654" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-100To200_2017v2_B" Cacheable="&b_Cacheable;">
             &WJetsToLNu_HT-100To200_2017v2_B;
             <InputTree Name="AnalysisTree"/>
