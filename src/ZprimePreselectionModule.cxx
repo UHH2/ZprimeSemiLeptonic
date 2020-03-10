@@ -44,80 +44,6 @@ public:
 
 protected:
 
-  // NN vars
-
-  Event::Handle<float> h_MET;
-  Event::Handle<float> h_ST;
-  Event::Handle<float> h_STjets;
-  Event::Handle<float> h_STlep;
-  Event::Handle<float> h_NPV;
-  Event::Handle<float> h_N_jets;
-  Event::Handle<float> h_pt_jet;
-  Event::Handle<float> h_pt_jet1;
-  Event::Handle<float> h_pt_jet2;
-  Event::Handle<float> h_pt_jet3;
-  Event::Handle<float> h_eta_jet;
-  Event::Handle<float> h_eta_jet1;
-  Event::Handle<float> h_eta_jet2;
-  Event::Handle<float> h_eta_jet3;
-  Event::Handle<float> h_phi_jet;
-  Event::Handle<float> h_phi_jet1;
-  Event::Handle<float> h_phi_jet2;
-  Event::Handle<float> h_phi_jet3;
-  Event::Handle<float> h_m_jet;
-  Event::Handle<float> h_m_jet1;
-  Event::Handle<float> h_m_jet2;
-  Event::Handle<float> h_m_jet3;
-  Event::Handle<float> h_csv_jet;
-  Event::Handle<float> h_csv_jet1;
-  Event::Handle<float> h_csv_jet2;
-  Event::Handle<float> h_csv_jet3;
-  Event::Handle<float> h_S11;
-  Event::Handle<float> h_S12;
-  Event::Handle<float> h_S13;
-  Event::Handle<float> h_S22;
-  Event::Handle<float> h_S23;
-  Event::Handle<float> h_S33;
-  Event::Handle<float> h_N_mu;
-  Event::Handle<float> h_pt_mu;
-  Event::Handle<float> h_eta_mu;
-  Event::Handle<float> h_phi_mu;
-  Event::Handle<float> h_reliso_mu;
-  Event::Handle<float> h_N_ele;
-  Event::Handle<float> h_pt_ele;
-  Event::Handle<float> h_eta_ele;
-  Event::Handle<float> h_phi_ele;
-  Event::Handle<float> h_reliso_ele;
-  Event::Handle<float> h_N_Ak8Puppijets;
-  Event::Handle<float> h_pt_Ak8Puppijets;
-  Event::Handle<float> h_pt_Ak8Puppijet1;
-  Event::Handle<float> h_pt_Ak8Puppijet2;
-  Event::Handle<float> h_pt_Ak8Puppijet3;
-  
-Event::Handle<float> h_eta_Ak8Puppijets;
-  Event::Handle<float> h_eta_Ak8Puppijet1;
-  Event::Handle<float> h_eta_Ak8Puppijet2;
-  Event::Handle<float> h_eta_Ak8Puppijet3;
-  Event::Handle<float> h_phi_Ak8Puppijets;
-  Event::Handle<float> h_phi_Ak8Puppijet1;
-  Event::Handle<float> h_phi_Ak8Puppijet2;
-  Event::Handle<float> h_phi_Ak8Puppijet3;
-  Event::Handle<float> h_mSD_Ak8Puppijets;
-  Event::Handle<float> h_mSD_Ak8Puppijet1;
-  Event::Handle<float> h_mSD_Ak8Puppijet2;
-  Event::Handle<float> h_mSD_Ak8Puppijet3;
-  Event::Handle<float> h_dR_mu_Ak8Puppijet;
-  Event::Handle<float> h_dR_ele_Ak8Puppijet;
-  Event::Handle<float> h_dR_jet_Ak8Puppijet;
-  Event::Handle<float> h_dRmin_mu_jet;
-  Event::Handle<float> h_dRmin_ele_jet;
-  Event::Handle<float> h_ptrel_mu_jet;
-  Event::Handle<float> h_ptrel_ele_jet;
-  Event::Handle<float> h_dphi_mu_jet1;
-  Event::Handle<float> h_dphi_ele_jet1;
-  Event::Handle<float> h_dphi_mu_Ak8Puppijet1;
-  Event::Handle<float> h_dphi_ele_Ak8Puppijet1;
-
 
   // Corrections
   std::unique_ptr<JetCorrector>                    jet_corrector_A,jet_corrector_B, jet_corrector_C, jet_corrector_D, jet_corrector_E, jet_corrector_F, 
@@ -188,7 +114,84 @@ Event::Handle<float> h_eta_Ak8Puppijets;
   constexpr static int s_runnr_C_2018  = 320065; //up to this one, including this one
   constexpr static int s_runnr_D_2018 =  325175; //up to this one, including this one
 
-  bool is2016v2, is2016v3, is2017v2, is2018;
+  bool is2016v2, is2016v3, is2017, is2018;
+
+
+
+private:
+  // NN vars
+
+  Event::Handle<float> h_MET;
+  Event::Handle<float> h_ST;
+  Event::Handle<float> h_STjets;
+  Event::Handle<float> h_STlep;
+  Event::Handle<float> h_NPV;
+  Event::Handle<float> h_N_jets;
+  Event::Handle<float> h_pt_jet;
+  Event::Handle<float> h_pt_jet1;
+  Event::Handle<float> h_pt_jet2;
+  Event::Handle<float> h_pt_jet3;
+  Event::Handle<float> h_eta_jet;
+  Event::Handle<float> h_eta_jet1;
+  Event::Handle<float> h_eta_jet2;
+  Event::Handle<float> h_eta_jet3;
+  Event::Handle<float> h_phi_jet;
+  Event::Handle<float> h_phi_jet1;
+  Event::Handle<float> h_phi_jet2;
+  Event::Handle<float> h_phi_jet3;
+  Event::Handle<float> h_m_jet;
+  Event::Handle<float> h_m_jet1;
+  Event::Handle<float> h_m_jet2;
+  Event::Handle<float> h_m_jet3;
+  Event::Handle<float> h_csv_jet;
+  Event::Handle<float> h_csv_jet1;
+  Event::Handle<float> h_csv_jet2;
+  Event::Handle<float> h_csv_jet3;
+  Event::Handle<float> h_S11;
+  Event::Handle<float> h_S12;
+  Event::Handle<float> h_S13;
+  Event::Handle<float> h_S22;
+  Event::Handle<float> h_S23;
+  Event::Handle<float> h_S33;
+  Event::Handle<float> h_N_mu;
+  Event::Handle<float> h_pt_mu;
+  Event::Handle<float> h_eta_mu;
+  Event::Handle<float> h_phi_mu;
+  Event::Handle<float> h_reliso_mu;
+  Event::Handle<float> h_N_ele;
+  Event::Handle<float> h_pt_ele;
+  Event::Handle<float> h_eta_ele;
+  Event::Handle<float> h_phi_ele;
+  Event::Handle<float> h_reliso_ele;
+  Event::Handle<float> h_N_Ak8Puppijets;
+  Event::Handle<float> h_pt_Ak8Puppijets;
+  Event::Handle<float> h_pt_Ak8Puppijet1;
+  Event::Handle<float> h_pt_Ak8Puppijet2;
+  Event::Handle<float> h_pt_Ak8Puppijet3;
+  Event::Handle<float> h_eta_Ak8Puppijets;
+  Event::Handle<float> h_eta_Ak8Puppijet1;
+  Event::Handle<float> h_eta_Ak8Puppijet2;
+  Event::Handle<float> h_eta_Ak8Puppijet3;
+  Event::Handle<float> h_phi_Ak8Puppijets;
+  Event::Handle<float> h_phi_Ak8Puppijet1;
+  Event::Handle<float> h_phi_Ak8Puppijet2;
+  Event::Handle<float> h_phi_Ak8Puppijet3;
+  Event::Handle<float> h_mSD_Ak8Puppijets;
+  Event::Handle<float> h_mSD_Ak8Puppijet1;
+  Event::Handle<float> h_mSD_Ak8Puppijet2;
+  Event::Handle<float> h_mSD_Ak8Puppijet3;
+  Event::Handle<float> h_dR_mu_Ak8Puppijet;
+  Event::Handle<float> h_dR_ele_Ak8Puppijet;
+  Event::Handle<float> h_dR_jet_Ak8Puppijet;
+  Event::Handle<float> h_dRmin_mu_jet;
+  Event::Handle<float> h_dRmin_ele_jet;
+  Event::Handle<float> h_ptrel_mu_jet;
+  Event::Handle<float> h_ptrel_ele_jet;
+  Event::Handle<float> h_dphi_mu_jet1;
+  Event::Handle<float> h_dphi_ele_jet1;
+  Event::Handle<float> h_dphi_mu_Ak8Puppijet1;
+  Event::Handle<float> h_dphi_ele_Ak8Puppijet1;
+
 };
 
 void ZprimePreselectionModule::book_histograms(uhh2::Context& ctx, vector<string> tags){
@@ -209,7 +212,7 @@ void ZprimePreselectionModule::book_histograms(uhh2::Context& ctx, vector<string
 }
 
 void ZprimePreselectionModule::fill_histograms(uhh2::Event& event, string tag){
-  /*string mytag = tag+"_General";
+  string mytag = tag+"_General";
   HFolder(mytag)->fill(event);
   mytag = tag+"_Muons";
   HFolder(mytag)->fill(event);
@@ -220,7 +223,7 @@ void ZprimePreselectionModule::fill_histograms(uhh2::Event& event, string tag){
   mytag = tag+"_Event";
   HFolder(mytag)->fill(event);
   mytag = tag+"_Generator";
-  HFolder(mytag)->fill(event);*/
+  HFolder(mytag)->fill(event);
 }
 
 
@@ -233,7 +236,7 @@ void ZprimePreselectionModule::init_JEC_JLC(uhh2::Context& ctx){
   std::vector<std::string> JEC_AK8CHS_A, JEC_AK8CHS_B, JEC_AK8CHS_C, JEC_AK8CHS_D, JEC_AK8CHS_E, JEC_AK8CHS_F, JEC_AK8CHS_G, JEC_AK8CHS_H;
   std::vector<std::string> JEC_AK8Puppi_A, JEC_AK8Puppi_B, JEC_AK8Puppi_C, JEC_AK8Puppi_D, JEC_AK8Puppi_E, JEC_AK8Puppi_F, JEC_AK8Puppi_G, JEC_AK8Puppi_H;
 
-  if(!is2017v2 && !is2018 && !is2016v2 && !is2016v3) cout<<"Hm, some is wrong. Did you mention year in Version parameter of xml file?"<<endl;
+  if(!is2017 && !is2018 && !is2016v2 && !is2016v3) cout<<"Hm, some is wrong. Did you mention year in Version parameter of xml file?"<<endl;
   if(is2016v2 || is2016v3){
     cout<<"ZprimePreselectionModule uses JEC for 2016 data/MC"<<endl;
     JEC_AK4CHS_B       = JERFiles::Summer16_07Aug2017_V11_B_L123_AK4PFchs_DATA;
@@ -311,7 +314,7 @@ void ZprimePreselectionModule::init_JEC_JLC(uhh2::Context& ctx){
     */
   }
 
-  if(is2017v2){
+  if(is2017){
     cout<<"ZprimePreselectionModule uses JEC for 2017 data/MC"<<endl;
     JEC_AK4CHS_B       = JERFiles::Fall17_17Nov2017_V32_B_L123_AK4PFchs_DATA;
     JEC_AK4CHS_C       = JERFiles::Fall17_17Nov2017_V32_C_L123_AK4PFchs_DATA;
@@ -374,7 +377,7 @@ void ZprimePreselectionModule::init_JEC_JLC(uhh2::Context& ctx){
     jet_corrector_B.reset(new JetCorrector(ctx, JEC_AK4CHS_B));
     jet_corrector_C.reset(new JetCorrector(ctx, JEC_AK4CHS_C));
     jet_corrector_D.reset(new JetCorrector(ctx, JEC_AK4CHS_D));
-    if(is2017v2 or is2016v2 or is2016v3){
+    if(is2017 or is2016v2 or is2016v3){
       //      jet_corrector_D.reset(new JetCorrector(ctx, JEC_AK4CHS_D));//tmp
       jet_corrector_E.reset(new JetCorrector(ctx, JEC_AK4CHS_E));
       jet_corrector_F.reset(new JetCorrector(ctx, JEC_AK4CHS_F));
@@ -390,7 +393,7 @@ void ZprimePreselectionModule::init_JEC_JLC(uhh2::Context& ctx){
     JLC_B.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4CHS_B));
     JLC_C.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4CHS_C));
     JLC_D.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4CHS_D));
-    if(is2017v2 or is2016v2 or is2016v3){
+    if(is2017 or is2016v2 or is2016v3){
       //  JLC_D.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4CHS_D));//tmp
       JLC_E.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4CHS_E));
       JLC_F.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4CHS_F));
@@ -406,7 +409,7 @@ void ZprimePreselectionModule::init_JEC_JLC(uhh2::Context& ctx){
     jet_corrector_B.reset(new JetCorrector(ctx, JEC_AK4Puppi_B));
     jet_corrector_C.reset(new JetCorrector(ctx, JEC_AK4Puppi_C));
     jet_corrector_D.reset(new JetCorrector(ctx, JEC_AK4Puppi_D));
-    if(is2017v2 or is2016v2 or is2016v3){
+    if(is2017 or is2016v2 or is2016v3){
       //  jet_corrector_D.reset(new JetCorrector(ctx, JEC_AK4Puppi_D));//tmp
       jet_corrector_E.reset(new JetCorrector(ctx, JEC_AK4Puppi_E));
       jet_corrector_F.reset(new JetCorrector(ctx, JEC_AK4Puppi_F));
@@ -422,7 +425,7 @@ void ZprimePreselectionModule::init_JEC_JLC(uhh2::Context& ctx){
     JLC_B.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4Puppi_B));
     JLC_C.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4Puppi_C));
     JLC_D.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4Puppi_D));
-    if(is2017v2 or is2016v2 or is2016v3){
+    if(is2017 or is2016v2 or is2016v3){
       //  JLC_D.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4Puppi_D));//tmp
       JLC_E.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4Puppi_E));
       JLC_F.reset(new JetLeptonCleaner_by_KEYmatching(ctx, JEC_AK4Puppi_F));
@@ -438,7 +441,7 @@ void ZprimePreselectionModule::init_JEC_JLC(uhh2::Context& ctx){
   topjet_corrector_B.reset(new TopJetCorrector(ctx,       JEC_AK8CHS_B));
   topjet_corrector_C.reset(new TopJetCorrector(ctx,       JEC_AK8CHS_C));
   topjet_corrector_D.reset(new TopJetCorrector(ctx,      JEC_AK8CHS_D));
-  if(is2017v2 or is2016v2 or is2016v3){
+  if(is2017 or is2016v2 or is2016v3){
     //  topjet_corrector_D.reset(new TopJetCorrector(ctx,      JEC_AK8CHS_D));//tmp
     topjet_corrector_E.reset(new TopJetCorrector(ctx,      JEC_AK8CHS_E));
     topjet_corrector_F.reset(new TopJetCorrector(ctx,       JEC_AK8CHS_F));
@@ -453,7 +456,7 @@ void ZprimePreselectionModule::init_JEC_JLC(uhh2::Context& ctx){
   topjet_puppi_corrector_B.reset(new GenericTopJetCorrector(ctx,       JEC_AK8Puppi_B, "toppuppijets"));
   topjet_puppi_corrector_C.reset(new GenericTopJetCorrector(ctx,       JEC_AK8Puppi_C, "toppuppijets"));
   topjet_puppi_corrector_D.reset(new GenericTopJetCorrector(ctx,      JEC_AK8Puppi_D, "toppuppijets"));
-  if(is2017v2 or is2016v2 or is2016v3){
+  if(is2017 or is2016v2 or is2016v3){
     //  topjet_puppi_corrector_D.reset(new GenericTopJetCorrector(ctx,      JEC_AK8Puppi_D, "toppuppijets"));//tmp
     topjet_puppi_corrector_E.reset(new GenericTopJetCorrector(ctx,      JEC_AK8Puppi_E, "toppuppijets"));
     topjet_puppi_corrector_F.reset(new GenericTopJetCorrector(ctx,       JEC_AK8Puppi_F, "toppuppijets"));
@@ -469,7 +472,7 @@ void ZprimePreselectionModule::init_JEC_JLC(uhh2::Context& ctx){
   topjet_subjet_corrector_B.reset(new SubJetCorrector(ctx,       JEC_AK4CHS_B));
   topjet_subjet_corrector_C.reset(new SubJetCorrector(ctx,       JEC_AK4CHS_C));
   topjet_subjet_corrector_D.reset(new SubJetCorrector(ctx,      JEC_AK4CHS_D));
-  if(is2017v2 or is2016v2 or is2016v3){
+  if(is2017 or is2016v2 or is2016v3){
     //  topjet_subjet_corrector_D.reset(new SubJetCorrector(ctx,      JEC_AK4CHS_D));//tmp
     topjet_subjet_corrector_E.reset(new SubJetCorrector(ctx,      JEC_AK4CHS_E));
     topjet_subjet_corrector_F.reset(new SubJetCorrector(ctx,       JEC_AK4CHS_F));
@@ -484,7 +487,7 @@ void ZprimePreselectionModule::init_JEC_JLC(uhh2::Context& ctx){
   topjet_puppi_subjet_corrector_B.reset(new GenericSubJetCorrector(ctx,       JEC_AK4Puppi_B, "toppuppijets"));
   topjet_puppi_subjet_corrector_C.reset(new GenericSubJetCorrector(ctx,       JEC_AK4Puppi_C, "toppuppijets"));
   topjet_puppi_subjet_corrector_D.reset(new GenericSubJetCorrector(ctx,      JEC_AK4Puppi_D, "toppuppijets"));
-  if(is2017v2 or is2016v2 or is2016v3){
+  if(is2017 or is2016v2 or is2016v3){
     //  topjet_puppi_subjet_corrector_D.reset(new GenericSubJetCorrector(ctx,      JEC_AK4Puppi_D, "toppuppijets"));//tmp
     topjet_puppi_subjet_corrector_E.reset(new GenericSubJetCorrector(ctx,      JEC_AK4Puppi_E, "toppuppijets"));
     topjet_puppi_subjet_corrector_F.reset(new GenericSubJetCorrector(ctx,       JEC_AK4Puppi_F, "toppuppijets"));
@@ -501,7 +504,7 @@ void ZprimePreselectionModule::init_JEC_JLC(uhh2::Context& ctx){
   TopJLC_B.reset(new JetLeptonCleaner_by_KEYmatching(ctx,       JEC_AK8CHS_B, "topjets"));
   TopJLC_C.reset(new JetLeptonCleaner_by_KEYmatching(ctx,       JEC_AK8CHS_C, "topjets"));
   TopJLC_D.reset(new JetLeptonCleaner_by_KEYmatching(ctx,      JEC_AK8CHS_D, "topjets"));
-  if(is2017v2 or is2016v2 or is2016v3){
+  if(is2017 or is2016v2 or is2016v3){
     //  TopJLC_D.reset(new JetLeptonCleaner_by_KEYmatching(ctx,      JEC_AK8CHS_D, "topjets"));//tmp
     TopJLC_E.reset(new JetLeptonCleaner_by_KEYmatching(ctx,      JEC_AK8CHS_E, "topjets"));
     TopJLC_F.reset(new JetLeptonCleaner_by_KEYmatching(ctx,       JEC_AK8CHS_F, "topjets"));
@@ -516,7 +519,7 @@ void ZprimePreselectionModule::init_JEC_JLC(uhh2::Context& ctx){
   TopJLC_puppi_B.reset(new JetLeptonCleaner_by_KEYmatching(ctx,       JEC_AK8Puppi_B, "toppuppijets"));
   TopJLC_puppi_C.reset(new JetLeptonCleaner_by_KEYmatching(ctx,       JEC_AK8Puppi_C, "toppuppijets"));
   TopJLC_puppi_D.reset(new JetLeptonCleaner_by_KEYmatching(ctx,      JEC_AK8Puppi_D, "toppuppijets"));
-  if(is2017v2 or is2016v2 or is2016v3){
+  if(is2017 or is2016v2 or is2016v3){
     //  TopJLC_puppi_D.reset(new JetLeptonCleaner_by_KEYmatching(ctx,      JEC_AK8Puppi_D, "toppuppijets"));//tmp
     TopJLC_puppi_E.reset(new JetLeptonCleaner_by_KEYmatching(ctx,      JEC_AK8Puppi_E, "toppuppijets"));
     TopJLC_puppi_F.reset(new JetLeptonCleaner_by_KEYmatching(ctx,       JEC_AK8Puppi_F, "toppuppijets"));
@@ -544,13 +547,13 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   const bool ispuppi = (ctx.get("is_puppi") == "true");
   is2016v2 = (ctx.get("dataset_version").find("2016v2") != std::string::npos);
   is2016v3 = (ctx.get("dataset_version").find("2016v3") != std::string::npos);
-  is2017v2 = (ctx.get("dataset_version").find("2017v2") != std::string::npos);
+  is2017 = (ctx.get("dataset_version").find("2017") != std::string::npos);
   is2018 = (ctx.get("dataset_version").find("2018") != std::string::npos);
  
   cout << "Is this running on puppi: " << ispuppi << endl;
 
   ElectronId eleID;  MuonId muID;
-  if(is2017v2 || is2018){
+  if(is2017 || is2018){
     eleID = ElectronID_Fall17_tight_noIso;//ToDo: compare cutBased without iso and MVA-based via wp in UHH2
     muID      = MuonID(Muon::CutBasedIdGlobalHighPt);
   }
@@ -628,7 +631,7 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
       TopJER_smearer.reset(new GenericJetResolutionSmearer(ctx, "topjets", "gentopjets", JERSmearing::SF_13TeV_Summer16_25nsV1, "2016/Summer16_25nsV1_MC_PtResolution_AK8PFchs.txt"));
       TopJER_puppi_smearer.reset(new GenericJetResolutionSmearer(ctx, "toppuppijets", "gentopjets", JERSmearing::SF_13TeV_Summer16_25nsV1, "2016/Summer16_25nsV1_MC_PtResolution_AK8PFPuppi.txt"));
     }
-    if(is2017v2){
+    if(is2017){
       if(!ispuppi) JER_smearer.reset(new GenericJetResolutionSmearer(ctx, "jets", "genjets", JERSmearing::SF_13TeV_Fall17_V3, "2017/Fall17_V3_MC_PtResolution_AK4PFchs.txt"));
       else JER_smearer.reset(new GenericJetResolutionSmearer(ctx, "jets", "genjets", JERSmearing::SF_13TeV_Fall17_V3, "2017/Fall17_V3_MC_PtResolution_AK4PFPuppi.txt"));
       TopJER_smearer.reset(new GenericJetResolutionSmearer(ctx, "topjets", "gentopjets", JERSmearing::SF_13TeV_Fall17_V3, "2017/Fall17_V3_MC_PtResolution_AK8PFchs.txt"));
@@ -655,7 +658,7 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   h_STjets = ctx.declare_event_output<float> ("st_jets");
   h_STlep = ctx.declare_event_output<float> ("st_lep");
   h_NPV = ctx.declare_event_output<float> ("npv_pt");
-/*  h_N_jets = ctx.declare_event_output<float> ("N_jets");
+  h_N_jets = ctx.declare_event_output<float> ("N_jets");
   h_pt_jet = ctx.declare_event_output<float> ("pt_jet");
   h_pt_jet1 = ctx.declare_event_output<float> ("pt_jet1");
   h_pt_jet2 = ctx.declare_event_output<float> ("pt_jet2");
@@ -720,7 +723,7 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   h_dphi_ele_jet1 = ctx.declare_event_output<float> ("dphi_ele_jet1");
   h_dphi_mu_Ak8Puppijet1 = ctx.declare_event_output<float> ("dphi_mu_Ak8Puppijet1");
   h_dphi_ele_Ak8Puppijet1 = ctx.declare_event_output<float> ("dphi_ele_Ak8Puppijet1");
-*/
+
   // Book histograms
   vector<string> histogram_tags = {"Input", "Lumiselection", "Metfilters", "Lepton1", "JetID", "JetCleaner1", "JetCleaner2", "TopjetCleaner", "Jet1", "Jet2", "MET"};
   book_histograms(ctx, histogram_tags);
@@ -732,7 +735,8 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
 
 bool ZprimePreselectionModule::process(uhh2::Event& event){
 ////debug
-if(event.event!=35002146) return false;
+//if(event.event!=35002146) return false;
+if(event.event!=1034569 && event.event!=35002146) return false;
 //uint jetInd = 0;
 //for (const Jet & jet: *event.jets) {
 //cout << "--- jet pt raw = " << jet.pt()* jet.JEC_factor_raw()<< "	" << " jet pt = " << jet.pt() << "	"  << "for jet#" << jetInd << endl;
@@ -743,7 +747,7 @@ if(event.event!=35002146) return false;
 //cout << " genjet pt = " << genjet.pt() << "	"  << "for jet#" << genjetInd << endl;
 //genjetInd++;
 //}
-cout << "start process " << endl;
+/*cout << "start process " << endl;
 uint jetInd = 0;
 uint genjetInd = 0;
 for (const Jet & jet: *event.jets) {
@@ -754,7 +758,7 @@ cout << "--- jet pt raw = " << jet.pt()* jet.JEC_factor_raw()<< "       " << " j
 jetInd++;
 genjetInd++;
 }
-}
+}*/
 ////////
 
   event.set(h_MET,0);
@@ -762,7 +766,7 @@ genjetInd++;
   event.set(h_STjets,0);
   event.set(h_STlep,0);
   event.set(h_NPV,0);
-/*  event.set(h_N_jets,0);
+  event.set(h_N_jets,0);
   event.set(h_pt_jet,0);
   event.set(h_pt_jet1,0);
   event.set(h_pt_jet2,0);
@@ -827,7 +831,7 @@ genjetInd++;
   event.set(h_dphi_ele_jet1,0);
   event.set(h_dphi_mu_Ak8Puppijet1,0);
   event.set(h_dphi_ele_Ak8Puppijet1,0);
-*/
+
   //  cout<<"Getting started... "<<event.event<<endl;
   fill_histograms(event, "Input");
   // Lumi selection
@@ -888,7 +892,7 @@ genjetInd++;
       else throw std::runtime_error("run number not covered by if-statements in process-routine.");
     }
 
-    if(is2017v2){
+    if(is2017){
       if(event.run <= s_runnr_B_2017)  apply_B = true;
       else if(event.run <= s_runnr_C_2017) apply_C = true;
       else if(event.run <= s_runnr_D_2017) apply_D = true;
@@ -1008,6 +1012,7 @@ jetInd6++;
 }
     JLC_MC->process(event);
         cout<<"  JLC_MC done!"<<endl;
+
 cout << "after JLC " << endl;
 uint jetInd7 = 0;
 for (const Jet & jet: *event.jets) {
@@ -1056,23 +1061,23 @@ jetInd5++;
     topjet_puppi_subjet_corrector_MC->process(event);
      //cout<<" topjet_puppi_subjet_corrector_MC done!"<<endl;
   }
-cout << "before jet cleaner 1 " << endl;
+/*cout << "before jet cleaner 1 " << endl;
 uint jetInd2 = 0;
 for (const Jet & jet: *event.jets) {
 cout << "--- jet pt raw = " << jet.pt()* jet.JEC_factor_raw() << "      " << " jet pt = " << jet.pt() << "      " << "for jet#" << jetInd2 << endl;
 jetInd2++;
-}
+}*/
   jet_cleaner1->process(event);
   sort_by_pt<Jet>(*event.jets);
   fill_histograms(event, "JetCleaner1");
   cout<<"JetCleaner1 ... "<<event.event<<endl;
 
-cout << "after jet cleaner 1 " << endl;
+/*cout << "after jet cleaner 1 " << endl;
 uint jetInd3 = 0;
 for (const Jet & jet: *event.jets) {
 cout << "--- jet pt raw = " << jet.pt()* jet.JEC_factor_raw() << "	" << " jet pt = " << jet.pt() << "	" << "for jet#" << jetInd3 << endl;
 jetInd3++;
-}
+}*/
   // Lepton-2Dcut variables
   for(auto& muo : *event.muons){
 
@@ -1152,7 +1157,7 @@ jetInd3++;
   event.set(h_ST,st);
   event.set(h_STjets,st_jets);
   event.set(h_STlep,st_lep);
-/*
+
   // Ak4 jets
   event.set(h_N_jets,jets->size());
 
@@ -1325,7 +1330,7 @@ jetInd3++;
 
     event.set(h_N_Ak8Puppijets,NAK8Puppijets);
   }
-*/
+
 
   return true;
 

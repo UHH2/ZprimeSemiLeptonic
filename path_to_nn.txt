@@ -1,0 +1,1 @@
+/nfs/dust/cms/user/deleokse/lwtnn_dir/CMSSW_11_0_0_pre7/src/neural_net.json
