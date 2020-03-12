@@ -69,7 +69,7 @@ protected:
   unique_ptr<MCMuonScaleFactor> MuonID_module, MuonTrigger_module;
 
   // AnalysisModules
-  unique_ptr<AnalysisModule> LumiWeight_module, PUWeight_module, CSVWeight_module, printer_genparticles;
+  unique_ptr<AnalysisModule> LumiWeight_module, PUWeight_module, printer_genparticles; //CSVWeight_module
 
   // Taggers
   unique_ptr<AK8PuppiTopTagger> TopTaggerPuppi;
@@ -287,7 +287,7 @@ ZprimeAnalysisModule_LooseCuts::ZprimeAnalysisModule_LooseCuts(uhh2::Context& ct
   electron_cleaner.reset(new ElectronCleaner(electronID));
   LumiWeight_module.reset(new MCLumiWeight(ctx));
   PUWeight_module.reset(new MCPileupReweight(ctx, Sys_PU));
-  CSVWeight_module.reset(new MCCSVv2ShapeSystematic(ctx, "jets","central","iterativefit","","MCCSVv2ShapeSystematic"));
+  //CSVWeight_module.reset(new MCCSVv2ShapeSystematic(ctx, "jets","central","iterativefit","","MCCSVv2ShapeSystematic")); // old, replaced with MCBTagDiscriminantReweighting
 
   //if((is2016v3 || is2016v2) && isMuon){
   //  MuonID_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2016/MuonID_EfficienciesAndSF_average_RunBtoH.root", "MC_NUM_TightID_DEN_genTracks_PAR_pt_eta", 0., "MuonID", true, Sys_MuonID));
@@ -495,7 +495,7 @@ bool ZprimeAnalysisModule_LooseCuts::process(uhh2::Event& event){
   // in fisrt round re-weighting is switched off
   PUWeight_module->process(event);
   //if(debug)  cout<<"PUWeight ok"<<endl;
-  CSVWeight_module->process(event);
+  //CSVWeight_module->process(event);
   //if(isMuon){
   //  MuonID_module->process(event);
   //  if(debug)  cout<<"MuonID ok"<<endl;

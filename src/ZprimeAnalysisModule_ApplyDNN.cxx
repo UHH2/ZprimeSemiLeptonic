@@ -86,7 +86,7 @@ protected:
   unique_ptr<MCMuonScaleFactor> MuonID_module, MuonTrigger_module;
 
   // AnalysisModules
-  unique_ptr<AnalysisModule> LumiWeight_module, PUWeight_module, CSVWeight_module, printer_genparticles;
+  unique_ptr<AnalysisModule> LumiWeight_module, PUWeight_module, printer_genparticles; //CSVWeight_module
 
   // Taggers
   unique_ptr<AK8PuppiTopTagger> TopTaggerPuppi;
@@ -314,7 +314,7 @@ ZprimeAnalysisModule_ApplyDNN::ZprimeAnalysisModule_ApplyDNN(uhh2::Context& ctx)
   electron_cleaner.reset(new ElectronCleaner(electronID));
   LumiWeight_module.reset(new MCLumiWeight(ctx));
   PUWeight_module.reset(new MCPileupReweight(ctx, Sys_PU));
-  CSVWeight_module.reset(new MCCSVv2ShapeSystematic(ctx, "jets","central","iterativefit","","MCCSVv2ShapeSystematic"));
+  //CSVWeight_module.reset(new MCCSVv2ShapeSystematic(ctx, "jets","central","iterativefit","","MCCSVv2ShapeSystematic")); old, repleaced with MCBTagDiscriminantReweighting
 
   //if((is2016v3 || is2016v2) && isMuon){
   //  MuonID_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2016/MuonID_EfficienciesAndSF_average_RunBtoH.root", "MC_NUM_TightID_DEN_genTracks_PAR_pt_eta", 0., "MuonID", true, Sys_MuonID));
@@ -537,7 +537,7 @@ bool ZprimeAnalysisModule_ApplyDNN::process(uhh2::Event& event){
   // in fisrt round re-weighting is switched off
   PUWeight_module->process(event);
   //if(debug)  cout<<"PUWeight ok"<<endl;
-  CSVWeight_module->process(event);
+  //CSVWeight_module->process(event);
   //if(isMuon){
   //  MuonID_module->process(event);
   //  if(debug)  cout<<"MuonID ok"<<endl;
@@ -749,8 +749,7 @@ bool ZprimeAnalysisModule_ApplyDNN::process(uhh2::Event& event){
   }
   event.set(h_NPV,event.pvs->size());
 
-
-
+/*
   tensorflow::Tensor inputs(tensorflow::DT_FLOAT, {1,43});
   inputs.tensor<float, 2>()(0,0) = event.get(h_DeltaR_j1_lep);
   inputs.tensor<float, 2>()(0,1) = event.get(h_DeltaR_j1_nu);
@@ -796,18 +795,68 @@ bool ZprimeAnalysisModule_ApplyDNN::process(uhh2::Event& event){
   inputs.tensor<float, 2>()(0,41) = event.get(h_chi2);
   inputs.tensor<float, 2>()(0,42) = event.get(h_weight);
 
-  //std::cout << "inputs " << '\n';
-  //for (int n = 0; n < 43; n++) {
-  //std::cout << inputs.tensor<float, 2>()(0,n) << " ";
-  //}
-  //std::cout<< '\n';
+  std::cout << "inputs " << '\n';
+  for (int n = 0; n < 43; n++) {
+  std::cout << inputs.tensor<float, 2>()(0,n) << " ";
+  }
+  std::cout<< '\n';
+*/ 
+  tensorflow::Tensor inputs(tensorflow::DT_FLOAT, {1,43});
+  inputs.tensor<float, 2>()(0,0) = event.get(h_DeltaR_j1_lep) / 4.35;
+  inputs.tensor<float, 2>()(0,1) = event.get(h_DeltaR_j1_nu) / 4.0;
+  inputs.tensor<float, 2>()(0,2) = event.get(h_DeltaR_j1j2_had)  / 5.1;
+  inputs.tensor<float, 2>()(0,3) = event.get(h_DeltaR_j1lep_j1had)  / 5.5;
+  inputs.tensor<float, 2>()(0,4) = event.get(h_DeltaR_tlep_thad) / 9.5;
+  inputs.tensor<float, 2>()(0,5) = (event.get(h_JetHadAK4_1j_eta) +2.5) / 5.0;
+  inputs.tensor<float, 2>()(0,6) = (event.get(h_JetHadAK4_1j_phi) +3.1 )/ 6.2 ;
+  inputs.tensor<float, 2>()(0,7) = event.get(h_JetHadAK4_1j_pt) / 2500.0;
+  inputs.tensor<float, 2>()(0,8) = (event.get(h_JetHadAK4_2j_eta) +2.5 ) /5.0 ;
+  inputs.tensor<float, 2>()(0,9) = (event.get(h_JetHadAK4_2j_phi) +3.1) / 6.2;
+  inputs.tensor<float, 2>()(0,10) = event.get(h_JetHadAK4_2j_pt)  / 510.0;
+  inputs.tensor<float, 2>()(0,11) = (event.get(h_JetHadAK8_eta) +2.5 ) / 5.0;
+  inputs.tensor<float, 2>()(0,12) = (event.get(h_JetHadAK8_phi)+ 3.1 ) / 6.2;
+  inputs.tensor<float, 2>()(0,13) = event.get(h_JetHadAK8_pt)  / 2500.0;
+  inputs.tensor<float, 2>()(0,14) = (event.get(h_JetLep_eta) +2.5 ) /5.0 ;
+  inputs.tensor<float, 2>()(0,15) = (event.get(h_JetLep_phi) +3.1 ) / 6.2;
+  inputs.tensor<float, 2>()(0,16) = event.get(h_JetLep_pt)  / 1400.0;
+  inputs.tensor<float, 2>()(0,17) = (event.get(h_Lep_eta) +2.5 ) / 5.0;
+  inputs.tensor<float, 2>()(0,18) = (event.get(h_Lep_phi) +3.1 ) / 6.2;
+  inputs.tensor<float, 2>()(0,19) = event.get(h_Lep_pt)  / 1600.0;
+  inputs.tensor<float, 2>()(0,20) = event.get(h_N_AK4_HadJets) / 5.0;
+  inputs.tensor<float, 2>()(0,21) = (event.get(h_N_AK4_LepJets) - 1.0) / 2.0;
+  inputs.tensor<float, 2>()(0,22) = event.get(h_N_AK8_Jets) / 1.0;
+  inputs.tensor<float, 2>()(0,23) = (event.get(h_Nu_eta) +3.6 ) / 7.2;
+  inputs.tensor<float, 2>()(0,24) = (event.get(h_Nu_phi) +3.1 ) / 6.2;
+  inputs.tensor<float, 2>()(0,25) = event.get(h_Nu_pt) / 3200.0;
+  inputs.tensor<float, 2>()(0,26) = event.get(h_S11);
+  inputs.tensor<float, 2>()(0,27) = event.get(h_S12)+0.5;
+  inputs.tensor<float, 2>()(0,28) = event.get(h_S13) +0.5;
+  inputs.tensor<float, 2>()(0,29) = event.get(h_S22);
+  inputs.tensor<float, 2>()(0,30) = event.get(h_S23) + 0.5;
+  inputs.tensor<float, 2>()(0,31) = event.get(h_S33) / 0.98;
+  inputs.tensor<float, 2>()(0,32) = event.get(h_TopHadOverLep_pt) / 1200.0; 
+  inputs.tensor<float, 2>()(0,33) = (event.get(h_TopHad_eta) +7.6 ) / 15.7;
+  inputs.tensor<float, 2>()(0,34) = (event.get(h_TopHad_m) +50.0 ) / 430.0;
+  inputs.tensor<float, 2>()(0,35) = (event.get(h_TopHad_phi) +3.1 ) / 6.2;
+  inputs.tensor<float, 2>()(0,36) = event.get(h_TopHad_pt)  / 2500.0;
+  inputs.tensor<float, 2>()(0,37) = (event.get(h_TopLep_eta) +7.0 ) / 13.2;
+  inputs.tensor<float, 2>()(0,38) = (event.get(h_TopLep_m) + 110.0) / 370.0;
+  inputs.tensor<float, 2>()(0,39) = (event.get(h_TopLep_phi) +3.1 ) / 6.2;
+  inputs.tensor<float, 2>()(0,40) = event.get(h_TopLep_pt) / 3400.0;
+  inputs.tensor<float, 2>()(0,41) = event.get(h_chi2) /30.0 ; 
+  inputs.tensor<float, 2>()(0,42) = (event.get(h_weight) +0.01 ) / 2.5; 
 
+  std::cout << "inputs " << '\n';
+  for (int n = 0; n < 43; n++) {
+  std::cout << inputs.tensor<float, 2>()(0,n) << " ";
+  }
+  std::cout<< '\n';
 
   std::vector<tensorflow::Tensor> outputs;
   tensorflow::run(session, {"dense_1_input"}, {inputs}, {"dense_4/Softmax"}, &outputs);
-  //cout << "output0 = " << outputs[0].tensor<float, 2>()(0,0) << '\n';
-  //cout << "output1 = " << outputs[0].tensor<float, 2>()(0,1) << '\n';
-  //cout << "output2 = " << outputs[0].tensor<float, 2>()(0,2) << '\n';
+  cout << "output0 = " << outputs[0].tensor<float, 2>()(0,0) << '\n';
+  cout << "output1 = " << outputs[0].tensor<float, 2>()(0,1) << '\n';
+  cout << "output2 = " << outputs[0].tensor<float, 2>()(0,2) << '\n';
 
     vector<double> dnnout_vector;
     for(int i=0; i<3; i++){

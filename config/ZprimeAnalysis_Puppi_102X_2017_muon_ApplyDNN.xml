@@ -10,7 +10,7 @@
 <!ENTITY IS_PUPPI            "true">
 <!ENTITY IS_LOOSER_SELECTION "false">
 <!ENTITY CHANNEL "muon">
-<!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/analysis/ZPrime_2017/Analysis_2017v2_2502_ApplyDNN/&CHANNEL;/">
+<!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/analysis/ZPrime_2017/Analysis_2017v2_1103_ApplyDNN/&CHANNEL;/">
 <!--
 <!ENTITY DATA_SingleMuon_Run2017v2_C   SYSTEM  "../data/Skimming_datasets_2017v2_1902/DATA_DATA_SingleMuon_Run2017v2_C_withoutEmptyNtuples.xml">
 <!ENTITY DATA_SingleMuon_Run2017v2_D   SYSTEM  "../data/Skimming_datasets_2017v2_1902/DATA_DATA_SingleMuon_Run2017v2_D_withoutEmptyNtuples.xml">
