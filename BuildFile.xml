@@ -7,4 +7,5 @@
 <use name="PhysicsTools/TensorFlow"/>
 <use name="tensorflow"/>
 <use name="tensorflow-cc"/>
+<use name="Eigen"/>
 <use name="protobuf"/>
