@@ -555,17 +555,17 @@ bool ZprimeAnalysisModule_UseDNN::process(uhh2::Event& event){
 
 
 
-    if(dnnoutput[0] >= 0.0){
+    if(dnnoutput[0] >= 0.9){
     event.set(h_out0,dnnoutput[0]);
     fill_histograms(event, "DNN_output0");
     }
 
-    if(dnnoutput[1] >= 0.0){
+    if(dnnoutput[1] >= 0.9){
     event.set(h_out1,dnnoutput[1]);
     fill_histograms(event, "DNN_output1");
     }
 
-    if(dnnoutput[2] >= 0.0){
+    if(dnnoutput[2] >= 0.9){
     event.set(h_out2,dnnoutput[2]);
     fill_histograms(event, "DNN_output2");
     }

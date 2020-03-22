@@ -736,7 +736,7 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
 bool ZprimePreselectionModule::process(uhh2::Event& event){
 ////debug
 //if(event.event!=35002146) return false;
-if(event.event!=1034569 && event.event!=35002146) return false;
+//if(event.event!=1034569 && event.event!=35002146) return false;
 //uint jetInd = 0;
 //for (const Jet & jet: *event.jets) {
 //cout << "--- jet pt raw = " << jet.pt()* jet.JEC_factor_raw()<< "	" << " jet pt = " << jet.pt() << "	"  << "for jet#" << jetInd << endl;
@@ -1004,42 +1004,42 @@ genjetInd++;
   }
   else{ //MC
         cout<<"JLC, JEC, JER ..."<<endl;
-cout << "before JLC " << endl;
+/*cout << "before JLC " << endl;
 uint jetInd6 = 0;
 for (const Jet & jet: *event.jets) {
 cout << "--- jet pt raw = " << jet.pt()* jet.JEC_factor_raw() << "      " << " jet pt = " << jet.pt() << "      " << "for jet#" << jetInd6 << endl;
 jetInd6++;
-}
+}*/
     JLC_MC->process(event);
         cout<<"  JLC_MC done!"<<endl;
-
+/*
 cout << "after JLC " << endl;
 uint jetInd7 = 0;
 for (const Jet & jet: *event.jets) {
 cout << "--- jet pt raw = " << jet.pt()* jet.JEC_factor_raw() << "      " << " jet pt = " << jet.pt() << "      " << "for jet#" << jetInd7 << endl;
 jetInd7++;
-}
+}*/
 
     TopJLC_MC->process(event);
         //cout<<"  TopJLC_MC done!"<<endl;
     TopJLC_puppi_MC->process(event);
-
+/*
 cout << "before jet corrector " << endl;
 uint jetInd4 = 0;
 for (const Jet & jet: *event.jets) {
 cout << "--- jet pt raw = " << jet.pt()* jet.JEC_factor_raw() << "      " << " jet pt = " << jet.pt() << "      " << "for jet#" << jetInd4 << endl;
 jetInd4++;
-}
+}*/
 
     jet_corrector_MC->process(event);
         cout<<" jet_corrector_MC done!"<<endl;
-
+/*
 cout << "after jet corrector " << endl;
 uint jetInd5 = 0;
 for (const Jet & jet: *event.jets) {
 cout << "--- jet pt raw = " << jet.pt()* jet.JEC_factor_raw() << "      " << " jet pt = " << jet.pt() << "      " << "for jet#" << jetInd5 << endl;
 jetInd5++;
-}
+}*/
 
     topjet_corrector_MC->process(event);
         //cout<<" topjet_corrector_MC done!"<<endl;

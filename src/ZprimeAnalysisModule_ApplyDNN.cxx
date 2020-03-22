@@ -748,7 +748,6 @@ bool ZprimeAnalysisModule_ApplyDNN::process(uhh2::Event& event){
     event.set(h_ak8jet1_eta,event.topjets->at(0).eta());
   }
   event.set(h_NPV,event.pvs->size());
-
 /*
   tensorflow::Tensor inputs(tensorflow::DT_FLOAT, {1,43});
   inputs.tensor<float, 2>()(0,0) = event.get(h_DeltaR_j1_lep);
@@ -846,17 +845,17 @@ bool ZprimeAnalysisModule_ApplyDNN::process(uhh2::Event& event){
   inputs.tensor<float, 2>()(0,41) = event.get(h_chi2) /30.0 ; 
   inputs.tensor<float, 2>()(0,42) = (event.get(h_weight) +0.01 ) / 2.5; 
 
-  std::cout << "inputs " << '\n';
-  for (int n = 0; n < 43; n++) {
-  std::cout << inputs.tensor<float, 2>()(0,n) << " ";
-  }
-  std::cout<< '\n';
+  //std::cout << "inputs " << '\n';
+  //for (int n = 0; n < 43; n++) {
+  //std::cout << inputs.tensor<float, 2>()(0,n) << " ";
+  //}
+  //std::cout<< '\n';
 
   std::vector<tensorflow::Tensor> outputs;
   tensorflow::run(session, {"dense_1_input"}, {inputs}, {"dense_4/Softmax"}, &outputs);
-  cout << "output0 = " << outputs[0].tensor<float, 2>()(0,0) << '\n';
-  cout << "output1 = " << outputs[0].tensor<float, 2>()(0,1) << '\n';
-  cout << "output2 = " << outputs[0].tensor<float, 2>()(0,2) << '\n';
+  //cout << "output0 = " << outputs[0].tensor<float, 2>()(0,0) << '\n';
+  //cout << "output1 = " << outputs[0].tensor<float, 2>()(0,1) << '\n';
+  //cout << "output2 = " << outputs[0].tensor<float, 2>()(0,2) << '\n';
 
     vector<double> dnnout_vector;
     for(int i=0; i<3; i++){
