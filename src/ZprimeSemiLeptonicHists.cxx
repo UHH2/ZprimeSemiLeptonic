@@ -28,7 +28,6 @@ Hists(ctx, dirname) {
   h_is_zprime_reconstructed_chi2 = ctx.get_handle<bool>("is_zprime_reconstructed_chi2");
   h_is_zprime_reconstructed_correctmatch = ctx.get_handle<bool>("is_zprime_reconstructed_correctmatch");
   //  h_chi2 = ctx.get_handle<float>("chi2");
-  h_dnnoutput = ctx.get_handle<vector<double>>("dnnoutput");
   init();
 }
 
@@ -342,10 +341,6 @@ void ZprimeSemiLeptonicHists::init(){
   vector<float> bins_Zprime5 = {0,200,400,600,800,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3300,3600,3900,4200,4500,5000,5100};
   M_Zprime                 = book<TH1F>("M_Zprime", "M_{t#bar{t}} [GeV]", 280, 0, 7000);
 
-  M_out                    = book<TH1F>("M_out", "M_{Zprime}^{out} [GeV]", 70, 0, 7000);
-  out0                     = book<TH1F>("out", "out0", 100, 0, 100);
-  out1                     = book<TH1F>("out1", "out1", 100, 0, 100);
-  out2                     = book<TH1F>("out2", "out2", 100, 0, 100);
   Lep_pt                   = book<TH1F>("Lep_pt", "p_{T}^{lep} [GeV]", 45, 0, 900);
   Lep_eta                  = book<TH1F>("Lep_eta", "#eta^{lep}", 50, -2.5, 2.5);
   Lep_phi                  = book<TH1F>("Lep_phi", "#phi^{lep}", 35, -3.5, 3.5);
@@ -368,11 +363,11 @@ void ZprimeSemiLeptonicHists::init(){
   JetHadAK4_2j_eta         = book<TH1F>("JetHadAK4_2j_eta", "#eta^{AK4jet2_{had}}", 50, -2.5, 2.5);
   JetHadAK4_2j_phi         = book<TH1F>("JetHadAK4_2j_phi", "#phi^{AK4jet2_{had}}", 35, -3.5, 3.5);
   TopLep_pt                = book<TH1F>("TopLep_pt", "p_{T}^{t_{lep}} [GeV]", 45, 0, 900);
-  TopHad_m                 = book<TH1F>("TopHad_m", "m^{t_{had}} [GeV]", 60, 0, 300);
+  TopLep_m                 = book<TH1F>("TopLep_m", "m^{t_{lep}} [GeV]", 60, 0, 300);
   TopLep_eta               = book<TH1F>("TopLep_eta", "#eta^{t_{lep}}", 50, -2.5, 2.5);
   TopLep_phi               = book<TH1F>("TopLep_phi", "#phi^{t_{lep}}", 35, -3.5, 3.5);
   TopHad_pt                = book<TH1F>("TopHad_pt", "p_{T}^{t_{had}} [GeV]", 45, 0, 900);
-  TopLep_m                 = book<TH1F>("TopLep_m", "m^{t_{lep}} [GeV]", 60, 0, 300);
+  TopHad_m                 = book<TH1F>("TopHad_m", "m^{t_{had}} [GeV]", 60, 0, 300);
   TopHad_eta               = book<TH1F>("TopHad_eta", "#eta^{t_{had}}", 50, -2.5, 2.5);
   TopHad_phi               = book<TH1F>("TopHad_phi", "#phi^{t_{had}}", 35, -3.5, 3.5);
   TopHadOverLep_pt         = book<TH1F>("TopHadOverLep_pt", "p_{T}^{t_{had}}/p_{T}^{t_{lep}}", 1200, -20, 100);
@@ -1019,7 +1014,6 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
     S33->Fill(s33, weight);
 
 
-    M_out->Fill(BestZprimeCandidate->Zprime_v4().M(), weight);
     Lep_pt->Fill(ptlep, weight);
     Lep_eta->Fill(etalep, weight);
     Lep_phi->Fill(philep, weight);

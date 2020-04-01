@@ -83,7 +83,7 @@ protected:
 
   // Selections
   unique_ptr<Selection> Trigger1_selection, Trigger2_selection, NMuon1_selection, NMuon2_selection, NElectron_selection, Jet1_selection, Jet2_selection, Met_selection, Chi2_selection, TTbarMatchable_selection, Chi2CandidateMatched_selection, ZprimeTopTag_selection, BlindData_selection;
-  unique_ptr<Selection> TwoDCut_selection;
+//  unique_ptr<Selection> TwoDCut_selection;
   std::unique_ptr<uhh2::Selection> met_sel;
   std::unique_ptr<uhh2::Selection> htlep_sel;
   std::unique_ptr<Selection> sel_1btag, sel_2btag;
@@ -123,9 +123,11 @@ protected:
   Event::Handle<float> h_JetHadAK4_2j_eta; 
   Event::Handle<float> h_JetHadAK4_2j_phi; 
   Event::Handle<float> h_TopLep_pt; 
+  Event::Handle<float> h_TopLep_m; 
   Event::Handle<float> h_TopLep_eta; 
   Event::Handle<float> h_TopLep_phi; 
   Event::Handle<float> h_TopHad_pt; 
+  Event::Handle<float> h_TopHad_m; 
   Event::Handle<float> h_TopHad_eta; 
   Event::Handle<float> h_TopHad_phi; 
   Event::Handle<float> h_TopHadOverLep_pt; 
@@ -142,6 +144,8 @@ protected:
   Event::Handle<float> h_S33; 
 
   uhh2::Event::Handle<ZprimeCandidate*> h_BestZprimeCandidateChi2;
+
+  float inv_mass(const LorentzVector& p4){ return p4.isTimelike() ? p4.mass() : -sqrt(-p4.mass2()); }
 
   // Configuration
   bool isMC, ispuppi, islooserselection;
@@ -248,8 +252,8 @@ ZprimeAnalysisModule_LooseCuts::ZprimeAnalysisModule_LooseCuts(uhh2::Context& ct
     nele_min = 0; nele_max = 0;
     MET_cut = 50;
     jet1_pt = 150.;
-    HT_lep_cut = 150;
-    //HT_lep_cut = 0; //loose cuts
+    //HT_lep_cut = 150;
+    HT_lep_cut = 0; //loose cuts
   }
   if(isElectron){//semileptonic electron channel
     nmuon_min1 = 0; nmuon_max1 = 0;
@@ -265,7 +269,7 @@ ZprimeAnalysisModule_LooseCuts::ZprimeAnalysisModule_LooseCuts(uhh2::Context& ct
   }
 
  // Remove TwoD cut for DNN 
-  double TwoD_dr = 0.4, TwoD_ptrel = 25.;
+ // double TwoD_dr = 0.4, TwoD_ptrel = 25.;
  // if(islooserselection){
  //   jet1_pt = 100.;
  //   TwoD_dr = 0.2;
@@ -287,7 +291,7 @@ ZprimeAnalysisModule_LooseCuts::ZprimeAnalysisModule_LooseCuts(uhh2::Context& ct
   electron_cleaner.reset(new ElectronCleaner(electronID));
   LumiWeight_module.reset(new MCLumiWeight(ctx));
   PUWeight_module.reset(new MCPileupReweight(ctx, Sys_PU));
-  //CSVWeight_module.reset(new MCCSVv2ShapeSystematic(ctx, "jets","central","iterativefit","","MCCSVv2ShapeSystematic")); // old, replaced with MCBTagDiscriminantReweighting
+//  CSVWeight_module.reset(new MCCSVv2ShapeSystematic(ctx, "jets","central","iterativefit","","MCCSVv2ShapeSystematic"));
 
   //if((is2016v3 || is2016v2) && isMuon){
   //  MuonID_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2016/MuonID_EfficienciesAndSF_average_RunBtoH.root", "MC_NUM_TightID_DEN_genTracks_PAR_pt_eta", 0., "MuonID", true, Sys_MuonID));
@@ -305,7 +309,7 @@ ZprimeAnalysisModule_LooseCuts::ZprimeAnalysisModule_LooseCuts(uhh2::Context& ct
   NMuon1_selection.reset(new NMuonSelection(nmuon_min1, nmuon_max1));
   NMuon2_selection.reset(new NMuonSelection(nmuon_min2, nmuon_max2));
   NElectron_selection.reset(new NElectronSelection(nele_min, nele_max));
-  TwoDCut_selection.reset(new TwoDCut(TwoD_dr, TwoD_ptrel));
+  //TwoDCut_selection.reset(new TwoDCut(TwoD_dr, TwoD_ptrel));
   Jet1_selection.reset(new NJetSelection(1, -1, JetId(PtEtaCut(jet1_pt, 2.4))));
   Jet2_selection.reset(new NJetSelection(2, -1, JetId(PtEtaCut(jet2_pt, 2.4))));
   //  STlepPlusMet_selection.reset(new STlepPlusMetCut(stlep_plus_met, -1.));
@@ -361,9 +365,11 @@ ZprimeAnalysisModule_LooseCuts::ZprimeAnalysisModule_LooseCuts(uhh2::Context& ct
   h_JetHadAK4_2j_eta = ctx.declare_event_output<float> ("JetHadAK4_2j_eta");
   h_JetHadAK4_2j_phi = ctx.declare_event_output<float> ("JetHadAK4_2j_phi");
   h_TopLep_pt = ctx.declare_event_output<float> ("TopLep_pt");
+  h_TopLep_m = ctx.declare_event_output<float> ("TopLep_m");
   h_TopLep_eta = ctx.declare_event_output<float> ("TopLep_eta");
   h_TopLep_phi = ctx.declare_event_output<float> ("TopLep_phi");
   h_TopHad_pt = ctx.declare_event_output<float> ("TopHad_pt");
+  h_TopHad_m = ctx.declare_event_output<float> ("TopHad_m");
   h_TopHad_eta = ctx.declare_event_output<float> ("TopHad_eta");
   h_TopHad_phi = ctx.declare_event_output<float> ("TopHad_phi");
   h_TopHadOverLep_pt = ctx.declare_event_output<float> ("TopHadOverLep_pt");
@@ -406,7 +412,7 @@ ZprimeAnalysisModule_LooseCuts::ZprimeAnalysisModule_LooseCuts(uhh2::Context& ct
   TopJetBtagSubjet_selection.reset(new ZprimeBTagFatSubJetSelection(ctx));
 
   // Book histograms
-  vector<string> histogram_tags = {"Weights", "Muon1", "Trigger", "Muon2", "Electron1", "Jet1", "Jet2", "MET", "HTlep", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction", "Btags2", "Btags1","TopJetBtagSubjet","TwoDCut"};
+  vector<string> histogram_tags = {"Weights", "Muon1", "Trigger", "Muon2", "Electron1", "Jet1", "Jet2", "MET", "HTlep", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction", "Btags2", "Btags1","TopJetBtagSubjet"};
   book_histograms(ctx, histogram_tags);
 }
 
@@ -460,9 +466,11 @@ bool ZprimeAnalysisModule_LooseCuts::process(uhh2::Event& event){
   event.set(h_JetHadAK4_2j_eta,0);
   event.set(h_JetHadAK4_2j_phi,0);
   event.set(h_TopLep_pt,0);
+  event.set(h_TopLep_m,0);
   event.set(h_TopLep_eta,0);
   event.set(h_TopLep_phi,0);
   event.set(h_TopHad_pt,0);
+  event.set(h_TopHad_m,0);
   event.set(h_TopHad_eta,0);
   event.set(h_TopHad_phi,0);
   event.set(h_TopHadOverLep_pt,0);
@@ -527,8 +535,8 @@ bool ZprimeAnalysisModule_LooseCuts::process(uhh2::Event& event){
   //  if(event.electrons->size()<1 && event.muons->size()<1) return false; //veto events without leptons
   if((event.muons->size()+event.electrons->size()) != 1) return false; //veto events without leptons or with too many 
   if(debug) cout<<"N leptons ok: Nelectrons="<<event.electrons->size()<<" Nmuons="<<event.muons->size()<<endl;
-  if(!TwoDCut_selection->passes(event)) return false;
-  fill_histograms(event, "TwoDCut");
+  //if(!TwoDCut_selection->passes(event)) return false;
+  //fill_histograms(event, "TwoDCut");
 
   // Here, the Zprime must be reconstructed (we ensured to have >= 2 AK4 jets, >= 1 muon)
   // Only consider well-separated AK4 jets
@@ -645,9 +653,11 @@ bool ZprimeAnalysisModule_LooseCuts::process(uhh2::Event& event){
     event.set(h_DeltaR_j1_lep,deltaR(BestZprimeCandidate->jets_leptonic().at(0),BestZprimeCandidate->lepton()));
     event.set(h_DeltaR_j1_nu,deltaR(BestZprimeCandidate->jets_leptonic().at(0),BestZprimeCandidate->neutrino_v4()));
     event.set(h_TopLep_pt,BestZprimeCandidate->top_leptonic_v4().pt());
+    event.set(h_TopLep_m,inv_mass(BestZprimeCandidate->top_leptonic_v4()));
     event.set(h_TopLep_eta,BestZprimeCandidate->top_leptonic_v4().eta());
     event.set(h_TopLep_phi,BestZprimeCandidate->top_leptonic_v4().phi());
     event.set(h_TopHad_pt,BestZprimeCandidate->top_hadronic_v4().pt());
+    event.set(h_TopHad_m,inv_mass(BestZprimeCandidate->top_hadronic_v4()));
     event.set(h_TopHad_eta,BestZprimeCandidate->top_hadronic_v4().eta());
     event.set(h_TopHad_phi,BestZprimeCandidate->top_hadronic_v4().phi());
     event.set(h_TopHadOverLep_pt,(BestZprimeCandidate->top_hadronic_v4().pt())/(BestZprimeCandidate->top_leptonic_v4().pt()));
