@@ -213,50 +213,50 @@ void NeuralNetworkModule::CreateInputs(Event & event){
   NNInputs.at(0).tensor<float, 2>()(0,42) = event.get(h_weight);
 */
 
-  NNInputs.at(0).tensor<float, 2>()(0,0) = (event.get(h_DeltaR_j1_lep) - 4.7789694e-05 ) / (4.2306576-4.7789694e-05);//4.7789694e-05 4.2306576
-  NNInputs.at(0).tensor<float, 2>()(0,1) = (event.get(h_DeltaR_j1_nu) -0.00057547673 )/ (3.9658427-0.00057547673);//0.00057547673 3.9658427 
-  NNInputs.at(0).tensor<float, 2>()(0,2) = event.get(h_DeltaR_j1j2_had) / 5.102292;// 0.0 5.102292
-  NNInputs.at(0).tensor<float, 2>()(0,3) = event.get(h_DeltaR_j1lep_j1had)  /5.626176 ;//0.0 5.626176
-  NNInputs.at(0).tensor<float, 2>()(0,4) = (event.get(h_DeltaR_tlep_thad) - 0.00088684796 )/(9.622247-0.00088684796) ;//0.00088684796 9.622247
-  NNInputs.at(0).tensor<float, 2>()(0,5) = (event.get(h_JetHadAK4_1j_eta) + 2.3999999) /(2.399969+2.3999999) ;//-2.3999999 2.399969
-  NNInputs.at(0).tensor<float, 2>()(0,6) = (event.get(h_JetHadAK4_1j_phi) + 3.1415899)/ (3.1415904+3.1415899) ;//-3.1415899 3.1415904
-  NNInputs.at(0).tensor<float, 2>()(0,7) = event.get(h_JetHadAK4_1j_pt) / 3158.1428;//0.0 3158.1428
-  NNInputs.at(0).tensor<float, 2>()(0,8) = (event.get(h_JetHadAK4_2j_eta) + 2.3999817) / (2.3999977+2.3999817);//-2.3999817 2.3999977
-  NNInputs.at(0).tensor<float, 2>()(0,9) = (event.get(h_JetHadAK4_2j_phi) + 3.1415894) /(3.1415894+3.1415894) ;// -3.1415894 3.1415894
-  NNInputs.at(0).tensor<float, 2>()(0,10) = event.get(h_JetHadAK4_2j_pt)  /564.43756 ;// 0.0 564.43756
-  NNInputs.at(0).tensor<float, 2>()(0,11) = (event.get(h_JetHadAK8_eta) + 2.3997488 ) /(2.3997536+2.3997488) ;//-2.3997488 2.3997536
-  NNInputs.at(0).tensor<float, 2>()(0,12) = (event.get(h_JetHadAK8_phi)+  3.1415539) / (3.1415615+3.1415539);//-3.1415539 3.1415615
-  NNInputs.at(0).tensor<float, 2>()(0,13) = event.get(h_JetHadAK8_pt)  / 3799.9402;// 0.0 3799.9402
-  NNInputs.at(0).tensor<float, 2>()(0,14) = (event.get(h_JetLep_eta) + 2.3999977 ) / (2.3999991+2.3999977);//-2.3999977 2.3999991
-  NNInputs.at(0).tensor<float, 2>()(0,15) = (event.get(h_JetLep_phi) + 3.141592) / (3.141591+3.141592);//-3.141592 3.141591
-  NNInputs.at(0).tensor<float, 2>()(0,16) = (event.get(h_JetLep_pt) - 30.000023) / (3265.2078-30.000023);//30.000023 3265.2078
-  NNInputs.at(0).tensor<float, 2>()(0,17) = (event.get(h_Lep_eta) + 2.399999) / (2.3999944+2.399999);// -2.399999 2.3999944
-  NNInputs.at(0).tensor<float, 2>()(0,18) = (event.get(h_Lep_phi) + 3.1415925) /(3.141592+3.1415925) ;//-3.1415925 3.141592
-  NNInputs.at(0).tensor<float, 2>()(0,19) = (event.get(h_Lep_pt) -55.000004 )/ (6703.7686-55.000004);//55.000004 6703.7686
-  NNInputs.at(0).tensor<float, 2>()(0,20) = event.get(h_N_AK4_HadJets) /  5.0;//0.0 5.0
-  NNInputs.at(0).tensor<float, 2>()(0,21) = (event.get(h_N_AK4_LepJets) - 1.0) /(3.0-1.0) ;//1.0 3.0
-  NNInputs.at(0).tensor<float, 2>()(0,22) = event.get(h_N_AK8_Jets);//0.0 1.0
-  NNInputs.at(0).tensor<float, 2>()(0,23) = (event.get(h_Nu_eta) + 3.7426758) /(3.7356622+3.7426758) ;//-3.7426758 3.7356622
-  NNInputs.at(0).tensor<float, 2>()(0,24) = (event.get(h_Nu_phi) + 3.141587) /(3.1415923+3.141587) ;// -3.141587 3.1415923
-  NNInputs.at(0).tensor<float, 2>()(0,25) = (event.get(h_Nu_pt) -50.000034 )/(4730.3438-50.000034) ;//50.000034 4730.3438
-  NNInputs.at(0).tensor<float, 2>()(0,26) = (event.get(h_S11) -4.136874e-06 ) / (0.9990917 - 4.136874e-06);//4.136874e-06 0.9990917
-  NNInputs.at(0).tensor<float, 2>()(0,27) = (event.get(h_S12) +0.49929452 ) / (0.49871913 +0.49929452 );//-0.49929452 0.49871913
-  NNInputs.at(0).tensor<float, 2>()(0,28) = (event.get(h_S13) +0.4995852 ) / (0.49921045 + 0.4995852);//-0.4995852 0.49921045
-  NNInputs.at(0).tensor<float, 2>()(0,29) = (event.get(h_S22) - 2.0840848e-06) / ( 0.99913526-2.0840848e-06 );//2.0840848e-06 0.99913526
-  NNInputs.at(0).tensor<float, 2>()(0,30) = (event.get(h_S23) +0.49926364 ) / (0.4995728 +0.49926364 );//-0.49926364 0.4995728
-  NNInputs.at(0).tensor<float, 2>()(0,31) = (event.get(h_S33) - 9.712263e-06) / ( 0.9667852- 9.712263e-06);//9.712263e-06 0.9667852
-  NNInputs.at(0).tensor<float, 2>()(0,32) = (event.get(h_TopHadOverLep_pt) -0.00021818468 )/ (1223.8749-0.00021818468);//0.00021818468 1223.8749
-  NNInputs.at(0).tensor<float, 2>()(0,33) = (event.get(h_TopHad_eta) +7.5371885) /(8.317463+7.5371885) ;//-7.5371885 8.317463
-  NNInputs.at(0).tensor<float, 2>()(0,34) = (event.get(h_TopHad_m) - 53.48111) / (930.04535-53.48111);// 53.48111 930.04535
-  NNInputs.at(0).tensor<float, 2>()(0,35) = (event.get(h_TopHad_phi) +3.1415915 ) /(3.1415925+3.1415915) ;//-3.1415915 3.1415925
-  NNInputs.at(0).tensor<float, 2>()(0,36) = (event.get(h_TopHad_pt) - 0.16773638) /(4842.4507-0.16773638) ;//0.16773638 4842.4507
-  NNInputs.at(0).tensor<float, 2>()(0,37) = (event.get(h_TopLep_eta) + 7.003942) / (6.950358+7.003942);//-7.003942 6.950358
-  NNInputs.at(0).tensor<float, 2>()(0,38) = (event.get(h_TopLep_m) - 90.87588) / (255.15674-90.87588);//90.87588 255.15674
-  NNInputs.at(0).tensor<float, 2>()(0,39) = (event.get(h_TopLep_phi) + 3.1415906) /(3.1415896+3.1415906) ;//-3.1415906 3.1415896
-  NNInputs.at(0).tensor<float, 2>()(0,40) = (event.get(h_TopLep_pt) -0.26771972) / (7372.634-0.26771972);//0.26771972 7372.634
-  NNInputs.at(0).tensor<float, 2>()(0,41) = (event.get(h_chi2) - 3.726304e-07)/ (29.999905-3.726304e-07);//3.726304e-07 29.999905
-  NNInputs.at(0).tensor<float, 2>()(0,42) = (event.get(h_weight) + 0.93066764) /(2.4716096+0.93066764) ;// -0.93066764 2.4716096
 
+  NNInputs.at(0).tensor<float, 2>()(0,0)  = (event.get(h_DeltaR_j1_lep)      - 4.7789694e-05  ) / ( 4.289358  -  4.7789694e-05 ) ;                    
+  NNInputs.at(0).tensor<float, 2>()(0,1)  = (event.get(h_DeltaR_j1_nu)       - 0.0005015269  ) / ( 3.9125266  -  0.0005015269 ) ;     
+  NNInputs.at(0).tensor<float, 2>()(0,2)  = (event.get(h_DeltaR_j1j2_had)    - 0.0  ) / ( 5.012561  - 0.0  ) ;       
+  NNInputs.at(0).tensor<float, 2>()(0,3) = (event.get(h_DeltaR_j1lep_j1had)  - 0.0  ) / ( 5.6520987  - 0.0  ) ;         
+  NNInputs.at(0).tensor<float, 2>()(0,4)  = (event.get(h_DeltaR_tlep_thad)   - 0.0015261265  ) / ( 9.234917  - 0.0015261265  ) ;        
+  NNInputs.at(0).tensor<float, 2>()(0,5)  = (event.get(h_JetHadAK4_1j_eta)   +2.3999999  ) / ( 2.3999863  +2.3999999  ) ;        
+  NNInputs.at(0).tensor<float, 2>()(0,6)  = (event.get(h_JetHadAK4_1j_phi)   +3.141584  ) / ( 3.1415908  +3.141584  ) ;        
+  NNInputs.at(0).tensor<float, 2>()(0,7)  = (event.get(h_JetHadAK4_1j_pt)    - 0.0  ) / ( 3229.8325  - 0.0  ) ;       
+  NNInputs.at(0).tensor<float, 2>()(0,8)  = (event.get(h_JetHadAK4_2j_eta)   +2.3999772  ) / ( 2.3999808  +2.3999772  ) ;        
+  NNInputs.at(0).tensor<float, 2>()(0,9)  = (event.get(h_JetHadAK4_2j_phi)   + 3.141587  ) / ( 3.1415894  +3.141587  ) ;        
+  NNInputs.at(0).tensor<float, 2>()(0,10) = (event.get(h_JetHadAK4_2j_pt)    - 0.0  ) / ( 567.70264  - 0.0  ) ;       
+  NNInputs.at(0).tensor<float, 2>()(0,11) = (event.get(h_JetHadAK8_eta)      +2.3997488  ) / (  2.3988113 +2.3997488 ) ;     
+  NNInputs.at(0).tensor<float, 2>()(0,12) = (event.get(h_JetHadAK8_phi)      +3.1415539  ) / ( 3.141581  +3.1415539  ) ;     
+  NNInputs.at(0).tensor<float, 2>()(0,13) = (event.get(h_JetHadAK8_pt)       - 0.0  ) / (  3408.2058 - 0.0  ) ;    
+  NNInputs.at(0).tensor<float, 2>()(0,14) = (event.get(h_JetLep_eta)         +2.3999908  ) / ( 2.3999987  +2.3999908 ) ;  
+  NNInputs.at(0).tensor<float, 2>()(0,15) = (event.get(h_JetLep_phi)         +3.1415915  ) / ( 3.1415918  +3.1415915  ) ;  
+  NNInputs.at(0).tensor<float, 2>()(0,16) = (event.get(h_JetLep_pt)          - 30.000011  ) / ( 3228.5518  - 30.000011  ) ; 
+  NNInputs.at(0).tensor<float, 2>()(0,17) = (event.get(h_Lep_eta)            +2.3999946  ) / ( 2.3999944 +2.3999946 ) ;        
+  NNInputs.at(0).tensor<float, 2>()(0,18) = (event.get(h_Lep_phi)            +3.1415899  ) / (  3.141592 +3.1415899  ) ;       
+  NNInputs.at(0).tensor<float, 2>()(0,19) = (event.get(h_Lep_pt)             - 55.000004  ) / ( 6703.7686  - 55.000004  ) ;      
+  NNInputs.at(0).tensor<float, 2>()(0,20) = (event.get(h_N_AK4_HadJets)      - 0.0  ) / ( 5.0  - 0.0  ) ;     
+  NNInputs.at(0).tensor<float, 2>()(0,21) = (event.get(h_N_AK4_LepJets)      - 1.0  ) / ( 3.0  - 1.0  ) ;     
+  NNInputs.at(0).tensor<float, 2>()(0,22) = (event.get(h_N_AK8_Jets)         - 0.0  ) / ( 1.0  - 0.0  ) ;  
+  NNInputs.at(0).tensor<float, 2>()(0,23) = (event.get(h_Nu_eta)             +3.75437  ) / ( 3.7135108  +3.75437  ) ;      
+  NNInputs.at(0).tensor<float, 2>()(0,24) = (event.get(h_Nu_phi)             +3.1415915  ) / ( 3.1415882  +3.1415915  ) ;
+  NNInputs.at(0).tensor<float, 2>()(0,25) = (event.get(h_Nu_pt)              - 50.000046  ) / ( 4747.0483  -  50.000046 ) ;
+  NNInputs.at(0).tensor<float, 2>()(0,26) = (event.get(h_S11)                - 1.3370743e-06  ) / ( 0.99847656  - 1.3370743e-06  ) ;
+  NNInputs.at(0).tensor<float, 2>()(0,27) = (event.get(h_S12)                +0.49928293  ) / (  0.49936366 +0.49928293  ) ;
+  NNInputs.at(0).tensor<float, 2>()(0,28) = (event.get(h_S13)                +0.49924776  ) / (  0.49922654 +0.49924776  ) ;
+  NNInputs.at(0).tensor<float, 2>()(0,29) = (event.get(h_S22)                - 5.268428e-07  ) / ( 0.9991778  - 5.268428e-07  ) ;
+  NNInputs.at(0).tensor<float, 2>()(0,30) = (event.get(h_S23)                +0.49891198  ) / ( 0.4995821  +0.49891198 ) ;
+  NNInputs.at(0).tensor<float, 2>()(0,31) = (event.get(h_S33)                - 6.7918295e-06  ) / ( 0.9668817  - 6.7918295e-06  ) ;
+  NNInputs.at(0).tensor<float, 2>()(0,32) = (event.get(h_TopHadOverLep_pt)   - 0.000721041  ) / ( 2146.9675  - 0.000721041  ) ;        
+  NNInputs.at(0).tensor<float, 2>()(0,33) = (event.get(h_TopHad_eta)         +8.471806  ) / (  7.097109 +8.471806  ) ;  
+  NNInputs.at(0).tensor<float, 2>()(0,34) = (event.get(h_TopHad_m)           -  31.917961 ) / ( 611.24414  - 31.917961  ) ;
+  NNInputs.at(0).tensor<float, 2>()(0,35) = (event.get(h_TopHad_phi)         +3.1415915 ) / (  3.1415877 +3.1415915 ) ;  
+  NNInputs.at(0).tensor<float, 2>()(0,36) = (event.get(h_TopHad_pt)          - 0.20073184  ) / ( 4656.066  - 0.20073184  ) ; 
+  NNInputs.at(0).tensor<float, 2>()(0,37) = (event.get(h_TopLep_eta)         +7.5502515  ) / ( 6.9126434  +7.5502515  ) ;  
+  NNInputs.at(0).tensor<float, 2>()(0,38) = (event.get(h_TopLep_m)           - 90.91536  ) / ( 255.15216  - 90.91536  ) ;
+  NNInputs.at(0).tensor<float, 2>()(0,39) = (event.get(h_TopLep_phi)         +3.1415887   ) / (  3.1415887 +3.1415887  ) ;  
+  NNInputs.at(0).tensor<float, 2>()(0,40) = (event.get(h_TopLep_pt)          - 0.13055223  ) / ( 7349.7466  - 0.13055223  ) ; 
+  NNInputs.at(0).tensor<float, 2>()(0,41) = (event.get(h_chi2)               - 1.6491964e-06  ) / ( 29.999956  -  1.6491964e-06 ) ; 
+  NNInputs.at(0).tensor<float, 2>()(0,42) = (event.get(h_weight)             +0.93066764 ) / ( 2.1287982  +0.93066764 ) ; 
 
 
   //cout << NNInputs.at(0).tensor<float, 2>()(0,0) << " ";
@@ -735,7 +735,7 @@ ZprimeAnalysisModule_TestNN::ZprimeAnalysisModule_TestNN(uhh2::Context& ctx){
   h_NNoutput0 = ctx.declare_event_output<double>("NNoutput0");
   h_NNoutput1 = ctx.declare_event_output<double>("NNoutput1");
   h_NNoutput2 = ctx.declare_event_output<double>("NNoutput2");
-  NNModule.reset( new NeuralNetworkModule(ctx, "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/ZprimeSemiLeptonic/KeranNN/ML_test/model.pb", "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/ZprimeSemiLeptonic/KeranNN/ML_test/model.config.pbtxt"));
+  NNModule.reset( new NeuralNetworkModule(ctx, "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/ZprimeSemiLeptonic/KerasNN/ML_test/model.pb", "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/ZprimeSemiLeptonic/KerasNN/ML_test/model.config.pbtxt"));
 
 }
 
@@ -814,6 +814,7 @@ bool ZprimeAnalysisModule_TestNN::process(uhh2::Event& event){
   event.set(h_myS33,0);
   event.set(h_myweight,0);
   event.set(h_mychi2,0); 
+
   // Printing
   // if(!event.isRealData) printer_genparticles->process(event);
 
@@ -972,49 +973,50 @@ bool ZprimeAnalysisModule_TestNN::process(uhh2::Event& event){
 
 
 
-  const float & myDeltaR_j1_lep = (event.get(h_DeltaR_j1_lep) - 4.7789694e-05 ) / (4.2306576-4.7789694e-05);//4.7789694e-05 4.2306576
-  const float & myDeltaR_j1_nu = (event.get(h_DeltaR_j1_nu) -0.00057547673 )/ (3.9658427-0.00057547673);//0.00057547673 3.9658427 
-  const float & myDeltaR_j1j2_had = event.get(h_DeltaR_j1j2_had) / 5.102292;// 0.0 5.102292
-  const float & myDeltaR_j1lep_j1had = event.get(h_DeltaR_j1lep_j1had)  /5.626176 ;//0.0 5.626176
-  const float & myDeltaR_tlep_thad = (event.get(h_DeltaR_tlep_thad) - 0.00088684796 )/(9.622247-0.00088684796) ;//0.00088684796 9.622247
-  const float & myJetHadAK4_1j_eta = (event.get(h_JetHadAK4_1j_eta) + 2.3999999) /(2.399969+2.3999999) ;//-2.3999999 2.399969
-  const float & myJetHadAK4_1j_phi = (event.get(h_JetHadAK4_1j_phi) + 3.1415899)/ (3.1415904+3.1415899) ;//-3.1415899 3.1415904
-  const float & myJetHadAK4_1j_pt = event.get(h_JetHadAK4_1j_pt) / 3158.1428;//0.0 3158.1428
-  const float & myJetHadAK4_2j_eta = (event.get(h_JetHadAK4_2j_eta) + 2.3999817) / (2.3999977+2.3999817);//-2.3999817 2.3999977
-  const float & myJetHadAK4_2j_phi = (event.get(h_JetHadAK4_2j_phi) + 3.1415894) /(3.1415894+3.1415894) ;// -3.1415894 3.1415894
-  const float & myJetHadAK4_2j_pt  = event.get(h_JetHadAK4_2j_pt)  /564.43756 ;// 0.0 564.43756
-  const float & myJetHadAK8_eta  = (event.get(h_JetHadAK8_eta) + 2.3997488 ) /(2.3997536+2.3997488) ;//-2.3997488 2.3997536
-  const float & myJetHadAK8_phi  = (event.get(h_JetHadAK8_phi)+  3.1415539) / (3.1415615+3.1415539);//-3.1415539 3.1415615
-  const float & myJetHadAK8_pt  = event.get(h_JetHadAK8_pt)  / 3799.9402;// 0.0 3799.9402
-  const float & myJetLep_eta  = (event.get(h_JetLep_eta) + 2.3999977 ) / (2.3999991+2.3999977);//-2.3999977 2.3999991
-  const float & myJetLep_phi  = (event.get(h_JetLep_phi) + 3.141592) / (3.141591+3.141592);//-3.141592 3.141591
-  const float & myJetLep_pt  = (event.get(h_JetLep_pt) - 30.000023) / (3265.2078-30.000023);//30.000023 3265.2078
-  const float & myLep_eta  = (event.get(h_Lep_eta) + 2.399999) / (2.3999944+2.399999);// -2.399999 2.3999944
-  const float & myLep_phi  = (event.get(h_Lep_phi) + 3.1415925) /(3.141592+3.1415925) ;//-3.1415925 3.141592
-  const float & myLep_pt  = (event.get(h_Lep_pt) -55.000004 )/ (6703.7686-55.000004);//55.000004 6703.7686
-  const float & myN_AK4_HadJets  = event.get(h_N_AK4_HadJets) /  5.0;//0.0 5.0
-  const float & myN_AK4_LepJets  = (event.get(h_N_AK4_LepJets) - 1.0) /(3.0-1.0) ;//1.0 3.0
-  const float & myN_AK8_Jets  = event.get(h_N_AK8_Jets);//0.0 1.0
-  const float & myNu_eta  = (event.get(h_Nu_eta) + 3.7426758) /(3.7356622+3.7426758) ;//-3.7426758 3.7356622
-  const float & myNu_phi  = (event.get(h_Nu_phi) + 3.141587) /(3.1415923+3.141587) ;// -3.141587 3.1415923
-  const float & myNu_pt  = (event.get(h_Nu_pt) -50.000034 )/(4730.3438-50.000034) ;//50.000034 4730.3438
-  const float & myS11  = (event.get(h_S11) -4.136874e-06 ) / (0.9990917 - 4.136874e-06);//4.136874e-06 0.9990917
-  const float & myS12  = (event.get(h_S12) +0.49929452 ) / (0.49871913 +0.49929452 );//-0.49929452 0.49871913
-  const float & myS13  = (event.get(h_S13) +0.4995852 ) / (0.49921045 + 0.4995852);//-0.4995852 0.49921045
-  const float & myS22  = (event.get(h_S22) - 2.0840848e-06) / ( 0.99913526-2.0840848e-06 );//2.0840848e-06 0.99913526
-  const float & myS23  = (event.get(h_S23) +0.49926364 ) / (0.4995728 +0.49926364 );//-0.49926364 0.4995728
-  const float & myS33  = (event.get(h_S33) - 9.712263e-06) / ( 0.9667852- 9.712263e-06);//9.712263e-06 0.9667852
-  const float & myTopHadOverLep_pt  = (event.get(h_TopHadOverLep_pt) -0.00021818468 )/ (1223.8749-0.00021818468);//0.00021818468 1223.8749
-  const float & myTopHad_eta  = (event.get(h_TopHad_eta) +7.5371885) /(8.317463+7.5371885) ;//-7.5371885 8.317463
-  const float & myTopHad_m  = (event.get(h_TopHad_m) - 53.48111) / (930.04535-53.48111);// 53.48111 930.04535
-  const float & myTopHad_phi  = (event.get(h_TopHad_phi) +3.1415915 ) /(3.1415925+3.1415915) ;//-3.1415915 3.1415925
-  const float & myTopHad_pt  = (event.get(h_TopHad_pt) - 0.16773638) /(4842.4507-0.16773638) ;//0.16773638 4842.4507
-  const float & myTopLep_eta  = (event.get(h_TopLep_eta) + 7.003942) / (6.950358+7.003942);//-7.003942 6.950358
-  const float & myTopLep_m  = (event.get(h_TopLep_m) - 90.87588) / (255.15674-90.87588);//90.87588 255.15674
-  const float & myTopLep_phi  = (event.get(h_TopLep_phi) + 3.1415906) /(3.1415896+3.1415906) ;//-3.1415906 3.1415896
-  const float & myTopLep_pt  = (event.get(h_TopLep_pt) -0.26771972) / (7372.634-0.26771972);//0.26771972 7372.634
-  const float & mychi2  = (event.get(h_chi2) - 3.726304e-07)/ (29.999905-3.726304e-07);//3.726304e-07 29.999905
-  const float & myweight  = (event.get(h_weight) + 0.93066764) /(2.4716096+0.93066764) ;// -0.93066764 2.4716096
+
+   const float & myDeltaR_j1_lep = (event.get(h_DeltaR_j1_lep)      - 4.7789694e-05  ) / ( 4.289358  -  4.7789694e-05 ) ;
+   const float & myDeltaR_j1_nu = (event.get(h_DeltaR_j1_nu)       - 0.0005015269  ) / ( 3.9125266  -  0.0005015269 ) ;
+   const float & myDeltaR_j1j2_had = (event.get(h_DeltaR_j1j2_had)    - 0.0  ) / ( 5.012561  - 0.0  ) ;
+   const float & myDeltaR_j1lep_j1had= (event.get(h_DeltaR_j1lep_j1had)  - 0.0  ) / ( 5.6520987  - 0.0  ) ;
+   const float & myDeltaR_tlep_thad = (event.get(h_DeltaR_tlep_thad)   - 0.0015261265  ) / ( 9.234917  - 0.0015261265  ) ;
+   const float & myJetHadAK4_1j_eta = (event.get(h_JetHadAK4_1j_eta)   +2.3999999  ) / ( 2.3999863  +2.3999999  ) ;
+   const float & myJetHadAK4_1j_phi = (event.get(h_JetHadAK4_1j_phi)   +3.141584  ) / ( 3.1415908  +3.141584  ) ;
+   const float & myJetHadAK4_1j_pt = (event.get(h_JetHadAK4_1j_pt)    - 0.0  ) / ( 3229.8325  - 0.0  ) ;
+   const float & myJetHadAK4_2j_eta = (event.get(h_JetHadAK4_2j_eta)   +2.3999772  ) / ( 2.3999808  +2.3999772  ) ;
+   const float & myJetHadAK4_2j_phi = (event.get(h_JetHadAK4_2j_phi)   + 3.141587  ) / ( 3.1415894  +3.141587  ) ;
+   const float & myJetHadAK4_2j_pt = (event.get(h_JetHadAK4_2j_pt)    - 0.0  ) / ( 567.70264  - 0.0  ) ;
+   const float & myJetHadAK8_eta = (event.get(h_JetHadAK8_eta)      +2.3997488  ) / (  2.3988113 +2.3997488 ) ;
+   const float & myJetHadAK8_phi = (event.get(h_JetHadAK8_phi)      +3.1415539  ) / ( 3.141581  +3.1415539  ) ;
+   const float & myJetHadAK8_pt = (event.get(h_JetHadAK8_pt)       - 0.0  ) / (  3408.2058 - 0.0  ) ;
+   const float & myJetLep_eta = (event.get(h_JetLep_eta)         +2.3999908  ) / ( 2.3999987  +2.3999908 ) ;
+   const float & myJetLep_phi = (event.get(h_JetLep_phi)         +3.1415915  ) / ( 3.1415918  +3.1415915  ) ;
+   const float & myJetLep_pt = (event.get(h_JetLep_pt)          - 30.000011  ) / ( 3228.5518  - 30.000011  ) ;
+   const float & myLep_eta = (event.get(h_Lep_eta)            +2.3999946  ) / ( 2.3999944 +2.3999946 ) ;
+   const float & myLep_phi = (event.get(h_Lep_phi)            +3.1415899  ) / (  3.141592 +3.1415899  ) ;
+   const float & myLep_pt = (event.get(h_Lep_pt)             - 55.000004  ) / ( 6703.7686  - 55.000004  ) ;
+   const float & myN_AK4_HadJets = (event.get(h_N_AK4_HadJets)      - 0.0  ) / ( 5.0  - 0.0  ) ;
+   const float & myN_AK4_LepJets = (event.get(h_N_AK4_LepJets)      - 1.0  ) / ( 3.0  - 1.0  ) ;
+   const float & myN_AK8_Jets = (event.get(h_N_AK8_Jets)         - 0.0  ) / ( 1.0  - 0.0  ) ;
+   const float & myNu_eta = (event.get(h_Nu_eta)             +3.75437  ) / ( 3.7135108  +3.75437  ) ;
+   const float & myNu_phi = (event.get(h_Nu_phi)             +3.1415915  ) / ( 3.1415882  +3.1415915  ) ;
+   const float & myNu_pt = (event.get(h_Nu_pt)              - 50.000046  ) / ( 4747.0483  -  50.000046 ) ;
+   const float & myS11 = (event.get(h_S11)                - 1.3370743e-06  ) / ( 0.99847656  - 1.3370743e-06  ) ;
+   const float & myS12 = (event.get(h_S12)                +0.49928293  ) / (  0.49936366 +0.49928293  ) ;
+   const float & myS13 = (event.get(h_S13)                +0.49924776  ) / (  0.49922654 +0.49924776  ) ;
+   const float & myS22 = (event.get(h_S22)                - 5.268428e-07  ) / ( 0.9991778  - 5.268428e-07  ) ;
+   const float & myS23 = (event.get(h_S23)                +0.49891198  ) / ( 0.4995821  +0.49891198 ) ;
+   const float & myS33 = (event.get(h_S33)                - 6.7918295e-06  ) / ( 0.9668817  - 6.7918295e-06  ) ;
+   const float & myTopHadOverLep_pt = (event.get(h_TopHadOverLep_pt)   - 0.000721041  ) / ( 2146.9675  - 0.000721041  ) ;
+   const float & myTopHad_eta = (event.get(h_TopHad_eta)         +8.471806  ) / (  7.097109 +8.471806  ) ;
+   const float & myTopHad_m = (event.get(h_TopHad_m)           -  31.917961 ) / ( 611.24414  - 31.917961  ) ;
+   const float & myTopHad_phi = (event.get(h_TopHad_phi)         +3.1415915 ) / (  3.1415877 +3.1415915 ) ;
+   const float & myTopHad_pt = (event.get(h_TopHad_pt)          - 0.20073184  ) / ( 4656.066  - 0.20073184  ) ;
+   const float & myTopLep_eta = (event.get(h_TopLep_eta)         +7.5502515  ) / ( 6.9126434  +7.5502515  ) ;
+   const float & myTopLep_m = (event.get(h_TopLep_m)           - 90.91536  ) / ( 255.15216  - 90.91536  ) ;
+   const float & myTopLep_phi = (event.get(h_TopLep_phi)         +3.1415887   ) / (  3.1415887 +3.1415887  ) ;
+   const float & myTopLep_pt = (event.get(h_TopLep_pt)          - 0.13055223  ) / ( 7349.7466  - 0.13055223  ) ;
+   const float & mychi2 = (event.get(h_chi2)               - 1.6491964e-06  ) / ( 29.999956  -  1.6491964e-06 ) ;
+   const float & myweight = (event.get(h_weight)             +0.93066764 ) / ( 2.1287982  +0.93066764 ) ;
 
 
   event.set(h_myLep_pt,myLep_pt);
@@ -1061,6 +1063,7 @@ bool ZprimeAnalysisModule_TestNN::process(uhh2::Event& event){
   event.set(h_myweight,myweight);
   event.set(h_mychi2,mychi2);
 
+
   //////// NN
   NNModule->process(event);
   std::vector<tensorflow::Tensor> NNoutputs = NNModule->GetOutputs();
@@ -1069,8 +1072,8 @@ bool ZprimeAnalysisModule_TestNN::process(uhh2::Event& event){
   event.set(h_NNoutput2, (double)(NNoutputs[0].tensor<float, 2>()(0,2)));
   event.set(h_NNoutput, NNoutputs);
 
-/*
-  if( (double)(NNoutputs[0].tensor<float, 2>()(0,0)) >= 0.9){
+
+  if( (double)(NNoutputs[0].tensor<float, 2>()(0,0)) >= 0.5){
   fill_histograms(event, "DNN_output0");
   }
 
@@ -1081,7 +1084,7 @@ bool ZprimeAnalysisModule_TestNN::process(uhh2::Event& event){
   if( (double)(NNoutputs[0].tensor<float, 2>()(0,2)) >= 0.9){
   fill_histograms(event, "DNN_output2");
   }
-*/
+
 
   if(debug) cout<<"Set some vars for monitoring"<<endl;
   return true;
