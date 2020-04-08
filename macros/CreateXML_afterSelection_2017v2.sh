@@ -2,14 +2,17 @@
 #where UHH2 code installed
 pathGL_code=/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/
 #where (NOT MERGED) trees after preselection stored
-path_data=/nfs/dust/cms/user/deleokse/analysis/ZPrime_2017/Analysis_NNvars/muon/workdir_Zprime_Analysis_2017_muon/uhh2.AnalysisModuleRunner. 
+#path_data=/nfs/dust/cms/user/deleokse/analysis/ZPrime_2017/Analysis_NNvars/muon/workdir_Zprime_Analysis_2017_muon/uhh2.AnalysisModuleRunner. 
+path_data=/nfs/dust/cms/user/deleokse/analysis/ZPrime_2017/Analysis_NNvars/muon/uhh2.AnalysisModuleRunner. 
 
 mkdir $pathGL_code/ZprimeSemiLeptonic/data/Skimming_datasets_2017v2_AfterSelection_2903
 cd $pathGL_code/ZprimeSemiLeptonic/data/Skimming_datasets_2017v2_AfterSelection_2903
 
 # #MC
 
-for sample_name in TTToSemiLeptonic_2017v2 TTToHadronic_2017v2 TTTo2L2Nu_2017v2 ST_t-channel_antitop_2017v2 ST_t-channel_top_2017v2 ST_tW_antitop_5f_inclusiveDecays_2017v2 ST_tW_top_5f_inclusiveDecays_2017v2 DYJetsToLL_M-50_HT-100to200_2017v2 DYJetsToLL_M-50_HT-1200to2500_2017v2 DYJetsToLL_M-50_HT-200to400_2017v2 DYJetsToLL_M-50_HT-2500toInf_2017v2 DYJetsToLL_M-50_HT-400to600_2017v2 DYJetsToLL_M-50_HT-600to800_2017v2 DYJetsToLL_M-50_HT-800to1200_2017v2 WJetsToLNu_HT-70To100_2017v2 WJetsToLNu_HT-100To200_2017v2 WJetsToLNu_HT-200To400_2017v2 WJetsToLNu_HT-400To600_2017v2 WJetsToLNu_HT-600To800_2017v2 WJetsToLNu_HT-800To1200_2017v2 WJetsToLNu_HT-1200To2500_2017v2 WJetsToLNu_HT-2500ToInf_2017v2 
+#for sample_name in TTToSemiLeptonic_2017v2 TTToHadronic_2017v2 TTTo2L2Nu_2017v2 ST_t-channel_antitop_2017v2 ST_t-channel_top_2017v2 ST_tW_antitop_5f_inclusiveDecays_2017v2 ST_tW_top_5f_inclusiveDecays_2017v2 DYJetsToLL_M-50_HT-100to200_2017v2 DYJetsToLL_M-50_HT-1200to2500_2017v2 DYJetsToLL_M-50_HT-200to400_2017v2 DYJetsToLL_M-50_HT-2500toInf_2017v2 DYJetsToLL_M-50_HT-400to600_2017v2 DYJetsToLL_M-50_HT-600to800_2017v2 DYJetsToLL_M-50_HT-800to1200_2017v2 WJetsToLNu_HT-70To100_2017v2 WJetsToLNu_HT-100To200_2017v2 WJetsToLNu_HT-200To400_2017v2 WJetsToLNu_HT-400To600_2017v2 WJetsToLNu_HT-600To800_2017v2 WJetsToLNu_HT-800To1200_2017v2 WJetsToLNu_HT-1200To2500_2017v2 WJetsToLNu_HT-2500ToInf_2017v2 
+#for sample_name in ZprimeToTTJet_M1000_2017v2 
+for sample_name in ZprimeToTT_M1000_W100_2017v2 ZprimeToTT_M3000_W900_2017v2 
 
 do
     echo $sample_name

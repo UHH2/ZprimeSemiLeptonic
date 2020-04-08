@@ -87,6 +87,10 @@
 <!ENTITY DYJetsToLL_M-50_HT-1200to2500_2017v2   SYSTEM  "../data/Skimming_datasets_2017v2_2003/MC_DYJetsToLL_M-50_HT-1200to2500_2017v2_withoutEmptyNtuples.xml">
 <!ENTITY DYJetsToLL_M-50_HT-2500toInf_2017v2    SYSTEM  "../data/Skimming_datasets_2017v2_2003/MC_DYJetsToLL_M-50_HT-2500toInf_2017v2_withoutEmptyNtuples.xml">
 
+<!ENTITY ZprimeToTTJet_M1000_2017v2             SYSTEM  "../data/Skimming_datasets_2017v2_2003/MC_ZprimeToTTJet_M1000_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY ZprimeToTT_M1000_W100_2017v2           SYSTEM  "../data/Skimming_datasets_2017v2_2003/MC_ZprimeToTT_M1000_W100_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY ZprimeToTT_M3000_W900_2017v2           SYSTEM  "../data/Skimming_datasets_2017v2_2003/MC_ZprimeToTT_M3000_W900_2017v2_withoutEmptyNtuples.xml">
+
 ]>
 
 <!--
@@ -100,7 +104,7 @@
 
   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTPUTdir;/" PostFix="" TargetLumi="&TargetLumi;">
 
-
+<!--
           <InputData Lumi="3386024.049" NEventsMax="&NEVT;" Type="MC" Version="ST_t-channel_antitop_2017v2" Cacheable="&b_Cacheable;">
             &ST_t-channel_antitop_2017v2;
             <InputTree Name="AnalysisTree" />
@@ -124,7 +128,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
-<!--
+
           <InputData Lumi="102425.363" NEventsMax="&NEVT;" Type="MC" Version="WW_2017v2" Cacheable="&b_Cacheable;">
             &WW_2017v2;
             <InputTree Name="AnalysisTree" />
@@ -191,7 +195,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
--->
+
           <InputData Lumi="35279949.78" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_2017v2" Cacheable="&b_Cacheable;">
             &TTToSemiLeptonic_2017v2;
             <InputTree Name="AnalysisTree" />
@@ -209,7 +213,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
-<!--
+
           <InputData Lumi="7.277908556" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT100to200_2017v2" Cacheable="&b_Cacheable;">
             &QCD_HT100to200_2017v2;
             <InputTree Name="AnalysisTree"/>
@@ -258,7 +262,7 @@
             <OutputTree Name="AnalysisTree"/>
           </InputData>
 -->
-
+<!--
           <InputData Lumi="7337.300986" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-70To100_2017v2" Cacheable="&b_Cacheable;">
             &WJetsToLNu_HT-70To100_2017v2;
             <InputTree Name="AnalysisTree"/>
@@ -307,7 +311,7 @@
             <OutputTree Name="AnalysisTree"/>
           </InputData>
 
-
+-->
 
 <!--
 
@@ -467,7 +471,7 @@
 
 
 -->
-
+<!--
           <InputData Lumi="69226.78638" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-100to200_2017v2" Cacheable="&b_Cacheable;">
             &DYJetsToLL_M-50_HT-100to200_2017v2;
             <InputTree Name="AnalysisTree"/>
@@ -510,7 +514,24 @@
             <OutputTree Name="AnalysisTree"/>
           </InputData>
 
+          <InputData Lumi="20000" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTTJet_M1000_2017v2" Cacheable="&b_Cacheable;">
+            &ZprimeToTTJet_M1000_2017v2;
+            <InputTree Name="AnalysisTree"/>
+            <OutputTree Name="AnalysisTree"/>
+          </InputData>
+-->
 
+          <InputData Lumi="20034" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTT_M1000_W100_2017v2" Cacheable="&b_Cacheable;">
+            &ZprimeToTT_M1000_W100_2017v2;
+            <InputTree Name="AnalysisTree"/>
+            <OutputTree Name="AnalysisTree"/>
+          </InputData>
+
+          <InputData Lumi="21311" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTT_M3000_W900_2017v2" Cacheable="&b_Cacheable;">
+            &ZprimeToTT_M3000_W900_2017v2;
+            <InputTree Name="AnalysisTree"/>
+            <OutputTree Name="AnalysisTree"/>
+          </InputData>
 
     <UserConfig>
       <Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices"/>
