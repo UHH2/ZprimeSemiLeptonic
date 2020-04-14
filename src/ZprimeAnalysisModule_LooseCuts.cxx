@@ -83,7 +83,7 @@ protected:
 
   // Selections
   unique_ptr<Selection> Trigger1_selection, Trigger2_selection, NMuon1_selection, NMuon2_selection, NElectron_selection, Jet1_selection, Jet2_selection, Met_selection, Chi2_selection, TTbarMatchable_selection, Chi2CandidateMatched_selection, ZprimeTopTag_selection, BlindData_selection;
-//  unique_ptr<Selection> TwoDCut_selection;
+  unique_ptr<Selection> TwoDCut_selection;
   std::unique_ptr<uhh2::Selection> met_sel;
   std::unique_ptr<uhh2::Selection> htlep_sel;
   std::unique_ptr<Selection> sel_1btag, sel_2btag;
@@ -252,8 +252,8 @@ ZprimeAnalysisModule_LooseCuts::ZprimeAnalysisModule_LooseCuts(uhh2::Context& ct
     nele_min = 0; nele_max = 0;
     MET_cut = 50;
     jet1_pt = 150.;
-    //HT_lep_cut = 150;
-    HT_lep_cut = 0; //loose cuts
+    HT_lep_cut = 150;
+    //HT_lep_cut = 0; //loose cuts
   }
   if(isElectron){//semileptonic electron channel
     nmuon_min1 = 0; nmuon_max1 = 0;
@@ -268,14 +268,14 @@ ZprimeAnalysisModule_LooseCuts::ZprimeAnalysisModule_LooseCuts(uhh2::Context& ct
     //    trigger3 = "HLT\_Ele115_v*";
   }
 
- // Remove TwoD cut for DNN 
- // double TwoD_dr = 0.4, TwoD_ptrel = 25.;
- // if(islooserselection){
- //   jet1_pt = 100.;
- //   TwoD_dr = 0.2;
- //   TwoD_ptrel = 10.;
- //   //    stlep_plus_met = 100.;
- // }
+  //Remove TwoD cut for DNN 
+  double TwoD_dr = 0.4, TwoD_ptrel = 25.;
+  if(islooserselection){
+    jet1_pt = 100.;
+    TwoD_dr = 0.2;
+    TwoD_ptrel = 10.;
+    //    stlep_plus_met = 100.;
+  }
   const MuonId muonID(PtEtaCut(muon_pt, 2.4));
   const ElectronId electronID(PtEtaSCCut(elec_pt, 2.5));
 
@@ -309,7 +309,7 @@ ZprimeAnalysisModule_LooseCuts::ZprimeAnalysisModule_LooseCuts(uhh2::Context& ct
   NMuon1_selection.reset(new NMuonSelection(nmuon_min1, nmuon_max1));
   NMuon2_selection.reset(new NMuonSelection(nmuon_min2, nmuon_max2));
   NElectron_selection.reset(new NElectronSelection(nele_min, nele_max));
-  //TwoDCut_selection.reset(new TwoDCut(TwoD_dr, TwoD_ptrel));
+  TwoDCut_selection.reset(new TwoDCut(TwoD_dr, TwoD_ptrel));
   Jet1_selection.reset(new NJetSelection(1, -1, JetId(PtEtaCut(jet1_pt, 2.4))));
   Jet2_selection.reset(new NJetSelection(2, -1, JetId(PtEtaCut(jet2_pt, 2.4))));
   //  STlepPlusMet_selection.reset(new STlepPlusMetCut(stlep_plus_met, -1.));
@@ -535,8 +535,8 @@ bool ZprimeAnalysisModule_LooseCuts::process(uhh2::Event& event){
   //  if(event.electrons->size()<1 && event.muons->size()<1) return false; //veto events without leptons
   if((event.muons->size()+event.electrons->size()) != 1) return false; //veto events without leptons or with too many 
   if(debug) cout<<"N leptons ok: Nelectrons="<<event.electrons->size()<<" Nmuons="<<event.muons->size()<<endl;
-  //if(!TwoDCut_selection->passes(event)) return false;
-  //fill_histograms(event, "TwoDCut");
+  if(!TwoDCut_selection->passes(event)) return false;
+//  fill_histograms(event, "TwoDCut");
 
   // Here, the Zprime must be reconstructed (we ensured to have >= 2 AK4 jets, >= 1 muon)
   // Only consider well-separated AK4 jets
