@@ -34,6 +34,8 @@ TH1F *N_AK8PuppiTaggedjets, *pt_AK8PuppiTaggedjet, *pt_AK8PuppiTaggedjet1, *pt_A
 
 TH1F *NPV, *MET, *MET_rebin, *MET_rebin2, *MET_rebin3, *ST, *ST_rebin, *ST_rebin2, *ST_rebin3, *STjets, *STjets_rebin, *STjets_rebin2, *STjets_rebin3, *STlep, *STlep_rebin, *STlep_rebin2, *STlep_rebin3, *M_Zprime, *Lep_pt, *Lep_eta, *Lep_phi, *Nu_pt, *Nu_eta, *Nu_phi, *JetLep_pt, *JetLep_eta, *JetLep_phi, *JetHadAK8_pt, *JetHadAK8_eta, *JetHadAK8_phi, *JetHadAK4_1j_pt, *JetHadAK4_1j_eta, *JetHadAK4_1j_phi, *N_AK4_HadJets, *N_AK8_Jets, *N_AK4_LepJets, *JetHadAK4_2j_pt, *JetHadAK4_2j_eta, *JetHadAK4_2j_phi, *TopLep_m, *TopLep_pt, *TopLep_eta, *TopLep_phi,*TopHad_pt, *TopHad_m, *TopHad_eta, *TopHad_phi, *TopHadOverLep_pt, *DeltaR_j1j2_had, *DeltaR_j1lep_j1had, *DeltaR_j1_lep, *DeltaR_j1_nu, *DeltaR_tlep_thad, *M_Zprime_rebin, *M_Zprime_rebin2, *M_Zprime_rebin3, *M_Zprime_rebin4, *M_Zprime_rebin5, *chi2_Zprime, *chi2_Zprime_rebin, *chi2_Zprime_rebin2, *M_tophad, *M_toplep, *M_Zprime_ak4, *M_Zprime_ak4_rebin, *M_Zprime_ak4_rebin2, *M_Zprime_ak4_rebin3, *M_Zprime_ak4_rebin4, *M_Zprime_ak4_rebin5, *chi2_Zprime_ak4, *chi2_Zprime_ak4_rebin, *chi2_Zprime_ak4_rebin2, *M_tophad_ak4, *M_toplep_ak4, *M_Zprime_ttag, *M_Zprime_ttag_rebin, *M_Zprime_ttag_rebin2, *M_Zprime_ttag_rebin3, *M_Zprime_ttag_rebin4, *M_Zprime_ttag_rebin5, *chi2_Zprime_ttag, *chi2_Zprime_ttag_rebin, *chi2_Zprime_ttag_rebin2, *M_tophad_ttag, *M_toplep_ttag, *M_tophad_dr_ak4, *M_toplep_dr_ak4, *M_tophad_dr_ttag, *M_toplep_dr_ttag, *dr_discr_Zprime, *M_Zprime_dr, *M_Zprime_dr_rebin, *M_Zprime_dr_rebin2, *M_Zprime_dr_rebin3, *S11, *S12, *S13, *S22, *S23, *S33, *sum_event_weights;
 
+TH1F *DNN_out0, *DNN_out1, *DNN_out2;
+
 TH2F *dRmin_ptrel_mu, *dRmin_ptrel_mu1, *dRmin_ptrel_ele, *dRmin_ptrel_ele1;
 
  TH1F *deepjetbscore_jet,*deepjetbscore_jet1,*deepjetbscore_jet2,*deepjetbscore_jet3;
@@ -57,5 +59,9 @@ uhh2::Event::Handle<ZprimeCandidate*> h_BestZprimeCandidateChi2;
 uhh2::Event::Handle<ZprimeCandidate*> h_BestZprimeCandidateCorrectMatch;
 uhh2::Event::Handle<std::vector<ReconstructionHypothesis>> h_ttbar_hyps;
 //uhh2::Event::Handle<float> h_chi2;
+uhh2::Event::Handle<double> h_NNoutput0;
+uhh2::Event::Handle<double> h_NNoutput1;
+uhh2::Event::Handle<double> h_NNoutput2;
+
   virtual ~ZprimeSemiLeptonicHists();
 };

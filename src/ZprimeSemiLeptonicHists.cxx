@@ -27,6 +27,9 @@ Hists(ctx, dirname) {
   h_BestZprimeCandidateCorrectMatch = ctx.get_handle<ZprimeCandidate*>("ZprimeCandidateBestCorrectMatch");
   h_is_zprime_reconstructed_chi2 = ctx.get_handle<bool>("is_zprime_reconstructed_chi2");
   h_is_zprime_reconstructed_correctmatch = ctx.get_handle<bool>("is_zprime_reconstructed_correctmatch");
+  h_NNoutput0 = ctx.get_handle<double>("NNoutput0");
+  h_NNoutput1 = ctx.get_handle<double>("NNoutput1");
+  h_NNoutput2 = ctx.get_handle<double>("NNoutput2");
   //  h_chi2 = ctx.get_handle<float>("chi2");
   init();
 }
@@ -428,6 +431,10 @@ void ZprimeSemiLeptonicHists::init(){
   S33 = book<TH1F>("S33", "S_{33}", 50, 0, 1);
 
   sum_event_weights = book<TH1F>("sum_event_weights", "counting experiment", 1, 0.5, 1.5);
+
+  DNN_out0 = book<TH1F>("DNN_out0", "NN output 0", 100, 0, 1);
+  DNN_out1 = book<TH1F>("DNN_out1", "NN output 1", 100, 0, 1);
+  DNN_out2 = book<TH1F>("DNN_out2", "NN output 2", 100, 0, 1);
 
 }
 
@@ -1137,6 +1144,14 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
 
   sum_event_weights->Fill(1., weight);
 
+  // DNN score
+  double output0= event.get(h_NNoutput0);
+  double output1= event.get(h_NNoutput1);
+  double output2= event.get(h_NNoutput2);
+
+  DNN_out0->Fill(output0, weight);
+  DNN_out1->Fill(output1, weight);
+  DNN_out2->Fill(output2, weight);
 
 
 

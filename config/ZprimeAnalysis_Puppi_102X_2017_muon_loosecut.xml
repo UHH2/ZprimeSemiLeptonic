@@ -9,8 +9,8 @@
 <!ENTITY IS_PUPPI            "true">
 <!ENTITY IS_LOOSER_SELECTION "false">
 <!ENTITY CHANNEL "muon">
-<!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/analysis/ZPrime_2017/Analysis_NNvars_FullSel/&CHANNEL;/">
-<!--
+<!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/analysis/ZPrime_2017/Analysis_NNvars/&CHANNEL;/">
+
 <!ENTITY DATA_SingleMuon_Run2017v2_C   SYSTEM  "../data/Skimming_datasets_2017v2_2003/DATA_DATA_SingleMuon_Run2017v2_C_withoutEmptyNtuples.xml">
 <!ENTITY DATA_SingleMuon_Run2017v2_D   SYSTEM  "../data/Skimming_datasets_2017v2_2003/DATA_DATA_SingleMuon_Run2017v2_D_withoutEmptyNtuples.xml">
 <!ENTITY DATA_SingleMuon_Run2017v2_E   SYSTEM  "../data/Skimming_datasets_2017v2_2003/DATA_DATA_SingleMuon_Run2017v2_E_withoutEmptyNtuples.xml">
@@ -20,7 +20,7 @@
 <!ENTITY DATA_SingleElectron_Run2017v2_D   SYSTEM  "../data/Skimming_datasets_2017v2_2003/DATA_DATA_SingleElectron_Run2017v2_D_withoutEmptyNtuples.xml">
 <!ENTITY DATA_SingleElectron_Run2017v2_E   SYSTEM  "../data/Skimming_datasets_2017v2_2003/DATA_DATA_SingleElectron_Run2017v2_E_withoutEmptyNtuples.xml">
 <!ENTITY DATA_SingleElectron_Run2017v2_F   SYSTEM  "../data/Skimming_datasets_2017v2_2003/DATA_DATA_SingleElectron_Run2017v2_F_withoutEmptyNtuples.xml">
--->
+
 <!ENTITY TTToSemiLeptonic_2017v2          SYSTEM  "../data/Skimming_datasets_2017v2_2003/MC_TTToSemiLeptonic_2017v2_withoutEmptyNtuples.xml">
 <!ENTITY TTToHadronic_2017v2              SYSTEM  "../data/Skimming_datasets_2017v2_2003/MC_TTToHadronic_2017v2_withoutEmptyNtuples.xml">
 <!ENTITY TTTo2L2Nu_2017v2                 SYSTEM  "../data/Skimming_datasets_2017v2_2003/MC_TTTo2L2Nu_2017v2_withoutEmptyNtuples.xml">         
@@ -104,6 +104,7 @@
 
   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTPUTdir;/" PostFix="" TargetLumi="&TargetLumi;">
 
+<!--
           <InputData Lumi="3386024.049" NEventsMax="&NEVT;" Type="MC" Version="ST_t-channel_antitop_2017v2" Cacheable="&b_Cacheable;">
             &ST_t-channel_antitop_2017v2;
             <InputTree Name="AnalysisTree" />
@@ -145,8 +146,8 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
+-->
 
-<!--
           <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_Run2017v2_C_blinded" Cacheable="&b_Cacheable;">
             &DATA_SingleMuon_Run2017v2_C;
             <InputTree Name="AnalysisTree" />
@@ -194,7 +195,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
--->
+<!--
 
           <InputData Lumi="35279949.78" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_2017v2" Cacheable="&b_Cacheable;">
             &TTToSemiLeptonic_2017v2;
@@ -311,7 +312,7 @@
           </InputData>
 
 
-<!--
+
 
           <InputData Lumi="7337.300986" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-70To100_2017v2_B" Cacheable="&b_Cacheable;">
             &WJetsToLNu_HT-70To100_2017v2_B;
@@ -468,7 +469,7 @@
 
 
 
--->
+
           <InputData Lumi="69226.78638" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-100to200_2017v2" Cacheable="&b_Cacheable;">
             &DYJetsToLL_M-50_HT-100to200_2017v2;
             <InputTree Name="AnalysisTree"/>
@@ -529,6 +530,7 @@
             <InputTree Name="AnalysisTree"/>
             <OutputTree Name="AnalysisTree"/>
           </InputData>
+-->
 
 
     <UserConfig>
