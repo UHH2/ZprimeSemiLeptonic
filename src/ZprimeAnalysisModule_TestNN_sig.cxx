@@ -284,10 +284,10 @@ void NeuralNetworkModule::CreateInputs(Event & event){
 
 
 
-class ZprimeAnalysisModule_TestNN : public ModuleBASE {
+class ZprimeAnalysisModule_TestNN_sig : public ModuleBASE {
 
 public:
-  explicit ZprimeAnalysisModule_TestNN(uhh2::Context&);
+  explicit ZprimeAnalysisModule_TestNN_sig(uhh2::Context&);
   virtual bool process(uhh2::Event&) override;
   void book_histograms(uhh2::Context&, vector<string>);
   void fill_histograms(uhh2::Event&, string);
@@ -396,12 +396,13 @@ protected:
   Event::Handle<double> h_NNoutput0;
   Event::Handle<double> h_NNoutput1;
   Event::Handle<double> h_NNoutput2;
+  Event::Handle<double> h_NNoutput3;
 
   std::unique_ptr<NeuralNetworkModule> NNModule;
 
 };
 
-void ZprimeAnalysisModule_TestNN::book_histograms(uhh2::Context& ctx, vector<string> tags){
+void ZprimeAnalysisModule_TestNN_sig::book_histograms(uhh2::Context& ctx, vector<string> tags){
   for(const auto & tag : tags){
     string mytag = tag + "_Skimming";
     // book_HFolder(mytag, new TTbarLJHistsSkimming(ctx,mytag));
@@ -420,7 +421,7 @@ void ZprimeAnalysisModule_TestNN::book_histograms(uhh2::Context& ctx, vector<str
   }
 }
 
-void ZprimeAnalysisModule_TestNN::fill_histograms(uhh2::Event& event, string tag){
+void ZprimeAnalysisModule_TestNN_sig::fill_histograms(uhh2::Event& event, string tag){
   string mytag = tag + "_Skimming";
   // HFolder(mytag)->fill(event);
   mytag = tag+"_General";
@@ -445,7 +446,7 @@ void ZprimeAnalysisModule_TestNN::fill_histograms(uhh2::Event& event, string tag
 █  ██████  ██████  ██   ████ ███████    ██    ██   ██  ██████   ██████    ██     ██████  ██   ██
 */
 
-ZprimeAnalysisModule_TestNN::ZprimeAnalysisModule_TestNN(uhh2::Context& ctx){
+ZprimeAnalysisModule_TestNN_sig::ZprimeAnalysisModule_TestNN_sig(uhh2::Context& ctx){
   //  debug = true;
   debug = false;
   for(auto & kv : ctx.get_all()){
@@ -614,7 +615,7 @@ ZprimeAnalysisModule_TestNN::ZprimeAnalysisModule_TestNN(uhh2::Context& ctx){
   TopJetBtagSubjet_selection.reset(new ZprimeBTagFatSubJetSelection(ctx));
 
   // Book histograms
-  vector<string> histogram_tags = {"Weights", "Muon1", "Trigger", "Muon2", "Electron1", "Jet1", "Jet2", "MET", "HTlep", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction", "Btags2", "Btags1","TopJetBtagSubjet","DNN_output0","DNN_output1","DNN_output2"};
+  vector<string> histogram_tags = {"Weights", "Muon1", "Trigger", "Muon2", "Electron1", "Jet1", "Jet2", "MET", "HTlep", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction", "Btags2", "Btags1","TopJetBtagSubjet","DNN_output0","DNN_output1","DNN_output2", "DNN_output3"};
   book_histograms(ctx, histogram_tags);
 
 //  h_topjets = ctx.get_handle<std::vector<TopJet>>("toppuppijets");DeltaR_j1_lep
@@ -667,6 +668,7 @@ ZprimeAnalysisModule_TestNN::ZprimeAnalysisModule_TestNN(uhh2::Context& ctx){
   h_NNoutput0 = ctx.declare_event_output<double>("NNoutput0");
   h_NNoutput1 = ctx.declare_event_output<double>("NNoutput1");
   h_NNoutput2 = ctx.declare_event_output<double>("NNoutput2");
+  h_NNoutput3 = ctx.declare_event_output<double>("NNoutput3");
   NNModule.reset( new NeuralNetworkModule(ctx, "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/ZprimeSemiLeptonic/KerasNN/ML_test/model_sig.pb", "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/ZprimeSemiLeptonic/KerasNN/ML_test/model_sig.config.pbtxt"));
 
 }
@@ -679,7 +681,7 @@ ZprimeAnalysisModule_TestNN::ZprimeAnalysisModule_TestNN(uhh2::Context& ctx){
 ██      ██   ██  ██████   ██████ ███████ ███████ ███████
 */
 
-bool ZprimeAnalysisModule_TestNN::process(uhh2::Event& event){
+bool ZprimeAnalysisModule_TestNN_sig::process(uhh2::Event& event){
 
   if(debug)   cout << "++++++++++++ NEW EVENT ++++++++++++++" << endl;
   if(debug)   cout<<" run.event: "<<event.run<<". "<<event.event<<endl;
@@ -702,6 +704,7 @@ bool ZprimeAnalysisModule_TestNN::process(uhh2::Event& event){
   event.set(h_NNoutput0, 0); 
   event.set(h_NNoutput1, 0); 
   event.set(h_NNoutput2, 0);
+  event.set(h_NNoutput3, 0);
 
 
   // Printing
@@ -870,6 +873,7 @@ bool ZprimeAnalysisModule_TestNN::process(uhh2::Event& event){
   event.set(h_NNoutput0, (double)(NNoutputs[0].tensor<float, 2>()(0,0)));
   event.set(h_NNoutput1, (double)(NNoutputs[0].tensor<float, 2>()(0,1)));
   event.set(h_NNoutput2, (double)(NNoutputs[0].tensor<float, 2>()(0,2)));
+  event.set(h_NNoutput3, (double)(NNoutputs[0].tensor<float, 2>()(0,3)));
   event.set(h_NNoutput, NNoutputs);
 
 
@@ -885,9 +889,12 @@ bool ZprimeAnalysisModule_TestNN::process(uhh2::Event& event){
   fill_histograms(event, "DNN_output2");
   }
 
+  if( (double)(NNoutputs[0].tensor<float, 2>()(0,3)) >= 0.9){
+  fill_histograms(event, "DNN_output3");
+  }
 
   if(debug) cout<<"Set some vars for monitoring"<<endl;
   return true;
 }
 
-UHH2_REGISTER_ANALYSIS_MODULE(ZprimeAnalysisModule_TestNN)
+UHH2_REGISTER_ANALYSIS_MODULE(ZprimeAnalysisModule_TestNN_sig)
