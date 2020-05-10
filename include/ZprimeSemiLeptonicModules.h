@@ -136,4 +136,37 @@ public:
 protected:
   uhh2::Event::Handle<std::vector<GenParticle> > h_meps_;
 };
+
+
+////////////////////////    NN vars
+class Variables_NN : uhh2::AnalysisModule{
+
+public:
+  explicit Variables_NN(uhh2::Context&);
+  virtual bool process(uhh2::Event&) override;
+
+private:
+  uhh2::Event::Handle< float > h_Mu_pt, h_Mu_eta, h_Mu_phi, h_Mu_E, h_Mu_px, h_Mu_py, h_Mu_pz;
+  uhh2::Event::Handle< float > h_Ele_pt, h_Ele_eta, h_Ele_phi, h_Ele_E, h_Ele_px, h_Ele_py, h_Ele_pz;
+  uhh2::Event::Handle< float > h_MET_pt, h_MET_px, h_MET_py;
+  uhh2::Event::Handle< float > h_N_Ak8;
+  uhh2::Event::Handle< float > h_Ak8_j1_pt, h_Ak8_j1_eta, h_Ak8_j1_phi, h_Ak8_j1_E, h_Ak8_j1_px, h_Ak8_j1_py, h_Ak8_j1_pz, h_Ak8_j1_mSD, h_Ak8_j1_tau21, h_Ak8_j1_tau32;
+  uhh2::Event::Handle< float > h_Ak8_j2_pt, h_Ak8_j2_eta, h_Ak8_j2_phi, h_Ak8_j2_E, h_Ak8_j2_px, h_Ak8_j2_py, h_Ak8_j2_pz, h_Ak8_j2_mSD, h_Ak8_j2_tau21, h_Ak8_j2_tau32;
+  uhh2::Event::Handle< float > h_Ak8_j3_pt, h_Ak8_j3_eta, h_Ak8_j3_phi, h_Ak8_j3_E, h_Ak8_j3_px, h_Ak8_j3_py, h_Ak8_j3_pz, h_Ak8_j3_mSD, h_Ak8_j3_tau21, h_Ak8_j3_tau32;
+  uhh2::Event::Handle< float > h_Ak8_j4_pt, h_Ak8_j4_eta, h_Ak8_j4_phi, h_Ak8_j4_E, h_Ak8_j4_px, h_Ak8_j4_py, h_Ak8_j4_pz, h_Ak8_j4_mSD, h_Ak8_j4_tau21, h_Ak8_j4_tau32;
+  uhh2::Event::Handle< float > h_Ak8_j5_pt, h_Ak8_j5_eta, h_Ak8_j5_phi, h_Ak8_j5_E, h_Ak8_j5_px, h_Ak8_j5_py, h_Ak8_j5_pz, h_Ak8_j5_mSD, h_Ak8_j5_tau21, h_Ak8_j5_tau32;
+  uhh2::Event::Handle< float > h_N_Ak4;
+  uhh2::Event::Handle< float > h_Ak4_j1_pt, h_Ak4_j1_eta, h_Ak4_j1_phi, h_Ak4_j1_E, h_Ak4_j1_px, h_Ak4_j1_py, h_Ak4_j1_pz, h_Ak4_j1_m;
+  uhh2::Event::Handle< float > h_Ak4_j2_pt, h_Ak4_j2_eta, h_Ak4_j2_phi, h_Ak4_j2_E, h_Ak4_j2_px, h_Ak4_j2_py, h_Ak4_j2_pz, h_Ak4_j2_m;
+  uhh2::Event::Handle< float > h_Ak4_j3_pt, h_Ak4_j3_eta, h_Ak4_j3_phi, h_Ak4_j3_E, h_Ak4_j3_px, h_Ak4_j3_py, h_Ak4_j3_pz, h_Ak4_j3_m;
+  uhh2::Event::Handle< float > h_Ak4_j4_pt, h_Ak4_j4_eta, h_Ak4_j4_phi, h_Ak4_j4_E, h_Ak4_j4_px, h_Ak4_j4_py, h_Ak4_j4_pz, h_Ak4_j4_m;
+  uhh2::Event::Handle< float > h_Ak4_j5_pt, h_Ak4_j5_eta, h_Ak4_j5_phi, h_Ak4_j5_E, h_Ak4_j5_px, h_Ak4_j5_py, h_Ak4_j5_pz, h_Ak4_j5_m;
+  uhh2::Event::Handle< float > h_Ak4_j6_pt, h_Ak4_j6_eta, h_Ak4_j6_phi, h_Ak4_j6_E, h_Ak4_j6_px, h_Ak4_j6_py, h_Ak4_j6_pz, h_Ak4_j6_m;
+  uhh2::Event::Handle< float > h_Ak4_j7_pt, h_Ak4_j7_eta, h_Ak4_j7_phi, h_Ak4_j7_E, h_Ak4_j7_px, h_Ak4_j7_py, h_Ak4_j7_pz, h_Ak4_j7_m;
+  uhh2::Event::Handle< float > h_Ak4_j8_pt, h_Ak4_j8_eta, h_Ak4_j8_phi, h_Ak4_j8_E, h_Ak4_j8_px, h_Ak4_j8_py, h_Ak4_j8_pz, h_Ak4_j8_m;
+  uhh2::Event::Handle< float > h_Ak4_j9_pt, h_Ak4_j9_eta, h_Ak4_j9_phi, h_Ak4_j9_E, h_Ak4_j9_px, h_Ak4_j9_py, h_Ak4_j9_pz, h_Ak4_j9_m;
+  uhh2::Event::Handle< float > h_Ak4_j10_pt, h_Ak4_j10_eta, h_Ak4_j10_phi, h_Ak4_j10_E, h_Ak4_j10_px, h_Ak4_j10_py, h_Ak4_j10_pz, h_Ak4_j10_m;
+
+};
+
 ////

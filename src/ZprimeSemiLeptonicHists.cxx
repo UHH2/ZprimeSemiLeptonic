@@ -27,10 +27,11 @@ Hists(ctx, dirname) {
   h_BestZprimeCandidateCorrectMatch = ctx.get_handle<ZprimeCandidate*>("ZprimeCandidateBestCorrectMatch");
   h_is_zprime_reconstructed_chi2 = ctx.get_handle<bool>("is_zprime_reconstructed_chi2");
   h_is_zprime_reconstructed_correctmatch = ctx.get_handle<bool>("is_zprime_reconstructed_correctmatch");
-  h_NNoutput0 = ctx.get_handle<double>("NNoutput0");
+/*  h_NNoutput0 = ctx.get_handle<double>("NNoutput0");
   h_NNoutput1 = ctx.get_handle<double>("NNoutput1");
   h_NNoutput2 = ctx.get_handle<double>("NNoutput2");
   h_NNoutput3 = ctx.get_handle<double>("NNoutput3");
+*/
   //  h_chi2 = ctx.get_handle<float>("chi2");
   init();
 }
@@ -344,43 +345,6 @@ void ZprimeSemiLeptonicHists::init(){
   vector<float> bins_Zprime4 = {0,400,600,800,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200,3400,3600,3800,4000,4400,4800,5200,5600,6000,6100};
   vector<float> bins_Zprime5 = {0,200,400,600,800,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3300,3600,3900,4200,4500,5000,5100};
   M_Zprime                 = book<TH1F>("M_Zprime", "M_{t#bar{t}} [GeV]", 280, 0, 7000);
-
-  Lep_pt                   = book<TH1F>("Lep_pt", "p_{T}^{lep} [GeV]", 45, 0, 900);
-  Lep_eta                  = book<TH1F>("Lep_eta", "#eta^{lep}", 50, -2.5, 2.5);
-  Lep_phi                  = book<TH1F>("Lep_phi", "#phi^{lep}", 35, -3.5, 3.5);
-  Nu_pt                    = book<TH1F>("Nu_pt", "p_{T}^{#nu} [GeV]", 45, 0, 900);
-  Nu_eta                   = book<TH1F>("Nu_eta", "#eta^{#nu}", 50, -2.5, 2.5);
-  Nu_phi                   = book<TH1F>("Nu_phi", "#phi^{#nu}", 35, -3.5, 3.5);
-  JetLep_pt                = book<TH1F>("JetLep_pt", "p_{T}^{jet_{lep}} [GeV]", 45, 0, 900);
-  JetLep_eta               = book<TH1F>("JetLep_eta", "#eta^{jet_{lep}}", 50, -2.5, 2.5);
-  JetLep_phi               = book<TH1F>("JetLep_phi", "#phi^{jet_{lep}}", 35, -3.5, 3.5);
-  JetHadAK8_pt             = book<TH1F>("JetHadAK8_pt", "p_{T}^{AK8jet} [GeV]", 45, 0, 900);
-  JetHadAK8_eta            = book<TH1F>("JetHadAK8_eta", "#eta^{AK8jet}", 50, -2.5, 2.5);
-  JetHadAK8_phi            = book<TH1F>("JetHadAK8_phi", "#phi^{AK8jet}", 35, -3.5, 3.5);
-  JetHadAK4_1j_pt          = book<TH1F>("JetHadAK4_1j_pt", "p_{T}^{AK4jet1_{had}} [GeV]", 45, 0, 900);
-  JetHadAK4_1j_eta         = book<TH1F>("JetHadAK4_1j_eta", "#eta^{AK4jet1_{had}}", 50, -2.5, 2.5);
-  JetHadAK4_1j_phi         = book<TH1F>("JetHadAK4_1j_phi", "#phi^{AK4jet1_{had}}", 35, -3.5, 3.5);
-  N_AK4_HadJets            = book<TH1F>("N_AK4_HadJets", "N AK4 jet had", 10, 0.0, 10);
-  N_AK8_Jets               = book<TH1F>("N_AK8_Jets", "N AK8 jet", 10, 0.0, 10);
-  N_AK4_LepJets            = book<TH1F>("N_AK4_LepJets", "N AK4 jet lep", 10, 0.0, 10);
-  JetHadAK4_2j_pt          = book<TH1F>("JetHadAK4_2j_pt", "p_{T}^{AK4jet2_{had}} [GeV]", 45, 0, 900);
-  JetHadAK4_2j_eta         = book<TH1F>("JetHadAK4_2j_eta", "#eta^{AK4jet2_{had}}", 50, -2.5, 2.5);
-  JetHadAK4_2j_phi         = book<TH1F>("JetHadAK4_2j_phi", "#phi^{AK4jet2_{had}}", 35, -3.5, 3.5);
-  TopLep_pt                = book<TH1F>("TopLep_pt", "p_{T}^{t_{lep}} [GeV]", 45, 0, 900);
-  TopLep_m                 = book<TH1F>("TopLep_m", "m^{t_{lep}} [GeV]", 60, 0, 300);
-  TopLep_eta               = book<TH1F>("TopLep_eta", "#eta^{t_{lep}}", 50, -2.5, 2.5);
-  TopLep_phi               = book<TH1F>("TopLep_phi", "#phi^{t_{lep}}", 35, -3.5, 3.5);
-  TopHad_pt                = book<TH1F>("TopHad_pt", "p_{T}^{t_{had}} [GeV]", 45, 0, 900);
-  TopHad_m                 = book<TH1F>("TopHad_m", "m^{t_{had}} [GeV]", 60, 0, 300);
-  TopHad_eta               = book<TH1F>("TopHad_eta", "#eta^{t_{had}}", 50, -2.5, 2.5);
-  TopHad_phi               = book<TH1F>("TopHad_phi", "#phi^{t_{had}}", 35, -3.5, 3.5);
-  TopHadOverLep_pt         = book<TH1F>("TopHadOverLep_pt", "p_{T}^{t_{had}}/p_{T}^{t_{lep}}", 1200, -20, 100);
-  DeltaR_j1j2_had          = book<TH1F>("DeltaR_j1j2_had", "#DeltaR(jet1_{had},jet2_{had})", 120, 0, 6);
-  DeltaR_j1lep_j1had       = book<TH1F>("DeltaR_j1lep_j1had", "#DeltaR(jet1_{lep},jet1_{had})", 120, 0, 6);
-  DeltaR_j1_lep            = book<TH1F>("DeltaR_j1_lep", "#DeltaR(jet1_{lep},lep)", 120, 0, 6);
-  DeltaR_j1_nu             = book<TH1F>("DeltaR_j1_nu", "#DeltaR(jet1_{lep},#nu)", 120, 0, 6);
-  DeltaR_tlep_thad         = book<TH1F>("DeltaR_tlep_thad", "#DeltaR(top_{lep},top_{had})", 120, 0, 6);
-
   M_Zprime_rebin           = book<TH1F>("M_Zprime_rebin", "M_{t#bar{t}} [GeV]", 140, 0, 7000);
   M_Zprime_rebin2          = book<TH1F>("M_Zprime_rebin2", "M_{t#bar{t}} [GeV]", 70, 0, 7000);
   M_Zprime_rebin3          = book<TH1F>("M_Zprime_rebin3", "M_{t#bar{t}} [GeV]", 35, 0, 7000);
@@ -432,12 +396,12 @@ void ZprimeSemiLeptonicHists::init(){
   S33 = book<TH1F>("S33", "S_{33}", 50, 0, 1);
 
   sum_event_weights = book<TH1F>("sum_event_weights", "counting experiment", 1, 0.5, 1.5);
-
+/*
   DNN_out0 = book<TH1F>("DNN_out0", "NN output 0", 100, 0, 1);
   DNN_out1 = book<TH1F>("DNN_out1", "NN output 1", 100, 0, 1);
   DNN_out2 = book<TH1F>("DNN_out2", "NN output 2", 100, 0, 1);
   DNN_out3 = book<TH1F>("DNN_out3", "NN output 3", 100, 0, 1);
-
+*/
 }
 
 
@@ -963,115 +927,6 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
     ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
     float Mreco = BestZprimeCandidate->Zprime_v4().M();
     float chi2 = BestZprimeCandidate->discriminator("chi2_total");
-
-
-    //////////////////////////////////////////////////////////////////////////
-     /*
-     ██████   ███    ██ ███    ██ 
-     ██   ██  ████   ██ ████   ██
-     ██    ██ ██ ██  ██ ██ ██  ██
-     ██   ██  ██  ██ ██ ██  ██ ██
-     ██████   ██   ████ ██   ████
-     */ 
-
-    //////////////////////////////////////////////////////////////////////////
-    float ptlep = BestZprimeCandidate->lepton().pt();
-    float etalep = BestZprimeCandidate->lepton().eta();
-    float philep = BestZprimeCandidate->lepton().phi();
-    float ptneut = BestZprimeCandidate->neutrino_v4().pt();
-    float etaneut = BestZprimeCandidate->neutrino_v4().eta();
-    float phineut = BestZprimeCandidate->neutrino_v4().phi();
-    float pt_jetlep = BestZprimeCandidate->jets_leptonic().at(0).pt();
-    float eta_jetlep = BestZprimeCandidate->jets_leptonic().at(0).eta();
-    float phi_jetlep = BestZprimeCandidate->jets_leptonic().at(0).phi();
-    float pt_jethadAK8 = BestZprimeCandidate->jets_hadronic().at(0).pt();
-    float eta_jethadAK8 = BestZprimeCandidate->jets_hadronic().at(0).eta();
-    float phi_jethadAK8 = BestZprimeCandidate->jets_hadronic().at(0).phi();
-    float n_AK4_HadJets = BestZprimeCandidate->jets_hadronic().size();
-    float n_AK4_LepJets = BestZprimeCandidate->jets_leptonic().size();
-    float pt_toplep = BestZprimeCandidate->top_leptonic_v4().pt();
-    float eta_toplep = BestZprimeCandidate->top_leptonic_v4().eta();
-    float phi_toplep = BestZprimeCandidate->top_leptonic_v4().phi();
-    float pt_tophad = BestZprimeCandidate->top_hadronic_v4().pt();
-    float eta_tophad = BestZprimeCandidate->top_hadronic_v4().eta();
-    float phi_tophad = BestZprimeCandidate->top_hadronic_v4().phi();
-    float pt_tophadlep = (BestZprimeCandidate->top_hadronic_v4().pt())/(BestZprimeCandidate->top_leptonic_v4().pt());
-    // Sphericity tensors leptonic side
-    double s11 = -1., s12 = -1., s13 = -1., s22 = -1., s23 = -1., s33 = -1., mag = -1.;
-    for(const Jet jet : *event.jets){
-      mag += (jet.v4().Px()*jet.v4().Px()+jet.v4().Py()*jet.v4().Py()+jet.v4().Pz()*jet.v4().Pz());
-      s11 += jet.v4().Px()*jet.v4().Px();
-      s12 += jet.v4().Px()*jet.v4().Py();
-      s13 += jet.v4().Px()*jet.v4().Pz();
-      s22 += jet.v4().Py()*jet.v4().Py();
-      s23 += jet.v4().Py()*jet.v4().Pz();
-      s33 += jet.v4().Pz()*jet.v4().Pz();
-    }
-
-    s11 = s11 / mag;
-    s12 = s12 / mag;
-    s13 = s13 / mag;
-    s22 = s22 / mag;
-    s23 = s23 / mag;
-    s33 = s33 / mag;
-
-    S11->Fill(s11, weight);
-    S12->Fill(s12, weight);
-    S13->Fill(s13, weight);
-    S22->Fill(s22, weight);
-    S23->Fill(s23, weight);
-    S33->Fill(s33, weight);
-
-
-    Lep_pt->Fill(ptlep, weight);
-    Lep_eta->Fill(etalep, weight);
-    Lep_phi->Fill(philep, weight);
-    Nu_pt->Fill(ptneut, weight);
-    Nu_eta->Fill(etaneut, weight);
-    Nu_phi->Fill(phineut, weight);
-    JetLep_pt->Fill(pt_jetlep, weight);
-    JetLep_eta->Fill(eta_jetlep, weight);
-    JetLep_phi->Fill(phi_jetlep, weight);
-    N_AK4_LepJets->Fill(n_AK4_LepJets, weight);
-    if(BestZprimeCandidate->is_toptag_reconstruction()){
-       N_AK8_Jets->Fill(BestZprimeCandidate->jets_hadronic().size(), weight);
-       JetHadAK8_pt->Fill(pt_jethadAK8, weight);
-       JetHadAK8_eta->Fill(eta_jethadAK8, weight);
-       JetHadAK8_phi->Fill(phi_jethadAK8, weight);
-    }
-    else{
-       N_AK4_HadJets->Fill(n_AK4_HadJets, weight);
-          if(BestZprimeCandidate->jets_hadronic().size()>=2){
-          JetHadAK4_1j_pt->Fill(BestZprimeCandidate->jets_hadronic().at(0).pt(), weight);
-          JetHadAK4_1j_eta->Fill(BestZprimeCandidate->jets_hadronic().at(0).eta(), weight);
-          JetHadAK4_1j_phi->Fill(BestZprimeCandidate->jets_hadronic().at(0).phi(), weight);
-          JetHadAK4_2j_pt->Fill(BestZprimeCandidate->jets_hadronic().at(1).pt(), weight);
-          JetHadAK4_2j_eta->Fill(BestZprimeCandidate->jets_hadronic().at(1).eta(), weight);
-          JetHadAK4_2j_phi->Fill(BestZprimeCandidate->jets_hadronic().at(1).phi(), weight);
-
-          DeltaR_j1j2_had->Fill(deltaR(BestZprimeCandidate->jets_hadronic().at(0),BestZprimeCandidate->jets_hadronic().at(1)),weight);
-          DeltaR_j1lep_j1had->Fill(deltaR(BestZprimeCandidate->jets_leptonic().at(0),BestZprimeCandidate->jets_hadronic().at(0)),weight);
-
-          }
-    }
-    DeltaR_j1_lep->Fill(deltaR(BestZprimeCandidate->jets_leptonic().at(0),BestZprimeCandidate->lepton()),weight);
-    DeltaR_j1_nu->Fill(deltaR(BestZprimeCandidate->jets_leptonic().at(0),BestZprimeCandidate->neutrino_v4()),weight);
-    TopLep_pt->Fill(pt_toplep, weight);
-    TopLep_m->Fill(inv_mass(BestZprimeCandidate->top_leptonic_v4()), weight);
-    TopLep_eta->Fill(eta_toplep, weight);
-    TopLep_phi->Fill(phi_toplep, weight);
-    TopHad_pt->Fill(pt_tophad, weight);
-    TopHad_m->Fill(inv_mass(BestZprimeCandidate->top_hadronic_v4()), weight);
-    TopHad_eta->Fill(eta_tophad, weight);
-    TopHad_phi->Fill(phi_tophad, weight);
-    TopHadOverLep_pt->Fill(pt_tophadlep, weight);
-    DeltaR_tlep_thad->Fill(deltaR(BestZprimeCandidate->top_leptonic_v4(),BestZprimeCandidate->top_hadronic_v4()),weight);
-
-
-
-    //////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////
-
     M_Zprime->Fill(Mreco, weight);
     M_Zprime_rebin->Fill(Mreco, weight);
     M_Zprime_rebin2->Fill(Mreco, weight);
@@ -1143,10 +998,36 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
     }
   }
 
+  // Sphericity tensor
+  double s11 = -1., s12 = -1., s13 = -1., s22 = -1., s23 = -1., s33 = -1., mag = -1.;
+  for(const Jet jet : *event.jets){
+    mag += (jet.v4().Px()*jet.v4().Px()+jet.v4().Py()*jet.v4().Py()+jet.v4().Pz()*jet.v4().Pz());
+    s11 += jet.v4().Px()*jet.v4().Px();
+    s12 += jet.v4().Px()*jet.v4().Py();
+    s13 += jet.v4().Px()*jet.v4().Pz();
+    s22 += jet.v4().Py()*jet.v4().Py();
+    s23 += jet.v4().Py()*jet.v4().Pz();
+    s33 += jet.v4().Pz()*jet.v4().Pz();
+  }
+
+  s11 = s11 / mag;
+  s12 = s12 / mag;
+  s13 = s13 / mag;
+  s22 = s22 / mag;
+  s23 = s23 / mag;
+  s33 = s33 / mag;
+
+  S11->Fill(s11, weight);
+  S12->Fill(s12, weight);
+  S13->Fill(s13, weight);
+  S22->Fill(s22, weight);
+  S23->Fill(s23, weight);
+  S33->Fill(s33, weight);
 
   sum_event_weights->Fill(1., weight);
 
-  // DNN score
+/// DNN score
+/*
   double output0= event.get(h_NNoutput0);
   double output1= event.get(h_NNoutput1);
   double output2= event.get(h_NNoutput2);
@@ -1173,7 +1054,7 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
   if( output3 == maxval_score ){ 
      DNN_out3->Fill(output3, weight);
   }
-
+*/
 
 
 } //Method
