@@ -124,14 +124,14 @@ void ZprimeAnalysisModule_V4::book_histograms(uhh2::Context& ctx, vector<string>
     book_HFolder(mytag, new ZprimeSemiLeptonicHists(ctx,mytag));
     mytag = tag+"_Muons";
     book_HFolder(mytag, new MuonHists(ctx,mytag));
-    mytag = tag+"_Electrons";
-    book_HFolder(mytag, new ElectronHists(ctx,mytag));
-    mytag = tag+"_Jets";
-    book_HFolder(mytag, new JetHists(ctx,mytag));
-    mytag = tag+"_Event";
-    book_HFolder(mytag, new EventHists(ctx,mytag));
-    mytag = tag+"_Generator";
-    book_HFolder(mytag, new ZprimeSemiLeptonicGeneratorHists(ctx,mytag));
+    //mytag = tag+"_Electrons";
+    //book_HFolder(mytag, new ElectronHists(ctx,mytag));
+    //mytag = tag+"_Jets";
+    //book_HFolder(mytag, new JetHists(ctx,mytag));
+    //mytag = tag+"_Event";
+    //book_HFolder(mytag, new EventHists(ctx,mytag));
+    //mytag = tag+"_Generator";
+    //book_HFolder(mytag, new ZprimeSemiLeptonicGeneratorHists(ctx,mytag));
   }
 }
 
@@ -142,14 +142,14 @@ void ZprimeAnalysisModule_V4::fill_histograms(uhh2::Event& event, string tag){
   HFolder(mytag)->fill(event);
   mytag = tag+"_Muons";
   HFolder(mytag)->fill(event);
-  mytag = tag+"_Electrons";
-  HFolder(mytag)->fill(event);
-  mytag = tag+"_Jets";
-  HFolder(mytag)->fill(event);
-  mytag = tag+"_Event";
-  HFolder(mytag)->fill(event);
-  mytag = tag+"_Generator";
-  HFolder(mytag)->fill(event);
+  //mytag = tag+"_Electrons";
+  //HFolder(mytag)->fill(event);
+  //mytag = tag+"_Jets";
+  //HFolder(mytag)->fill(event);
+  //mytag = tag+"_Event";
+  //HFolder(mytag)->fill(event);
+  //mytag = tag+"_Generator";
+  //HFolder(mytag)->fill(event);
 }
 
 /*
@@ -324,7 +324,8 @@ ZprimeAnalysisModule_V4::ZprimeAnalysisModule_V4(uhh2::Context& ctx){
   TopJetBtagSubjet_selection.reset(new ZprimeBTagFatSubJetSelection(ctx));
 
   // Book histograms
-  vector<string> histogram_tags = {"Weights", "Muon1", "Trigger", "Muon2", "Electron1", "TwoDCut", "Jet1", "Jet2", "MET", "HTlep", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction", "Btags2", "Btags1","TopJetBtagSubjet"};
+  //vector<string> histogram_tags = {"Weights", "Muon1", "Trigger", "Muon2", "Electron1", "TwoDCut", "Jet1", "Jet2", "MET", "HTlep", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction", "Btags2", "Btags1","TopJetBtagSubjet"};
+  vector<string> histogram_tags = {"Weights", "Muon1", "Trigger", "Muon2", "Electron1"};
   book_histograms(ctx, histogram_tags);
 }
 
@@ -409,10 +410,16 @@ bool ZprimeAnalysisModule_V4::process(uhh2::Event& event){
   CorrectMatchDiscriminatorZprime->process(event);
   if(debug) cout<<"CorrectMatchDiscriminatorZprime is ok"<<endl;
 */
+
+///////////////  Variables for NN  /////////
+
+  Variables_module->process(event);
+
+////////////////////////////////////////////
   if(sample.Contains("_blinded")){
     if(!BlindData_selection->passes(event)) return false;
   }
-  if(!Jet1_selection->passes(event)) return false;
+/*  if(!Jet1_selection->passes(event)) return false;
   if(debug) cout<<"Jet1_selection is ok"<<endl;
   fill_histograms(event, "Jet1");
 
@@ -432,13 +439,8 @@ bool ZprimeAnalysisModule_V4::process(uhh2::Event& event){
     if(debug) cout<<"HTlep is ok"<<endl;
   }
 
-///////////////  Variables for NN  /////////
 
-  Variables_module->process(event);
-
-////////////////////////////////////////////
-
-/*  if(TTbarMatchable_selection->passes(event)) fill_histograms(event, "MatchableBeforeChi2Cut");
+  if(TTbarMatchable_selection->passes(event)) fill_histograms(event, "MatchableBeforeChi2Cut");
   else fill_histograms(event, "NotMatchableBeforeChi2Cut");
   if(debug) cout<<"TTbarMatchable_selection is ok"<<endl;
 

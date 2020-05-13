@@ -69,97 +69,218 @@ public:
   virtual void CreateInputs(uhh2::Event & event) override;
 protected:
 
-uhh2::Event::Handle<float> h_DeltaR_j1_lep;
-uhh2::Event::Handle<float> h_chi2;  
+uhh2::Event::Handle<float> h_Ak4_j1_E;
+uhh2::Event::Handle<float> h_Ak4_j1_eta;
+uhh2::Event::Handle<float> h_Ak4_j1_m;
+uhh2::Event::Handle<float> h_Ak4_j1_phi;
+uhh2::Event::Handle<float> h_Ak4_j1_pt;
+uhh2::Event::Handle<float> h_Ak4_j1_px;
+uhh2::Event::Handle<float> h_Ak4_j1_py;
+uhh2::Event::Handle<float> h_Ak4_j1_pz;
+
+uhh2::Event::Handle<float> h_Ak4_j2_E;
+uhh2::Event::Handle<float> h_Ak4_j2_eta;
+uhh2::Event::Handle<float> h_Ak4_j2_m;
+uhh2::Event::Handle<float> h_Ak4_j2_phi;
+uhh2::Event::Handle<float> h_Ak4_j2_pt;
+uhh2::Event::Handle<float> h_Ak4_j2_px;
+uhh2::Event::Handle<float> h_Ak4_j2_py;
+uhh2::Event::Handle<float> h_Ak4_j2_pz;
+
+uhh2::Event::Handle<float> h_Ak4_j3_E;
+uhh2::Event::Handle<float> h_Ak4_j3_eta;
+uhh2::Event::Handle<float> h_Ak4_j3_m;
+uhh2::Event::Handle<float> h_Ak4_j3_phi;
+uhh2::Event::Handle<float> h_Ak4_j3_pt;
+uhh2::Event::Handle<float> h_Ak4_j3_px;
+uhh2::Event::Handle<float> h_Ak4_j3_py;
+uhh2::Event::Handle<float> h_Ak4_j3_pz;
+
+uhh2::Event::Handle<float> h_Ak4_j4_E;
+uhh2::Event::Handle<float> h_Ak4_j4_eta;
+uhh2::Event::Handle<float> h_Ak4_j4_m;
+uhh2::Event::Handle<float> h_Ak4_j4_phi;
+uhh2::Event::Handle<float> h_Ak4_j4_pt;
+uhh2::Event::Handle<float> h_Ak4_j4_px;
+uhh2::Event::Handle<float> h_Ak4_j4_py;
+uhh2::Event::Handle<float> h_Ak4_j4_pz;
+
+uhh2::Event::Handle<float> h_Ak4_j5_E;
+uhh2::Event::Handle<float> h_Ak4_j5_eta;
+uhh2::Event::Handle<float> h_Ak4_j5_m;
+uhh2::Event::Handle<float> h_Ak4_j5_phi;
+uhh2::Event::Handle<float> h_Ak4_j5_pt;
+uhh2::Event::Handle<float> h_Ak4_j5_px;
+uhh2::Event::Handle<float> h_Ak4_j5_py;
+uhh2::Event::Handle<float> h_Ak4_j5_pz;
+
+uhh2::Event::Handle<float> h_Ak4_j6_E;
+uhh2::Event::Handle<float> h_Ak4_j6_eta;
+uhh2::Event::Handle<float> h_Ak4_j6_m;
+uhh2::Event::Handle<float> h_Ak4_j6_phi;
+uhh2::Event::Handle<float> h_Ak4_j6_pt;
+uhh2::Event::Handle<float> h_Ak4_j6_px;
+uhh2::Event::Handle<float> h_Ak4_j6_py;
+uhh2::Event::Handle<float> h_Ak4_j6_pz;
+
+uhh2::Event::Handle<float> h_Ak8_j1_E;
+uhh2::Event::Handle<float> h_Ak8_j1_eta;
+uhh2::Event::Handle<float> h_Ak8_j1_mSD;
+uhh2::Event::Handle<float> h_Ak8_j1_phi;
+uhh2::Event::Handle<float> h_Ak8_j1_pt;
+uhh2::Event::Handle<float> h_Ak8_j1_px;
+uhh2::Event::Handle<float> h_Ak8_j1_py;
+uhh2::Event::Handle<float> h_Ak8_j1_pz;
+uhh2::Event::Handle<float> h_Ak8_j1_tau21;
+uhh2::Event::Handle<float> h_Ak8_j1_tau32;
+
+uhh2::Event::Handle<float> h_Ak8_j2_E;
+uhh2::Event::Handle<float> h_Ak8_j2_eta;
+uhh2::Event::Handle<float> h_Ak8_j2_mSD;
+uhh2::Event::Handle<float> h_Ak8_j2_phi;
+uhh2::Event::Handle<float> h_Ak8_j2_pt;
+uhh2::Event::Handle<float> h_Ak8_j2_px;
+uhh2::Event::Handle<float> h_Ak8_j2_py;
+uhh2::Event::Handle<float> h_Ak8_j2_pz;
+uhh2::Event::Handle<float> h_Ak8_j2_tau21;
+uhh2::Event::Handle<float> h_Ak8_j2_tau32;
+
+uhh2::Event::Handle<float> h_Ak8_j3_E;
+uhh2::Event::Handle<float> h_Ak8_j3_eta;
+uhh2::Event::Handle<float> h_Ak8_j3_mSD;
+uhh2::Event::Handle<float> h_Ak8_j3_phi;
+uhh2::Event::Handle<float> h_Ak8_j3_pt;
+uhh2::Event::Handle<float> h_Ak8_j3_px;
+uhh2::Event::Handle<float> h_Ak8_j3_py;
+uhh2::Event::Handle<float> h_Ak8_j3_pz;
+uhh2::Event::Handle<float> h_Ak8_j3_tau21;
+uhh2::Event::Handle<float> h_Ak8_j3_tau32;
+
+uhh2::Event::Handle<float> h_MET_pt;
+uhh2::Event::Handle<float> h_MET_px;
+uhh2::Event::Handle<float> h_MET_py;
+
+uhh2::Event::Handle<float> h_Mu_E;
+uhh2::Event::Handle<float> h_Mu_eta;
+uhh2::Event::Handle<float> h_Mu_phi;
+uhh2::Event::Handle<float> h_Mu_pt;
+uhh2::Event::Handle<float> h_Mu_py;
+uhh2::Event::Handle<float> h_Mu_px;
+uhh2::Event::Handle<float> h_Mu_pz;
+
+uhh2::Event::Handle<float> h_N_Ak4;
+uhh2::Event::Handle<float> h_N_Ak8;
+
 uhh2::Event::Handle<float> h_weight;
-uhh2::Event::Handle<float> h_Lep_pt;
-uhh2::Event::Handle<float> h_Lep_eta;
-uhh2::Event::Handle<float> h_Lep_phi;
-uhh2::Event::Handle<float> h_Nu_pt;
-uhh2::Event::Handle<float> h_Nu_eta;
-uhh2::Event::Handle<float> h_Nu_phi;
-uhh2::Event::Handle<float> h_JetLep_pt;
-uhh2::Event::Handle<float> h_JetLep_eta;
-uhh2::Event::Handle<float> h_JetLep_phi;
-uhh2::Event::Handle<float> h_JetHadAK8_pt;
-uhh2::Event::Handle<float> h_JetHadAK8_eta;
-uhh2::Event::Handle<float> h_JetHadAK8_phi;
-uhh2::Event::Handle<float> h_JetHadAK4_1j_pt;
-uhh2::Event::Handle<float> h_JetHadAK4_1j_eta;
-uhh2::Event::Handle<float> h_JetHadAK4_1j_phi;
-uhh2::Event::Handle<float> h_N_AK4_HadJets;
-uhh2::Event::Handle<float> h_N_AK8_Jets;
-uhh2::Event::Handle<float> h_N_AK4_LepJets;
-uhh2::Event::Handle<float> h_JetHadAK4_2j_pt;
-uhh2::Event::Handle<float> h_JetHadAK4_2j_eta;
-uhh2::Event::Handle<float> h_JetHadAK4_2j_phi;
-uhh2::Event::Handle<float> h_TopLep_pt;
-uhh2::Event::Handle<float> h_TopLep_m;
-uhh2::Event::Handle<float> h_TopLep_eta;
-uhh2::Event::Handle<float> h_TopLep_phi;
-uhh2::Event::Handle<float> h_TopHad_pt;
-uhh2::Event::Handle<float> h_TopHad_m;
-uhh2::Event::Handle<float> h_TopHad_eta;
-uhh2::Event::Handle<float> h_TopHad_phi;
-uhh2::Event::Handle<float> h_TopHadOverLep_pt;
-uhh2::Event::Handle<float> h_DeltaR_j1j2_had;
-uhh2::Event::Handle<float> h_DeltaR_j1lep_j1had;
-uhh2::Event::Handle<float> h_DeltaR_j1_nu;
-uhh2::Event::Handle<float> h_DeltaR_tlep_thad;
-uhh2::Event::Handle<float> h_S11;
-uhh2::Event::Handle<float> h_S12;
-uhh2::Event::Handle<float> h_S13;
-uhh2::Event::Handle<float> h_S22;
-uhh2::Event::Handle<float> h_S23;
-uhh2::Event::Handle<float> h_S33;
 
 };
 
 NeuralNetworkModule::NeuralNetworkModule(Context& ctx, const std::string & ModelName, const std::string& ConfigName): NeuralNetworkBase(ctx, ModelName, ConfigName){
 
-h_DeltaR_j1_lep      = ctx.get_handle<float>("DeltaR_j1_lep");
-h_chi2               = ctx.get_handle<float> ("rec_chi2");
-h_Lep_pt             = ctx.get_handle<float> ("Lep_pt");
-h_Lep_eta            = ctx.get_handle<float> ("Lep_eta");
-h_Lep_phi            = ctx.get_handle<float> ("Lep_phi");
-h_Nu_pt              = ctx.get_handle<float> ("Nu_pt");
-h_Nu_eta             = ctx.get_handle<float> ("Nu_eta");
-h_Nu_phi             = ctx.get_handle<float> ("Nu_phi");
-h_JetLep_pt          = ctx.get_handle<float> ("JetLep_pt");
-h_JetLep_eta         = ctx.get_handle<float> ("JetLep_eta");
-h_JetLep_phi         = ctx.get_handle<float> ("JetLep_phi");
-h_JetHadAK8_pt       = ctx.get_handle<float> ("JetHadAK8_pt");
-h_JetHadAK8_eta      = ctx.get_handle<float> ("JetHadAK8_eta");
-h_JetHadAK8_phi      = ctx.get_handle<float> ("JetHadAK8_phi");
-h_JetHadAK4_1j_pt    = ctx.get_handle<float> ("JetHadAK4_1j_pt");
-h_JetHadAK4_1j_eta   = ctx.get_handle<float> ("JetHadAK4_1j_eta");
-h_JetHadAK4_1j_phi   = ctx.get_handle<float> ("JetHadAK4_1j_phi");
-h_N_AK4_HadJets      = ctx.get_handle<float> ("N_AK4_HadJets");
-h_N_AK8_Jets         = ctx.get_handle<float> ("N_AK8_Jets");
-h_N_AK4_LepJets      = ctx.get_handle<float> ("N_AK4_LepJets");
-h_JetHadAK4_2j_pt    = ctx.get_handle<float> ("JetHadAK4_2j_pt");
-h_JetHadAK4_2j_eta   = ctx.get_handle<float> ("JetHadAK4_2j_eta");
-h_JetHadAK4_2j_phi   = ctx.get_handle<float> ("JetHadAK4_2j_phi");
-h_TopLep_pt          = ctx.get_handle<float> ("TopLep_pt");
-h_TopLep_m           = ctx.get_handle<float> ("TopLep_m");
-h_TopLep_eta         = ctx.get_handle<float> ("TopLep_eta");
-h_TopLep_phi         = ctx.get_handle<float> ("TopLep_phi");
-h_TopHad_pt          = ctx.get_handle<float> ("TopHad_pt");
-h_TopHad_m           = ctx.get_handle<float> ("TopHad_m");
-h_TopHad_eta         = ctx.get_handle<float> ("TopHad_eta");
-h_TopHad_phi         = ctx.get_handle<float> ("TopHad_phi");
-h_TopHadOverLep_pt   = ctx.get_handle<float> ("TopHadOverLep_pt");
-h_DeltaR_j1j2_had    = ctx.get_handle<float> ("DeltaR_j1j2_had");
-h_DeltaR_j1lep_j1had = ctx.get_handle<float> ("DeltaR_j1lep_j1had");
-h_DeltaR_j1_nu       = ctx.get_handle<float> ("DeltaR_j1_nu");
-h_DeltaR_tlep_thad   = ctx.get_handle<float> ("DeltaR_tlep_thad");
-h_S11                = ctx.get_handle<float> ("S11");
-h_S12                = ctx.get_handle<float> ("S12");
-h_S13                = ctx.get_handle<float> ("S13");
-h_S22                = ctx.get_handle<float> ("S22");
-h_S23                = ctx.get_handle<float> ("S23");
-h_S33                = ctx.get_handle<float> ("S33");
-h_weight             = ctx.get_handle<float> ("weight");
+
+h_Ak4_j1_E   = ctx.get_handle<float>("Ak4_j1_E");
+h_Ak4_j1_eta = ctx.get_handle<float>("Ak4_j1_eta");
+h_Ak4_j1_m   = ctx.get_handle<float>("Ak4_j1_m");
+h_Ak4_j1_phi = ctx.get_handle<float>("Ak4_j1_phi");
+h_Ak4_j1_pt  = ctx.get_handle<float>("Ak4_j1_pt");
+h_Ak4_j1_px  = ctx.get_handle<float>("Ak4_j1_px");
+h_Ak4_j1_py  = ctx.get_handle<float>("Ak4_j1_py");
+h_Ak4_j1_pz  = ctx.get_handle<float>("Ak4_j1_pz");
+
+h_Ak4_j2_E   = ctx.get_handle<float>("Ak4_j2_E");
+h_Ak4_j2_eta = ctx.get_handle<float>("Ak4_j2_eta");
+h_Ak4_j2_m   = ctx.get_handle<float>("Ak4_j2_m");
+h_Ak4_j2_phi = ctx.get_handle<float>("Ak4_j2_phi");
+h_Ak4_j2_pt  = ctx.get_handle<float>("Ak4_j2_pt");
+h_Ak4_j2_px  = ctx.get_handle<float>("Ak4_j2_px");
+h_Ak4_j2_py  = ctx.get_handle<float>("Ak4_j2_py");
+h_Ak4_j2_pz  = ctx.get_handle<float>("Ak4_j2_pz");
+
+h_Ak4_j3_E   = ctx.get_handle<float>("Ak4_j3_E");
+h_Ak4_j3_eta = ctx.get_handle<float>("Ak4_j3_eta");
+h_Ak4_j3_m   = ctx.get_handle<float>("Ak4_j3_m");
+h_Ak4_j3_phi = ctx.get_handle<float>("Ak4_j3_phi");
+h_Ak4_j3_pt  = ctx.get_handle<float>("Ak4_j3_pt");
+h_Ak4_j3_px  = ctx.get_handle<float>("Ak4_j3_px");
+h_Ak4_j3_py  = ctx.get_handle<float>("Ak4_j3_py");
+h_Ak4_j3_pz  = ctx.get_handle<float>("Ak4_j3_pz");
+
+h_Ak4_j4_E   = ctx.get_handle<float>("Ak4_j4_E");
+h_Ak4_j4_eta = ctx.get_handle<float>("Ak4_j4_eta");
+h_Ak4_j4_m   = ctx.get_handle<float>("Ak4_j4_m");
+h_Ak4_j4_phi = ctx.get_handle<float>("Ak4_j4_phi");
+h_Ak4_j4_pt  = ctx.get_handle<float>("Ak4_j4_pt");
+h_Ak4_j4_px  = ctx.get_handle<float>("Ak4_j4_px");
+h_Ak4_j4_py  = ctx.get_handle<float>("Ak4_j4_py");
+h_Ak4_j4_pz  = ctx.get_handle<float>("Ak4_j4_pz");
+
+h_Ak4_j5_E   = ctx.get_handle<float>("Ak4_j5_E");
+h_Ak4_j5_eta = ctx.get_handle<float>("Ak4_j5_eta");
+h_Ak4_j5_m   = ctx.get_handle<float>("Ak4_j5_m");
+h_Ak4_j5_phi = ctx.get_handle<float>("Ak4_j5_phi");
+h_Ak4_j5_pt  = ctx.get_handle<float>("Ak4_j5_pt");
+h_Ak4_j5_px  = ctx.get_handle<float>("Ak4_j5_px");
+h_Ak4_j5_py  = ctx.get_handle<float>("Ak4_j5_py");
+h_Ak4_j5_pz  = ctx.get_handle<float>("Ak4_j5_pz");
+
+h_Ak4_j6_E   = ctx.get_handle<float>("Ak4_j6_E");
+h_Ak4_j6_eta = ctx.get_handle<float>("Ak4_j6_eta");
+h_Ak4_j6_m   = ctx.get_handle<float>("Ak4_j6_m");
+h_Ak4_j6_phi = ctx.get_handle<float>("Ak4_j6_phi");
+h_Ak4_j6_pt  = ctx.get_handle<float>("Ak4_j6_pt");
+h_Ak4_j6_px  = ctx.get_handle<float>("Ak4_j6_px");
+h_Ak4_j6_py  = ctx.get_handle<float>("Ak4_j6_py");
+h_Ak4_j6_pz  = ctx.get_handle<float>("Ak4_j6_pz");
+
+h_Ak8_j1_E     = ctx.get_handle<float>("Ak8_j1_E");
+h_Ak8_j1_eta   = ctx.get_handle<float>("Ak8_j1_eta");
+h_Ak8_j1_mSD   = ctx.get_handle<float>("Ak8_j1_mSD");
+h_Ak8_j1_phi   = ctx.get_handle<float>("Ak8_j1_phi");
+h_Ak8_j1_pt    = ctx.get_handle<float>("Ak8_j1_pt");
+h_Ak8_j1_px    = ctx.get_handle<float>("Ak8_j1_px");
+h_Ak8_j1_py    = ctx.get_handle<float>("Ak8_j1_py");
+h_Ak8_j1_pz    = ctx.get_handle<float>("Ak8_j1_pz");
+h_Ak8_j1_tau21 = ctx.get_handle<float>("Ak8_j1_tau21");
+h_Ak8_j1_tau32 = ctx.get_handle<float>("Ak8_j1_tau32");
+
+h_Ak8_j2_E     = ctx.get_handle<float>("Ak8_j2_E");
+h_Ak8_j2_eta   = ctx.get_handle<float>("Ak8_j2_eta");
+h_Ak8_j2_mSD   = ctx.get_handle<float>("Ak8_j2_mSD");
+h_Ak8_j2_phi   = ctx.get_handle<float>("Ak8_j2_phi");
+h_Ak8_j2_pt    = ctx.get_handle<float>("Ak8_j2_pt");
+h_Ak8_j2_px    = ctx.get_handle<float>("Ak8_j2_px");
+h_Ak8_j2_py    = ctx.get_handle<float>("Ak8_j2_py");
+h_Ak8_j2_pz    = ctx.get_handle<float>("Ak8_j2_pz");
+h_Ak8_j2_tau21 = ctx.get_handle<float>("Ak8_j2_tau21");
+h_Ak8_j2_tau32 = ctx.get_handle<float>("Ak8_j2_tau32");
+
+h_Ak8_j3_E     = ctx.get_handle<float>("Ak8_j3_E");
+h_Ak8_j3_eta   = ctx.get_handle<float>("Ak8_j3_eta");
+h_Ak8_j3_mSD   = ctx.get_handle<float>("Ak8_j3_mSD");
+h_Ak8_j3_phi   = ctx.get_handle<float>("Ak8_j3_phi");
+h_Ak8_j3_pt    = ctx.get_handle<float>("Ak8_j3_pt");
+h_Ak8_j3_px    = ctx.get_handle<float>("Ak8_j3_px");
+h_Ak8_j3_py    = ctx.get_handle<float>("Ak8_j3_py");
+h_Ak8_j3_pz    = ctx.get_handle<float>("Ak8_j3_pz");
+h_Ak8_j3_tau21 = ctx.get_handle<float>("Ak8_j3_tau21");
+h_Ak8_j3_tau32 = ctx.get_handle<float>("Ak8_j3_tau32");
+
+h_MET_pt = ctx.get_handle<float>("MET_pt");
+h_MET_px = ctx.get_handle<float>("MET_px");
+h_MET_py = ctx.get_handle<float>("MET_py");
+
+h_Mu_E    = ctx.get_handle<float>("Mu_E");
+h_Mu_eta  = ctx.get_handle<float>("Mu_eta");
+h_Mu_phi  = ctx.get_handle<float>("Mu_phi");
+h_Mu_pt   = ctx.get_handle<float>("Mu_pt");
+h_Mu_px   = ctx.get_handle<float>("Mu_px");
+h_Mu_py   = ctx.get_handle<float>("Mu_py");
+h_Mu_pz   = ctx.get_handle<float>("Mu_pz");
+
+h_N_Ak4 = ctx.get_handle<float>("N_Ak4");
+h_N_Ak8 = ctx.get_handle<float>("N_Ak8");
+
+h_weight = ctx.get_handle<float>("weight");
 
 }
 
@@ -167,15 +288,15 @@ void NeuralNetworkModule::CreateInputs(Event & event){
   NNInputs.clear();
   NNoutputs.clear();
 
-  string varname[43];
-  string scal[43];
-  string min[43];
-  string max[43];
-  double min_val[43];
-  double max_val[43];
-  ifstream normfile ("/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/ZprimeSemiLeptonic/KerasNN/ML_test/NormInfo_sig.txt", ios::in);
+  string varname[91];
+  string scal[91];
+  string min[91];
+  string max[91];
+  double min_val[91];
+  double max_val[91];
+  ifstream normfile ("/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4/NormInfo_3cl.txt", ios::in);
   if (normfile.is_open()){ 
-        for(int i = 0; i < 43; ++i)
+        for(int i = 0; i < 91; ++i)
         {   
             normfile >> varname[i] >> scal[i] >> min[i] >> max[i];
             min_val[i] = std::stod(min[i]);
@@ -185,98 +306,112 @@ void NeuralNetworkModule::CreateInputs(Event & event){
   }
 
 
-  NNInputs.push_back( tensorflow::Tensor(tensorflow::DT_FLOAT, {1, 43}));
-/*
-  NNInputs.at(0).tensor<float, 2>()(0,0) = event.get(h_DeltaR_j1_lep);
-  NNInputs.at(0).tensor<float, 2>()(0,1) = event.get(h_DeltaR_j1_nu);
-  NNInputs.at(0).tensor<float, 2>()(0,2) = event.get(h_DeltaR_j1j2_had);
-  NNInputs.at(0).tensor<float, 2>()(0,3) = event.get(h_DeltaR_j1lep_j1had);
-  NNInputs.at(0).tensor<float, 2>()(0,4) = event.get(h_DeltaR_tlep_thad);
-  NNInputs.at(0).tensor<float, 2>()(0,5) = event.get(h_JetHadAK4_1j_eta);
-  NNInputs.at(0).tensor<float, 2>()(0,6) = event.get(h_JetHadAK4_1j_phi);
-  NNInputs.at(0).tensor<float, 2>()(0,7) = event.get(h_JetHadAK4_1j_pt);
-  NNInputs.at(0).tensor<float, 2>()(0,8) = event.get(h_JetHadAK4_2j_eta);
-  NNInputs.at(0).tensor<float, 2>()(0,9) = event.get(h_JetHadAK4_2j_phi);
-  NNInputs.at(0).tensor<float, 2>()(0,10) = event.get(h_JetHadAK4_2j_pt);
-  NNInputs.at(0).tensor<float, 2>()(0,11) = event.get(h_JetHadAK8_eta);
-  NNInputs.at(0).tensor<float, 2>()(0,12) = event.get(h_JetHadAK8_phi);
-  NNInputs.at(0).tensor<float, 2>()(0,13) = event.get(h_JetHadAK8_pt);
-  NNInputs.at(0).tensor<float, 2>()(0,14) = event.get(h_JetLep_eta);
-  NNInputs.at(0).tensor<float, 2>()(0,15) = event.get(h_JetLep_phi);
-  NNInputs.at(0).tensor<float, 2>()(0,16) = event.get(h_JetLep_pt);
-  NNInputs.at(0).tensor<float, 2>()(0,17) = event.get(h_Lep_eta);
-  NNInputs.at(0).tensor<float, 2>()(0,18) = event.get(h_Lep_phi);
-  NNInputs.at(0).tensor<float, 2>()(0,19) = event.get(h_Lep_pt);
-  NNInputs.at(0).tensor<float, 2>()(0,20) = event.get(h_N_AK4_HadJets);
-  NNInputs.at(0).tensor<float, 2>()(0,21) = event.get(h_N_AK4_LepJets);
-  NNInputs.at(0).tensor<float, 2>()(0,22) = event.get(h_N_AK8_Jets);
-  NNInputs.at(0).tensor<float, 2>()(0,23) = event.get(h_Nu_eta);
-  NNInputs.at(0).tensor<float, 2>()(0,24) = event.get(h_Nu_phi);
-  NNInputs.at(0).tensor<float, 2>()(0,25) = event.get(h_Nu_pt);
-  NNInputs.at(0).tensor<float, 2>()(0,26) = event.get(h_S11);
-  NNInputs.at(0).tensor<float, 2>()(0,27) = event.get(h_S12);
-  NNInputs.at(0).tensor<float, 2>()(0,28) = event.get(h_S13);
-  NNInputs.at(0).tensor<float, 2>()(0,29) = event.get(h_S22);
-  NNInputs.at(0).tensor<float, 2>()(0,30) = event.get(h_S23);
-  NNInputs.at(0).tensor<float, 2>()(0,31) = event.get(h_S33);
-  NNInputs.at(0).tensor<float, 2>()(0,32) = event.get(h_TopHadOverLep_pt);
-  NNInputs.at(0).tensor<float, 2>()(0,33) = event.get(h_TopHad_eta);
-  NNInputs.at(0).tensor<float, 2>()(0,34) = event.get(h_TopHad_m);
-  NNInputs.at(0).tensor<float, 2>()(0,35) = event.get(h_TopHad_phi);
-  NNInputs.at(0).tensor<float, 2>()(0,36) = event.get(h_TopHad_pt);
-  NNInputs.at(0).tensor<float, 2>()(0,37) = event.get(h_TopLep_eta);
-  NNInputs.at(0).tensor<float, 2>()(0,38) = event.get(h_TopLep_m);
-  NNInputs.at(0).tensor<float, 2>()(0,39) = event.get(h_TopLep_phi);
-  NNInputs.at(0).tensor<float, 2>()(0,40) = event.get(h_TopLep_pt);
-  NNInputs.at(0).tensor<float, 2>()(0,41) = event.get(h_chi2);
-  NNInputs.at(0).tensor<float, 2>()(0,42) = event.get(h_weight);
-*/
+  NNInputs.push_back( tensorflow::Tensor(tensorflow::DT_FLOAT, {1, 91}));
 
 
+  NNInputs.at(0).tensor<float, 2>()(0,0)  = (event.get(h_Ak4_j1_E)   - min_val[0]) / (max_val[0]-min_val[0]);
+  NNInputs.at(0).tensor<float, 2>()(0,1)  = (event.get(h_Ak4_j1_eta) - min_val[1]) / (max_val[1]-min_val[1]);
+  NNInputs.at(0).tensor<float, 2>()(0,2)  = (event.get(h_Ak4_j1_m)   - min_val[2]) / (max_val[2]-min_val[2]);
+  NNInputs.at(0).tensor<float, 2>()(0,3)  = (event.get(h_Ak4_j1_phi) - min_val[3]) / (max_val[3]-min_val[3]);
+  NNInputs.at(0).tensor<float, 2>()(0,4)  = (event.get(h_Ak4_j1_pt)  - min_val[4]) / (max_val[4]-min_val[4]);
+  NNInputs.at(0).tensor<float, 2>()(0,5)  = (event.get(h_Ak4_j1_px)  - min_val[5]) / (max_val[5]-min_val[5]);
+  NNInputs.at(0).tensor<float, 2>()(0,6)  = (event.get(h_Ak4_j1_py)  - min_val[6]) / (max_val[6]-min_val[6]);
+  NNInputs.at(0).tensor<float, 2>()(0,7)  = (event.get(h_Ak4_j1_pz)  - min_val[7]) / (max_val[7]-min_val[7]);
 
-  NNInputs.at(0).tensor<float, 2>()(0,0)  = (event.get(h_DeltaR_j1_lep) - min_val[0]) / (max_val[0]-min_val[0]);
-  NNInputs.at(0).tensor<float, 2>()(0,1)  = (event.get(h_DeltaR_j1_nu) - min_val[1]) / (max_val[1]-min_val[1]);
-  NNInputs.at(0).tensor<float, 2>()(0,2)  = (event.get(h_DeltaR_j1j2_had) - min_val[2]) / (max_val[2]-min_val[2]);
-  NNInputs.at(0).tensor<float, 2>()(0,3)  = (event.get(h_DeltaR_j1lep_j1had) - min_val[3]) / (max_val[3]-min_val[3]);
-  NNInputs.at(0).tensor<float, 2>()(0,4)  = (event.get(h_DeltaR_tlep_thad) - min_val[4]) / (max_val[4]-min_val[4]);
-  NNInputs.at(0).tensor<float, 2>()(0,5)  = (event.get(h_JetHadAK4_1j_eta) - min_val[5]) / (max_val[5]-min_val[5]);
-  NNInputs.at(0).tensor<float, 2>()(0,6)  = (event.get(h_JetHadAK4_1j_phi) - min_val[6]) / (max_val[6]-min_val[6]);
-  NNInputs.at(0).tensor<float, 2>()(0,7)  = (event.get(h_JetHadAK4_1j_pt) - min_val[7]) / (max_val[7]-min_val[7]);
-  NNInputs.at(0).tensor<float, 2>()(0,8)  = (event.get(h_JetHadAK4_2j_eta) - min_val[8]) / (max_val[8]-min_val[8]);
-  NNInputs.at(0).tensor<float, 2>()(0,9)  = (event.get(h_JetHadAK4_2j_phi) - min_val[9]) / (max_val[9]-min_val[9]);
-  NNInputs.at(0).tensor<float, 2>()(0,10) = (event.get(h_JetHadAK4_2j_pt) - min_val[10]) / (max_val[10]-min_val[10]);
-  NNInputs.at(0).tensor<float, 2>()(0,11) = (event.get(h_JetHadAK8_eta) - min_val[11]) / (max_val[11]-min_val[11]);
-  NNInputs.at(0).tensor<float, 2>()(0,12) = (event.get(h_JetHadAK8_phi) - min_val[12]) / (max_val[12]-min_val[12]);
-  NNInputs.at(0).tensor<float, 2>()(0,13) = (event.get(h_JetHadAK8_pt) - min_val[13]) / (max_val[13]-min_val[13]);
-  NNInputs.at(0).tensor<float, 2>()(0,14) = (event.get(h_JetLep_eta) - min_val[14]) / (max_val[14]-min_val[14]);
-  NNInputs.at(0).tensor<float, 2>()(0,15) = (event.get(h_JetLep_phi) - min_val[15]) / (max_val[15]-min_val[15]);
-  NNInputs.at(0).tensor<float, 2>()(0,16) = (event.get(h_JetLep_pt) - min_val[16]) / (max_val[16]-min_val[16]);
-  NNInputs.at(0).tensor<float, 2>()(0,17) = (event.get(h_Lep_eta) - min_val[17]) / (max_val[17]-min_val[17]);
-  NNInputs.at(0).tensor<float, 2>()(0,18) = (event.get(h_Lep_phi) - min_val[18]) / (max_val[18]-min_val[18]);
-  NNInputs.at(0).tensor<float, 2>()(0,19) = (event.get(h_Lep_pt) - min_val[19]) / (max_val[19]-min_val[19]);
-  NNInputs.at(0).tensor<float, 2>()(0,20) = (event.get(h_N_AK4_HadJets) - min_val[20]) / (max_val[20]-min_val[20]);
-  NNInputs.at(0).tensor<float, 2>()(0,21) = (event.get(h_N_AK4_LepJets) - min_val[21]) / (max_val[21]-min_val[21]);
-  NNInputs.at(0).tensor<float, 2>()(0,22) = (event.get(h_N_AK8_Jets) - min_val[22]) / (max_val[22]-min_val[22]);
-  NNInputs.at(0).tensor<float, 2>()(0,23) = (event.get(h_Nu_eta) - min_val[23]) / (max_val[23]-min_val[23]);
-  NNInputs.at(0).tensor<float, 2>()(0,24) = (event.get(h_Nu_phi) - min_val[24]) / (max_val[24]-min_val[24]);
-  NNInputs.at(0).tensor<float, 2>()(0,25) = (event.get(h_Nu_pt) - min_val[25]) / (max_val[25]-min_val[25]);
-  NNInputs.at(0).tensor<float, 2>()(0,26) = (event.get(h_S11) - min_val[26]) / (max_val[26]-min_val[26]);
-  NNInputs.at(0).tensor<float, 2>()(0,27) = (event.get(h_S12) - min_val[27]) / (max_val[27]-min_val[27]);
-  NNInputs.at(0).tensor<float, 2>()(0,28) = (event.get(h_S13) - min_val[28]) / (max_val[28]-min_val[28]);
-  NNInputs.at(0).tensor<float, 2>()(0,29) = (event.get(h_S22) - min_val[29]) / (max_val[29]-min_val[29]);
-  NNInputs.at(0).tensor<float, 2>()(0,30) = (event.get(h_S23) - min_val[30]) / (max_val[30]-min_val[30]);
-  NNInputs.at(0).tensor<float, 2>()(0,31) = (event.get(h_S33) - min_val[31]) / (max_val[31]-min_val[31]);
-  NNInputs.at(0).tensor<float, 2>()(0,32) = (event.get(h_TopHadOverLep_pt) - min_val[32]) / (max_val[32]-min_val[32]);
-  NNInputs.at(0).tensor<float, 2>()(0,33) = (event.get(h_TopHad_eta) - min_val[33]) / (max_val[33]-min_val[33]);
-  NNInputs.at(0).tensor<float, 2>()(0,34) = (event.get(h_TopHad_m) - min_val[34]) / (max_val[34]-min_val[34]);
-  NNInputs.at(0).tensor<float, 2>()(0,35) = (event.get(h_TopHad_phi) - min_val[35]) / (max_val[35]-min_val[35]);
-  NNInputs.at(0).tensor<float, 2>()(0,36) = (event.get(h_TopHad_pt) - min_val[36]) / (max_val[36]-min_val[36]);
-  NNInputs.at(0).tensor<float, 2>()(0,37) = (event.get(h_TopLep_eta) - min_val[37]) / (max_val[37]-min_val[37]);
-  NNInputs.at(0).tensor<float, 2>()(0,38) = (event.get(h_TopLep_m) - min_val[38]) / (max_val[38]-min_val[38]);
-  NNInputs.at(0).tensor<float, 2>()(0,39) = (event.get(h_TopLep_phi) - min_val[39]) / (max_val[39]-min_val[39]);
-  NNInputs.at(0).tensor<float, 2>()(0,40) = (event.get(h_TopLep_pt) - min_val[40]) / (max_val[40]-min_val[40]);
-  NNInputs.at(0).tensor<float, 2>()(0,41) = (event.get(h_chi2) - min_val[41]) / (max_val[41]-min_val[41]);
-  NNInputs.at(0).tensor<float, 2>()(0,42) = (event.get(h_weight) - min_val[42]) / (max_val[42]-min_val[42]);
+  NNInputs.at(0).tensor<float, 2>()(0,8)  = (event.get(h_Ak4_j2_E)   - min_val[8]) / (max_val[8]-min_val[8]);
+  NNInputs.at(0).tensor<float, 2>()(0,9)  = (event.get(h_Ak4_j2_eta) - min_val[9]) / (max_val[9]-min_val[9]);
+  NNInputs.at(0).tensor<float, 2>()(0,10)  = (event.get(h_Ak4_j2_m)   - min_val[10]) / (max_val[10]-min_val[10]);
+  NNInputs.at(0).tensor<float, 2>()(0,11)  = (event.get(h_Ak4_j2_phi) - min_val[11]) / (max_val[11]-min_val[11]);
+  NNInputs.at(0).tensor<float, 2>()(0,12)  = (event.get(h_Ak4_j2_pt)  - min_val[12]) / (max_val[12]-min_val[12]);
+  NNInputs.at(0).tensor<float, 2>()(0,13)  = (event.get(h_Ak4_j2_px)  - min_val[13]) / (max_val[13]-min_val[13]);
+  NNInputs.at(0).tensor<float, 2>()(0,14)  = (event.get(h_Ak4_j2_py)  - min_val[14]) / (max_val[14]-min_val[14]);
+  NNInputs.at(0).tensor<float, 2>()(0,15)  = (event.get(h_Ak4_j2_pz)  - min_val[15]) / (max_val[15]-min_val[15]);
+
+  NNInputs.at(0).tensor<float, 2>()(0,16)  = (event.get(h_Ak4_j3_E)   - min_val[16]) / (max_val[16]-min_val[16]);
+  NNInputs.at(0).tensor<float, 2>()(0,17)  = (event.get(h_Ak4_j3_eta) - min_val[17]) / (max_val[17]-min_val[17]);
+  NNInputs.at(0).tensor<float, 2>()(0,18)  = (event.get(h_Ak4_j3_m)   - min_val[18]) / (max_val[18]-min_val[18]);
+  NNInputs.at(0).tensor<float, 2>()(0,19)  = (event.get(h_Ak4_j3_phi) - min_val[19]) / (max_val[19]-min_val[19]);
+  NNInputs.at(0).tensor<float, 2>()(0,20)  = (event.get(h_Ak4_j3_pt)  - min_val[20]) / (max_val[20]-min_val[20]);
+  NNInputs.at(0).tensor<float, 2>()(0,21)  = (event.get(h_Ak4_j3_px)  - min_val[21]) / (max_val[21]-min_val[21]);
+  NNInputs.at(0).tensor<float, 2>()(0,22)  = (event.get(h_Ak4_j3_py)  - min_val[22]) / (max_val[22]-min_val[22]);
+  NNInputs.at(0).tensor<float, 2>()(0,23)  = (event.get(h_Ak4_j3_pz)  - min_val[23]) / (max_val[23]-min_val[23]);
+
+  NNInputs.at(0).tensor<float, 2>()(0,24)  = (event.get(h_Ak4_j4_E)   - min_val[24]) / (max_val[24]-min_val[24]);
+  NNInputs.at(0).tensor<float, 2>()(0,25)  = (event.get(h_Ak4_j4_eta) - min_val[25]) / (max_val[25]-min_val[25]);
+  NNInputs.at(0).tensor<float, 2>()(0,26)  = (event.get(h_Ak4_j4_m)   - min_val[26]) / (max_val[26]-min_val[26]);
+  NNInputs.at(0).tensor<float, 2>()(0,27)  = (event.get(h_Ak4_j4_phi) - min_val[27]) / (max_val[27]-min_val[27]);
+  NNInputs.at(0).tensor<float, 2>()(0,28)  = (event.get(h_Ak4_j4_pt)  - min_val[28]) / (max_val[28]-min_val[28]);
+  NNInputs.at(0).tensor<float, 2>()(0,29)  = (event.get(h_Ak4_j4_px)  - min_val[29]) / (max_val[29]-min_val[29]);
+  NNInputs.at(0).tensor<float, 2>()(0,30)  = (event.get(h_Ak4_j4_py)  - min_val[30]) / (max_val[30]-min_val[30]);
+  NNInputs.at(0).tensor<float, 2>()(0,31)  = (event.get(h_Ak4_j4_pz)  - min_val[31]) / (max_val[31]-min_val[31]);
+
+  NNInputs.at(0).tensor<float, 2>()(0,32)  = (event.get(h_Ak4_j5_E)   - min_val[32]) / (max_val[32]-min_val[32]);
+  NNInputs.at(0).tensor<float, 2>()(0,33)  = (event.get(h_Ak4_j5_eta) - min_val[33]) / (max_val[33]-min_val[33]);
+  NNInputs.at(0).tensor<float, 2>()(0,34)  = (event.get(h_Ak4_j5_m)   - min_val[34]) / (max_val[34]-min_val[34]);
+  NNInputs.at(0).tensor<float, 2>()(0,35)  = (event.get(h_Ak4_j5_phi) - min_val[35]) / (max_val[35]-min_val[35]);
+  NNInputs.at(0).tensor<float, 2>()(0,36)  = (event.get(h_Ak4_j5_pt)  - min_val[36]) / (max_val[36]-min_val[36]);
+  NNInputs.at(0).tensor<float, 2>()(0,37)  = (event.get(h_Ak4_j5_px)  - min_val[37]) / (max_val[37]-min_val[37]);
+  NNInputs.at(0).tensor<float, 2>()(0,38)  = (event.get(h_Ak4_j5_py)  - min_val[38]) / (max_val[38]-min_val[38]);
+  NNInputs.at(0).tensor<float, 2>()(0,39)  = (event.get(h_Ak4_j5_pz)  - min_val[39]) / (max_val[39]-min_val[39]);
+
+  NNInputs.at(0).tensor<float, 2>()(0,40)  = (event.get(h_Ak4_j6_E)   - min_val[40]) / (max_val[40]-min_val[40]);
+  NNInputs.at(0).tensor<float, 2>()(0,41)  = (event.get(h_Ak4_j6_eta) - min_val[41]) / (max_val[42]-min_val[41]);
+  NNInputs.at(0).tensor<float, 2>()(0,42)  = (event.get(h_Ak4_j6_m)   - min_val[42]) / (max_val[42]-min_val[42]);
+  NNInputs.at(0).tensor<float, 2>()(0,43)  = (event.get(h_Ak4_j6_phi) - min_val[43]) / (max_val[43]-min_val[43]);
+  NNInputs.at(0).tensor<float, 2>()(0,44)  = (event.get(h_Ak4_j6_pt)  - min_val[44]) / (max_val[44]-min_val[44]);
+  NNInputs.at(0).tensor<float, 2>()(0,45)  = (event.get(h_Ak4_j6_px)  - min_val[45]) / (max_val[45]-min_val[45]);
+  NNInputs.at(0).tensor<float, 2>()(0,46)  = (event.get(h_Ak4_j6_py)  - min_val[46]) / (max_val[46]-min_val[46]);
+  NNInputs.at(0).tensor<float, 2>()(0,47)  = (event.get(h_Ak4_j6_pz)  - min_val[47]) / (max_val[47]-min_val[47]);
+
+  NNInputs.at(0).tensor<float, 2>()(0,48)  = (event.get(h_Ak8_j1_E)     - min_val[48]) / (max_val[48]-min_val[48]);
+  NNInputs.at(0).tensor<float, 2>()(0,49)  = (event.get(h_Ak8_j1_eta)   - min_val[49]) / (max_val[49]-min_val[49]);
+  NNInputs.at(0).tensor<float, 2>()(0,50)  = (event.get(h_Ak8_j1_mSD)   - min_val[50]) / (max_val[50]-min_val[50]);
+  NNInputs.at(0).tensor<float, 2>()(0,51)  = (event.get(h_Ak8_j1_phi)   - min_val[51]) / (max_val[51]-min_val[51]);
+  NNInputs.at(0).tensor<float, 2>()(0,52)  = (event.get(h_Ak8_j1_pt)    - min_val[52]) / (max_val[52]-min_val[52]);
+  NNInputs.at(0).tensor<float, 2>()(0,53)  = (event.get(h_Ak8_j1_px)    - min_val[53]) / (max_val[53]-min_val[53]);
+  NNInputs.at(0).tensor<float, 2>()(0,54)  = (event.get(h_Ak8_j1_py)    - min_val[54]) / (max_val[54]-min_val[54]);
+  NNInputs.at(0).tensor<float, 2>()(0,55)  = (event.get(h_Ak8_j1_pz)    - min_val[55]) / (max_val[55]-min_val[55]);
+  NNInputs.at(0).tensor<float, 2>()(0,56)  = (event.get(h_Ak8_j1_tau21) - min_val[56]) / (max_val[56]-min_val[56]);
+  NNInputs.at(0).tensor<float, 2>()(0,57)  = (event.get(h_Ak8_j1_tau32) - min_val[57]) / (max_val[57]-min_val[57]);
+
+  NNInputs.at(0).tensor<float, 2>()(0,58)  = (event.get(h_Ak8_j2_E)     - min_val[58]) / (max_val[58]-min_val[58]);
+  NNInputs.at(0).tensor<float, 2>()(0,59)  = (event.get(h_Ak8_j2_eta)   - min_val[59]) / (max_val[59]-min_val[59]);
+  NNInputs.at(0).tensor<float, 2>()(0,60)  = (event.get(h_Ak8_j2_mSD)   - min_val[60]) / (max_val[60]-min_val[60]);
+  NNInputs.at(0).tensor<float, 2>()(0,61)  = (event.get(h_Ak8_j2_phi)   - min_val[61]) / (max_val[61]-min_val[61]);
+  NNInputs.at(0).tensor<float, 2>()(0,62)  = (event.get(h_Ak8_j2_pt)    - min_val[62]) / (max_val[62]-min_val[62]);
+  NNInputs.at(0).tensor<float, 2>()(0,63)  = (event.get(h_Ak8_j2_px)    - min_val[63]) / (max_val[63]-min_val[63]);
+  NNInputs.at(0).tensor<float, 2>()(0,64)  = (event.get(h_Ak8_j2_py)    - min_val[64]) / (max_val[64]-min_val[64]);
+  NNInputs.at(0).tensor<float, 2>()(0,65)  = (event.get(h_Ak8_j2_pz)    - min_val[65]) / (max_val[65]-min_val[65]);
+  NNInputs.at(0).tensor<float, 2>()(0,66)  = (event.get(h_Ak8_j2_tau21) - min_val[66]) / (max_val[66]-min_val[66]);
+  NNInputs.at(0).tensor<float, 2>()(0,67)  = (event.get(h_Ak8_j2_tau32) - min_val[67]) / (max_val[67]-min_val[67]);
+
+  NNInputs.at(0).tensor<float, 2>()(0,68)  = (event.get(h_Ak8_j3_E)     - min_val[68]) / (max_val[68]-min_val[68]);
+  NNInputs.at(0).tensor<float, 2>()(0,69)  = (event.get(h_Ak8_j3_eta)   - min_val[69]) / (max_val[69]-min_val[69]);
+  NNInputs.at(0).tensor<float, 2>()(0,70)  = (event.get(h_Ak8_j3_mSD)   - min_val[70]) / (max_val[70]-min_val[70]);
+  NNInputs.at(0).tensor<float, 2>()(0,71)  = (event.get(h_Ak8_j3_phi)   - min_val[71]) / (max_val[71]-min_val[71]);
+  NNInputs.at(0).tensor<float, 2>()(0,72)  = (event.get(h_Ak8_j3_pt)    - min_val[72]) / (max_val[72]-min_val[72]);
+  NNInputs.at(0).tensor<float, 2>()(0,73)  = (event.get(h_Ak8_j3_px)    - min_val[73]) / (max_val[73]-min_val[73]);
+  NNInputs.at(0).tensor<float, 2>()(0,74)  = (event.get(h_Ak8_j3_py)    - min_val[74]) / (max_val[74]-min_val[74]);
+  NNInputs.at(0).tensor<float, 2>()(0,75)  = (event.get(h_Ak8_j3_pz)    - min_val[75]) / (max_val[75]-min_val[75]);
+  NNInputs.at(0).tensor<float, 2>()(0,76)  = (event.get(h_Ak8_j3_tau21) - min_val[76]) / (max_val[76]-min_val[76]);
+  NNInputs.at(0).tensor<float, 2>()(0,77)  = (event.get(h_Ak8_j3_tau32) - min_val[77]) / (max_val[77]-min_val[77]);
+
+  NNInputs.at(0).tensor<float, 2>()(0,78)  = (event.get(h_MET_pt) - min_val[78]) / (max_val[78]-min_val[78]);
+  NNInputs.at(0).tensor<float, 2>()(0,79)  = (event.get(h_MET_px) - min_val[79]) / (max_val[79]-min_val[79]);
+  NNInputs.at(0).tensor<float, 2>()(0,80)  = (event.get(h_MET_py) - min_val[80]) / (max_val[80]-min_val[80]);
+
+  NNInputs.at(0).tensor<float, 2>()(0,81)  = (event.get(h_Mu_E)   - min_val[81]) / (max_val[81]-min_val[81]);
+  NNInputs.at(0).tensor<float, 2>()(0,82)  = (event.get(h_Mu_eta) - min_val[82]) / (max_val[82]-min_val[82]);
+  NNInputs.at(0).tensor<float, 2>()(0,83)  = (event.get(h_Mu_phi) - min_val[83]) / (max_val[83]-min_val[83]);
+  NNInputs.at(0).tensor<float, 2>()(0,84)  = (event.get(h_Mu_pt)  - min_val[84]) / (max_val[84]-min_val[84]);
+  NNInputs.at(0).tensor<float, 2>()(0,85)  = (event.get(h_Mu_px)  - min_val[85]) / (max_val[85]-min_val[85]);
+  NNInputs.at(0).tensor<float, 2>()(0,86)  = (event.get(h_Mu_py)  - min_val[86]) / (max_val[86]-min_val[86]);
+  NNInputs.at(0).tensor<float, 2>()(0,87)  = (event.get(h_Mu_pz)  - min_val[87]) / (max_val[87]-min_val[87]);
+
+  NNInputs.at(0).tensor<float, 2>()(0,88)  = (event.get(h_N_Ak4) - min_val[88]) / (max_val[88]-min_val[88]);
+  NNInputs.at(0).tensor<float, 2>()(0,89)  = (event.get(h_N_Ak8) - min_val[89]) / (max_val[89]-min_val[89]);
+
+  NNInputs.at(0).tensor<float, 2>()(0,90)  = (event.get(h_weight) - min_val[90]) / (max_val[90]-min_val[90]);
 
 
   if (NNInputs.size()!=LayerInputs.size()) throw logic_error("NeuralNetworkModule.cxx: Create a number of inputs diffetent wrt. LayerInputs.size()="+to_string(LayerInputs.size())); 
@@ -327,6 +462,7 @@ protected:
 
   //Handles
   Event::Handle<bool> h_is_zprime_reconstructed_chi2, h_is_zprime_reconstructed_correctmatch;
+  Event::Handle<float> h_chi2;
   Event::Handle<float> h_MET;   Event::Handle<int> h_NPV;
   Event::Handle<float> h_lep1_pt; Event::Handle<float> h_lep1_eta; 
   Event::Handle<float> h_ak4jet1_pt; Event::Handle<float> h_ak4jet1_eta; 
@@ -347,49 +483,109 @@ protected:
   bool is2016v2, is2016v3, is2017v2, is2018;
   bool isMuon, isElectron;
 
-  Event::Handle<float> h_DeltaR_j1_lep;
-  Event::Handle<float> h_chi2;
+  Event::Handle<float> h_Ak4_j1_E;
+  Event::Handle<float> h_Ak4_j1_eta;
+  Event::Handle<float> h_Ak4_j1_m;
+  Event::Handle<float> h_Ak4_j1_phi;
+  Event::Handle<float> h_Ak4_j1_pt;
+  Event::Handle<float> h_Ak4_j1_px;
+  Event::Handle<float> h_Ak4_j1_py;
+  Event::Handle<float> h_Ak4_j1_pz;
+
+  Event::Handle<float> h_Ak4_j2_E;
+  Event::Handle<float> h_Ak4_j2_eta;
+  Event::Handle<float> h_Ak4_j2_m;
+  Event::Handle<float> h_Ak4_j2_phi;
+  Event::Handle<float> h_Ak4_j2_pt;
+  Event::Handle<float> h_Ak4_j2_px;
+  Event::Handle<float> h_Ak4_j2_py;
+  Event::Handle<float> h_Ak4_j2_pz;
+  
+  Event::Handle<float> h_Ak4_j3_E;
+  Event::Handle<float> h_Ak4_j3_eta;
+  Event::Handle<float> h_Ak4_j3_m;
+  Event::Handle<float> h_Ak4_j3_phi;
+  Event::Handle<float> h_Ak4_j3_pt;
+  Event::Handle<float> h_Ak4_j3_px;
+  Event::Handle<float> h_Ak4_j3_py;
+  Event::Handle<float> h_Ak4_j3_pz;
+  
+  Event::Handle<float> h_Ak4_j4_E;
+  Event::Handle<float> h_Ak4_j4_eta;
+  Event::Handle<float> h_Ak4_j4_m;
+  Event::Handle<float> h_Ak4_j4_phi;
+  Event::Handle<float> h_Ak4_j4_pt;
+  Event::Handle<float> h_Ak4_j4_px;
+  Event::Handle<float> h_Ak4_j4_py;
+  Event::Handle<float> h_Ak4_j4_pz;
+  
+  Event::Handle<float> h_Ak4_j5_E;
+  Event::Handle<float> h_Ak4_j5_eta;
+  Event::Handle<float> h_Ak4_j5_m;
+  Event::Handle<float> h_Ak4_j5_phi;
+  Event::Handle<float> h_Ak4_j5_pt;
+  Event::Handle<float> h_Ak4_j5_px;
+  Event::Handle<float> h_Ak4_j5_py;
+  Event::Handle<float> h_Ak4_j5_pz;
+  
+  Event::Handle<float> h_Ak4_j6_E;
+  Event::Handle<float> h_Ak4_j6_eta;
+  Event::Handle<float> h_Ak4_j6_m;
+  Event::Handle<float> h_Ak4_j6_phi;
+  Event::Handle<float> h_Ak4_j6_pt;
+  Event::Handle<float> h_Ak4_j6_px;
+  Event::Handle<float> h_Ak4_j6_py;
+  Event::Handle<float> h_Ak4_j6_pz;
+  
+  Event::Handle<float> h_Ak8_j1_E;
+  Event::Handle<float> h_Ak8_j1_eta;
+  Event::Handle<float> h_Ak8_j1_mSD;
+  Event::Handle<float> h_Ak8_j1_phi;
+  Event::Handle<float> h_Ak8_j1_pt;
+  Event::Handle<float> h_Ak8_j1_px;
+  Event::Handle<float> h_Ak8_j1_py;
+  Event::Handle<float> h_Ak8_j1_pz;
+  Event::Handle<float> h_Ak8_j1_tau21;
+  Event::Handle<float> h_Ak8_j1_tau32;
+  
+  Event::Handle<float> h_Ak8_j2_E;
+  Event::Handle<float> h_Ak8_j2_eta;
+  Event::Handle<float> h_Ak8_j2_mSD;
+  Event::Handle<float> h_Ak8_j2_phi;
+  Event::Handle<float> h_Ak8_j2_pt;
+  Event::Handle<float> h_Ak8_j2_px;
+  Event::Handle<float> h_Ak8_j2_py;
+  Event::Handle<float> h_Ak8_j2_pz;
+  Event::Handle<float> h_Ak8_j2_tau21;
+  Event::Handle<float> h_Ak8_j2_tau32;
+  
+  Event::Handle<float> h_Ak8_j3_E;
+  Event::Handle<float> h_Ak8_j3_eta;
+  Event::Handle<float> h_Ak8_j3_mSD;
+  Event::Handle<float> h_Ak8_j3_phi;
+  Event::Handle<float> h_Ak8_j3_pt;
+  Event::Handle<float> h_Ak8_j3_px;
+  Event::Handle<float> h_Ak8_j3_py;
+  Event::Handle<float> h_Ak8_j3_pz;
+  Event::Handle<float> h_Ak8_j3_tau21;
+  Event::Handle<float> h_Ak8_j3_tau32;
+  
+  Event::Handle<float> h_MET_pt;
+  Event::Handle<float> h_MET_px;
+  Event::Handle<float> h_MET_py;
+  
+  Event::Handle<float> h_Mu_E;
+  Event::Handle<float> h_Mu_eta;
+  Event::Handle<float> h_Mu_phi;
+  Event::Handle<float> h_Mu_pt;
+  Event::Handle<float> h_Mu_py;
+  Event::Handle<float> h_Mu_px;
+  Event::Handle<float> h_Mu_pz;
+  
+  Event::Handle<float> h_N_Ak4;
+  Event::Handle<float> h_N_Ak8;
+  
   Event::Handle<float> h_weight;
-  Event::Handle<float> h_Lep_pt;
-  Event::Handle<float> h_Lep_eta;
-  Event::Handle<float> h_Lep_phi;
-  Event::Handle<float> h_Nu_pt;
-  Event::Handle<float> h_Nu_eta;
-  Event::Handle<float> h_Nu_phi;
-  Event::Handle<float> h_JetLep_pt;
-  Event::Handle<float> h_JetLep_eta;
-  Event::Handle<float> h_JetLep_phi;
-  Event::Handle<float> h_JetHadAK8_pt;
-  Event::Handle<float> h_JetHadAK8_eta;
-  Event::Handle<float> h_JetHadAK8_phi;
-  Event::Handle<float> h_JetHadAK4_1j_pt;
-  Event::Handle<float> h_JetHadAK4_1j_eta;
-  Event::Handle<float> h_JetHadAK4_1j_phi;
-  Event::Handle<float> h_N_AK4_HadJets;
-  Event::Handle<float> h_N_AK8_Jets;
-  Event::Handle<float> h_N_AK4_LepJets;
-  Event::Handle<float> h_JetHadAK4_2j_pt;
-  Event::Handle<float> h_JetHadAK4_2j_eta;
-  Event::Handle<float> h_JetHadAK4_2j_phi;
-  Event::Handle<float> h_TopLep_pt;
-  Event::Handle<float> h_TopLep_m;
-  Event::Handle<float> h_TopLep_eta;
-  Event::Handle<float> h_TopLep_phi;
-  Event::Handle<float> h_TopHad_pt;
-  Event::Handle<float> h_TopHad_m;
-  Event::Handle<float> h_TopHad_eta;
-  Event::Handle<float> h_TopHad_phi;
-  Event::Handle<float> h_TopHadOverLep_pt;
-  Event::Handle<float> h_DeltaR_j1j2_had;
-  Event::Handle<float> h_DeltaR_j1lep_j1had;
-  Event::Handle<float> h_DeltaR_j1_nu;
-  Event::Handle<float> h_DeltaR_tlep_thad;
-  Event::Handle<float> h_S11;
-  Event::Handle<float> h_S12;
-  Event::Handle<float> h_S13;
-  Event::Handle<float> h_S22;
-  Event::Handle<float> h_S23;
-  Event::Handle<float> h_S33;
 
 
   Event::Handle<std::vector<tensorflow::Tensor> > h_NNoutput;
@@ -540,15 +736,14 @@ ZprimeAnalysisModule_TestNN::ZprimeAnalysisModule_TestNN(uhh2::Context& ctx){
   //  MuonID_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2016/MuonID_EfficienciesAndSF_average_RunBtoH.root", "MC_NUM_TightID_DEN_genTracks_PAR_pt_eta", 0., "MuonID", true, Sys_MuonID));
   //  MuonTrigger_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2016/MuonTrigger_EfficienciesAndSF_average_RunBtoH.root", "IsoMu50_OR_IsoTkMu50_PtEtaBins", 0.5, "MuonTrigger", true, Sys_MuonTrigger));
   //}
-  //if(is2017v2 || is2018){
-  //  MuonID_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2017/MuonID_94X_RunBCDEF_SF_ID.root", "NUM_HighPtID_DEN_genTracks_pair_newTuneP_probe_pt_abseta", 0., "HighPtID", true, Sys_MuonID));
-  //  MuonTrigger_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2017/MuonTrigger_EfficienciesAndSF_RunBtoF_Nov17Nov2017.root", "Mu50_PtEtaBins/pt_abseta_ratio", 0.5, "Trigger", true, Sys_MuonTrigger));
-  //}
+  if(is2017v2 || is2018){
+    MuonID_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2017/MuonID_94X_RunBCDEF_SF_ID.root", "NUM_HighPtID_DEN_genTracks_pair_newTuneP_probe_pt_abseta", 0., "HighPtID", true, Sys_MuonID));
+    MuonTrigger_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2017/MuonTrigger_EfficienciesAndSF_RunBtoF_Nov17Nov2017.root", "Mu50_PtEtaBins/pt_abseta_ratio", 0.5, "Trigger", true, Sys_MuonTrigger));
+  }
 
   // Selection modules
   Trigger1_selection.reset(new TriggerSelection(trigger1));
   Trigger2_selection.reset(new TriggerSelection(trigger2));
-  //  Trigger3_selection.reset(new TriggerSelection(trigger3));
   NMuon1_selection.reset(new NMuonSelection(nmuon_min1, nmuon_max1));
   NMuon2_selection.reset(new NMuonSelection(nmuon_min2, nmuon_max2));
   NElectron_selection.reset(new NElectronSelection(nele_min, nele_max));
@@ -561,7 +756,6 @@ ZprimeAnalysisModule_TestNN::ZprimeAnalysisModule_TestNN(uhh2::Context& ctx){
 
   TTbarMatchable_selection.reset(new TTbarSemiLepMatchableSelection());
   Chi2_selection.reset(new Chi2Cut(ctx, 0., chi2_max));
-  //TTbarMatchable_selection.reset(new TTbarSemiLepMatchableSelection());
   Chi2CandidateMatched_selection.reset(new Chi2CandidateMatchedSelection(ctx));
   ZprimeTopTag_selection.reset(new ZprimeTopTagSelection(ctx));
   BlindData_selection.reset(new BlindDataSelection(ctx, mtt_blind));
@@ -579,11 +773,8 @@ ZprimeAnalysisModule_TestNN::ZprimeAnalysisModule_TestNN(uhh2::Context& ctx){
   h_is_zprime_reconstructed_correctmatch = ctx.get_handle<bool>("is_zprime_reconstructed_correctmatch");
   Chi2DiscriminatorZprime.reset(new ZprimeChi2Discriminator(ctx));
   h_is_zprime_reconstructed_chi2 = ctx.get_handle<bool>("is_zprime_reconstructed_chi2");
-  //CorrectMatchDiscriminatorZprime.reset(new ZprimeCorrectMatchDiscriminator(ctx));
-  //h_is_zprime_reconstructed_correctmatch = ctx.get_handle<bool>("is_zprime_reconstructed_correctmatch");
   h_BestZprimeCandidateChi2 = ctx.get_handle<ZprimeCandidate*>("ZprimeCandidateBestChi2");
-  //  h_chi2 = ctx.get_handle<float>("rec_chi2");
-  //h_chi2 = ctx.declare_event_output<float> ("rec_chi2");
+  h_chi2 = ctx.declare_event_output<float> ("rec_chi2");
   h_MET = ctx.declare_event_output<float> ("met_pt");
   h_Mttbar = ctx.declare_event_output<float> ("Mttbar");
 
@@ -614,60 +805,118 @@ ZprimeAnalysisModule_TestNN::ZprimeAnalysisModule_TestNN(uhh2::Context& ctx){
   TopJetBtagSubjet_selection.reset(new ZprimeBTagFatSubJetSelection(ctx));
 
   // Book histograms
-  vector<string> histogram_tags = {"Weights", "Muon1", "Trigger", "Muon2", "Electron1", "Jet1", "Jet2", "MET", "HTlep", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction", "Btags2", "Btags1","TopJetBtagSubjet","DNN_output0","DNN_output1","DNN_output2"};
+  vector<string> histogram_tags = {"Weights", "Muon1", "Trigger", "Muon2", "Electron1", "TwoDCut", "Jet1", "Jet2", "MET", "HTlep", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction", "Btags2", "Btags1","TopJetBtagSubjet","DNN_output0","DNN_output1","DNN_output2"};
   book_histograms(ctx, histogram_tags);
 
-//  h_topjets = ctx.get_handle<std::vector<TopJet>>("toppuppijets");DeltaR_j1_lep
-  h_DeltaR_j1_lep      = ctx.get_handle<float> ("DeltaR_j1_lep");
-  h_chi2               = ctx.get_handle<float> ("rec_chi2");
-  h_Lep_pt             = ctx.get_handle<float> ("Lep_pt");
-  h_Lep_eta            = ctx.get_handle<float> ("Lep_eta");
-  h_Lep_phi            = ctx.get_handle<float> ("Lep_phi");
-  h_Nu_pt              = ctx.get_handle<float> ("Nu_pt");
-  h_Nu_eta             = ctx.get_handle<float> ("Nu_eta");
-  h_Nu_phi             = ctx.get_handle<float> ("Nu_phi");
-  h_JetLep_pt          = ctx.get_handle<float> ("JetLep_pt");
-  h_JetLep_eta         = ctx.get_handle<float> ("JetLep_eta");
-  h_JetLep_phi         = ctx.get_handle<float> ("JetLep_phi");
-  h_JetHadAK8_pt       = ctx.get_handle<float> ("JetHadAK8_pt");
-  h_JetHadAK8_eta      = ctx.get_handle<float> ("JetHadAK8_eta");
-  h_JetHadAK8_phi      = ctx.get_handle<float> ("JetHadAK8_phi");
-  h_JetHadAK4_1j_pt    = ctx.get_handle<float> ("JetHadAK4_1j_pt");
-  h_JetHadAK4_1j_eta   = ctx.get_handle<float> ("JetHadAK4_1j_eta");
-  h_JetHadAK4_1j_phi   = ctx.get_handle<float> ("JetHadAK4_1j_phi");
-  h_N_AK4_HadJets      = ctx.get_handle<float> ("N_AK4_HadJets");
-  h_N_AK8_Jets         = ctx.get_handle<float> ("N_AK8_Jets");
-  h_N_AK4_LepJets      = ctx.get_handle<float> ("N_AK4_LepJets");
-  h_JetHadAK4_2j_pt    = ctx.get_handle<float> ("JetHadAK4_2j_pt");
-  h_JetHadAK4_2j_eta   = ctx.get_handle<float> ("JetHadAK4_2j_eta");
-  h_JetHadAK4_2j_phi   = ctx.get_handle<float> ("JetHadAK4_2j_phi");
-  h_TopLep_pt          = ctx.get_handle<float> ("TopLep_pt");
-  h_TopLep_m           = ctx.get_handle<float> ("TopLep_m");
-  h_TopLep_eta         = ctx.get_handle<float> ("TopLep_eta");
-  h_TopLep_phi         = ctx.get_handle<float> ("TopLep_phi");
-  h_TopHad_pt          = ctx.get_handle<float> ("TopHad_pt");
-  h_TopHad_m           = ctx.get_handle<float> ("TopHad_m");
-  h_TopHad_eta         = ctx.get_handle<float> ("TopHad_eta");
-  h_TopHad_phi         = ctx.get_handle<float> ("TopHad_phi");
-  h_TopHadOverLep_pt   = ctx.get_handle<float> ("TopHadOverLep_pt");
-  h_DeltaR_j1j2_had    = ctx.get_handle<float> ("DeltaR_j1j2_had");
-  h_DeltaR_j1lep_j1had = ctx.get_handle<float> ("DeltaR_j1lep_j1had");
-  h_DeltaR_j1_nu       = ctx.get_handle<float> ("DeltaR_j1_nu");
-  h_DeltaR_tlep_thad   = ctx.get_handle<float> ("DeltaR_tlep_thad");
-  h_S11                = ctx.get_handle<float> ("S11");
-  h_S12                = ctx.get_handle<float> ("S12");
-  h_S13                = ctx.get_handle<float> ("S13");
-  h_S22                = ctx.get_handle<float> ("S22");
-  h_S23                = ctx.get_handle<float> ("S23");
-  h_S33                = ctx.get_handle<float> ("S33");
-  h_weight             = ctx.get_handle<float> ("weight");
-
+  h_Ak4_j1_E   = ctx.get_handle<float>("Ak4_j1_E");
+  h_Ak4_j1_eta = ctx.get_handle<float>("Ak4_j1_eta");
+  h_Ak4_j1_m   = ctx.get_handle<float>("Ak4_j1_m");
+  h_Ak4_j1_phi = ctx.get_handle<float>("Ak4_j1_phi");
+  h_Ak4_j1_pt  = ctx.get_handle<float>("Ak4_j1_pt");
+  h_Ak4_j1_px  = ctx.get_handle<float>("Ak4_j1_px");
+  h_Ak4_j1_py  = ctx.get_handle<float>("Ak4_j1_py");
+  h_Ak4_j1_pz  = ctx.get_handle<float>("Ak4_j1_pz");
+  
+  h_Ak4_j2_E   = ctx.get_handle<float>("Ak4_j2_E");
+  h_Ak4_j2_eta = ctx.get_handle<float>("Ak4_j2_eta");
+  h_Ak4_j2_m   = ctx.get_handle<float>("Ak4_j2_m");
+  h_Ak4_j2_phi = ctx.get_handle<float>("Ak4_j2_phi");
+  h_Ak4_j2_pt  = ctx.get_handle<float>("Ak4_j2_pt");
+  h_Ak4_j2_px  = ctx.get_handle<float>("Ak4_j2_px");
+  h_Ak4_j2_py  = ctx.get_handle<float>("Ak4_j2_py");
+  h_Ak4_j2_pz  = ctx.get_handle<float>("Ak4_j2_pz");
+  
+  h_Ak4_j3_E   = ctx.get_handle<float>("Ak4_j3_E");
+  h_Ak4_j3_eta = ctx.get_handle<float>("Ak4_j3_eta");
+  h_Ak4_j3_m   = ctx.get_handle<float>("Ak4_j3_m");
+  h_Ak4_j3_phi = ctx.get_handle<float>("Ak4_j3_phi");
+  h_Ak4_j3_pt  = ctx.get_handle<float>("Ak4_j3_pt");
+  h_Ak4_j3_px  = ctx.get_handle<float>("Ak4_j3_px");
+  h_Ak4_j3_py  = ctx.get_handle<float>("Ak4_j3_py");
+  h_Ak4_j3_pz  = ctx.get_handle<float>("Ak4_j3_pz");
+  
+  h_Ak4_j4_E   = ctx.get_handle<float>("Ak4_j4_E");
+  h_Ak4_j4_eta = ctx.get_handle<float>("Ak4_j4_eta");
+  h_Ak4_j4_m   = ctx.get_handle<float>("Ak4_j4_m");
+  h_Ak4_j4_phi = ctx.get_handle<float>("Ak4_j4_phi");
+  h_Ak4_j4_pt  = ctx.get_handle<float>("Ak4_j4_pt");
+  h_Ak4_j4_px  = ctx.get_handle<float>("Ak4_j4_px");
+  h_Ak4_j4_py  = ctx.get_handle<float>("Ak4_j4_py");
+  h_Ak4_j4_pz  = ctx.get_handle<float>("Ak4_j4_pz");
+  
+  h_Ak4_j5_E   = ctx.get_handle<float>("Ak4_j5_E");
+  h_Ak4_j5_eta = ctx.get_handle<float>("Ak4_j5_eta");
+  h_Ak4_j5_m   = ctx.get_handle<float>("Ak4_j5_m");
+  h_Ak4_j5_phi = ctx.get_handle<float>("Ak4_j5_phi");
+  h_Ak4_j5_pt  = ctx.get_handle<float>("Ak4_j5_pt");
+  h_Ak4_j5_px  = ctx.get_handle<float>("Ak4_j5_px");
+  h_Ak4_j5_py  = ctx.get_handle<float>("Ak4_j5_py");
+  h_Ak4_j5_pz  = ctx.get_handle<float>("Ak4_j5_pz");
+  
+  h_Ak4_j6_E   = ctx.get_handle<float>("Ak4_j6_E");
+  h_Ak4_j6_eta = ctx.get_handle<float>("Ak4_j6_eta");
+  h_Ak4_j6_m   = ctx.get_handle<float>("Ak4_j6_m");
+  h_Ak4_j6_phi = ctx.get_handle<float>("Ak4_j6_phi");
+  h_Ak4_j6_pt  = ctx.get_handle<float>("Ak4_j6_pt");
+  h_Ak4_j6_px  = ctx.get_handle<float>("Ak4_j6_px");
+  h_Ak4_j6_py  = ctx.get_handle<float>("Ak4_j6_py");
+  h_Ak4_j6_pz  = ctx.get_handle<float>("Ak4_j6_pz");
+  
+  h_Ak8_j1_E     = ctx.get_handle<float>("Ak8_j1_E");
+  h_Ak8_j1_eta   = ctx.get_handle<float>("Ak8_j1_eta");
+  h_Ak8_j1_mSD   = ctx.get_handle<float>("Ak8_j1_mSD");
+  h_Ak8_j1_phi   = ctx.get_handle<float>("Ak8_j1_phi");
+  h_Ak8_j1_pt    = ctx.get_handle<float>("Ak8_j1_pt");
+  h_Ak8_j1_px    = ctx.get_handle<float>("Ak8_j1_px");
+  h_Ak8_j1_py    = ctx.get_handle<float>("Ak8_j1_py");
+  h_Ak8_j1_pz    = ctx.get_handle<float>("Ak8_j1_pz");
+  h_Ak8_j1_tau21 = ctx.get_handle<float>("Ak8_j1_tau21");
+  h_Ak8_j1_tau32 = ctx.get_handle<float>("Ak8_j1_tau32");
+  
+  h_Ak8_j2_E     = ctx.get_handle<float>("Ak8_j2_E");
+  h_Ak8_j2_eta   = ctx.get_handle<float>("Ak8_j2_eta");
+  h_Ak8_j2_mSD   = ctx.get_handle<float>("Ak8_j2_mSD");
+  h_Ak8_j2_phi   = ctx.get_handle<float>("Ak8_j2_phi");
+  h_Ak8_j2_pt    = ctx.get_handle<float>("Ak8_j2_pt");
+  h_Ak8_j2_px    = ctx.get_handle<float>("Ak8_j2_px");
+  h_Ak8_j2_py    = ctx.get_handle<float>("Ak8_j2_py");
+  h_Ak8_j2_pz    = ctx.get_handle<float>("Ak8_j2_pz");
+  h_Ak8_j2_tau21 = ctx.get_handle<float>("Ak8_j2_tau21");
+  h_Ak8_j2_tau32 = ctx.get_handle<float>("Ak8_j2_tau32");
+  
+  h_Ak8_j3_E     = ctx.get_handle<float>("Ak8_j3_E");
+  h_Ak8_j3_eta   = ctx.get_handle<float>("Ak8_j3_eta");
+  h_Ak8_j3_mSD   = ctx.get_handle<float>("Ak8_j3_mSD");
+  h_Ak8_j3_phi   = ctx.get_handle<float>("Ak8_j3_phi");
+  h_Ak8_j3_pt    = ctx.get_handle<float>("Ak8_j3_pt");
+  h_Ak8_j3_px    = ctx.get_handle<float>("Ak8_j3_px");
+  h_Ak8_j3_py    = ctx.get_handle<float>("Ak8_j3_py");
+  h_Ak8_j3_pz    = ctx.get_handle<float>("Ak8_j3_pz");
+  h_Ak8_j3_tau21 = ctx.get_handle<float>("Ak8_j3_tau21");
+  h_Ak8_j3_tau32 = ctx.get_handle<float>("Ak8_j3_tau32");
+  
+  h_MET_pt = ctx.get_handle<float>("MET_pt");
+  h_MET_px = ctx.get_handle<float>("MET_px");
+  h_MET_py = ctx.get_handle<float>("MET_py");
+  
+  h_Mu_E    = ctx.get_handle<float>("Mu_E");
+  h_Mu_eta  = ctx.get_handle<float>("Mu_eta");
+  h_Mu_phi  = ctx.get_handle<float>("Mu_phi");
+  h_Mu_pt   = ctx.get_handle<float>("Mu_pt");
+  h_Mu_px   = ctx.get_handle<float>("Mu_px");
+  h_Mu_py   = ctx.get_handle<float>("Mu_py");
+  h_Mu_pz   = ctx.get_handle<float>("Mu_pz");
+  
+  h_N_Ak4 = ctx.get_handle<float>("N_Ak4");
+  h_N_Ak8 = ctx.get_handle<float>("N_Ak8");
+  
+  h_weight = ctx.get_handle<float>("weight");
 
   h_NNoutput = ctx.get_handle<std::vector<tensorflow::Tensor>>("NNoutput");
   h_NNoutput0 = ctx.declare_event_output<double>("NNoutput0");
   h_NNoutput1 = ctx.declare_event_output<double>("NNoutput1");
   h_NNoutput2 = ctx.declare_event_output<double>("NNoutput2");
-  NNModule.reset( new NeuralNetworkModule(ctx, "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/ZprimeSemiLeptonic/KerasNN/ML_test/model_sig.pb", "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/ZprimeSemiLeptonic/KerasNN/ML_test/model_sig.config.pbtxt"));
+  NNModule.reset( new NeuralNetworkModule(ctx, "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4/model_3cl_best.pb", "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4/model_3cl_best.config.pbtxt"));
 
 }
 
@@ -687,7 +936,7 @@ bool ZprimeAnalysisModule_TestNN::process(uhh2::Event& event){
   event.set(h_is_zprime_reconstructed_chi2, false);
   event.set(h_is_zprime_reconstructed_correctmatch, false);
 
-  //event.set(h_chi2,-100);
+  event.set(h_chi2,-100);
   event.set(h_MET,-100);
   event.set(h_Mttbar,-100);
   event.set(h_lep1_pt,-100);
@@ -721,27 +970,21 @@ bool ZprimeAnalysisModule_TestNN::process(uhh2::Event& event){
   PUWeight_module->process(event);
   //if(debug)  cout<<"PUWeight ok"<<endl;
   //CSVWeight_module->process(event);
-  //if(isMuon){
-  //  MuonID_module->process(event);
-  //  if(debug)  cout<<"MuonID ok"<<endl;
-  //}
+  if(isMuon){
+    MuonID_module->process(event);
+    if(debug)  cout<<"MuonID ok"<<endl;
+  }
   // Run top-tagging
   TopTaggerPuppi->process(event);
   if(debug) cout<<"Top Tagger ok"<<endl;
   fill_histograms(event, "Weights");
  
-  // if(isMC || (!isMC && event.run >= runnr_oldtriggers)){
-  //   if(!(Trigger1_selection->passes(event) || Trigger2_selection->passes(event) || Trigger3_selection->passes(event))) return false;
-  // }
-  // else{
-  //   if(!(Trigger1_selection->passes(event))) return false;
-  // }
   if(!(Trigger1_selection->passes(event)|| Trigger2_selection->passes(event))) return false;
   if(isMuon){
     if(!NMuon1_selection->passes(event)) return false;
     fill_histograms(event, "Muon1");
-//    MuonTrigger_module->process_onemuon(event, 0);
-//    fill_histograms(event, "Trigger");
+    MuonTrigger_module->process_onemuon(event, 0);
+    fill_histograms(event, "Trigger");
     if(!NMuon2_selection->passes(event)) return false;
     fill_histograms(event, "Muon2");
   }
@@ -749,23 +992,11 @@ bool ZprimeAnalysisModule_TestNN::process(uhh2::Event& event){
     if(!NElectron_selection->passes(event)) return false;
     fill_histograms(event, "Electron1");
   }
-  //  if(event.electrons->size()<1 && event.muons->size()<1) return false; //veto events without leptons
   if((event.muons->size()+event.electrons->size()) != 1) return false; //veto events without leptons or with too many 
   if(debug) cout<<"N leptons ok: Nelectrons="<<event.electrons->size()<<" Nmuons="<<event.muons->size()<<endl;
-  if(!TwoDCut_selection->passes(event)) return false;
+  //if(!TwoDCut_selection->passes(event)) return false;
   //fill_histograms(event, "TwoDCut");
 
-  // Here, the Zprime must be reconstructed (we ensured to have >= 2 AK4 jets, >= 1 muon)
-  // Only consider well-separated AK4 jets
-  // //FixME: 
-  // for(const TopJet & chsjet : *event.topjets){
-  //   int n_separatedjets = 0;
-  //   for(unsigned int k = 0; k < event.jets->size(); k++){
-  //     if(deltaR(event.jets->at(k), chsjet) > 1.2) n_separatedjets++;
-  //   }
-  //   //    cout<<"n_separatedjets = "<<n_separatedjets<<endl;
-  //   if(n_separatedjets<1) return false;
-  // }
 
   CandidateBuilder->process(event);
   if(debug) cout<<"CandidateBuilder is ok"<<endl;
@@ -776,7 +1007,7 @@ bool ZprimeAnalysisModule_TestNN::process(uhh2::Event& event){
   if(sample.Contains("_blinded")){
     if(!BlindData_selection->passes(event)) return false;
   }
-  if(!Jet1_selection->passes(event)) return false;
+/*  if(!Jet1_selection->passes(event)) return false;
   if(debug) cout<<"Jet1_selection is ok"<<endl;
   fill_histograms(event, "Jet1");
 
@@ -828,7 +1059,7 @@ bool ZprimeAnalysisModule_TestNN::process(uhh2::Event& event){
   if(debug) cout<<"Btags1 is ok"<<endl;
   if(TopJetBtagSubjet_selection->passes(event)) fill_histograms(event, "TopJetBtagSubjet");
   if(debug) cout<<"TopJetBtagSubjet_selection is ok"<<endl;
-
+*/
   //Fill some vars for monitoring and comparison
   bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2); 
   if(is_zprime_reconstructed_chi2){
@@ -872,16 +1103,28 @@ bool ZprimeAnalysisModule_TestNN::process(uhh2::Event& event){
   event.set(h_NNoutput2, (double)(NNoutputs[0].tensor<float, 2>()(0,2)));
   event.set(h_NNoutput, NNoutputs);
 
+  double out0 = (double)(NNoutputs[0].tensor<float, 2>()(0,0));
+  double out1 = (double)(NNoutputs[0].tensor<float, 2>()(0,1));
+  double out2 = (double)(NNoutputs[0].tensor<float, 2>()(0,2));
+  vector<double> out_event = {out0, out1, out2};
 
-  if( (double)(NNoutputs[0].tensor<float, 2>()(0,0)) >= 0.5){
+  double max_score = 0.0;
+  for ( int i = 0; i < 3; i++ ) {
+    if ( out_event[i] > max_score) {
+    max_score = out_event[i];
+    }
+  }
+
+
+  if( out0 == max_score ){
   fill_histograms(event, "DNN_output0");
   }
 
-  if( (double)(NNoutputs[0].tensor<float, 2>()(0,1)) >= 0.9){
+  if( out1 == max_score ){
   fill_histograms(event, "DNN_output1");
   }
 
-  if( (double)(NNoutputs[0].tensor<float, 2>()(0,2)) >= 0.9){
+  if( out2 == max_score ){
   fill_histograms(event, "DNN_output2");
   }
 

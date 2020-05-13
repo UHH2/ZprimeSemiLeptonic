@@ -974,7 +974,7 @@ Variables_NN::Variables_NN(uhh2::Context& ctx){
   h_Ak4_j6_py = ctx.declare_event_output<float> ("Ak4_j6_py");
   h_Ak4_j6_pz = ctx.declare_event_output<float> ("Ak4_j6_pz");
   h_Ak4_j6_m = ctx.declare_event_output<float>  ("Ak4_j6_m");
-
+/*
   h_Ak4_j7_pt = ctx.declare_event_output<float> ("Ak4_j7_pt");
   h_Ak4_j7_eta = ctx.declare_event_output<float>("Ak4_j7_eta");
   h_Ak4_j7_phi = ctx.declare_event_output<float>("Ak4_j7_phi");
@@ -1010,7 +1010,7 @@ Variables_NN::Variables_NN(uhh2::Context& ctx){
   h_Ak4_j10_py = ctx.declare_event_output<float> ("Ak4_j10_py");
   h_Ak4_j10_pz = ctx.declare_event_output<float> ("Ak4_j10_pz");
   h_Ak4_j10_m = ctx.declare_event_output<float>  ("Ak4_j10_m");
-
+*/
 ///  AK8 JETS
   h_N_Ak8 = ctx.declare_event_output<float> ("N_Ak8");
 
@@ -1046,7 +1046,7 @@ Variables_NN::Variables_NN(uhh2::Context& ctx){
   h_Ak8_j3_mSD = ctx.declare_event_output<float>("Ak8_j3_mSD");
   h_Ak8_j3_tau21 = ctx.declare_event_output<float>("Ak8_j3_tau21");
   h_Ak8_j3_tau32 = ctx.declare_event_output<float>("Ak8_j3_tau32");
-
+/*
   h_Ak8_j4_pt = ctx.declare_event_output<float> ("Ak8_j4_pt");
   h_Ak8_j4_eta = ctx.declare_event_output<float>("Ak8_j4_eta");
   h_Ak8_j4_phi = ctx.declare_event_output<float>("Ak8_j4_phi");
@@ -1068,7 +1068,7 @@ Variables_NN::Variables_NN(uhh2::Context& ctx){
   h_Ak8_j5_mSD = ctx.declare_event_output<float>("Ak8_j5_mSD");
   h_Ak8_j5_tau21 = ctx.declare_event_output<float>("Ak8_j5_tau21");
   h_Ak8_j5_tau32 = ctx.declare_event_output<float>("Ak8_j5_tau32");
-
+*/
 
 }
 
@@ -1185,7 +1185,7 @@ bool Variables_NN::process(uhh2::Event& evt){
   evt.set(h_Ak4_j6_py, 0);
   evt.set(h_Ak4_j6_pz, 0);
   evt.set(h_Ak4_j6_m, 0);
-
+/*
   evt.set(h_Ak4_j7_pt, 0);
   evt.set(h_Ak4_j7_eta, 0);
   evt.set(h_Ak4_j7_phi, 0);
@@ -1221,7 +1221,7 @@ bool Variables_NN::process(uhh2::Event& evt){
   evt.set(h_Ak4_j10_py, 0);
   evt.set(h_Ak4_j10_pz, 0);
   evt.set(h_Ak4_j10_m, 0);
-
+*/
   vector<Jet>* Ak4jets = evt.jets;
   int NAk4jets = Ak4jets->size();
   evt.set(h_N_Ak4, NAk4jets);
@@ -1286,7 +1286,7 @@ bool Variables_NN::process(uhh2::Event& evt){
       evt.set(h_Ak4_j6_py, Ak4jets->at(i).v4().py());
       evt.set(h_Ak4_j6_pz, Ak4jets->at(i).v4().pz());
       evt.set(h_Ak4_j6_m, Ak4jets->at(i).v4().M());
-      }
+      }/*
       if(i==6){
       evt.set(h_Ak4_j7_pt, Ak4jets->at(i).pt());
       evt.set(h_Ak4_j7_eta, Ak4jets->at(i).eta());
@@ -1326,7 +1326,7 @@ bool Variables_NN::process(uhh2::Event& evt){
       evt.set(h_Ak4_j10_py, Ak4jets->at(i).v4().py());
       evt.set(h_Ak4_j10_pz, Ak4jets->at(i).v4().pz());
       evt.set(h_Ak4_j10_m, Ak4jets->at(i).v4().M());
-      }
+      }*/
   }
 
 
@@ -1366,7 +1366,7 @@ bool Variables_NN::process(uhh2::Event& evt){
   evt.set(h_Ak8_j3_mSD, 0);
   evt.set(h_Ak8_j3_tau21, 0);
   evt.set(h_Ak8_j3_tau32, 0);
-
+/*
   evt.set(h_Ak8_j4_pt, 0);
   evt.set(h_Ak8_j4_eta, 0);
   evt.set(h_Ak8_j4_phi, 0);
@@ -1388,7 +1388,7 @@ bool Variables_NN::process(uhh2::Event& evt){
   evt.set(h_Ak8_j5_mSD, 0);
   evt.set(h_Ak8_j5_tau21, 0);
   evt.set(h_Ak8_j5_tau32, 0);
-
+*/
 
   vector<TopJet>* Ak8jets = evt.toppuppijets;
   int NAk8jets = Ak8jets->size();
@@ -1430,7 +1430,7 @@ bool Variables_NN::process(uhh2::Event& evt){
       evt.set(h_Ak8_j3_mSD, Ak8jets->at(i).softdropmass());
       evt.set(h_Ak8_j3_tau21, Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1());
       evt.set(h_Ak8_j3_tau32, Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2());
-      }
+      }/*
       if(i==3){
       evt.set(h_Ak8_j4_pt, Ak8jets->at(i).pt());
       evt.set(h_Ak8_j4_eta, Ak8jets->at(i).eta());
@@ -1454,7 +1454,7 @@ bool Variables_NN::process(uhh2::Event& evt){
       evt.set(h_Ak8_j5_mSD, Ak8jets->at(i).softdropmass());
       evt.set(h_Ak8_j5_tau21, Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1());
       evt.set(h_Ak8_j5_tau32, Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2());
-      }
+      }*/
   }
 
   return true;
