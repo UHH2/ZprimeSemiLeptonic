@@ -127,7 +127,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
-
+<!--
           <InputData Lumi="102425.363" NEventsMax="&NEVT;" Type="MC" Version="WW_2017v2" Cacheable="&b_Cacheable;">
             &WW_2017v2;
             <InputTree Name="AnalysisTree" />
@@ -145,7 +145,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
-
+-->
 <!--
           <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_Run2017v2_C_blinded" Cacheable="&b_Cacheable;">
             &DATA_SingleMuon_Run2017v2_C;
@@ -212,7 +212,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
-
+<!--
           <InputData Lumi="7.277908556" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT100to200_2017v2" Cacheable="&b_Cacheable;">
             &QCD_HT100to200_2017v2;
             <InputTree Name="AnalysisTree"/>
@@ -309,6 +309,7 @@
             <OutputTree Name="AnalysisTree"/>
           </InputData>
 
+-->
 <!--
 
 
@@ -465,7 +466,7 @@
             <OutputTree Name="AnalysisTree"/>
           </InputData>
 -->
-
+<!--
 
 
           <InputData Lumi="69226.78638" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-100to200_2017v2" Cacheable="&b_Cacheable;">
@@ -528,7 +529,7 @@
             <InputTree Name="AnalysisTree"/>
             <OutputTree Name="AnalysisTree"/>
           </InputData>
-
+-->
 
     <UserConfig>
       <Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices"/>

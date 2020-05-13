@@ -23,36 +23,36 @@
 <!ENTITY DATA_SingleElectron_Run2017v2_F   SYSTEM  "../data/Skimming_datasets_2017v2_2003/DATA_DATA_SingleElectron_Run2017v2_F_withoutEmptyNtuples.xml">
 -->
 
-<!ENTITY TTToSemiLeptonic_2017v2          SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_TTToSemiLeptonic_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY TTToHadronic_2017v2              SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_TTToHadronic_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY TTTo2L2Nu_2017v2                 SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_TTTo2L2Nu_2017v2_withoutEmptyNtuples.xml">         
+<!ENTITY TTToSemiLeptonic_2017v2          SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_TTToSemiLeptonic_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY TTToHadronic_2017v2              SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_TTToHadronic_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY TTTo2L2Nu_2017v2                 SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_TTTo2L2Nu_2017v2_withoutEmptyNtuples.xml">         
 
-<!ENTITY WW_2017v2  SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_WW_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY WZ_2017v2  SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_WZ_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY ZZ_2017v2  SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_ZZ_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY WW_2017v2  SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_WW_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY WZ_2017v2  SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_WZ_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY ZZ_2017v2  SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_ZZ_2017v2_withoutEmptyNtuples.xml">
 
-<!ENTITY ST_t-channel_antitop_2017v2              SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_ST_t-channel_antitop_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY ST_t-channel_top_2017v2                  SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_ST_t-channel_top_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY ST_tW_antitop_5f_inclusiveDecays_2017v2  SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_ST_tW_antitop_5f_inclusiveDecays_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY ST_tW_top_5f_inclusiveDecays_2017v2      SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_ST_tW_top_5f_inclusiveDecays_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY ST_t-channel_antitop_2017v2              SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_ST_t-channel_antitop_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY ST_t-channel_top_2017v2                  SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_ST_t-channel_top_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY ST_tW_antitop_5f_inclusiveDecays_2017v2  SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_ST_tW_antitop_5f_inclusiveDecays_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY ST_tW_top_5f_inclusiveDecays_2017v2      SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_ST_tW_top_5f_inclusiveDecays_2017v2_withoutEmptyNtuples.xml">
 
-<!ENTITY QCD_HT100to200_2017v2        SYSTEM "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_QCD_HT100to200_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY QCD_HT200to300_2017v2        SYSTEM "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_QCD_HT200to300_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY QCD_HT300to500_2017v2        SYSTEM "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_QCD_HT300to500_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY QCD_HT500to700_2017v2        SYSTEM "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_QCD_HT500to700_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY QCD_HT700to1000_2017v2       SYSTEM "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_QCD_HT700to1000_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY QCD_HT1000to1500_2017v2      SYSTEM "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_QCD_HT1000to1500_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY QCD_HT1500to2000_2017v2      SYSTEM "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_QCD_HT1500to2000_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY QCD_HT2000toInf_2017v2       SYSTEM "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_QCD_HT2000toInf_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY QCD_HT100to200_2017v2        SYSTEM "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_QCD_HT100to200_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY QCD_HT200to300_2017v2        SYSTEM "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_QCD_HT200to300_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY QCD_HT300to500_2017v2        SYSTEM "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_QCD_HT300to500_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY QCD_HT500to700_2017v2        SYSTEM "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_QCD_HT500to700_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY QCD_HT700to1000_2017v2       SYSTEM "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_QCD_HT700to1000_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY QCD_HT1000to1500_2017v2      SYSTEM "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_QCD_HT1000to1500_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY QCD_HT1500to2000_2017v2      SYSTEM "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_QCD_HT1500to2000_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY QCD_HT2000toInf_2017v2       SYSTEM "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_QCD_HT2000toInf_2017v2_withoutEmptyNtuples.xml">
 
-<!ENTITY WJetsToLNu_HT-70To100_2017v2     SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_WJetsToLNu_HT-70To100_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY WJetsToLNu_HT-100To200_2017v2    SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_WJetsToLNu_HT-100To200_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY WJetsToLNu_HT-200To400_2017v2    SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_WJetsToLNu_HT-200To400_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY WJetsToLNu_HT-400To600_2017v2    SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_WJetsToLNu_HT-400To600_2017v2_withoutEmptyNtuples.xml"> 
-<!ENTITY WJetsToLNu_HT-600To800_2017v2    SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_WJetsToLNu_HT-600To800_2017v2_withoutEmptyNtuples.xml"> 
-<!ENTITY WJetsToLNu_HT-800To1200_2017v2   SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_WJetsToLNu_HT-800To1200_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY WJetsToLNu_HT-1200To2500_2017v2  SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_WJetsToLNu_HT-1200To2500_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY WJetsToLNu_HT-2500ToInf_2017v2   SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_WJetsToLNu_HT-2500ToInf_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY WJetsToLNu_HT-70To100_2017v2     SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_WJetsToLNu_HT-70To100_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY WJetsToLNu_HT-100To200_2017v2    SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_WJetsToLNu_HT-100To200_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY WJetsToLNu_HT-200To400_2017v2    SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_WJetsToLNu_HT-200To400_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY WJetsToLNu_HT-400To600_2017v2    SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_WJetsToLNu_HT-400To600_2017v2_withoutEmptyNtuples.xml"> 
+<!ENTITY WJetsToLNu_HT-600To800_2017v2    SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_WJetsToLNu_HT-600To800_2017v2_withoutEmptyNtuples.xml"> 
+<!ENTITY WJetsToLNu_HT-800To1200_2017v2   SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_WJetsToLNu_HT-800To1200_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY WJetsToLNu_HT-1200To2500_2017v2  SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_WJetsToLNu_HT-1200To2500_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY WJetsToLNu_HT-2500ToInf_2017v2   SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_WJetsToLNu_HT-2500ToInf_2017v2_withoutEmptyNtuples.xml">
 <!--
 <!ENTITY WJetsToLNu_HT-70To100_2017v2_B     SYSTEM  "../data/Skimming_datasets_2017v2_1902/MC_WJets_ToLNu_HT-70To100_2017v2_B_withoutEmptyNtuples.xml">
 <!ENTITY WJetsToLNu_HT-100To200_2017v2_B    SYSTEM  "../data/Skimming_datasets_2017v2_1902/MC_WJets_ToLNu_HT-100To200_2017v2_B_withoutEmptyNtuples.xml">
@@ -81,17 +81,17 @@
 <!ENTITY WJetsToLNu_HT-1200To2500_2017v2_L  SYSTEM  "../data/Skimming_datasets_2017v2_1902/MC_WJets_ToLNu_HT-1200To2500_2017v2_L_withoutEmptyNtuples.xml">
 <!ENTITY WJetsToLNu_HT-2500ToInf_2017v2_L   SYSTEM  "../data/Skimming_datasets_2017v2_1902/MC_WJets_ToLNu_HT-2500ToInf_2017v2_L_withoutEmptyNtuples.xml">
 -->
-<!ENTITY DYJetsToLL_M-50_HT-100to200_2017v2     SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_DYJetsToLL_M-50_HT-100to200_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY DYJetsToLL_M-50_HT-200to400_2017v2     SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_DYJetsToLL_M-50_HT-200to400_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY DYJetsToLL_M-50_HT-400to600_2017v2     SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_DYJetsToLL_M-50_HT-400to600_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY DYJetsToLL_M-50_HT-600to800_2017v2     SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_DYJetsToLL_M-50_HT-600to800_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY DYJetsToLL_M-50_HT-800to1200_2017v2    SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_DYJetsToLL_M-50_HT-800to1200_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY DYJetsToLL_M-50_HT-1200to2500_2017v2   SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_DYJetsToLL_M-50_HT-1200to2500_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY DYJetsToLL_M-50_HT-2500toInf_2017v2    SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_DYJetsToLL_M-50_HT-2500toInf_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY DYJetsToLL_M-50_HT-100to200_2017v2     SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_DYJetsToLL_M-50_HT-100to200_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY DYJetsToLL_M-50_HT-200to400_2017v2     SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_DYJetsToLL_M-50_HT-200to400_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY DYJetsToLL_M-50_HT-400to600_2017v2     SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_DYJetsToLL_M-50_HT-400to600_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY DYJetsToLL_M-50_HT-600to800_2017v2     SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_DYJetsToLL_M-50_HT-600to800_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY DYJetsToLL_M-50_HT-800to1200_2017v2    SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_DYJetsToLL_M-50_HT-800to1200_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY DYJetsToLL_M-50_HT-1200to2500_2017v2   SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_DYJetsToLL_M-50_HT-1200to2500_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY DYJetsToLL_M-50_HT-2500toInf_2017v2    SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_DYJetsToLL_M-50_HT-2500toInf_2017v2_withoutEmptyNtuples.xml">
 
-<!ENTITY ZprimeToTTJet_M1000_2017v2             SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_ZprimeToTTJet_M1000_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY ZprimeToTT_M1000_W100_2017v2           SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_ZprimeToTT_M1000_W100_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY ZprimeToTT_M3000_W900_2017v2           SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1105/MC_ZprimeToTT_M3000_W900_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY ZprimeToTTJet_M1000_2017v2             SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_ZprimeToTTJet_M1000_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY ZprimeToTT_M1000_W100_2017v2           SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_ZprimeToTT_M1000_W100_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY ZprimeToTT_M3000_W900_2017v2           SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_ZprimeToTT_M3000_W900_2017v2_withoutEmptyNtuples.xml">
 
 ]>
 
