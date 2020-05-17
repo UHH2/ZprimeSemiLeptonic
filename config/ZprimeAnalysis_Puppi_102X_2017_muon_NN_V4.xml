@@ -9,7 +9,7 @@
 <!ENTITY IS_PUPPI            "true">
 <!ENTITY IS_LOOSER_SELECTION "false">
 <!ENTITY CHANNEL "muon">
-<!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/analysis/ZPrime_2017/Analysis_NNvars_V4/&CHANNEL;/">
+<!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/analysis/ZPrime_2017/Analysis_NNvars_V4_testBTag/&CHANNEL;/">
 
 <!ENTITY DATA_SingleMuon_Run2017v2_C   SYSTEM  "../data/Skimming_datasets_2017v2_2003/DATA_DATA_SingleMuon_Run2017v2_C_withoutEmptyNtuples.xml">
 <!ENTITY DATA_SingleMuon_Run2017v2_D   SYSTEM  "../data/Skimming_datasets_2017v2_2003/DATA_DATA_SingleMuon_Run2017v2_D_withoutEmptyNtuples.xml">
@@ -109,7 +109,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
-
+<!--
           <InputData Lumi="5192499.578" NEventsMax="&NEVT;" Type="MC" Version="ST_t-channel_top_2017v2" Cacheable="&b_Cacheable;">
             &ST_t-channel_top_2017v2;
             <InputTree Name="AnalysisTree" />
@@ -127,7 +127,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
-<!--
+
           <InputData Lumi="102425.363" NEventsMax="&NEVT;" Type="MC" Version="WW_2017v2" Cacheable="&b_Cacheable;">
             &WW_2017v2;
             <InputTree Name="AnalysisTree" />
@@ -195,6 +195,7 @@
             <OutputTree Name="AnalysisTree" />
           </InputData>
 -->
+<!--
           <InputData Lumi="35279949.78" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_2017v2" Cacheable="&b_Cacheable;">
             &TTToSemiLeptonic_2017v2;
             <InputTree Name="AnalysisTree" />
@@ -212,7 +213,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
-<!--
+
           <InputData Lumi="7.277908556" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT100to200_2017v2" Cacheable="&b_Cacheable;">
             &QCD_HT100to200_2017v2;
             <InputTree Name="AnalysisTree"/>
@@ -553,7 +554,8 @@
       <Item Name="pileup_directory_data_up"   Value="/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2017/MyDataPileupHistogram2017_72383.root" />
       <Item Name="pileup_directory_data_down" Value="/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2017/MyDataPileupHistogram2017_66017.root" />
 
-      <Item Name="MCCSVv2ShapeSystematic" Value = "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2017/CSVv2_Moriond17_B_H.csv" />
+<!--  <Item Name="MCCSVv2ShapeSystematic" Value = "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2017/CSVv2_Moriond17_B_H.csv" />-->    <!-- old btag -->
+      <Item Name="BTagCalibration" Value = "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2017/DeepFlavour_94XSF_V4_B_F.csv" />
 
       <Item Name="is_puppi" Value="&IS_PUPPI;"/>
       <Item Name="is_looser_selection" Value="&IS_LOOSER_SELECTION;"/>
@@ -565,6 +567,7 @@
       <Item Name="Sys_MuonID"         Value="nominal"/>
       <Item Name="Sys_MuonTrigger"    Value="nominal"/>
       <Item Name="Sys_PU"             Value="central"/>
+      <Item Name="Sys_BTagSF"         Value="nominal"/>
       <Item Name="channel"            Value="&CHANNEL;"/>
 
 
