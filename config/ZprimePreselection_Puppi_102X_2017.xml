@@ -2,7 +2,7 @@
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
 
 <!ENTITY TargetLumi      "36734"> <!-- 41557 runs B-F, 36734 runs C-F  -->
-<!ENTITY PRESELdir       "/nfs/dust/cms/user/deleokse/analysis/ZPrime_2017/Preselection_2003/">
+<!ENTITY PRESELdir       "/nfs/dust/cms/user/deleokse/analysis/ZPrime_2017/Preselection_1405_testJECs/">
 <!ENTITY b_Cacheable     "False">
 <!ENTITY NEVT            "-1">
 <!ENTITY IS_PUPPI        "true">
@@ -200,13 +200,13 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
-
+-->
 	  <InputData Lumi="35279949.78" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_2017v2" Cacheable="&b_Cacheable;">
 	    &TTToSemiLeptonic_2017;
 	    <InputTree Name="AnalysisTree" />
 	    <OutputTree Name="AnalysisTree" />
 	  </InputData>
-
+<!--
           <InputData Lumi="109490.4712" NEventsMax="&NEVT;" Type="MC" Version="TTToHadronic_2017v2" Cacheable="&b_Cacheable;">
             &TTToHadronic_2017;
             <InputTree Name="AnalysisTree" />
@@ -620,7 +620,7 @@
             <InputTree Name="AnalysisTree"/>
             <OutputTree Name="AnalysisTree"/>
           </InputData>
--->
+
 
           <InputData Lumi="20034" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTT_M1000_W100_2017v2" Cacheable="&b_Cacheable;">
             &ZprimeToTT_M1000_W100_2017;
@@ -633,7 +633,7 @@
             <InputTree Name="AnalysisTree"/>
             <OutputTree Name="AnalysisTree"/>
           </InputData>
-
+-->
 		<UserConfig>
 			<Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices"/>
 			<Item Name="GenParticleCollection"   Value="GenParticles"/>
