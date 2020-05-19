@@ -322,6 +322,7 @@ ZprimeAnalysisModule_V4::ZprimeAnalysisModule_V4(uhh2::Context& ctx){
   //DeepJetBTag::wp btag_wp = DeepJetBTag::WP_TIGHT; // b-tag workingpoint
   //JetId id_btag = DeepJetBTag(btag_wp);
 
+
   sel_1btag.reset(new NJetSelection(1, 1, id_btag));
   sel_2btag.reset(new NJetSelection(2,-1, id_btag));
 
@@ -403,16 +404,16 @@ bool ZprimeAnalysisModule_V4::process(uhh2::Event& event){
   }
   if((event.muons->size()+event.electrons->size()) != 1) return false; //veto events without leptons or with too many 
   if(debug) cout<<"N leptons ok: Nelectrons="<<event.electrons->size()<<" Nmuons="<<event.muons->size()<<endl;
-  if(!TwoDCut_selection->passes(event)) return false;
-  fill_histograms(event, "TwoDCut");
-
-
-  CandidateBuilder->process(event);
-  if(debug) cout<<"CandidateBuilder is ok"<<endl;
-  Chi2DiscriminatorZprime->process(event);
-  if(debug)  cout<<"Chi2DiscriminatorZprime is ok"<<endl;
-  CorrectMatchDiscriminatorZprime->process(event);
-  if(debug) cout<<"CorrectMatchDiscriminatorZprime is ok"<<endl;
+//  if(!TwoDCut_selection->passes(event)) return false;
+//  fill_histograms(event, "TwoDCut");
+//
+//
+//  CandidateBuilder->process(event);
+//  if(debug) cout<<"CandidateBuilder is ok"<<endl;
+//  Chi2DiscriminatorZprime->process(event);
+//  if(debug)  cout<<"Chi2DiscriminatorZprime is ok"<<endl;
+//  CorrectMatchDiscriminatorZprime->process(event);
+//  if(debug) cout<<"CorrectMatchDiscriminatorZprime is ok"<<endl;
 
 
 ///////////////  Variables for NN  /////////
@@ -423,66 +424,66 @@ bool ZprimeAnalysisModule_V4::process(uhh2::Event& event){
   if(sample.Contains("_blinded")){
     if(!BlindData_selection->passes(event)) return false;
   }
-  if(!Jet1_selection->passes(event)) return false;
-  if(debug) cout<<"Jet1_selection is ok"<<endl;
-  fill_histograms(event, "Jet1");
-
-  if(!Jet2_selection->passes(event)) return false;
-  if(debug) cout<<"Jet2_selection is ok"<<endl;
-  fill_histograms(event, "Jet2");
-
-  // MET selection
-  if(!met_sel->passes(event)) return false;
-  if(debug) cout<<"MET is ok"<<endl;
-  fill_histograms(event, "MET");
-
-
-  if(isMuon){
-    if(!htlep_sel->passes(event)) return false;
-    fill_histograms(event, "HTlep");
-    if(debug) cout<<"HTlep is ok"<<endl;
-  }
-
-
-  if(TTbarMatchable_selection->passes(event)) fill_histograms(event, "MatchableBeforeChi2Cut");
-  else fill_histograms(event, "NotMatchableBeforeChi2Cut");
-  if(debug) cout<<"TTbarMatchable_selection is ok"<<endl;
-
-  if(Chi2CandidateMatched_selection->passes(event)) fill_histograms(event, "CorrectMatchBeforeChi2Cut");
-  else fill_histograms(event, "NotCorrectMatchBeforeChi2Cut");
-  if(debug) cout<<"Chi2CandidateMatched_selection is ok"<<endl;
-
-  if(!Chi2_selection->passes(event)) return false;
-  fill_histograms(event, "Chi2");
-  if(debug) cout<<"Chi2_selection is ok"<<endl;
-
-  if(TTbarMatchable_selection->passes(event)) fill_histograms(event, "Matchable");
-  else fill_histograms(event, "NotMatchable");
-  if(debug) cout<<"TTbarMatchable_selection is ok"<<endl;
-
-  if(Chi2CandidateMatched_selection->passes(event)) fill_histograms(event, "CorrectMatch");
-  else fill_histograms(event, "NotCorrectMatch");
-  if(debug) cout<<"Chi2CandidateMatched_selection is ok"<<endl;
-
-  if(ZprimeTopTag_selection->passes(event)) fill_histograms(event, "TopTagReconstruction");
-  else fill_histograms(event, "NotTopTagReconstruction");
-  if(debug) cout<<"ZprimeTopTag_selection is ok"<<endl;
-
-  //Test with b-tagging
-  if(sel_2btag->passes(event)) fill_histograms(event, "Btags2");
-  if(sel_1btag->passes(event)) fill_histograms(event, "Btags1");
-  if(debug) cout<<"Btags1 is ok"<<endl;
-  if(TopJetBtagSubjet_selection->passes(event)) fill_histograms(event, "TopJetBtagSubjet");
-  if(debug) cout<<"TopJetBtagSubjet_selection is ok"<<endl;
-
-  //Fill some vars for monitoring and comparison
-  bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2); 
-  if(is_zprime_reconstructed_chi2){
-    ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
-    //    float chi2 = BestZprimeCandidate->discriminator("chi2_total");
-    event.set(h_chi2,BestZprimeCandidate->discriminator("chi2_total"));
-    event.set(h_Mttbar,BestZprimeCandidate->Zprime_v4().M());
-  }
+//  if(!Jet1_selection->passes(event)) return false;
+//  if(debug) cout<<"Jet1_selection is ok"<<endl;
+//  fill_histograms(event, "Jet1");
+//
+//  if(!Jet2_selection->passes(event)) return false;
+//  if(debug) cout<<"Jet2_selection is ok"<<endl;
+//  fill_histograms(event, "Jet2");
+//
+//  // MET selection
+//  if(!met_sel->passes(event)) return false;
+//  if(debug) cout<<"MET is ok"<<endl;
+//  fill_histograms(event, "MET");
+//
+//
+//  if(isMuon){
+//    if(!htlep_sel->passes(event)) return false;
+//    fill_histograms(event, "HTlep");
+//    if(debug) cout<<"HTlep is ok"<<endl;
+//  }
+//
+//
+//  if(TTbarMatchable_selection->passes(event)) fill_histograms(event, "MatchableBeforeChi2Cut");
+//  else fill_histograms(event, "NotMatchableBeforeChi2Cut");
+//  if(debug) cout<<"TTbarMatchable_selection is ok"<<endl;
+//
+//  if(Chi2CandidateMatched_selection->passes(event)) fill_histograms(event, "CorrectMatchBeforeChi2Cut");
+//  else fill_histograms(event, "NotCorrectMatchBeforeChi2Cut");
+//  if(debug) cout<<"Chi2CandidateMatched_selection is ok"<<endl;
+//
+//  if(!Chi2_selection->passes(event)) return false;
+//  fill_histograms(event, "Chi2");
+//  if(debug) cout<<"Chi2_selection is ok"<<endl;
+//
+//  if(TTbarMatchable_selection->passes(event)) fill_histograms(event, "Matchable");
+//  else fill_histograms(event, "NotMatchable");
+//  if(debug) cout<<"TTbarMatchable_selection is ok"<<endl;
+//
+//  if(Chi2CandidateMatched_selection->passes(event)) fill_histograms(event, "CorrectMatch");
+//  else fill_histograms(event, "NotCorrectMatch");
+//  if(debug) cout<<"Chi2CandidateMatched_selection is ok"<<endl;
+//
+//  if(ZprimeTopTag_selection->passes(event)) fill_histograms(event, "TopTagReconstruction");
+//  else fill_histograms(event, "NotTopTagReconstruction");
+//  if(debug) cout<<"ZprimeTopTag_selection is ok"<<endl;
+//
+//  //Test with b-tagging
+//  if(sel_2btag->passes(event)) fill_histograms(event, "Btags2");
+//  if(sel_1btag->passes(event)) fill_histograms(event, "Btags1");
+//  if(debug) cout<<"Btags1 is ok"<<endl;
+//  if(TopJetBtagSubjet_selection->passes(event)) fill_histograms(event, "TopJetBtagSubjet");
+//  if(debug) cout<<"TopJetBtagSubjet_selection is ok"<<endl;
+//
+//  //Fill some vars for monitoring and comparison
+//  bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2); 
+//  if(is_zprime_reconstructed_chi2){
+//    ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
+//    //    float chi2 = BestZprimeCandidate->discriminator("chi2_total");
+//    event.set(h_chi2,BestZprimeCandidate->discriminator("chi2_total"));
+//    event.set(h_Mttbar,BestZprimeCandidate->Zprime_v4().M());
+//  }
 
   if(debug) cout<<"Set ttbar reconstruction vars for monitoring"<<endl;
 

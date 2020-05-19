@@ -900,23 +900,15 @@ Variables_NN::Variables_NN(uhh2::Context& ctx){
   h_Mu_eta = ctx.declare_event_output<float> ("Mu_eta");
   h_Mu_phi = ctx.declare_event_output<float> ("Mu_phi");
   h_Mu_E = ctx.declare_event_output<float> ("Mu_E");
-  h_Mu_px = ctx.declare_event_output<float> ("Mu_px");
-  h_Mu_py = ctx.declare_event_output<float> ("Mu_py");
-  h_Mu_pz = ctx.declare_event_output<float> ("Mu_pz");
 
 ///  ELECTRONS
   h_Ele_pt = ctx.declare_event_output<float> ("Ele_pt");
   h_Ele_eta = ctx.declare_event_output<float> ("Ele_eta");
   h_Ele_phi = ctx.declare_event_output<float> ("Ele_phi");
   h_Ele_E = ctx.declare_event_output<float> ("Ele_E");
-  h_Ele_px = ctx.declare_event_output<float> ("Ele_px");
-  h_Ele_py = ctx.declare_event_output<float> ("Ele_py");
-  h_Ele_pz = ctx.declare_event_output<float> ("Ele_pz");
 
 ///  MET
   h_MET_pt = ctx.declare_event_output<float> ("MET_pt");
-  h_MET_px = ctx.declare_event_output<float> ("MET_px");
-  h_MET_py = ctx.declare_event_output<float> ("MET_py");
 
 ///  AK4 JETS
   h_N_Ak4 = ctx.declare_event_output<float> ("N_Ak4");
@@ -925,92 +917,44 @@ Variables_NN::Variables_NN(uhh2::Context& ctx){
   h_Ak4_j1_eta = ctx.declare_event_output<float>("Ak4_j1_eta");
   h_Ak4_j1_phi = ctx.declare_event_output<float>("Ak4_j1_phi");
   h_Ak4_j1_E = ctx.declare_event_output<float>  ("Ak4_j1_E");
-  h_Ak4_j1_px = ctx.declare_event_output<float> ("Ak4_j1_px");
-  h_Ak4_j1_py = ctx.declare_event_output<float> ("Ak4_j1_py");
-  h_Ak4_j1_pz = ctx.declare_event_output<float> ("Ak4_j1_pz");
   h_Ak4_j1_m = ctx.declare_event_output<float>  ("Ak4_j1_m");
+  h_Ak4_j1_deepjetbscore = ctx.declare_event_output<float>  ("Ak4_j1_deepjetbscore");
 
   h_Ak4_j2_pt = ctx.declare_event_output<float> ("Ak4_j2_pt");
   h_Ak4_j2_eta = ctx.declare_event_output<float>("Ak4_j2_eta");
   h_Ak4_j2_phi = ctx.declare_event_output<float>("Ak4_j2_phi");
   h_Ak4_j2_E = ctx.declare_event_output<float>  ("Ak4_j2_E");
-  h_Ak4_j2_px = ctx.declare_event_output<float> ("Ak4_j2_px");
-  h_Ak4_j2_py = ctx.declare_event_output<float> ("Ak4_j2_py");
-  h_Ak4_j2_pz = ctx.declare_event_output<float> ("Ak4_j2_pz");
   h_Ak4_j2_m = ctx.declare_event_output<float>  ("Ak4_j2_m");
+  h_Ak4_j2_deepjetbscore = ctx.declare_event_output<float>  ("Ak4_j2_deepjetbscore");
 
   h_Ak4_j3_pt = ctx.declare_event_output<float> ("Ak4_j3_pt");
   h_Ak4_j3_eta = ctx.declare_event_output<float>("Ak4_j3_eta");
   h_Ak4_j3_phi = ctx.declare_event_output<float>("Ak4_j3_phi");
   h_Ak4_j3_E = ctx.declare_event_output<float>  ("Ak4_j3_E");
-  h_Ak4_j3_px = ctx.declare_event_output<float> ("Ak4_j3_px");
-  h_Ak4_j3_py = ctx.declare_event_output<float> ("Ak4_j3_py");
-  h_Ak4_j3_pz = ctx.declare_event_output<float> ("Ak4_j3_pz");
   h_Ak4_j3_m = ctx.declare_event_output<float>  ("Ak4_j3_m");
+  h_Ak4_j3_deepjetbscore = ctx.declare_event_output<float>  ("Ak4_j3_deepjetbscore");
 
   h_Ak4_j4_pt = ctx.declare_event_output<float> ("Ak4_j4_pt");
   h_Ak4_j4_eta = ctx.declare_event_output<float>("Ak4_j4_eta");
   h_Ak4_j4_phi = ctx.declare_event_output<float>("Ak4_j4_phi");
   h_Ak4_j4_E = ctx.declare_event_output<float>  ("Ak4_j4_E");
-  h_Ak4_j4_px = ctx.declare_event_output<float> ("Ak4_j4_px");
-  h_Ak4_j4_py = ctx.declare_event_output<float> ("Ak4_j4_py");
-  h_Ak4_j4_pz = ctx.declare_event_output<float> ("Ak4_j4_pz");
   h_Ak4_j4_m = ctx.declare_event_output<float>  ("Ak4_j4_m");
+  h_Ak4_j4_deepjetbscore = ctx.declare_event_output<float>  ("Ak4_j4_deepjetbscore");
 
   h_Ak4_j5_pt = ctx.declare_event_output<float> ("Ak4_j5_pt");
   h_Ak4_j5_eta = ctx.declare_event_output<float>("Ak4_j5_eta");
   h_Ak4_j5_phi = ctx.declare_event_output<float>("Ak4_j5_phi");
   h_Ak4_j5_E = ctx.declare_event_output<float>  ("Ak4_j5_E");
-  h_Ak4_j5_px = ctx.declare_event_output<float> ("Ak4_j5_px");
-  h_Ak4_j5_py = ctx.declare_event_output<float> ("Ak4_j5_py");
-  h_Ak4_j5_pz = ctx.declare_event_output<float> ("Ak4_j5_pz");
   h_Ak4_j5_m = ctx.declare_event_output<float>  ("Ak4_j5_m");
+  h_Ak4_j5_deepjetbscore = ctx.declare_event_output<float>  ("Ak4_j5_deepjetbscore");
 
   h_Ak4_j6_pt = ctx.declare_event_output<float> ("Ak4_j6_pt");
   h_Ak4_j6_eta = ctx.declare_event_output<float>("Ak4_j6_eta");
   h_Ak4_j6_phi = ctx.declare_event_output<float>("Ak4_j6_phi");
   h_Ak4_j6_E = ctx.declare_event_output<float>  ("Ak4_j6_E");
-  h_Ak4_j6_px = ctx.declare_event_output<float> ("Ak4_j6_px");
-  h_Ak4_j6_py = ctx.declare_event_output<float> ("Ak4_j6_py");
-  h_Ak4_j6_pz = ctx.declare_event_output<float> ("Ak4_j6_pz");
   h_Ak4_j6_m = ctx.declare_event_output<float>  ("Ak4_j6_m");
-/*
-  h_Ak4_j7_pt = ctx.declare_event_output<float> ("Ak4_j7_pt");
-  h_Ak4_j7_eta = ctx.declare_event_output<float>("Ak4_j7_eta");
-  h_Ak4_j7_phi = ctx.declare_event_output<float>("Ak4_j7_phi");
-  h_Ak4_j7_E = ctx.declare_event_output<float>  ("Ak4_j7_E");
-  h_Ak4_j7_px = ctx.declare_event_output<float> ("Ak4_j7_px");
-  h_Ak4_j7_py = ctx.declare_event_output<float> ("Ak4_j7_py");
-  h_Ak4_j7_pz = ctx.declare_event_output<float> ("Ak4_j7_pz");
-  h_Ak4_j7_m = ctx.declare_event_output<float>  ("Ak4_j7_m");
+  h_Ak4_j6_deepjetbscore = ctx.declare_event_output<float>  ("Ak4_j6_deepjetbscore");
 
-  h_Ak4_j8_pt = ctx.declare_event_output<float> ("Ak4_j8_pt");
-  h_Ak4_j8_eta = ctx.declare_event_output<float>("Ak4_j8_eta");
-  h_Ak4_j8_phi = ctx.declare_event_output<float>("Ak4_j8_phi");
-  h_Ak4_j8_E = ctx.declare_event_output<float>  ("Ak4_j8_E");
-  h_Ak4_j8_px = ctx.declare_event_output<float> ("Ak4_j8_px");
-  h_Ak4_j8_py = ctx.declare_event_output<float> ("Ak4_j8_py");
-  h_Ak4_j8_pz = ctx.declare_event_output<float> ("Ak4_j8_pz");
-  h_Ak4_j8_m = ctx.declare_event_output<float>  ("Ak4_j8_m");
-
-  h_Ak4_j9_pt = ctx.declare_event_output<float> ("Ak4_j9_pt");
-  h_Ak4_j9_eta = ctx.declare_event_output<float>("Ak4_j9_eta");
-  h_Ak4_j9_phi = ctx.declare_event_output<float>("Ak4_j9_phi");
-  h_Ak4_j9_E = ctx.declare_event_output<float>  ("Ak4_j9_E");
-  h_Ak4_j9_px = ctx.declare_event_output<float> ("Ak4_j9_px");
-  h_Ak4_j9_py = ctx.declare_event_output<float> ("Ak4_j9_py");
-  h_Ak4_j9_pz = ctx.declare_event_output<float> ("Ak4_j9_pz");
-  h_Ak4_j9_m = ctx.declare_event_output<float>  ("Ak4_j9_m");
-
-  h_Ak4_j10_pt = ctx.declare_event_output<float> ("Ak4_j10_pt");
-  h_Ak4_j10_eta = ctx.declare_event_output<float>("Ak4_j10_eta");
-  h_Ak4_j10_phi = ctx.declare_event_output<float>("Ak4_j10_phi");
-  h_Ak4_j10_E = ctx.declare_event_output<float>  ("Ak4_j10_E");
-  h_Ak4_j10_px = ctx.declare_event_output<float> ("Ak4_j10_px");
-  h_Ak4_j10_py = ctx.declare_event_output<float> ("Ak4_j10_py");
-  h_Ak4_j10_pz = ctx.declare_event_output<float> ("Ak4_j10_pz");
-  h_Ak4_j10_m = ctx.declare_event_output<float>  ("Ak4_j10_m");
-*/
 ///  AK8 JETS
   h_N_Ak8 = ctx.declare_event_output<float> ("N_Ak8");
 
@@ -1018,9 +962,6 @@ Variables_NN::Variables_NN(uhh2::Context& ctx){
   h_Ak8_j1_eta = ctx.declare_event_output<float>("Ak8_j1_eta");
   h_Ak8_j1_phi = ctx.declare_event_output<float>("Ak8_j1_phi");
   h_Ak8_j1_E = ctx.declare_event_output<float>  ("Ak8_j1_E");
-  h_Ak8_j1_px = ctx.declare_event_output<float> ("Ak8_j1_px");
-  h_Ak8_j1_py = ctx.declare_event_output<float> ("Ak8_j1_py");
-  h_Ak8_j1_pz = ctx.declare_event_output<float> ("Ak8_j1_pz");
   h_Ak8_j1_mSD = ctx.declare_event_output<float>("Ak8_j1_mSD");
   h_Ak8_j1_tau21 = ctx.declare_event_output<float>("Ak8_j1_tau21");
   h_Ak8_j1_tau32 = ctx.declare_event_output<float>("Ak8_j1_tau32");
@@ -1029,9 +970,6 @@ Variables_NN::Variables_NN(uhh2::Context& ctx){
   h_Ak8_j2_eta = ctx.declare_event_output<float>("Ak8_j2_eta");
   h_Ak8_j2_phi = ctx.declare_event_output<float>("Ak8_j2_phi");
   h_Ak8_j2_E = ctx.declare_event_output<float>  ("Ak8_j2_E");
-  h_Ak8_j2_px = ctx.declare_event_output<float> ("Ak8_j2_px");
-  h_Ak8_j2_py = ctx.declare_event_output<float> ("Ak8_j2_py");
-  h_Ak8_j2_pz = ctx.declare_event_output<float> ("Ak8_j2_pz");
   h_Ak8_j2_mSD = ctx.declare_event_output<float>("Ak8_j2_mSD");
   h_Ak8_j2_tau21 = ctx.declare_event_output<float>("Ak8_j2_tau21");
   h_Ak8_j2_tau32 = ctx.declare_event_output<float>("Ak8_j2_tau32");
@@ -1040,35 +978,9 @@ Variables_NN::Variables_NN(uhh2::Context& ctx){
   h_Ak8_j3_eta = ctx.declare_event_output<float>("Ak8_j3_eta");
   h_Ak8_j3_phi = ctx.declare_event_output<float>("Ak8_j3_phi");
   h_Ak8_j3_E = ctx.declare_event_output<float>  ("Ak8_j3_E");
-  h_Ak8_j3_px = ctx.declare_event_output<float> ("Ak8_j3_px");
-  h_Ak8_j3_py = ctx.declare_event_output<float> ("Ak8_j3_py");
-  h_Ak8_j3_pz = ctx.declare_event_output<float> ("Ak8_j3_pz");
   h_Ak8_j3_mSD = ctx.declare_event_output<float>("Ak8_j3_mSD");
   h_Ak8_j3_tau21 = ctx.declare_event_output<float>("Ak8_j3_tau21");
   h_Ak8_j3_tau32 = ctx.declare_event_output<float>("Ak8_j3_tau32");
-/*
-  h_Ak8_j4_pt = ctx.declare_event_output<float> ("Ak8_j4_pt");
-  h_Ak8_j4_eta = ctx.declare_event_output<float>("Ak8_j4_eta");
-  h_Ak8_j4_phi = ctx.declare_event_output<float>("Ak8_j4_phi");
-  h_Ak8_j4_E = ctx.declare_event_output<float>  ("Ak8_j4_E");
-  h_Ak8_j4_px = ctx.declare_event_output<float> ("Ak8_j4_px");
-  h_Ak8_j4_py = ctx.declare_event_output<float> ("Ak8_j4_py");
-  h_Ak8_j4_pz = ctx.declare_event_output<float> ("Ak8_j4_pz");
-  h_Ak8_j4_mSD = ctx.declare_event_output<float>("Ak8_j4_mSD");
-  h_Ak8_j4_tau21 = ctx.declare_event_output<float>("Ak8_j4_tau21");
-  h_Ak8_j4_tau32 = ctx.declare_event_output<float>("Ak8_j4_tau32");
-
-  h_Ak8_j5_pt = ctx.declare_event_output<float> ("Ak8_j5_pt");
-  h_Ak8_j5_eta = ctx.declare_event_output<float>("Ak8_j5_eta");
-  h_Ak8_j5_phi = ctx.declare_event_output<float>("Ak8_j5_phi");
-  h_Ak8_j5_E = ctx.declare_event_output<float>  ("Ak8_j5_E");
-  h_Ak8_j5_px = ctx.declare_event_output<float> ("Ak8_j5_px");
-  h_Ak8_j5_py = ctx.declare_event_output<float> ("Ak8_j5_py");
-  h_Ak8_j5_pz = ctx.declare_event_output<float> ("Ak8_j5_pz");
-  h_Ak8_j5_mSD = ctx.declare_event_output<float>("Ak8_j5_mSD");
-  h_Ak8_j5_tau21 = ctx.declare_event_output<float>("Ak8_j5_tau21");
-  h_Ak8_j5_tau32 = ctx.declare_event_output<float>("Ak8_j5_tau32");
-*/
 
 }
 
@@ -1079,9 +991,6 @@ bool Variables_NN::process(uhh2::Event& evt){
   evt.set(h_Mu_eta, 0);
   evt.set(h_Mu_phi, 0);
   evt.set(h_Mu_E, 0);
-  evt.set(h_Mu_px, 0);
-  evt.set(h_Mu_py, 0);
-  evt.set(h_Mu_pz, 0);
 
   vector<Muon>* muons = evt.muons;
   int Nmuons = muons->size();
@@ -1091,9 +1000,6 @@ bool Variables_NN::process(uhh2::Event& evt){
       evt.set(h_Mu_eta, muons->at(i).eta());
       evt.set(h_Mu_phi, muons->at(i).phi());
       evt.set(h_Mu_E, muons->at(i).energy());
-      evt.set(h_Mu_px, muons->at(i).v4().px());
-      evt.set(h_Mu_py, muons->at(i).v4().py());
-      evt.set(h_Mu_pz, muons->at(i).v4().pz());
   }
 
 
@@ -1102,9 +1008,6 @@ bool Variables_NN::process(uhh2::Event& evt){
   evt.set(h_Ele_eta, 0);
   evt.set(h_Ele_phi, 0);
   evt.set(h_Ele_E, 0);
-  evt.set(h_Ele_px, 0);
-  evt.set(h_Ele_py, 0);
-  evt.set(h_Ele_pz, 0);
 
   vector<Electron>* electrons = evt.electrons;
   int Nelectrons = electrons->size();
@@ -1114,19 +1017,12 @@ bool Variables_NN::process(uhh2::Event& evt){
       evt.set(h_Ele_eta, electrons->at(i).eta());
       evt.set(h_Ele_phi, electrons->at(i).phi());
       evt.set(h_Ele_E, electrons->at(i).energy());
-      evt.set(h_Ele_px, electrons->at(i).v4().px());
-      evt.set(h_Ele_py, electrons->at(i).v4().py());
-      evt.set(h_Ele_pz, electrons->at(i).v4().pz());
   }
 
 /////////   MET
   evt.set(h_MET_pt, 0);
-  evt.set(h_MET_px, 0);
-  evt.set(h_MET_py, 0);
 
   evt.set(h_MET_pt, evt.met->pt());
-  evt.set(h_MET_px, evt.met->v4().px());
-  evt.set(h_MET_py, evt.met->v4().py());
 
 
 ///////// AK4 JETS
@@ -1136,92 +1032,45 @@ bool Variables_NN::process(uhh2::Event& evt){
   evt.set(h_Ak4_j1_eta, 0);
   evt.set(h_Ak4_j1_phi, 0);
   evt.set(h_Ak4_j1_E, 0);
-  evt.set(h_Ak4_j1_px, 0);
-  evt.set(h_Ak4_j1_py, 0);
-  evt.set(h_Ak4_j1_pz, 0);
   evt.set(h_Ak4_j1_m, 0);
+  evt.set(h_Ak4_j1_deepjetbscore, 0);
 
   evt.set(h_Ak4_j2_pt, 0);
   evt.set(h_Ak4_j2_eta, 0);
   evt.set(h_Ak4_j2_phi, 0);
   evt.set(h_Ak4_j2_E, 0);
-  evt.set(h_Ak4_j2_px, 0);
-  evt.set(h_Ak4_j2_py, 0);
-  evt.set(h_Ak4_j2_pz, 0);
   evt.set(h_Ak4_j2_m, 0);
+  evt.set(h_Ak4_j2_deepjetbscore, 0);
 
   evt.set(h_Ak4_j3_pt, 0);
   evt.set(h_Ak4_j3_eta, 0);
   evt.set(h_Ak4_j3_phi, 0);
   evt.set(h_Ak4_j3_E, 0);
-  evt.set(h_Ak4_j3_px, 0);
-  evt.set(h_Ak4_j3_py, 0);
-  evt.set(h_Ak4_j3_pz, 0);
   evt.set(h_Ak4_j3_m, 0);
+  evt.set(h_Ak4_j3_deepjetbscore, 0);
 
   evt.set(h_Ak4_j4_pt, 0);
   evt.set(h_Ak4_j4_eta, 0);
   evt.set(h_Ak4_j4_phi, 0);
   evt.set(h_Ak4_j4_E, 0);
-  evt.set(h_Ak4_j4_px, 0);
-  evt.set(h_Ak4_j4_py, 0);
-  evt.set(h_Ak4_j4_pz, 0);
   evt.set(h_Ak4_j4_m, 0);
+  evt.set(h_Ak4_j4_deepjetbscore, 0);
 
   evt.set(h_Ak4_j5_pt, 0);
   evt.set(h_Ak4_j5_eta, 0);
   evt.set(h_Ak4_j5_phi, 0);
   evt.set(h_Ak4_j5_E, 0);
-  evt.set(h_Ak4_j5_px, 0);
-  evt.set(h_Ak4_j5_py, 0);
-  evt.set(h_Ak4_j5_pz, 0);
   evt.set(h_Ak4_j5_m, 0);
+  evt.set(h_Ak4_j5_deepjetbscore, 0);
 
   evt.set(h_Ak4_j6_pt, 0);
   evt.set(h_Ak4_j6_eta, 0);
   evt.set(h_Ak4_j6_phi, 0);
   evt.set(h_Ak4_j6_E, 0);
-  evt.set(h_Ak4_j6_px, 0);
-  evt.set(h_Ak4_j6_py, 0);
-  evt.set(h_Ak4_j6_pz, 0);
   evt.set(h_Ak4_j6_m, 0);
-/*
-  evt.set(h_Ak4_j7_pt, 0);
-  evt.set(h_Ak4_j7_eta, 0);
-  evt.set(h_Ak4_j7_phi, 0);
-  evt.set(h_Ak4_j7_E, 0);
-  evt.set(h_Ak4_j7_px, 0);
-  evt.set(h_Ak4_j7_py, 0);
-  evt.set(h_Ak4_j7_pz, 0);
-  evt.set(h_Ak4_j7_m, 0);
+  evt.set(h_Ak4_j6_deepjetbscore, 0);
 
-  evt.set(h_Ak4_j8_pt, 0);
-  evt.set(h_Ak4_j8_eta, 0);
-  evt.set(h_Ak4_j8_phi, 0);
-  evt.set(h_Ak4_j8_E, 0);
-  evt.set(h_Ak4_j8_px, 0);
-  evt.set(h_Ak4_j8_py, 0);
-  evt.set(h_Ak4_j8_pz, 0);
-  evt.set(h_Ak4_j8_m, 0);
 
-  evt.set(h_Ak4_j9_pt, 0);
-  evt.set(h_Ak4_j9_eta, 0);
-  evt.set(h_Ak4_j9_phi, 0);
-  evt.set(h_Ak4_j9_E, 0);
-  evt.set(h_Ak4_j9_px, 0);
-  evt.set(h_Ak4_j9_py, 0);
-  evt.set(h_Ak4_j9_pz, 0);
-  evt.set(h_Ak4_j9_m, 0);
-
-  evt.set(h_Ak4_j10_pt, 0);
-  evt.set(h_Ak4_j10_eta, 0);
-  evt.set(h_Ak4_j10_phi, 0);
-  evt.set(h_Ak4_j10_E, 0);
-  evt.set(h_Ak4_j10_px, 0);
-  evt.set(h_Ak4_j10_py, 0);
-  evt.set(h_Ak4_j10_pz, 0);
-  evt.set(h_Ak4_j10_m, 0);
-*/
   vector<Jet>* Ak4jets = evt.jets;
   int NAk4jets = Ak4jets->size();
   evt.set(h_N_Ak4, NAk4jets);
@@ -1232,101 +1081,49 @@ bool Variables_NN::process(uhh2::Event& evt){
       evt.set(h_Ak4_j1_eta, Ak4jets->at(i).eta());
       evt.set(h_Ak4_j1_phi, Ak4jets->at(i).phi());
       evt.set(h_Ak4_j1_E, Ak4jets->at(i).energy());
-      evt.set(h_Ak4_j1_px, Ak4jets->at(i).v4().px());
-      evt.set(h_Ak4_j1_py, Ak4jets->at(i).v4().py());
-      evt.set(h_Ak4_j1_pz, Ak4jets->at(i).v4().pz());
       evt.set(h_Ak4_j1_m, Ak4jets->at(i).v4().M());
+      evt.set(h_Ak4_j1_deepjetbscore, Ak4jets->at(i).btag_DeepJet());
       }
       if(i==1){
       evt.set(h_Ak4_j2_pt, Ak4jets->at(i).pt());
       evt.set(h_Ak4_j2_eta, Ak4jets->at(i).eta());
       evt.set(h_Ak4_j2_phi, Ak4jets->at(i).phi());
       evt.set(h_Ak4_j2_E, Ak4jets->at(i).energy());
-      evt.set(h_Ak4_j2_px, Ak4jets->at(i).v4().px());
-      evt.set(h_Ak4_j2_py, Ak4jets->at(i).v4().py());
-      evt.set(h_Ak4_j2_pz, Ak4jets->at(i).v4().pz());
       evt.set(h_Ak4_j2_m, Ak4jets->at(i).v4().M());
+      evt.set(h_Ak4_j2_deepjetbscore, Ak4jets->at(i).btag_DeepJet());
       }
       if(i==2){
       evt.set(h_Ak4_j3_pt, Ak4jets->at(i).pt());
       evt.set(h_Ak4_j3_eta, Ak4jets->at(i).eta());
       evt.set(h_Ak4_j3_phi, Ak4jets->at(i).phi());
       evt.set(h_Ak4_j3_E, Ak4jets->at(i).energy());
-      evt.set(h_Ak4_j3_px, Ak4jets->at(i).v4().px());
-      evt.set(h_Ak4_j3_py, Ak4jets->at(i).v4().py());
-      evt.set(h_Ak4_j3_pz, Ak4jets->at(i).v4().pz());
       evt.set(h_Ak4_j3_m, Ak4jets->at(i).v4().M());
+      evt.set(h_Ak4_j3_deepjetbscore, Ak4jets->at(i).btag_DeepJet());
       }
       if(i==3){
       evt.set(h_Ak4_j4_pt, Ak4jets->at(i).pt());
       evt.set(h_Ak4_j4_eta, Ak4jets->at(i).eta());
       evt.set(h_Ak4_j4_phi, Ak4jets->at(i).phi());
       evt.set(h_Ak4_j4_E, Ak4jets->at(i).energy());
-      evt.set(h_Ak4_j4_px, Ak4jets->at(i).v4().px());
-      evt.set(h_Ak4_j4_py, Ak4jets->at(i).v4().py());
-      evt.set(h_Ak4_j4_pz, Ak4jets->at(i).v4().pz());
       evt.set(h_Ak4_j4_m, Ak4jets->at(i).v4().M());
+      evt.set(h_Ak4_j4_deepjetbscore, Ak4jets->at(i).btag_DeepJet());
       }
       if(i==4){
       evt.set(h_Ak4_j5_pt, Ak4jets->at(i).pt());
       evt.set(h_Ak4_j5_eta, Ak4jets->at(i).eta());
       evt.set(h_Ak4_j5_phi, Ak4jets->at(i).phi());
       evt.set(h_Ak4_j5_E, Ak4jets->at(i).energy());
-      evt.set(h_Ak4_j5_px, Ak4jets->at(i).v4().px());
-      evt.set(h_Ak4_j5_py, Ak4jets->at(i).v4().py());
-      evt.set(h_Ak4_j5_pz, Ak4jets->at(i).v4().pz());
       evt.set(h_Ak4_j5_m, Ak4jets->at(i).v4().M());
+      evt.set(h_Ak4_j5_deepjetbscore, Ak4jets->at(i).btag_DeepJet());
       }
       if(i==5){
       evt.set(h_Ak4_j6_pt, Ak4jets->at(i).pt());
       evt.set(h_Ak4_j6_eta, Ak4jets->at(i).eta());
       evt.set(h_Ak4_j6_phi, Ak4jets->at(i).phi());
       evt.set(h_Ak4_j6_E, Ak4jets->at(i).energy());
-      evt.set(h_Ak4_j6_px, Ak4jets->at(i).v4().px());
-      evt.set(h_Ak4_j6_py, Ak4jets->at(i).v4().py());
-      evt.set(h_Ak4_j6_pz, Ak4jets->at(i).v4().pz());
       evt.set(h_Ak4_j6_m, Ak4jets->at(i).v4().M());
-      }/*
-      if(i==6){
-      evt.set(h_Ak4_j7_pt, Ak4jets->at(i).pt());
-      evt.set(h_Ak4_j7_eta, Ak4jets->at(i).eta());
-      evt.set(h_Ak4_j7_phi, Ak4jets->at(i).phi());
-      evt.set(h_Ak4_j7_E, Ak4jets->at(i).energy());
-      evt.set(h_Ak4_j7_px, Ak4jets->at(i).v4().px());
-      evt.set(h_Ak4_j7_py, Ak4jets->at(i).v4().py());
-      evt.set(h_Ak4_j7_pz, Ak4jets->at(i).v4().pz());
-      evt.set(h_Ak4_j7_m, Ak4jets->at(i).v4().M());
+      evt.set(h_Ak4_j6_deepjetbscore, Ak4jets->at(i).btag_DeepJet());
       }
-      if(i==7){
-      evt.set(h_Ak4_j8_pt, Ak4jets->at(i).pt());
-      evt.set(h_Ak4_j8_eta, Ak4jets->at(i).eta());
-      evt.set(h_Ak4_j8_phi, Ak4jets->at(i).phi());
-      evt.set(h_Ak4_j8_E, Ak4jets->at(i).energy());
-      evt.set(h_Ak4_j8_px, Ak4jets->at(i).v4().px());
-      evt.set(h_Ak4_j8_py, Ak4jets->at(i).v4().py());
-      evt.set(h_Ak4_j8_pz, Ak4jets->at(i).v4().pz());
-      evt.set(h_Ak4_j8_m, Ak4jets->at(i).v4().M());
-      }
-      if(i==8){
-      evt.set(h_Ak4_j9_pt, Ak4jets->at(i).pt());
-      evt.set(h_Ak4_j9_eta, Ak4jets->at(i).eta());
-      evt.set(h_Ak4_j9_phi, Ak4jets->at(i).phi());
-      evt.set(h_Ak4_j9_E, Ak4jets->at(i).energy());
-      evt.set(h_Ak4_j9_px, Ak4jets->at(i).v4().px());
-      evt.set(h_Ak4_j9_py, Ak4jets->at(i).v4().py());
-      evt.set(h_Ak4_j9_pz, Ak4jets->at(i).v4().pz());
-      evt.set(h_Ak4_j9_m, Ak4jets->at(i).v4().M());
-      }
-      if(i==9){
-      evt.set(h_Ak4_j10_pt, Ak4jets->at(i).pt());
-      evt.set(h_Ak4_j10_eta, Ak4jets->at(i).eta());
-      evt.set(h_Ak4_j10_phi, Ak4jets->at(i).phi());
-      evt.set(h_Ak4_j10_E, Ak4jets->at(i).energy());
-      evt.set(h_Ak4_j10_px, Ak4jets->at(i).v4().px());
-      evt.set(h_Ak4_j10_py, Ak4jets->at(i).v4().py());
-      evt.set(h_Ak4_j10_pz, Ak4jets->at(i).v4().pz());
-      evt.set(h_Ak4_j10_m, Ak4jets->at(i).v4().M());
-      }*/
   }
 
 
@@ -1338,9 +1135,6 @@ bool Variables_NN::process(uhh2::Event& evt){
   evt.set(h_Ak8_j1_eta, 0);
   evt.set(h_Ak8_j1_phi, 0);
   evt.set(h_Ak8_j1_E, 0);
-  evt.set(h_Ak8_j1_px, 0);
-  evt.set(h_Ak8_j1_py, 0);
-  evt.set(h_Ak8_j1_pz, 0);
   evt.set(h_Ak8_j1_mSD, 0);
   evt.set(h_Ak8_j1_tau21, 0);
   evt.set(h_Ak8_j1_tau32, 0);
@@ -1349,9 +1143,6 @@ bool Variables_NN::process(uhh2::Event& evt){
   evt.set(h_Ak8_j2_eta, 0);
   evt.set(h_Ak8_j2_phi, 0);
   evt.set(h_Ak8_j2_E, 0);
-  evt.set(h_Ak8_j2_px, 0);
-  evt.set(h_Ak8_j2_py, 0);
-  evt.set(h_Ak8_j2_pz, 0);
   evt.set(h_Ak8_j2_mSD, 0);
   evt.set(h_Ak8_j2_tau21, 0);
   evt.set(h_Ak8_j2_tau32, 0);
@@ -1360,35 +1151,13 @@ bool Variables_NN::process(uhh2::Event& evt){
   evt.set(h_Ak8_j3_eta, 0);
   evt.set(h_Ak8_j3_phi, 0);
   evt.set(h_Ak8_j3_E, 0);
-  evt.set(h_Ak8_j3_px, 0);
-  evt.set(h_Ak8_j3_py, 0);
-  evt.set(h_Ak8_j3_pz, 0);
   evt.set(h_Ak8_j3_mSD, 0);
   evt.set(h_Ak8_j3_tau21, 0);
   evt.set(h_Ak8_j3_tau32, 0);
-/*
-  evt.set(h_Ak8_j4_pt, 0);
-  evt.set(h_Ak8_j4_eta, 0);
-  evt.set(h_Ak8_j4_phi, 0);
-  evt.set(h_Ak8_j4_E, 0);
-  evt.set(h_Ak8_j4_px, 0);
-  evt.set(h_Ak8_j4_py, 0);
-  evt.set(h_Ak8_j4_pz, 0);
-  evt.set(h_Ak8_j4_mSD, 0);
-  evt.set(h_Ak8_j4_tau21, 0);
-  evt.set(h_Ak8_j4_tau32, 0);
 
-  evt.set(h_Ak8_j5_pt, 0);
-  evt.set(h_Ak8_j5_eta, 0);
-  evt.set(h_Ak8_j5_phi, 0);
-  evt.set(h_Ak8_j5_E, 0);
-  evt.set(h_Ak8_j5_px, 0);
-  evt.set(h_Ak8_j5_py, 0);
-  evt.set(h_Ak8_j5_pz, 0);
-  evt.set(h_Ak8_j5_mSD, 0);
-  evt.set(h_Ak8_j5_tau21, 0);
-  evt.set(h_Ak8_j5_tau32, 0);
-*/
+
+  // Top Tagged Jets
+  //vector<TopJet> AK8PuppiTopTags = event.get(h_AK8PuppiTopTags);
 
   vector<TopJet>* Ak8jets = evt.toppuppijets;
   int NAk8jets = Ak8jets->size();
@@ -1400,9 +1169,6 @@ bool Variables_NN::process(uhh2::Event& evt){
       evt.set(h_Ak8_j1_eta, Ak8jets->at(i).eta());
       evt.set(h_Ak8_j1_phi, Ak8jets->at(i).phi());
       evt.set(h_Ak8_j1_E, Ak8jets->at(i).energy());
-      evt.set(h_Ak8_j1_px, Ak8jets->at(i).v4().px());
-      evt.set(h_Ak8_j1_py, Ak8jets->at(i).v4().py());
-      evt.set(h_Ak8_j1_pz, Ak8jets->at(i).v4().pz());
       evt.set(h_Ak8_j1_mSD, Ak8jets->at(i).softdropmass());
       evt.set(h_Ak8_j1_tau21, Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1());
       evt.set(h_Ak8_j1_tau32, Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2());
@@ -1412,9 +1178,6 @@ bool Variables_NN::process(uhh2::Event& evt){
       evt.set(h_Ak8_j2_eta, Ak8jets->at(i).eta());
       evt.set(h_Ak8_j2_phi, Ak8jets->at(i).phi());
       evt.set(h_Ak8_j2_E, Ak8jets->at(i).energy());
-      evt.set(h_Ak8_j2_px, Ak8jets->at(i).v4().px());
-      evt.set(h_Ak8_j2_py, Ak8jets->at(i).v4().py());
-      evt.set(h_Ak8_j2_pz, Ak8jets->at(i).v4().pz());
       evt.set(h_Ak8_j2_mSD, Ak8jets->at(i).softdropmass());
       evt.set(h_Ak8_j2_tau21, Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1());
       evt.set(h_Ak8_j2_tau32, Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2());
@@ -1424,37 +1187,10 @@ bool Variables_NN::process(uhh2::Event& evt){
       evt.set(h_Ak8_j3_eta, Ak8jets->at(i).eta());
       evt.set(h_Ak8_j3_phi, Ak8jets->at(i).phi());
       evt.set(h_Ak8_j3_E, Ak8jets->at(i).energy());
-      evt.set(h_Ak8_j3_px, Ak8jets->at(i).v4().px());
-      evt.set(h_Ak8_j3_py, Ak8jets->at(i).v4().py());
-      evt.set(h_Ak8_j3_pz, Ak8jets->at(i).v4().pz());
       evt.set(h_Ak8_j3_mSD, Ak8jets->at(i).softdropmass());
       evt.set(h_Ak8_j3_tau21, Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1());
       evt.set(h_Ak8_j3_tau32, Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2());
-      }/*
-      if(i==3){
-      evt.set(h_Ak8_j4_pt, Ak8jets->at(i).pt());
-      evt.set(h_Ak8_j4_eta, Ak8jets->at(i).eta());
-      evt.set(h_Ak8_j4_phi, Ak8jets->at(i).phi());
-      evt.set(h_Ak8_j4_E, Ak8jets->at(i).energy());
-      evt.set(h_Ak8_j4_px, Ak8jets->at(i).v4().px());
-      evt.set(h_Ak8_j4_py, Ak8jets->at(i).v4().py());
-      evt.set(h_Ak8_j4_pz, Ak8jets->at(i).v4().pz());
-      evt.set(h_Ak8_j4_mSD, Ak8jets->at(i).softdropmass());
-      evt.set(h_Ak8_j4_tau21, Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1());
-      evt.set(h_Ak8_j4_tau32, Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2());
       }
-      if(i==4){
-      evt.set(h_Ak8_j5_pt, Ak8jets->at(i).pt());
-      evt.set(h_Ak8_j5_eta, Ak8jets->at(i).eta());
-      evt.set(h_Ak8_j5_phi, Ak8jets->at(i).phi());
-      evt.set(h_Ak8_j5_E, Ak8jets->at(i).energy());
-      evt.set(h_Ak8_j5_px, Ak8jets->at(i).v4().px());
-      evt.set(h_Ak8_j5_py, Ak8jets->at(i).v4().py());
-      evt.set(h_Ak8_j5_pz, Ak8jets->at(i).v4().pz());
-      evt.set(h_Ak8_j5_mSD, Ak8jets->at(i).softdropmass());
-      evt.set(h_Ak8_j5_tau21, Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1());
-      evt.set(h_Ak8_j5_tau32, Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2());
-      }*/
   }
 
   return true;
