@@ -9,7 +9,7 @@
 <!ENTITY IS_PUPPI            "true">
 <!ENTITY IS_LOOSER_SELECTION "false">
 <!ENTITY CHANNEL "muon">
-<!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/analysis/ZPrime_2017/Analysis_V4_UseNN_5cl/&CHANNEL;/">
+<!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/analysis/ZPrime_2017/Analysis_V4_UseNN_1905/&CHANNEL;/">
 
 <!--
 <!ENTITY DATA_SingleMuon_Run2017v2_C   SYSTEM  "../data/Skimming_datasets_2017v2_2003/DATA_DATA_SingleMuon_Run2017v2_C_withoutEmptyNtuples.xml">
@@ -23,36 +23,36 @@
 <!ENTITY DATA_SingleElectron_Run2017v2_F   SYSTEM  "../data/Skimming_datasets_2017v2_2003/DATA_DATA_SingleElectron_Run2017v2_F_withoutEmptyNtuples.xml">
 -->
 
-<!ENTITY TTToSemiLeptonic_2017v2          SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_TTToSemiLeptonic_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY TTToHadronic_2017v2              SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_TTToHadronic_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY TTTo2L2Nu_2017v2                 SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_TTTo2L2Nu_2017v2_withoutEmptyNtuples.xml">         
+<!ENTITY TTToSemiLeptonic_2017v2          SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_TTToSemiLeptonic_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY TTToHadronic_2017v2              SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_TTToHadronic_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY TTTo2L2Nu_2017v2                 SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_TTTo2L2Nu_2017v2_withoutEmptyNtuples.xml">         
 
-<!ENTITY WW_2017v2  SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_WW_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY WZ_2017v2  SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_WZ_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY ZZ_2017v2  SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_ZZ_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY WW_2017v2  SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_WW_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY WZ_2017v2  SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_WZ_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY ZZ_2017v2  SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_ZZ_2017v2_withoutEmptyNtuples.xml">
 
-<!ENTITY ST_t-channel_antitop_2017v2              SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_ST_t-channel_antitop_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY ST_t-channel_top_2017v2                  SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_ST_t-channel_top_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY ST_tW_antitop_5f_inclusiveDecays_2017v2  SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_ST_tW_antitop_5f_inclusiveDecays_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY ST_tW_top_5f_inclusiveDecays_2017v2      SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_ST_tW_top_5f_inclusiveDecays_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY ST_t-channel_antitop_2017v2              SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_ST_t-channel_antitop_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY ST_t-channel_top_2017v2                  SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_ST_t-channel_top_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY ST_tW_antitop_5f_inclusiveDecays_2017v2  SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_ST_tW_antitop_5f_inclusiveDecays_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY ST_tW_top_5f_inclusiveDecays_2017v2      SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_ST_tW_top_5f_inclusiveDecays_2017v2_withoutEmptyNtuples.xml">
 
-<!ENTITY QCD_HT100to200_2017v2        SYSTEM "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_QCD_HT100to200_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY QCD_HT200to300_2017v2        SYSTEM "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_QCD_HT200to300_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY QCD_HT300to500_2017v2        SYSTEM "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_QCD_HT300to500_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY QCD_HT500to700_2017v2        SYSTEM "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_QCD_HT500to700_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY QCD_HT700to1000_2017v2       SYSTEM "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_QCD_HT700to1000_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY QCD_HT1000to1500_2017v2      SYSTEM "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_QCD_HT1000to1500_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY QCD_HT1500to2000_2017v2      SYSTEM "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_QCD_HT1500to2000_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY QCD_HT2000toInf_2017v2       SYSTEM "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_QCD_HT2000toInf_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY QCD_HT100to200_2017v2        SYSTEM "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_QCD_HT100to200_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY QCD_HT200to300_2017v2        SYSTEM "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_QCD_HT200to300_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY QCD_HT300to500_2017v2        SYSTEM "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_QCD_HT300to500_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY QCD_HT500to700_2017v2        SYSTEM "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_QCD_HT500to700_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY QCD_HT700to1000_2017v2       SYSTEM "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_QCD_HT700to1000_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY QCD_HT1000to1500_2017v2      SYSTEM "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_QCD_HT1000to1500_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY QCD_HT1500to2000_2017v2      SYSTEM "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_QCD_HT1500to2000_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY QCD_HT2000toInf_2017v2       SYSTEM "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_QCD_HT2000toInf_2017v2_withoutEmptyNtuples.xml">
 
-<!ENTITY WJetsToLNu_HT-70To100_2017v2     SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_WJetsToLNu_HT-70To100_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY WJetsToLNu_HT-100To200_2017v2    SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_WJetsToLNu_HT-100To200_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY WJetsToLNu_HT-200To400_2017v2    SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_WJetsToLNu_HT-200To400_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY WJetsToLNu_HT-400To600_2017v2    SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_WJetsToLNu_HT-400To600_2017v2_withoutEmptyNtuples.xml"> 
-<!ENTITY WJetsToLNu_HT-600To800_2017v2    SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_WJetsToLNu_HT-600To800_2017v2_withoutEmptyNtuples.xml"> 
-<!ENTITY WJetsToLNu_HT-800To1200_2017v2   SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_WJetsToLNu_HT-800To1200_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY WJetsToLNu_HT-1200To2500_2017v2  SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_WJetsToLNu_HT-1200To2500_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY WJetsToLNu_HT-2500ToInf_2017v2   SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_WJetsToLNu_HT-2500ToInf_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY WJetsToLNu_HT-70To100_2017v2     SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_WJetsToLNu_HT-70To100_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY WJetsToLNu_HT-100To200_2017v2    SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_WJetsToLNu_HT-100To200_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY WJetsToLNu_HT-200To400_2017v2    SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_WJetsToLNu_HT-200To400_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY WJetsToLNu_HT-400To600_2017v2    SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_WJetsToLNu_HT-400To600_2017v2_withoutEmptyNtuples.xml"> 
+<!ENTITY WJetsToLNu_HT-600To800_2017v2    SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_WJetsToLNu_HT-600To800_2017v2_withoutEmptyNtuples.xml"> 
+<!ENTITY WJetsToLNu_HT-800To1200_2017v2   SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_WJetsToLNu_HT-800To1200_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY WJetsToLNu_HT-1200To2500_2017v2  SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_WJetsToLNu_HT-1200To2500_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY WJetsToLNu_HT-2500ToInf_2017v2   SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_WJetsToLNu_HT-2500ToInf_2017v2_withoutEmptyNtuples.xml">
 <!--
 <!ENTITY WJetsToLNu_HT-70To100_2017v2_B     SYSTEM  "../data/Skimming_datasets_2017v2_1902/MC_WJets_ToLNu_HT-70To100_2017v2_B_withoutEmptyNtuples.xml">
 <!ENTITY WJetsToLNu_HT-100To200_2017v2_B    SYSTEM  "../data/Skimming_datasets_2017v2_1902/MC_WJets_ToLNu_HT-100To200_2017v2_B_withoutEmptyNtuples.xml">
@@ -81,23 +81,23 @@
 <!ENTITY WJetsToLNu_HT-1200To2500_2017v2_L  SYSTEM  "../data/Skimming_datasets_2017v2_1902/MC_WJets_ToLNu_HT-1200To2500_2017v2_L_withoutEmptyNtuples.xml">
 <!ENTITY WJetsToLNu_HT-2500ToInf_2017v2_L   SYSTEM  "../data/Skimming_datasets_2017v2_1902/MC_WJets_ToLNu_HT-2500ToInf_2017v2_L_withoutEmptyNtuples.xml">
 -->
-<!ENTITY DYJetsToLL_M-50_HT-100to200_2017v2     SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_DYJetsToLL_M-50_HT-100to200_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY DYJetsToLL_M-50_HT-200to400_2017v2     SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_DYJetsToLL_M-50_HT-200to400_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY DYJetsToLL_M-50_HT-400to600_2017v2     SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_DYJetsToLL_M-50_HT-400to600_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY DYJetsToLL_M-50_HT-600to800_2017v2     SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_DYJetsToLL_M-50_HT-600to800_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY DYJetsToLL_M-50_HT-800to1200_2017v2    SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_DYJetsToLL_M-50_HT-800to1200_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY DYJetsToLL_M-50_HT-1200to2500_2017v2   SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_DYJetsToLL_M-50_HT-1200to2500_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY DYJetsToLL_M-50_HT-2500toInf_2017v2    SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_DYJetsToLL_M-50_HT-2500toInf_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY DYJetsToLL_M-50_HT-100to200_2017v2     SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_DYJetsToLL_M-50_HT-100to200_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY DYJetsToLL_M-50_HT-200to400_2017v2     SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_DYJetsToLL_M-50_HT-200to400_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY DYJetsToLL_M-50_HT-400to600_2017v2     SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_DYJetsToLL_M-50_HT-400to600_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY DYJetsToLL_M-50_HT-600to800_2017v2     SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_DYJetsToLL_M-50_HT-600to800_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY DYJetsToLL_M-50_HT-800to1200_2017v2    SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_DYJetsToLL_M-50_HT-800to1200_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY DYJetsToLL_M-50_HT-1200to2500_2017v2   SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_DYJetsToLL_M-50_HT-1200to2500_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY DYJetsToLL_M-50_HT-2500toInf_2017v2    SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_DYJetsToLL_M-50_HT-2500toInf_2017v2_withoutEmptyNtuples.xml">
 
-<!ENTITY ZprimeToTTJet_M1000_2017v2             SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_ZprimeToTTJet_M1000_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY ZprimeToTT_M1000_W100_2017v2           SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_ZprimeToTT_M1000_W100_2017v2_withoutEmptyNtuples.xml">
-<!ENTITY ZprimeToTT_M3000_W900_2017v2           SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1305/MC_ZprimeToTT_M3000_W900_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY ZprimeToTTJet_M1000_2017v2             SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_ZprimeToTTJet_M1000_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY ZprimeToTT_M1000_W100_2017v2           SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_ZprimeToTT_M1000_W100_2017v2_withoutEmptyNtuples.xml">
+<!ENTITY ZprimeToTT_M3000_W900_2017v2           SYSTEM  "../data/Skimming_datasets_2017v2_AfterSelectionNN_V4_1905/MC_ZprimeToTT_M3000_W900_2017v2_withoutEmptyNtuples.xml">
 
 ]>
 
 <!--
 <ConfigParse NEventsBreak="200000" LastBreak="0" FileSplit="25" AutoResubmit="100"/>
-<ConfigSGE RAM="1" DISK="2" Mail="ksenia.de.leo@desy.de" Notification="as" Workdir="workdir_Zprime_Analysis_2017_muon_5cl"/>
+<ConfigSGE RAM="1" DISK="2" Mail="ksenia.de.leo@desy.de" Notification="as" Workdir="workdir_Zprime_Analysis_2017_muon"/>
 -->
 
 <JobConfiguration JobName="ZprimePreselectionJob" OutputLevel="INFO">
@@ -555,7 +555,7 @@
       <Item Name="pileup_directory_data_up"   Value="/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2017/MyDataPileupHistogram2017_72383.root" />
       <Item Name="pileup_directory_data_down" Value="/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2017/MyDataPileupHistogram2017_66017.root" />
 
-      <Item Name="MCCSVv2ShapeSystematic" Value = "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2017/CSVv2_Moriond17_B_H.csv" />
+      <Item Name="BTagCalibration" Value = "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2017/DeepFlavour_94XSF_V4_B_F.csv" />
 
       <Item Name="is_puppi" Value="&IS_PUPPI;"/>
       <Item Name="is_looser_selection" Value="&IS_LOOSER_SELECTION;"/>
@@ -567,23 +567,24 @@
       <Item Name="Sys_MuonID"         Value="nominal"/>
       <Item Name="Sys_MuonTrigger"    Value="nominal"/>
       <Item Name="Sys_PU"             Value="central"/>
+      <Item Name="Sys_BTagSF"         Value="nominal"/>
       <Item Name="channel"            Value="&CHANNEL;"/>
 
-      <Item Name="additionalBranches" Value=" Ak4_j1_E Ak4_j1_eta Ak4_j1_m Ak4_j1_phi Ak4_j1_pt Ak4_j1_px Ak4_j1_py Ak4_j1_pz
-                                              Ak4_j2_E Ak4_j2_eta Ak4_j2_m Ak4_j2_phi Ak4_j2_pt Ak4_j2_px Ak4_j2_py Ak4_j2_pz
-                                              Ak4_j3_E Ak4_j3_eta Ak4_j3_m Ak4_j3_phi Ak4_j3_pt Ak4_j3_px Ak4_j3_py Ak4_j3_pz
-                                              Ak4_j4_E Ak4_j4_eta Ak4_j4_m Ak4_j4_phi Ak4_j4_pt Ak4_j4_px Ak4_j4_py Ak4_j4_pz
-                                              Ak4_j5_E Ak4_j5_eta Ak4_j5_m Ak4_j5_phi Ak4_j5_pt Ak4_j5_px Ak4_j5_py Ak4_j5_pz
-                                              Ak4_j6_E Ak4_j6_eta Ak4_j6_m Ak4_j6_phi Ak4_j6_pt Ak4_j6_px Ak4_j6_py Ak4_j6_pz
-                                              Ak8_j1_E Ak8_j1_eta Ak8_j1_mSD Ak8_j1_phi Ak8_j1_pt Ak8_j1_px Ak8_j1_py Ak8_j1_pz Ak8_j1_tau21 Ak8_j1_tau32
-                                              Ak8_j2_E Ak8_j2_eta Ak8_j2_mSD Ak8_j2_phi Ak8_j2_pt Ak8_j2_px Ak8_j2_py Ak8_j2_pz Ak8_j2_tau21 Ak8_j2_tau32
-                                              Ak8_j3_E Ak8_j3_eta Ak8_j3_mSD Ak8_j3_phi Ak8_j3_pt Ak8_j3_px Ak8_j3_py Ak8_j3_pz Ak8_j3_tau21 Ak8_j3_tau32
-                                              MET_pt MET_px MET_py
-                                              Mu_E Mu_eta Mu_phi Mu_pt Mu_px Mu_py Mu_pz
+      <Item Name="additionalBranches" Value=" Ak4_j1_E Ak4_j1_eta Ak4_j1_m Ak4_j1_phi Ak4_j1_pt Ak4_j1_deepjetbscore 
+                                              Ak4_j2_E Ak4_j2_eta Ak4_j2_m Ak4_j2_phi Ak4_j2_pt Ak4_j2_deepjetbscore 
+                                              Ak4_j3_E Ak4_j3_eta Ak4_j3_m Ak4_j3_phi Ak4_j3_pt Ak4_j3_deepjetbscore 
+                                              Ak4_j4_E Ak4_j4_eta Ak4_j4_m Ak4_j4_phi Ak4_j4_pt Ak4_j4_deepjetbscore 
+                                              Ak4_j5_E Ak4_j5_eta Ak4_j5_m Ak4_j5_phi Ak4_j5_pt Ak4_j5_deepjetbscore 
+                                              Ak4_j6_E Ak4_j6_eta Ak4_j6_m Ak4_j6_phi Ak4_j6_pt Ak4_j6_deepjetbscore 
+                                              Ak8_j1_E Ak8_j1_eta Ak8_j1_mSD Ak8_j1_phi Ak8_j1_pt Ak8_j1_tau21 Ak8_j1_tau32
+                                              Ak8_j2_E Ak8_j2_eta Ak8_j2_mSD Ak8_j2_phi Ak8_j2_pt Ak8_j2_tau21 Ak8_j2_tau32
+                                              Ak8_j3_E Ak8_j3_eta Ak8_j3_mSD Ak8_j3_phi Ak8_j3_pt Ak8_j3_tau21 Ak8_j3_tau32
+                                              MET_pt 
+                                              Mu_E Mu_eta Mu_phi Mu_pt 
                                               N_Ak4 N_Ak8
                                               weight " />
 
-      <Item Name="AnalysisModule" Value="ZprimeAnalysisModule_TestNN_5cl"/>
+      <Item Name="AnalysisModule" Value="ZprimeAnalysisModule_TestNN"/>
     </UserConfig>
 
   </Cycle>
