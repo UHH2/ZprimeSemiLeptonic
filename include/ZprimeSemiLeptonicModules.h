@@ -146,6 +146,7 @@ public:
   virtual bool process(uhh2::Event&) override;
 
 private:
+  uhh2::Event::Handle< float > h_eventweight;
   uhh2::Event::Handle< float > h_Mu_pt, h_Mu_eta, h_Mu_phi, h_Mu_E;
   uhh2::Event::Handle< float > h_Ele_pt, h_Ele_eta, h_Ele_phi, h_Ele_E;
   uhh2::Event::Handle< float > h_MET_pt;

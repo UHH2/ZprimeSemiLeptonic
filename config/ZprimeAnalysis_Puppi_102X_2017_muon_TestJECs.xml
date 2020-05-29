@@ -98,7 +98,7 @@
 
 <!--
 <ConfigParse NEventsBreak="200000" LastBreak="0" FileSplit="10" AutoResubmit="100"/>
-<ConfigSGE RAM="1" DISK="2" Mail="ksenia.de.leo@desy.de" Notification="as" Workdir="workdir_Zprime_Analysis_2017_muon"/>
+<ConfigSGE RAM="1" DISK="2" Mail="ksenia.de.leo@desy.de" Notification="as" Workdir="workdir_Zprime_Analysis_2017_muon_JECs"/>
 -->
 
 <JobConfiguration JobName="ZprimePreselectionJob" OutputLevel="INFO">
@@ -198,7 +198,7 @@
             <OutputTree Name="AnalysisTree" />
           </InputData>
 -->
-          <InputData Lumi="35279949.78" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_2017v2" Cacheable="&b_Cacheable;">
+          <InputData Lumi="117290.12" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_2017v2" Cacheable="&b_Cacheable;">
             &TTToSemiLeptonic_2017v2;
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />

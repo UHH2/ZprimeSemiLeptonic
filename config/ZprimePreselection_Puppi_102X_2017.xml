@@ -201,7 +201,7 @@
             <OutputTree Name="AnalysisTree" />
           </InputData>
 -->
-	  <InputData Lumi="35279949.78" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_2017v2" Cacheable="&b_Cacheable;">
+	  <InputData Lumi="117290.12" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_2017v2" Cacheable="&b_Cacheable;">
 	    &TTToSemiLeptonic_2017;
 	    <InputTree Name="AnalysisTree" />
 	    <OutputTree Name="AnalysisTree" />
@@ -651,6 +651,9 @@
 
 			<Item Name="lumi_file" Value="/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2017/Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON_v1.root"/>
 			<Item Name="lumihists_lumi_per_bin" Value="500.0"/>
+
+                        <Item Name="pileup_directory"           Value="/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2017/MyMCPileupHistogram.root" />
+                        <Item Name="pileup_directory_data"      Value="/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2017/MyDataPileupHistogram2017.root" />
 
 			<Item Name="is_puppi" Value="&IS_PUPPI;"/>
 

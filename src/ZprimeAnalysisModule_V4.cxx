@@ -359,7 +359,7 @@ bool ZprimeAnalysisModule_V4::process(uhh2::Event& event){
   event.set(h_ak8jet1_pt,-100);
   event.set(h_ak8jet1_eta,-100);
   event.set(h_NPV,-100);
-  event.set(h_weight,0);
+  event.set(h_weight,-100);
 
 
 

@@ -81,7 +81,7 @@ protected:
 
 
   // Selections
-  std::unique_ptr<uhh2::Selection> lumi_sel;
+  //std::unique_ptr<uhh2::Selection> lumi_sel;
   //std::unique_ptr<uhh2::AndSelection> metfilters_sel;
 
   std::unique_ptr<uhh2::Selection> genflavor_sel;
@@ -92,7 +92,7 @@ protected:
 
   bool isMC, ispuppi;
 
-  std::unique_ptr<Hists> lumihists;
+  //std::unique_ptr<Hists> lumihists;
   TString METcollection;
 
 
@@ -466,15 +466,12 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
 
   common_modules.reset(new CommonModules());
   common_modules->switch_jetlepcleaner(true);
-  common_modules->disable_mcpileupreweight(); 
-  common_modules->disable_mclumiweight(); 
-  common_modules->disable_lumisel(); 
   common_modules->switch_jetPtSorter();
   common_modules->init(ctx);
 
 
 
-  if(!isMC) lumi_sel.reset(new LumiSelection(ctx));
+  //if(!isMC) lumi_sel.reset(new LumiSelection(ctx));
 
   //// MET filters
   //metfilters_sel.reset(new uhh2::AndSelection(ctx, "metfilters"));
@@ -558,11 +555,12 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
 
 
   // Book histograms
-  vector<string> histogram_tags = {"Input", "Lumiselection", "Metfilters", "Lepton1", "JetID", "JetCleaner1", "JetCleaner2", "TopjetCleaner", "Jet1", "Jet2", "MET"};
+  //vector<string> histogram_tags = {"Input", "Lumiselection", "Metfilters", "Lepton1", "JetID", "JetCleaner1", "JetCleaner2", "TopjetCleaner", "Jet1", "Jet2", "MET"};
+  vector<string> histogram_tags = {"Input", "Lepton1", "JetID", "JetCleaner1", "JetCleaner2", "TopjetCleaner", "Jet1", "Jet2", "MET"};
   book_histograms(ctx, histogram_tags);
 
 
-  lumihists.reset(new LuminosityHists(ctx, "lumi"));
+  //lumihists.reset(new LuminosityHists(ctx, "lumi"));
 }
 
 
@@ -570,11 +568,6 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
 ////debug
 //if(event.event!=35002146) return false;
 //if(event.event!=1034569 && event.event!=35002146) return false;
-//uint jetInd = 0;
-//for (const Jet & jet: *event.jets) {
-//cout << "--- jet pt raw = " << jet.pt()* jet.JEC_factor_raw()<< "	" << " jet pt = " << jet.pt() << "	"  << "for jet#" << jetInd << endl;
-//jetInd++;
-//}
 //uint genjetInd = 0;
 //for (const GenJet & genjet: *event.genjets) {
 //cout << " genjet pt = " << genjet.pt() << "	"  << "for jet#" << genjetInd << endl;
@@ -594,17 +587,30 @@ genjetInd++;
 }*/
 ////////
 
-  if (!common_modules->process(event)) return false;
+  bool common_sel = common_modules->process(event);
+  if(!common_sel) return false;
 
+
+/*uint jetInd = 0;
+for (const TopJet & topjet: *event.topjets) {
+cout << "-Top jet pt = " << topjet.pt()<< "	"  << "for jet#" << jetInd << endl;
+jetInd++;
+}*/
+
+//uint jetInd2 = 0;
+//for (const TopJet & toppuppijet: *event.toppuppijets) {
+//cout << "-Top PUPPI jet pt = " << toppuppijet.pt()<< "	"  << "for jet#" << jetInd2 << endl;
+//jetInd2++;
+//}
 
   //  cout<<"Getting started... "<<event.event<<endl;
   fill_histograms(event, "Input");
   // Lumi selection
-  if(event.isRealData){
-    if(!lumi_sel->passes(event)) return false;
-    lumihists->fill(event);
-  }
-  fill_histograms(event, "Lumiselection");
+  //if(event.isRealData){
+    //if(!lumi_sel->passes(event)) return false;
+    //lumihists->fill(event);
+  //}
+  //fill_histograms(event, "Lumiselection");
 
   //// MET filters
   //if(!metfilters_sel->passes(event)) return false;

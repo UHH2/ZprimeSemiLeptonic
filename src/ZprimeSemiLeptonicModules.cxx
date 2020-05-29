@@ -892,8 +892,13 @@ bool MEPartonFinder::process(uhh2::Event& evt){
   return true;
 }
 
+//////////////////////////////////////////////////////////////
 /////////////// Variables for NN
+//////////////////////////////////////////////////////////////
+
 Variables_NN::Variables_NN(uhh2::Context& ctx){
+
+  h_eventweight = ctx.declare_event_output<float> ("eventweight");
 
 ///  MUONS
   h_Mu_pt = ctx.declare_event_output<float> ("Mu_pt");
@@ -986,11 +991,14 @@ Variables_NN::Variables_NN(uhh2::Context& ctx){
 
 bool Variables_NN::process(uhh2::Event& evt){
 
+  evt.set(h_eventweight, -10);
+  evt.set(h_eventweight, evt.weight);
+
 /////////   MUONS
-  evt.set(h_Mu_pt, 0);
-  evt.set(h_Mu_eta, 0);
-  evt.set(h_Mu_phi, 0);
-  evt.set(h_Mu_E, 0);
+  evt.set(h_Mu_pt, -10);
+  evt.set(h_Mu_eta,-10);
+  evt.set(h_Mu_phi, -10);
+  evt.set(h_Mu_E, -10);
 
   vector<Muon>* muons = evt.muons;
   int Nmuons = muons->size();
@@ -1004,10 +1012,10 @@ bool Variables_NN::process(uhh2::Event& evt){
 
 
 /////////   ELECTRONS
-  evt.set(h_Ele_pt, 0);
-  evt.set(h_Ele_eta, 0);
-  evt.set(h_Ele_phi, 0);
-  evt.set(h_Ele_E, 0);
+  evt.set(h_Ele_pt, -10);
+  evt.set(h_Ele_eta, -10);
+  evt.set(h_Ele_phi, -10);
+  evt.set(h_Ele_E, -10);
 
   vector<Electron>* electrons = evt.electrons;
   int Nelectrons = electrons->size();
@@ -1020,55 +1028,55 @@ bool Variables_NN::process(uhh2::Event& evt){
   }
 
 /////////   MET
-  evt.set(h_MET_pt, 0);
+  evt.set(h_MET_pt, -10);
 
   evt.set(h_MET_pt, evt.met->pt());
 
 
 ///////// AK4 JETS
-  evt.set(h_N_Ak4, 0);
+  evt.set(h_N_Ak4, -10);
 
-  evt.set(h_Ak4_j1_pt, 0);
-  evt.set(h_Ak4_j1_eta, 0);
-  evt.set(h_Ak4_j1_phi, 0);
-  evt.set(h_Ak4_j1_E, 0);
-  evt.set(h_Ak4_j1_m, 0);
-  evt.set(h_Ak4_j1_deepjetbscore, 0);
+  evt.set(h_Ak4_j1_pt, -10);
+  evt.set(h_Ak4_j1_eta, -10);
+  evt.set(h_Ak4_j1_phi, -10);
+  evt.set(h_Ak4_j1_E, -10);
+  evt.set(h_Ak4_j1_m, -10);
+  evt.set(h_Ak4_j1_deepjetbscore, -10);
 
-  evt.set(h_Ak4_j2_pt, 0);
-  evt.set(h_Ak4_j2_eta, 0);
-  evt.set(h_Ak4_j2_phi, 0);
-  evt.set(h_Ak4_j2_E, 0);
-  evt.set(h_Ak4_j2_m, 0);
-  evt.set(h_Ak4_j2_deepjetbscore, 0);
+  evt.set(h_Ak4_j2_pt, -10);
+  evt.set(h_Ak4_j2_eta, -10);
+  evt.set(h_Ak4_j2_phi, -10);
+  evt.set(h_Ak4_j2_E, -10);
+  evt.set(h_Ak4_j2_m, -10);
+  evt.set(h_Ak4_j2_deepjetbscore, -10);
 
-  evt.set(h_Ak4_j3_pt, 0);
-  evt.set(h_Ak4_j3_eta, 0);
-  evt.set(h_Ak4_j3_phi, 0);
-  evt.set(h_Ak4_j3_E, 0);
-  evt.set(h_Ak4_j3_m, 0);
-  evt.set(h_Ak4_j3_deepjetbscore, 0);
+  evt.set(h_Ak4_j3_pt, -10);
+  evt.set(h_Ak4_j3_eta, -10);
+  evt.set(h_Ak4_j3_phi, -10);
+  evt.set(h_Ak4_j3_E, -10);
+  evt.set(h_Ak4_j3_m, -10);
+  evt.set(h_Ak4_j3_deepjetbscore, -10);
 
-  evt.set(h_Ak4_j4_pt, 0);
-  evt.set(h_Ak4_j4_eta, 0);
-  evt.set(h_Ak4_j4_phi, 0);
-  evt.set(h_Ak4_j4_E, 0);
-  evt.set(h_Ak4_j4_m, 0);
-  evt.set(h_Ak4_j4_deepjetbscore, 0);
+  evt.set(h_Ak4_j4_pt, -10);
+  evt.set(h_Ak4_j4_eta, -10);
+  evt.set(h_Ak4_j4_phi, -10);
+  evt.set(h_Ak4_j4_E, -10);
+  evt.set(h_Ak4_j4_m, -10);
+  evt.set(h_Ak4_j4_deepjetbscore, -10);
 
-  evt.set(h_Ak4_j5_pt, 0);
-  evt.set(h_Ak4_j5_eta, 0);
-  evt.set(h_Ak4_j5_phi, 0);
-  evt.set(h_Ak4_j5_E, 0);
-  evt.set(h_Ak4_j5_m, 0);
-  evt.set(h_Ak4_j5_deepjetbscore, 0);
+  evt.set(h_Ak4_j5_pt, -10);
+  evt.set(h_Ak4_j5_eta, -10);
+  evt.set(h_Ak4_j5_phi, -10);
+  evt.set(h_Ak4_j5_E, -10);
+  evt.set(h_Ak4_j5_m, -10);
+  evt.set(h_Ak4_j5_deepjetbscore, -10);
 
-  evt.set(h_Ak4_j6_pt, 0);
-  evt.set(h_Ak4_j6_eta, 0);
-  evt.set(h_Ak4_j6_phi, 0);
-  evt.set(h_Ak4_j6_E, 0);
-  evt.set(h_Ak4_j6_m, 0);
-  evt.set(h_Ak4_j6_deepjetbscore, 0);
+  evt.set(h_Ak4_j6_pt, -10);
+  evt.set(h_Ak4_j6_eta, -10);
+  evt.set(h_Ak4_j6_phi, -10);
+  evt.set(h_Ak4_j6_E, -10);
+  evt.set(h_Ak4_j6_m, -10);
+  evt.set(h_Ak4_j6_deepjetbscore, -10);
 
 
   vector<Jet>* Ak4jets = evt.jets;
@@ -1129,31 +1137,31 @@ bool Variables_NN::process(uhh2::Event& evt){
 
 
 /////////   AK8 JETS
-  evt.set(h_N_Ak8, 0);
+  evt.set(h_N_Ak8, -10);
 
-  evt.set(h_Ak8_j1_pt, 0);
-  evt.set(h_Ak8_j1_eta, 0);
-  evt.set(h_Ak8_j1_phi, 0);
-  evt.set(h_Ak8_j1_E, 0);
-  evt.set(h_Ak8_j1_mSD, 0);
-  evt.set(h_Ak8_j1_tau21, 0);
-  evt.set(h_Ak8_j1_tau32, 0);
+  evt.set(h_Ak8_j1_pt, -10);
+  evt.set(h_Ak8_j1_eta, -10);
+  evt.set(h_Ak8_j1_phi, -10);
+  evt.set(h_Ak8_j1_E, -10);
+  evt.set(h_Ak8_j1_mSD, -10);
+  evt.set(h_Ak8_j1_tau21, -10);
+  evt.set(h_Ak8_j1_tau32, -10);
 
-  evt.set(h_Ak8_j2_pt, 0);
-  evt.set(h_Ak8_j2_eta, 0);
-  evt.set(h_Ak8_j2_phi, 0);
-  evt.set(h_Ak8_j2_E, 0);
-  evt.set(h_Ak8_j2_mSD, 0);
-  evt.set(h_Ak8_j2_tau21, 0);
-  evt.set(h_Ak8_j2_tau32, 0);
+  evt.set(h_Ak8_j2_pt, -10);
+  evt.set(h_Ak8_j2_eta, -10);
+  evt.set(h_Ak8_j2_phi, -10);
+  evt.set(h_Ak8_j2_E, -10);
+  evt.set(h_Ak8_j2_mSD, -10);
+  evt.set(h_Ak8_j2_tau21, -10);
+  evt.set(h_Ak8_j2_tau32, -10);
 
-  evt.set(h_Ak8_j3_pt, 0);
-  evt.set(h_Ak8_j3_eta, 0);
-  evt.set(h_Ak8_j3_phi, 0);
-  evt.set(h_Ak8_j3_E, 0);
-  evt.set(h_Ak8_j3_mSD, 0);
-  evt.set(h_Ak8_j3_tau21, 0);
-  evt.set(h_Ak8_j3_tau32, 0);
+  evt.set(h_Ak8_j3_pt, -10);
+  evt.set(h_Ak8_j3_eta, -10);
+  evt.set(h_Ak8_j3_phi, -10);
+  evt.set(h_Ak8_j3_E, -10);
+  evt.set(h_Ak8_j3_mSD, -10);
+  evt.set(h_Ak8_j3_tau21, -10);
+  evt.set(h_Ak8_j3_tau32, -10);
 
 
   // Top Tagged Jets

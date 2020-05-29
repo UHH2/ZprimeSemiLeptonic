@@ -9,7 +9,7 @@
 <!ENTITY IS_PUPPI            "true">
 <!ENTITY IS_LOOSER_SELECTION "false">
 <!ENTITY CHANNEL "muon">
-<!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/analysis/ZPrime_2017/Analysis_NNvars_V4_1705/&CHANNEL;/">
+<!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/analysis/ZPrime_2017/Analysis_NNvars_V4_2805/&CHANNEL;/">
 
 <!ENTITY DATA_SingleMuon_Run2017v2_C   SYSTEM  "../data/Skimming_datasets_2017v2_2003/DATA_DATA_SingleMuon_Run2017v2_C_withoutEmptyNtuples.xml">
 <!ENTITY DATA_SingleMuon_Run2017v2_D   SYSTEM  "../data/Skimming_datasets_2017v2_2003/DATA_DATA_SingleMuon_Run2017v2_D_withoutEmptyNtuples.xml">
@@ -103,7 +103,7 @@
   <Package Name="SUHH2ZprimeSemiLeptonic.par"/>
 
   <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTPUTdir;/" PostFix="" TargetLumi="&TargetLumi;">
-<!--
+
           <InputData Lumi="3386024.049" NEventsMax="&NEVT;" Type="MC" Version="ST_t-channel_antitop_2017v2" Cacheable="&b_Cacheable;">
             &ST_t-channel_antitop_2017v2;
             <InputTree Name="AnalysisTree" />
@@ -145,7 +145,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
--->
+
 <!--
           <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_Run2017v2_C_blinded" Cacheable="&b_Cacheable;">
             &DATA_SingleMuon_Run2017v2_C;
@@ -195,7 +195,7 @@
             <OutputTree Name="AnalysisTree" />
           </InputData>
 -->
-<!--
+
           <InputData Lumi="35279949.78" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_2017v2" Cacheable="&b_Cacheable;">
             &TTToSemiLeptonic_2017v2;
             <InputTree Name="AnalysisTree" />
@@ -297,19 +297,19 @@
             <InputTree Name="AnalysisTree"/>
             <OutputTree Name="AnalysisTree"/>
           </InputData>
--->
+
           <InputData Lumi="39031433.57" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-1200To2500_2017v2" Cacheable="&b_Cacheable;">
             &WJetsToLNu_HT-1200To2500_2017v2;
             <InputTree Name="AnalysisTree"/>
             <OutputTree Name="AnalysisTree"/>
           </InputData>
-<!--
+
           <InputData Lumi="2656452174" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-2500ToInf_2017v2" Cacheable="&b_Cacheable;">
             &WJetsToLNu_HT-2500ToInf_2017v2;
             <InputTree Name="AnalysisTree"/>
             <OutputTree Name="AnalysisTree"/>
           </InputData>
--->
+
 
 <!--
 
@@ -467,7 +467,7 @@
             <OutputTree Name="AnalysisTree"/>
           </InputData>
 -->
-<!--
+
 
           <InputData Lumi="69226.78638" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-100to200_2017v2" Cacheable="&b_Cacheable;">
             &DYJetsToLL_M-50_HT-100to200_2017v2;
@@ -529,7 +529,7 @@
             <InputTree Name="AnalysisTree"/>
             <OutputTree Name="AnalysisTree"/>
           </InputData>
--->
+
 
     <UserConfig>
       <Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices"/>
