@@ -145,8 +145,6 @@ uhh2::Event::Handle<float> h_Mu_pt;
 uhh2::Event::Handle<float> h_N_Ak4;
 uhh2::Event::Handle<float> h_N_Ak8;
 
-uhh2::Event::Handle<float> h_weight;
-
 };
 
 NeuralNetworkModule::NeuralNetworkModule(Context& ctx, const std::string & ModelName, const std::string& ConfigName): NeuralNetworkBase(ctx, ModelName, ConfigName){
@@ -228,23 +226,21 @@ h_Mu_pt   = ctx.get_handle<float>("Mu_pt");
 h_N_Ak4 = ctx.get_handle<float>("N_Ak4");
 h_N_Ak8 = ctx.get_handle<float>("N_Ak8");
 
-h_weight = ctx.get_handle<float>("weight");
-
 }
 
 void NeuralNetworkModule::CreateInputs(Event & event){
   NNInputs.clear();
   NNoutputs.clear();
 
-  string varname[65];
-  string scal[65];
-  string mean[65];
-  string std[65];
-  double mean_val[65];
-  double std_val[65];
-  ifstream normfile ("/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_2605/NormInfo.txt", ios::in);
+  string varname[64];
+  string scal[64];
+  string mean[64];
+  string std[64];
+  double mean_val[64];
+  double std_val[64];
+  ifstream normfile ("/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_0906/NormInfo.txt", ios::in);
   if (normfile.is_open()){ 
-        for(int i = 0; i < 65; ++i)
+        for(int i = 0; i < 64; ++i)
         {   
             normfile >> varname[i] >> scal[i] >> mean[i] >> std[i];
             mean_val[i] = std::stod(mean[i]);
@@ -254,7 +250,7 @@ void NeuralNetworkModule::CreateInputs(Event & event){
   }
 
 
-  NNInputs.push_back( tensorflow::Tensor(tensorflow::DT_FLOAT, {1, 65}));
+  NNInputs.push_back( tensorflow::Tensor(tensorflow::DT_FLOAT, {1, 64}));
 
 
   NNInputs.at(0).tensor<float, 2>()(0,0)  = (event.get(h_Ak4_j1_E)   - mean_val[0]) / (std_val[0]);
@@ -333,7 +329,6 @@ void NeuralNetworkModule::CreateInputs(Event & event){
   NNInputs.at(0).tensor<float, 2>()(0,62)  = (event.get(h_N_Ak4) - mean_val[62]) / (std_val[62]);
   NNInputs.at(0).tensor<float, 2>()(0,63)  = (event.get(h_N_Ak8) - mean_val[63]) / (std_val[63]);
 
-  NNInputs.at(0).tensor<float, 2>()(0,64)  = (event.get(h_weight) - mean_val[64]) / (std_val[64]);
 
 /*
   NNInputs.at(0).tensor<float, 2>()(0,0)  = event.get(h_Ak4_j1_E);
@@ -412,7 +407,6 @@ void NeuralNetworkModule::CreateInputs(Event & event){
   NNInputs.at(0).tensor<float, 2>()(0,62)  = event.get(h_N_Ak4) ;
   NNInputs.at(0).tensor<float, 2>()(0,63)  = event.get(h_N_Ak8) ;
 
-  NNInputs.at(0).tensor<float, 2>()(0,64)  = event.get(h_weight);
 */
 
   if (NNInputs.size()!=LayerInputs.size()) throw logic_error("NeuralNetworkModule.cxx: Create a number of inputs diffetent wrt. LayerInputs.size()="+to_string(LayerInputs.size())); 
@@ -469,6 +463,7 @@ protected:
   Event::Handle<float> h_ak4jet1_pt; Event::Handle<float> h_ak4jet1_eta; 
   Event::Handle<float> h_ak8jet1_pt; Event::Handle<float> h_ak8jet1_eta; 
   Event::Handle<float> h_Mttbar; 
+  //Event::Handle<float> h_weight; 
 
   uhh2::Event::Handle<ZprimeCandidate*> h_BestZprimeCandidateChi2;
 
@@ -560,13 +555,13 @@ protected:
   Event::Handle<float> h_N_Ak4;
   Event::Handle<float> h_N_Ak8;
   
-  Event::Handle<float> h_weight;
 
 
   Event::Handle<std::vector<tensorflow::Tensor> > h_NNoutput;
   Event::Handle<double> h_NNoutput0;
   Event::Handle<double> h_NNoutput1;
   Event::Handle<double> h_NNoutput2;
+  Event::Handle<double> h_NNoutput3;
 
   std::unique_ptr<NeuralNetworkModule> NNModule;
 
@@ -578,16 +573,16 @@ void ZprimeAnalysisModule_TestNN_std::book_histograms(uhh2::Context& ctx, vector
     // book_HFolder(mytag, new TTbarLJHistsSkimming(ctx,mytag));
     mytag = tag+"_General";
     book_HFolder(mytag, new ZprimeSemiLeptonicHists(ctx,mytag));
-    mytag = tag+"_Muons";
-    book_HFolder(mytag, new MuonHists(ctx,mytag));
-    mytag = tag+"_Electrons";
-    book_HFolder(mytag, new ElectronHists(ctx,mytag));
-    mytag = tag+"_Jets";
-    book_HFolder(mytag, new JetHists(ctx,mytag));
-    mytag = tag+"_Event";
-    book_HFolder(mytag, new EventHists(ctx,mytag));
-    mytag = tag+"_Generator";
-    book_HFolder(mytag, new ZprimeSemiLeptonicGeneratorHists(ctx,mytag));
+    //mytag = tag+"_Muons";
+    //book_HFolder(mytag, new MuonHists(ctx,mytag));
+    //mytag = tag+"_Electrons";
+    //book_HFolder(mytag, new ElectronHists(ctx,mytag));
+    //mytag = tag+"_Jets";
+    //book_HFolder(mytag, new JetHists(ctx,mytag));
+    //mytag = tag+"_Event";
+    //book_HFolder(mytag, new EventHists(ctx,mytag));
+    //mytag = tag+"_Generator";
+    //book_HFolder(mytag, new ZprimeSemiLeptonicGeneratorHists(ctx,mytag));
   }
 }
 
@@ -596,16 +591,16 @@ void ZprimeAnalysisModule_TestNN_std::fill_histograms(uhh2::Event& event, string
   // HFolder(mytag)->fill(event);
   mytag = tag+"_General";
   HFolder(mytag)->fill(event);
-  mytag = tag+"_Muons";
-  HFolder(mytag)->fill(event);
-  mytag = tag+"_Electrons";
-  HFolder(mytag)->fill(event);
-  mytag = tag+"_Jets";
-  HFolder(mytag)->fill(event);
-  mytag = tag+"_Event";
-  HFolder(mytag)->fill(event);
-  mytag = tag+"_Generator";
-  HFolder(mytag)->fill(event);
+  //mytag = tag+"_Muons";
+  //HFolder(mytag)->fill(event);
+  //mytag = tag+"_Electrons";
+  //HFolder(mytag)->fill(event);
+  //mytag = tag+"_Jets";
+  //HFolder(mytag)->fill(event);
+  //mytag = tag+"_Event";
+  //HFolder(mytag)->fill(event);
+  //mytag = tag+"_Generator";
+  //HFolder(mytag)->fill(event);
 }
 
 /*
@@ -784,7 +779,8 @@ ZprimeAnalysisModule_TestNN_std::ZprimeAnalysisModule_TestNN_std(uhh2::Context& 
   TopJetBtagSubjet_selection.reset(new ZprimeBTagFatSubJetSelection(ctx));
 
   // Book histograms
-  vector<string> histogram_tags = {"Weights", "Muon1", "Trigger", "Muon2", "Electron1", "TwoDCut", "Jet1", "Jet2", "MET", "HTlep", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction", "Btags2", "Btags1","TopJetBtagSubjet","DNN_output0","DNN_output1","DNN_output2"};
+  //vector<string> histogram_tags = {"Weights", "Muon1", "Trigger", "Muon2", "Electron1", "TwoDCut", "Jet1", "Jet2", "MET", "HTlep", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction", "Btags2", "Btags1","TopJetBtagSubjet","DNN_output0","DNN_output1","DNN_output2", "DNN_output0_TopTag","DNN_output1_TopTag","DNN_output2_TopTag","DNN_output0_NoTopTag","DNN_output1_NoTopTag","DNN_output2_NoTopTag","DNN_output0_Chi2","DNN_output1_Chi2","DNN_output2_Chi2"};
+  vector<string> histogram_tags = {"DNN_output0","DNN_output1","DNN_output2","DNN_output3", "DNN_output0_TopTag","DNN_output1_TopTag","DNN_output2_TopTag","DNN_output3_TopTag","DNN_output0_NoTopTag","DNN_output1_NoTopTag","DNN_output2_NoTopTag","DNN_output3_NoTopTag"};
   book_histograms(ctx, histogram_tags);
 
   h_Ak4_j1_E   = ctx.get_handle<float>("Ak4_j1_E");
@@ -863,13 +859,13 @@ ZprimeAnalysisModule_TestNN_std::ZprimeAnalysisModule_TestNN_std(uhh2::Context& 
   h_N_Ak4 = ctx.get_handle<float>("N_Ak4");
   h_N_Ak8 = ctx.get_handle<float>("N_Ak8");
   
-  h_weight = ctx.get_handle<float>("weight");
 
   h_NNoutput = ctx.get_handle<std::vector<tensorflow::Tensor>>("NNoutput");
   h_NNoutput0 = ctx.declare_event_output<double>("NNoutput0");
   h_NNoutput1 = ctx.declare_event_output<double>("NNoutput1");
   h_NNoutput2 = ctx.declare_event_output<double>("NNoutput2");
-  NNModule.reset( new NeuralNetworkModule(ctx, "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_2605/model.pb", "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_2605/model.config.pbtxt"));
+  h_NNoutput3 = ctx.declare_event_output<double>("NNoutput3");
+  NNModule.reset( new NeuralNetworkModule(ctx, "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_0906/model.pb", "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_0906/model.config.pbtxt"));
 
 }
 
@@ -904,6 +900,7 @@ bool ZprimeAnalysisModule_TestNN_std::process(uhh2::Event& event){
   event.set(h_NNoutput0, 0); 
   event.set(h_NNoutput1, 0); 
   event.set(h_NNoutput2, 0);
+  event.set(h_NNoutput3, 0);
 
 
   // Printing
@@ -930,20 +927,20 @@ bool ZprimeAnalysisModule_TestNN_std::process(uhh2::Event& event){
   // Run top-tagging
   TopTaggerPuppi->process(event);
   if(debug) cout<<"Top Tagger ok"<<endl;
-  fill_histograms(event, "Weights");
+  //fill_histograms(event, "Weights");
  
   if(!(Trigger1_selection->passes(event)|| Trigger2_selection->passes(event))) return false;
   if(isMuon){
     if(!NMuon1_selection->passes(event)) return false;
-    fill_histograms(event, "Muon1");
+    //fill_histograms(event, "Muon1");
     MuonTrigger_module->process_onemuon(event, 0);
-    fill_histograms(event, "Trigger");
+    //fill_histograms(event, "Trigger");
     if(!NMuon2_selection->passes(event)) return false;
-    fill_histograms(event, "Muon2");
+    //fill_histograms(event, "Muon2");
   }
   if(isElectron){
     if(!NElectron_selection->passes(event)) return false;
-    fill_histograms(event, "Electron1");
+    //fill_histograms(event, "Electron1");
   }
   if((event.muons->size()+event.electrons->size()) != 1) return false; //veto events without leptons or with too many 
   if(debug) cout<<"N leptons ok: Nelectrons="<<event.electrons->size()<<" Nmuons="<<event.muons->size()<<endl;
@@ -988,12 +985,12 @@ bool ZprimeAnalysisModule_TestNN_std::process(uhh2::Event& event){
   if(Chi2CandidateMatched_selection->passes(event)) fill_histograms(event, "CorrectMatchBeforeChi2Cut");
   else fill_histograms(event, "NotCorrectMatchBeforeChi2Cut");
   if(debug) cout<<"Chi2CandidateMatched_selection is ok"<<endl;
-*/
+
   if(!Chi2_selection->passes(event)) return false;
   fill_histograms(event, "Chi2");
 
   if(debug) cout<<"Chi2_selection is ok"<<endl;
-/*
+
   if(TTbarMatchable_selection->passes(event)) fill_histograms(event, "Matchable");
   else fill_histograms(event, "NotMatchable");
   if(debug) cout<<"TTbarMatchable_selection is ok"<<endl;
@@ -1051,18 +1048,21 @@ bool ZprimeAnalysisModule_TestNN_std::process(uhh2::Event& event){
   //////// NN
   NNModule->process(event);
   std::vector<tensorflow::Tensor> NNoutputs = NNModule->GetOutputs();
+
   event.set(h_NNoutput0, (double)(NNoutputs[0].tensor<float, 2>()(0,0)));
   event.set(h_NNoutput1, (double)(NNoutputs[0].tensor<float, 2>()(0,1)));
   event.set(h_NNoutput2, (double)(NNoutputs[0].tensor<float, 2>()(0,2)));
+  event.set(h_NNoutput3, (double)(NNoutputs[0].tensor<float, 2>()(0,3)));
   event.set(h_NNoutput, NNoutputs);
 
   double out0 = (double)(NNoutputs[0].tensor<float, 2>()(0,0));
   double out1 = (double)(NNoutputs[0].tensor<float, 2>()(0,1));
   double out2 = (double)(NNoutputs[0].tensor<float, 2>()(0,2));
-  vector<double> out_event = {out0, out1, out2};
+  double out3 = (double)(NNoutputs[0].tensor<float, 2>()(0,3));
+  vector<double> out_event = {out0, out1, out2, out3};
 
   double max_score = 0.0;
-  for ( int i = 0; i < 3; i++ ) {
+  for ( int i = 0; i < 4; i++ ) {
     if ( out_event[i] > max_score) {
     max_score = out_event[i];
     }
@@ -1071,16 +1071,28 @@ bool ZprimeAnalysisModule_TestNN_std::process(uhh2::Event& event){
 
   if( out0 == max_score ){
   fill_histograms(event, "DNN_output0");
+    if( ZprimeTopTag_selection->passes(event) ) fill_histograms(event, "DNN_output0_TopTag");
+    else fill_histograms(event, "DNN_output0_NoTopTag");
   }
 
   if( out1 == max_score ){
   fill_histograms(event, "DNN_output1");
+    if( ZprimeTopTag_selection->passes(event) ) fill_histograms(event, "DNN_output1_TopTag");
+    else fill_histograms(event, "DNN_output1_NoTopTag");
   }
 
   if( out2 == max_score ){
   fill_histograms(event, "DNN_output2");
+    if( ZprimeTopTag_selection->passes(event) ) fill_histograms(event, "DNN_output2_TopTag");
+    else fill_histograms(event, "DNN_output2_NoTopTag");
   }
-
+ 
+  if( out3 == max_score ){
+  fill_histograms(event, "DNN_output3");
+    if( ZprimeTopTag_selection->passes(event) ) fill_histograms(event, "DNN_output3_TopTag");
+    else fill_histograms(event, "DNN_output3_NoTopTag");
+  }
+ 
 
   if(debug) cout<<"Set some vars for monitoring"<<endl;
   return true;
