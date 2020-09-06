@@ -396,6 +396,81 @@ void ZprimeSemiLeptonicHists::init(){
   S33 = book<TH1F>("S33", "S_{33}", 50, 0, 1);
 
   sum_event_weights = book<TH1F>("sum_event_weights", "counting experiment", 1, 0.5, 1.5);
+
+
+  // NN Hists
+  NN_Mu_pt         = book<TH1F>("NN_Mu_pt", "NN_Mu_pt", 50, 0, 1000);
+  NN_Mu_eta        = book<TH1F>("NN_Mu_eta", "NN_Mu_eta", 50, -2.5, 2.5);
+  NN_Mu_phi        = book<TH1F>("NN_Mu_phi", "NN_Mu_phi", 35, -3.5, 3.5);
+  NN_Mu_E          = book<TH1F>("NN_Mu_E", "NN_Mu_E", 150, 0, 3000);
+  NN_Ele_pt        = book<TH1F>("NN_Ele_pt", "NN_Ele_pt", 50, 0, 1000);
+  NN_Ele_eta       = book<TH1F>("NN_Ele_eta", "NN_Ele_eta", 50, -2.5, 2.5);
+  NN_Ele_phi       = book<TH1F>("NN_Ele_phi", "NN_Ele_phi", 35, -3.5, 3.5);
+  NN_Ele_E         = book<TH1F>("NN_Ele_E", "NN_Ele_E", 150, 0, 3000);
+  NN_MET_pt        = book<TH1F>("NN_MET_pt", "NN_MET_pt", 150, 0, 1500);
+  NN_MET_phi       = book<TH1F>("NN_MET_phi", "NN_MET_phi", 35, -3.5, 3.5);
+  NN_N_Ak4         = book<TH1F>("NN_N_Ak4", "NN_N_Ak4", 20, 0, 20);
+  NN_Ak4_j1_pt     = book<TH1F>("NN_Ak4_j1_pt", "NN_Ak4_j1_pt", 150, 0, 3000);
+  NN_Ak4_j1_eta    = book<TH1F>("NN_Ak4_j1_eta", "NN_Ak4_j1_eta", 50, -2.5, 2.5);
+  NN_Ak4_j1_phi    = book<TH1F>("NN_Ak4_j1_phi", "NN_Ak4_j1_phi", 35, -3.5, 3.5);
+  NN_Ak4_j1_E      = book<TH1F>("NN_Ak4_j1_E", "NN_Ak4_j1_E", 100, 0, 5000);
+  NN_Ak4_j1_m      = book<TH1F>("NN_Ak4_j1_m", "NN_Ak4_j1_m", 50, 0, 300);
+  NN_Ak4_j1_btag   = book<TH1F>("NN_Ak4_j1_btag", "NN_Ak4_j1_btag", 50, 0, 1);
+  NN_Ak4_j2_pt     = book<TH1F>("NN_Ak4_j2_pt", "NN_Ak4_j2_pt", 150, 0, 3000);
+  NN_Ak4_j2_eta    = book<TH1F>("NN_Ak4_j2_eta", "NN_Ak4_j2_eta", 50, -2.5, 2.5);
+  NN_Ak4_j2_phi    = book<TH1F>("NN_Ak4_j2_phi", "NN_Ak4_j2_phi", 35, -3.5, 3.5);
+  NN_Ak4_j2_E      = book<TH1F>("NN_Ak4_j2_E", "NN_Ak4_j2_E", 100, 0, 5000);
+  NN_Ak4_j2_m      = book<TH1F>("NN_Ak4_j2_m", "NN_Ak4_j2_m", 50, 0, 300);
+  NN_Ak4_j2_btag   = book<TH1F>("NN_Ak4_j2_btag", "NN_Ak4_j2_btag", 50, 0, 1);
+  NN_Ak4_j3_pt     = book<TH1F>("NN_Ak4_j3_pt", "NN_Ak4_j3_pt", 150, 0, 3000);
+  NN_Ak4_j3_eta    = book<TH1F>("NN_Ak4_j3_eta", "NN_Ak4_j3_eta", 50, -2.5, 2.5);
+  NN_Ak4_j3_phi    = book<TH1F>("NN_Ak4_j3_phi", "NN_Ak4_j3_phi", 35, -3.5, 3.5);
+  NN_Ak4_j3_E      = book<TH1F>("NN_Ak4_j3_E", "NN_Ak4_j3_E", 100, 0, 5000);
+  NN_Ak4_j3_m      = book<TH1F>("NN_Ak4_j3_m", "NN_Ak4_j3_m", 50, 0, 300);
+  NN_Ak4_j3_btag   = book<TH1F>("NN_Ak4_j3_btag", "NN_Ak4_j3_btag", 50, 0, 1);
+  NN_Ak4_j4_pt     = book<TH1F>("NN_Ak4_j4_pt", "NN_Ak4_j4_pt", 150, 0, 3000);
+  NN_Ak4_j4_eta    = book<TH1F>("NN_Ak4_j4_eta", "NN_Ak4_j4_eta", 50, -2.5, 2.5);
+  NN_Ak4_j4_phi    = book<TH1F>("NN_Ak4_j4_phi", "NN_Ak4_j4_phi", 35, -3.5, 3.5);
+  NN_Ak4_j4_E      = book<TH1F>("NN_Ak4_j4_E", "NN_Ak4_j4_E", 100, 0, 5000);
+  NN_Ak4_j4_m      = book<TH1F>("NN_Ak4_j4_m", "NN_Ak4_j4_m", 50, 0, 300);
+  NN_Ak4_j4_btag   = book<TH1F>("NN_Ak4_j4_btag", "NN_Ak4_j4_btag", 50, 0, 1);
+  NN_Ak4_j5_pt     = book<TH1F>("NN_Ak4_j5_pt", "NN_Ak4_j5_pt", 150, 0, 3000);
+  NN_Ak4_j5_eta    = book<TH1F>("NN_Ak4_j5_eta", "NN_Ak4_j5_eta", 50, -2.5, 2.5);
+  NN_Ak4_j5_phi    = book<TH1F>("NN_Ak4_j5_phi", "NN_Ak4_j5_phi", 35, -3.5, 3.5);
+  NN_Ak4_j5_E      = book<TH1F>("NN_Ak4_j5_E", "NN_Ak4_j5_E", 100, 0, 5000);
+  NN_Ak4_j5_m      = book<TH1F>("NN_Ak4_j5_m", "NN_Ak4_j5_m", 50, 0, 300);
+  NN_Ak4_j5_btag   = book<TH1F>("NN_Ak4_j5_btag", "NN_Ak4_j5_btag", 50, 0, 1);
+  NN_Ak4_j6_pt     = book<TH1F>("NN_Ak4_j6_pt", "NN_Ak4_j6_pt", 150, 0, 3000);
+  NN_Ak4_j6_eta    = book<TH1F>("NN_Ak4_j6_eta", "NN_Ak4_j6_eta", 50, -2.5, 2.5);
+  NN_Ak4_j6_phi    = book<TH1F>("NN_Ak4_j6_phi", "NN_Ak4_j6_phi", 35, -3.5, 3.5);
+  NN_Ak4_j6_E      = book<TH1F>("NN_Ak4_j6_E", "NN_Ak4_j6_E", 100, 0, 5000);
+  NN_Ak4_j6_m      = book<TH1F>("NN_Ak4_j6_m", "NN_Ak4_j6_m", 50, 0, 300);
+  NN_Ak4_j6_btag   = book<TH1F>("NN_Ak4_j6_btag", "NN_Ak4_j6_btag", 50, 0, 1);
+  NN_N_Ak8         = book<TH1F>("NN_N_Ak8", "NN_N_Ak8", 20, 0, 20);
+  NN_Ak8_j1_pt     = book<TH1F>("NN_Ak8_j1_pt", "NN_Ak8_j1_pt", 150, 0, 3000);
+  NN_Ak8_j1_eta    = book<TH1F>("NN_Ak8_j1_eta", "NN_Ak8_j1_eta", 50, -2.5, 2.5);
+  NN_Ak8_j1_phi    = book<TH1F>("NN_Ak8_j1_phi", "NN_Ak8_j1_phi", 35, -3.5, 3.5);
+  NN_Ak8_j1_E      = book<TH1F>("NN_Ak8_j1_E", "NN_Ak8_j1_E", 100, 0, 5000);
+  NN_Ak8_j1_mSD    = book<TH1F>("NN_Ak8_j1_mSD", "NN_Ak8_j1_mSD", 50, 0, 500);
+  NN_Ak8_j1_tau21  = book<TH1F>("NN_Ak8_j1_tau21", "NN_Ak8_j1_tau21", 24, 0, 1.2);
+  NN_Ak8_j1_tau32  = book<TH1F>("NN_Ak8_j1_tau32", "NN_Ak8_j1_tau32", 24, 0, 1.2);
+  NN_Ak8_j2_pt     = book<TH1F>("NN_Ak8_j2_pt", "NN_Ak8_j2_pt", 150, 0, 3000);
+  NN_Ak8_j2_eta    = book<TH1F>("NN_Ak8_j2_eta", "NN_Ak8_j2_eta", 50, -2.5, 2.5);
+  NN_Ak8_j2_phi    = book<TH1F>("NN_Ak8_j2_phi", "NN_Ak8_j2_phi", 35, -3.5, 3.5);
+  NN_Ak8_j2_E      = book<TH1F>("NN_Ak8_j2_E", "NN_Ak8_j2_E", 100, 0, 5000);
+  NN_Ak8_j2_mSD    = book<TH1F>("NN_Ak8_j2_mSD", "NN_Ak8_j2_mSD", 50, 0, 500);
+  NN_Ak8_j2_tau21  = book<TH1F>("NN_Ak8_j2_tau21", "NN_Ak8_j2_tau21", 24, 0, 1.2);
+  NN_Ak8_j2_tau32  = book<TH1F>("NN_Ak8_j2_tau32", "NN_Ak8_j2_tau32", 24, 0, 1.2);
+  NN_Ak8_j3_pt     = book<TH1F>("NN_Ak8_j3_pt", "NN_Ak8_j3_pt", 150, 0, 3000);
+  NN_Ak8_j3_eta    = book<TH1F>("NN_Ak8_j3_eta", "NN_Ak8_j3_eta", 50, -2.5, 2.5);
+  NN_Ak8_j3_phi    = book<TH1F>("NN_Ak8_j3_phi", "NN_Ak8_j3_phi", 35, -3.5, 3.5);
+  NN_Ak8_j3_E      = book<TH1F>("NN_Ak8_j3_E", "NN_Ak8_j3_E", 100, 0, 5000);
+  NN_Ak8_j3_mSD    = book<TH1F>("NN_Ak8_j3_mSD", "NN_Ak8_j3_mSD", 50, 0, 500);
+  NN_Ak8_j3_tau21  = book<TH1F>("NN_Ak8_j3_tau21", "NN_Ak8_j3_tau21", 24, 0, 1.2);
+  NN_Ak8_j3_tau32  = book<TH1F>("NN_Ak8_j3_tau32", "NN_Ak8_j3_tau32", 24, 0, 1.2);
+  NN_M_tt          = book<TH1F>("NN_M_tt", "NN_M_tt", 70, 0, 7000);
+
+
 /*
   DNN_out0 = book<TH1F>("DNN_out0", "NN output 0", 100, 0, 1);
   DNN_out1 = book<TH1F>("DNN_out1", "NN output 1", 100, 0, 1);
@@ -1025,6 +1100,131 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
   S33->Fill(s33, weight);
 
   sum_event_weights->Fill(1., weight);
+
+
+/*
+ ███    ██ ███    ██ 
+ ████   ██ ████   ██ 
+ ██ ██  ██ ██ ██  ██ 
+ ██  ██ ██ ██  ██ ██ 
+ ██   ████ ██   ████ 
+*/
+
+
+  for(int i=0; i<Nmuons; i++){
+      NN_Mu_pt->Fill(muons->at(i).pt(),weight); 
+      NN_Mu_eta->Fill(muons->at(i).eta(),weight);
+      NN_Mu_phi->Fill(muons->at(i).phi(),weight);
+      NN_Mu_E->Fill(muons->at(i).energy(),weight);
+  }
+
+
+
+  for(int i=0; i<Nelectrons; i++){
+      NN_Ele_pt->Fill(electrons->at(i).pt(),weight);
+      NN_Ele_eta->Fill(electrons->at(i).eta(),weight);
+      NN_Ele_phi->Fill(electrons->at(i).phi(),weight);
+      NN_Ele_E->Fill(electrons->at(i).energy(),weight);
+  }
+
+  NN_MET_pt->Fill(event.met->pt(),weight);
+  NN_MET_phi->Fill(event.met->phi(),weight);
+
+  vector<Jet>* Ak4jets = event.jets;
+  int NAk4jets = Ak4jets->size();
+  NN_N_Ak4->Fill(NAk4jets,weight);
+
+  for(int i=0; i<NAk4jets; i++){
+      if(i==0){
+      NN_Ak4_j1_pt->Fill(Ak4jets->at(i).pt(),weight);
+      NN_Ak4_j1_eta->Fill(Ak4jets->at(i).eta(),weight);
+      NN_Ak4_j1_phi->Fill(Ak4jets->at(i).phi(),weight);
+      NN_Ak4_j1_E->Fill(Ak4jets->at(i).energy(),weight);
+      NN_Ak4_j1_m->Fill(Ak4jets->at(i).v4().M(),weight);
+      NN_Ak4_j1_btag->Fill(Ak4jets->at(i).btag_DeepJet(),weight);
+      }
+      if(i==1){
+      NN_Ak4_j2_pt->Fill(Ak4jets->at(i).pt(),weight);
+      NN_Ak4_j2_eta->Fill(Ak4jets->at(i).eta(),weight);
+      NN_Ak4_j2_phi->Fill(Ak4jets->at(i).phi(),weight);
+      NN_Ak4_j2_E->Fill(Ak4jets->at(i).energy(),weight);
+      NN_Ak4_j2_m->Fill(Ak4jets->at(i).v4().M(),weight);
+      NN_Ak4_j2_btag->Fill(Ak4jets->at(i).btag_DeepJet(),weight);
+      }
+      if(i==2){
+      NN_Ak4_j3_pt->Fill(Ak4jets->at(i).pt(),weight);
+      NN_Ak4_j3_eta->Fill(Ak4jets->at(i).eta(),weight);
+      NN_Ak4_j3_phi->Fill(Ak4jets->at(i).phi(),weight);
+      NN_Ak4_j3_E->Fill(Ak4jets->at(i).energy(),weight);
+      NN_Ak4_j3_m->Fill(Ak4jets->at(i).v4().M(),weight);
+      NN_Ak4_j3_btag->Fill(Ak4jets->at(i).btag_DeepJet(),weight);
+      }
+      if(i==3){
+      NN_Ak4_j4_pt->Fill(Ak4jets->at(i).pt(),weight);
+      NN_Ak4_j4_eta->Fill(Ak4jets->at(i).eta(),weight);
+      NN_Ak4_j4_phi->Fill(Ak4jets->at(i).phi(),weight);
+      NN_Ak4_j4_E->Fill(Ak4jets->at(i).energy(),weight);
+      NN_Ak4_j4_m->Fill(Ak4jets->at(i).v4().M(),weight);
+      NN_Ak4_j4_btag->Fill(Ak4jets->at(i).btag_DeepJet(),weight);
+      }
+      if(i==4){
+      NN_Ak4_j5_pt->Fill(Ak4jets->at(i).pt(),weight);
+      NN_Ak4_j5_eta->Fill(Ak4jets->at(i).eta(),weight);
+      NN_Ak4_j5_phi->Fill(Ak4jets->at(i).phi(),weight);
+      NN_Ak4_j5_E->Fill(Ak4jets->at(i).energy(),weight);
+      NN_Ak4_j5_m->Fill(Ak4jets->at(i).v4().M(),weight);
+      NN_Ak4_j5_btag->Fill(Ak4jets->at(i).btag_DeepJet(),weight);
+      }
+      if(i==5){
+      NN_Ak4_j6_pt->Fill(Ak4jets->at(i).pt(),weight);
+      NN_Ak4_j6_eta->Fill(Ak4jets->at(i).eta(),weight);
+      NN_Ak4_j6_phi->Fill(Ak4jets->at(i).phi(),weight);
+      NN_Ak4_j6_E->Fill(Ak4jets->at(i).energy(),weight);
+      NN_Ak4_j6_m->Fill(Ak4jets->at(i).v4().M(),weight);
+      NN_Ak4_j6_btag->Fill(Ak4jets->at(i).btag_DeepJet(),weight);
+      }
+  }
+
+
+  vector<TopJet>* Ak8jets = event.toppuppijets;
+  int NAk8jets = Ak8jets->size();
+  NN_N_Ak8->Fill(NAk8jets,weight);
+
+  for(int i=0; i<NAk8jets; i++){
+      if(i==0){
+      NN_Ak8_j1_pt->Fill(Ak8jets->at(i).pt(),weight);
+      NN_Ak8_j1_eta->Fill(Ak8jets->at(i).eta(),weight);
+      NN_Ak8_j1_phi->Fill(Ak8jets->at(i).phi(),weight);
+      NN_Ak8_j1_E->Fill(Ak8jets->at(i).energy(),weight);
+      NN_Ak8_j1_mSD->Fill(Ak8jets->at(i).softdropmass(),weight);
+      NN_Ak8_j1_tau21->Fill(Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1(),weight);
+      NN_Ak8_j1_tau32->Fill(Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2(),weight);
+      }
+      if(i==1){
+      NN_Ak8_j2_pt->Fill(Ak8jets->at(i).pt(),weight);
+      NN_Ak8_j2_eta->Fill(Ak8jets->at(i).eta(),weight);
+      NN_Ak8_j2_phi->Fill(Ak8jets->at(i).phi(),weight);
+      NN_Ak8_j2_E->Fill(Ak8jets->at(i).energy(),weight);
+      NN_Ak8_j2_mSD->Fill(Ak8jets->at(i).softdropmass(),weight);
+      NN_Ak8_j2_tau21->Fill(Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1(),weight);
+      NN_Ak8_j2_tau32->Fill(Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2(),weight);
+      }
+      if(i==2){
+      NN_Ak8_j3_pt->Fill(Ak8jets->at(i).pt(),weight);
+      NN_Ak8_j3_eta->Fill(Ak8jets->at(i).eta(),weight);
+      NN_Ak8_j3_phi->Fill(Ak8jets->at(i).phi(),weight);
+      NN_Ak8_j3_E->Fill(Ak8jets->at(i).energy(),weight);
+      NN_Ak8_j3_mSD->Fill(Ak8jets->at(i).softdropmass(),weight);
+      NN_Ak8_j3_tau21->Fill(Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1(),weight);
+      NN_Ak8_j3_tau32->Fill(Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2(),weight);
+      }
+  }
+
+  if(is_zprime_reconstructed_chi2){
+    ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
+    float Mass_tt = BestZprimeCandidate->Zprime_v4().M();
+    NN_M_tt->Fill(Mass_tt,weight);
+  }
 
 /// DNN score
 /*

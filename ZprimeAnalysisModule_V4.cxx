@@ -406,14 +406,14 @@ bool ZprimeAnalysisModule_V4::process(uhh2::Event& event){
   if(debug) cout<<"N leptons ok: Nelectrons="<<event.electrons->size()<<" Nmuons="<<event.muons->size()<<endl;
 //  if(!TwoDCut_selection->passes(event)) return false;
 //  fill_histograms(event, "TwoDCut");
-//
-//
-//  CandidateBuilder->process(event);
-//  if(debug) cout<<"CandidateBuilder is ok"<<endl;
-//  Chi2DiscriminatorZprime->process(event);
-//  if(debug)  cout<<"Chi2DiscriminatorZprime is ok"<<endl;
-//  CorrectMatchDiscriminatorZprime->process(event);
-//  if(debug) cout<<"CorrectMatchDiscriminatorZprime is ok"<<endl;
+
+
+  CandidateBuilder->process(event);
+  if(debug) cout<<"CandidateBuilder is ok"<<endl;
+  Chi2DiscriminatorZprime->process(event);
+  if(debug)  cout<<"Chi2DiscriminatorZprime is ok"<<endl;
+  CorrectMatchDiscriminatorZprime->process(event);
+  if(debug) cout<<"CorrectMatchDiscriminatorZprime is ok"<<endl;
 
 
 ///////////////  Variables for NN  /////////

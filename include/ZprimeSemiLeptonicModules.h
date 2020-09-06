@@ -7,6 +7,8 @@
 #include <UHH2/core/include/LorentzVector.h>
 #include <UHH2/common/include/TTbarGen.h>
 
+#include "TH1.h"
+
 float inv_mass(const LorentzVector&);
 
 class ZprimeCandidateBuilder : uhh2::AnalysisModule{
@@ -146,10 +148,12 @@ public:
   virtual bool process(uhh2::Event&) override;
 
 private:
+  uhh2::Event::Handle<bool> h_is_zprime_reconstructed_chi2;
+  uhh2::Event::Handle<ZprimeCandidate*> h_BestZprimeCandidateChi2;
   uhh2::Event::Handle< float > h_eventweight;
   uhh2::Event::Handle< float > h_Mu_pt, h_Mu_eta, h_Mu_phi, h_Mu_E;
   uhh2::Event::Handle< float > h_Ele_pt, h_Ele_eta, h_Ele_phi, h_Ele_E;
-  uhh2::Event::Handle< float > h_MET_pt;
+  uhh2::Event::Handle< float > h_MET_pt, h_MET_phi;
   uhh2::Event::Handle< float > h_N_Ak8;
   uhh2::Event::Handle< float > h_Ak8_j1_pt, h_Ak8_j1_eta, h_Ak8_j1_phi, h_Ak8_j1_E, h_Ak8_j1_mSD, h_Ak8_j1_tau21, h_Ak8_j1_tau32;
   uhh2::Event::Handle< float > h_Ak8_j2_pt, h_Ak8_j2_eta, h_Ak8_j2_phi, h_Ak8_j2_E, h_Ak8_j2_mSD, h_Ak8_j2_tau21, h_Ak8_j2_tau32;
@@ -161,6 +165,19 @@ private:
   uhh2::Event::Handle< float > h_Ak4_j4_pt, h_Ak4_j4_eta, h_Ak4_j4_phi, h_Ak4_j4_E, h_Ak4_j4_m, h_Ak4_j4_deepjetbscore;
   uhh2::Event::Handle< float > h_Ak4_j5_pt, h_Ak4_j5_eta, h_Ak4_j5_phi, h_Ak4_j5_E, h_Ak4_j5_m, h_Ak4_j5_deepjetbscore;
   uhh2::Event::Handle< float > h_Ak4_j6_pt, h_Ak4_j6_eta, h_Ak4_j6_phi, h_Ak4_j6_E, h_Ak4_j6_m, h_Ak4_j6_deepjetbscore;
+  uhh2::Event::Handle< float > h_M_tt;
+
+};
+
+////////////////////////    NN flat vars
+class Vars_Flat_NN : uhh2::AnalysisModule{
+
+public:
+  explicit Vars_Flat_NN(uhh2::Context&);
+  virtual bool process(uhh2::Event&) override;
+
+private:
+   TH1F * h_mtt;
 
 };
 

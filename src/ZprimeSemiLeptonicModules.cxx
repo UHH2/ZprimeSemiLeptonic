@@ -6,6 +6,10 @@
 #include <UHH2/common/include/Utils.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeCandidate.h>
 
+#include "Riostream.h"
+#include "TFile.h"
+#include "TH1F.h"
+
 using namespace std;
 using namespace uhh2;
 
@@ -897,6 +901,8 @@ bool MEPartonFinder::process(uhh2::Event& evt){
 //////////////////////////////////////////////////////////////
 
 Variables_NN::Variables_NN(uhh2::Context& ctx){
+  h_BestZprimeCandidateChi2 = ctx.get_handle<ZprimeCandidate*>("ZprimeCandidateBestChi2");
+  h_is_zprime_reconstructed_chi2 = ctx.get_handle<bool>("is_zprime_reconstructed_chi2");
 
   h_eventweight = ctx.declare_event_output<float> ("eventweight");
 
@@ -914,6 +920,7 @@ Variables_NN::Variables_NN(uhh2::Context& ctx){
 
 ///  MET
   h_MET_pt = ctx.declare_event_output<float> ("MET_pt");
+  h_MET_phi = ctx.declare_event_output<float> ("MET_phi");
 
 ///  AK4 JETS
   h_N_Ak4 = ctx.declare_event_output<float> ("N_Ak4");
@@ -987,12 +994,17 @@ Variables_NN::Variables_NN(uhh2::Context& ctx){
   h_Ak8_j3_tau21 = ctx.declare_event_output<float>("Ak8_j3_tau21");
   h_Ak8_j3_tau32 = ctx.declare_event_output<float>("Ak8_j3_tau32");
 
+
+///  M ttbar
+  h_M_tt = ctx.declare_event_output<float> ("M_tt");
+
 }
 
 bool Variables_NN::process(uhh2::Event& evt){
 
+  double weight = evt.weight;
   evt.set(h_eventweight, -10);
-  evt.set(h_eventweight, evt.weight);
+  evt.set(h_eventweight, weight);
 
 /////////   MUONS
   evt.set(h_Mu_pt, -10);
@@ -1029,8 +1041,10 @@ bool Variables_NN::process(uhh2::Event& evt){
 
 /////////   MET
   evt.set(h_MET_pt, -10);
+  evt.set(h_MET_phi, -10);
 
   evt.set(h_MET_pt, evt.met->pt());
+  evt.set(h_MET_phi, evt.met->phi());
 
 
 ///////// AK4 JETS
@@ -1200,6 +1214,34 @@ bool Variables_NN::process(uhh2::Event& evt){
       evt.set(h_Ak8_j3_tau32, Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2());
       }
   }
+
+  // ttbar mass
+  evt.set(h_M_tt, -10);
+  bool is_zprime_reconstructed_chi2 = evt.get(h_is_zprime_reconstructed_chi2);
+  if(is_zprime_reconstructed_chi2){
+    ZprimeCandidate* BestZprimeCandidate = evt.get(h_BestZprimeCandidateChi2);
+    float Mass_tt = BestZprimeCandidate->Zprime_v4().M();
+  evt.set(h_M_tt, Mass_tt);
+  }
+
+
+
+  return true;
+}
+
+/////////////// Flat vars NN
+
+Vars_Flat_NN::Vars_Flat_NN(Context & ctx){
+
+std::string mttweight_directory = ctx.get("mttweight_directory");
+
+  TFile file_tt(locate_file(mttweight_directory).c_str());
+  h_mtt   = (TH1F*) file_tt.Get("input_Event/N_TrueInteractions");
+  h_mtt->SetDirectory(0);
+
+}
+
+bool Vars_Flat_NN::process(Event &event){
 
   return true;
 }
