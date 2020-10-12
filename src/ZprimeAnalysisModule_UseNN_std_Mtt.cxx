@@ -135,8 +135,9 @@ uhh2::Event::Handle<float> h_Ak8_j3_pt;
 uhh2::Event::Handle<float> h_Ak8_j3_tau21;
 uhh2::Event::Handle<float> h_Ak8_j3_tau32;
 
-uhh2::Event::Handle<float> h_MET_pt;
 uhh2::Event::Handle<float> h_MET_phi;
+uhh2::Event::Handle<float> h_MET_pt;
+uhh2::Event::Handle<float> h_M_tt;
 
 uhh2::Event::Handle<float> h_Mu_E;
 uhh2::Event::Handle<float> h_Mu_eta;
@@ -217,8 +218,9 @@ h_Ak8_j3_pt    = ctx.get_handle<float>("Ak8_j3_pt");
 h_Ak8_j3_tau21 = ctx.get_handle<float>("Ak8_j3_tau21");
 h_Ak8_j3_tau32 = ctx.get_handle<float>("Ak8_j3_tau32");
 
-h_MET_pt = ctx.get_handle<float>("MET_pt");
 h_MET_phi = ctx.get_handle<float>("MET_phi");
+h_MET_pt = ctx.get_handle<float>("MET_pt");
+h_M_tt = ctx.get_handle<float>("M_tt");
 
 h_Mu_E    = ctx.get_handle<float>("Mu_E");
 h_Mu_eta  = ctx.get_handle<float>("Mu_eta");
@@ -234,15 +236,15 @@ void NeuralNetworkModule::CreateInputs(Event & event){
   NNInputs.clear();
   NNoutputs.clear();
 
-  string varname[65];
-  string scal[65];
-  string mean[65];
-  string std[65];
-  double mean_val[65];
-  double std_val[65];
-  ifstream normfile ("/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_1509_flat/NormInfo.txt", ios::in);
+  string varname[66];
+  string scal[66];
+  string mean[66];
+  string std[66];
+  double mean_val[66];
+  double std_val[66];
+  ifstream normfile ("/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_0709_notflat/NormInfo.txt", ios::in);
   if (normfile.is_open()){ 
-        for(int i = 0; i < 65; ++i)
+        for(int i = 0; i < 66; ++i)
         {   
             normfile >> varname[i] >> scal[i] >> mean[i] >> std[i];
             mean_val[i] = std::stod(mean[i]);
@@ -252,7 +254,7 @@ void NeuralNetworkModule::CreateInputs(Event & event){
   }
 
 
-  NNInputs.push_back( tensorflow::Tensor(tensorflow::DT_FLOAT, {1, 65}));
+  NNInputs.push_back( tensorflow::Tensor(tensorflow::DT_FLOAT, {1, 66}));
 
 
   NNInputs.at(0).tensor<float, 2>()(0,0)  = (event.get(h_Ak4_j1_E)   - mean_val[0]) / (std_val[0]);
@@ -321,16 +323,17 @@ void NeuralNetworkModule::CreateInputs(Event & event){
   NNInputs.at(0).tensor<float, 2>()(0,55)  = (event.get(h_Ak8_j3_tau21) - mean_val[55]) / (std_val[55]);
   NNInputs.at(0).tensor<float, 2>()(0,56)  = (event.get(h_Ak8_j3_tau32) - mean_val[56]) / (std_val[56]);
 
-  NNInputs.at(0).tensor<float, 2>()(0,57)  = (event.get(h_MET_pt) - mean_val[57]) / (std_val[57]);
-  NNInputs.at(0).tensor<float, 2>()(0,58)  = (event.get(h_MET_phi) - mean_val[58]) / (std_val[58]);
+  NNInputs.at(0).tensor<float, 2>()(0,57)  = (event.get(h_MET_phi) - mean_val[57]) / (std_val[57]);
+  NNInputs.at(0).tensor<float, 2>()(0,58)  = (event.get(h_MET_pt) - mean_val[58]) / (std_val[58]);
+  NNInputs.at(0).tensor<float, 2>()(0,59)  = (event.get(h_M_tt) - mean_val[59]) / (std_val[59]);
 
-  NNInputs.at(0).tensor<float, 2>()(0,59)  = (event.get(h_Mu_E)   - mean_val[59]) / (std_val[59]);
-  NNInputs.at(0).tensor<float, 2>()(0,60)  = (event.get(h_Mu_eta) - mean_val[60]) / (std_val[60]);
-  NNInputs.at(0).tensor<float, 2>()(0,61)  = (event.get(h_Mu_phi) - mean_val[61]) / (std_val[61]);
-  NNInputs.at(0).tensor<float, 2>()(0,62)  = (event.get(h_Mu_pt)  - mean_val[62]) / (std_val[62]);
+  NNInputs.at(0).tensor<float, 2>()(0,60)  = (event.get(h_Mu_E)   - mean_val[60]) / (std_val[60]);
+  NNInputs.at(0).tensor<float, 2>()(0,61)  = (event.get(h_Mu_eta) - mean_val[61]) / (std_val[61]);
+  NNInputs.at(0).tensor<float, 2>()(0,62)  = (event.get(h_Mu_phi) - mean_val[62]) / (std_val[62]);
+  NNInputs.at(0).tensor<float, 2>()(0,63)  = (event.get(h_Mu_pt)  - mean_val[63]) / (std_val[63]);
 
-  NNInputs.at(0).tensor<float, 2>()(0,63)  = (event.get(h_N_Ak4) - mean_val[63]) / (std_val[63]);
-  NNInputs.at(0).tensor<float, 2>()(0,64)  = (event.get(h_N_Ak8) - mean_val[64]) / (std_val[64]);
+  NNInputs.at(0).tensor<float, 2>()(0,64)  = (event.get(h_N_Ak4) - mean_val[64]) / (std_val[64]);
+  NNInputs.at(0).tensor<float, 2>()(0,65)  = (event.get(h_N_Ak8) - mean_val[65]) / (std_val[65]);
 
 
 /*
@@ -417,10 +420,10 @@ void NeuralNetworkModule::CreateInputs(Event & event){
 
 
 
-class ZprimeAnalysisModule_TestNN_std : public ModuleBASE {
+class ZprimeAnalysisModule_UseNN_std_Mtt : public ModuleBASE {
 
 public:
-  explicit ZprimeAnalysisModule_TestNN_std(uhh2::Context&);
+  explicit ZprimeAnalysisModule_UseNN_std_Mtt(uhh2::Context&);
   virtual bool process(uhh2::Event&) override;
   void book_histograms(uhh2::Context&, vector<string>);
   void fill_histograms(uhh2::Event&, string);
@@ -548,8 +551,9 @@ protected:
   Event::Handle<float> h_Ak8_j3_tau21;
   Event::Handle<float> h_Ak8_j3_tau32;
   
-  Event::Handle<float> h_MET_pt;
   Event::Handle<float> h_MET_phi;
+  Event::Handle<float> h_MET_pt;
+  Event::Handle<float> h_M_tt;
   
   Event::Handle<float> h_Mu_E;
   Event::Handle<float> h_Mu_eta;
@@ -571,7 +575,7 @@ protected:
 
 };
 
-void ZprimeAnalysisModule_TestNN_std::book_histograms(uhh2::Context& ctx, vector<string> tags){
+void ZprimeAnalysisModule_UseNN_std_Mtt::book_histograms(uhh2::Context& ctx, vector<string> tags){
   for(const auto & tag : tags){
     string mytag = tag + "_Skimming";
     // book_HFolder(mytag, new TTbarLJHistsSkimming(ctx,mytag));
@@ -590,7 +594,7 @@ void ZprimeAnalysisModule_TestNN_std::book_histograms(uhh2::Context& ctx, vector
   }
 }
 
-void ZprimeAnalysisModule_TestNN_std::fill_histograms(uhh2::Event& event, string tag){
+void ZprimeAnalysisModule_UseNN_std_Mtt::fill_histograms(uhh2::Event& event, string tag){
   string mytag = tag + "_Skimming";
   // HFolder(mytag)->fill(event);
   mytag = tag+"_General";
@@ -615,7 +619,7 @@ void ZprimeAnalysisModule_TestNN_std::fill_histograms(uhh2::Event& event, string
 █  ██████  ██████  ██   ████ ███████    ██    ██   ██  ██████   ██████    ██     ██████  ██   ██
 */
 
-ZprimeAnalysisModule_TestNN_std::ZprimeAnalysisModule_TestNN_std(uhh2::Context& ctx){
+ZprimeAnalysisModule_UseNN_std_Mtt::ZprimeAnalysisModule_UseNN_std_Mtt(uhh2::Context& ctx){
   //  debug = true;
   debug = false;
   for(auto & kv : ctx.get_all()){
@@ -853,8 +857,9 @@ ZprimeAnalysisModule_TestNN_std::ZprimeAnalysisModule_TestNN_std(uhh2::Context& 
   h_Ak8_j3_tau21 = ctx.get_handle<float>("Ak8_j3_tau21");
   h_Ak8_j3_tau32 = ctx.get_handle<float>("Ak8_j3_tau32");
   
-  h_MET_pt = ctx.get_handle<float>("MET_pt");
   h_MET_phi = ctx.get_handle<float>("MET_phi");
+  h_MET_pt = ctx.get_handle<float>("MET_pt");
+  h_M_tt = ctx.get_handle<float>("M_tt");
   
   h_Mu_E    = ctx.get_handle<float>("Mu_E");
   h_Mu_eta  = ctx.get_handle<float>("Mu_eta");
@@ -870,7 +875,7 @@ ZprimeAnalysisModule_TestNN_std::ZprimeAnalysisModule_TestNN_std(uhh2::Context& 
   h_NNoutput1 = ctx.declare_event_output<double>("NNoutput1");
   h_NNoutput2 = ctx.declare_event_output<double>("NNoutput2");
   h_NNoutput3 = ctx.declare_event_output<double>("NNoutput3");
-  NNModule.reset( new NeuralNetworkModule(ctx, "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_1509_flat/model_best.pb", "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_1509_flat/model_best.config.pbtxt"));
+  NNModule.reset( new NeuralNetworkModule(ctx, "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_0709_notflat/model.pb", "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_0709_notflat/model.config.pbtxt"));
 
 }
 
@@ -882,7 +887,7 @@ ZprimeAnalysisModule_TestNN_std::ZprimeAnalysisModule_TestNN_std(uhh2::Context& 
 ██      ██   ██  ██████   ██████ ███████ ███████ ███████
 */
 
-bool ZprimeAnalysisModule_TestNN_std::process(uhh2::Event& event){
+bool ZprimeAnalysisModule_UseNN_std_Mtt::process(uhh2::Event& event){
 
   if(debug)   cout << "++++++++++++ NEW EVENT ++++++++++++++" << endl;
   if(debug)   cout<<" run.event: "<<event.run<<". "<<event.event<<endl;
@@ -950,7 +955,7 @@ bool ZprimeAnalysisModule_TestNN_std::process(uhh2::Event& event){
   if((event.muons->size()+event.electrons->size()) != 1) return false; //veto events without leptons or with too many 
   if(debug) cout<<"N leptons ok: Nelectrons="<<event.electrons->size()<<" Nmuons="<<event.muons->size()<<endl;
   if(!TwoDCut_selection->passes(event)) return false;
-  //fill_histograms(event, "TwoDCut");
+  fill_histograms(event, "TwoDCut");
 
 
   CandidateBuilder->process(event);
@@ -1103,4 +1108,4 @@ bool ZprimeAnalysisModule_TestNN_std::process(uhh2::Event& event){
   return true;
 }
 
-UHH2_REGISTER_ANALYSIS_MODULE(ZprimeAnalysisModule_TestNN_std)
+UHH2_REGISTER_ANALYSIS_MODULE(ZprimeAnalysisModule_UseNN_std_Mtt)

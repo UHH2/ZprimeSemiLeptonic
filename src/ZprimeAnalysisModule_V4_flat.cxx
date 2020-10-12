@@ -125,13 +125,12 @@ protected:
   bool is2016v2, is2016v3, is2017v2, is2018;
   bool isMuon, isElectron;
 
-  bool isTT, isST, isDY, isWJets_l, isWJets_h, isZprime_M500_W50, isZprime_M750_W75, isZprime_M1000_W100, isZprime_M1500_W150, isZprime_M2000_W200, isZprime_M2500_W250, isZprime_M3000_W300, isZprime_M3500_W350, isZprime_M4000_W400, isZprime_M5000_W500, isZprime_M6000_W600, isZprime_M7000_W700, isZprime_M8000_W800, isZprime_M9000_W900;
+/*  bool isTT, isST, isDY,isWJets, isZprime_M500_W50, isZprime_M750_W75, isZprime_M1000_W100, isZprime_M1500_W150, isZprime_M2000_W200, isZprime_M2500_W250, isZprime_M3000_W300, isZprime_M3500_W350, isZprime_M4000_W400, isZprime_M5000_W500, isZprime_M6000_W600, isZprime_M7000_W700, isZprime_M8000_W800, isZprime_M9000_W900;
 
   TH1F* h0_TT;
   TH1F* h0_ST;
   TH1F* h0_DY;
-  TH1F* h0_WJets_l;
-  TH1F* h0_WJets_h;
+  TH1F* h0_WJets;
   TH1F* h0_Zprime_M500_W50;
   TH1F* h0_Zprime_M750_W75;
   TH1F* h0_Zprime_M1000_W100;
@@ -146,7 +145,7 @@ protected:
   TH1F* h0_Zprime_M7000_W700;
   TH1F* h0_Zprime_M8000_W800;
   TH1F* h0_Zprime_M9000_W900;
-
+*/
 };
 
 void ZprimeAnalysisModule_V4_flat::book_histograms(uhh2::Context& ctx, vector<string> tags){
@@ -211,11 +210,10 @@ ZprimeAnalysisModule_V4_flat::ZprimeAnalysisModule_V4_flat(uhh2::Context& ctx){
   is2017v2 = (ctx.get("dataset_version").find("2017v2") != std::string::npos);
   is2018 = (ctx.get("dataset_version").find("2018") != std::string::npos);
 
-  isTT = (ctx.get("dataset_version").find("TT") != std::string::npos);
+/*  isTT = (ctx.get("dataset_version").find("TT") != std::string::npos);
   isST = (ctx.get("dataset_version").find("ST") != std::string::npos);
   isDY = (ctx.get("dataset_version").find("DY") != std::string::npos);
-  isWJets_l = (ctx.get("dataset_version").find("WJetsToLNu_HT-70To100") || ctx.get("dataset_version").find("WJetsToLNu_HT-100To200") || ctx.get("dataset_version").find("WJetsToLNu_HT-200To400") || ctx.get("dataset_version").find("WJetsToLNu_HT-400To600") || ctx.get("dataset_version").find("WJetsToLNu_HT-600To800") || ctx.get("dataset_version").find("WJetsToLNu_HT-800To1200") != std::string::npos);
-  isWJets_h = (ctx.get("dataset_version").find("WJetsToLNu_HT-1200To2500") || ctx.get("dataset_version").find("WJetsToLNu_HT-2500ToInf") != std::string::npos);
+  isWJets = (ctx.get("dataset_version").find("WJets") != std::string::npos);
   isZprime_M500_W50 = (ctx.get("dataset_version").find("M500_W50") != std::string::npos);
   isZprime_M750_W75 = (ctx.get("dataset_version").find("M750_W75") != std::string::npos);
   isZprime_M1000_W100 = (ctx.get("dataset_version").find("M1000_W100") != std::string::npos);
@@ -230,7 +228,7 @@ ZprimeAnalysisModule_V4_flat::ZprimeAnalysisModule_V4_flat(uhh2::Context& ctx){
   isZprime_M7000_W700 = (ctx.get("dataset_version").find("M7000_W700") != std::string::npos);
   isZprime_M8000_W800 = (ctx.get("dataset_version").find("M8000_W800") != std::string::npos);
   isZprime_M9000_W900 = (ctx.get("dataset_version").find("M9000_W900") != std::string::npos);
-
+*/
   // Important selection values
   islooserselection = (ctx.get("is_looser_selection") == "true");
   double muon_pt(55.);
@@ -382,13 +380,13 @@ ZprimeAnalysisModule_V4_flat::ZprimeAnalysisModule_V4_flat(uhh2::Context& ctx){
   TopJetBtagSubjet_selection.reset(new ZprimeBTagFatSubJetSelection(ctx));
 
   // Book histograms
-  //vector<string> histogram_tags = {"Weights", "Muon1", "Trigger", "Muon2", "Electron1", "TwoDCut", "Jet1", "Jet2", "MET", "HTlep", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction", "Btags2", "Btags1","TopJetBtagSubjet", "NNInputsBeforeReweight", "NNInputsAfterReweight"};
-  vector<string> histogram_tags = {"TwoDCut","NNInputsBeforeReweight", "NNInputsAfterReweight"};
+  //vector<string> histogram_tags = {"Weights", "Muon1", "Trigger", "Muon2", "Electron1", "TwoDCut", "Jet1", "Jet2", "MET", "HTlep", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction", "Btags2", "Btags1","TopJetBtagSubjet", "NNInputsBeforeReweight"};
+  vector<string> histogram_tags = {"NNInputsBeforeReweight"};
   book_histograms(ctx, histogram_tags);
 
 
-  // TTbar
-  TFile *f_TT = new TFile("/nfs/dust/cms/user/deleokse/analysis/ZPrime_2017/Analysis_NNvars_V4_0309/muon/NOMINAL/uhh2.AnalysisModuleRunner.MC.TT.root");
+/*  // TTbar
+  TFile *f_TT = new TFile("/nfs/dust/cms/user/deleokse/analysis/ZPrime_2017/Analysis_NNvars_V4_0309/muon/NOMINAL/uhh2.AnalysisModuleRunner.MC.TTbar.root");
   h0_TT   = (TH1F*) f_TT->Get("NNInputsBeforeReweight_General/NN_M_tt");
   h0_TT->SetDirectory(0);
 
@@ -402,15 +400,10 @@ ZprimeAnalysisModule_V4_flat::ZprimeAnalysisModule_V4_flat(uhh2::Context& ctx){
   h0_DY   = (TH1F*) f_DY->Get("NNInputsBeforeReweight_General/NN_M_tt");
   h0_DY->SetDirectory(0);
 
-  // WJets - low HT
-  TFile *f_WJets_l = new TFile("/nfs/dust/cms/user/deleokse/analysis/ZPrime_2017/Analysis_NNvars_V4_0309/muon/NOMINAL/uhh2.AnalysisModuleRunner.MC.WJetsToLNu_HT-low.root");
-  h0_WJets_l   = (TH1F*) f_WJets_l->Get("NNInputsBeforeReweight_General/NN_M_tt");
-  h0_WJets_l->SetDirectory(0);
-
-  // WJets - high HT
-  TFile *f_WJets_h = new TFile("/nfs/dust/cms/user/deleokse/analysis/ZPrime_2017/Analysis_NNvars_V4_0309/muon/NOMINAL/uhh2.AnalysisModuleRunner.MC.WJetsToLNu_HT-high.root");
-  h0_WJets_h   = (TH1F*) f_WJets_h->Get("NNInputsBeforeReweight_General/NN_M_tt");
-  h0_WJets_h->SetDirectory(0);
+  // WJets
+  TFile *f_WJets = new TFile("/nfs/dust/cms/user/deleokse/analysis/ZPrime_2017/Analysis_NNvars_V4_0309/muon/NOMINAL/uhh2.AnalysisModuleRunner.MC.WJets.root");
+  h0_WJets   = (TH1F*) f_WJets->Get("NNInputsBeforeReweight_General/NN_M_tt");
+  h0_WJets->SetDirectory(0);
 
   // Zprime M500_W50
   TFile *f_Zprime_M500_W50 = new TFile("/nfs/dust/cms/user/deleokse/analysis/ZPrime_2017/Analysis_NNvars_V4_0309/muon/NOMINAL/uhh2.AnalysisModuleRunner.MC.ZprimeToTT_M500_W50_2017v2.root");
@@ -481,6 +474,7 @@ ZprimeAnalysisModule_V4_flat::ZprimeAnalysisModule_V4_flat(uhh2::Context& ctx){
   TFile *f_Zprime_M9000_W900 = new TFile("/nfs/dust/cms/user/deleokse/analysis/ZPrime_2017/Analysis_NNvars_V4_0309/muon/NOMINAL/uhh2.AnalysisModuleRunner.MC.ZprimeToTT_M9000_W900_2017v2.root");
   h0_Zprime_M9000_W900   = (TH1F*) f_Zprime_M9000_W900->Get("NNInputsBeforeReweight_General/NN_M_tt");
   h0_Zprime_M9000_W900->SetDirectory(0);
+*/
 
 }
 
@@ -499,7 +493,9 @@ bool ZprimeAnalysisModule_V4_flat::process(uhh2::Event& event){
 
   if(debug)   cout << "++++++++++++ NEW EVENT ++++++++++++++" << endl;
   if(debug)   cout<<" run.event: "<<event.run<<". "<<event.event<<endl;
-  //if(event.event != 8) return false;
+  //if(event.event !=  57492) return false;
+  //if(event.event != 32767 ) return false;
+  //if(event.event != 32847 ) return false;
   // Initialize reco flags with false
   event.set(h_is_zprime_reconstructed_chi2, false);
   event.set(h_is_zprime_reconstructed_correctmatch, false);
@@ -559,7 +555,7 @@ bool ZprimeAnalysisModule_V4_flat::process(uhh2::Event& event){
   if((event.muons->size()+event.electrons->size()) != 1) return false; //veto events without leptons or with too many 
   if(debug) cout<<"N leptons ok: Nelectrons="<<event.electrons->size()<<" Nmuons="<<event.muons->size()<<endl;
   if(!TwoDCut_selection->passes(event)) return false;
-  fill_histograms(event, "TwoDCut");
+  //fill_histograms(event, "TwoDCut");
 
 
   CandidateBuilder->process(event);
@@ -569,10 +565,29 @@ bool ZprimeAnalysisModule_V4_flat::process(uhh2::Event& event){
   CorrectMatchDiscriminatorZprime->process(event);
   if(debug) cout<<"CorrectMatchDiscriminatorZprime is ok"<<endl;
 
+  if(!Jet1_selection->passes(event)) return false;
+  if(debug) cout<<"Jet1_selection is ok"<<endl;
+  //fill_histograms(event, "Jet1");
+
+  if(!Jet2_selection->passes(event)) return false;
+  if(debug) cout<<"Jet2_selection is ok"<<endl;
+  //fill_histograms(event, "Jet2");
+
+  // MET selection
+  if(!met_sel->passes(event)) return false;
+  if(debug) cout<<"MET is ok"<<endl;
+  //fill_histograms(event, "MET");
+
+
+  if(isMuon){
+    if(!htlep_sel->passes(event)) return false;
+    //fill_histograms(event, "HTlep");
+    if(debug) cout<<"HTlep is ok"<<endl;
+  }
 
 ///////////////  Variables for NN  /////////
 
-  //Variables_module->process(event);
+  Variables_module->process(event);
   fill_histograms(event, "NNInputsBeforeReweight");
 
 ////////////////////////////////////////////
@@ -583,319 +598,117 @@ bool ZprimeAnalysisModule_V4_flat::process(uhh2::Event& event){
 
 
 ////    Reweight inputs for flattening
-
-if(isTT){
-  //cout << "weight before flattening = " << event.weight << endl;
+/*
   double weight_flat=1.0;
+  bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2);
+  if(is_zprime_reconstructed_chi2){
+    ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
+    float Mtt = BestZprimeCandidate->Zprime_v4().M();
+
+    if(isTT){
+    weight_flat = 1.0/(h0_TT->GetBinContent(h0_TT->GetXaxis()->FindBin(Mtt)));
+    }
+    if(isST){
+    weight_flat = 1.0/(h0_ST->GetBinContent(h0_ST->GetXaxis()->FindBin(Mtt)));
+    }
+    if(isDY){
+    weight_flat = 1.0/(h0_DY->GetBinContent(h0_DY->GetXaxis()->FindBin(Mtt)));
+    }
+    if(isWJets){
+    weight_flat = 1.0/(h0_WJets->GetBinContent(h0_WJets->GetXaxis()->FindBin(Mtt)));
+    }
+    if(isZprime_M500_W50){
+    weight_flat = 1.0/(h0_Zprime_M500_W50->GetBinContent(h0_Zprime_M500_W50->GetXaxis()->FindBin(Mtt)));
+    }
+    if(isZprime_M750_W75){
+    weight_flat = 1.0/(h0_Zprime_M750_W75->GetBinContent(h0_Zprime_M750_W75->GetXaxis()->FindBin(Mtt)));
+    }
+    if(isZprime_M1000_W100){
+    weight_flat = 1.0/(h0_Zprime_M1000_W100->GetBinContent(h0_Zprime_M1000_W100->GetXaxis()->FindBin(Mtt)));
+    }
+    if(isZprime_M1500_W150){
+    weight_flat = 1.0/(h0_Zprime_M1500_W150->GetBinContent(h0_Zprime_M1500_W150->GetXaxis()->FindBin(Mtt)));
+    }
+    if(isZprime_M2000_W200){
+    weight_flat = 1.0/(h0_Zprime_M2000_W200->GetBinContent(h0_Zprime_M2000_W200->GetXaxis()->FindBin(Mtt)));
+    }
+    if(isZprime_M2500_W250){
+    weight_flat = 1.0/(h0_Zprime_M2500_W250->GetBinContent(h0_Zprime_M2500_W250->GetXaxis()->FindBin(Mtt)));
+    }
+    if(isZprime_M3000_W300){
+    weight_flat = 1.0/(h0_Zprime_M3000_W300->GetBinContent(h0_Zprime_M3000_W300->GetXaxis()->FindBin(Mtt)));
+    }
+    if(isZprime_M3500_W350){
+    weight_flat = 1.0/(h0_Zprime_M3500_W350->GetBinContent(h0_Zprime_M3500_W350->GetXaxis()->FindBin(Mtt)));
+    }
+    if(isZprime_M4000_W400){
+    weight_flat = 1.0/(h0_Zprime_M4000_W400->GetBinContent(h0_Zprime_M4000_W400->GetXaxis()->FindBin(Mtt)));
+    }
+    if(isZprime_M5000_W500){
+    weight_flat = 1.0/(h0_Zprime_M5000_W500->GetBinContent(h0_Zprime_M5000_W500->GetXaxis()->FindBin(Mtt)));
+    }
+    if(isZprime_M6000_W600){
+    weight_flat = 1.0/(h0_Zprime_M6000_W600->GetBinContent(h0_Zprime_M6000_W600->GetXaxis()->FindBin(Mtt)));
+    }
+    if(isZprime_M7000_W700){
+    weight_flat = 1.0/(h0_Zprime_M7000_W700->GetBinContent(h0_Zprime_M7000_W700->GetXaxis()->FindBin(Mtt)));
+    }
+    if(isZprime_M8000_W800){
+    weight_flat = 1.0/(h0_Zprime_M8000_W800->GetBinContent(h0_Zprime_M8000_W800->GetXaxis()->FindBin(Mtt)));
+    }
+    if(isZprime_M9000_W900){
+    weight_flat = 1.0/(h0_Zprime_M9000_W900->GetBinContent(h0_Zprime_M9000_W900->GetXaxis()->FindBin(Mtt)));
+    }
+
+  }
+  event.weight = weight_flat;
+   
+  Variables_module->process(event);
+  fill_histograms(event, "NNInputsAfterReweight");
+*/  
+
+/*
+
+
+  if(TTbarMatchable_selection->passes(event)) fill_histograms(event, "MatchableBeforeChi2Cut");
+  else fill_histograms(event, "NotMatchableBeforeChi2Cut");
+  if(debug) cout<<"TTbarMatchable_selection is ok"<<endl;
+
+  if(Chi2CandidateMatched_selection->passes(event)) fill_histograms(event, "CorrectMatchBeforeChi2Cut");
+  else fill_histograms(event, "NotCorrectMatchBeforeChi2Cut");
+  if(debug) cout<<"Chi2CandidateMatched_selection is ok"<<endl;
+
+  if(!Chi2_selection->passes(event)) return false;
+  fill_histograms(event, "Chi2");
+  if(debug) cout<<"Chi2_selection is ok"<<endl;
+
+  if(TTbarMatchable_selection->passes(event)) fill_histograms(event, "Matchable");
+  else fill_histograms(event, "NotMatchable");
+  if(debug) cout<<"TTbarMatchable_selection is ok"<<endl;
+
+  if(Chi2CandidateMatched_selection->passes(event)) fill_histograms(event, "CorrectMatch");
+  else fill_histograms(event, "NotCorrectMatch");
+  if(debug) cout<<"Chi2CandidateMatched_selection is ok"<<endl;
+
+  if(ZprimeTopTag_selection->passes(event)) fill_histograms(event, "TopTagReconstruction");
+  else fill_histograms(event, "NotTopTagReconstruction");
+  if(debug) cout<<"ZprimeTopTag_selection is ok"<<endl;
+
+  //Test with b-tagging
+  if(sel_2btag->passes(event)) fill_histograms(event, "Btags2");
+  if(sel_1btag->passes(event)) fill_histograms(event, "Btags1");
+  if(debug) cout<<"Btags1 is ok"<<endl;
+  if(TopJetBtagSubjet_selection->passes(event)) fill_histograms(event, "TopJetBtagSubjet");
+  if(debug) cout<<"TopJetBtagSubjet_selection is ok"<<endl;
+
+  //Fill some vars for monitoring and comparison
   bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2); 
   if(is_zprime_reconstructed_chi2){
-  ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
-  float Mtt = BestZprimeCandidate->Zprime_v4().M();
-  //cout << "Mtt = " << Mtt << endl;
-  weight_flat = 1.0/(h0_TT->GetBinContent(h0_TT->GetXaxis()->FindBin(Mtt))); 
-  //cout << "flat weight = " << weight_flat << endl;
-  event.weight = event.weight * weight_flat;
-  //cout << "weight after flattening = " << event.weight << endl;
+    ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
+    //    float chi2 = BestZprimeCandidate->discriminator("chi2_total");
+    event.set(h_chi2,BestZprimeCandidate->discriminator("chi2_total"));
+    event.set(h_Mttbar,BestZprimeCandidate->Zprime_v4().M());
   }
-  Variables_module->process(event);
-  fill_histograms(event, "NNInputsAfterReweight");
-}
-
-if(isST){
-  double weight_flat=1.0;
-  bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2); 
-  if(is_zprime_reconstructed_chi2){
-  ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
-  float Mtt = BestZprimeCandidate->Zprime_v4().M();
-  weight_flat = 1.0/(h0_ST->GetBinContent(h0_ST->GetXaxis()->FindBin(Mtt))); 
-  event.weight = event.weight * weight_flat;
-  }
-  Variables_module->process(event);
-  fill_histograms(event, "NNInputsAfterReweight");
-}
-
-if(isDY){
-  double weight_flat=1.0;
-  bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2); 
-  if(is_zprime_reconstructed_chi2){
-  ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
-  float Mtt = BestZprimeCandidate->Zprime_v4().M();
-  weight_flat = 1.0/(h0_DY->GetBinContent(h0_DY->GetXaxis()->FindBin(Mtt))); 
-  event.weight = event.weight * weight_flat;
-  }
-  Variables_module->process(event);
-  fill_histograms(event, "NNInputsAfterReweight");
-}
-
-if(isWJets_l){
-  double weight_flat=1.0;
-  bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2); 
-  if(is_zprime_reconstructed_chi2){
-  ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
-  float Mtt = BestZprimeCandidate->Zprime_v4().M();
-  weight_flat = 1.0/(h0_WJets_l->GetBinContent(h0_WJets_l->GetXaxis()->FindBin(Mtt))); 
-  event.weight = event.weight * weight_flat;
-  }
-  Variables_module->process(event);
-  fill_histograms(event, "NNInputsAfterReweight");
-}
-
-if(isWJets_h){
-  double weight_flat=1.0;
-  bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2); 
-  if(is_zprime_reconstructed_chi2){
-  ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
-  float Mtt = BestZprimeCandidate->Zprime_v4().M();
-  weight_flat = 1.0/(h0_WJets_h->GetBinContent(h0_WJets_h->GetXaxis()->FindBin(Mtt))); 
-  event.weight = event.weight * weight_flat;
-  }
-  Variables_module->process(event);
-  fill_histograms(event, "NNInputsAfterReweight");
-}
-
-if(isZprime_M500_W50){
-  double weight_flat=1.0;
-  bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2);
-  if(is_zprime_reconstructed_chi2){
-  ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
-  float Mtt = BestZprimeCandidate->Zprime_v4().M();
-  weight_flat = 1.0/(h0_Zprime_M500_W50->GetBinContent(h0_Zprime_M500_W50->GetXaxis()->FindBin(Mtt)));
-  event.weight = event.weight * weight_flat;
-  }
-  Variables_module->process(event);
-  fill_histograms(event, "NNInputsAfterReweight");
-}
-
-if(isZprime_M750_W75){
-  double weight_flat=1.0;
-  bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2);
-  if(is_zprime_reconstructed_chi2){
-  ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
-  float Mtt = BestZprimeCandidate->Zprime_v4().M();
-  weight_flat = 1.0/(h0_Zprime_M750_W75->GetBinContent(h0_Zprime_M750_W75->GetXaxis()->FindBin(Mtt)));
-  event.weight = event.weight * weight_flat;
-  }
-  Variables_module->process(event);
-  fill_histograms(event, "NNInputsAfterReweight");
-}
-
-if(isZprime_M1000_W100){
-  double weight_flat=1.0;
-  bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2);
-  if(is_zprime_reconstructed_chi2){
-  ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
-  float Mtt = BestZprimeCandidate->Zprime_v4().M();
-  weight_flat = 1.0/(h0_Zprime_M1000_W100->GetBinContent(h0_Zprime_M1000_W100->GetXaxis()->FindBin(Mtt)));
-  event.weight = event.weight * weight_flat;
-  }
-  Variables_module->process(event);
-  fill_histograms(event, "NNInputsAfterReweight");
-}
-
-if(isZprime_M1500_W150){
-  double weight_flat=1.0;
-  bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2);
-  if(is_zprime_reconstructed_chi2){
-  ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
-  float Mtt = BestZprimeCandidate->Zprime_v4().M();
-  weight_flat = 1.0/(h0_Zprime_M1500_W150->GetBinContent(h0_Zprime_M1500_W150->GetXaxis()->FindBin(Mtt)));
-  event.weight = event.weight * weight_flat;
-  }
-  Variables_module->process(event);
-  fill_histograms(event, "NNInputsAfterReweight");
-}
-
-if(isZprime_M2000_W200){
-  double weight_flat=1.0;
-  bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2);
-  if(is_zprime_reconstructed_chi2){
-  ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
-  float Mtt = BestZprimeCandidate->Zprime_v4().M();
-  weight_flat = 1.0/(h0_Zprime_M2000_W200->GetBinContent(h0_Zprime_M2000_W200->GetXaxis()->FindBin(Mtt)));
-  event.weight = event.weight * weight_flat;
-  }
-  Variables_module->process(event);
-  fill_histograms(event, "NNInputsAfterReweight");
-}
-
-if(isZprime_M2500_W250){
-  double weight_flat=1.0;
-  bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2);
-  if(is_zprime_reconstructed_chi2){
-  ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
-  float Mtt = BestZprimeCandidate->Zprime_v4().M();
-  weight_flat = 1.0/(h0_Zprime_M2500_W250->GetBinContent(h0_Zprime_M2500_W250->GetXaxis()->FindBin(Mtt)));
-  event.weight = event.weight * weight_flat;
-  }
-  Variables_module->process(event);
-  fill_histograms(event, "NNInputsAfterReweight");
-}
-
-if(isZprime_M3000_W300){
-  double weight_flat=1.0;
-  bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2);
-  if(is_zprime_reconstructed_chi2){
-  ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
-  float Mtt = BestZprimeCandidate->Zprime_v4().M();
-  weight_flat = 1.0/(h0_Zprime_M3000_W300->GetBinContent(h0_Zprime_M3000_W300->GetXaxis()->FindBin(Mtt)));
-  event.weight = event.weight * weight_flat;
-  }
-  Variables_module->process(event);
-  fill_histograms(event, "NNInputsAfterReweight");
-}
-
-if(isZprime_M3500_W350){
-  double weight_flat=1.0;
-  bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2);
-  if(is_zprime_reconstructed_chi2){
-  ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
-  float Mtt = BestZprimeCandidate->Zprime_v4().M();
-  weight_flat = 1.0/(h0_Zprime_M3500_W350->GetBinContent(h0_Zprime_M3500_W350->GetXaxis()->FindBin(Mtt)));
-  event.weight = event.weight * weight_flat;
-  }
-  Variables_module->process(event);
-  fill_histograms(event, "NNInputsAfterReweight");
-}
-
-if(isZprime_M4000_W400){
-  double weight_flat=1.0;
-  bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2);
-  if(is_zprime_reconstructed_chi2){
-  ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
-  float Mtt = BestZprimeCandidate->Zprime_v4().M();
-  weight_flat = 1.0/(h0_Zprime_M4000_W400->GetBinContent(h0_Zprime_M4000_W400->GetXaxis()->FindBin(Mtt)));
-  event.weight = event.weight * weight_flat;
-  }
-  Variables_module->process(event);
-  fill_histograms(event, "NNInputsAfterReweight");
-}
-
-if(isZprime_M5000_W500){
-  double weight_flat=1.0;
-  bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2);
-  if(is_zprime_reconstructed_chi2){
-  ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
-  float Mtt = BestZprimeCandidate->Zprime_v4().M();
-  weight_flat = 1.0/(h0_Zprime_M5000_W500->GetBinContent(h0_Zprime_M5000_W500->GetXaxis()->FindBin(Mtt)));
-  event.weight = event.weight * weight_flat;
-  }
-  Variables_module->process(event);
-  fill_histograms(event, "NNInputsAfterReweight");
-}
-
-if(isZprime_M6000_W600){
-  double weight_flat=1.0;
-  bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2);
-  if(is_zprime_reconstructed_chi2){
-  ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
-  float Mtt = BestZprimeCandidate->Zprime_v4().M();
-  weight_flat = 1.0/(h0_Zprime_M6000_W600->GetBinContent(h0_Zprime_M6000_W600->GetXaxis()->FindBin(Mtt)));
-  event.weight = event.weight * weight_flat;
-  }
-  Variables_module->process(event);
-  fill_histograms(event, "NNInputsAfterReweight");
-}
-
-if(isZprime_M7000_W700){
-  double weight_flat=1.0;
-  bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2);
-  if(is_zprime_reconstructed_chi2){
-  ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
-  float Mtt = BestZprimeCandidate->Zprime_v4().M();
-  weight_flat = 1.0/(h0_Zprime_M7000_W700->GetBinContent(h0_Zprime_M7000_W700->GetXaxis()->FindBin(Mtt)));
-  event.weight = event.weight * weight_flat;
-  }
-  Variables_module->process(event);
-  fill_histograms(event, "NNInputsAfterReweight");
-}
-
-if(isZprime_M8000_W800){
-  double weight_flat=1.0;
-  bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2);
-  if(is_zprime_reconstructed_chi2){
-  ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
-  float Mtt = BestZprimeCandidate->Zprime_v4().M();
-  weight_flat = 1.0/(h0_Zprime_M8000_W800->GetBinContent(h0_Zprime_M8000_W800->GetXaxis()->FindBin(Mtt)));
-  event.weight = event.weight * weight_flat;
-  }
-  Variables_module->process(event);
-  fill_histograms(event, "NNInputsAfterReweight");
-}
-
-if(isZprime_M9000_W900){
-  double weight_flat=1.0;
-  bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2);
-  if(is_zprime_reconstructed_chi2){
-  ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
-  float Mtt = BestZprimeCandidate->Zprime_v4().M();
-  weight_flat = 1.0/(h0_Zprime_M9000_W900->GetBinContent(h0_Zprime_M9000_W900->GetXaxis()->FindBin(Mtt)));
-  event.weight = event.weight * weight_flat;
-  }
-  Variables_module->process(event);
-  fill_histograms(event, "NNInputsAfterReweight");
-}
-
-
-//  if(!Jet1_selection->passes(event)) return false;
-//  if(debug) cout<<"Jet1_selection is ok"<<endl;
-//  fill_histograms(event, "Jet1");
-//
-//  if(!Jet2_selection->passes(event)) return false;
-//  if(debug) cout<<"Jet2_selection is ok"<<endl;
-//  fill_histograms(event, "Jet2");
-//
-//  // MET selection
-//  if(!met_sel->passes(event)) return false;
-//  if(debug) cout<<"MET is ok"<<endl;
-//  fill_histograms(event, "MET");
-//
-//
-//  if(isMuon){
-//    if(!htlep_sel->passes(event)) return false;
-//    fill_histograms(event, "HTlep");
-//    if(debug) cout<<"HTlep is ok"<<endl;
-//  }
-//
-//
-//  if(TTbarMatchable_selection->passes(event)) fill_histograms(event, "MatchableBeforeChi2Cut");
-//  else fill_histograms(event, "NotMatchableBeforeChi2Cut");
-//  if(debug) cout<<"TTbarMatchable_selection is ok"<<endl;
-//
-//  if(Chi2CandidateMatched_selection->passes(event)) fill_histograms(event, "CorrectMatchBeforeChi2Cut");
-//  else fill_histograms(event, "NotCorrectMatchBeforeChi2Cut");
-//  if(debug) cout<<"Chi2CandidateMatched_selection is ok"<<endl;
-//
-//  if(!Chi2_selection->passes(event)) return false;
-//  fill_histograms(event, "Chi2");
-//  if(debug) cout<<"Chi2_selection is ok"<<endl;
-//
-//  if(TTbarMatchable_selection->passes(event)) fill_histograms(event, "Matchable");
-//  else fill_histograms(event, "NotMatchable");
-//  if(debug) cout<<"TTbarMatchable_selection is ok"<<endl;
-//
-//  if(Chi2CandidateMatched_selection->passes(event)) fill_histograms(event, "CorrectMatch");
-//  else fill_histograms(event, "NotCorrectMatch");
-//  if(debug) cout<<"Chi2CandidateMatched_selection is ok"<<endl;
-//
-//  if(ZprimeTopTag_selection->passes(event)) fill_histograms(event, "TopTagReconstruction");
-//  else fill_histograms(event, "NotTopTagReconstruction");
-//  if(debug) cout<<"ZprimeTopTag_selection is ok"<<endl;
-//
-//  //Test with b-tagging
-//  if(sel_2btag->passes(event)) fill_histograms(event, "Btags2");
-//  if(sel_1btag->passes(event)) fill_histograms(event, "Btags1");
-//  if(debug) cout<<"Btags1 is ok"<<endl;
-//  if(TopJetBtagSubjet_selection->passes(event)) fill_histograms(event, "TopJetBtagSubjet");
-//  if(debug) cout<<"TopJetBtagSubjet_selection is ok"<<endl;
-//
-//  //Fill some vars for monitoring and comparison
-//  bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2); 
-//  if(is_zprime_reconstructed_chi2){
-//    ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
-//    //    float chi2 = BestZprimeCandidate->discriminator("chi2_total");
-//    event.set(h_chi2,BestZprimeCandidate->discriminator("chi2_total"));
-//    event.set(h_Mttbar,BestZprimeCandidate->Zprime_v4().M());
-//  }
 
   if(debug) cout<<"Set ttbar reconstruction vars for monitoring"<<endl;
 
@@ -920,7 +733,7 @@ if(isZprime_M9000_W900){
   }
   event.set(h_NPV,event.pvs->size());
   if(debug) cout<<"Set some vars for monitoring"<<endl;
-
+*/
   
   return true;
 

@@ -468,7 +468,7 @@ void ZprimeSemiLeptonicHists::init(){
   NN_Ak8_j3_mSD    = book<TH1F>("NN_Ak8_j3_mSD", "NN_Ak8_j3_mSD", 50, 0, 500);
   NN_Ak8_j3_tau21  = book<TH1F>("NN_Ak8_j3_tau21", "NN_Ak8_j3_tau21", 24, 0, 1.2);
   NN_Ak8_j3_tau32  = book<TH1F>("NN_Ak8_j3_tau32", "NN_Ak8_j3_tau32", 24, 0, 1.2);
-  NN_M_tt          = book<TH1F>("NN_M_tt", "NN_M_tt", 70, 0, 7000);
+  NN_M_tt          = book<TH1F>("NN_M_tt", "NN_M_tt", 100, 0, 14000);
 
 
 /*
