@@ -101,7 +101,7 @@ protected:
   std::unique_ptr<Selection> HEM_selection;
 
   // NN variables handles
-  unique_ptr<Variables_NN> Variables_module;
+  //unique_ptr<Variables_NN> Variables_module;
 
   //Handles
   Event::Handle<bool> h_is_zprime_reconstructed_chi2, h_is_zprime_reconstructed_correctmatch;
@@ -310,8 +310,8 @@ ZprimeAnalysisModule_V4_flat::ZprimeAnalysisModule_V4_flat(uhh2::Context& ctx){
   //  MuonTrigger_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2016/MuonTrigger_EfficienciesAndSF_average_RunBtoH.root", "IsoMu50_OR_IsoTkMu50_PtEtaBins", 0.5, "MuonTrigger", true, Sys_MuonTrigger));
   //}
   if(is2017v2 || is2018){
-    MuonID_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2017/MuonID_94X_RunBCDEF_SF_ID.root", "NUM_HighPtID_DEN_genTracks_pair_newTuneP_probe_pt_abseta", 0., "HighPtID", true, Sys_MuonID));
-    MuonTrigger_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2017/MuonTrigger_EfficienciesAndSF_RunBtoF_Nov17Nov2017.root", "Mu50_PtEtaBins/pt_abseta_ratio", 0.5, "Trigger", true, Sys_MuonTrigger));
+    MuonID_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_16/src/UHH2/common/data/2017/MuonID_94X_RunBCDEF_SF_ID.root", "NUM_HighPtID_DEN_genTracks_pair_newTuneP_probe_pt_abseta", 0., "HighPtID", true, Sys_MuonID));
+    MuonTrigger_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_16/src/UHH2/common/data/2017/MuonTrigger_EfficienciesAndSF_RunBtoF_Nov17Nov2017.root", "Mu50_PtEtaBins/pt_abseta_ratio", 0.5, "Trigger", true, Sys_MuonTrigger));
   }
 
   // Selection modules
@@ -334,7 +334,7 @@ ZprimeAnalysisModule_V4_flat::ZprimeAnalysisModule_V4_flat(uhh2::Context& ctx){
 
   HEM_selection.reset(new HEMSelection(ctx)); // HEM issue in 2017, veto on electron and jets
 
-  Variables_module.reset(new Variables_NN(ctx)); // variables for NN
+  //Variables_module.reset(new Variables_NN(ctx)); // variables for NN
 
   // Taggers
   TopTaggerPuppi.reset(new AK8PuppiTopTagger(ctx));
@@ -380,8 +380,8 @@ ZprimeAnalysisModule_V4_flat::ZprimeAnalysisModule_V4_flat(uhh2::Context& ctx){
   TopJetBtagSubjet_selection.reset(new ZprimeBTagFatSubJetSelection(ctx));
 
   // Book histograms
-  //vector<string> histogram_tags = {"Weights", "Muon1", "Trigger", "Muon2", "Electron1", "TwoDCut", "Jet1", "Jet2", "MET", "HTlep", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction", "Btags2", "Btags1","TopJetBtagSubjet", "NNInputsBeforeReweight"};
-  vector<string> histogram_tags = {"NNInputsBeforeReweight"};
+  vector<string> histogram_tags = {"Preselection", "Weights_noMCPU", "Weights_MCPU", "Muon1", "Trigger", "Muon2", "Electron1", "TwoDCut", "Jet1", "Jet2", "MET", "HTlep", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction", "Btags2", "Btags1","TopJetBtagSubjet"};
+  //vector<string> histogram_tags = {"NNInputsBeforeReweight"};
   book_histograms(ctx, histogram_tags);
 
 
@@ -523,9 +523,9 @@ bool ZprimeAnalysisModule_V4_flat::process(uhh2::Event& event){
   if(isElectron && !HEM_selection->passes(event)) return false;
 
 
+  fill_histograms(event, "Preselection");
+
   // Weight modules
-  LumiWeight_module->process(event);
-  if(debug)  cout<<"LumiWeight ok"<<endl;
   // in fisrt round re-weighting is switched off
   PUWeight_module->process(event);
   if(debug)  cout<<"PUWeight ok"<<endl;
@@ -534,19 +534,23 @@ bool ZprimeAnalysisModule_V4_flat::process(uhh2::Event& event){
     MuonID_module->process(event);
     if(debug)  cout<<"MuonID ok"<<endl;
   }
+  fill_histograms(event, "Weights_noMCPU");
+  LumiWeight_module->process(event);
+  if(debug)  cout<<"LumiWeight ok"<<endl;
+  fill_histograms(event, "Weights_MCPU");
+
   // Run top-tagging
   TopTaggerPuppi->process(event);
   if(debug) cout<<"Top Tagger ok"<<endl;
-  //fill_histograms(event, "Weights");
 
   if(!(Trigger1_selection->passes(event)|| Trigger2_selection->passes(event))) return false;
   if(isMuon){
     if(!NMuon1_selection->passes(event)) return false;
-    //fill_histograms(event, "Muon1");
+    fill_histograms(event, "Muon1");
     MuonTrigger_module->process_onemuon(event, 0);
-    //fill_histograms(event, "Trigger");
+    fill_histograms(event, "Trigger");
     if(!NMuon2_selection->passes(event)) return false;
-    //fill_histograms(event, "Muon2");
+    fill_histograms(event, "Muon2");
   }
   if(isElectron){
     if(!NElectron_selection->passes(event)) return false;
@@ -555,7 +559,7 @@ bool ZprimeAnalysisModule_V4_flat::process(uhh2::Event& event){
   if((event.muons->size()+event.electrons->size()) != 1) return false; //veto events without leptons or with too many 
   if(debug) cout<<"N leptons ok: Nelectrons="<<event.electrons->size()<<" Nmuons="<<event.muons->size()<<endl;
   if(!TwoDCut_selection->passes(event)) return false;
-  //fill_histograms(event, "TwoDCut");
+  fill_histograms(event, "TwoDCut");
 
 
   CandidateBuilder->process(event);
@@ -567,28 +571,28 @@ bool ZprimeAnalysisModule_V4_flat::process(uhh2::Event& event){
 
   if(!Jet1_selection->passes(event)) return false;
   if(debug) cout<<"Jet1_selection is ok"<<endl;
-  //fill_histograms(event, "Jet1");
+  fill_histograms(event, "Jet1");
 
   if(!Jet2_selection->passes(event)) return false;
   if(debug) cout<<"Jet2_selection is ok"<<endl;
-  //fill_histograms(event, "Jet2");
+  fill_histograms(event, "Jet2");
 
   // MET selection
   if(!met_sel->passes(event)) return false;
   if(debug) cout<<"MET is ok"<<endl;
-  //fill_histograms(event, "MET");
+  fill_histograms(event, "MET");
 
 
   if(isMuon){
     if(!htlep_sel->passes(event)) return false;
-    //fill_histograms(event, "HTlep");
+    fill_histograms(event, "HTlep");
     if(debug) cout<<"HTlep is ok"<<endl;
   }
 
 ///////////////  Variables for NN  /////////
 
-  Variables_module->process(event);
-  fill_histograms(event, "NNInputsBeforeReweight");
+//  Variables_module->process(event);
+//  fill_histograms(event, "NNInputsBeforeReweight");
 
 ////////////////////////////////////////////
   if(sample.Contains("_blinded")){
@@ -667,7 +671,7 @@ bool ZprimeAnalysisModule_V4_flat::process(uhh2::Event& event){
   fill_histograms(event, "NNInputsAfterReweight");
 */  
 
-/*
+
 
 
   if(TTbarMatchable_selection->passes(event)) fill_histograms(event, "MatchableBeforeChi2Cut");
@@ -733,7 +737,7 @@ bool ZprimeAnalysisModule_V4_flat::process(uhh2::Event& event){
   }
   event.set(h_NPV,event.pvs->size());
   if(debug) cout<<"Set some vars for monitoring"<<endl;
-*/
+
   
   return true;
 

@@ -169,16 +169,4 @@ private:
 
 };
 
-////////////////////////    NN flat vars
-class Vars_Flat_NN : uhh2::AnalysisModule{
-
-public:
-  explicit Vars_Flat_NN(uhh2::Context&);
-  virtual bool process(uhh2::Event&) override;
-
-private:
-   TH1F * h_mtt;
-
-};
-
 ////

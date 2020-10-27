@@ -1229,22 +1229,6 @@ bool Variables_NN::process(uhh2::Event& evt){
   return true;
 }
 
-/////////////// Flat vars NN
-
-Vars_Flat_NN::Vars_Flat_NN(Context & ctx){
-
-std::string mttweight_directory = ctx.get("mttweight_directory");
-
-  TFile file_tt(locate_file(mttweight_directory).c_str());
-  h_mtt   = (TH1F*) file_tt.Get("input_Event/N_TrueInteractions");
-  h_mtt->SetDirectory(0);
-
-}
-
-bool Vars_Flat_NN::process(Event &event){
-
-  return true;
-}
 
 
 ////

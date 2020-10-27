@@ -508,21 +508,33 @@ bool uhh2::GenFlavorSelection::passes(const uhh2::Event& event){
 ////////////////////////////////////////////////////////
 
 HEMSelection::HEMSelection(Context& ctx){
+year = extract_year(ctx);
 }
 bool HEMSelection::passes(const Event & event){
 
+if(year != Year::is2018) return true;
+if( (event.isRealData && event.run >= min_runnum) || (!event.isRealData) ){
+
    for(const Electron & ele : *event.electrons){
-      if ( ele.eta() < eta_up && ele.phi() < phi_up && ele.phi() > phi_down) return false;
+      if ( ele.eta() < eta_up && ele.eta() > eta_down && ele.phi() < phi_up && ele.phi() > phi_down) return false;
+   }
+
+   for(const Muon & muo : *event.muons){
+      if ( muo.eta() < eta_up && muo.eta() > eta_down && muo.phi() < phi_up && muo.phi() > phi_down) return false;
    }
 
    for(const auto & jet : *event.jets){
-      if ( jet.eta() < eta_up && jet.phi() < phi_up && jet.phi() > phi_down) return false;
+      if ( jet.eta() < eta_up && jet.eta() > eta_down && jet.phi() < phi_up && jet.phi() > phi_down) return false;
    }
 
-   for(const auto & jet : *event.topjets){
-      if ( jet.eta() < eta_up && jet.phi() < phi_up && jet.phi() > phi_down) return false;
+   for(const auto & topjet : *event.topjets){
+      if ( topjet.eta() < eta_up && topjet.eta() > eta_down && topjet.phi() < phi_up && topjet.phi() > phi_down) return false;
    }
- 
+
+   for(const auto & toppuppijet : *event.toppuppijets){
+      if ( toppuppijet.eta() < eta_up && toppuppijet.eta() > eta_down && toppuppijet.phi() < phi_up && toppuppijet.phi() > phi_down) return false;
+   }
+} 
 return true;
 }
 

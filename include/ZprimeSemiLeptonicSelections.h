@@ -10,6 +10,7 @@
 #include <UHH2/common/include/ObjectIdUtils.h>
 #include <UHH2/common/include/TopJetIds.h>
 #include <UHH2/common/include/TTbarGen.h>
+#include <UHH2/common/include/Utils.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeCandidate.h>
 
 #include <string>
@@ -296,7 +297,10 @@ namespace uhh2 {
     virtual bool passes(const Event&) override;
 
   private:
+  Year year;
+  int min_runnum = 319077;
   double eta_up = -1.3;
+  double eta_down = -3.0;
   double phi_up = -0.87;
   double phi_down = -1.57;
   };
