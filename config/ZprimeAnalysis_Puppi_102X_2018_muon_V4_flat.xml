@@ -8,8 +8,8 @@
 
 <!ENTITY IS_PUPPI            "true">
 <!ENTITY IS_LOOSER_SELECTION "false">
-<!ENTITY CHANNEL             "electron">
-<!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_2018/Analysis_2810_test/&CHANNEL;/">
+<!ENTITY CHANNEL             "muon">
+<!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_2018/Analysis_2810_vars/&CHANNEL;/">
 
 <!ENTITY DATA_EGamma_Run2018A       SYSTEM  "../data/Skimming_datasets_2018/DATA_DATA_EGamma_Run2018A_withoutEmptyNtuples.xml">
 <!ENTITY DATA_SingleMuon_Run2018A   SYSTEM  "../data/Skimming_datasets_2018/DATA_DATA_SingleMuon_Run2018A_withoutEmptyNtuples.xml">
@@ -102,9 +102,9 @@
 <!ENTITY ZprimeToTT_M8000_W80_2018 SYSTEM   "../data/Skimming_datasets_2018/MC_ZprimeToTT_M8000_W80_withoutEmptyNtuples.xml">
 <!ENTITY ZprimeToTT_M750_W7p5_2018 SYSTEM   "../data/Skimming_datasets_2018/MC_ZprimeToTT_M750_W7p5_withoutEmptyNtuples.xml">
 -->
-<!ENTITY WW_2018  SYSTEM  "../data/Skimming_datasets_2018/MC_WW_2018_withoutEmptyNtuples.xml">
-<!ENTITY WZ_2018  SYSTEM  "../data/Skimming_datasets_2018/MC_WZ_2018_withoutEmptyNtuples.xml">
-<!ENTITY ZZ_2018  SYSTEM  "../data/Skimming_datasets_2018/MC_ZZ_2018_withoutEmptyNtuples.xml">
+<!ENTITY Diboson_WW_2018  SYSTEM  "../data/Skimming_datasets_2018/MC_WW_2018_withoutEmptyNtuples.xml">
+<!ENTITY Diboson_WZ_2018  SYSTEM  "../data/Skimming_datasets_2018/MC_WZ_2018_withoutEmptyNtuples.xml">
+<!ENTITY Diboson_ZZ_2018  SYSTEM  "../data/Skimming_datasets_2018/MC_ZZ_2018_withoutEmptyNtuples.xml">
 
 <!ENTITY ST_tW_antitop_5f_inclusiveDecays  SYSTEM  "../data/Skimming_datasets_2018/MC_ST_tW_antitop_5f_inclusiveDecays_2018_withoutEmptyNtuples.xml">
 <!ENTITY ST_tW_top_5f_inclusiveDecays      SYSTEM  "../data/Skimming_datasets_2018/MC_ST_tW_top_5f_inclusiveDecays_2018_withoutEmptyNtuples.xml">
@@ -158,7 +158,7 @@
 	<Package Name="SUHH2ZprimeSemiLeptonic.par"/>
 
         <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTPUTdir;/" PostFix="" TargetLumi="&TargetLumi;">
-<!--
+
 	  <InputData Lumi="7432926.584" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_inclusiveDecays_2018" Cacheable="&b_Cacheable;">
 	    &ST_tW_antitop_5f_inclusiveDecays;
 	    <InputTree Name="AnalysisTree" />
@@ -195,24 +195,24 @@
             <OutputTree Name="AnalysisTree" />
           </InputData>
 
-	  <InputData Lumi="103401.8972" NEventsMax="&NEVT;" Type="MC" Version="WW_2018" Cacheable="&b_Cacheable;">
-	    &WW_2018;
+	  <InputData Lumi="103401.8972" NEventsMax="&NEVT;" Type="MC" Version="Diboson_WW_2018" Cacheable="&b_Cacheable;">
+	    &Diboson_WW_2018;
 	    <InputTree Name="AnalysisTree" />
 	    <OutputTree Name="AnalysisTree" />
 	  </InputData>
 	
-	  <InputData Lumi="141037.2914" NEventsMax="&NEVT;" Type="MC" Version="WZ_2018" Cacheable="&b_Cacheable;">
-	    &WZ_2018;
+	  <InputData Lumi="141037.2914" NEventsMax="&NEVT;" Type="MC" Version="Diboson_WZ_2018" Cacheable="&b_Cacheable;">
+	    &Diboson_WZ_2018;
 	    <InputTree Name="AnalysisTree" />
 	    <OutputTree Name="AnalysisTree" />
 	  </InputData>
 	
-	  <InputData Lumi="162728.3513" NEventsMax="&NEVT;" Type="MC" Version="ZZ_2018" Cacheable="&b_Cacheable;">
-	    &ZZ_2018;
+	  <InputData Lumi="162728.3513" NEventsMax="&NEVT;" Type="MC" Version="Diboson_ZZ_2018" Cacheable="&b_Cacheable;">
+	    &Diboson_ZZ_2018;
 	    <InputTree Name="AnalysisTree" />
 	    <OutputTree Name="AnalysisTree" />
 	  </InputData>
--->
+
 <!--
 	  <InputData Lumi="198000" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTTJet_M500_2018" Cacheable="&b_Cacheable;">
 	    &ZprimeToTTJet_M500_2018;
@@ -298,7 +298,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
-<!--
+
           <InputData Lumi="184369" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTT_M1000_W300_2018" Cacheable="&b_Cacheable;">
             &ZprimeToTT_M1000_W300_2018;
             <InputTree Name="AnalysisTree" />
@@ -466,7 +466,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
--->
+
 <!--
           <InputData Lumi="180809" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTT_M1000_W10_2018" Cacheable="&b_Cacheable;">
             &ZprimeToTT_M1000_W10_2018;
@@ -546,7 +546,7 @@
             <OutputTree Name="AnalysisTree" />
           </InputData>
 -->
-<!--
+
 	  <InputData Lumi="21906.58658" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-70To100_2018" Cacheable="&b_Cacheable;">
 	    &WJetsToLNu_HT-70To100_2018;
 	    <InputTree Name="AnalysisTree" />
@@ -595,33 +595,33 @@
 	    <OutputTree Name="AnalysisTree" />
 	  </InputData>
 
-	  <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_Run2018A_blinded" Cacheable="&b_Cacheable;">
-	    &DATA_EGamma_Run2018A;
-	    <InputTree Name="AnalysisTree" />
-	    <OutputTree Name="AnalysisTree" />
-	  </InputData>
 	  
-
-          <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_Run2018B_blinded" Cacheable="&b_Cacheable;">
-	    &DATA_EGamma_Run2018B;
+	  <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_Run2018A_blinded" Cacheable="&b_Cacheable;">
+	    &DATA_SingleMuon_Run2018A;
 	    <InputTree Name="AnalysisTree" />
 	    <OutputTree Name="AnalysisTree" />
 	  </InputData>
 
 
-          <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_Run2018C_blinded" Cacheable="&b_Cacheable;">
-            &DATA_EGamma_Run2018C;
+	  <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_Run2018B_blinded" Cacheable="&b_Cacheable;">
+	    &DATA_SingleMuon_Run2018B;
+	    <InputTree Name="AnalysisTree" />
+	    <OutputTree Name="AnalysisTree" />
+	  </InputData>
+
+
+          <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_Run2018C_blinded" Cacheable="&b_Cacheable;">
+            &DATA_SingleMuon_Run2018C;
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
 
 
-          <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_Run2018D_blinded" Cacheable="&b_Cacheable;">
-            &DATA_EGamma_Run2018D;
+          <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_Run2018D_blinded" Cacheable="&b_Cacheable;">
+            &DATA_SingleMuon_Run2018D;
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
-
 
 	  <InputData Lumi="83703610.93" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_2018" Cacheable="&b_Cacheable;">
 	    &TTToSemiLeptonic_2018;
@@ -640,7 +640,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
--->
+
 <!--
           <InputData Lumi="10.9363931" NEventsMax="&NEVT;" Type="MC" Version="QCD_Pt-15to20_EMEnriched_2018" Cacheable="&b_Cacheable;">
             &QCD_Pt-15to20_EMEnriched;
@@ -763,7 +763,7 @@
           </InputData>
 -->
 
-<!--
+
           <InputData Lumi="0.2291325801" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT50to100_2018" Cacheable="&b_Cacheable;">
             &QCD_HT50to100;
             <InputTree Name="AnalysisTree"/>
@@ -859,7 +859,7 @@
             <InputTree Name="AnalysisTree"/>
             <OutputTree Name="AnalysisTree"/>
           </InputData>
--->
+
 
 
 
@@ -904,7 +904,7 @@
       <Item Name="channel"            Value="&CHANNEL;"/>
 
 
-      <Item Name="AnalysisModule" Value="ZprimeAnalysisModule"/>
+      <Item Name="AnalysisModule" Value="ZprimeAnalysisModule_V4_flat"/>
     </UserConfig>
 
 
