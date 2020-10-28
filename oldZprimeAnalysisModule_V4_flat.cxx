@@ -522,6 +522,9 @@ bool ZprimeAnalysisModule_V4_flat::process(uhh2::Event& event){
   if(debug)  cout<<"Muon and Electron cleaner ok"<<endl;
   if(isElectron && !HEM_selection->passes(event)) return false;
 
+  // Run top-tagging
+  TopTaggerPuppi->process(event);
+  if(debug) cout<<"Top Tagger ok"<<endl;
 
   fill_histograms(event, "Preselection");
 
@@ -538,10 +541,6 @@ bool ZprimeAnalysisModule_V4_flat::process(uhh2::Event& event){
   LumiWeight_module->process(event);
   if(debug)  cout<<"LumiWeight ok"<<endl;
   fill_histograms(event, "Weights_MCPU");
-
-  // Run top-tagging
-  TopTaggerPuppi->process(event);
-  if(debug) cout<<"Top Tagger ok"<<endl;
 
   if(!(Trigger1_selection->passes(event)|| Trigger2_selection->passes(event))) return false;
   if(isMuon){

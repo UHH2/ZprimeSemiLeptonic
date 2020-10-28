@@ -252,6 +252,8 @@ chsjetInd++;
 
   bool commonResult = common->process(event);
   if (!commonResult) return false;
+  sort_by_pt<Muon>(*event.muons);
+  sort_by_pt<Electron>(*event.electrons);
   if(ispuppi){
   toppuppijetCorr->process(event);
   } else {
@@ -259,10 +261,8 @@ chsjetInd++;
   }
   //cout<<"TopJEC_JLC ... "<<event.event<<endl;
   //cout<<"Common Modules... "<<event.event<<endl;
-  fill_histograms(event, "CommonModules");
 
-  sort_by_pt<Muon>(*event.muons);
-  sort_by_pt<Electron>(*event.electrons);
+  fill_histograms(event, "CommonModules");
 
   //// MET filters
   //if(!metfilters_sel->passes(event)) return false;
