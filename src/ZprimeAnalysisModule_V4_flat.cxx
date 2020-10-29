@@ -115,8 +115,9 @@ protected:
   bool is2016v2, is2016v3, is2017v2, is2018;
   bool isMuon, isElectron;
 
-  bool isTT, isST, isDiboson, isDY, isWJets, isZprime_M500_W50, isZprime_M750_W75, isZprime_M1000_W100, isZprime_M1500_W150, isZprime_M2000_W200, isZprime_M2500_W250, isZprime_M3000_W300, isZprime_M3500_W350, isZprime_M4000_W400, isZprime_M5000_W500, isZprime_M6000_W600, isZprime_M7000_W700, isZprime_M8000_W800, isZprime_M9000_W900;
+  bool isDATA, isTT, isST, isDiboson, isDY, isWJets, isZprime_M500_W50, isZprime_M750_W75, isZprime_M1000_W100, isZprime_M1500_W150, isZprime_M2000_W200, isZprime_M2500_W250, isZprime_M3000_W300, isZprime_M3500_W350, isZprime_M4000_W400, isZprime_M5000_W500, isZprime_M6000_W600, isZprime_M7000_W700, isZprime_M8000_W800, isZprime_M9000_W900;
 
+  TH1F* h0_DATA;
   TH1F* h0_TT;
   TH1F* h0_ST;
   TH1F* h0_Diboson;
@@ -199,6 +200,7 @@ ZprimeAnalysisModule_V4_flat::ZprimeAnalysisModule_V4_flat(uhh2::Context& ctx){
   is2017v2 = (ctx.get("dataset_version").find("2017v2") != std::string::npos);
   is2018 = (ctx.get("dataset_version").find("2018") != std::string::npos);
 
+  isDATA = (ctx.get("dataset_version").find("DATA") != std::string::npos);
   isTT = (ctx.get("dataset_version").find("TTTo") != std::string::npos);
   isST = (ctx.get("dataset_version").find("ST") != std::string::npos);
   isDiboson = (ctx.get("dataset_version").find("Diboson") != std::string::npos);
@@ -371,99 +373,104 @@ ZprimeAnalysisModule_V4_flat::ZprimeAnalysisModule_V4_flat(uhh2::Context& ctx){
   vector<string> histogram_tags = {"Weights", "Weights_MuonID", "Weights_PU", "Weights_Lumi", "Weights_TopPt", "Weights_MCScale", "Muon1", "TriggerMuon", "Muon2", "Electron1", "TriggerEle", "TwoDCut", "Jet1", "Jet2", "MET", "HTlep", "NNInputsBeforeReweight", "NNInputsAfterReweight", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction", "Btags2", "Btags1","TopJetBtagSubjet"};
   book_histograms(ctx, histogram_tags);
 
+  // DATA 
+  TFile *f_DATA = new TFile("/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_2018/Analysis_2810_vars/muon/NOMINAL/uhh2.AnalysisModuleRunner.DATA.DATA.root");
+  h0_DATA   = (TH1F*) f_DATA->Get("NNInputsBeforeReweight_General/NN_M_tt_weighted");
+  h0_DATA->SetDirectory(0);
+
   // TTbar
   TFile *f_TT = new TFile("/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_2018/Analysis_2810_vars/muon/NOMINAL/uhh2.AnalysisModuleRunner.MC.TTbar.root");
-  h0_TT   = (TH1F*) f_TT->Get("NNInputsBeforeReweight_General/NN_M_tt");
+  h0_TT   = (TH1F*) f_TT->Get("NNInputsBeforeReweight_General/NN_M_tt_weighted");
   h0_TT->SetDirectory(0);
 
   // ST
   TFile *f_ST = new TFile("/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_2018/Analysis_2810_vars/muon/NOMINAL/uhh2.AnalysisModuleRunner.MC.ST.root");
-  h0_ST   = (TH1F*) f_ST->Get("NNInputsBeforeReweight_General/NN_M_tt");
+  h0_ST   = (TH1F*) f_ST->Get("NNInputsBeforeReweight_General/NN_M_tt_weighted");
   h0_ST->SetDirectory(0);
 
   // ST
   TFile *f_Diboson = new TFile("/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_2018/Analysis_2810_vars/muon/NOMINAL/uhh2.AnalysisModuleRunner.MC.Diboson.root");
-  h0_Diboson   = (TH1F*) f_Diboson->Get("NNInputsBeforeReweight_General/NN_M_tt");
+  h0_Diboson   = (TH1F*) f_Diboson->Get("NNInputsBeforeReweight_General/NN_M_tt_weighted");
   h0_Diboson->SetDirectory(0);
 
   // DY
   TFile *f_DY = new TFile("/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_2018/Analysis_2810_vars/muon/NOMINAL/uhh2.AnalysisModuleRunner.MC.DY.root");
-  h0_DY   = (TH1F*) f_DY->Get("NNInputsBeforeReweight_General/NN_M_tt");
+  h0_DY   = (TH1F*) f_DY->Get("NNInputsBeforeReweight_General/NN_M_tt_weighted");
   h0_DY->SetDirectory(0);
 
   // WJets
   TFile *f_WJets = new TFile("/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_2018/Analysis_2810_vars/muon/NOMINAL/uhh2.AnalysisModuleRunner.MC.WJets.root");
-  h0_WJets   = (TH1F*) f_WJets->Get("NNInputsBeforeReweight_General/NN_M_tt");
+  h0_WJets   = (TH1F*) f_WJets->Get("NNInputsBeforeReweight_General/NN_M_tt_weighted");
   h0_WJets->SetDirectory(0);
 
   // Zprime M500_W50
   TFile *f_Zprime_M500_W50 = new TFile("/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_2018/Analysis_2810_vars/muon/NOMINAL/uhh2.AnalysisModuleRunner.MC.ZprimeToTT_M500_W50_2018.root");
-  h0_Zprime_M500_W50   = (TH1F*) f_Zprime_M500_W50->Get("NNInputsBeforeReweight_General/NN_M_tt");
+  h0_Zprime_M500_W50   = (TH1F*) f_Zprime_M500_W50->Get("NNInputsBeforeReweight_General/NN_M_tt_weighted");
   h0_Zprime_M500_W50->SetDirectory(0);
 
   // Zprime M750_W75
   TFile *f_Zprime_M750_W75 = new TFile("/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_2018/Analysis_2810_vars/muon/NOMINAL/uhh2.AnalysisModuleRunner.MC.ZprimeToTT_M750_W75_2018.root");
-  h0_Zprime_M750_W75   = (TH1F*) f_Zprime_M750_W75->Get("NNInputsBeforeReweight_General/NN_M_tt");
+  h0_Zprime_M750_W75   = (TH1F*) f_Zprime_M750_W75->Get("NNInputsBeforeReweight_General/NN_M_tt_weighted");
   h0_Zprime_M750_W75->SetDirectory(0);
 
   // Zprime M1000_W100
   TFile *f_Zprime_M1000_W100 = new TFile("/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_2018/Analysis_2810_vars/muon/NOMINAL/uhh2.AnalysisModuleRunner.MC.ZprimeToTT_M1000_W100_2018.root");
-  h0_Zprime_M1000_W100   = (TH1F*) f_Zprime_M1000_W100->Get("NNInputsBeforeReweight_General/NN_M_tt");
+  h0_Zprime_M1000_W100   = (TH1F*) f_Zprime_M1000_W100->Get("NNInputsBeforeReweight_General/NN_M_tt_weighted");
   h0_Zprime_M1000_W100->SetDirectory(0);
 
   // Zprime M1500_W150
   TFile *f_Zprime_M1500_W150 = new TFile("/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_2018/Analysis_2810_vars/muon/NOMINAL/uhh2.AnalysisModuleRunner.MC.ZprimeToTT_M1500_W150_2018.root");
-  h0_Zprime_M1500_W150   = (TH1F*) f_Zprime_M1500_W150->Get("NNInputsBeforeReweight_General/NN_M_tt");
+  h0_Zprime_M1500_W150   = (TH1F*) f_Zprime_M1500_W150->Get("NNInputsBeforeReweight_General/NN_M_tt_weighted");
   h0_Zprime_M1500_W150->SetDirectory(0);
 
   // Zprime M2000_W200
   TFile *f_Zprime_M2000_W200 = new TFile("/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_2018/Analysis_2810_vars/muon/NOMINAL/uhh2.AnalysisModuleRunner.MC.ZprimeToTT_M2000_W200_2018.root");
-  h0_Zprime_M2000_W200   = (TH1F*) f_Zprime_M2000_W200->Get("NNInputsBeforeReweight_General/NN_M_tt");
+  h0_Zprime_M2000_W200   = (TH1F*) f_Zprime_M2000_W200->Get("NNInputsBeforeReweight_General/NN_M_tt_weighted");
   h0_Zprime_M2000_W200->SetDirectory(0);
  
   // Zprime M2500_W250
   TFile *f_Zprime_M2500_W250 = new TFile("/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_2018/Analysis_2810_vars/muon/NOMINAL/uhh2.AnalysisModuleRunner.MC.ZprimeToTT_M2500_W250_2018.root");
-  h0_Zprime_M2500_W250   = (TH1F*) f_Zprime_M2500_W250->Get("NNInputsBeforeReweight_General/NN_M_tt");
+  h0_Zprime_M2500_W250   = (TH1F*) f_Zprime_M2500_W250->Get("NNInputsBeforeReweight_General/NN_M_tt_weighted");
   h0_Zprime_M2500_W250->SetDirectory(0);
   
   // Zprime M3000_W300
   TFile *f_Zprime_M3000_W300 = new TFile("/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_2018/Analysis_2810_vars/muon/NOMINAL/uhh2.AnalysisModuleRunner.MC.ZprimeToTT_M3000_W300_2018.root");
-  h0_Zprime_M3000_W300   = (TH1F*) f_Zprime_M3000_W300->Get("NNInputsBeforeReweight_General/NN_M_tt");
+  h0_Zprime_M3000_W300   = (TH1F*) f_Zprime_M3000_W300->Get("NNInputsBeforeReweight_General/NN_M_tt_weighted");
   h0_Zprime_M3000_W300->SetDirectory(0);
   
   // Zprime M3500_W350
   TFile *f_Zprime_M3500_W350 = new TFile("/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_2018/Analysis_2810_vars/muon/NOMINAL/uhh2.AnalysisModuleRunner.MC.ZprimeToTT_M3500_W350_2018.root");
-  h0_Zprime_M3500_W350   = (TH1F*) f_Zprime_M3500_W350->Get("NNInputsBeforeReweight_General/NN_M_tt");
+  h0_Zprime_M3500_W350   = (TH1F*) f_Zprime_M3500_W350->Get("NNInputsBeforeReweight_General/NN_M_tt_weighted");
   h0_Zprime_M3500_W350->SetDirectory(0);
   
   // Zprime M4000_W400
   TFile *f_Zprime_M4000_W400 = new TFile("/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_2018/Analysis_2810_vars/muon/NOMINAL/uhh2.AnalysisModuleRunner.MC.ZprimeToTT_M4000_W400_2018.root");
-  h0_Zprime_M4000_W400   = (TH1F*) f_Zprime_M4000_W400->Get("NNInputsBeforeReweight_General/NN_M_tt");
+  h0_Zprime_M4000_W400   = (TH1F*) f_Zprime_M4000_W400->Get("NNInputsBeforeReweight_General/NN_M_tt_weighted");
   h0_Zprime_M4000_W400->SetDirectory(0);
   
   // Zprime M5000_W500
   TFile *f_Zprime_M5000_W500 = new TFile("/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_2018/Analysis_2810_vars/muon/NOMINAL/uhh2.AnalysisModuleRunner.MC.ZprimeToTT_M5000_W500_2018.root");
-  h0_Zprime_M5000_W500   = (TH1F*) f_Zprime_M5000_W500->Get("NNInputsBeforeReweight_General/NN_M_tt");
+  h0_Zprime_M5000_W500   = (TH1F*) f_Zprime_M5000_W500->Get("NNInputsBeforeReweight_General/NN_M_tt_weighted");
   h0_Zprime_M5000_W500->SetDirectory(0);
   
   // Zprime M6000_W600
   TFile *f_Zprime_M6000_W600 = new TFile("/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_2018/Analysis_2810_vars/muon/NOMINAL/uhh2.AnalysisModuleRunner.MC.ZprimeToTT_M6000_W600_2018.root");
-  h0_Zprime_M6000_W600   = (TH1F*) f_Zprime_M6000_W600->Get("NNInputsBeforeReweight_General/NN_M_tt");
+  h0_Zprime_M6000_W600   = (TH1F*) f_Zprime_M6000_W600->Get("NNInputsBeforeReweight_General/NN_M_tt_weighted");
   h0_Zprime_M6000_W600->SetDirectory(0);
   
   // Zprime M7000_W700
   TFile *f_Zprime_M7000_W700 = new TFile("/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_2018/Analysis_2810_vars/muon/NOMINAL/uhh2.AnalysisModuleRunner.MC.ZprimeToTT_M7000_W700_2018.root");
-  h0_Zprime_M7000_W700   = (TH1F*) f_Zprime_M7000_W700->Get("NNInputsBeforeReweight_General/NN_M_tt");
+  h0_Zprime_M7000_W700   = (TH1F*) f_Zprime_M7000_W700->Get("NNInputsBeforeReweight_General/NN_M_tt_weighted");
   h0_Zprime_M7000_W700->SetDirectory(0);
   
   // Zprime M8000_W800
   TFile *f_Zprime_M8000_W800 = new TFile("/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_2018/Analysis_2810_vars/muon/NOMINAL/uhh2.AnalysisModuleRunner.MC.ZprimeToTT_M8000_W800_2018.root");
-  h0_Zprime_M8000_W800   = (TH1F*) f_Zprime_M8000_W800->Get("NNInputsBeforeReweight_General/NN_M_tt");
+  h0_Zprime_M8000_W800   = (TH1F*) f_Zprime_M8000_W800->Get("NNInputsBeforeReweight_General/NN_M_tt_weighted");
   h0_Zprime_M8000_W800->SetDirectory(0);
   
   // Zprime M9000_W900
   TFile *f_Zprime_M9000_W900 = new TFile("/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_2018/Analysis_2810_vars/muon/NOMINAL/uhh2.AnalysisModuleRunner.MC.ZprimeToTT_M9000_W900_2018.root");
-  h0_Zprime_M9000_W900   = (TH1F*) f_Zprime_M9000_W900->Get("NNInputsBeforeReweight_General/NN_M_tt");
+  h0_Zprime_M9000_W900   = (TH1F*) f_Zprime_M9000_W900->Get("NNInputsBeforeReweight_General/NN_M_tt_weighted");
   h0_Zprime_M9000_W900->SetDirectory(0);
 
 }
@@ -610,6 +617,9 @@ bool ZprimeAnalysisModule_V4_flat::process(uhh2::Event& event){
     ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
     float Mtt = BestZprimeCandidate->Zprime_v4().M();
 
+    if(isDATA){
+    weight_flat = 1.0/(h0_DATA->GetBinContent(h0_DATA->GetXaxis()->FindBin(Mtt)));
+    }
     if(isTT){
     weight_flat = 1.0/(h0_TT->GetBinContent(h0_TT->GetXaxis()->FindBin(Mtt)));
     }
@@ -669,7 +679,7 @@ bool ZprimeAnalysisModule_V4_flat::process(uhh2::Event& event){
     }
 
   }
-  event.weight = weight_flat;
+  event.weight = event.weight*weight_flat;
    
   Variables_module->process(event);
   fill_histograms(event, "NNInputsAfterReweight");

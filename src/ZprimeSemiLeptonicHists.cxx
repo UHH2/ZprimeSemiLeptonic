@@ -468,7 +468,8 @@ void ZprimeSemiLeptonicHists::init(){
   NN_Ak8_j3_mSD    = book<TH1F>("NN_Ak8_j3_mSD", "NN_Ak8_j3_mSD", 50, 0, 500);
   NN_Ak8_j3_tau21  = book<TH1F>("NN_Ak8_j3_tau21", "NN_Ak8_j3_tau21", 24, 0, 1.2);
   NN_Ak8_j3_tau32  = book<TH1F>("NN_Ak8_j3_tau32", "NN_Ak8_j3_tau32", 24, 0, 1.2);
-  NN_M_tt          = book<TH1F>("NN_M_tt", "NN_M_tt", 100, 0, 14000);
+  NN_M_tt_weighted = book<TH1F>("NN_M_tt_weighted", "NN_M_tt_weighted", 100, 0, 14000);
+  NN_M_tt_notweighted = book<TH1F>("NN_M_tt_notweighted", "NN_M_tt_notweighted", 100, 0, 14000);
 
 
 /*
@@ -1223,7 +1224,8 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
   if(is_zprime_reconstructed_chi2){
     ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
     float Mass_tt = BestZprimeCandidate->Zprime_v4().M();
-    NN_M_tt->Fill(Mass_tt,weight);
+    NN_M_tt_weighted->Fill(Mass_tt,weight);
+    NN_M_tt_notweighted->Fill(Mass_tt);
   }
 
 /// DNN score
