@@ -27,7 +27,7 @@ TopPuppiJetCorrections::TopPuppiJetCorrections(){
   tpuppijec_ver_2017 = "32";
 
   tpuppijec_tag_2018 = "Autumn18";
-  tpuppijec_ver_2018 = "7";
+  tpuppijec_ver_2018 = "19";
 
   tpuppijec_tjet_coll = "dummy";
   tpuppijec_subjet_coll = "dummy";

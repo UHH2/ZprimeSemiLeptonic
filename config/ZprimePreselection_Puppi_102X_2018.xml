@@ -2,7 +2,7 @@
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
 
 <!ENTITY TargetLumi      "59970"> <!--RunA to D 59970, RunA to C 27940-->
-<!ENTITY PRESELdir       "/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_2018/Preselection_2810_test/">
+<!ENTITY PRESELdir       "/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_2018/Preselection_1111/">
 <!ENTITY b_Cacheable     "False">
 <!ENTITY NEVT            "-1">
 <!ENTITY IS_PUPPI        "true">
@@ -292,13 +292,13 @@
 	    <OutputTree Name="AnalysisTree" />
 	  </InputData>
 -->
-
+<!--
           <InputData Lumi="182928" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTT_M1000_W100_2018" Cacheable="&b_Cacheable;">
             &ZprimeToTT_M1000_W100_2018;
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
-<!--
+
           <InputData Lumi="184369" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTT_M1000_W300_2018" Cacheable="&b_Cacheable;">
             &ZprimeToTT_M1000_W300_2018;
             <InputTree Name="AnalysisTree" />
@@ -594,7 +594,7 @@
 	    <InputTree Name="AnalysisTree" />
 	    <OutputTree Name="AnalysisTree" />
 	  </InputData>
-
+-->
 	  <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_Run2018A" Cacheable="&b_Cacheable;">
 	    &DATA_EGamma_Run2018A;
 	    <InputTree Name="AnalysisTree" />
@@ -660,7 +660,7 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
--->
+
 <!--
           <InputData Lumi="10.9363931" NEventsMax="&NEVT;" Type="MC" Version="QCD_Pt-15to20_EMEnriched_2018" Cacheable="&b_Cacheable;">
             &QCD_Pt-15to20_EMEnriched;
@@ -781,8 +781,8 @@
             <InputTree Name="AnalysisTree"/>
             <OutputTree Name="AnalysisTree"/>
           </InputData>
-
-
+-->
+<!--
           <InputData Lumi="0.2291325801" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT50to100_2018" Cacheable="&b_Cacheable;">
             &QCD_HT50to100;
             <InputTree Name="AnalysisTree"/>
@@ -880,7 +880,6 @@
           </InputData>
 
 -->
-
 		<UserConfig>
 			<Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices"/>
 			<Item Name="GenParticleCollection"   Value="GenParticles"/>

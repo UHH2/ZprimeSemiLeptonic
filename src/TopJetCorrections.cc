@@ -27,7 +27,7 @@ TopJetCorrections::TopJetCorrections(){
   tjec_ver_2017 = "32";
 
   tjec_tag_2018 = "Autumn18";
-  tjec_ver_2018 = "7";
+  tjec_ver_2018 = "19";
 
   tjec_tjet_coll = "dummy";
   tjec_subjet_coll = "dummy";

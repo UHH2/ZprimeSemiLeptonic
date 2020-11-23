@@ -121,32 +121,12 @@ void ZprimeAnalysisModule::book_histograms(uhh2::Context& ctx, vector<string> ta
     string mytag = tag + "_Skimming";
     mytag = tag+"_General";
     book_HFolder(mytag, new ZprimeSemiLeptonicHists(ctx,mytag));
-    mytag = tag+"_Muons";
-    book_HFolder(mytag, new MuonHists(ctx,mytag));
-    mytag = tag+"_Electrons";
-    book_HFolder(mytag, new ElectronHists(ctx,mytag));
-    mytag = tag+"_Jets";
-    book_HFolder(mytag, new JetHists(ctx,mytag));
-    mytag = tag+"_Event";
-    book_HFolder(mytag, new EventHists(ctx,mytag));
-    mytag = tag+"_Generator";
-    book_HFolder(mytag, new ZprimeSemiLeptonicGeneratorHists(ctx,mytag));
   }
 }
 
 void ZprimeAnalysisModule::fill_histograms(uhh2::Event& event, string tag){
   string mytag = tag + "_Skimming";
   mytag = tag+"_General";
-  HFolder(mytag)->fill(event);
-  mytag = tag+"_Muons";
-  HFolder(mytag)->fill(event);
-  mytag = tag+"_Electrons";
-  HFolder(mytag)->fill(event);
-  mytag = tag+"_Jets";
-  HFolder(mytag)->fill(event);
-  mytag = tag+"_Event";
-  HFolder(mytag)->fill(event);
-  mytag = tag+"_Generator";
   HFolder(mytag)->fill(event);
 }
 

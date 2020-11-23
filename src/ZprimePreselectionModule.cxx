@@ -78,31 +78,11 @@ void ZprimePreselectionModule::book_histograms(uhh2::Context& ctx, vector<string
   for(const auto & tag : tags){
     string mytag = tag+"_General";
     book_HFolder(mytag, new ZprimeSemiLeptonicPreselectionHists(ctx,mytag));
-    mytag = tag+"_Muons";
-    book_HFolder(mytag, new MuonHists(ctx,mytag));
-    mytag = tag+"_Electrons";
-    book_HFolder(mytag, new ElectronHists(ctx,mytag));
-    mytag = tag+"_Jets";
-    book_HFolder(mytag, new JetHists(ctx,mytag));
-    mytag = tag+"_Event";
-    book_HFolder(mytag, new EventHists(ctx,mytag));
-    mytag = tag+"_Generator";
-    book_HFolder(mytag, new ZprimeSemiLeptonicGeneratorHists(ctx,mytag));
   }
 }
 
 void ZprimePreselectionModule::fill_histograms(uhh2::Event& event, string tag){
     string mytag = tag+"_General";
-    HFolder(mytag)->fill(event);
-    mytag = tag+"_Muons";
-    HFolder(mytag)->fill(event);
-    mytag = tag+"_Electrons";
-    HFolder(mytag)->fill(event);
-    mytag = tag+"_Jets";
-    HFolder(mytag)->fill(event);
-    mytag = tag+"_Event";
-    HFolder(mytag)->fill(event);
-    mytag = tag+"_Generator";
     HFolder(mytag)->fill(event);
 }
 
@@ -222,10 +202,10 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
 
 bool ZprimePreselectionModule::process(uhh2::Event& event){
 
-/*
+
 //debug
 //if(event.event==97559444 || event.event==23){
-//if(event.event!=23) return false;
+/*if(event.event!=500494653) return false;
 cout << "Event number = " << event.event << endl;
 
   cout<<"Getting started... "<<event.event<<endl;
@@ -338,7 +318,6 @@ chsjetInd++;
   const bool pass_met = met_sel->passes(event);
   if(!pass_met) return false;
   fill_histograms(event, "MET");
-
 
   return true;
 
