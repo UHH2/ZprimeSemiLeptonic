@@ -205,27 +205,27 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
 
 //debug
 //if(event.event==97559444 || event.event==23){
-/*if(event.event!=500494653) return false;
-cout << "Event number = " << event.event << endl;
+//if(event.event!=500494653) return false;
+//cout << "Event number = " << event.event << endl;
+//
+//  cout<<"Getting started... "<<event.event<<endl;
+//
+//uint jetI= 0;
+//for (const Jet & jet: *event.jets) {
+//cout << "-- Ak4 jet pt = " << jet.pt() << "	"  << "jet eta = " << jet.eta() << "     "  << "jet phi = " << jet.phi() << "	" << "for jet#" << jetI << endl;
+//jetI++;
+//}
+//uint jetInd = 0;
+//for (const TopJet & toppuppijet: *event.toppuppijets) {
+//cout << "-- PUPPI Top jet pt = " << toppuppijet.pt()  << "     "  << "jet eta = " << toppuppijet.eta()<< "     "  << "jet phi = " << toppuppijet.phi() << "	"  << "for jet#" << jetInd << endl;
+//jetInd++;
+//}
+//uint chsjetInd = 0;
+//for (const TopJet & topjet: *event.topjets) {
+//cout << "--- CHS Top jet pt = " << topjet.pt() << "     "  << "jet eta = " << topjet.eta()<< "     "  << "jet phi = " << topjet.phi()  << "	" << "for jet#" << chsjetInd << endl;
+//chsjetInd++;
+//}
 
-  cout<<"Getting started... "<<event.event<<endl;
-
-uint jetI= 0;
-for (const Jet & jet: *event.jets) {
-cout << "-- Ak4 jet pt = " << jet.pt() << "	"  << "jet eta = " << jet.eta() << "     "  << "jet phi = " << jet.phi() << "	" << "for jet#" << jetI << endl;
-jetI++;
-}
-uint jetInd = 0;
-for (const TopJet & toppuppijet: *event.toppuppijets) {
-cout << "-- PUPPI Top jet pt = " << toppuppijet.pt()  << "     "  << "jet eta = " << toppuppijet.eta()<< "     "  << "jet phi = " << toppuppijet.phi() << "	"  << "for jet#" << jetInd << endl;
-jetInd++;
-}
-uint chsjetInd = 0;
-for (const TopJet & topjet: *event.topjets) {
-cout << "--- CHS Top jet pt = " << topjet.pt() << "     "  << "jet eta = " << topjet.eta()<< "     "  << "jet phi = " << topjet.phi()  << "	" << "for jet#" << chsjetInd << endl;
-chsjetInd++;
-}
-*/
 
   //cout<<"Getting started... "<<event.event<<endl;
   fill_histograms(event, "Input");
@@ -234,6 +234,7 @@ chsjetInd++;
   if (!commonResult) return false;
   sort_by_pt<Muon>(*event.muons);
   sort_by_pt<Electron>(*event.electrons);
+
   if(ispuppi){
   toppuppijetCorr->process(event);
   } else {
