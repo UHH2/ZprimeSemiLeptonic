@@ -68,7 +68,7 @@ protected:
   std::unique_ptr<ElectronCleaner> electron_cleaner;
 
   // Scale Factors -- Systematics
-  unique_ptr<MCMuonScaleFactor> MuonID_module, MuonTrigger_module;
+  //unique_ptr<MCMuonScaleFactor> MuonID_module, MuonTrigger_module;
   //unique_ptr<MCElecScaleFactor> EleID_module, EleTrigger_module;
 
   // AnalysisModules
@@ -235,7 +235,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   MCScale_module.reset(new MCScaleVariation(ctx));
 
 
-  if((is2016v3 || is2016v2) && isMuon){
+/*  if((is2016v3 || is2016v2) && isMuon){
     MuonID_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2016/MuonID_EfficienciesAndSF_average_RunBtoH.root", "MC_NUM_TightID_DEN_genTracks_PAR_pt_eta", 0., "MuonID", true, Sys_MuonID));
     MuonTrigger_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2016/MuonTrigger_EfficienciesAndSF_average_RunBtoH.root", "IsoMu50_OR_IsoTkMu50_PtEtaBins", 0.5, "MuonTrigger", true, Sys_MuonTrigger));
   }
@@ -248,7 +248,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
     MuonTrigger_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_16/src/UHH2/common/data/2018/Muon_Trigger_Eff_SF_AfterMuonHLTUpdate.root", "Mu50_OR_OldMu100_OR_TkMu100_PtEtaBins/pt_abseta_ratio", 0.5, "Trigger", true, Sys_MuonTrigger));
 //    EleID_module.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_16/src/UHH2/common/data/2018/2018_ElectronTight.root", 0., "TightID", Sys_EleID));
 //    EleTrigger_module.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_16/src/UHH2/common/data/2018/SF_2018.root", 0.5, "Trigger", Sys_EleTrigger));
-  }
+  }*/
 
   // Selection modules
   Trigger1_selection.reset(new TriggerSelection(trigger1));
@@ -355,15 +355,15 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   fill_histograms(event, "Weights");
 
   // Weight modules
-  if(isMuon){
-    MuonID_module->process(event);
-    if(debug)  cout<<"MuonID ok"<<endl;
-  }
-  fill_histograms(event, "Weights_MuonID");
- // if(isElectron){
- //   EleID_module->process(event);
- //   if(debug)  cout<<"EleID ok"<<endl;
- // }
+  //if(isMuon){
+  //  MuonID_module->process(event);
+  //  if(debug)  cout<<"MuonID ok"<<endl;
+  //}
+  //fill_histograms(event, "Weights_MuonID");
+  //if(isElectron){
+  //  EleID_module->process(event);
+  //  if(debug)  cout<<"EleID ok"<<endl;
+  //}
   PUWeight_module->process(event);
   if(debug)  cout<<"PUWeight ok"<<endl;
   fill_histograms(event, "Weights_PU");

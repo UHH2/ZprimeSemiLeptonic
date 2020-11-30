@@ -54,11 +54,12 @@ protected:
   std::unique_ptr<TopPuppiJetCorrections> toppuppijetCorr;
 
   // Cleaners
+  std::unique_ptr<MuonCleaner>                     muon_cleaner_low, muon_cleaner_high;
+  std::unique_ptr<ElectronCleaner>                 electron_cleaner_low, electron_cleaner_high;
   std::unique_ptr<JetCleaner>                      jet_IDcleaner, jet_cleaner1, jet_cleaner2;
   std::unique_ptr<TopJetCleaner>                   topjet_puppi_IDcleaner, topjet_puppi_cleaner, topjet_IDcleaner, topjet_cleaner;
 
   // Selections
-  //std::unique_ptr<uhh2::AndSelection> metfilters_sel;
   std::unique_ptr<uhh2::Selection> genflavor_sel;
   std::unique_ptr<uhh2::Selection> jet1_sel;
   std::unique_ptr<uhh2::Selection> jet2_sel;
@@ -107,37 +108,32 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   cout << "Is this running on puppi: " << ispuppi << endl;
 
 
-  ElectronId eleID;  MuonId muID;
+  ElectronId eleID_low; 
+  MuonId muID_low;
+  ElectronId eleID_high; 
+  MuonId muID_high;
+
   if(is2017v2 || is2018){
-    eleID = ElectronID_Fall17_tight_noIso;//ToDo: compare cutBased without iso and MVA-based via wp in UHH2
-    muID  = MuonID(Muon::CutBasedIdGlobalHighPt);
+    eleID_low = ElectronID_Fall17_tight;
+    muID_low  = MuonID(Muon::CutBasedIdTight);
+    eleID_high = ElectronID_Fall17_tight_noIso;//ToDo: compare cutBased without iso and MVA-based via wp in UHH2
+    muID_high  = MuonID(Muon::CutBasedIdGlobalHighPt);
   }
   if(is2016v2 || is2016v3){
     //eleID = ElectronID_Summer16_tight_noIso;//ToDo: compare cutBased without iso and MVA-based via wp in UHH2
     //muID      = MuonID(Muon::Highpt);
-    eleID = ElectronID_Summer16_medium_noIso;
-    muID  = MuonID(Muon::CutBasedIdTight); // see more muonIDs https://github.com/cms-sw/cmssw/blob/master/DataFormats/MuonReco/interface/Muon.h#L201
+    eleID_low = ElectronID_Summer16_medium;
+    muID_low  = MuonID(Muon::CutBasedIdTight); 
+    eleID_high = ElectronID_Summer16_medium_noIso;
+    muID_high  = MuonID(Muon::CutBasedIdTight); // see more muonIDs https://github.com/cms-sw/cmssw/blob/master/DataFormats/MuonReco/interface/Muon.h#L201
   }
-  double electron_pt(50.);
-  double muon_pt(55.);
+  double electron_pt_low(35.);
+  double muon_pt_low(30.);
+  double electron_pt_high(120.);
+  double muon_pt_high(55.);
   double jet1_pt(50.);
   double jet2_pt(20.);
   double MET(50.);
-
-
-
-  // MET filters
-  //metfilters_sel.reset(new uhh2::AndSelection(ctx, "metfilters"));
-  //if(!isMC){
-  //  metfilters_sel->add<TriggerSelection>("1-good-vtx", "Flag_goodVertices");
-  //  metfilters_sel->add<TriggerSelection>("globalTightHalo2016Filter", "Flag_globalTightHalo2016Filter");
-  //  metfilters_sel->add<TriggerSelection>("HBHENoiseFilter", "Flag_HBHENoiseFilter");
-  //  metfilters_sel->add<TriggerSelection>("HBHENoiseIsoFilter", "Flag_HBHENoiseIsoFilter");
-  //  metfilters_sel->add<TriggerSelection>("EcalDeadCellTriggerPrimitiveFilter", "Flag_EcalDeadCellTriggerPrimitiveFilter");
-  //  if(!isMC)  metfilters_sel->add<TriggerSelection>("eeBadScFilter", "Flag_eeBadScFilter");
-  //  metfilters_sel->add<TriggerSelection>("chargedHadronTrackResolutionFilter", "Flag_chargedHadronTrackResolutionFilter");
-  //  metfilters_sel->add<TriggerSelection>("muonBadTrackFilter", "Flag_muonBadTrackFilter");
-  //}
 
 
 
@@ -154,11 +150,17 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
 
 
   // Cleaning: Mu, Ele, Jets
-  const MuonId muonID(AndId<Muon>(PtEtaCut(muon_pt, 2.4), muID));
-  const ElectronId electronID(AndId<Electron>(PtEtaSCCut(electron_pt, 2.5), eleID));
+  const MuonId muonID_low(AndId<Muon>(PtEtaCut(muon_pt_low, 2.4), muID_low, MuonIso(0.15)));
+  const ElectronId electronID_low(AndId<Electron>(PtEtaSCCut(electron_pt_low, 2.5), eleID_low));
+  const MuonId muonID_high(AndId<Muon>(PtEtaCut(muon_pt_high, 2.4), muID_high));
+  const ElectronId electronID_high(AndId<Electron>(PtEtaSCCut(electron_pt_high, 2.5), eleID_high));
   const JetPFID jetID_CHS(JetPFID::WP_TIGHT_CHS); 
   const JetPFID jetID_PUPPI(JetPFID::WP_TIGHT_PUPPI); 
 
+  muon_cleaner_low.reset(new MuonCleaner(muonID_low));
+  electron_cleaner_low.reset(new ElectronCleaner(electronID_low));
+  muon_cleaner_high.reset(new MuonCleaner(muonID_high));
+  electron_cleaner_high.reset(new ElectronCleaner(electronID_high));
   jet_IDcleaner.reset(new JetCleaner(ctx, jetID_PUPPI));
   jet_cleaner1.reset(new JetCleaner(ctx, 15., 3.0));
   jet_cleaner2.reset(new JetCleaner(ctx, 30., 2.4));
@@ -176,8 +178,8 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   common->disable_jetpfidfilter();
   common->switch_jetPtSorter(true);
   common->switch_metcorrection(true);
-  common->set_muon_id(muonID);  
-  common->set_electron_id(electronID);  
+//  common->set_muon_id(OrId<Muon>(AndId<Muon>(PtEtaCut(muon_pt_low, 2.4), muID_low), AndId<Muon>(PtEtaCut(muon_pt_high, 2.4), muID_high)));  
+//  common->set_electron_id(OrId<Electron>(AndId<Electron>(PtEtaSCCut(electron_pt_low, 2.5), eleID_low), AndId<Electron>(PtEtaSCCut(electron_pt_high, 2.5), eleID_high)));  
   common->init(ctx, Sys_PU);
 
   topjetCorr.reset(new TopJetCorrections());
@@ -193,7 +195,7 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
 
 
   // Book histograms
-  vector<string> histogram_tags = {"Input", "CommonModules", "Lepton1", "JetID", "JetCleaner1", "JetCleaner2", "TopjetCleaner", "Jet1", "Jet2", "MET"};
+  vector<string> histogram_tags = {"Input", "CommonModules", "MuonCleanerLowPt", "MuonCleanerHighPt","EleCleanerLowPt", "EleCleanerHighPt","Lepton1", "JetID", "JetCleaner1", "JetCleaner2", "TopjetCleaner", "Jet1", "Jet2", "MET"};
   book_histograms(ctx, histogram_tags);
 
   lumihists.reset(new LuminosityHists(ctx, "lumi"));
@@ -202,6 +204,8 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
 
 bool ZprimePreselectionModule::process(uhh2::Event& event){
 
+double electron_pt_high(120.);
+double muon_pt_high(55.);
 
 //debug
 //if(event.event==97559444 || event.event==23){
@@ -232,7 +236,32 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
 
   bool commonResult = common->process(event);
   if (!commonResult) return false;
+
+
+  // CLEANER MUONS
+  vector<Muon>* muons = event.muons;
+  for(unsigned int i=0; i<muons->size(); i++){
+    if(event.muons->at(i).pt()<=muon_pt_high){
+    muon_cleaner_low->process(event);
+    fill_histograms(event, "MuonCleanerLowPt");
+    }else{
+    muon_cleaner_high->process(event);
+    fill_histograms(event, "MuonCleanerHighPt");
+    }
+  }
   sort_by_pt<Muon>(*event.muons);
+
+  // CLEANER ELECTRONS
+  vector<Electron>* electrons = event.electrons;
+  for(unsigned int i=0; i<electrons->size(); i++){
+    if(event.electrons->at(i).pt()<=electron_pt_high){
+    electron_cleaner_low->process(event);
+    fill_histograms(event, "EleCleanerLowPt");
+    }else{
+    electron_cleaner_high->process(event);
+    fill_histograms(event, "EleCleanerHighPt");
+    }
+  }
   sort_by_pt<Electron>(*event.electrons);
 
   if(ispuppi){
@@ -244,11 +273,6 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
   //cout<<"Common Modules... "<<event.event<<endl;
 
   fill_histograms(event, "CommonModules");
-
-  //// MET filters
-  //if(!metfilters_sel->passes(event)) return false;
-  //fill_histograms(event, "Metfilters");
-  ////  cout<<"Met filters ... "<<event.event<<endl;
 
   // GEN ME quark-flavor selection
   if(!event.isRealData){
