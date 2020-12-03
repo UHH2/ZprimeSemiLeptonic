@@ -2,7 +2,8 @@
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
 
 <!ENTITY TargetLumi      "59740">
-<!ENTITY PRESELdir       "/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_2018/Preselection_2511_lowpT/">
+<!--<!ENTITY PRESELdir       "/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_2018/Preselection_2018/">-->
+<!ENTITY PRESELdir       "/nfs/dust/cms/group/zprime-uhh/Presel_2018/">
 <!ENTITY b_Cacheable     "False">
 <!ENTITY NEVT            "-1">
 <!ENTITY IS_PUPPI        "true">
@@ -110,29 +111,6 @@
 <!ENTITY ST_s-channel_hadronic             SYSTEM  "../../common/UHH2-datasets/RunII_102X_v1/2018/MC_ST_s-channel_4f_hadronicDecays.xml">
 <!ENTITY ST_s-channel_lepton               SYSTEM  "../../common/UHH2-datasets/RunII_102X_v1/2018/MC_ST_s-channel_4f_leptonDecays.xml">
 
-<!ENTITY QCD_Pt-15to20_EMEnriched        SYSTEM "../../common/UHH2-datasets/RunII_102X_v1/2018/MC_QCD_Pt-15to20_EMEnriched_ext1-v2.xml">
-<!ENTITY QCD_Pt-20to30_EMEnriched        SYSTEM "../../common/UHH2-datasets/RunII_102X_v1/2018/MC_QCD_Pt-20to30_EMEnriched.xml">
-<!ENTITY QCD_Pt-30to50_EMEnriched        SYSTEM "../../common/UHH2-datasets/RunII_102X_v1/2018/MC_QCD_Pt-30to50_EMEnriched.xml">
-<!ENTITY QCD_Pt-50to80_EMEnriched        SYSTEM "../../common/UHH2-datasets/RunII_102X_v1/2018/MC_QCD_Pt-50to80_EMEnriched.xml">
-<!ENTITY QCD_Pt-80to120_EMEnriched       SYSTEM "../../common/UHH2-datasets/RunII_102X_v1/2018/MC_QCD_Pt-80to120_EMEnriched.xml">
-<!ENTITY QCD_Pt-120to170_EMEnriched      SYSTEM "../../common/UHH2-datasets/RunII_102X_v1/2018/MC_QCD_Pt-120to170_EMEnriched.xml">
-<!ENTITY QCD_Pt-170to300_EMEnriched      SYSTEM "../../common/UHH2-datasets/RunII_102X_v1/2018/MC_QCD_Pt-170to300_EMEnriched.xml">
-<!ENTITY QCD_Pt-300toInf_EMEnriched      SYSTEM "../../common/UHH2-datasets/RunII_102X_v1/2018/MC_QCD_Pt-300toInf_EMEnriched.xml">
-
-<!ENTITY QCD_Pt-15to20_MuEnrichedPt5        SYSTEM "../../common/UHH2-datasets/RunII_102X_v1/2018/MC_QCD_Pt-15to20_MuEnrichedPt5.xml">
-<!ENTITY QCD_Pt-20to30_MuEnrichedPt5        SYSTEM "../../common/UHH2-datasets/RunII_102X_v1/2018/MC_QCD_Pt-20to30_MuEnrichedPt5.xml">
-<!ENTITY QCD_Pt-30to50_MuEnrichedPt5        SYSTEM "../../common/UHH2-datasets/RunII_102X_v1/2018/MC_QCD_Pt-30to50_MuEnrichedPt5.xml">
-<!ENTITY QCD_Pt-50to80_MuEnrichedPt5        SYSTEM "../../common/UHH2-datasets/RunII_102X_v1/2018/MC_QCD_Pt-50to80_MuEnrichedPt5.xml">
-<!ENTITY QCD_Pt-80to120_MuEnrichedPt5       SYSTEM "../../common/UHH2-datasets/RunII_102X_v1/2018/MC_QCD_Pt-80to120_MuEnrichedPt5.xml">
-<!ENTITY QCD_Pt-120to170_MuEnrichedPt5      SYSTEM "../../common/UHH2-datasets/RunII_102X_v1/2018/MC_QCD_Pt-120to170_MuEnrichedPt5.xml">
-<!ENTITY QCD_Pt-170to300_MuEnrichedPt5      SYSTEM "../../common/UHH2-datasets/RunII_102X_v1/2018/MC_QCD_Pt-170to300_MuEnrichedPt5.xml">
-<!ENTITY QCD_Pt-300to470_MuEnrichedPt5      SYSTEM "../../common/UHH2-datasets/RunII_102X_v1/2018/MC_QCD_Pt-300to470_MuEnrichedPt5.xml">
-<!ENTITY QCD_Pt-470to600_MuEnrichedPt5      SYSTEM "../../common/UHH2-datasets/RunII_102X_v1/2018/MC_QCD_Pt-470to600_MuEnrichedPt5.xml">
-<!ENTITY QCD_Pt-600to800_MuEnrichedPt5      SYSTEM "../../common/UHH2-datasets/RunII_102X_v1/2018/MC_QCD_Pt-600to800_MuEnrichedPt5.xml">
-<!ENTITY QCD_Pt-800to1000_MuEnrichedPt5     SYSTEM "../../common/UHH2-datasets/RunII_102X_v1/2018/MC_QCD_Pt-800to1000_MuEnrichedPt5_ext3-v2.xml">
-<!ENTITY QCD_Pt-1000toInf_MuEnrichedPt5     SYSTEM "../../common/UHH2-datasets/RunII_102X_v1/2018/MC_QCD_Pt-1000toInf_MuEnrichedPt5.xml">
-
-
 <!ENTITY QCD_HT50to100        SYSTEM "../../common/UHH2-datasets/RunII_102X_v1/2018/MC_QCD_HT50to100_madgraph.xml">
 <!ENTITY QCD_HT100to200       SYSTEM "../../common/UHH2-datasets/RunII_102X_v1/2018/MC_QCD_HT100to200_madgraph.xml">
 <!ENTITY QCD_HT200to300       SYSTEM "../../common/UHH2-datasets/RunII_102X_v1/2018/MC_QCD_HT200to300_madgraph.xml">
@@ -149,7 +127,7 @@
 
 <!--
 <ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="50" AutoResubmit="0"/>
-<ConfigSGE RAM="2" DISK="2" Mail="ksenia.de.leo@desy.de" Notification="as" Workdir="workdir_Zprime_PreSelec_2018"/>
+<ConfigSGE RAM="2" DISK="2" Mail="ksenia.de.leo@desy.de" Notification="as" Workdir="workdir_Zprime_PreSelec_2018_test"/>
 -->
 
 <JobConfiguration JobName="ZprimePreselectionJob" OutputLevel="INFO">
@@ -157,7 +135,7 @@
 	<Package Name="SUHH2ZprimeSemiLeptonic.par"/>
 
 	<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="&TargetLumi;">
-
+<!--
 	  <InputData Lumi="7432926.584" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_inclusiveDecays_2018" Cacheable="&b_Cacheable;">
 	    &ST_tW_antitop_5f_inclusiveDecays;
 	    <InputTree Name="AnalysisTree" />
@@ -213,7 +191,6 @@
 	  </InputData>
 
 
-<!--
 	  <InputData Lumi="198000" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTTJet_M500_2018" Cacheable="&b_Cacheable;">
 	    &ZprimeToTTJet_M500_2018;
 	    <InputTree Name="AnalysisTree" />
@@ -291,7 +268,7 @@
 	    <InputTree Name="AnalysisTree" />
 	    <OutputTree Name="AnalysisTree" />
 	  </InputData>
--->
+
 
           <InputData Lumi="182928" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTT_M1000_W100_2018" Cacheable="&b_Cacheable;">
             &ZprimeToTT_M1000_W100_2018;
@@ -460,14 +437,14 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
-
+-->
           <InputData Lumi="172368" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTT_M9000_W900_2018" Cacheable="&b_Cacheable;">
             &ZprimeToTT_M9000_W900_2018;
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
-
 <!--
+
           <InputData Lumi="180809" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTT_M1000_W10_2018" Cacheable="&b_Cacheable;">
             &ZprimeToTT_M1000_W10_2018;
             <InputTree Name="AnalysisTree" />
@@ -546,7 +523,7 @@
             <OutputTree Name="AnalysisTree" />
           </InputData>
 -->
-
+<!--
 	  <InputData Lumi="21906.58658" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-70To100_2018" Cacheable="&b_Cacheable;">
 	    &WJetsToLNu_HT-70To100_2018;
 	    <InputTree Name="AnalysisTree" />
@@ -661,6 +638,7 @@
             <OutputTree Name="AnalysisTree" />
           </InputData>
 
+
           <InputData Lumi="0.2291325801" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT50to100_2018" Cacheable="&b_Cacheable;">
             &QCD_HT50to100;
             <InputTree Name="AnalysisTree"/>
@@ -757,7 +735,7 @@
             <OutputTree Name="AnalysisTree"/>
           </InputData>
 
-
+-->
 		<UserConfig>
 			<Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices"/>
 			<Item Name="GenParticleCollection"   Value="GenParticles"/>
@@ -771,11 +749,11 @@
 			<Item Name="METName"                 Value="slimmedMETsPuppi"/>
 			<Item Name="genMETName"              Value="slimmedMETs_GenMET"/>
 
-			<Item Name="lumi_file" Value="/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_16/src/UHH2/common/data/2018/Cert_314472-325175_13TeV_PromptReco_Collisions18_JSON.root"/>
+			<Item Name="lumi_file" Value="/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2018/Cert_314472-325175_13TeV_PromptReco_Collisions18_JSON.root"/>
 			<Item Name="lumihists_lumi_per_bin" Value="500.0"/>
 
-                        <Item Name="pileup_directory"           Value="/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_16/src/UHH2/common/data/2018/MyMCPileupHistogram.root" />
-                        <Item Name="pileup_directory_data"      Value="/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_16/src/UHH2/common/data/2018/MyDataPileupHistogram2018.root" />
+                        <Item Name="pileup_directory"           Value="/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2018/MyMCPileupHistogram.root" />
+                        <Item Name="pileup_directory_data"      Value="/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2018/MyDataPileupHistogram2018.root" />
 
 			<Item Name="is_puppi" Value="&IS_PUPPI;"/>
                         <Item Name="Sys_PU" Value="central"/>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
 
-<!ENTITY TargetLumi      "36734"> <!-- 41557 runs B-F, 36734 runs C-F  -->
-<!ENTITY PRESELdir       "/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_2017/Preselection_2810_test/">
+<!ENTITY TargetLumi      "41530"> 
+<!--<!ENTITY PRESELdir       "/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_2017/Preselection_2017/">-->
+<!ENTITY PRESELdir       "/nfs/dust/cms/group/zprime-uhh/Presel_2017/">
 <!ENTITY b_Cacheable     "False">
 <!ENTITY NEVT            "-1">
 <!ENTITY IS_PUPPI        "true">
@@ -49,13 +50,13 @@
 <!ENTITY WJets_ToLNu_HT-1200To2500_2017  SYSTEM  "../../common/UHH2-datasets/RunII_102X_v1/2017/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8.xml">
 <!ENTITY WJets_ToLNu_HT-2500ToInf_2017   SYSTEM  "../../common/UHH2-datasets/RunII_102X_v1/2017/WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8.xml">
 
-<!ENTITY DYJetsToLL_M-50_HT-100to200_2017     SYSTEM  "../../common/UHH2-datasets/RunII_102X_v1/2017/MC_DYJetsToLL_M-50_HT-100to200.xml">
-<!ENTITY DYJetsToLL_M-50_HT-200to400_2017     SYSTEM  "../../common/UHH2-datasets/RunII_102X_v1/2017/MC_DYJetsToLL_M-50_HT-200to400.xml">
-<!ENTITY DYJetsToLL_M-50_HT-400to600_2017     SYSTEM  "../../common/UHH2-datasets/RunII_102X_v1/2017/MC_DYJetsToLL_M-50_HT-400to600.xml">
-<!ENTITY DYJetsToLL_M-50_HT-600to800_2017     SYSTEM  "../../common/UHH2-datasets/RunII_102X_v1/2017/MC_DYJetsToLL_M-50_HT-600to800.xml">
-<!ENTITY DYJetsToLL_M-50_HT-800to1200_2017    SYSTEM  "../../common/UHH2-datasets/RunII_102X_v1/2017/MC_DYJetsToLL_M-50_HT-800to1200.xml">
-<!ENTITY DYJetsToLL_M-50_HT-1200to2500_2017   SYSTEM  "../../common/UHH2-datasets/RunII_102X_v1/2017/MC_DYJetsToLL_M-50_HT-1200to2500.xml">
-<!ENTITY DYJetsToLL_M-50_HT-2500toInf_2017    SYSTEM  "../../common/UHH2-datasets/RunII_102X_v1/2017/MC_DYJetsToLL_M-50_HT-2500toInf.xml">
+<!ENTITY DYJetsToLL_M-50_HT-100to200_2017     SYSTEM  "../../common/UHH2-datasets/RunII_102X_v2/2017/MC_DYJetsToLL_M-50_HT-100to200.xml">
+<!ENTITY DYJetsToLL_M-50_HT-200to400_2017     SYSTEM  "../../common/UHH2-datasets/RunII_102X_v2/2017/MC_DYJetsToLL_M-50_HT-200to400.xml">
+<!ENTITY DYJetsToLL_M-50_HT-400to600_2017     SYSTEM  "../../common/UHH2-datasets/RunII_102X_v2/2017/MC_DYJetsToLL_M-50_HT-400to600.xml">
+<!ENTITY DYJetsToLL_M-50_HT-600to800_2017     SYSTEM  "../../common/UHH2-datasets/RunII_102X_v2/2017/MC_DYJetsToLL_M-50_HT-600to800.xml">
+<!ENTITY DYJetsToLL_M-50_HT-800to1200_2017    SYSTEM  "../../common/UHH2-datasets/RunII_102X_v2/2017/MC_DYJetsToLL_M-50_HT-800to1200.xml">
+<!ENTITY DYJetsToLL_M-50_HT-1200to2500_2017   SYSTEM  "../../common/UHH2-datasets/RunII_102X_v2/2017/MC_DYJetsToLL_M-50_HT-1200to2500.xml">
+<!ENTITY DYJetsToLL_M-50_HT-2500toInf_2017    SYSTEM  "../../common/UHH2-datasets/RunII_102X_v2/2017/MC_DYJetsToLL_M-50_HT-2500toInf.xml">
 
 
 <!ENTITY ZprimeToTT_M500_W50_2017 SYSTEM     "../../common/UHH2-datasets/RunII_102X_v1/2017/ZprimeToTTbar/MC_ZprimeToTT_M500_W50.xml">
@@ -95,7 +96,7 @@
 
 <!--
 <ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="50" AutoResubmit="0"/>
-<ConfigSGE RAM="1" DISK="2" Mail="ksenia.de.leo@desy.de" Notification="as" Workdir="workdir_Zprime_PreSelec_2017"/>
+<ConfigSGE RAM="2" DISK="2" Mail="ksenia.de.leo@desy.de" Notification="as" Workdir="workdir_Zprime_PreSelec_2017"/>
 -->
 
 <JobConfiguration JobName="ZprimePreselectionJob" OutputLevel="INFO">
@@ -103,7 +104,7 @@
 	<Package Name="SUHH2ZprimeSemiLeptonic.par"/>
 
 	<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="&TargetLumi;">
-<!--
+
      	  <InputData Lumi="3386024.049" NEventsMax="&NEVT;" Type="MC" Version="ST_t-channel_antitop_2017v2" Cacheable="&b_Cacheable;">
 	    &ST_t-channel_antitop;
 	    <InputTree Name="AnalysisTree" />
@@ -183,8 +184,8 @@
 	    <InputTree Name="AnalysisTree" />
 	    <OutputTree Name="AnalysisTree" />
 	  </InputData>
--->
-<!--
+
+
           <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleElectron_Run2017v2_C" Cacheable="&b_Cacheable;">
             &DATA_SingleElectron_Run2017v2_C;
             <InputTree Name="AnalysisTree" />
@@ -379,13 +380,13 @@
             <InputTree Name="AnalysisTree"/>
             <OutputTree Name="AnalysisTree"/>
           </InputData>
--->
+
           <InputData Lumi="20034" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTT_M1000_W100_2017v2" Cacheable="&b_Cacheable;">
             &ZprimeToTT_M1000_W100_2017;
             <InputTree Name="AnalysisTree"/>
             <OutputTree Name="AnalysisTree"/>
           </InputData>
-<!--
+
           <InputData Lumi="19144" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTT_M1500_W150_2017v2" Cacheable="&b_Cacheable;">
             &ZprimeToTT_M1500_W150_2017;
             <InputTree Name="AnalysisTree"/>
@@ -542,7 +543,7 @@
             <InputTree Name="AnalysisTree"/>
             <OutputTree Name="AnalysisTree"/>
           </InputData>
--->
+
 
 		<UserConfig>
 			<Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices"/>
@@ -557,11 +558,11 @@
 			<Item Name="METName"                 Value="slimmedMETsPuppi"/>
 			<Item Name="genMETName"              Value="slimmedMETs_GenMET"/>
 
-			<Item Name="lumi_file" Value="/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_16/src/UHH2/common/data/2017/Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON_v1.root"/>
+			<Item Name="lumi_file" Value="/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2017/Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON_v1.root"/>
 			<Item Name="lumihists_lumi_per_bin" Value="500.0"/>
 
-                        <Item Name="pileup_directory"           Value="/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_16/src/UHH2/common/data/2017/MyMCPileupHistogram.root" />
-                        <Item Name="pileup_directory_data"      Value="/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_16/src/UHH2/common/data/2017/MyDataPileupHistogram2017.root" />
+                        <Item Name="pileup_directory"           Value="/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2017/MyMCPileupHistogram.root" />
+                        <Item Name="pileup_directory_data"      Value="/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2017/MyDataPileupHistogram2017.root" />
 
 			<Item Name="is_puppi" Value="&IS_PUPPI;"/>
                         <Item Name="Sys_PU" Value="central"/>

@@ -72,9 +72,9 @@ void ZprimeSemiLeptonicHists::init(){
 
   // leptons
   N_mu              = book<TH1F>("N_mu", "N^{#mu}", 11, -0.5, 10.5);
-  pt_mu             = book<TH1F>("pt_mu", "p_{T}^{#mu} [GeV]", 45, 0, 900);
-  pt_mu1            = book<TH1F>("pt_mu1", "p_{T}^{#mu 1} [GeV]", 45, 0, 900);
-  pt_mu2            = book<TH1F>("pt_mu2", "p_{T}^{#mu 2} [GeV]", 45, 0, 900);
+  pt_mu             = book<TH1F>("pt_mu", "p_{T}^{#mu} [GeV]", 90, 0, 900);
+  pt_mu1            = book<TH1F>("pt_mu1", "p_{T}^{#mu 1} [GeV]", 90, 0, 900);
+  pt_mu2            = book<TH1F>("pt_mu2", "p_{T}^{#mu 2} [GeV]", 90, 0, 900);
   eta_mu            = book<TH1F>("eta_mu", "#eta^{#mu}", 50, -2.5, 2.5);
   eta_mu1           = book<TH1F>("eta_mu1", "#eta^{#mu 1}", 50, -2.5, 2.5);
   eta_mu2           = book<TH1F>("eta_mu2", "#eta^{#mu 2}", 50, -2.5, 2.5);
@@ -88,9 +88,9 @@ void ZprimeSemiLeptonicHists::init(){
   reliso_mu1_rebin  = book<TH1F>("reliso_mu1_rebin", "#mu 1 rel. Iso ", 400, 0, 5);
   reliso_mu2_rebin  = book<TH1F>("reliso_mu2_rebin", "#mu 2 rel. Iso ", 400, 0, 5);
   N_ele             = book<TH1F>("N_ele", "N^{e}", 11, -0.5, 10.5);
-  pt_ele            = book<TH1F>("pt_ele", "p_{T}^{e} [GeV]", 45, 0, 900);
-  pt_ele1           = book<TH1F>("pt_ele1", "p_{T}^{e 1} [GeV]", 45, 0, 900);
-  pt_ele2           = book<TH1F>("pt_ele2", "p_{T}^{e 2} [GeV]", 45, 0, 900);
+  pt_ele            = book<TH1F>("pt_ele", "p_{T}^{e} [GeV]", 90, 0, 900);
+  pt_ele1           = book<TH1F>("pt_ele1", "p_{T}^{e 1} [GeV]", 90, 0, 900);
+  pt_ele2           = book<TH1F>("pt_ele2", "p_{T}^{e 2} [GeV]", 90, 0, 900);
   eta_ele           = book<TH1F>("eta_ele", "#eta^{e}", 50, -2.5, 2.5);
   eta_ele1          = book<TH1F>("eta_ele1", "#eta^{ele 1}", 50, -2.5, 2.5);
   eta_ele2          = book<TH1F>("eta_ele2", "#eta^{ele 2}", 50, -2.5, 2.5);
