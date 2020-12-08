@@ -86,22 +86,21 @@ void TopPuppiJetCorrections::init(Context & ctx){
     tpuppijet_JLC_MC->setup2017(std::make_shared<JetLeptonCleaner_by_KEYmatching>(ctx, JERFiles::JECFilesMC(tpuppijec_tag_2017, tpuppijec_ver_2017, tpuppijec_tjet_coll),"toppuppijets"));
     tpuppijet_JLC_MC->setup2018(std::make_shared<JetLeptonCleaner_by_KEYmatching>(ctx, JERFiles::JECFilesMC(tpuppijec_tag_2018, tpuppijec_ver_2018, tpuppijec_tjet_coll),"toppuppijets"));
 
-    JERSmearing::SFtype1 JER_sf;
-    std::string resFilename = "";
+
+    const Year & year = extract_year(ctx);
+    std::string jer_tag = "";
     if (year == Year::is2016v2 || year == Year::is2016v3) {
-      JER_sf = JERSmearing::SF_13TeV_Summer16_25nsV1;
-      resFilename = "2016/Summer16_25nsV1_MC_PtResolution_"+algo+pus+".txt";
+      jer_tag = "Summer16_25nsV1";
     } else if (year == Year::is2017v1 || year == Year::is2017v2) {
-      JER_sf = JERSmearing::SF_13TeV_Fall17_V3;
-      resFilename = "2017/Fall17_V3_MC_PtResolution_"+algo+pus+".txt";
+      jer_tag = "Fall17_V3";
     } else if (year == Year::is2018) {
-      JER_sf = JERSmearing::SF_13TeV_Autumn18_RunABCD_V4;
-      resFilename = "2018/Autumn18_V4_MC_PtResolution_"+algo+pus+".txt";
+      jer_tag = "Autumn18_V7";
     } else {
       throw runtime_error("Cannot find suitable jet resolution file & scale factors for this year for JetResolutionSmearer");
     }
+    tpuppijet_resolution_smearer.reset(new GenericJetResolutionSmearer(ctx, "toppuppijets", "gentopjets", JERFiles::JERPathStringMC(jer_tag,algo+pus,"SF"), JERFiles::JERPathStringMC(jer_tag,algo+pus,"PtResolution")));
 
-    tpuppijet_resolution_smearer.reset(new GenericJetResolutionSmearer(ctx, "toppuppijets", "gentopjets", JER_sf, resFilename));
+
   }
 
   if(is_data){
@@ -157,14 +156,14 @@ bool TopPuppiJetCorrections::process(uhh2::Event & event){
     throw runtime_error("TopPuppiJetCorrections::init not called (has to be called in AnalysisModule constructor)");
   }
   if (is_mc) {
-    cout << "Correct MC for PUPPI jets" << endl;
+    //cout << "Correct MC for PUPPI jets" << endl;
     tpuppijet_corrector_MC->process(event);
     tpuppijet_subjet_corrector_MC->process(event);
     tpuppijet_JLC_MC->process(event);
     tpuppijet_resolution_smearer->process(event);
   } 
   if (is_data) {
-    cout << "Correct DATA for PUPPI jets" << endl;
+    //cout << "Correct DATA for PUPPI jets" << endl;
     tpuppijet_corrector_data->process(event);
     tpuppijet_subjet_corrector_data->process(event);
     tpuppijet_JLC_data->process(event);
