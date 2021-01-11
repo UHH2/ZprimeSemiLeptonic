@@ -4,7 +4,7 @@
 
 <!ENTITY TargetLumi      "35920">
 <!--<!ENTITY PRESELdir       "/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_2016/Preselection_2016/">-->
-<!ENTITY PRESELdir       "/nfs/dust/cms/group/zprime-uhh/Presel_2016/">
+<!ENTITY PRESELdir       "/nfs/dust/cms/group/zprime-uhh/low_mass/Presel_2016/">
 <!ENTITY b_Cacheable     "False">
 <!ENTITY NEVT            "-1">
 <!ENTITY IS_PUPPI        "true">
@@ -24,6 +24,14 @@
 <!ENTITY DATA_SingleElectron_Run2016v3H   SYSTEM  "../../common/UHH2-datasets/RunII_102X_v1/2016v3/DATA_SingleElectron2016_RunH.xml">
 <!ENTITY DATA_SingleMuon_Run2016v3H       SYSTEM  "../../common/UHH2-datasets/RunII_102X_v1/2016v3/DATA_SingleMuon2016_RunH.xml">
 
+<!ENTITY DATA_SinglePhoton_Run2016v3B_v1 SYSTEM "../../common/UHH2-datasets/RunII_102X_v2/2016v3/DATA_SinglePhoton_2016B_ver1_v1.xml">
+<!ENTITY DATA_SinglePhoton_Run2016v3B_v2 SYSTEM "../../common/UHH2-datasets/RunII_102X_v2/2016v3/DATA_SinglePhoton_2016B_ver2_v1.xml">
+<!ENTITY DATA_SinglePhoton_Run2016v3C    SYSTEM "../../common/UHH2-datasets/RunII_102X_v2/2016v3/DATA_SinglePhoton_2016C_v1.xml">
+<!ENTITY DATA_SinglePhoton_Run2016v3D    SYSTEM "../../common/UHH2-datasets/RunII_102X_v2/2016v3/DATA_SinglePhoton_2016D_v1.xml">
+<!ENTITY DATA_SinglePhoton_Run2016v3E    SYSTEM "../../common/UHH2-datasets/RunII_102X_v2/2016v3/DATA_SinglePhoton_2016E_v1.xml">
+<!ENTITY DATA_SinglePhoton_Run2016v3F    SYSTEM "../../common/UHH2-datasets/RunII_102X_v2/2016v3/DATA_SinglePhoton_2016F_v1.xml">
+<!ENTITY DATA_SinglePhoton_Run2016v3G    SYSTEM "../../common/UHH2-datasets/RunII_102X_v2/2016v3/DATA_SinglePhoton_2016G_v1.xml">
+<!ENTITY DATA_SinglePhoton_Run2016v3H    SYSTEM "../../common/UHH2-datasets/RunII_102X_v2/2016v3/DATA_SinglePhoton_2016H_v1.xml">
 
 <!ENTITY WJetsToLNu_HT-70To100_2016v3     SYSTEM  "../../common/UHH2-datasets/RunII_102X_v1/2016v3/MC_WJetsToLNu_HT-70To100.xml">
 <!ENTITY WJetsToLNu_HT-100To200_2016v3    SYSTEM  "../../common/UHH2-datasets/RunII_102X_v1/2016v3/MC_WJetsToLNu_HT-100To200.xml">
@@ -189,6 +197,58 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
+
+
+
+          <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SinglePhoton_Run2016v3B_v1" Cacheable="&b_Cacheable;">
+            &DATA_SinglePhoton_Run2016v3B_v1;
+            <InputTree Name="AnalysisTree" />
+            <OutputTree Name="AnalysisTree" />
+          </InputData>
+
+          <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SinglePhoton_Run2016v3B_v2" Cacheable="&b_Cacheable;">
+            &DATA_SinglePhoton_Run2016v3B_v2;
+            <InputTree Name="AnalysisTree" />
+            <OutputTree Name="AnalysisTree" />
+          </InputData>
+
+          <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SinglePhoton_Run2016v3C" Cacheable="&b_Cacheable;">
+            &DATA_SinglePhoton_Run2016v3C;
+            <InputTree Name="AnalysisTree" />
+            <OutputTree Name="AnalysisTree" />
+          </InputData>
+
+          <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SinglePhoton_Run2016v3D" Cacheable="&b_Cacheable;">
+            &DATA_SinglePhoton_Run2016v3D;
+            <InputTree Name="AnalysisTree" />
+            <OutputTree Name="AnalysisTree" />
+          </InputData>
+
+          <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SinglePhoton_Run2016v3E" Cacheable="&b_Cacheable;">
+            &DATA_SinglePhoton_Run2016v3E;
+            <InputTree Name="AnalysisTree" />
+            <OutputTree Name="AnalysisTree" />
+          </InputData>
+
+          <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SinglePhoton_Run2016v3F" Cacheable="&b_Cacheable;">
+            &DATA_SinglePhoton_Run2016v3F;
+            <InputTree Name="AnalysisTree" />
+            <OutputTree Name="AnalysisTree" />
+          </InputData>
+
+          <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SinglePhoton_Run2016v3G" Cacheable="&b_Cacheable;">
+            &DATA_SinglePhoton_Run2016v3G;
+            <InputTree Name="AnalysisTree" />
+            <OutputTree Name="AnalysisTree" />
+          </InputData>
+
+          <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SinglePhoton_Run2016v3H" Cacheable="&b_Cacheable;">
+            &DATA_SinglePhoton_Run2016v3H;
+            <InputTree Name="AnalysisTree" />
+            <OutputTree Name="AnalysisTree" />
+          </InputData>
+
+
 
           <InputData Lumi="7406.158906" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-70To100_2016v3" Cacheable="&b_Cacheable;">
             &WJetsToLNu_HT-70To100_2016v3;

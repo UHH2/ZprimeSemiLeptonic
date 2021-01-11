@@ -9,12 +9,12 @@
 <!ENTITY IS_PUPPI            "true">
 <!ENTITY IS_LOOSER_SELECTION "false">
 <!ENTITY CHANNEL             "electron">
-<!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_2018/Analysis_lowmass/&CHANNEL;/">
+<!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_lowmass/ZPrime_2018/Analysis_2018//&CHANNEL;/">
 
-<!ENTITY DATA_EGamma_Run2018A       SYSTEM  "../data/Skimming_datasets_2018/DATA_DATA_EGamma_Run2018A_withoutEmptyNtuples.xml">
-<!ENTITY DATA_EGamma_Run2018B       SYSTEM  "../data/Skimming_datasets_2018/DATA_DATA_EGamma_Run2018B_withoutEmptyNtuples.xml">
-<!ENTITY DATA_EGamma_Run2018C       SYSTEM  "../data/Skimming_datasets_2018/DATA_DATA_EGamma_Run2018C_withoutEmptyNtuples.xml">
-<!ENTITY DATA_EGamma_Run2018D       SYSTEM  "../data/Skimming_datasets_2018/DATA_DATA_EGamma_Run2018D_withoutEmptyNtuples.xml">
+<!ENTITY DATA_EGamma_Run2018A   SYSTEM  "../data/Skimming_datasets_2018/DATA_DATA_EGamma_Run2018A_withoutEmptyNtuples.xml">
+<!ENTITY DATA_EGamma_Run2018B   SYSTEM  "../data/Skimming_datasets_2018/DATA_DATA_EGamma_Run2018B_withoutEmptyNtuples.xml">
+<!ENTITY DATA_EGamma_Run2018C   SYSTEM  "../data/Skimming_datasets_2018/DATA_DATA_EGamma_Run2018C_withoutEmptyNtuples.xml">
+<!ENTITY DATA_EGamma_Run2018D   SYSTEM  "../data/Skimming_datasets_2018/DATA_DATA_EGamma_Run2018D_withoutEmptyNtuples.xml">
 
 <!ENTITY TTToSemiLeptonic_2018          SYSTEM  "../data/Skimming_datasets_2018/MC_TTToSemiLeptonic_2018_withoutEmptyNtuples.xml">
 <!ENTITY TTToHadronic_2018              SYSTEM  "../data/Skimming_datasets_2018/MC_TTToHadronic_2018_withoutEmptyNtuples.xml">
@@ -123,7 +123,7 @@
 
 <!--
 <ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="50" AutoResubmit="0"/>
-<ConfigSGE RAM="2" DISK="2" Mail="ksenia.de.leo@desy.de" Notification="as" Workdir="workdir_Zprime_Analysis_2018_ele"/>
+<ConfigSGE RAM="2" DISK="2" Mail="ksenia.de.leo@desy.de" Notification="as" Workdir="workdir_Zprime_Analysis_2018"/>
 -->
 
 <JobConfiguration JobName="ZprimePreselectionJob" OutputLevel="INFO">
@@ -570,24 +570,26 @@
 	  </InputData>
 
 	  
+	  <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_Run2018A_blinded" Cacheable="&b_Cacheable;">
+	    &DATA_EGamma_Run2018A;
+	    <InputTree Name="AnalysisTree" />
+	    <OutputTree Name="AnalysisTree" />
+	  </InputData>
 
-          <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_Run2018A_blinded" Cacheable="&b_Cacheable;">
-            &DATA_EGamma_Run2018A;
-            <InputTree Name="AnalysisTree" />
-            <OutputTree Name="AnalysisTree" />
-          </InputData>
 
-          <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_Run2018B_blinded" Cacheable="&b_Cacheable;">
-            &DATA_EGamma_Run2018B;
-            <InputTree Name="AnalysisTree" />
-            <OutputTree Name="AnalysisTree" />
-          </InputData>
+	  <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_Run2018B_blinded" Cacheable="&b_Cacheable;">
+	    &DATA_EGamma_Run2018B;
+	    <InputTree Name="AnalysisTree" />
+	    <OutputTree Name="AnalysisTree" />
+	  </InputData>
+
 
           <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_Run2018C_blinded" Cacheable="&b_Cacheable;">
             &DATA_EGamma_Run2018C;
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
+
 
           <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_Run2018D_blinded" Cacheable="&b_Cacheable;">
             &DATA_EGamma_Run2018D;

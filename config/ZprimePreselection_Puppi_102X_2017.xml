@@ -3,7 +3,7 @@
 
 <!ENTITY TargetLumi      "41530"> 
 <!--<!ENTITY PRESELdir       "/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_2017/Preselection_2017/">-->
-<!ENTITY PRESELdir       "/nfs/dust/cms/group/zprime-uhh/Presel_2017/">
+<!ENTITY PRESELdir       "/nfs/dust/cms/group/zprime-uhh/low_mass/Presel_2017/">
 <!ENTITY b_Cacheable     "False">
 <!ENTITY NEVT            "-1">
 <!ENTITY IS_PUPPI        "true">
@@ -18,6 +18,12 @@
 <!ENTITY DATA_SingleElectron_Run2017v2_D   SYSTEM  "../../common/UHH2-datasets/RunII_102X_v1/2017/DATA_SingleElectron_Run2017D.xml">
 <!ENTITY DATA_SingleElectron_Run2017v2_E   SYSTEM  "../../common/UHH2-datasets/RunII_102X_v1/2017/DATA_SingleElectron_Run2017E.xml">
 <!ENTITY DATA_SingleElectron_Run2017v2_F   SYSTEM  "../../common/UHH2-datasets/RunII_102X_v1/2017/DATA_SingleElectron_Run2017F.xml">
+
+<!ENTITY DATA_SinglePhoton_Run2017v2_B SYSTEM   "../../common/UHH2-datasets/RunII_102X_v2/2017/DATA_SinglePhoton_2017B_v1.xml">
+<!ENTITY DATA_SinglePhoton_Run2017v2_C SYSTEM   "../../common/UHH2-datasets/RunII_102X_v2/2017/DATA_SinglePhoton_2017C_v1.xml">
+<!ENTITY DATA_SinglePhoton_Run2017v2_D SYSTEM   "../../common/UHH2-datasets/RunII_102X_v2/2017/DATA_SinglePhoton_2017D_v1.xml">
+<!ENTITY DATA_SinglePhoton_Run2017v2_E SYSTEM   "../../common/UHH2-datasets/RunII_102X_v2/2017/DATA_SinglePhoton_2017E_v1.xml">
+<!ENTITY DATA_SinglePhoton_Run2017v2_F SYSTEM   "../../common/UHH2-datasets/RunII_102X_v2/2017/DATA_SinglePhoton_2017F_v1.xml">
 
 <!ENTITY TTToSemiLeptonic_2017          SYSTEM  "../../common/UHH2-datasets/RunII_102X_v1/2017/MC_TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8.xml">
 <!ENTITY TTToHadronic_2017              SYSTEM  "../../common/UHH2-datasets/RunII_102X_v1/2017/MC_TTToHadronic_TuneCP5_13TeV-powheg-pythia8.xml">
@@ -209,6 +215,40 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
+
+
+
+          <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SinglePhoton_Run2017v2_B" Cacheable="&b_Cacheable;">
+            &DATA_SinglePhoton_Run2017v2_B;
+            <InputTree Name="AnalysisTree" />
+            <OutputTree Name="AnalysisTree" />
+          </InputData>
+
+          <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SinglePhoton_Run2017v2_C" Cacheable="&b_Cacheable;">
+            &DATA_SinglePhoton_Run2017v2_C;
+            <InputTree Name="AnalysisTree" />
+            <OutputTree Name="AnalysisTree" />
+          </InputData>
+
+          <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SinglePhoton_Run2017v2_D" Cacheable="&b_Cacheable;">
+            &DATA_SinglePhoton_Run2017v2_D;
+            <InputTree Name="AnalysisTree" />
+            <OutputTree Name="AnalysisTree" />
+          </InputData>
+
+          <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SinglePhoton_Run2017v2_E" Cacheable="&b_Cacheable;">
+            &DATA_SinglePhoton_Run2017v2_E;
+            <InputTree Name="AnalysisTree" />
+            <OutputTree Name="AnalysisTree" />
+          </InputData>
+
+          <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SinglePhoton_Run2017v2_F" Cacheable="&b_Cacheable;">
+            &DATA_SinglePhoton_Run2017v2_F;
+            <InputTree Name="AnalysisTree" />
+            <OutputTree Name="AnalysisTree" />
+          </InputData>
+
+
 
 	  <InputData Lumi="35279949.78" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_2017v2" Cacheable="&b_Cacheable;">
 	    &TTToSemiLeptonic_2017;
