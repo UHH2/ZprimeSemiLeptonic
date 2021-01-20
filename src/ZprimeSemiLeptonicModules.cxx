@@ -75,8 +75,10 @@ vector<LorentzVector> reconstruct_neutrino(const LorentzVector & lepton, const L
 ZprimeCandidateBuilder::ZprimeCandidateBuilder(uhh2::Context& ctx, TString mode, float minDR) : minDR_(minDR), mode_(mode){
 
   h_ZprimeCandidates_ = ctx.get_handle< vector<ZprimeCandidate> >("ZprimeCandidates");
-  h_AK8TopTags = ctx.get_handle<std::vector<TopJet>>("AK8PuppiTopTags");
-  h_AK8TopTagsPtr = ctx.get_handle<std::vector<const TopJet*>>("AK8PuppiTopTagsPtr");
+  //h_AK8TopTags = ctx.get_handle<std::vector<TopJet>>("AK8PuppiTopTags");
+  //h_AK8TopTagsPtr = ctx.get_handle<std::vector<const TopJet*>>("AK8PuppiTopTagsPtr");
+  h_AK8TopTags = ctx.get_handle<std::vector<TopJet>>("HOTVRTopTags");
+  h_AK8TopTagsPtr = ctx.get_handle<std::vector<const TopJet*>>("HOTVRTopTagsPtr");
 
   if(mode_ != "chs" && mode_ != "puppi") throw runtime_error("In ZprimeCandidateBuilder::ZprimeCandidateBuilder(): 'mode' must be 'chs' or 'puppi'");
 
@@ -668,6 +670,35 @@ bool AK8PuppiTopTagger::process(uhh2::Event& event){
   event.set(h_AK8PuppiTopTagsPtr_, toptags_ptr);
   return (toptags.size() >= 1);
 }
+
+
+
+
+
+HOTVRTopTagger::HOTVRTopTagger(uhh2::Context& ctx) {
+
+  h_HOTVRTopTags_ = ctx.get_handle< std::vector<TopJet> >("HOTVRTopTags");
+  h_HOTVRTopTagsPtr_ = ctx.get_handle< std::vector<const TopJet*> >("HOTVRTopTagsPtr");
+
+}
+
+bool HOTVRTopTagger::process(uhh2::Event& event){
+
+  std::vector<TopJet> toptags;
+  vector<const TopJet*> toptags_ptr;
+  for(const TopJet & topjet : *event.topjets){
+
+    if (toptag_id(topjet, event)){
+       toptags.emplace_back(topjet);
+       toptags_ptr.emplace_back(&topjet);
+    }
+  }
+  event.set(h_HOTVRTopTags_, toptags);
+  event.set(h_HOTVRTopTagsPtr_, toptags_ptr);
+  return (toptags.size() >= 1);
+}
+
+
 
 bool JetLeptonDeltaRCleaner::process(uhh2::Event& event){
 

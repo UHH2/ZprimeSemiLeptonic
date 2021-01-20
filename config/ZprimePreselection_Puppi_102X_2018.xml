@@ -2,7 +2,7 @@
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
 
 <!ENTITY TargetLumi      "59740">
-<!ENTITY PRESELdir       "/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_lowmass/ZPrime_2018/Preselection_2018/">
+<!ENTITY PRESELdir       "/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_lowmass_HOTVR/ZPrime_2018/Preselection_2018/">
 <!--<!ENTITY PRESELdir       "/nfs/dust/cms/group/zprime-uhh/Presel_2018/">-->
 <!ENTITY b_Cacheable     "False">
 <!ENTITY NEVT            "-1">
@@ -443,6 +443,10 @@
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
           </InputData>
+
+
+
+
 <!--
 
           <InputData Lumi="180809" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTT_M1000_W10_2018" Cacheable="&b_Cacheable;">
@@ -523,6 +527,7 @@
             <OutputTree Name="AnalysisTree" />
           </InputData>
 -->
+
 
 	  <InputData Lumi="21906.58658" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-70To100_2018" Cacheable="&b_Cacheable;">
 	    &WJetsToLNu_HT-70To100_2018;
@@ -743,8 +748,8 @@
 			<Item Name="MuonCollection"          Value="slimmedMuonsUSER"/>
 			<Item Name="JetCollection"           Value="jetsAk4Puppi"/>
 			<Item Name="GenJetCollection"        Value="slimmedGenJets"/> 
-			<Item Name="TopJetCollection"        Value="jetsAk8CHSSubstructure_SoftDropCHS"/>
-			<Item Name="GenTopJetCollection"     Value="genjetsAk8SubstructureSoftDrop"/> <!-- Check odinary ak8GenJetsFat !--> <!-- new in ntuples! -->
+			<Item Name="TopJetCollection"        Value="hotvrPuppi"/>
+			<Item Name="GenTopJetCollection"     Value="hotvrGen"/>  
 			<Item Name="TopPuppiJetCollection"   Value="jetsAk8PuppiSubstructure_SoftDropPuppi"/>
 			<Item Name="METName"                 Value="slimmedMETsPuppi"/>
 			<Item Name="genMETName"              Value="slimmedMETs_GenMET"/>
@@ -756,6 +761,7 @@
                         <Item Name="pileup_directory_data"      Value="/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2018/MyDataPileupHistogram2018.root" />
 
 			<Item Name="is_puppi" Value="&IS_PUPPI;"/>
+			<Item Name="is_HOTVR" Value="true"/>
                         <Item Name="Sys_PU" Value="central"/>
 
 			<Item Name="use_sframe_weight" Value="false"/>

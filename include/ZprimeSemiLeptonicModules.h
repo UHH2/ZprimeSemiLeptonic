@@ -7,6 +7,8 @@
 #include <UHH2/core/include/LorentzVector.h>
 #include <UHH2/common/include/TTbarGen.h>
 
+#include <UHH2/HOTVR/include/HOTVRIds.h>
+
 #include "TH1.h"
 
 float inv_mass(const LorentzVector&);
@@ -75,6 +77,22 @@ private:
   float max_tau32_;
   uhh2::Event::Handle< std::vector<TopJet> > h_AK8PuppiTopTags_;
   uhh2::Event::Handle< std::vector<const TopJet*> > h_AK8PuppiTopTagsPtr_;
+};
+
+
+
+class HOTVRTopTagger : public uhh2::AnalysisModule {
+
+public:  
+  explicit HOTVRTopTagger(uhh2::Context&);
+  virtual bool process(uhh2::Event&) override;
+
+private:
+  uhh2::Event::Handle< std::vector<TopJet> > h_HOTVRTopTags_;
+  uhh2::Event::Handle< std::vector<const TopJet*> > h_HOTVRTopTagsPtr_;
+
+  TopJetId toptag_id = AndId<TopJet>(HOTVRTopTag(0.8, 140.0, 220.0, 50.0), Tau32Groomed(0.56));
+
 };
 
 

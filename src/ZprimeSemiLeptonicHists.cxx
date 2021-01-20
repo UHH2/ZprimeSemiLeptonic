@@ -22,7 +22,8 @@ Hists(ctx, dirname) {
 
 
   is_mc = ctx.get("dataset_type") == "MC";
-  h_AK8PuppiTopTags = ctx.get_handle<std::vector<TopJet>>("AK8PuppiTopTags");
+  //h_AK8PuppiTopTags = ctx.get_handle<std::vector<TopJet>>("AK8PuppiTopTags");
+  h_HOTVRTopTags = ctx.get_handle<std::vector<TopJet>>("HOTVRTopTags");
   h_BestZprimeCandidateChi2 = ctx.get_handle<ZprimeCandidate*>("ZprimeCandidateBestChi2");
   h_BestZprimeCandidateCorrectMatch = ctx.get_handle<ZprimeCandidate*>("ZprimeCandidateBestCorrectMatch");
   h_is_zprime_reconstructed_chi2 = ctx.get_handle<bool>("is_zprime_reconstructed_chi2");
@@ -124,60 +125,60 @@ void ZprimeSemiLeptonicHists::init(){
   dRmin_ptrel_ele   = book<TH2F>("dRmin_ptrel_ele", "#DeltaR_{min}(e, jet);p_{T}^{rel}(e, jet);p_{T}^{rel}(e, jet) vs. #DeltaR_{min}(e, jet)", 60, 0, 3, 50, 0, 500);
   dRmin_ptrel_ele1  = book<TH2F>("dRmin_ptrel_ele1", "#DeltaR_{min}(e1, jet);p_{T}^{rel}(e1, jet);p_{T}^{rel}(e1, jet) vs. #DeltaR_{min}(e1, jet)", 60, 0, 3, 50, 0, 500);
 
-  // AK8CHS jets
-  N_AK8CHSjets              = book<TH1F>("N_AK8CHSjets", "N_{AK8CHS jets}", 6, -0.5, 5.5);
-  pt_AK8CHSjet              = book<TH1F>("pt_AK8CHSjet", "p_{T}^{AK8CHS jets} [GeV]", 45, 0, 900);
-  pt_AK8CHSjet1             = book<TH1F>("pt_AK8CHSjet1", "p_{T}^{AK8CHS jet 1} [GeV]", 45, 0, 900);
-  pt_AK8CHSjet2             = book<TH1F>("pt_AK8CHSjet2", "p_{T}^{AK8CHS jet 2} [GeV]", 45, 0, 900);
-  pt_AK8CHSjet3             = book<TH1F>("pt_AK8CHSjet3", "p_{T}^{AK8CHS jet 3} [GeV]", 45, 0, 900);
-  eta_AK8CHSjet             = book<TH1F>("eta_AK8CHSjet", "#eta^{AK8CHS jets}", 50, -2.5, 2.5);
-  eta_AK8CHSjet1            = book<TH1F>("eta_AK8CHSjet1", "#eta^{AK8CHS jet 1}", 50, -2.5, 2.5);
-  eta_AK8CHSjet2            = book<TH1F>("eta_AK8CHSjet2", "#eta^{AK8CHS jet 2}", 50, -2.5, 2.5);
-  eta_AK8CHSjet3            = book<TH1F>("eta_AK8CHSjet3", "#eta^{AK8CHS jet 3}", 50, -2.5, 2.5);
-  phi_AK8CHSjet             = book<TH1F>("phi_AK8CHSjet", "#phi^{AK8CHS jets}", 35, -3.5, 3.5);
-  phi_AK8CHSjet1            = book<TH1F>("phi_AK8CHSjet1", "#phi^{AK8CHS jet 1}", 35, -3.5, 3.5);
-  phi_AK8CHSjet2            = book<TH1F>("phi_AK8CHSjet2", "#phi^{AK8CHS jet 2}", 35, -3.5, 3.5);
-  phi_AK8CHSjet3            = book<TH1F>("phi_AK8CHSjet3", "#phi^{AK8CHS jet 3}", 35, -3.5, 3.5);
-  mSD_AK8CHSjet             = book<TH1F>("mSD_AK8CHSjet", "m_{SD}^{AK8CHS jets}", 50, 0, 500);
-  mSD_AK8CHSjet1            = book<TH1F>("mSD_AK8CHSjet1", "m_{SD}^{AK8CHS jet 1}", 50, 0, 500);
-  mSD_AK8CHSjet2            = book<TH1F>("mSD_AK8CHSjet2", "m_{SD}^{AK8CHS jet 2}", 50, 0, 500);
-  mSD_AK8CHSjet3            = book<TH1F>("mSD_AK8CHSjet3", "m_{SD}^{AK8CHS jet 3}", 50, 0, 500);
-  N_subjets_AK8CHSjet       = book<TH1F>("N_subjets_AK8CHSjet", "N_{subjets}^{AK8CHS jets}", 6, -0.5, 5.5);
-  N_subjets_AK8CHSjet1      = book<TH1F>("N_subjets_AK8CHSjet1", "N_{subjets}^{AK8CHS jet 1}", 6, -0.5, 5.5);
-  N_subjets_AK8CHSjet2      = book<TH1F>("N_subjets_AK8CHSjet2", "N_{subjets}^{AK8CHS jet 2}", 6, -0.5, 5.5);
-  N_subjets_AK8CHSjet3      = book<TH1F>("N_subjets_AK8CHSjet3", "N_{subjets}^{AK8CHS jet 3}", 6, -0.5, 5.5);
-  N_daughters_AK8CHSjet       = book<TH1F>("N_daughters_AK8CHSjet", "N_{daughters}^{AK8CHS jets}", 51, -0.5, 50.5);
-  N_daughters_AK8CHSjet1      = book<TH1F>("N_daughters_AK8CHSjet1", "N_{daughters}^{AK8CHS jet 1}", 51, -0.5, 50.5);
-  N_daughters_AK8CHSjet2      = book<TH1F>("N_daughters_AK8CHSjet2", "N_{daughters}^{AK8CHS jet 2}", 51, -0.5, 50.5);
-  N_daughters_AK8CHSjet3      = book<TH1F>("N_daughters_AK8CHSjet3", "N_{daughters}^{AK8CHS jet 3}", 51, -0.5, 50.5);
-  dRmin_AK8Puppi_AK8CHSjet  = book<TH1F>("dRmin_AK8Puppi_AK8CHSjet", "#DeltaR_{min}(AK8CHS jet, AK8Puppi jet)", 60, 0, 3);
-  dRmin_AK8Puppi_AK8CHSjet1 = book<TH1F>("dRmin_AK8Puppi_AK8CHSjet1", "#DeltaR_{min}(AK8CHS jet 1, AK8Puppi jet)", 60, 0, 3);
-  dRmin_AK8Puppi_AK8CHSjet2 = book<TH1F>("dRmin_AK8Puppi_AK8CHSjet2", "#DeltaR_{min}(AK8CHS jet 2, AK8Puppi jet)", 60, 0, 3);
-  dRmin_AK8Puppi_AK8CHSjet3 = book<TH1F>("dRmin_AK8Puppi_AK8CHSjet3", "#DeltaR_{min}(AK8CHS jet 3, AK8Puppi jet)", 60, 0, 3);
-  dRmin_mu_AK8CHSjet        = book<TH1F>("dRmin_mu_AK8CHSjet", "#DeltaR_{min}(AK8CHS jet, #mu)", 60, 0, 3);
-  dRmin_mu_AK8CHSjet1       = book<TH1F>("dRmin_mu_AK8CHSjet1", "#DeltaR_{min}(AK8CHS jet 1, #mu)", 60, 0, 3);
-  dRmin_mu_AK8CHSjet2       = book<TH1F>("dRmin_mu_AK8CHSjet2", "#DeltaR_{min}(AK8CHS jet 2, #mu)", 60, 0, 3);
-  dRmin_mu_AK8CHSjet3       = book<TH1F>("dRmin_mu_AK8CHSjet3", "#DeltaR_{min}(AK8CHS jet 3, #mu)", 60, 0, 3);
-  tau1_AK8CHSjet            = book<TH1F>("tau1_AK8CHSjet", "#tau_{1}^{AK8CHS jets}", 24, 0, 1.2);
-  tau1_AK8CHSjet1           = book<TH1F>("tau1_AK8CHSjet1", "#tau_{1}^{AK8CHS jet 1}", 24, 0, 1.2);
-  tau1_AK8CHSjet2           = book<TH1F>("tau1_AK8CHSjet2", "#tau_{1}^{AK8CHS jet 2}", 24, 0, 1.2);
-  tau1_AK8CHSjet3           = book<TH1F>("tau1_AK8CHSjet3", "#tau_{1}^{AK8CHS jet 3}", 24, 0, 1.2);
-  tau2_AK8CHSjet            = book<TH1F>("tau2_AK8CHSjet", "#tau_{2}^{AK8CHS jets}", 24, 0, 1.2);
-  tau2_AK8CHSjet1           = book<TH1F>("tau2_AK8CHSjet1", "#tau_{2}^{AK8CHS jet 1}", 24, 0, 1.2);
-  tau2_AK8CHSjet2           = book<TH1F>("tau2_AK8CHSjet2", "#tau_{2}^{AK8CHS jet 2}", 24, 0, 1.2);
-  tau2_AK8CHSjet3           = book<TH1F>("tau2_AK8CHSjet3", "#tau_{2}^{AK8CHS jet 3}", 24, 0, 1.2);
-  tau3_AK8CHSjet            = book<TH1F>("tau3_AK8CHSjet", "#tau_{3}^{AK8CHS jets}", 24, 0, 1.2);
-  tau3_AK8CHSjet1           = book<TH1F>("tau3_AK8CHSjet1", "#tau_{3}^{AK8CHS jet 1}", 24, 0, 1.2);
-  tau3_AK8CHSjet2           = book<TH1F>("tau3_AK8CHSjet2", "#tau_{3}^{AK8CHS jet 2}", 24, 0, 1.2);
-  tau3_AK8CHSjet3           = book<TH1F>("tau3_AK8CHSjet3", "#tau_{3}^{AK8CHS jet 3}", 24, 0, 1.2);
-  tau21_AK8CHSjet           = book<TH1F>("tau21_AK8CHSjet", "#tau_{2/1}^{AK8CHS jets}", 24, 0, 1.2);
-  tau21_AK8CHSjet1          = book<TH1F>("tau21_AK8CHSjet1", "#tau_{2/1}^{AK8CHS jet 1}", 24, 0, 1.2);
-  tau21_AK8CHSjet2          = book<TH1F>("tau21_AK8CHSjet2", "#tau_{2/1}^{AK8CHS jet 2}", 24, 0, 1.2);
-  tau21_AK8CHSjet3          = book<TH1F>("tau21_AK8CHSjet3", "#tau_{2/1}^{AK8CHS jet 3}", 24, 0, 1.2);
-  tau32_AK8CHSjet           = book<TH1F>("tau32_AK8CHSjet", "#tau_{3/2}^{AK8CHS jets}", 24, 0, 1.2);
-  tau32_AK8CHSjet1          = book<TH1F>("tau32_AK8CHSjet1", "#tau_{3/2}^{AK8CHS jet 1}", 24, 0, 1.2);
-  tau32_AK8CHSjet2          = book<TH1F>("tau32_AK8CHSjet2", "#tau_{3/2}^{AK8CHS jet 2}", 24, 0, 1.2);
-  tau32_AK8CHSjet3          = book<TH1F>("tau32_AK8CHSjet3", "#tau_{3/2}^{AK8CHS jet 3}", 24, 0, 1.2);
+  // HOTVR jets
+  N_HOTVRjets              = book<TH1F>("N_HOTVRjets", "N_{HOTVR jets}", 6, -0.5, 5.5);
+  pt_HOTVRjet              = book<TH1F>("pt_HOTVRjet", "p_{T}^{HOTVR jets} [GeV]", 45, 0, 900);
+  pt_HOTVRjet1             = book<TH1F>("pt_HOTVRjet1", "p_{T}^{HOTVR jet 1} [GeV]", 45, 0, 900);
+  pt_HOTVRjet2             = book<TH1F>("pt_HOTVRjet2", "p_{T}^{HOTVR jet 2} [GeV]", 45, 0, 900);
+  pt_HOTVRjet3             = book<TH1F>("pt_HOTVRjet3", "p_{T}^{HOTVR jet 3} [GeV]", 45, 0, 900);
+  eta_HOTVRjet             = book<TH1F>("eta_HOTVRjet", "#eta^{HOTVR jets}", 50, -2.5, 2.5);
+  eta_HOTVRjet1            = book<TH1F>("eta_HOTVRjet1", "#eta^{HOTVR jet 1}", 50, -2.5, 2.5);
+  eta_HOTVRjet2            = book<TH1F>("eta_HOTVRjet2", "#eta^{HOTVR jet 2}", 50, -2.5, 2.5);
+  eta_HOTVRjet3            = book<TH1F>("eta_HOTVRjet3", "#eta^{HOTVR jet 3}", 50, -2.5, 2.5);
+  phi_HOTVRjet             = book<TH1F>("phi_HOTVRjet", "#phi^{HOTVR jets}", 35, -3.5, 3.5);
+  phi_HOTVRjet1            = book<TH1F>("phi_HOTVRjet1", "#phi^{HOTVR jet 1}", 35, -3.5, 3.5);
+  phi_HOTVRjet2            = book<TH1F>("phi_HOTVRjet2", "#phi^{HOTVR jet 2}", 35, -3.5, 3.5);
+  phi_HOTVRjet3            = book<TH1F>("phi_HOTVRjet3", "#phi^{HOTVR jet 3}", 35, -3.5, 3.5);
+  m_HOTVRjet               = book<TH1F>("m_HOTVRjet", "m^{HOTVR jets}", 50, 0, 500);
+  m_HOTVRjet1              = book<TH1F>("m_HOTVRjet1", "m^{HOTVR jet 1}", 50, 0, 500);
+  m_HOTVRjet2              = book<TH1F>("m_HOTVRjet2", "m^{HOTVR jet 2}", 50, 0, 500);
+  m_HOTVRjet3              = book<TH1F>("m_HOTVRjet3", "m^{HOTVR jet 3}", 50, 0, 500);
+  N_subjets_HOTVRjet       = book<TH1F>("N_subjets_HOTVRjet", "N_{subjets}^{HOTVR jets}", 6, -0.5, 5.5);
+  N_subjets_HOTVRjet1      = book<TH1F>("N_subjets_HOTVRjet1", "N_{subjets}^{HOTVR jet 1}", 6, -0.5, 5.5);
+  N_subjets_HOTVRjet2      = book<TH1F>("N_subjets_HOTVRjet2", "N_{subjets}^{HOTVR jet 2}", 6, -0.5, 5.5);
+  N_subjets_HOTVRjet3      = book<TH1F>("N_subjets_HOTVRjet3", "N_{subjets}^{HOTVR jet 3}", 6, -0.5, 5.5);
+  N_daughters_HOTVRjet     = book<TH1F>("N_daughters_HOTVRjet", "N_{daughters}^{HOTVR jets}", 51, -0.5, 50.5);
+  N_daughters_HOTVRjet1    = book<TH1F>("N_daughters_HOTVRjet1", "N_{daughters}^{HOTVR jet 1}", 51, -0.5, 50.5);
+  N_daughters_HOTVRjet2    = book<TH1F>("N_daughters_HOTVRjet2", "N_{daughters}^{HOTVR jet 2}", 51, -0.5, 50.5);
+  N_daughters_HOTVRjet3    = book<TH1F>("N_daughters_HOTVRjet3", "N_{daughters}^{HOTVR jet 3}", 51, -0.5, 50.5);
+  dRmin_AK8Puppi_HOTVRjet  = book<TH1F>("dRmin_AK8Puppi_HOTVRjet", "#DeltaR_{min}(HOTVR jet, AK8Puppi jet)", 60, 0, 3);
+  dRmin_AK8Puppi_HOTVRjet1 = book<TH1F>("dRmin_AK8Puppi_HOTVRjet1", "#DeltaR_{min}(HOTVR jet 1, AK8Puppi jet)", 60, 0, 3);
+  dRmin_AK8Puppi_HOTVRjet2 = book<TH1F>("dRmin_AK8Puppi_HOTVRjet2", "#DeltaR_{min}(HOTVR jet 2, AK8Puppi jet)", 60, 0, 3);
+  dRmin_AK8Puppi_HOTVRjet3 = book<TH1F>("dRmin_AK8Puppi_HOTVRjet3", "#DeltaR_{min}(HOTVR jet 3, AK8Puppi jet)", 60, 0, 3);
+  dRmin_mu_HOTVRjet        = book<TH1F>("dRmin_mu_HOTVRjet", "#DeltaR_{min}(HOTVR jet, #mu)", 60, 0, 3);
+  dRmin_mu_HOTVRjet1       = book<TH1F>("dRmin_mu_HOTVRjet1", "#DeltaR_{min}(HOTVR jet 1, #mu)", 60, 0, 3);
+  dRmin_mu_HOTVRjet2       = book<TH1F>("dRmin_mu_HOTVRjet2", "#DeltaR_{min}(HOTVR jet 2, #mu)", 60, 0, 3);
+  dRmin_mu_HOTVRjet3       = book<TH1F>("dRmin_mu_HOTVRjet3", "#DeltaR_{min}(HOTVR jet 3, #mu)", 60, 0, 3);
+  tau1_HOTVRjet            = book<TH1F>("tau1_HOTVRjet", "#tau_{1}^{HOTVR jets}", 24, 0, 1.2);
+  tau1_HOTVRjet1           = book<TH1F>("tau1_HOTVRjet1", "#tau_{1}^{HOTVR jet 1}", 24, 0, 1.2);
+  tau1_HOTVRjet2           = book<TH1F>("tau1_HOTVRjet2", "#tau_{1}^{HOTVR jet 2}", 24, 0, 1.2);
+  tau1_HOTVRjet3           = book<TH1F>("tau1_HOTVRjet3", "#tau_{1}^{HOTVR jet 3}", 24, 0, 1.2);
+  tau2_HOTVRjet            = book<TH1F>("tau2_HOTVRjet", "#tau_{2}^{HOTVR jets}", 24, 0, 1.2);
+  tau2_HOTVRjet1           = book<TH1F>("tau2_HOTVRjet1", "#tau_{2}^{HOTVR jet 1}", 24, 0, 1.2);
+  tau2_HOTVRjet2           = book<TH1F>("tau2_HOTVRjet2", "#tau_{2}^{HOTVR jet 2}", 24, 0, 1.2);
+  tau2_HOTVRjet3           = book<TH1F>("tau2_HOTVRjet3", "#tau_{2}^{HOTVR jet 3}", 24, 0, 1.2);
+  tau3_HOTVRjet            = book<TH1F>("tau3_HOTVRjet", "#tau_{3}^{HOTVR jets}", 24, 0, 1.2);
+  tau3_HOTVRjet1           = book<TH1F>("tau3_HOTVRjet1", "#tau_{3}^{HOTVR jet 1}", 24, 0, 1.2);
+  tau3_HOTVRjet2           = book<TH1F>("tau3_HOTVRjet2", "#tau_{3}^{HOTVR jet 2}", 24, 0, 1.2);
+  tau3_HOTVRjet3           = book<TH1F>("tau3_HOTVRjet3", "#tau_{3}^{HOTVR jet 3}", 24, 0, 1.2);
+  tau21_HOTVRjet           = book<TH1F>("tau21_HOTVRjet", "#tau_{2/1}^{HOTVR jets}", 24, 0, 1.2);
+  tau21_HOTVRjet1          = book<TH1F>("tau21_HOTVRjet1", "#tau_{2/1}^{HOTVR jet 1}", 24, 0, 1.2);
+  tau21_HOTVRjet2          = book<TH1F>("tau21_HOTVRjet2", "#tau_{2/1}^{HOTVR jet 2}", 24, 0, 1.2);
+  tau21_HOTVRjet3          = book<TH1F>("tau21_HOTVRjet3", "#tau_{2/1}^{HOTVR jet 3}", 24, 0, 1.2);
+  tau32_HOTVRjet           = book<TH1F>("tau32_HOTVRjet", "#tau_{3/2}^{HOTVR jets}", 24, 0, 1.2);
+  tau32_HOTVRjet1          = book<TH1F>("tau32_HOTVRjet1", "#tau_{3/2}^{HOTVR jet 1}", 24, 0, 1.2);
+  tau32_HOTVRjet2          = book<TH1F>("tau32_HOTVRjet2", "#tau_{3/2}^{HOTVR jet 2}", 24, 0, 1.2);
+  tau32_HOTVRjet3          = book<TH1F>("tau32_HOTVRjet3", "#tau_{3/2}^{HOTVR jet 3}", 24, 0, 1.2);
 
   // AK8Puppi jets
   N_AK8Puppijets            = book<TH1F>("N_AK8Puppijets", "N_{AK8Puppi jets}", 6, -0.5, 5.5);
@@ -201,14 +202,14 @@ void ZprimeSemiLeptonicHists::init(){
   N_subjets_AK8Puppijet1    = book<TH1F>("N_subjets_AK8Puppijet1", "N_{subjets}^{AK8Puppi jet 1}", 6, -0.5, 5.5);
   N_subjets_AK8Puppijet2    = book<TH1F>("N_subjets_AK8Puppijet2", "N_{subjets}^{AK8Puppi jet 2}", 6, -0.5, 5.5);
   N_subjets_AK8Puppijet3    = book<TH1F>("N_subjets_AK8Puppijet3", "N_{subjets}^{AK8Puppi jet 3}", 6, -0.5, 5.5);
-  N_daughters_AK8Puppijet     = book<TH1F>("N_daughters_AK8Puppijet", "N_{daughters}^{AK8Puppi jets}", 51, -0.5, 50.5);
-  N_daughters_AK8Puppijet1    = book<TH1F>("N_daughters_AK8Puppijet1", "N_{daughters}^{AK8Puppi jet 1}", 51, -0.5, 50.5);
-  N_daughters_AK8Puppijet2    = book<TH1F>("N_daughters_AK8Puppijet2", "N_{daughters}^{AK8Puppi jet 2}", 51, -0.5, 50.5);
-  N_daughters_AK8Puppijet3    = book<TH1F>("N_daughters_AK8Puppijet3", "N_{daughters}^{AK8Puppi jet 3}", 51, -0.5, 50.5);
-  dRmin_AK8CHS_AK8Puppijet  = book<TH1F>("dRmin_AK8CHS_AK8Puppijet", "#DeltaR_{min}(AK8Puppi jet, AK8CHS jet)", 60, 0, 3);
-  dRmin_AK8CHS_AK8Puppijet1 = book<TH1F>("dRmin_AK8CHS_AK8Puppijet1", "#DeltaR_{min}(AK8Puppi jet 1, AK8CHS jet)", 60, 0, 3);
-  dRmin_AK8CHS_AK8Puppijet2 = book<TH1F>("dRmin_AK8CHS_AK8Puppijet2", "#DeltaR_{min}(AK8Puppi jet 2, AK8CHS jet)", 60, 0, 3);
-  dRmin_AK8CHS_AK8Puppijet3 = book<TH1F>("dRmin_AK8CHS_AK8Puppijet3", "#DeltaR_{min}(AK8Puppi jet 3, AK8CHS jet)", 60, 0, 3);
+  N_daughters_AK8Puppijet   = book<TH1F>("N_daughters_AK8Puppijet", "N_{daughters}^{AK8Puppi jets}", 51, -0.5, 50.5);
+  N_daughters_AK8Puppijet1  = book<TH1F>("N_daughters_AK8Puppijet1", "N_{daughters}^{AK8Puppi jet 1}", 51, -0.5, 50.5);
+  N_daughters_AK8Puppijet2  = book<TH1F>("N_daughters_AK8Puppijet2", "N_{daughters}^{AK8Puppi jet 2}", 51, -0.5, 50.5);
+  N_daughters_AK8Puppijet3  = book<TH1F>("N_daughters_AK8Puppijet3", "N_{daughters}^{AK8Puppi jet 3}", 51, -0.5, 50.5);
+  dRmin_AK8_AK8Puppijet     = book<TH1F>("dRmin_AK8_AK8Puppijet", "#DeltaR_{min}(AK8Puppi jet, AK8 jet)", 60, 0, 3);
+  dRmin_AK8_AK8Puppijet1    = book<TH1F>("dRmin_AK8_AK8Puppijet1", "#DeltaR_{min}(AK8Puppi jet 1, AK8 jet)", 60, 0, 3);
+  dRmin_AK8_AK8Puppijet2    = book<TH1F>("dRmin_AK8_AK8Puppijet2", "#DeltaR_{min}(AK8Puppi jet 2, AK8 jet)", 60, 0, 3);
+  dRmin_AK8_AK8Puppijet3    = book<TH1F>("dRmin_AK8_AK8Puppijet3", "#DeltaR_{min}(AK8Puppi jet 3, AK8 jet)", 60, 0, 3);
   dRmin_mu_AK8Puppijet      = book<TH1F>("dRmin_mu_AK8Puppijet", "#DeltaR_{min}(AK8Puppi jet, #mu)", 60, 0, 3);
   dRmin_mu_AK8Puppijet1     = book<TH1F>("dRmin_mu_AK8Puppijet1", "#DeltaR_{min}(AK8Puppi jet 1, #mu)", 60, 0, 3);
   dRmin_mu_AK8Puppijet2     = book<TH1F>("dRmin_mu_AK8Puppijet2", "#DeltaR_{min}(AK8Puppi jet 2, #mu)", 60, 0, 3);
@@ -234,60 +235,60 @@ void ZprimeSemiLeptonicHists::init(){
   tau32_AK8Puppijet2        = book<TH1F>("tau32_AK8Puppijet2", "#tau_{3/2}^{AK8Puppi jet 2}", 24, 0, 1.2);
   tau32_AK8Puppijet3        = book<TH1F>("tau32_AK8Puppijet3", "#tau_{3/2}^{AK8Puppi jet 3}", 24, 0, 1.2);
 
-  // AK8Puppi t-tagged
-  N_AK8PuppiTaggedjets            = book<TH1F>("N_AK8PuppiTaggedjets", "N_{AK8Puppi Tagged jets}", 6, -0.5, 5.5);
-  pt_AK8PuppiTaggedjet            = book<TH1F>("pt_AK8PuppiTaggedjet", "p_{T}^{AK8Puppi Tagged jets} [GeV]", 45, 0, 900);
-  pt_AK8PuppiTaggedjet1           = book<TH1F>("pt_AK8PuppiTaggedjet1", "p_{T}^{AK8Puppi Tagged jet 1} [GeV]", 45, 0, 900);
-  pt_AK8PuppiTaggedjet2           = book<TH1F>("pt_AK8PuppiTaggedjet2", "p_{T}^{AK8Puppi Tagged jet 2} [GeV]", 45, 0, 900);
-  pt_AK8PuppiTaggedjet3           = book<TH1F>("pt_AK8PuppiTaggedjet3", "p_{T}^{AK8Puppi Tagged jet 3} [GeV]", 45, 0, 900);
-  eta_AK8PuppiTaggedjet           = book<TH1F>("eta_AK8PuppiTaggedjet", "#eta^{AK8Puppi Tagged jets}", 50, -2.5, 2.5);
-  eta_AK8PuppiTaggedjet1          = book<TH1F>("eta_AK8PuppiTaggedjet1", "#eta^{AK8Puppi Tagged jet 1}", 50, -2.5, 2.5);
-  eta_AK8PuppiTaggedjet2          = book<TH1F>("eta_AK8PuppiTaggedjet2", "#eta^{AK8Puppi Tagged jet 2}", 50, -2.5, 2.5);
-  eta_AK8PuppiTaggedjet3          = book<TH1F>("eta_AK8PuppiTaggedjet3", "#eta^{AK8Puppi Tagged jet 3}", 50, -2.5, 2.5);
-  phi_AK8PuppiTaggedjet           = book<TH1F>("phi_AK8PuppiTaggedjet", "#phi^{AK8Puppi Tagged jets}", 35, -3.5, 3.5);
-  phi_AK8PuppiTaggedjet1          = book<TH1F>("phi_AK8PuppiTaggedjet1", "#phi^{AK8Puppi Tagged jet 1}", 35, -3.5, 3.5);
-  phi_AK8PuppiTaggedjet2          = book<TH1F>("phi_AK8PuppiTaggedjet2", "#phi^{AK8Puppi Tagged jet 2}", 35, -3.5, 3.5);
-  phi_AK8PuppiTaggedjet3          = book<TH1F>("phi_AK8PuppiTaggedjet3", "#phi^{AK8Puppi Tagged jet 3}", 35, -3.5, 3.5);
-  mSD_AK8PuppiTaggedjet           = book<TH1F>("mSD_AK8PuppiTaggedjet", "m_{SD}^{AK8Puppi Tagged jets}", 50, 0, 500);
-  mSD_AK8PuppiTaggedjet1          = book<TH1F>("mSD_AK8PuppiTaggedjet1", "m_{SD}^{AK8Puppi Tagged jet 1}", 50, 0, 500);
-  mSD_AK8PuppiTaggedjet2          = book<TH1F>("mSD_AK8PuppiTaggedjet2", "m_{SD}^{AK8Puppi Tagged jet 2}", 50, 0, 500);
-  mSD_AK8PuppiTaggedjet3          = book<TH1F>("mSD_AK8PuppiTaggedjet3", "m_{SD}^{AK8Puppi Tagged jet 3}", 50, 0, 500);
-  N_subjets_AK8PuppiTaggedjet     = book<TH1F>("N_subjets_AK8PuppiTaggedjet", "N_{subjets}^{AK8Puppi Tagged jets}", 6, -0.5, 5.5);
-  N_subjets_AK8PuppiTaggedjet1    = book<TH1F>("N_subjets_AK8PuppiTaggedjet1", "N_{subjets}^{AK8Puppi Tagged jet 1}", 6, -0.5, 5.5);
-  N_subjets_AK8PuppiTaggedjet2    = book<TH1F>("N_subjets_AK8PuppiTaggedjet2", "N_{subjets}^{AK8Puppi Tagged jet 2}", 6, -0.5, 5.5);
-  N_subjets_AK8PuppiTaggedjet3    = book<TH1F>("N_subjets_AK8PuppiTaggedjet3", "N_{subjets}^{AK8Puppi Tagged jet 3}", 6, -0.5, 5.5);
-  N_daughters_AK8PuppiTaggedjet     = book<TH1F>("N_daughters_AK8PuppiTaggedjet", "N_{daughters}^{AK8Puppi Tagged jets}", 51, -0.5, 50.5);
-  N_daughters_AK8PuppiTaggedjet1    = book<TH1F>("N_daughters_AK8PuppiTaggedjet1", "N_{daughters}^{AK8Puppi Tagged jet 1}", 51, -0.5, 50.5);
-  N_daughters_AK8PuppiTaggedjet2    = book<TH1F>("N_daughters_AK8PuppiTaggedjet2", "N_{daughters}^{AK8Puppi Tagged jet 2}", 51, -0.5, 50.5);
-  N_daughters_AK8PuppiTaggedjet3    = book<TH1F>("N_daughters_AK8PuppiTaggedjet3", "N_{daughters}^{AK8Puppi Tagged jet 3}", 51, -0.5, 50.5);
-  dRmin_AK8CHS_AK8PuppiTaggedjet  = book<TH1F>("dRmin_AK8CHS_AK8PuppiTaggedjet", "#DeltaR_{min}(AK8Puppi Tagged jet, AK8CHS jet)", 60, 0, 3);
-  dRmin_AK8CHS_AK8PuppiTaggedjet1 = book<TH1F>("dRmin_AK8CHS_AK8PuppiTaggedjet1", "#DeltaR_{min}(AK8Puppi Tagged jet 1, AK8CHS jet)", 60, 0, 3);
-  dRmin_AK8CHS_AK8PuppiTaggedjet2 = book<TH1F>("dRmin_AK8CHS_AK8PuppiTaggedjet2", "#DeltaR_{min}(AK8Puppi Tagged jet 2, AK8CHS jet)", 60, 0, 3);
-  dRmin_AK8CHS_AK8PuppiTaggedjet3 = book<TH1F>("dRmin_AK8CHS_AK8PuppiTaggedjet3", "#DeltaR_{min}(AK8Puppi Tagged jet 3, AK8CHS jet)", 60, 0, 3);
-  dRmin_mu_AK8PuppiTaggedjet      = book<TH1F>("dRmin_mu_AK8PuppiTaggedjet", "#DeltaR_{min}(AK8Puppi Tagged jet, #mu)", 60, 0, 3);
-  dRmin_mu_AK8PuppiTaggedjet1     = book<TH1F>("dRmin_mu_AK8PuppiTaggedjet1", "#DeltaR_{min}(AK8Puppi Tagged jet 1, #mu)", 60, 0, 3);
-  dRmin_mu_AK8PuppiTaggedjet2     = book<TH1F>("dRmin_mu_AK8PuppiTaggedjet2", "#DeltaR_{min}(AK8Puppi Tagged jet 2, #mu)", 60, 0, 3);
-  dRmin_mu_AK8PuppiTaggedjet3     = book<TH1F>("dRmin_mu_AK8PuppiTaggedjet3", "#DeltaR_{min}(AK8Puppi Tagged jet 3, #mu)", 60, 0, 3);
-  tau1_AK8PuppiTaggedjet          = book<TH1F>("tau1_AK8PuppiTaggedjet", "#tau_{1}^{AK8Puppi Tagged jets}", 24, 0, 1.2);
-  tau1_AK8PuppiTaggedjet1         = book<TH1F>("tau1_AK8PuppiTaggedjet1", "#tau_{1}^{AK8Puppi Tagged jet 1}", 24, 0, 1.2);
-  tau1_AK8PuppiTaggedjet2         = book<TH1F>("tau1_AK8PuppiTaggedjet2", "#tau_{1}^{AK8Puppi Tagged jet 2}", 24, 0, 1.2);
-  tau1_AK8PuppiTaggedjet3         = book<TH1F>("tau1_AK8PuppiTaggedjet3", "#tau_{1}^{AK8Puppi Tagged jet 3}", 24, 0, 1.2);
-  tau2_AK8PuppiTaggedjet          = book<TH1F>("tau2_AK8PuppiTaggedjet", "#tau_{2}^{AK8Puppi Tagged jets}", 24, 0, 1.2);
-  tau2_AK8PuppiTaggedjet1         = book<TH1F>("tau2_AK8PuppiTaggedjet1", "#tau_{2}^{AK8Puppi Tagged jet 1}", 24, 0, 1.2);
-  tau2_AK8PuppiTaggedjet2         = book<TH1F>("tau2_AK8PuppiTaggedjet2", "#tau_{2}^{AK8Puppi Tagged jet 2}", 24, 0, 1.2);
-  tau2_AK8PuppiTaggedjet3         = book<TH1F>("tau2_AK8PuppiTaggedjet3", "#tau_{2}^{AK8Puppi Tagged jet 3}", 24, 0, 1.2);
-  tau3_AK8PuppiTaggedjet          = book<TH1F>("tau3_AK8PuppiTaggedjet", "#tau_{3}^{AK8Puppi Tagged jets}", 24, 0, 1.2);
-  tau3_AK8PuppiTaggedjet1         = book<TH1F>("tau3_AK8PuppiTaggedjet1", "#tau_{3}^{AK8Puppi Tagged jet 1}", 24, 0, 1.2);
-  tau3_AK8PuppiTaggedjet2         = book<TH1F>("tau3_AK8PuppiTaggedjet2", "#tau_{3}^{AK8Puppi Tagged jet 2}", 24, 0, 1.2);
-  tau3_AK8PuppiTaggedjet3         = book<TH1F>("tau3_AK8PuppiTaggedjet3", "#tau_{3}^{AK8Puppi Tagged jet 3}", 24, 0, 1.2);
-  tau21_AK8PuppiTaggedjet         = book<TH1F>("tau21_AK8PuppiTaggedjet", "#tau_{2/1}^{AK8Puppi Tagged jets}", 24, 0, 1.2);
-  tau21_AK8PuppiTaggedjet1        = book<TH1F>("tau21_AK8PuppiTaggedjet1", "#tau_{2/1}^{AK8Puppi Tagged jet 1}", 24, 0, 1.2);
-  tau21_AK8PuppiTaggedjet2        = book<TH1F>("tau21_AK8PuppiTaggedjet2", "#tau_{2/1}^{AK8Puppi Tagged jet 2}", 24, 0, 1.2);
-  tau21_AK8PuppiTaggedjet3        = book<TH1F>("tau21_AK8PuppiTaggedjet3", "#tau_{2/1}^{AK8Puppi Tagged jet 3}", 24, 0, 1.2);
-  tau32_AK8PuppiTaggedjet         = book<TH1F>("tau32_AK8PuppiTaggedjet", "#tau_{3/2}^{AK8Puppi Tagged jets}", 24, 0, 1.2);
-  tau32_AK8PuppiTaggedjet1        = book<TH1F>("tau32_AK8PuppiTaggedjet1", "#tau_{3/2}^{AK8Puppi Tagged jet 1}", 24, 0, 1.2);
-  tau32_AK8PuppiTaggedjet2        = book<TH1F>("tau32_AK8PuppiTaggedjet2", "#tau_{3/2}^{AK8Puppi Tagged jet 2}", 24, 0, 1.2);
-  tau32_AK8PuppiTaggedjet3        = book<TH1F>("tau32_AK8PuppiTaggedjet3", "#tau_{3/2}^{AK8Puppi  Tagged jet 3}", 24, 0, 1.2);
+  // HOTVR t-tagged
+  N_HOTVRTaggedjets            = book<TH1F>("N_HOTVRTaggedjets", "N_{HOTVR Tagged jets}", 6, -0.5, 5.5);
+  pt_HOTVRTaggedjet            = book<TH1F>("pt_HOTVRTaggedjet", "p_{T}^{HOTVR Tagged jets} [GeV]", 45, 0, 900);
+  pt_HOTVRTaggedjet1           = book<TH1F>("pt_HOTVRTaggedjet1", "p_{T}^{HOTVR Tagged jet 1} [GeV]", 45, 0, 900);
+  pt_HOTVRTaggedjet2           = book<TH1F>("pt_HOTVRTaggedjet2", "p_{T}^{HOTVR Tagged jet 2} [GeV]", 45, 0, 900);
+  pt_HOTVRTaggedjet3           = book<TH1F>("pt_HOTVRTaggedjet3", "p_{T}^{HOTVR Tagged jet 3} [GeV]", 45, 0, 900);
+  eta_HOTVRTaggedjet           = book<TH1F>("eta_HOTVRTaggedjet", "#eta^{HOTVR Tagged jets}", 50, -2.5, 2.5);
+  eta_HOTVRTaggedjet1          = book<TH1F>("eta_HOTVRTaggedjet1", "#eta^{HOTVR Tagged jet 1}", 50, -2.5, 2.5);
+  eta_HOTVRTaggedjet2          = book<TH1F>("eta_HOTVRTaggedjet2", "#eta^{HOTVR Tagged jet 2}", 50, -2.5, 2.5);
+  eta_HOTVRTaggedjet3          = book<TH1F>("eta_HOTVRTaggedjet3", "#eta^{HOTVR Tagged jet 3}", 50, -2.5, 2.5);
+  phi_HOTVRTaggedjet           = book<TH1F>("phi_HOTVRTaggedjet", "#phi^{HOTVR Tagged jets}", 35, -3.5, 3.5);
+  phi_HOTVRTaggedjet1          = book<TH1F>("phi_HOTVRTaggedjet1", "#phi^{HOTVR Tagged jet 1}", 35, -3.5, 3.5);
+  phi_HOTVRTaggedjet2          = book<TH1F>("phi_HOTVRTaggedjet2", "#phi^{HOTVR Tagged jet 2}", 35, -3.5, 3.5);
+  phi_HOTVRTaggedjet3          = book<TH1F>("phi_HOTVRTaggedjet3", "#phi^{HOTVR Tagged jet 3}", 35, -3.5, 3.5);
+  m_HOTVRTaggedjet             = book<TH1F>("m_HOTVRTaggedjet", "m^{HOTVR Tagged jets}", 50, 0, 500);
+  m_HOTVRTaggedjet1            = book<TH1F>("m_HOTVRTaggedjet1", "m^{HOTVR Tagged jet 1}", 50, 0, 500);
+  m_HOTVRTaggedjet2            = book<TH1F>("m_HOTVRTaggedjet2", "m^{HOTVR Tagged jet 2}", 50, 0, 500);
+  m_HOTVRTaggedjet3            = book<TH1F>("m_HOTVRTaggedjet3", "m^{HOTVR Tagged jet 3}", 50, 0, 500);
+  N_subjets_HOTVRTaggedjet     = book<TH1F>("N_subjets_HOTVRTaggedjet", "N_{subjets}^{HOTVR Tagged jets}", 6, -0.5, 5.5);
+  N_subjets_HOTVRTaggedjet1    = book<TH1F>("N_subjets_HOTVRTaggedjet1", "N_{subjets}^{HOTVR Tagged jet 1}", 6, -0.5, 5.5);
+  N_subjets_HOTVRTaggedjet2    = book<TH1F>("N_subjets_HOTVRTaggedjet2", "N_{subjets}^{HOTVR Tagged jet 2}", 6, -0.5, 5.5);
+  N_subjets_HOTVRTaggedjet3    = book<TH1F>("N_subjets_HOTVRTaggedjet3", "N_{subjets}^{HOTVR Tagged jet 3}", 6, -0.5, 5.5);
+  N_daughters_HOTVRTaggedjet   = book<TH1F>("N_daughters_HOTVRTaggedjet", "N_{daughters}^{HOTVR Tagged jets}", 51, -0.5, 50.5);
+  N_daughters_HOTVRTaggedjet1  = book<TH1F>("N_daughters_HOTVRTaggedjet1", "N_{daughters}^{HOTVR Tagged jet 1}", 51, -0.5, 50.5);
+  N_daughters_HOTVRTaggedjet2  = book<TH1F>("N_daughters_HOTVRTaggedjet2", "N_{daughters}^{HOTVR Tagged jet 2}", 51, -0.5, 50.5);
+  N_daughters_HOTVRTaggedjet3  = book<TH1F>("N_daughters_HOTVRTaggedjet3", "N_{daughters}^{HOTVR Tagged jet 3}", 51, -0.5, 50.5);
+  dRmin_AK8_HOTVRTaggedjet     = book<TH1F>("dRmin_AK8_HOTVRTaggedjet", "#DeltaR_{min}(HOTVR Tagged jet, AK8 jet)", 60, 0, 3);
+  dRmin_AK8_HOTVRTaggedjet1    = book<TH1F>("dRmin_AK8_HOTVRTaggedjet1", "#DeltaR_{min}(HOTVR Tagged jet 1, AK8 jet)", 60, 0, 3);
+  dRmin_AK8_HOTVRTaggedjet2    = book<TH1F>("dRmin_AK8_HOTVRTaggedjet2", "#DeltaR_{min}(HOTVR Tagged jet 2, AK8 jet)", 60, 0, 3);
+  dRmin_AK8_HOTVRTaggedjet3    = book<TH1F>("dRmin_AK8_HOTVRTaggedjet3", "#DeltaR_{min}(HOTVR Tagged jet 3, AK8 jet)", 60, 0, 3);
+  dRmin_mu_HOTVRTaggedjet      = book<TH1F>("dRmin_mu_HOTVRTaggedjet", "#DeltaR_{min}(HOTVR Tagged jet, #mu)", 60, 0, 3);
+  dRmin_mu_HOTVRTaggedjet1     = book<TH1F>("dRmin_mu_HOTVRTaggedjet1", "#DeltaR_{min}(HOTVR Tagged jet 1, #mu)", 60, 0, 3);
+  dRmin_mu_HOTVRTaggedjet2     = book<TH1F>("dRmin_mu_HOTVRTaggedjet2", "#DeltaR_{min}(HOTVR Tagged jet 2, #mu)", 60, 0, 3);
+  dRmin_mu_HOTVRTaggedjet3     = book<TH1F>("dRmin_mu_HOTVRTaggedjet3", "#DeltaR_{min}(HOTVR Tagged jet 3, #mu)", 60, 0, 3);
+  tau1_HOTVRTaggedjet          = book<TH1F>("tau1_HOTVRTaggedjet", "#tau_{1}^{HOTVR Tagged jets}", 24, 0, 1.2);
+  tau1_HOTVRTaggedjet1         = book<TH1F>("tau1_HOTVRTaggedjet1", "#tau_{1}^{HOTVR Tagged jet 1}", 24, 0, 1.2);
+  tau1_HOTVRTaggedjet2         = book<TH1F>("tau1_HOTVRTaggedjet2", "#tau_{1}^{HOTVR Tagged jet 2}", 24, 0, 1.2);
+  tau1_HOTVRTaggedjet3         = book<TH1F>("tau1_HOTVRTaggedjet3", "#tau_{1}^{HOTVR Tagged jet 3}", 24, 0, 1.2);
+  tau2_HOTVRTaggedjet          = book<TH1F>("tau2_HOTVRTaggedjet", "#tau_{2}^{HOTVR Tagged jets}", 24, 0, 1.2);
+  tau2_HOTVRTaggedjet1         = book<TH1F>("tau2_HOTVRTaggedjet1", "#tau_{2}^{HOTVR Tagged jet 1}", 24, 0, 1.2);
+  tau2_HOTVRTaggedjet2         = book<TH1F>("tau2_HOTVRTaggedjet2", "#tau_{2}^{HOTVR Tagged jet 2}", 24, 0, 1.2);
+  tau2_HOTVRTaggedjet3         = book<TH1F>("tau2_HOTVRTaggedjet3", "#tau_{2}^{HOTVR Tagged jet 3}", 24, 0, 1.2);
+  tau3_HOTVRTaggedjet          = book<TH1F>("tau3_HOTVRTaggedjet", "#tau_{3}^{HOTVR Tagged jets}", 24, 0, 1.2);
+  tau3_HOTVRTaggedjet1         = book<TH1F>("tau3_HOTVRTaggedjet1", "#tau_{3}^{HOTVR Tagged jet 1}", 24, 0, 1.2);
+  tau3_HOTVRTaggedjet2         = book<TH1F>("tau3_HOTVRTaggedjet2", "#tau_{3}^{HOTVR Tagged jet 2}", 24, 0, 1.2);
+  tau3_HOTVRTaggedjet3         = book<TH1F>("tau3_HOTVRTaggedjet3", "#tau_{3}^{HOTVR Tagged jet 3}", 24, 0, 1.2);
+  tau21_HOTVRTaggedjet         = book<TH1F>("tau21_HOTVRTaggedjet", "#tau_{2/1}^{HOTVR Tagged jets}", 24, 0, 1.2);
+  tau21_HOTVRTaggedjet1        = book<TH1F>("tau21_HOTVRTaggedjet1", "#tau_{2/1}^{HOTVR Tagged jet 1}", 24, 0, 1.2);
+  tau21_HOTVRTaggedjet2        = book<TH1F>("tau21_HOTVRTaggedjet2", "#tau_{2/1}^{HOTVR Tagged jet 2}", 24, 0, 1.2);
+  tau21_HOTVRTaggedjet3        = book<TH1F>("tau21_HOTVRTaggedjet3", "#tau_{2/1}^{HOTVR Tagged jet 3}", 24, 0, 1.2);
+  tau32_HOTVRTaggedjet         = book<TH1F>("tau32_HOTVRTaggedjet", "#tau_{3/2}^{HOTVR Tagged jets}", 24, 0, 1.2);
+  tau32_HOTVRTaggedjet1        = book<TH1F>("tau32_HOTVRTaggedjet1", "#tau_{3/2}^{HOTVR Tagged jet 1}", 24, 0, 1.2);
+  tau32_HOTVRTaggedjet2        = book<TH1F>("tau32_HOTVRTaggedjet2", "#tau_{3/2}^{HOTVR Tagged jet 2}", 24, 0, 1.2);
+  tau32_HOTVRTaggedjet3        = book<TH1F>("tau32_HOTVRTaggedjet3", "#tau_{3/2}^{HOTVR  Tagged jet 3}", 24, 0, 1.2);
 
   deepjet_topscore_jet           = book<TH1F>("deepjet_topscore_jet", "DeepJet top score all AK8 jets", 20, 0, 1);
   deepjet_topscore_jet1          = book<TH1F>("deepjet_topscore_jet1", "DeppJet top score AK8 jet 1}", 20, 0, 1);
@@ -373,6 +374,8 @@ void ZprimeSemiLeptonicHists::init(){
   M_Zprime_ttag_rebin4     = book<TH1F>("M_Zprime_ttag_rebin4", "M_{t#bar{t}} (t-tag reconstruction [GeV]", bins_Zprime4.size()-1, &bins_Zprime4[0]);
   M_Zprime_ttag_rebin5     = book<TH1F>("M_Zprime_ttag_rebin5", "M_{t#bar{t}} (t-tag reconstruction [GeV]", bins_Zprime5.size()-1, &bins_Zprime5[0]);
   M_tophad_ttag            = book<TH1F>("M_tophad_ttag", "M_{t}^{had, top-tag} (t-tag reconstruction) [GeV]", 70, 0, 700);
+  M_tophad_ttag_v4         = book<TH1F>("M_tophad_ttag_v4", "M_{t}^{had, top-tag} (t-tag reconstruction, v4) [GeV]", 70, 0, 700);
+  M_tophad_ttag_M          = book<TH1F>("M_tophad_ttag_M", "M_{t}^{had, top-tag} (t-tag reconstruction, M) [GeV]", 70, 0, 700);
   M_toplep_ttag            = book<TH1F>("M_toplep_ttag", "M_{t}^{lep, top-tag} (t-tag reconstruction) [GeV]", 70, 0, 700);
   chi2_Zprime_ttag         = book<TH1F>("chi2_Zprime_ttag", "#chi^{2} (t-tag reconstruction)", 50, 0, 500);
   chi2_Zprime_ttag_rebin   = book<TH1F>("chi2_Zprime_ttag_rebin", "#chi^{2} (t-tag reconstruction)", 20, 0, 100);
@@ -550,95 +553,184 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
   N_bJets_tight->Fill(Nbjets_tight,weight);
 
   /*
-  █  █████  ██   ██  █████   ██████ ██   ██ ███████          ██ ███████ ████████ ███████
-  █ ██   ██ ██  ██  ██   ██ ██      ██   ██ ██               ██ ██         ██    ██
-  █ ███████ █████    █████  ██      ███████ ███████          ██ █████      ██    ███████
-  █ ██   ██ ██  ██  ██   ██ ██      ██   ██      ██     ██   ██ ██         ██         ██
-  █ ██   ██ ██   ██  █████   ██████ ██   ██ ███████      █████  ███████    ██    ███████
+  █ ██   ██    █████  ██████ ██    ██   █████ 
+  █ ██   ██  ██     ██  ██   ██    ██   ██  ██
+  █ ███████  ██     ██  ██    ██  ██    █████ 
+  █ ██   ██  ██     ██  ██     ████     ██  ██ 
+  █ ██   ██    █████    ██      ██      ██   ██ 
   */
 
-  vector<TopJet>* AK8CHSjets = event.topjets;
-  unsigned int NAK8CHSjets = AK8CHSjets->size();
-  N_AK8CHSjets->Fill(NAK8CHSjets, weight);
+  vector<TopJet>* HOTVRjets = event.topjets;
+  unsigned int NHOTVRjets = HOTVRjets->size();
+  N_HOTVRjets->Fill(NHOTVRjets, weight);
 
-  for(unsigned int i=0; i<NAK8CHSjets; i++){
-    double tau21 = AK8CHSjets->at(i).tau2() / AK8CHSjets->at(i).tau1();
-    double tau32 = AK8CHSjets->at(i).tau3() / AK8CHSjets->at(i).tau2();
+  for(unsigned int i=0; i<NHOTVRjets; i++){
+    double tau21 = HOTVRjets->at(i).tau2_groomed() / HOTVRjets->at(i).tau1_groomed();
+    double tau32 = HOTVRjets->at(i).tau3_groomed() / HOTVRjets->at(i).tau2_groomed();
 
-    // Distance to AK8CHS
+    // Distance to AK8
     double dRmin_Puppi = 99999;
     for(unsigned int j=0; j<event.toppuppijets->size(); j++){
-      double dR = deltaR(AK8CHSjets->at(i), event.toppuppijets->at(j));
+      double dR = deltaR(HOTVRjets->at(i), event.toppuppijets->at(j));
       if(dR < dRmin_Puppi) dRmin_Puppi = dR;
     }
 
     // Distance to muons
     double dRmin_muon = 99999;
     for(unsigned int j=0; j<event.muons->size(); j++){
-      double dR = deltaR(AK8CHSjets->at(i), event.muons->at(j));
+      double dR = deltaR(HOTVRjets->at(i), event.muons->at(j));
       if(dR < dRmin_muon) dRmin_muon = dR;
     }
 
-    pt_AK8CHSjet->Fill(AK8CHSjets->at(i).pt(), weight);
-    eta_AK8CHSjet->Fill(AK8CHSjets->at(i).eta(), weight);
-    phi_AK8CHSjet->Fill(AK8CHSjets->at(i).phi(), weight);
-    mSD_AK8CHSjet->Fill(AK8CHSjets->at(i).softdropmass(), weight);
-    dRmin_AK8Puppi_AK8CHSjet->Fill(dRmin_Puppi, weight);
-    dRmin_mu_AK8CHSjet->Fill(dRmin_muon, weight);
-    N_subjets_AK8CHSjet->Fill(AK8CHSjets->at(i).subjets().size(), weight);
-    N_daughters_AK8CHSjet->Fill(AK8CHSjets->at(i).numberOfDaughters(), weight);
-    tau1_AK8CHSjet->Fill(AK8CHSjets->at(i).tau1(), weight);
-    tau2_AK8CHSjet->Fill(AK8CHSjets->at(i).tau2(), weight);
-    tau3_AK8CHSjet->Fill(AK8CHSjets->at(i).tau3(), weight);
-    tau21_AK8CHSjet->Fill(tau21, weight);
-    tau32_AK8CHSjet->Fill(tau32, weight);
+    pt_HOTVRjet->Fill(HOTVRjets->at(i).pt(), weight);
+    eta_HOTVRjet->Fill(HOTVRjets->at(i).eta(), weight);
+    phi_HOTVRjet->Fill(HOTVRjets->at(i).phi(), weight);
+    m_HOTVRjet->Fill(HOTVRjets->at(i).v4().M(), weight);
+    dRmin_AK8Puppi_HOTVRjet->Fill(dRmin_Puppi, weight);
+    dRmin_mu_HOTVRjet->Fill(dRmin_muon, weight);
+    N_subjets_HOTVRjet->Fill(HOTVRjets->at(i).subjets().size(), weight);
+    N_daughters_HOTVRjet->Fill(HOTVRjets->at(i).numberOfDaughters(), weight);
+    tau1_HOTVRjet->Fill(HOTVRjets->at(i).tau1_groomed(), weight);
+    tau2_HOTVRjet->Fill(HOTVRjets->at(i).tau2_groomed(), weight);
+    tau3_HOTVRjet->Fill(HOTVRjets->at(i).tau3_groomed(), weight);
+    tau21_HOTVRjet->Fill(tau21, weight);
+    tau32_HOTVRjet->Fill(tau32, weight);
 
     if(i==0){
-      pt_AK8CHSjet1->Fill(AK8CHSjets->at(i).pt(), weight);
-      eta_AK8CHSjet1->Fill(AK8CHSjets->at(i).eta(), weight);
-      phi_AK8CHSjet1->Fill(AK8CHSjets->at(i).phi(), weight);
-      mSD_AK8CHSjet1->Fill(AK8CHSjets->at(i).softdropmass(), weight);
-      dRmin_AK8Puppi_AK8CHSjet1->Fill(dRmin_Puppi, weight);
-      dRmin_mu_AK8CHSjet1->Fill(dRmin_muon, weight);
-      N_subjets_AK8CHSjet1->Fill(AK8CHSjets->at(i).subjets().size(), weight);
-      N_daughters_AK8CHSjet1->Fill(AK8CHSjets->at(i).numberOfDaughters(), weight);
-      tau1_AK8CHSjet1->Fill(AK8CHSjets->at(i).tau1(), weight);
-      tau2_AK8CHSjet1->Fill(AK8CHSjets->at(i).tau2(), weight);
-      tau3_AK8CHSjet1->Fill(AK8CHSjets->at(i).tau3(), weight);
-      tau21_AK8CHSjet1->Fill(tau21, weight);
-      tau32_AK8CHSjet1->Fill(tau32, weight);
+      pt_HOTVRjet1->Fill(HOTVRjets->at(i).pt(), weight);
+      eta_HOTVRjet1->Fill(HOTVRjets->at(i).eta(), weight);
+      phi_HOTVRjet1->Fill(HOTVRjets->at(i).phi(), weight);
+      m_HOTVRjet1->Fill(HOTVRjets->at(i).v4().M(), weight);
+      dRmin_AK8Puppi_HOTVRjet1->Fill(dRmin_Puppi, weight);
+      dRmin_mu_HOTVRjet1->Fill(dRmin_muon, weight);
+      N_subjets_HOTVRjet1->Fill(HOTVRjets->at(i).subjets().size(), weight);
+      N_daughters_HOTVRjet1->Fill(HOTVRjets->at(i).numberOfDaughters(), weight);
+      tau1_HOTVRjet1->Fill(HOTVRjets->at(i).tau1_groomed(), weight);
+      tau2_HOTVRjet1->Fill(HOTVRjets->at(i).tau2_groomed(), weight);
+      tau3_HOTVRjet1->Fill(HOTVRjets->at(i).tau3_groomed(), weight);
+      tau21_HOTVRjet1->Fill(tau21, weight);
+      tau32_HOTVRjet1->Fill(tau32, weight);
     }
     else if(i==1){
-      pt_AK8CHSjet2->Fill(AK8CHSjets->at(i).pt(), weight);
-      eta_AK8CHSjet2->Fill(AK8CHSjets->at(i).eta(), weight);
-      phi_AK8CHSjet2->Fill(AK8CHSjets->at(i).phi(), weight);
-      mSD_AK8CHSjet2->Fill(AK8CHSjets->at(i).softdropmass(), weight);
-      dRmin_AK8Puppi_AK8CHSjet2->Fill(dRmin_Puppi, weight);
-      dRmin_mu_AK8CHSjet2->Fill(dRmin_muon, weight);
-      N_subjets_AK8CHSjet2->Fill(AK8CHSjets->at(i).subjets().size(), weight);
-      N_daughters_AK8CHSjet2->Fill(AK8CHSjets->at(i).numberOfDaughters(), weight);
-      tau1_AK8CHSjet2->Fill(AK8CHSjets->at(i).tau1(), weight);
-      tau2_AK8CHSjet2->Fill(AK8CHSjets->at(i).tau2(), weight);
-      tau3_AK8CHSjet2->Fill(AK8CHSjets->at(i).tau3(), weight);
-      tau21_AK8CHSjet2->Fill(tau21, weight);
-      tau32_AK8CHSjet2->Fill(tau32, weight);
+      pt_HOTVRjet2->Fill(HOTVRjets->at(i).pt(), weight);
+      eta_HOTVRjet2->Fill(HOTVRjets->at(i).eta(), weight);
+      phi_HOTVRjet2->Fill(HOTVRjets->at(i).phi(), weight);
+      m_HOTVRjet2->Fill(HOTVRjets->at(i).v4().M(), weight);
+      dRmin_AK8Puppi_HOTVRjet2->Fill(dRmin_Puppi, weight);
+      dRmin_mu_HOTVRjet2->Fill(dRmin_muon, weight);
+      N_subjets_HOTVRjet2->Fill(HOTVRjets->at(i).subjets().size(), weight);
+      N_daughters_HOTVRjet2->Fill(HOTVRjets->at(i).numberOfDaughters(), weight);
+      tau1_HOTVRjet2->Fill(HOTVRjets->at(i).tau1_groomed(), weight);
+      tau2_HOTVRjet2->Fill(HOTVRjets->at(i).tau2_groomed(), weight);
+      tau3_HOTVRjet2->Fill(HOTVRjets->at(i).tau3_groomed(), weight);
+      tau21_HOTVRjet2->Fill(tau21, weight);
+      tau32_HOTVRjet2->Fill(tau32, weight);
     }
     else if(i==2){
-      pt_AK8CHSjet3->Fill(AK8CHSjets->at(i).pt(), weight);
-      eta_AK8CHSjet3->Fill(AK8CHSjets->at(i).eta(), weight);
-      phi_AK8CHSjet3->Fill(AK8CHSjets->at(i).phi(), weight);
-      mSD_AK8CHSjet3->Fill(AK8CHSjets->at(i).softdropmass(), weight);
-      dRmin_AK8Puppi_AK8CHSjet3->Fill(dRmin_Puppi, weight);
-      dRmin_mu_AK8CHSjet3->Fill(dRmin_muon, weight);
-      N_subjets_AK8CHSjet3->Fill(AK8CHSjets->at(i).subjets().size(), weight);
-      N_daughters_AK8CHSjet3->Fill(AK8CHSjets->at(i).numberOfDaughters(), weight);
-      tau1_AK8CHSjet3->Fill(AK8CHSjets->at(i).tau1(), weight);
-      tau2_AK8CHSjet3->Fill(AK8CHSjets->at(i).tau2(), weight);
-      tau3_AK8CHSjet3->Fill(AK8CHSjets->at(i).tau3(), weight);
-      tau21_AK8CHSjet3->Fill(tau21, weight);
-      tau32_AK8CHSjet3->Fill(tau32, weight);
+      pt_HOTVRjet3->Fill(HOTVRjets->at(i).pt(), weight);
+      eta_HOTVRjet3->Fill(HOTVRjets->at(i).eta(), weight);
+      phi_HOTVRjet3->Fill(HOTVRjets->at(i).phi(), weight);
+      m_HOTVRjet3->Fill(HOTVRjets->at(i).v4().M(), weight);
+      dRmin_AK8Puppi_HOTVRjet3->Fill(dRmin_Puppi, weight);
+      dRmin_mu_HOTVRjet3->Fill(dRmin_muon, weight);
+      N_subjets_HOTVRjet3->Fill(HOTVRjets->at(i).subjets().size(), weight);
+      N_daughters_HOTVRjet3->Fill(HOTVRjets->at(i).numberOfDaughters(), weight);
+      tau1_HOTVRjet3->Fill(HOTVRjets->at(i).tau1_groomed(), weight);
+      tau2_HOTVRjet3->Fill(HOTVRjets->at(i).tau2_groomed(), weight);
+      tau3_HOTVRjet3->Fill(HOTVRjets->at(i).tau3_groomed(), weight);
+      tau21_HOTVRjet3->Fill(tau21, weight);
+      tau32_HOTVRjet3->Fill(tau32, weight);
     }
   }
+
+  // Top-tagged jets
+  vector<TopJet> HOTVRTopTags = event.get(h_HOTVRTopTags);
+  int NHOTVRTaggedjets = 0;
+  for(unsigned int i=0; i<HOTVRTopTags.size(); i++){
+    NHOTVRTaggedjets++;
+
+    double tau21 = HOTVRTopTags.at(i).tau2_groomed() / HOTVRTopTags.at(i).tau1_groomed();
+    double tau32 = HOTVRTopTags.at(i).tau3_groomed() / HOTVRTopTags.at(i).tau2_groomed();
+
+    // Distance to AK8 Puppi
+    double dRmin_ak8 = 99999;
+    for(unsigned int j=0; j<event.toppuppijets->size(); j++){
+      double dR = deltaR(HOTVRTopTags.at(i), event.toppuppijets->at(j));
+      if(dR < dRmin_ak8) dRmin_ak8 = dR;
+    }
+
+    // Distance to muons
+    double dRmin_muon = 99999;
+    for(unsigned int j=0; j<event.muons->size(); j++){
+      double dR = deltaR(HOTVRTopTags.at(i), event.muons->at(j));
+      if(dR < dRmin_muon) dRmin_muon = dR;
+    }
+
+    pt_HOTVRTaggedjet->Fill(HOTVRTopTags.at(i).pt(), weight);
+    eta_HOTVRTaggedjet->Fill(HOTVRTopTags.at(i).eta(), weight);
+    phi_HOTVRTaggedjet->Fill(HOTVRTopTags.at(i).phi(), weight);
+    m_HOTVRTaggedjet->Fill(HOTVRTopTags.at(i).v4().M(), weight);
+    dRmin_AK8_HOTVRTaggedjet->Fill(dRmin_ak8, weight);
+    dRmin_mu_HOTVRTaggedjet->Fill(dRmin_muon, weight);
+    N_subjets_HOTVRTaggedjet->Fill(HOTVRTopTags.at(i).subjets().size(), weight);
+    N_daughters_HOTVRTaggedjet->Fill(HOTVRTopTags.at(i).numberOfDaughters(), weight);
+    tau1_HOTVRTaggedjet->Fill(HOTVRTopTags.at(i).tau1_groomed(), weight);
+    tau2_HOTVRTaggedjet->Fill(HOTVRTopTags.at(i).tau2_groomed(), weight);
+    tau3_HOTVRTaggedjet->Fill(HOTVRTopTags.at(i).tau3_groomed(), weight);
+    tau21_HOTVRTaggedjet->Fill(tau21, weight);
+    tau32_HOTVRTaggedjet->Fill(tau32, weight);
+
+    if(i==0){
+      pt_HOTVRTaggedjet1->Fill(HOTVRTopTags.at(i).pt(), weight);
+      eta_HOTVRTaggedjet1->Fill(HOTVRTopTags.at(i).eta(), weight);
+      phi_HOTVRTaggedjet1->Fill(HOTVRTopTags.at(i).phi(), weight);
+      m_HOTVRTaggedjet1->Fill(HOTVRTopTags.at(i).v4().M(), weight);
+      dRmin_AK8_HOTVRTaggedjet1->Fill(dRmin_ak8, weight);
+      dRmin_mu_HOTVRTaggedjet1->Fill(dRmin_muon, weight);
+      N_subjets_HOTVRTaggedjet1->Fill(HOTVRTopTags.at(i).subjets().size(), weight);
+      N_daughters_HOTVRTaggedjet1->Fill(HOTVRTopTags.at(i).numberOfDaughters(), weight);
+      tau1_HOTVRTaggedjet1->Fill(HOTVRTopTags.at(i).tau1_groomed(), weight);
+      tau2_HOTVRTaggedjet1->Fill(HOTVRTopTags.at(i).tau2_groomed(), weight);
+      tau3_HOTVRTaggedjet1->Fill(HOTVRTopTags.at(i).tau3_groomed(), weight);
+      tau21_HOTVRTaggedjet1->Fill(tau21, weight);
+      tau32_HOTVRTaggedjet1->Fill(tau32, weight);
+    }
+    else if(i==1){
+      pt_HOTVRTaggedjet2->Fill(HOTVRTopTags.at(i).pt(), weight);
+      eta_HOTVRTaggedjet2->Fill(HOTVRTopTags.at(i).eta(), weight);
+      phi_HOTVRTaggedjet2->Fill(HOTVRTopTags.at(i).phi(), weight);
+      m_HOTVRTaggedjet2->Fill(HOTVRTopTags.at(i).v4().M(), weight);
+      dRmin_AK8_HOTVRTaggedjet2->Fill(dRmin_ak8, weight);
+      dRmin_mu_HOTVRTaggedjet2->Fill(dRmin_muon, weight);
+      N_subjets_HOTVRTaggedjet2->Fill(HOTVRTopTags.at(i).subjets().size(), weight);
+      N_daughters_HOTVRTaggedjet2->Fill(HOTVRTopTags.at(i).numberOfDaughters(), weight);
+      tau1_HOTVRTaggedjet2->Fill(HOTVRTopTags.at(i).tau1_groomed(), weight);
+      tau2_HOTVRTaggedjet2->Fill(HOTVRTopTags.at(i).tau2_groomed(), weight);
+      tau3_HOTVRTaggedjet2->Fill(HOTVRTopTags.at(i).tau3_groomed(), weight);
+      tau21_HOTVRTaggedjet2->Fill(tau21, weight);
+      tau32_HOTVRTaggedjet2->Fill(tau32, weight);
+    }
+    else if(i==2){
+      pt_HOTVRTaggedjet3->Fill(HOTVRTopTags.at(i).pt(), weight);
+      eta_HOTVRTaggedjet3->Fill(HOTVRTopTags.at(i).eta(), weight);
+      phi_HOTVRTaggedjet3->Fill(HOTVRTopTags.at(i).phi(), weight);
+      m_HOTVRTaggedjet3->Fill(HOTVRTopTags.at(i).v4().M(), weight);
+      dRmin_AK8_HOTVRTaggedjet3->Fill(dRmin_ak8, weight);
+      dRmin_mu_HOTVRTaggedjet3->Fill(dRmin_muon, weight);
+      N_subjets_HOTVRTaggedjet3->Fill(HOTVRTopTags.at(i).subjets().size(), weight);
+      N_daughters_HOTVRTaggedjet3->Fill(HOTVRTopTags.at(i).numberOfDaughters(), weight);
+      tau1_HOTVRTaggedjet3->Fill(HOTVRTopTags.at(i).tau1_groomed(), weight);
+      tau2_HOTVRTaggedjet3->Fill(HOTVRTopTags.at(i).tau2_groomed(), weight);
+      tau3_HOTVRTaggedjet3->Fill(HOTVRTopTags.at(i).tau3_groomed(), weight);
+      tau21_HOTVRTaggedjet3->Fill(tau21, weight);
+      tau32_HOTVRTaggedjet3->Fill(tau32, weight);
+    }
+
+
+  }
+
+  N_HOTVRjets->Fill(NHOTVRjets, weight);
+  N_HOTVRTaggedjets->Fill(NHOTVRTaggedjets, weight);
 
 
   /*
@@ -669,11 +761,11 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
     massdecordeepjet_higgsscore_jet->Fill(AK8Puppijets->at(i).btag_MassDecorrelatedDeepBoosted_raw_score_h(), weight);
     massdecordeepjet_qcdscore_jet->Fill(AK8Puppijets->at(i).btag_MassDecorrelatedDeepBoosted_raw_score_qcd(), weight);
 
-    // Distance to AK8CHS
-    double dRmin_CHS = 99999;
+    // Distance to AK8
+    double dRmin_ak8 = 99999;
     for(unsigned int j=0; j<event.topjets->size(); j++){
       double dR = deltaR(AK8Puppijets->at(i), event.topjets->at(j));
-      if(dR < dRmin_CHS) dRmin_CHS = dR;
+      if(dR < dRmin_ak8) dRmin_ak8 = dR;
     }
 
     // Distance to muons
@@ -687,7 +779,7 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
     eta_AK8Puppijet->Fill(AK8Puppijets->at(i).eta(), weight);
     phi_AK8Puppijet->Fill(AK8Puppijets->at(i).phi(), weight);
     mSD_AK8Puppijet->Fill(AK8Puppijets->at(i).softdropmass(), weight);
-    dRmin_AK8CHS_AK8Puppijet->Fill(dRmin_CHS, weight);
+    dRmin_AK8_AK8Puppijet->Fill(dRmin_ak8, weight);
     dRmin_mu_AK8Puppijet->Fill(dRmin_muon, weight);
     N_subjets_AK8Puppijet->Fill(AK8Puppijets->at(i).subjets().size(), weight);
     N_daughters_AK8Puppijet->Fill(AK8Puppijets->at(i).numberOfDaughters(), weight);
@@ -702,7 +794,7 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
       eta_AK8Puppijet1->Fill(AK8Puppijets->at(i).eta(), weight);
       phi_AK8Puppijet1->Fill(AK8Puppijets->at(i).phi(), weight);
       mSD_AK8Puppijet1->Fill(AK8Puppijets->at(i).softdropmass(), weight);
-      dRmin_AK8CHS_AK8Puppijet1->Fill(dRmin_CHS, weight);
+      dRmin_AK8_AK8Puppijet1->Fill(dRmin_ak8, weight);
       dRmin_mu_AK8Puppijet1->Fill(dRmin_muon, weight);
       N_subjets_AK8Puppijet1->Fill(AK8Puppijets->at(i).subjets().size(), weight);
       N_daughters_AK8Puppijet1->Fill(AK8Puppijets->at(i).numberOfDaughters(), weight);
@@ -727,7 +819,7 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
       eta_AK8Puppijet2->Fill(AK8Puppijets->at(i).eta(), weight);
       phi_AK8Puppijet2->Fill(AK8Puppijets->at(i).phi(), weight);
       mSD_AK8Puppijet2->Fill(AK8Puppijets->at(i).softdropmass(), weight);
-      dRmin_AK8CHS_AK8Puppijet2->Fill(dRmin_CHS, weight);
+      dRmin_AK8_AK8Puppijet2->Fill(dRmin_ak8, weight);
       dRmin_mu_AK8Puppijet2->Fill(dRmin_muon, weight);
       N_subjets_AK8Puppijet2->Fill(AK8Puppijets->at(i).subjets().size(), weight);
       N_daughters_AK8Puppijet2->Fill(AK8Puppijets->at(i).numberOfDaughters(), weight);
@@ -752,7 +844,7 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
       eta_AK8Puppijet3->Fill(AK8Puppijets->at(i).eta(), weight);
       phi_AK8Puppijet3->Fill(AK8Puppijets->at(i).phi(), weight);
       mSD_AK8Puppijet3->Fill(AK8Puppijets->at(i).softdropmass(), weight);
-      dRmin_AK8CHS_AK8Puppijet3->Fill(dRmin_CHS, weight);
+      dRmin_AK8_AK8Puppijet3->Fill(dRmin_ak8, weight);
       dRmin_mu_AK8Puppijet3->Fill(dRmin_muon, weight);
       N_subjets_AK8Puppijet3->Fill(AK8Puppijets->at(i).subjets().size(), weight);
       N_daughters_AK8Puppijet3->Fill(AK8Puppijets->at(i).numberOfDaughters(), weight);
@@ -763,96 +855,6 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
       tau32_AK8Puppijet3->Fill(tau32, weight);
     }
   }
-
-  // Top-tagged jets
-  vector<TopJet> AK8PuppiTopTags = event.get(h_AK8PuppiTopTags);
-  int NAK8PuppiTaggedjets = 0;
-  for(unsigned int i=0; i<AK8PuppiTopTags.size(); i++){
-    NAK8PuppiTaggedjets++;
-
-    double tau21 = AK8PuppiTopTags.at(i).tau2() / AK8PuppiTopTags.at(i).tau1();
-    double tau32 = AK8PuppiTopTags.at(i).tau3() / AK8PuppiTopTags.at(i).tau2();
-
-    // Distance to AK8CHS
-    double dRmin_CHS = 99999;
-    for(unsigned int j=0; j<event.topjets->size(); j++){
-      double dR = deltaR(AK8PuppiTopTags.at(i), event.topjets->at(j));
-      if(dR < dRmin_CHS) dRmin_CHS = dR;
-    }
-
-    // Distance to muons
-    double dRmin_muon = 99999;
-    for(unsigned int j=0; j<event.muons->size(); j++){
-      double dR = deltaR(AK8PuppiTopTags.at(i), event.muons->at(j));
-      if(dR < dRmin_muon) dRmin_muon = dR;
-    }
-
-    pt_AK8PuppiTaggedjet->Fill(AK8PuppiTopTags.at(i).pt(), weight);
-    eta_AK8PuppiTaggedjet->Fill(AK8PuppiTopTags.at(i).eta(), weight);
-    phi_AK8PuppiTaggedjet->Fill(AK8PuppiTopTags.at(i).phi(), weight);
-    mSD_AK8PuppiTaggedjet->Fill(AK8PuppiTopTags.at(i).softdropmass(), weight);
-    dRmin_AK8CHS_AK8PuppiTaggedjet->Fill(dRmin_CHS, weight);
-    dRmin_mu_AK8PuppiTaggedjet->Fill(dRmin_muon, weight);
-    N_subjets_AK8PuppiTaggedjet->Fill(AK8PuppiTopTags.at(i).subjets().size(), weight);
-    N_daughters_AK8PuppiTaggedjet->Fill(AK8PuppiTopTags.at(i).numberOfDaughters(), weight);
-    tau1_AK8PuppiTaggedjet->Fill(AK8PuppiTopTags.at(i).tau1(), weight);
-    tau2_AK8PuppiTaggedjet->Fill(AK8PuppiTopTags.at(i).tau2(), weight);
-    tau3_AK8PuppiTaggedjet->Fill(AK8PuppiTopTags.at(i).tau3(), weight);
-    tau21_AK8PuppiTaggedjet->Fill(tau21, weight);
-    tau32_AK8PuppiTaggedjet->Fill(tau32, weight);
-
-    if(i==0){
-      pt_AK8PuppiTaggedjet1->Fill(AK8PuppiTopTags.at(i).pt(), weight);
-      eta_AK8PuppiTaggedjet1->Fill(AK8PuppiTopTags.at(i).eta(), weight);
-      phi_AK8PuppiTaggedjet1->Fill(AK8PuppiTopTags.at(i).phi(), weight);
-      mSD_AK8PuppiTaggedjet1->Fill(AK8PuppiTopTags.at(i).softdropmass(), weight);
-      dRmin_AK8CHS_AK8PuppiTaggedjet1->Fill(dRmin_CHS, weight);
-      dRmin_mu_AK8PuppiTaggedjet1->Fill(dRmin_muon, weight);
-      N_subjets_AK8PuppiTaggedjet1->Fill(AK8PuppiTopTags.at(i).subjets().size(), weight);
-      N_daughters_AK8PuppiTaggedjet1->Fill(AK8PuppiTopTags.at(i).numberOfDaughters(), weight);
-      tau1_AK8PuppiTaggedjet1->Fill(AK8PuppiTopTags.at(i).tau1(), weight);
-      tau2_AK8PuppiTaggedjet1->Fill(AK8PuppiTopTags.at(i).tau2(), weight);
-      tau3_AK8PuppiTaggedjet1->Fill(AK8PuppiTopTags.at(i).tau3(), weight);
-      tau21_AK8PuppiTaggedjet1->Fill(tau21, weight);
-      tau32_AK8PuppiTaggedjet1->Fill(tau32, weight);
-    }
-    else if(i==1){
-      pt_AK8PuppiTaggedjet2->Fill(AK8PuppiTopTags.at(i).pt(), weight);
-      eta_AK8PuppiTaggedjet2->Fill(AK8PuppiTopTags.at(i).eta(), weight);
-      phi_AK8PuppiTaggedjet2->Fill(AK8PuppiTopTags.at(i).phi(), weight);
-      mSD_AK8PuppiTaggedjet2->Fill(AK8PuppiTopTags.at(i).softdropmass(), weight);
-      dRmin_AK8CHS_AK8PuppiTaggedjet2->Fill(dRmin_CHS, weight);
-      dRmin_mu_AK8PuppiTaggedjet2->Fill(dRmin_muon, weight);
-      N_subjets_AK8PuppiTaggedjet2->Fill(AK8PuppiTopTags.at(i).subjets().size(), weight);
-      N_daughters_AK8PuppiTaggedjet2->Fill(AK8PuppiTopTags.at(i).numberOfDaughters(), weight);
-      tau1_AK8PuppiTaggedjet2->Fill(AK8PuppiTopTags.at(i).tau1(), weight);
-      tau2_AK8PuppiTaggedjet2->Fill(AK8PuppiTopTags.at(i).tau2(), weight);
-      tau3_AK8PuppiTaggedjet2->Fill(AK8PuppiTopTags.at(i).tau3(), weight);
-      tau21_AK8PuppiTaggedjet2->Fill(tau21, weight);
-      tau32_AK8PuppiTaggedjet2->Fill(tau32, weight);
-    }
-    else if(i==2){
-      pt_AK8PuppiTaggedjet3->Fill(AK8PuppiTopTags.at(i).pt(), weight);
-      eta_AK8PuppiTaggedjet3->Fill(AK8PuppiTopTags.at(i).eta(), weight);
-      phi_AK8PuppiTaggedjet3->Fill(AK8PuppiTopTags.at(i).phi(), weight);
-      mSD_AK8PuppiTaggedjet3->Fill(AK8PuppiTopTags.at(i).softdropmass(), weight);
-      dRmin_AK8CHS_AK8PuppiTaggedjet3->Fill(dRmin_CHS, weight);
-      dRmin_mu_AK8PuppiTaggedjet3->Fill(dRmin_muon, weight);
-      N_subjets_AK8PuppiTaggedjet3->Fill(AK8PuppiTopTags.at(i).subjets().size(), weight);
-      N_daughters_AK8PuppiTaggedjet3->Fill(AK8PuppiTopTags.at(i).numberOfDaughters(), weight);
-      tau1_AK8PuppiTaggedjet3->Fill(AK8PuppiTopTags.at(i).tau1(), weight);
-      tau2_AK8PuppiTaggedjet3->Fill(AK8PuppiTopTags.at(i).tau2(), weight);
-      tau3_AK8PuppiTaggedjet3->Fill(AK8PuppiTopTags.at(i).tau3(), weight);
-      tau21_AK8PuppiTaggedjet3->Fill(tau21, weight);
-      tau32_AK8PuppiTaggedjet3->Fill(tau32, weight);
-    }
-
-
-  }
-
-  N_AK8Puppijets->Fill(NAK8Puppijets, weight);
-  N_AK8PuppiTaggedjets->Fill(NAK8PuppiTaggedjets, weight);
-
 
 
 
@@ -1029,7 +1031,16 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
       chi2_Zprime_ttag->Fill(chi2, weight);
       chi2_Zprime_ttag_rebin->Fill(chi2, weight);
       chi2_Zprime_ttag_rebin2->Fill(chi2, weight);
-      M_tophad_ttag->Fill(BestZprimeCandidate->tophad_topjet_ptr()->softdropmass(), weight);
+
+      LorentzVector SumSubjets(0.,0.,0.,0.);
+      for(unsigned int k=0; k<BestZprimeCandidate->tophad_topjet_ptr()->subjets().size(); k++) SumSubjets = SumSubjets + BestZprimeCandidate->tophad_topjet_ptr()->subjets().at(k).v4();
+      float mhad = inv_mass(SumSubjets);
+
+      M_tophad_ttag->Fill(mhad, weight);
+      M_tophad_ttag_v4->Fill(inv_mass(BestZprimeCandidate->top_hadronic_v4()), weight);
+      M_tophad_ttag_M->Fill(BestZprimeCandidate->top_hadronic_v4().M(), weight);
+
+      //M_tophad_ttag->Fill(BestZprimeCandidate->tophad_topjet_ptr()->softdropmass(), weight);
       M_toplep_ttag->Fill(inv_mass(BestZprimeCandidate->top_leptonic_v4()), weight);
     }
     else{

@@ -71,7 +71,8 @@ protected:
   unique_ptr<AnalysisModule> LumiWeight_module, PUWeight_module, BTagWeight_module, TopPtReweight_module, MCScale_module;
 
   // Taggers
-  unique_ptr<AK8PuppiTopTagger> TopTaggerPuppi;
+  //unique_ptr<AK8PuppiTopTagger> TopTaggerPuppi;
+  unique_ptr<HOTVRTopTagger> TopTaggerHOTVR;
 
   // Mass reconstruction
   unique_ptr<ZprimeCandidateBuilder> CandidateBuilder;
@@ -298,7 +299,8 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   Variables_module.reset(new Variables_NN(ctx)); // variables for NN
 
   // Taggers
-  TopTaggerPuppi.reset(new AK8PuppiTopTagger(ctx));
+  //TopTaggerPuppi.reset(new AK8PuppiTopTagger(ctx));
+  TopTaggerHOTVR.reset(new HOTVRTopTagger(ctx));
 
   // Zprime candidate builder
   CandidateBuilder.reset(new ZprimeCandidateBuilder(ctx, mode));
@@ -388,7 +390,8 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   }
 
   // Run top-tagging
-  TopTaggerPuppi->process(event);
+  //TopTaggerPuppi->process(event);
+  TopTaggerHOTVR->process(event);
   if(debug) cout<<"Top Tagger ok"<<endl;
   
   fill_histograms(event, "Weights_Init");
