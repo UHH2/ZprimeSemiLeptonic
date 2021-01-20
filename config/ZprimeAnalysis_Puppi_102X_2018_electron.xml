@@ -737,6 +737,7 @@
 
 
       <Item Name="BTagCalibration" Value = "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2018/DeepJet_102XSF_V2.csv" />
+      <Item Name="HOTVRTopTagSFs"  Value = "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/HOTVR/data/2018TopTaggingScaleFactors.root" />
 
       <Item Name="is_puppi" Value="&IS_PUPPI;"/>
       <Item Name="is_looser_selection" Value="&IS_LOOSER_SELECTION;"/>
@@ -753,6 +754,7 @@
       <Item Name="Sys_EleTrigger"     Value="nominal"/>
       <Item Name="Sys_PU"             Value="central"/>
       <Item Name="Sys_BTagSF"         Value="nominal"/>
+      <Item Name="Sys_TopTag"         Value="nominal"/>
       <Item Name="channel"            Value="&CHANNEL;"/>
 
 

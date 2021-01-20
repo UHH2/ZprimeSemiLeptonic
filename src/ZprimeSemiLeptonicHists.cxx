@@ -1017,7 +1017,7 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
     chi2_Zprime_rebin->Fill(chi2, weight);
     chi2_Zprime_rebin2->Fill(chi2, weight);
     if(BestZprimeCandidate->is_toptag_reconstruction()){
-      M_tophad->Fill(BestZprimeCandidate->tophad_topjet_ptr()->softdropmass(), weight);
+      M_tophad->Fill(BestZprimeCandidate->tophad_topjet_ptr()->v4().M(), weight);
       M_toplep->Fill(inv_mass(BestZprimeCandidate->top_leptonic_v4()), weight);
 
       M_Zprime_ttag->Fill(Mreco, weight);
