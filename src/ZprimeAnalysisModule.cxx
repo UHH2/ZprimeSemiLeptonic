@@ -36,7 +36,7 @@
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicGeneratorHists.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeCandidate.h>
 
-//#include <UHH2/common/include/TTbarGen.h>
+#include <UHH2/common/include/TTbarGen.h>
 #include <UHH2/common/include/TTbarReconstruction.h>
 #include <UHH2/common/include/ReconstructionHypothesisDiscriminators.h>
 
@@ -251,7 +251,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   LumiWeight_module.reset(new MCLumiWeight(ctx));
   PUWeight_module.reset(new MCPileupReweight(ctx, Sys_PU));
   //BTagWeight_module.reset(new MCBTagDiscriminantReweighting(ctx, btag_algo, "jets", Sys_btag));
-  TopPtReweight_module.reset(new TopPtReweight(ctx, a_toppt, b_toppt));
+  TopPtReweight_module.reset(new TopPtReweight(ctx, a_toppt, b_toppt,"","weight_ttbar",true));
   MCScale_module.reset(new MCScaleVariation(ctx));
   hadronic_top.reset(new HadronicTop(ctx));
   sf_toptag.reset(new HOTVRScaleFactor(ctx, toptagID, ctx.get("Sys_TopTag", "nominal"), "HadronicTop", "TopTagSF", "HOTVRTopTagSFs")); 
@@ -338,7 +338,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   TopJetBtagSubjet_selection.reset(new ZprimeBTagFatSubJetSelection(ctx));
 
   // Book histograms
-  vector<string> histogram_tags = {"Weights_Init", "Weights_PU", "Weights_Lumi", "Weights_TopPt", "Weights_MCScale", "HOTVR_NoSF", "HOTVR_SF", "Muon1_LowPt", "Muon1_HighPt", "Ele1_LowPt", "Ele1_HighPt", "TriggerMuon", "TriggerEle", "TwoDCut_Muon", "TwoDCut_Ele", "Jet1", "Jet2", "MET", "HTlep", "NNInputsBeforeReweight", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction", "Btags2", "Btags1","TopJetBtagSubjet"};
+  vector<string> histogram_tags = {"Weights_Init", "Weights_PU", "Weights_Lumi", "Weights_TopPt", "Weights_MCScale", "Weights_HOTVR_SF", "Muon1_LowPt", "Muon1_HighPt", "Ele1_LowPt", "Ele1_HighPt", "TriggerMuon", "TriggerEle", "TwoDCut_Muon", "TwoDCut_Ele", "Jet1", "Jet2", "MET", "HTlep", "NNInputsBeforeReweight", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction", "Btags2", "Btags1","TopJetBtagSubjet"};
   book_histograms(ctx, histogram_tags);
 
   lumihists_Weights_Init.reset(new LuminosityHists(ctx, "Lumi_Weights_Init"));
@@ -358,7 +358,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   lumihists_Jet2.reset(new LuminosityHists(ctx, "Lumi_Jet2"));
   lumihists_MET.reset(new LuminosityHists(ctx, "Lumi_MET"));
   lumihists_HTlep.reset(new LuminosityHists(ctx, "Lumi_HTlep"));
-  lumihists_Chi2.reset(new LuminosityHists(ctx, "Chi2"));
+  lumihists_Chi2.reset(new LuminosityHists(ctx, "Lumi_Chi2"));
 
 }
 
@@ -377,6 +377,7 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   if(debug)   cout<<" run.event: "<<event.run<<". "<<event.event<<endl;
   //cout << "++++++++++++ NEW EVENT ++++++++++++++" << endl;
   //cout<<" run.event: "<<event.run<<". "<<event.event<<endl;
+  //if(event.event != 500000) return false;
   // Initialize reco flags with false
   event.set(h_is_zprime_reconstructed_chi2, false);
   event.set(h_is_zprime_reconstructed_correctmatch, false);
@@ -402,6 +403,11 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   //TopTaggerPuppi->process(event);
   TopTaggerHOTVR->process(event);
   if(debug) cout<<"Top Tagger ok"<<endl;
+ 
+  // HOTVR TopTag SFs
+  hadronic_top->process(event);
+  sf_toptag->process(event);
+  fill_histograms(event, "Weights_HOTVR_SF");
   
   fill_histograms(event, "Weights_Init");
   lumihists_Weights_Init->fill(event);
@@ -435,10 +441,6 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   fill_histograms(event, "Weights_MCScale");
   lumihists_Weights_MCScale->fill(event);
 
-  fill_histograms(event, "HOTVR_NoSF"); 
-  hadronic_top->process(event);
-  sf_toptag->process(event);
-  fill_histograms(event, "HOTVR_SF");
 
   // Select exactly 1 muon or 1 electron
   bool muon_is_low = false;
@@ -636,7 +638,6 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   lumihists_Chi2->fill(event);
 
   if(debug) cout<<"Chi2_selection is ok"<<endl;
-
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

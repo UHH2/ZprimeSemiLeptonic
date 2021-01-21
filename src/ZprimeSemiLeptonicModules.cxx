@@ -146,11 +146,13 @@ bool ZprimeCandidateBuilder::process(uhh2::Event& event){
   }
 
 
+  double maxDeltaR = -1;
   vector<bool> overlap_with_lepton;
   if(mode_ == "puppi"){
     for(const TopJet & toptag : TopTags){
+      if(deltaR(lepton, toptag)>maxDeltaR) maxDeltaR = deltaR(lepton, toptag);
       bool overlap = true;
-      if(deltaR(lepton, toptag) > 0.8) overlap = false;
+      if(deltaR(lepton, toptag) > 1.5) overlap = false;
       overlap_with_lepton.emplace_back(overlap);
     }
   }
@@ -171,8 +173,8 @@ bool ZprimeCandidateBuilder::process(uhh2::Event& event){
         if(matches_chs[i] && has_separated_jet[i] &&  !overlap_with_lepton[i]) do_toptag_reco = true;
       }
       else if(mode_ == "puppi"){
-        // cout << "Number of toptags: " << TopTags.size() << endl;
-        // cout << "At " << i << " of " << has_separated_jet.size() << " and " << overlap_with_lepton.size() << endl;
+         //cout << "Number of toptags: " << TopTags.size() << endl;
+         //cout << "At " << i << " of " << has_separated_jet.size() << " and " << overlap_with_lepton.size() << endl;
         if(has_separated_jet[i] &&  !overlap_with_lepton[i]) do_toptag_reco = true;
       }
     }
@@ -295,6 +297,9 @@ bool ZprimeCandidateBuilder::process(uhh2::Event& event){
 
           TopJet toptag = TopTags.at(j);
           const TopJet* toptag_ptr = TopTagsPtr.at(j);
+
+          // Only HOTVR jet farest from lepton
+          if(deltaR(lepton,toptag)<maxDeltaR) continue;
 
           // Only consider well-separated AK4 jets
           vector<Jet> separated_jets;
@@ -998,32 +1003,32 @@ Variables_NN::Variables_NN(uhh2::Context& ctx){
   h_Ak4_j6_m = ctx.declare_event_output<float>  ("Ak4_j6_m");
   h_Ak4_j6_deepjetbscore = ctx.declare_event_output<float>  ("Ak4_j6_deepjetbscore");
 
-///  AK8 JETS
-  h_N_Ak8 = ctx.declare_event_output<float> ("N_Ak8");
+///  HOTVR JETS
+  h_N_HOTVR = ctx.declare_event_output<float> ("N_HOTVR");
 
-  h_Ak8_j1_pt = ctx.declare_event_output<float> ("Ak8_j1_pt");
-  h_Ak8_j1_eta = ctx.declare_event_output<float>("Ak8_j1_eta");
-  h_Ak8_j1_phi = ctx.declare_event_output<float>("Ak8_j1_phi");
-  h_Ak8_j1_E = ctx.declare_event_output<float>  ("Ak8_j1_E");
-  h_Ak8_j1_mSD = ctx.declare_event_output<float>("Ak8_j1_mSD");
-  h_Ak8_j1_tau21 = ctx.declare_event_output<float>("Ak8_j1_tau21");
-  h_Ak8_j1_tau32 = ctx.declare_event_output<float>("Ak8_j1_tau32");
+  h_HOTVR_j1_pt = ctx.declare_event_output<float> ("HOTVR_j1_pt");
+  h_HOTVR_j1_eta = ctx.declare_event_output<float>("HOTVR_j1_eta");
+  h_HOTVR_j1_phi = ctx.declare_event_output<float>("HOTVR_j1_phi");
+  h_HOTVR_j1_E = ctx.declare_event_output<float>  ("HOTVR_j1_E");
+  h_HOTVR_j1_mSD = ctx.declare_event_output<float>("HOTVR_j1_mSD");
+  h_HOTVR_j1_tau21 = ctx.declare_event_output<float>("HOTVR_j1_tau21");
+  h_HOTVR_j1_tau32 = ctx.declare_event_output<float>("HOTVR_j1_tau32");
 
-  h_Ak8_j2_pt = ctx.declare_event_output<float> ("Ak8_j2_pt");
-  h_Ak8_j2_eta = ctx.declare_event_output<float>("Ak8_j2_eta");
-  h_Ak8_j2_phi = ctx.declare_event_output<float>("Ak8_j2_phi");
-  h_Ak8_j2_E = ctx.declare_event_output<float>  ("Ak8_j2_E");
-  h_Ak8_j2_mSD = ctx.declare_event_output<float>("Ak8_j2_mSD");
-  h_Ak8_j2_tau21 = ctx.declare_event_output<float>("Ak8_j2_tau21");
-  h_Ak8_j2_tau32 = ctx.declare_event_output<float>("Ak8_j2_tau32");
+  h_HOTVR_j2_pt = ctx.declare_event_output<float> ("HOTVR_j2_pt");
+  h_HOTVR_j2_eta = ctx.declare_event_output<float>("HOTVR_j2_eta");
+  h_HOTVR_j2_phi = ctx.declare_event_output<float>("HOTVR_j2_phi");
+  h_HOTVR_j2_E = ctx.declare_event_output<float>  ("HOTVR_j2_E");
+  h_HOTVR_j2_mSD = ctx.declare_event_output<float>("HOTVR_j2_mSD");
+  h_HOTVR_j2_tau21 = ctx.declare_event_output<float>("HOTVR_j2_tau21");
+  h_HOTVR_j2_tau32 = ctx.declare_event_output<float>("HOTVR_j2_tau32");
 
-  h_Ak8_j3_pt = ctx.declare_event_output<float> ("Ak8_j3_pt");
-  h_Ak8_j3_eta = ctx.declare_event_output<float>("Ak8_j3_eta");
-  h_Ak8_j3_phi = ctx.declare_event_output<float>("Ak8_j3_phi");
-  h_Ak8_j3_E = ctx.declare_event_output<float>  ("Ak8_j3_E");
-  h_Ak8_j3_mSD = ctx.declare_event_output<float>("Ak8_j3_mSD");
-  h_Ak8_j3_tau21 = ctx.declare_event_output<float>("Ak8_j3_tau21");
-  h_Ak8_j3_tau32 = ctx.declare_event_output<float>("Ak8_j3_tau32");
+  h_HOTVR_j3_pt = ctx.declare_event_output<float> ("HOTVR_j3_pt");
+  h_HOTVR_j3_eta = ctx.declare_event_output<float>("HOTVR_j3_eta");
+  h_HOTVR_j3_phi = ctx.declare_event_output<float>("HOTVR_j3_phi");
+  h_HOTVR_j3_E = ctx.declare_event_output<float>  ("HOTVR_j3_E");
+  h_HOTVR_j3_mSD = ctx.declare_event_output<float>("HOTVR_j3_mSD");
+  h_HOTVR_j3_tau21 = ctx.declare_event_output<float>("HOTVR_j3_tau21");
+  h_HOTVR_j3_tau32 = ctx.declare_event_output<float>("HOTVR_j3_tau32");
 
 
 ///  M ttbar
@@ -1181,68 +1186,68 @@ bool Variables_NN::process(uhh2::Event& evt){
 
 
 
-/////////   AK8 JETS
-  evt.set(h_N_Ak8, -10);
+/////////   HOTVR JETS
+  evt.set(h_N_HOTVR, -10);
 
-  evt.set(h_Ak8_j1_pt, -10);
-  evt.set(h_Ak8_j1_eta, -10);
-  evt.set(h_Ak8_j1_phi, -10);
-  evt.set(h_Ak8_j1_E, -10);
-  evt.set(h_Ak8_j1_mSD, -10);
-  evt.set(h_Ak8_j1_tau21, -10);
-  evt.set(h_Ak8_j1_tau32, -10);
+  evt.set(h_HOTVR_j1_pt, -10);
+  evt.set(h_HOTVR_j1_eta, -10);
+  evt.set(h_HOTVR_j1_phi, -10);
+  evt.set(h_HOTVR_j1_E, -10);
+  evt.set(h_HOTVR_j1_mSD, -10);
+  evt.set(h_HOTVR_j1_tau21, -10);
+  evt.set(h_HOTVR_j1_tau32, -10);
 
-  evt.set(h_Ak8_j2_pt, -10);
-  evt.set(h_Ak8_j2_eta, -10);
-  evt.set(h_Ak8_j2_phi, -10);
-  evt.set(h_Ak8_j2_E, -10);
-  evt.set(h_Ak8_j2_mSD, -10);
-  evt.set(h_Ak8_j2_tau21, -10);
-  evt.set(h_Ak8_j2_tau32, -10);
+  evt.set(h_HOTVR_j2_pt, -10);
+  evt.set(h_HOTVR_j2_eta, -10);
+  evt.set(h_HOTVR_j2_phi, -10);
+  evt.set(h_HOTVR_j2_E, -10);
+  evt.set(h_HOTVR_j2_mSD, -10);
+  evt.set(h_HOTVR_j2_tau21, -10);
+  evt.set(h_HOTVR_j2_tau32, -10);
 
-  evt.set(h_Ak8_j3_pt, -10);
-  evt.set(h_Ak8_j3_eta, -10);
-  evt.set(h_Ak8_j3_phi, -10);
-  evt.set(h_Ak8_j3_E, -10);
-  evt.set(h_Ak8_j3_mSD, -10);
-  evt.set(h_Ak8_j3_tau21, -10);
-  evt.set(h_Ak8_j3_tau32, -10);
+  evt.set(h_HOTVR_j3_pt, -10);
+  evt.set(h_HOTVR_j3_eta, -10);
+  evt.set(h_HOTVR_j3_phi, -10);
+  evt.set(h_HOTVR_j3_E, -10);
+  evt.set(h_HOTVR_j3_mSD, -10);
+  evt.set(h_HOTVR_j3_tau21, -10);
+  evt.set(h_HOTVR_j3_tau32, -10);
 
 
   // Top Tagged Jets
   //vector<TopJet> AK8PuppiTopTags = event.get(h_AK8PuppiTopTags);
 
-  vector<TopJet>* Ak8jets = evt.toppuppijets;
-  int NAk8jets = Ak8jets->size();
-  evt.set(h_N_Ak8, NAk8jets);
+  vector<TopJet>* HOTVRjets = evt.topjets;
+  int NHOTVRjets = HOTVRjets->size();
+  evt.set(h_N_HOTVR, NHOTVRjets);
 
-  for(int i=0; i<NAk8jets; i++){
+  for(int i=0; i<NHOTVRjets; i++){
       if(i==0){
-      evt.set(h_Ak8_j1_pt, Ak8jets->at(i).pt());
-      evt.set(h_Ak8_j1_eta, Ak8jets->at(i).eta());
-      evt.set(h_Ak8_j1_phi, Ak8jets->at(i).phi());
-      evt.set(h_Ak8_j1_E, Ak8jets->at(i).energy());
-      evt.set(h_Ak8_j1_mSD, Ak8jets->at(i).softdropmass());
-      evt.set(h_Ak8_j1_tau21, Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1());
-      evt.set(h_Ak8_j1_tau32, Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2());
+      evt.set(h_HOTVR_j1_pt, HOTVRjets->at(i).pt());
+      evt.set(h_HOTVR_j1_eta, HOTVRjets->at(i).eta());
+      evt.set(h_HOTVR_j1_phi, HOTVRjets->at(i).phi());
+      evt.set(h_HOTVR_j1_E, HOTVRjets->at(i).energy());
+      evt.set(h_HOTVR_j1_mSD, HOTVRjets->at(i).v4().M());
+      evt.set(h_HOTVR_j1_tau21, HOTVRjets->at(i).tau2_groomed()/HOTVRjets->at(i).tau1_groomed());
+      evt.set(h_HOTVR_j1_tau32, HOTVRjets->at(i).tau3_groomed()/HOTVRjets->at(i).tau2_groomed());
       }
       if(i==1){
-      evt.set(h_Ak8_j2_pt, Ak8jets->at(i).pt());
-      evt.set(h_Ak8_j2_eta, Ak8jets->at(i).eta());
-      evt.set(h_Ak8_j2_phi, Ak8jets->at(i).phi());
-      evt.set(h_Ak8_j2_E, Ak8jets->at(i).energy());
-      evt.set(h_Ak8_j2_mSD, Ak8jets->at(i).softdropmass());
-      evt.set(h_Ak8_j2_tau21, Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1());
-      evt.set(h_Ak8_j2_tau32, Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2());
+      evt.set(h_HOTVR_j2_pt, HOTVRjets->at(i).pt());
+      evt.set(h_HOTVR_j2_eta, HOTVRjets->at(i).eta());
+      evt.set(h_HOTVR_j2_phi, HOTVRjets->at(i).phi());
+      evt.set(h_HOTVR_j2_E, HOTVRjets->at(i).energy());
+      evt.set(h_HOTVR_j2_mSD, HOTVRjets->at(i).v4().M());
+      evt.set(h_HOTVR_j2_tau21, HOTVRjets->at(i).tau2_groomed()/HOTVRjets->at(i).tau1_groomed());
+      evt.set(h_HOTVR_j2_tau32, HOTVRjets->at(i).tau3_groomed()/HOTVRjets->at(i).tau2_groomed());
       }
       if(i==2){
-      evt.set(h_Ak8_j3_pt, Ak8jets->at(i).pt());
-      evt.set(h_Ak8_j3_eta, Ak8jets->at(i).eta());
-      evt.set(h_Ak8_j3_phi, Ak8jets->at(i).phi());
-      evt.set(h_Ak8_j3_E, Ak8jets->at(i).energy());
-      evt.set(h_Ak8_j3_mSD, Ak8jets->at(i).softdropmass());
-      evt.set(h_Ak8_j3_tau21, Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1());
-      evt.set(h_Ak8_j3_tau32, Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2());
+      evt.set(h_HOTVR_j3_pt, HOTVRjets->at(i).pt());
+      evt.set(h_HOTVR_j3_eta, HOTVRjets->at(i).eta());
+      evt.set(h_HOTVR_j3_phi, HOTVRjets->at(i).phi());
+      evt.set(h_HOTVR_j3_E, HOTVRjets->at(i).energy());
+      evt.set(h_HOTVR_j3_mSD, HOTVRjets->at(i).v4().M());
+      evt.set(h_HOTVR_j3_tau21, HOTVRjets->at(i).tau2_groomed()/HOTVRjets->at(i).tau1_groomed());
+      evt.set(h_HOTVR_j3_tau32, HOTVRjets->at(i).tau3_groomed()/HOTVRjets->at(i).tau2_groomed());
       }
   }
 
