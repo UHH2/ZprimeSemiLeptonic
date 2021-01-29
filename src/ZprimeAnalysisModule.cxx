@@ -251,7 +251,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   LumiWeight_module.reset(new MCLumiWeight(ctx));
   PUWeight_module.reset(new MCPileupReweight(ctx, Sys_PU));
   //BTagWeight_module.reset(new MCBTagDiscriminantReweighting(ctx, btag_algo, "jets", Sys_btag));
-  TopPtReweight_module.reset(new TopPtReweight(ctx, a_toppt, b_toppt,"","weight_ttbar",true));
+  //TopPtReweight_module.reset(new TopPtReweight(ctx, a_toppt, b_toppt,"","weight_ttbar",true));
   MCScale_module.reset(new MCScaleVariation(ctx));
   hadronic_top.reset(new HadronicTop(ctx));
   sf_toptag.reset(new HOTVRScaleFactor(ctx, toptagID, ctx.get("Sys_TopTag", "nominal"), "HadronicTop", "TopTagSF", "HOTVRTopTagSFs")); 
@@ -433,9 +433,9 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   fill_histograms(event, "Weights_Lumi");
   lumihists_Weights_Lumi->fill(event);
 
-  TopPtReweight_module->process(event);
-  fill_histograms(event, "Weights_TopPt");
-  lumihists_Weights_TopPt->fill(event);
+//  TopPtReweight_module->process(event);
+//  fill_histograms(event, "Weights_TopPt");
+//  lumihists_Weights_TopPt->fill(event);
 
   MCScale_module->process(event);
   fill_histograms(event, "Weights_MCScale");
@@ -625,73 +625,73 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   Variables_module->process(event);
   fill_histograms(event, "NNInputsBeforeReweight");
 
-  if(TTbarMatchable_selection->passes(event)) fill_histograms(event, "MatchableBeforeChi2Cut");
-  else fill_histograms(event, "NotMatchableBeforeChi2Cut");
-  if(debug) cout<<"TTbarMatchable_selection is ok"<<endl;
-
-  if(Chi2CandidateMatched_selection->passes(event)) fill_histograms(event, "CorrectMatchBeforeChi2Cut");
-  else fill_histograms(event, "NotCorrectMatchBeforeChi2Cut");
-  if(debug) cout<<"Chi2CandidateMatched_selection is ok"<<endl;
-
-  if(!Chi2_selection->passes(event)) return false;
-  fill_histograms(event, "Chi2");
-  lumihists_Chi2->fill(event);
-
-  if(debug) cout<<"Chi2_selection is ok"<<endl;
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////// Extra checks
-
-
-  if(TTbarMatchable_selection->passes(event)) fill_histograms(event, "Matchable");
-  else fill_histograms(event, "NotMatchable");
-  if(debug) cout<<"TTbarMatchable_selection is ok"<<endl;
-
-  if(Chi2CandidateMatched_selection->passes(event)) fill_histograms(event, "CorrectMatch");
-  else fill_histograms(event, "NotCorrectMatch");
-  if(debug) cout<<"Chi2CandidateMatched_selection is ok"<<endl;
-
-  if(ZprimeTopTag_selection->passes(event)) fill_histograms(event, "TopTagReconstruction");
-  else fill_histograms(event, "NotTopTagReconstruction");
-  if(debug) cout<<"ZprimeTopTag_selection is ok"<<endl;
-
-  //Test with b-tagging
-  if(sel_2btag->passes(event)) fill_histograms(event, "Btags2");
-  if(sel_1btag->passes(event)) fill_histograms(event, "Btags1");
-  if(debug) cout<<"Btags1 is ok"<<endl;
-  if(TopJetBtagSubjet_selection->passes(event)) fill_histograms(event, "TopJetBtagSubjet");
-  if(debug) cout<<"TopJetBtagSubjet_selection is ok"<<endl;
-
-  //Fill some vars for monitoring and comparison
-  bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2); 
-  if(is_zprime_reconstructed_chi2){
-    ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
-    event.set(h_chi2,BestZprimeCandidate->discriminator("chi2_total"));
-    event.set(h_Mttbar,BestZprimeCandidate->Zprime_v4().M());
-  }
-  if(debug) cout<<"Set ttbar reconstruction vars for monitoring"<<endl;
-
-  event.set(h_weight,event.weight);
-  event.set(h_MET,event.met->pt());
-  if(isMuon){
-    event.set(h_lep1_pt,event.muons->at(0).pt());
-    event.set(h_lep1_eta,event.muons->at(0).eta());
-  }
-  if(isElectron){
-    event.set(h_lep1_pt,event.electrons->at(0).pt());
-    event.set(h_lep1_eta,event.electrons->at(0).eta());
-  }
-  if(event.jets->size()>0){
-    event.set(h_ak4jet1_pt,event.jets->at(0).pt());
-    event.set(h_ak4jet1_eta,event.jets->at(0).eta());
-  }
-  if(event.topjets->size()>0){
-    event.set(h_ak8jet1_pt,event.topjets->at(0).pt());
-    event.set(h_ak8jet1_eta,event.topjets->at(0).eta());
-  }
-  event.set(h_NPV,event.pvs->size());
-  if(debug) cout<<"Set some vars for monitoring"<<endl;
+//  if(TTbarMatchable_selection->passes(event)) fill_histograms(event, "MatchableBeforeChi2Cut");
+//  else fill_histograms(event, "NotMatchableBeforeChi2Cut");
+//  if(debug) cout<<"TTbarMatchable_selection is ok"<<endl;
+//
+//  if(Chi2CandidateMatched_selection->passes(event)) fill_histograms(event, "CorrectMatchBeforeChi2Cut");
+//  else fill_histograms(event, "NotCorrectMatchBeforeChi2Cut");
+//  if(debug) cout<<"Chi2CandidateMatched_selection is ok"<<endl;
+//
+//  if(!Chi2_selection->passes(event)) return false;
+//  fill_histograms(event, "Chi2");
+//  lumihists_Chi2->fill(event);
+//
+//  if(debug) cout<<"Chi2_selection is ok"<<endl;
+//
+//
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////// Extra checks
+//
+//
+//  if(TTbarMatchable_selection->passes(event)) fill_histograms(event, "Matchable");
+//  else fill_histograms(event, "NotMatchable");
+//  if(debug) cout<<"TTbarMatchable_selection is ok"<<endl;
+//
+//  if(Chi2CandidateMatched_selection->passes(event)) fill_histograms(event, "CorrectMatch");
+//  else fill_histograms(event, "NotCorrectMatch");
+//  if(debug) cout<<"Chi2CandidateMatched_selection is ok"<<endl;
+//
+//  if(ZprimeTopTag_selection->passes(event)) fill_histograms(event, "TopTagReconstruction");
+//  else fill_histograms(event, "NotTopTagReconstruction");
+//  if(debug) cout<<"ZprimeTopTag_selection is ok"<<endl;
+//
+//  //Test with b-tagging
+//  if(sel_2btag->passes(event)) fill_histograms(event, "Btags2");
+//  if(sel_1btag->passes(event)) fill_histograms(event, "Btags1");
+//  if(debug) cout<<"Btags1 is ok"<<endl;
+//  if(TopJetBtagSubjet_selection->passes(event)) fill_histograms(event, "TopJetBtagSubjet");
+//  if(debug) cout<<"TopJetBtagSubjet_selection is ok"<<endl;
+//
+//  //Fill some vars for monitoring and comparison
+//  bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2); 
+//  if(is_zprime_reconstructed_chi2){
+//    ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
+//    event.set(h_chi2,BestZprimeCandidate->discriminator("chi2_total"));
+//    event.set(h_Mttbar,BestZprimeCandidate->Zprime_v4().M());
+//  }
+//  if(debug) cout<<"Set ttbar reconstruction vars for monitoring"<<endl;
+//
+//  event.set(h_weight,event.weight);
+//  event.set(h_MET,event.met->pt());
+//  if(isMuon){
+//    event.set(h_lep1_pt,event.muons->at(0).pt());
+//    event.set(h_lep1_eta,event.muons->at(0).eta());
+//  }
+//  if(isElectron){
+//    event.set(h_lep1_pt,event.electrons->at(0).pt());
+//    event.set(h_lep1_eta,event.electrons->at(0).eta());
+//  }
+//  if(event.jets->size()>0){
+//    event.set(h_ak4jet1_pt,event.jets->at(0).pt());
+//    event.set(h_ak4jet1_eta,event.jets->at(0).eta());
+//  }
+//  if(event.topjets->size()>0){
+//    event.set(h_ak8jet1_pt,event.topjets->at(0).pt());
+//    event.set(h_ak8jet1_eta,event.topjets->at(0).eta());
+//  }
+//  event.set(h_NPV,event.pvs->size());
+//  if(debug) cout<<"Set some vars for monitoring"<<endl;
   return true;
 }
 
