@@ -346,11 +346,12 @@ protected:
   bool debug;
   
   // Scale Factors -- Systematics
-  unique_ptr<MCMuonScaleFactor> MuonID_module, MuonTrigger_module;
+  unique_ptr<MCMuonScaleFactor> MuonID_module_low, MuonISO_module_low, MuonID_module_high, MuonTrigger_module_low, MuonTrigger_module_high; 
   unique_ptr<MCElecScaleFactor> EleID_module, EleTrigger_module;
 
   // AnalysisModules
   unique_ptr<AnalysisModule> LumiWeight_module, PUWeight_module, BTagWeight_module, TopPtReweight_module, MCScale_module;
+  unique_ptr<AnalysisModule> Corrections_module;
 
   // Taggers
   //unique_ptr<AK8PuppiTopTagger> TopTaggerPuppi;
@@ -390,6 +391,10 @@ protected:
 
   uhh2::Event::Handle<ZprimeCandidate*> h_BestZprimeCandidateChi2;
 
+  // Set handles for mu iso sf - necessary for high pt muons, where no ISO SF are applied
+  uhh2::Event::Handle<float> h_musf_iso;
+  uhh2::Event::Handle<float> h_musf_iso_up;
+  uhh2::Event::Handle<float> h_musf_iso_down;
 
   // Lumi hists
   std::unique_ptr<Hists> lumihists_Weights_Init, lumihists_Weights_PU, lumihists_Weights_Lumi, lumihists_Weights_TopPt, lumihists_Weights_MCScale, lumihists_Muon1_LowPt, lumihists_Muon1_HighPt, lumihists_Ele1_LowPt, lumihists_Ele1_HighPt, lumihists_TriggerMuon, lumihists_TriggerEle, lumihists_TwoDCut_Muon, lumihists_TwoDCut_Ele, lumihists_Jet1, lumihists_Jet2, lumihists_MET, lumihists_HTlep, lumihists_Chi2;
@@ -398,7 +403,8 @@ protected:
 
   // Configuration
   bool isMC, ispuppi, islooserselection;
-  string Sys_MuonID, Sys_MuonTrigger, Sys_PU, Sys_btag, Sys_EleID, Sys_EleTrigger;
+  string Sys_MuonID_low, Sys_MuonISO_low, Sys_MuonID_high, Sys_MuonTrigger_low, Sys_MuonTrigger_high;
+  string Sys_PU, Sys_btag, Sys_EleID, Sys_EleTrigger;
   TString sample;
   int runnr_oldtriggers = 299368;
 
@@ -489,7 +495,7 @@ protected:
   Event::Handle<double> h_NNoutput0;
   Event::Handle<double> h_NNoutput1;
   Event::Handle<double> h_NNoutput2;
-  Event::Handle<double> h_NNoutput3;
+  //Event::Handle<double> h_NNoutput3;
 
   std::unique_ptr<NeuralNetworkModule> NNModule;
 
@@ -553,9 +559,9 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
 
   if(isMuon){//semileptonic muon channel
     if(is2017v2)
-     trigger_mu_A = "HLT_IsoMu24_v*";
-    else
      trigger_mu_A = "HLT_IsoMu27_v*";
+    else
+     trigger_mu_A = "HLT_IsoMu24_v*";
     trigger_mu_B = "HLT_IsoTkMu24_v*";
     trigger_mu_C = "HLT_Mu50_v*";
     trigger_mu_D = "HLT_TkMu50_v*";
@@ -599,8 +605,11 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   const ElectronId electronID_high(PtEtaSCCut(electron_pt_high, 2.5));
   const TopJetId toptagID = AndId<TopJet>(HOTVRTopTag(0.8, 140.0, 220.0, 50.0), Tau32Groomed(0.56));
 
-  Sys_MuonID = ctx.get("Sys_MuonID");
-  Sys_MuonTrigger = ctx.get("Sys_MuonTrigger");
+  Sys_MuonID_low = ctx.get("Sys_MuonID_low");
+  Sys_MuonISO_low = ctx.get("Sys_MuonISO_low");
+  Sys_MuonID_high = ctx.get("Sys_MuonID_high");
+  Sys_MuonTrigger_low = ctx.get("Sys_MuonTrigger_low");
+  Sys_MuonTrigger_high = ctx.get("Sys_MuonTrigger_high");
   Sys_EleID = ctx.get("Sys_EleID");
   Sys_EleTrigger = ctx.get("Sys_EleTrigger");
   Sys_PU = ctx.get("Sys_PU");
@@ -621,21 +630,33 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   MCScale_module.reset(new MCScaleVariation(ctx));
   hadronic_top.reset(new HadronicTop(ctx));
   sf_toptag.reset(new HOTVRScaleFactor(ctx, toptagID, ctx.get("Sys_TopTag", "nominal"), "HadronicTop", "TopTagSF", "HOTVRTopTagSFs")); 
+  Corrections_module.reset(new NLOCorrections(ctx));
 
-/*  if((is2016v3 || is2016v2) && isMuon){
-    MuonID_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2016/MuonID_EfficienciesAndSF_average_RunBtoH.root", "MC_NUM_TightID_DEN_genTracks_PAR_pt_eta", 0., "MuonID", true, Sys_MuonID));
-    MuonTrigger_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/analysis/CMSSW_10_2_10/src/UHH2/common/data/2016/MuonTrigger_EfficienciesAndSF_average_RunBtoH.root", "IsoMu50_OR_IsoTkMu50_PtEtaBins", 0.5, "MuonTrigger", true, Sys_MuonTrigger));
+  if((is2016v3 || is2016v2) && isMuon){
+    MuonID_module_low.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2016/MuonID_EfficienciesAndSF_average_RunBtoH.root", "NUM_TightID_DEN_genTracks_eta_pt", 1.0, "tightID", false, Sys_MuonID_low));
+    MuonISO_module_low.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2016/MuonIso_EfficienciesAndSF_average_RunBtoH.root", "NUM_TightRelIso_DEN_TightIDandIPCut_eta_pt", 1.0, "isolation", false, Sys_MuonISO_low));
+    MuonID_module_high.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2016/MuonID_EfficienciesAndSF_average_RunBtoH.root", "MC_NUM_TightID_DEN_genTracks_PAR_pt_eta", 1.0, "tightID", false, Sys_MuonID_high));
+    MuonTrigger_module_low.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2016/MuonTrigger_EfficienciesAndSF_average_RunBtoH.root", "IsoMu24_OR_IsoTkMu24_PtEtaBins/pt_abseta_ratio", 0.5, "Trigger", true, Sys_MuonTrigger_low));
+    MuonTrigger_module_high.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2016/MuonTrigger_EfficienciesAndSF_average_RunBtoH.root", "IsoMu50_OR_IsoTkMu50_PtEtaBins/pt_abseta_ratio", 0.5, "Trigger", true, Sys_MuonTrigger_high));
   }
+
   if(is2017v2 && isMuon){
-    MuonID_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_16/src/UHH2/common/data/2017/MuonID_94X_RunBCDEF_SF_ID.root", "NUM_HighPtID_DEN_genTracks_pair_newTuneP_probe_pt_abseta", 0., "HighPtID", true, Sys_MuonID));
-    MuonTrigger_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_16/src/UHH2/common/data/2017/MuonTrigger_EfficienciesAndSF_RunBtoF_Nov17Nov2017.root", "Mu50_PtEtaBins/pt_abseta_ratio", 0.5, "Trigger", true, Sys_MuonTrigger));
+    MuonID_module_low.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2017/MuonID_94X_RunBCDEF_SF_ID.root", "NUM_TightID_DEN_genTracks_pt_abseta", 1.0, "tightID", true, Sys_MuonID_low));
+    MuonISO_module_low.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2017/MuonIso_94X_RunBCDEF_SF_ISO.root", "NUM_TightRelIso_DEN_TightIDandIPCut_pt_abseta", 1.0, "isolation", true, Sys_MuonISO_low));
+    MuonID_module_high.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2017/MuonID_94X_RunBCDEF_SF_ID.root", "NUM_TightID_DEN_genTracks_pt_abseta", 1.0, "tightID", true, Sys_MuonID_high));
+    MuonTrigger_module_low.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2017/MuonTrigger_EfficienciesAndSF_RunBtoF_Nov17Nov2017.root", "IsoMu27_PtEtaBins/pt_abseta_ratio", 0.5, "Trigger", true, Sys_MuonTrigger_low));
+    MuonTrigger_module_high.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2017/MuonTrigger_EfficienciesAndSF_RunBtoF_Nov17Nov2017.root", "Mu50_PtEtaBins/pt_abseta_ratio", 0.5, "Trigger", true, Sys_MuonTrigger_high));
   }
+
   if(is2018 && isMuon){
-    MuonID_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_16/src/UHH2/common/data/2018/Muon_ID_SF_RunABCD.root", "NUM_HighPtID_DEN_TrackerMuons_pair_newTuneP_probe_pt_abseta", 0., "HighPtID", true, Sys_MuonID));
-    MuonTrigger_module.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_16/src/UHH2/common/data/2018/Muon_Trigger_Eff_SF_AfterMuonHLTUpdate.root", "Mu50_OR_OldMu100_OR_TkMu100_PtEtaBins/pt_abseta_ratio", 0.5, "Trigger", true, Sys_MuonTrigger));
-//    EleID_module.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_16/src/UHH2/common/data/2018/2018_ElectronTight.root", 0., "TightID", Sys_EleID));
-//    EleTrigger_module.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_16/src/UHH2/common/data/2018/SF_2018.root", 0.5, "Trigger", Sys_EleTrigger));
-  }*/
+    MuonID_module_low.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2018/Muon_ID_SF_RunABCD.root", "NUM_TightID_DEN_TrackerMuons_pt_abseta", 1.0, "tightID", true, Sys_MuonID_low));
+    MuonISO_module_low.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2018/Muon_Iso_SF_RunABCD.root", "NUM_TightRelIso_DEN_TightIDandIPCut_pt_abseta", 0.0, "isolation", true, Sys_MuonISO_low));
+    MuonID_module_high.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2018/Muon_ID_SF_RunABCD.root", "NUM_TightID_DEN_TrackerMuons_pt_abseta", 1.0, "tightID", true, Sys_MuonID_high));
+    MuonTrigger_module_low.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2018/Muon_Trigger_Eff_SF_AfterMuonHLTUpdate.root", "IsoMu24_PtEtaBins/pt_abseta_ratio", 0.5, "Trigger", true, Sys_MuonTrigger_low));
+    MuonTrigger_module_high.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2018/Muon_Trigger_Eff_SF_AfterMuonHLTUpdate.root", "Mu50_OR_OldMu100_OR_TkMu100_PtEtaBins/pt_abseta_ratio", 0.5, "Trigger", true, Sys_MuonTrigger_high));
+    //EleID_module.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2018/2018_ElectronTight.root", 0., "TightID", Sys_EleID));
+    //EleTrigger_module.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2018/SF_2018.root", 0.5, "Trigger", Sys_EleTrigger));
+  }
 
   // Selection modules
   MuonVeto_selection.reset(new NMuonSelection(0, 0)); 
@@ -700,11 +721,14 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   sel_1btag.reset(new NJetSelection(1, 1, id_btag));
   sel_2btag.reset(new NJetSelection(2,-1, id_btag));
 
+  h_musf_iso      = ctx.declare_event_output<float>("weight_sfmu_isolation");
+  h_musf_iso_up   = ctx.declare_event_output<float>("weight_sfmu_isolation_up");
+  h_musf_iso_down = ctx.declare_event_output<float>("weight_sfmu_isolation_down");
 
   TopJetBtagSubjet_selection.reset(new ZprimeBTagFatSubJetSelection(ctx));
 
   // Book histograms
-  vector<string> histogram_tags = {"Weights_Init", "Weights_PU", "Weights_Lumi", "Weights_TopPt", "Weights_MCScale", "Weights_HOTVR_SF", "Muon1_LowPt", "Muon1_HighPt", "Ele1_LowPt", "Ele1_HighPt", "TriggerMuon", "TriggerEle", "TwoDCut_Muon", "TwoDCut_Ele", "Jet1", "Jet2", "MET", "HTlep", "NNInputsBeforeReweight","DNN_output0","DNN_output1","DNN_output2","DNN_output3", "DNN_output0_TopTag","DNN_output1_TopTag","DNN_output2_TopTag","DNN_output3_TopTag","DNN_output0_NoTopTag","DNN_output1_NoTopTag","DNN_output2_NoTopTag","DNN_output3_NoTopTag"};
+  vector<string> histogram_tags = {"Weights_Init", "Weights_PU", "Weights_Lumi", "Weights_TopPt", "Weights_MCScale", "Weights_HOTVR_SF", "Corrections", "IDMuon_SF", "IsoMuon_SF", "Muon1_LowPt", "Muon1_HighPt", "Ele1_LowPt", "Ele1_HighPt", "TriggerMuon_SF", "TriggerMuon", "TriggerEle", "TwoDCut_Muon", "TwoDCut_Ele", "Jet1", "Jet2", "MET", "HTlep", "NNInputsBeforeReweight","DNN_output0","DNN_output1","DNN_output2","DNN_output3", "DNN_output0_TopTag","DNN_output1_TopTag","DNN_output2_TopTag","DNN_output3_TopTag","DNN_output0_NoTopTag","DNN_output1_NoTopTag","DNN_output2_NoTopTag","DNN_output3_NoTopTag"};
   book_histograms(ctx, histogram_tags);
 
   lumihists_Weights_Init.reset(new LuminosityHists(ctx, "Lumi_Weights_Init"));
@@ -808,8 +832,8 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   h_NNoutput0 = ctx.declare_event_output<double>("NNoutput0");
   h_NNoutput1 = ctx.declare_event_output<double>("NNoutput1");
   h_NNoutput2 = ctx.declare_event_output<double>("NNoutput2");
-  h_NNoutput3 = ctx.declare_event_output<double>("NNoutput3");
-  NNModule.reset( new NeuralNetworkModule(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_HOTVR/model4.pb", "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_HOTVR/model4.config.pbtxt"));
+  //h_NNoutput3 = ctx.declare_event_output<double>("NNoutput3");
+  NNModule.reset( new NeuralNetworkModule(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_HOTVR/model3.pb", "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_HOTVR/model3.config.pbtxt"));
 
 }
 
@@ -844,7 +868,7 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
   event.set(h_NNoutput0, 0);
   event.set(h_NNoutput1, 0);
   event.set(h_NNoutput2, 0);
-  event.set(h_NNoutput3, 0);
+  //event.set(h_NNoutput3, 0);
 
   if(!HEM_selection->passes(event)){
     if(!isMC) return false;
@@ -864,16 +888,6 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
   fill_histograms(event, "Weights_Init");
   lumihists_Weights_Init->fill(event);
 
-  // Lepton ID SF
-  //if(isMuon){
-  //  MuonID_module->process(event);
-  //  if(debug)  cout<<"MuonID ok"<<endl;
-  //}
-  //if(isElectron){
-  //  EleID_module->process(event);
-  //  if(debug)  cout<<"EleID ok"<<endl;
-  //}
-
   // Weight modules
   PUWeight_module->process(event);
   if(debug)  cout<<"PUWeight ok"<<endl;
@@ -885,55 +899,88 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
   fill_histograms(event, "Weights_Lumi");
   lumihists_Weights_Lumi->fill(event);
 
-  //TopPtReweight_module->process(event);
-  //fill_histograms(event, "Weights_TopPt");
-  //lumihists_Weights_TopPt->fill(event);
+  TopPtReweight_module->process(event);
+  fill_histograms(event, "Weights_TopPt");
+  lumihists_Weights_TopPt->fill(event);
 
   MCScale_module->process(event);
   fill_histograms(event, "Weights_MCScale");
   lumihists_Weights_MCScale->fill(event);
 
+  // Higher order corrections - EWK & QCD NLO
+  Corrections_module->process(event);
+  fill_histograms(event, "Corrections");
 
-//  // Select exactly 1 muon or 1 electron
-//  bool muon_is_low = false;
-//  bool muon_is_high = false;
-//  bool ele_is_low = false;
-//  bool ele_is_high = false;
-//
-//  if(isMuon){
-//     if(!EleVeto_selection->passes(event)) return false;
-//     if(!NMuon1_HighPt_selection->passes(event)){
-//       if(NMuon1_LowPt_selection->passes(event)){
-//         muon_is_low = true;
-//         fill_histograms(event, "Muon1_LowPt");
-//         lumihists_Muon1_LowPt->fill(event);
-//       }
-//     }
-//     else{
-//       muon_is_high = true;
-//       fill_histograms(event, "Muon1_HighPt");
-//         lumihists_Muon1_HighPt->fill(event);
-//     }
-//     if( !(muon_is_high || muon_is_low) ) return false;
-//  }
-//  if(isElectron){
-//     if(!MuonVeto_selection->passes(event)) return false;
-//     if(!NEle1_HighPt_selection->passes(event)){
-//       if(NEle1_LowPt_selection->passes(event)){
-//         ele_is_low = true;
-//         fill_histograms(event, "Ele1_LowPt");
-//         lumihists_Ele1_LowPt->fill(event);
-//       }
-//     }
-//     else{
-//       ele_is_high = true;
-//       fill_histograms(event, "Ele1_HighPt");
-//         lumihists_Ele1_HighPt->fill(event);
-//     }
-//     if( !(ele_is_high || ele_is_low) ) return false;
-//  }
-//
-//
+  // Select exactly 1 muon or 1 electron
+  bool muon_is_low = false;
+  bool muon_is_high = false;
+  bool ele_is_low = false;
+  bool ele_is_high = false;
+
+  if(isMuon){
+     if(!EleVeto_selection->passes(event)) return false;
+     if(!NMuon1_HighPt_selection->passes(event)){
+       if(NMuon1_LowPt_selection->passes(event)){
+         muon_is_low = true;
+         fill_histograms(event, "Muon1_LowPt");
+         lumihists_Muon1_LowPt->fill(event);
+       }
+     }
+     else{
+       muon_is_high = true;
+       fill_histograms(event, "Muon1_HighPt");
+         lumihists_Muon1_HighPt->fill(event);
+     }
+     if( !(muon_is_high || muon_is_low) ) return false;
+  }
+  if(isElectron){
+     if(!MuonVeto_selection->passes(event)) return false;
+     if(!NEle1_HighPt_selection->passes(event)){
+       if(NEle1_LowPt_selection->passes(event)){
+         ele_is_low = true;
+         fill_histograms(event, "Ele1_LowPt");
+         lumihists_Ele1_LowPt->fill(event);
+       }
+     }
+     else{
+       ele_is_high = true;
+       fill_histograms(event, "Ele1_HighPt");
+         lumihists_Ele1_HighPt->fill(event);
+     }
+     if( !(ele_is_high || ele_is_low) ) return false;
+  }
+
+  // Lepton ID SF
+  if(isMuon){
+     // low pt
+     if(muon_is_low){
+       MuonID_module_low->process(event);
+     }
+     // high pt
+     if(muon_is_high){
+       MuonID_module_high->process(event);
+     }
+  fill_histograms(event, "IDMuon_SF");
+  }
+  //if(isElectron){
+  //  EleID_module->process(event);
+  //  if(debug)  cout<<"EleID ok"<<endl;
+  //}
+
+
+  // Muon ISO SF
+  if(isMuon){  // high pt
+    event.set(h_musf_iso, 1.);
+    event.set(h_musf_iso_up, 1.);
+    event.set(h_musf_iso_down, 1.);
+    if(muon_is_low){ // low pt
+      MuonISO_module_low->process(event);
+    }
+  fill_histograms(event, "IsoMuon_SF");
+  }
+
+
+
 //  // Trigger MUON channel
 //  if(isMuon){
 //     // low pt
@@ -1016,16 +1063,22 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
 //  } 
 //
 //
-//  // Lepton Trigger SF
-//  //if(isMuon){
-//  //  MuonTrigger_module->process_onemuon(event, 0);
-//  //  fill_histograms(event, "TriggerMuon");
-//  //}
-//  //if(isElectron){
-//  //  EleTrigger_module->process(event);
-//  //  fill_histograms(event, "TriggerEle");
-//  //} 
-//
+
+  // Lepton Trigger SF
+  if(isMuon){
+    if(muon_is_low){
+      MuonTrigger_module_low->process_onemuon(event, 0);
+    }
+    if(muon_is_high){
+      MuonTrigger_module_high->process_onemuon(event, 0);
+    }
+    fill_histograms(event, "TriggerMuon_SF");
+  }
+  //if(isElectron){
+  //  EleTrigger_module->process(event);
+  //  fill_histograms(event, "TriggerEle");
+  //} 
+
 //
 //
 //  if((event.muons->size()+event.electrons->size()) != 1) return false; //veto events without leptons or with too many 
@@ -1073,6 +1126,7 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
 //    if(debug) cout<<"HTlep is ok"<<endl;
 //  }
 
+  // Variables for NN 
   Variables_module->process(event);
   fill_histograms(event, "NNInputsBeforeReweight");
 
@@ -1083,19 +1137,19 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
   event.set(h_NNoutput0, (double)(NNoutputs[0].tensor<float, 2>()(0,0)));
   event.set(h_NNoutput1, (double)(NNoutputs[0].tensor<float, 2>()(0,1)));
   event.set(h_NNoutput2, (double)(NNoutputs[0].tensor<float, 2>()(0,2)));
-  event.set(h_NNoutput3, (double)(NNoutputs[0].tensor<float, 2>()(0,3)));
+  //event.set(h_NNoutput3, (double)(NNoutputs[0].tensor<float, 2>()(0,3)));
   event.set(h_NNoutput, NNoutputs);
 
   double out0 = (double)(NNoutputs[0].tensor<float, 2>()(0,0));
   double out1 = (double)(NNoutputs[0].tensor<float, 2>()(0,1));
   double out2 = (double)(NNoutputs[0].tensor<float, 2>()(0,2));
-  double out3 = (double)(NNoutputs[0].tensor<float, 2>()(0,3));
-  vector<double> out_event = {out0, out1, out2, out3};
-  //vector<double> out_event = {out0, out1, out2};
+  //double out3 = (double)(NNoutputs[0].tensor<float, 2>()(0,3));
+  //vector<double> out_event = {out0, out1, out2, out3};
+  vector<double> out_event = {out0, out1, out2};
 
   double max_score = 0.0;
-  for ( int i = 0; i < 4; i++ ) {
-  //for ( int i = 0; i < 3; i++ ) {
+  //for ( int i = 0; i < 4; i++ ) {
+  for ( int i = 0; i < 3; i++ ) {
     if ( out_event[i] > max_score) {
     max_score = out_event[i];
     }
@@ -1119,11 +1173,11 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
     else fill_histograms(event, "DNN_output2_NoTopTag");
   }
  
-  if( out3 == max_score ){
-  fill_histograms(event, "DNN_output3");
-    if( ZprimeTopTag_selection->passes(event) ) fill_histograms(event, "DNN_output3_TopTag");
-    else fill_histograms(event, "DNN_output3_NoTopTag");
-  }
+  //if( out3 == max_score ){
+  //fill_histograms(event, "DNN_output3");
+  //  if( ZprimeTopTag_selection->passes(event) ) fill_histograms(event, "DNN_output3_TopTag");
+  //  else fill_histograms(event, "DNN_output3_NoTopTag");
+  //}
 
 
 

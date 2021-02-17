@@ -9,6 +9,8 @@
 
 #include <UHH2/HOTVR/include/HOTVRIds.h>
 
+#include <UHH2/ZprimeSemiLeptonic/include/constants.hpp>
+
 #include "TH1.h"
 
 float inv_mass(const LorentzVector&);
@@ -188,3 +190,28 @@ private:
 };
 
 ////
+
+// Generic Class for Applying SFs - from Andrea
+class ScaleFactorsFromHistos : public uhh2::AnalysisModule {
+
+public:
+  void LoadHisto(TFile* file, std::string name, std::string hname);
+  double Evaluator(std::string hname, double var);
+
+protected:
+  std::unordered_map<std::string, std::unique_ptr<TH1F> > histos;
+
+};
+
+// Apply Corrections V+jets
+class NLOCorrections : public ScaleFactorsFromHistos {
+
+public:
+  explicit NLOCorrections(uhh2::Context& ctx);
+  virtual bool process(uhh2::Event&) override;
+  double GetPartonObjectPt(uhh2::Event& event, ParticleID objID);
+
+private:
+  bool is_Wjets, is_Zjets, is_DY, is_Znn, is2016;
+
+};
