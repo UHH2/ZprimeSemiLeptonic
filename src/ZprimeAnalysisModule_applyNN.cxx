@@ -238,7 +238,7 @@ void NeuralNetworkModule::CreateInputs(Event & event){
   string std[65];
   double mean_val[65];
   double std_val[65];
-  ifstream normfile ("/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_HOTVR/NormInfo.txt", ios::in);
+  ifstream normfile ("/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_HOTVR_BTag/NormInfo.txt", ios::in);
   if (normfile.is_open()){ 
         for(int i = 0; i < 65; ++i)
         {   
@@ -552,7 +552,7 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   double jet1_pt(50.);
   double jet2_pt(30.);
   double chi2_max(30.);
-  double mtt_blind(2000.);
+  double mtt_blind(3000.);
   string trigger_mu_A,trigger_mu_B,trigger_mu_C,trigger_mu_D;
   string trigger_ele_A,trigger_ele_B;
   string trigger_ph_A;
@@ -620,8 +620,8 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   Sys_btag = ctx.get("Sys_BTagSF");
 
   BTag::algo btag_algo = BTag::DEEPJET;
-  BTag::wp btag_wp_tight = BTag::WP_TIGHT;
-  JetId id_btag = BTag(btag_algo, btag_wp_tight);
+  BTag::wp btag_wp = BTag::WP_MEDIUM;
+  JetId id_btag = BTag(btag_algo, btag_wp);
 
   double a_toppt = 0.0615; // par a TopPt Reweighting
   double b_toppt = -0.0005; // par b TopPt Reweighting 
@@ -722,7 +722,7 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   h_NPV = ctx.declare_event_output<int> ("NPV");
   h_weight = ctx.declare_event_output<float> ("weight");
 
-  sel_1btag.reset(new NJetSelection(1, 1, id_btag));
+  sel_1btag.reset(new NJetSelection(1, -1, id_btag));
   sel_2btag.reset(new NJetSelection(2,-1, id_btag));
 
   h_musf_iso      = ctx.declare_event_output<float>("weight_sfmu_isolation");
@@ -732,7 +732,7 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   TopJetBtagSubjet_selection.reset(new ZprimeBTagFatSubJetSelection(ctx));
 
   // Book histograms
-  vector<string> histogram_tags = {"Weights_Init", "Weights_PU", "Weights_Lumi", "Weights_TopPt", "Weights_MCScale", "Weights_HOTVR_SF", "Corrections", "IDMuon_SF", "IsoMuon_SF", "Muon1_LowPt", "Muon1_HighPt", "Ele1_LowPt", "Ele1_HighPt", "TriggerMuon_SF", "TriggerMuon", "TriggerEle", "TwoDCut_Muon", "TwoDCut_Ele", "Jet1", "Jet2", "MET", "HTlep", "NNInputsBeforeReweight","DNN_output0","DNN_output1","DNN_output2","DNN_output3", "DNN_output0_TopTag","DNN_output1_TopTag","DNN_output2_TopTag","DNN_output3_TopTag","DNN_output0_NoTopTag","DNN_output1_NoTopTag","DNN_output2_NoTopTag","DNN_output3_NoTopTag"};
+  vector<string> histogram_tags = {"Weights_Init", "Weights_PU", "Weights_Lumi", "Weights_TopPt", "Weights_MCScale", "Weights_HOTVR_SF", "Corrections", "IDMuon_SF", "IsoMuon_SF", "Muon1_LowPt", "Muon1_HighPt", "Ele1_LowPt", "Ele1_HighPt", "TriggerMuon_SF", "TriggerMuon", "TriggerEle", "TwoDCut_Muon", "TwoDCut_Ele", "Jet1", "Jet2", "MET", "HTlep", "Btags1", "NNInputsBeforeReweight","DNN_output0","DNN_output1","DNN_output2","DNN_output3", "DNN_output0_TopTag","DNN_output1_TopTag","DNN_output2_TopTag","DNN_output3_TopTag","DNN_output0_NoTopTag","DNN_output1_NoTopTag","DNN_output2_NoTopTag","DNN_output3_NoTopTag"};
   book_histograms(ctx, histogram_tags);
 
   h_MulticlassNN_output.reset(new ZprimeSemiLeptonicMulticlassNNHists(ctx, "MulticlassNN"));
@@ -839,7 +839,7 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   h_NNoutput1 = ctx.declare_event_output<double>("NNoutput1");
   h_NNoutput2 = ctx.declare_event_output<double>("NNoutput2");
   //h_NNoutput3 = ctx.declare_event_output<double>("NNoutput3");
-  NNModule.reset( new NeuralNetworkModule(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_HOTVR/model3.pb", "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_HOTVR/model3.config.pbtxt"));
+  NNModule.reset( new NeuralNetworkModule(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_HOTVR_BTag/model.pb", "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_HOTVR_BTag/model.config.pbtxt"));
 
 }
 
@@ -1131,6 +1131,10 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
 //    lumihists_HTlep->fill(event);
 //    if(debug) cout<<"HTlep is ok"<<endl;
 //  }
+
+  // Apply min 1 b-tag loose wp
+  if(!sel_1btag->passes(event)) return false;
+  fill_histograms(event, "Btags1");
 
   // Variables for NN 
   Variables_module->process(event);

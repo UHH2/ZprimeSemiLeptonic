@@ -120,6 +120,11 @@ void ZprimeSemiLeptonicHists::init(){
   ptrel_mu1_jet         = book<TH1F>("ptrel_mu1_jet", "p_{T}^{rel}(#mu1, jet)", 50, 0, 500);
   ptrel_ele1_jet        = book<TH1F>("ptrel_ele1_jet", "p_{T}^{rel}(e1, jet)", 50, 0, 500);
 
+  dR_mu_nearjet     = book<TH1F>("dR_mu_nearjet", "#DeltaR(#mu, nearest jet)", 60, 0, 3); 
+  dR_ele_nearjet    = book<TH1F>("dR_ele_nearjet", "#DeltaR(e, nearest jet)", 60, 0, 3); 
+  pt_mu_nearjet     = book<TH1F>("pt_mu_nearjet", "p_{T} (nearest jet to #mu)", 50, 0, 500); 
+  pt_ele_nearjet    = book<TH1F>("pt_ele_nearjet", "p_{T} (nearest jet to e)", 50, 0, 500); 
+
   dRmin_ptrel_mu    = book<TH2F>("dRmin_ptrel_mu", "#DeltaR_{min}(#mu, jet);p_{T}^{rel}(#mu, jet);p_{T}^{rel}(#mu, jet) vs. #DeltaR_{min}(#mu, jet)", 60, 0, 3, 50, 0, 500);
   dRmin_ptrel_mu1   = book<TH2F>("dRmin_ptrel_mu1", "#DeltaR_{min}(#mu1, jet);p_{T}^{rel}(#mu1, jet);p_{T}^{rel}(#mu1, jet) vs. #DeltaR_{min}(#mu1, jet)", 60, 0, 3, 50, 0, 500);
   dRmin_ptrel_ele   = book<TH2F>("dRmin_ptrel_ele", "#DeltaR_{min}(e, jet);p_{T}^{rel}(e, jet);p_{T}^{rel}(e, jet) vs. #DeltaR_{min}(e, jet)", 60, 0, 3, 50, 0, 500);
@@ -901,6 +906,17 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
       reliso_mu2->Fill(muons->at(i).relIso(),weight);
       reliso_mu2_rebin->Fill(muons->at(i).relIso(),weight);
     }
+
+ 
+    double minDeltaR = 999;
+    for(unsigned int k = 0; k < jets->size(); k++){ 
+      if(deltaR(muons->at(i), jets->at(k))<minDeltaR){
+         minDeltaR = deltaR(muons->at(i), jets->at(k));
+         dR_mu_nearjet->Fill(minDeltaR,weight);
+         pt_mu_nearjet->Fill(jets->at(k).pt(),weight);
+      }
+    }
+
   }
 
   for(int i=0; i<Nmuons; i++){
@@ -951,6 +967,17 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
       reliso_ele2->Fill(electrons->at(i).relIso(),weight);
       reliso_ele2_rebin->Fill(electrons->at(i).relIso(),weight);
     }
+
+
+    for(unsigned int k = 0; k < jets->size(); k++){ 
+      double minDeltaR = 999;
+      if(deltaR(electrons->at(i), jets->at(k))<minDeltaR){
+         minDeltaR = deltaR(electrons->at(i), jets->at(k));
+         dR_ele_nearjet->Fill(minDeltaR,weight);
+         pt_ele_nearjet->Fill(jets->at(k).pt(),weight);
+      }
+    }
+
   }
 
   for(int i=0; i<Nelectrons; i++){
