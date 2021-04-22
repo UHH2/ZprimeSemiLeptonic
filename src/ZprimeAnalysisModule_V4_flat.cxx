@@ -229,7 +229,7 @@ ZprimeAnalysisModule_V4_flat::ZprimeAnalysisModule_V4_flat(uhh2::Context& ctx){
   double jet1_pt(150.);
   double jet2_pt(50.);
   double chi2_max(30.);
-  double mtt_blind(3000.);
+  double mtt_blind(10000.);
   int nmuon_min1, nmuon_max1;
   int nmuon_min2, nmuon_max2;
   int nele_min, nele_max;

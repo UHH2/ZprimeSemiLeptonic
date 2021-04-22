@@ -1028,7 +1028,7 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
   // Zprime reco
   bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2);
   bool is_zprime_reconstructed_correctmatch = event.get(h_is_zprime_reconstructed_correctmatch);
-  if(is_zprime_reconstructed_chi2){
+  if(is_zprime_reconstructed_chi2 && is_mc){
     ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
     float Mreco = BestZprimeCandidate->Zprime_v4().M();
     float chi2 = BestZprimeCandidate->discriminator("chi2_total");

@@ -552,7 +552,7 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   double jet1_pt(50.);
   double jet2_pt(30.);
   double chi2_max(30.);
-  double mtt_blind(3000.);
+  double mtt_blind(10000.);
   string trigger_mu_A,trigger_mu_B,trigger_mu_C,trigger_mu_D;
   string trigger_ele_A,trigger_ele_B;
   string trigger_ph_A;
