@@ -1003,10 +1003,12 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
 
   double met = event.met->pt();
   double st = 0., st_jets = 0., st_lep = 0.;
+  double ht_lep = 0.;
   for(const auto & jet : *jets)           st_jets += jet.pt();
   for(const auto & electron : *electrons) st_lep += electron.pt();
   for(const auto & muon : *muons)         st_lep += muon.pt();
   st = st_jets + st_lep + met;
+  ht_lep = st_lep + met;
 
   MET->Fill(met, weight);
   MET_rebin->Fill(met, weight);
@@ -1020,15 +1022,16 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
   STjets_rebin->Fill(st_jets, weight);
   STjets_rebin2->Fill(st_jets, weight);
   STjets_rebin3->Fill(st_jets, weight);
-  STlep->Fill(st_lep, weight);
-  STlep_rebin->Fill(st_lep, weight);
-  STlep_rebin2->Fill(st_lep, weight);
-  STlep_rebin3->Fill(st_lep, weight);
+  STlep->Fill(ht_lep, weight);
+  STlep_rebin->Fill(ht_lep, weight);
+  STlep_rebin2->Fill(ht_lep, weight);
+  STlep_rebin3->Fill(ht_lep, weight);
 
   // Zprime reco
   bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2);
   bool is_zprime_reconstructed_correctmatch = event.get(h_is_zprime_reconstructed_correctmatch);
-  if(is_zprime_reconstructed_chi2 && is_mc){
+  //if(is_zprime_reconstructed_chi2 && is_mc){
+  if(is_zprime_reconstructed_chi2 ){
     ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
     float Mreco = BestZprimeCandidate->Zprime_v4().M();
     float chi2 = BestZprimeCandidate->discriminator("chi2_total");

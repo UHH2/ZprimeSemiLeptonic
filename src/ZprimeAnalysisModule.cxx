@@ -70,10 +70,12 @@ protected:
   // Scale Factors -- Systematics
   unique_ptr<MCMuonScaleFactor> MuonID_module_low, MuonISO_module_low, MuonID_module_high, MuonTrigger_module_low, MuonTrigger_module_high;
   unique_ptr<MCElecScaleFactor> EleID_module, EleTrigger_module;
+  //unique_ptr<MCBTagScaleFactor> sf_btag;
 
   // AnalysisModules
-  unique_ptr<AnalysisModule> LumiWeight_module, PUWeight_module, BTagWeight_module, TopPtReweight_module, MCScale_module;
+  unique_ptr<AnalysisModule> LumiWeight_module, PUWeight_module, TopPtReweight_module, MCScale_module;
   unique_ptr<AnalysisModule> Corrections_module;
+  unique_ptr<AnalysisModule> BTagWeight_module;
 
   // Taggers
   //unique_ptr<AK8PuppiTopTagger> TopTaggerPuppi;
@@ -121,7 +123,8 @@ protected:
   // Lumi hists
   std::unique_ptr<Hists> lumihists_Weights_Init, lumihists_Weights_PU, lumihists_Weights_Lumi, lumihists_Weights_TopPt, lumihists_Weights_MCScale, lumihists_Muon1_LowPt, lumihists_Muon1_HighPt, lumihists_Ele1_LowPt, lumihists_Ele1_HighPt, lumihists_TriggerMuon, lumihists_TriggerEle, lumihists_TwoDCut_Muon, lumihists_TwoDCut_Ele, lumihists_Jet1, lumihists_Jet2, lumihists_MET, lumihists_HTlep, lumihists_Chi2;
 
-
+  // BTag MC efficiency 
+  std::unique_ptr<Hists> hist_BTagMCEfficiency;
 
   // Configuration
   bool isMC, ispuppi, islooserselection;
@@ -183,7 +186,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   double jet1_pt(50.);
   double jet2_pt(30.);
   double chi2_max(30.);
-  double mtt_blind(10000.);
+  double mtt_blind(3000.);
   string trigger_mu_A,trigger_mu_B,trigger_mu_C,trigger_mu_D;
   string trigger_ele_A,trigger_ele_B;
   string trigger_ph_A;
@@ -260,12 +263,15 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   // Modules
   LumiWeight_module.reset(new MCLumiWeight(ctx));
   PUWeight_module.reset(new MCPileupReweight(ctx, Sys_PU));
-  //BTagWeight_module.reset(new MCBTagDiscriminantReweighting(ctx, btag_algo, "jets", Sys_btag));
-  TopPtReweight_module.reset(new TopPtReweight(ctx, a_toppt, b_toppt,"","weight_ttbar",true));
+  //TopPtReweight_module.reset(new TopPtReweight(ctx, a_toppt, b_toppt,"","weight_ttbar",true));
+  TopPtReweight_module.reset(new TopPtReweighting(ctx, a_toppt, b_toppt, ctx.get("Systematic_TopPt_a", "nominal"), ctx.get("Systematic_TopPt_b", "nominal"), "", ""));
   MCScale_module.reset(new MCScaleVariation(ctx));
   hadronic_top.reset(new HadronicTop(ctx));
   sf_toptag.reset(new HOTVRScaleFactor(ctx, toptagID, ctx.get("Sys_TopTag", "nominal"), "HadronicTop", "TopTagSF", "HOTVRTopTagSFs")); 
   Corrections_module.reset(new NLOCorrections(ctx));
+  hist_BTagMCEfficiency.reset(new BTagMCEfficiencyHists(ctx,"BTagMCEfficiency", id_btag));
+ // sf_btag.reset(new MCBTagScaleFactor(ctx, btag_algo, btag_wp, "jets", ctx.get("Sys_BTagSF", "nominal"), "comb", "incl", "MCBtagEfficiencies"));
+  BTagWeight_module.reset(new MCBTagDiscriminantReweighting(ctx, btag_algo, "jets", "central","iterativefit","","BTagCalibration"));
 
   if((is2016v3 || is2016v2) && isMuon){
     MuonID_module_low.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2016/MuonID_EfficienciesAndSF_average_RunBtoH.root", "NUM_TightID_DEN_genTracks_eta_pt", 1.0, "tightID", false, Sys_MuonID_low));
@@ -363,7 +369,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   TopJetBtagSubjet_selection.reset(new ZprimeBTagFatSubJetSelection(ctx));
 
   // Book histograms
-  vector<string> histogram_tags = {"Weights_Init", "Weights_PU", "Weights_Lumi", "Weights_TopPt", "Weights_MCScale", "Weights_HOTVR_SF", "Corrections", "Muon1_LowPt", "Muon1_HighPt", "Ele1_LowPt", "Ele1_HighPt", "IDMuon_SF", "IsoMuon_SF", "TriggerMuon", "TriggerEle", "TriggerMuon_SF", "TwoDCut_Muon", "TwoDCut_Ele", "Jet1", "Jet2", "MET", "HTlep", "NNInputsBeforeReweight", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction", "Btags2", "Btags1","TopJetBtagSubjet", "Btags2_Chi2", "Btags1_Chi2","TopJetBtagSubjet_Chi2"};
+  vector<string> histogram_tags = {"Weights_Init", "Weights_PU", "Weights_Lumi", "Weights_TopPt", "Weights_MCScale", "Weights_HOTVR_SF", "Corrections", "Muon1_LowPt", "Muon1_HighPt", "Ele1_LowPt", "Ele1_HighPt", "IDMuon_SF", "IsoMuon_SF", "TriggerMuon", "TriggerEle", "TriggerMuon_SF", "Btags1", "Btags1_SF", "TwoDCut_Muon", "TwoDCut_Ele", "Jet1", "Jet2", "MET", "HTlep", "Hist_NoBtags1", "Hist_NoBtags1_SF", "NNInputsBeforeReweight", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "InvertedChi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction", "Btags2", "TopJetBtagSubjet", "Btags2_Chi2", "Btags1_Chi2","TopJetBtagSubjet_Chi2"};
   book_histograms(ctx, histogram_tags);
 
   lumihists_Weights_Init.reset(new LuminosityHists(ctx, "Lumi_Weights_Init"));
@@ -630,7 +636,6 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   //} 
 
 
-
   if((event.muons->size()+event.electrons->size()) != 1) return false; //veto events without leptons or with too many 
   if(debug) cout<<"N leptons ok: Nelectrons="<<event.electrons->size()<<" Nmuons="<<event.muons->size()<<endl;
 
@@ -677,9 +682,31 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   }
 
 
-  // Apply min 1 b-tag loose wp
+  //if(Chi2_selection->passes(event)){
+  //  fill_histograms(event, "Chi2");
+  //}
+  //if(!Chi2_selection->passes(event)){
+  //  fill_histograms(event, "InvertedChi2");
+  //}
+
+  fill_histograms(event, "Hist_NoBtags1");
+  BTagWeight_module->process(event);
+  fill_histograms(event, "Hist_NoBtags1_SF");
+
+
+  // BTag MC efficiency
+  if(isMC) hist_BTagMCEfficiency->fill(event);
+
+  // Apply min 1 b-tag medium wp
   if(!sel_1btag->passes(event)) return false;
   fill_histograms(event, "Btags1");
+  // btag sf (Ak4 chs jets)
+  //sf_btag->process(event);
+  // btag shape (Ak4 chs jets)
+  BTagWeight_module->process(event);
+  fill_histograms(event, "Btags1_SF");
+
+
 
   // Variables for NN 
   Variables_module->process(event);

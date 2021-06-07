@@ -215,3 +215,27 @@ private:
   bool is_Wjets, is_Zjets, is_DY, is_Znn, is2016;
 
 };
+
+////
+
+// Top pT Reweighting extended - from Alex F.
+class TopPtReweighting : public uhh2::AnalysisModule {
+ public:
+  explicit TopPtReweighting(uhh2::Context& ctx,
+			 float a, float b,
+			 const std::string& syst_a,
+			 const std::string& syst_b,
+			 const std::string& ttgen_name ="",
+			 const std::string& weight_name="weight_ttbar");
+
+
+  virtual bool process(uhh2::Event& event) override;
+ private:
+  uhh2::Event::Handle<TTbarGen> h_ttbargen_;
+  uhh2::Event::Handle<float> h_weight_;
+  float a_, b_;
+  std::string version_;
+  std::string ttgen_name_;
+  std::string weight_name_;
+};
+

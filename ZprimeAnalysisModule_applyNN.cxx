@@ -67,36 +67,42 @@ public:
 protected:
 
 uhh2::Event::Handle<float> h_Ak4_j1_E;
+uhh2::Event::Handle<float> h_Ak4_j1_deepjetbscore;
 uhh2::Event::Handle<float> h_Ak4_j1_eta;
 uhh2::Event::Handle<float> h_Ak4_j1_m;
 uhh2::Event::Handle<float> h_Ak4_j1_phi;
 uhh2::Event::Handle<float> h_Ak4_j1_pt;
 
 uhh2::Event::Handle<float> h_Ak4_j2_E;
+uhh2::Event::Handle<float> h_Ak4_j2_deepjetbscore;
 uhh2::Event::Handle<float> h_Ak4_j2_eta;
 uhh2::Event::Handle<float> h_Ak4_j2_m;
 uhh2::Event::Handle<float> h_Ak4_j2_phi;
 uhh2::Event::Handle<float> h_Ak4_j2_pt;
 
 uhh2::Event::Handle<float> h_Ak4_j3_E;
+uhh2::Event::Handle<float> h_Ak4_j3_deepjetbscore;
 uhh2::Event::Handle<float> h_Ak4_j3_eta;
 uhh2::Event::Handle<float> h_Ak4_j3_m;
 uhh2::Event::Handle<float> h_Ak4_j3_phi;
 uhh2::Event::Handle<float> h_Ak4_j3_pt;
 
 uhh2::Event::Handle<float> h_Ak4_j4_E;
+uhh2::Event::Handle<float> h_Ak4_j4_deepjetbscore;
 uhh2::Event::Handle<float> h_Ak4_j4_eta;
 uhh2::Event::Handle<float> h_Ak4_j4_m;
 uhh2::Event::Handle<float> h_Ak4_j4_phi;
 uhh2::Event::Handle<float> h_Ak4_j4_pt;
 
 uhh2::Event::Handle<float> h_Ak4_j5_E;
+uhh2::Event::Handle<float> h_Ak4_j5_deepjetbscore;
 uhh2::Event::Handle<float> h_Ak4_j5_eta;
 uhh2::Event::Handle<float> h_Ak4_j5_m;
 uhh2::Event::Handle<float> h_Ak4_j5_phi;
 uhh2::Event::Handle<float> h_Ak4_j5_pt;
 
 uhh2::Event::Handle<float> h_Ak4_j6_E;
+uhh2::Event::Handle<float> h_Ak4_j6_deepjetbscore;
 uhh2::Event::Handle<float> h_Ak4_j6_eta;
 uhh2::Event::Handle<float> h_Ak4_j6_m;
 uhh2::Event::Handle<float> h_Ak4_j6_phi;
@@ -144,36 +150,42 @@ NeuralNetworkModule::NeuralNetworkModule(Context& ctx, const std::string & Model
 
 
 h_Ak4_j1_E   = ctx.get_handle<float>("Ak4_j1_E");
+h_Ak4_j1_deepjetbscore   = ctx.get_handle<float>("Ak4_j1_deepjetbscore");
 h_Ak4_j1_eta = ctx.get_handle<float>("Ak4_j1_eta");
 h_Ak4_j1_m   = ctx.get_handle<float>("Ak4_j1_m");
 h_Ak4_j1_phi = ctx.get_handle<float>("Ak4_j1_phi");
 h_Ak4_j1_pt  = ctx.get_handle<float>("Ak4_j1_pt");
 
 h_Ak4_j2_E   = ctx.get_handle<float>("Ak4_j2_E");
+h_Ak4_j2_deepjetbscore   = ctx.get_handle<float>("Ak4_j2_deepjetbscore");
 h_Ak4_j2_eta = ctx.get_handle<float>("Ak4_j2_eta");
 h_Ak4_j2_m   = ctx.get_handle<float>("Ak4_j2_m");
 h_Ak4_j2_phi = ctx.get_handle<float>("Ak4_j2_phi");
 h_Ak4_j2_pt  = ctx.get_handle<float>("Ak4_j2_pt");
 
 h_Ak4_j3_E   = ctx.get_handle<float>("Ak4_j3_E");
+h_Ak4_j3_deepjetbscore   = ctx.get_handle<float>("Ak4_j3_deepjetbscore");
 h_Ak4_j3_eta = ctx.get_handle<float>("Ak4_j3_eta");
 h_Ak4_j3_m   = ctx.get_handle<float>("Ak4_j3_m");
 h_Ak4_j3_phi = ctx.get_handle<float>("Ak4_j3_phi");
 h_Ak4_j3_pt  = ctx.get_handle<float>("Ak4_j3_pt");
 
 h_Ak4_j4_E   = ctx.get_handle<float>("Ak4_j4_E");
+h_Ak4_j4_deepjetbscore   = ctx.get_handle<float>("Ak4_j4_deepjetbscore");
 h_Ak4_j4_eta = ctx.get_handle<float>("Ak4_j4_eta");
 h_Ak4_j4_m   = ctx.get_handle<float>("Ak4_j4_m");
 h_Ak4_j4_phi = ctx.get_handle<float>("Ak4_j4_phi");
 h_Ak4_j4_pt  = ctx.get_handle<float>("Ak4_j4_pt");
 
 h_Ak4_j5_E   = ctx.get_handle<float>("Ak4_j5_E");
+h_Ak4_j5_deepjetbscore   = ctx.get_handle<float>("Ak4_j5_deepjetbscore");
 h_Ak4_j5_eta = ctx.get_handle<float>("Ak4_j5_eta");
 h_Ak4_j5_m   = ctx.get_handle<float>("Ak4_j5_m");
 h_Ak4_j5_phi = ctx.get_handle<float>("Ak4_j5_phi");
 h_Ak4_j5_pt  = ctx.get_handle<float>("Ak4_j5_pt");
 
 h_Ak4_j6_E   = ctx.get_handle<float>("Ak4_j6_E");
+h_Ak4_j6_deepjetbscore   = ctx.get_handle<float>("Ak4_j6_deepjetbscore");
 h_Ak4_j6_eta = ctx.get_handle<float>("Ak4_j6_eta");
 h_Ak4_j6_m   = ctx.get_handle<float>("Ak4_j6_m");
 h_Ak4_j6_phi = ctx.get_handle<float>("Ak4_j6_phi");
@@ -220,15 +232,15 @@ void NeuralNetworkModule::CreateInputs(Event & event){
   NNInputs.clear();
   NNoutputs.clear();
 
-  string varname[59];
-  string scal[59];
-  string mean[59];
-  string std[59];
-  double mean_val[59];
-  double std_val[59];
+  string varname[65];
+  string scal[65];
+  string mean[65];
+  string std[65];
+  double mean_val[65];
+  double std_val[65];
   ifstream normfile ("/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_HOTVR_BTag_noscore/NormInfo.txt", ios::in);
   if (normfile.is_open()){ 
-        for(int i = 0; i < 59; ++i)
+        for(int i = 0; i < 65; ++i)
         {   
             normfile >> varname[i] >> scal[i] >> mean[i] >> std[i];
             mean_val[i] = std::stod(mean[i]);
@@ -238,14 +250,84 @@ void NeuralNetworkModule::CreateInputs(Event & event){
   }
 
 
-  NNInputs.push_back( tensorflow::Tensor(tensorflow::DT_FLOAT, {1, 59}));
+  NNInputs.push_back( tensorflow::Tensor(tensorflow::DT_FLOAT, {1, 65}));
 
+  NNInputs.at(0).tensor<float, 2>()(0,0)  = (event.get(h_Ak4_j1_E)   - mean_val[0]) / (std_val[0]);
+  NNInputs.at(0).tensor<float, 2>()(0,1)  = (event.get(h_Ak4_j1_deepjetbscore)   - mean_val[1]) / (std_val[1]);
+  NNInputs.at(0).tensor<float, 2>()(0,2)  = (event.get(h_Ak4_j1_eta) - mean_val[2]) / (std_val[2]);
+  NNInputs.at(0).tensor<float, 2>()(0,3)  = (event.get(h_Ak4_j1_m)   - mean_val[3]) / (std_val[3]);
+  NNInputs.at(0).tensor<float, 2>()(0,4)  = (event.get(h_Ak4_j1_phi) - mean_val[4]) / (std_val[4]);
+  NNInputs.at(0).tensor<float, 2>()(0,5)  = (event.get(h_Ak4_j1_pt)  - mean_val[5]) / (std_val[5]);
 
-  vector<uhh2::Event::Handle<float>> inputs = { h_Ak4_j1_E, h_Ak4_j1_eta, h_Ak4_j1_m, h_Ak4_j1_phi, h_Ak4_j1_pt,h_Ak4_j2_E,h_Ak4_j2_eta,h_Ak4_j2_m,h_Ak4_j2_phi,h_Ak4_j2_pt,h_Ak4_j3_E,h_Ak4_j3_eta,h_Ak4_j3_m,h_Ak4_j3_phi, h_Ak4_j3_pt,  h_Ak4_j4_E,   h_Ak4_j4_eta, h_Ak4_j4_m,   h_Ak4_j4_phi, h_Ak4_j4_pt,  h_Ak4_j5_E,   h_Ak4_j5_eta, h_Ak4_j5_m,   h_Ak4_j5_phi, h_Ak4_j5_pt,  h_Ak4_j6_E,   h_Ak4_j6_eta, h_Ak4_j6_m,   h_Ak4_j6_phi, h_Ak4_j6_pt,  h_HOTVR_j1_E,     h_HOTVR_j1_eta,   h_HOTVR_j1_mSD,   h_HOTVR_j1_phi,   h_HOTVR_j1_pt,    h_HOTVR_j1_tau21, h_HOTVR_j1_tau32, h_HOTVR_j2_E,     h_HOTVR_j2_eta,   h_HOTVR_j2_mSD,   h_HOTVR_j2_phi,   h_HOTVR_j2_pt,    h_HOTVR_j2_tau21, h_HOTVR_j2_tau32, h_HOTVR_j3_E,     h_HOTVR_j3_eta,   h_HOTVR_j3_mSD,   h_HOTVR_j3_phi,h_HOTVR_j3_pt,h_HOTVR_j3_tau21,h_HOTVR_j3_tau32,h_MET_phi,h_MET_pt,h_Mu_E,  h_Mu_eta,h_Mu_phi,h_Mu_pt, h_N_Ak4,h_N_HOTVR }; 
+  NNInputs.at(0).tensor<float, 2>()(0,6)  = (event.get(h_Ak4_j2_E)   - mean_val[6]) / (std_val[6]);
+  NNInputs.at(0).tensor<float, 2>()(0,7)  = (event.get(h_Ak4_j2_deepjetbscore)   - mean_val[7]) / (std_val[7]);
+  NNInputs.at(0).tensor<float, 2>()(0,8)  = (event.get(h_Ak4_j2_eta) - mean_val[8]) / (std_val[8]);
+  NNInputs.at(0).tensor<float, 2>()(0,9)  = (event.get(h_Ak4_j2_m)   - mean_val[9]) / (std_val[9]);
+  NNInputs.at(0).tensor<float, 2>()(0,10)  = (event.get(h_Ak4_j2_phi) - mean_val[10]) / (std_val[10]);
+  NNInputs.at(0).tensor<float, 2>()(0,11)  = (event.get(h_Ak4_j2_pt)  - mean_val[11]) / (std_val[11]);
 
-  for(int i = 0; i < 59; ++i){
-     NNInputs.at(0).tensor<float, 2>()(0,i)  = (event.get(inputs.at(i))   - mean_val[i]) / (std_val[i]);
-  }
+  NNInputs.at(0).tensor<float, 2>()(0,12)  = (event.get(h_Ak4_j3_E)   - mean_val[12]) / (std_val[12]);
+  NNInputs.at(0).tensor<float, 2>()(0,13)  = (event.get(h_Ak4_j3_deepjetbscore)   - mean_val[13]) / (std_val[13]);
+  NNInputs.at(0).tensor<float, 2>()(0,14)  = (event.get(h_Ak4_j3_eta) - mean_val[14]) / (std_val[14]);
+  NNInputs.at(0).tensor<float, 2>()(0,15)  = (event.get(h_Ak4_j3_m)   - mean_val[15]) / (std_val[15]);
+  NNInputs.at(0).tensor<float, 2>()(0,16)  = (event.get(h_Ak4_j3_phi) - mean_val[16]) / (std_val[16]);
+  NNInputs.at(0).tensor<float, 2>()(0,17)  = (event.get(h_Ak4_j3_pt)  - mean_val[17]) / (std_val[17]);
+
+  NNInputs.at(0).tensor<float, 2>()(0,18)  = (event.get(h_Ak4_j4_E)   - mean_val[18]) / (std_val[18]);
+  NNInputs.at(0).tensor<float, 2>()(0,19)  = (event.get(h_Ak4_j4_deepjetbscore)   - mean_val[19]) / (std_val[19]);
+  NNInputs.at(0).tensor<float, 2>()(0,20)  = (event.get(h_Ak4_j4_eta) - mean_val[20]) / (std_val[20]);
+  NNInputs.at(0).tensor<float, 2>()(0,21)  = (event.get(h_Ak4_j4_m)   - mean_val[21]) / (std_val[21]);
+  NNInputs.at(0).tensor<float, 2>()(0,22)  = (event.get(h_Ak4_j4_phi) - mean_val[22]) / (std_val[22]);
+  NNInputs.at(0).tensor<float, 2>()(0,23)  = (event.get(h_Ak4_j4_pt)  - mean_val[23]) / (std_val[23]);
+
+  NNInputs.at(0).tensor<float, 2>()(0,24)  = (event.get(h_Ak4_j5_E)   - mean_val[24]) / (std_val[24]);
+  NNInputs.at(0).tensor<float, 2>()(0,25)  = (event.get(h_Ak4_j4_deepjetbscore)   - mean_val[25]) / (std_val[25]);
+  NNInputs.at(0).tensor<float, 2>()(0,26)  = (event.get(h_Ak4_j5_eta) - mean_val[26]) / (std_val[26]);
+  NNInputs.at(0).tensor<float, 2>()(0,27)  = (event.get(h_Ak4_j5_m)   - mean_val[27]) / (std_val[27]);
+  NNInputs.at(0).tensor<float, 2>()(0,28)  = (event.get(h_Ak4_j5_phi) - mean_val[28]) / (std_val[28]);
+  NNInputs.at(0).tensor<float, 2>()(0,29)  = (event.get(h_Ak4_j5_pt)  - mean_val[29]) / (std_val[29]);
+
+  NNInputs.at(0).tensor<float, 2>()(0,30)  = (event.get(h_Ak4_j6_E)   - mean_val[30]) / (std_val[30]);
+  NNInputs.at(0).tensor<float, 2>()(0,31)  = (event.get(h_Ak4_j6_deepjetbscore)   - mean_val[31]) / (std_val[31]);
+  NNInputs.at(0).tensor<float, 2>()(0,32)  = (event.get(h_Ak4_j6_eta) - mean_val[32]) / (std_val[32]);
+  NNInputs.at(0).tensor<float, 2>()(0,33)  = (event.get(h_Ak4_j6_m)   - mean_val[33]) / (std_val[33]);
+  NNInputs.at(0).tensor<float, 2>()(0,34)  = (event.get(h_Ak4_j6_phi) - mean_val[34]) / (std_val[34]);
+  NNInputs.at(0).tensor<float, 2>()(0,35)  = (event.get(h_Ak4_j6_pt)  - mean_val[35]) / (std_val[35]);
+
+  NNInputs.at(0).tensor<float, 2>()(0,36)  = (event.get(h_HOTVR_j1_E)     - mean_val[36]) / (std_val[36]);
+  NNInputs.at(0).tensor<float, 2>()(0,37)  = (event.get(h_HOTVR_j1_eta)   - mean_val[37]) / (std_val[37]);
+  NNInputs.at(0).tensor<float, 2>()(0,38)  = (event.get(h_HOTVR_j1_mSD)   - mean_val[38]) / (std_val[38]);
+  NNInputs.at(0).tensor<float, 2>()(0,39)  = (event.get(h_HOTVR_j1_phi)   - mean_val[39]) / (std_val[39]);
+  NNInputs.at(0).tensor<float, 2>()(0,40)  = (event.get(h_HOTVR_j1_pt)    - mean_val[40]) / (std_val[40]);
+  NNInputs.at(0).tensor<float, 2>()(0,41)  = (event.get(h_HOTVR_j1_tau21) - mean_val[41]) / (std_val[41]);
+  NNInputs.at(0).tensor<float, 2>()(0,42)  = (event.get(h_HOTVR_j1_tau32) - mean_val[42]) / (std_val[42]);
+
+  NNInputs.at(0).tensor<float, 2>()(0,43)  = (event.get(h_HOTVR_j2_E)     - mean_val[43]) / (std_val[43]);
+  NNInputs.at(0).tensor<float, 2>()(0,44)  = (event.get(h_HOTVR_j2_eta)   - mean_val[44]) / (std_val[44]);
+  NNInputs.at(0).tensor<float, 2>()(0,45)  = (event.get(h_HOTVR_j2_mSD)   - mean_val[45]) / (std_val[45]);
+  NNInputs.at(0).tensor<float, 2>()(0,46)  = (event.get(h_HOTVR_j2_phi)   - mean_val[46]) / (std_val[46]);
+  NNInputs.at(0).tensor<float, 2>()(0,47)  = (event.get(h_HOTVR_j2_pt)    - mean_val[47]) / (std_val[47]);
+  NNInputs.at(0).tensor<float, 2>()(0,48)  = (event.get(h_HOTVR_j2_tau21) - mean_val[48]) / (std_val[48]);
+  NNInputs.at(0).tensor<float, 2>()(0,49)  = (event.get(h_HOTVR_j2_tau32) - mean_val[49]) / (std_val[49]);
+
+  NNInputs.at(0).tensor<float, 2>()(0,50)  = (event.get(h_HOTVR_j3_E)     - mean_val[50]) / (std_val[50]);
+  NNInputs.at(0).tensor<float, 2>()(0,51)  = (event.get(h_HOTVR_j3_eta)   - mean_val[51]) / (std_val[51]);
+  NNInputs.at(0).tensor<float, 2>()(0,52)  = (event.get(h_HOTVR_j3_mSD)   - mean_val[52]) / (std_val[52]);
+  NNInputs.at(0).tensor<float, 2>()(0,53)  = (event.get(h_HOTVR_j3_phi)   - mean_val[53]) / (std_val[53]);
+  NNInputs.at(0).tensor<float, 2>()(0,54)  = (event.get(h_HOTVR_j3_pt)    - mean_val[54]) / (std_val[54]);
+  NNInputs.at(0).tensor<float, 2>()(0,55)  = (event.get(h_HOTVR_j3_tau21) - mean_val[55]) / (std_val[55]);
+  NNInputs.at(0).tensor<float, 2>()(0,56)  = (event.get(h_HOTVR_j3_tau32) - mean_val[56]) / (std_val[56]);
+
+  NNInputs.at(0).tensor<float, 2>()(0,57)  = (event.get(h_MET_phi) - mean_val[57]) / (std_val[57]);
+  NNInputs.at(0).tensor<float, 2>()(0,58)  = (event.get(h_MET_pt) - mean_val[58]) / (std_val[58]);
+
+  NNInputs.at(0).tensor<float, 2>()(0,59)  = (event.get(h_Mu_E)   - mean_val[59]) / (std_val[59]);
+  NNInputs.at(0).tensor<float, 2>()(0,60)  = (event.get(h_Mu_eta) - mean_val[60]) / (std_val[60]);
+  NNInputs.at(0).tensor<float, 2>()(0,61)  = (event.get(h_Mu_phi) - mean_val[61]) / (std_val[61]);
+  NNInputs.at(0).tensor<float, 2>()(0,62)  = (event.get(h_Mu_pt)  - mean_val[62]) / (std_val[62]);
+
+  NNInputs.at(0).tensor<float, 2>()(0,63)  = (event.get(h_N_Ak4) - mean_val[63]) / (std_val[63]);
+  NNInputs.at(0).tensor<float, 2>()(0,64)  = (event.get(h_N_HOTVR) - mean_val[64]) / (std_val[64]);
 
   if (NNInputs.size()!=LayerInputs.size()) throw logic_error("NeuralNetworkModule.cxx: Create a number of inputs diffetent wrt. LayerInputs.size()="+to_string(LayerInputs.size())); 
 }
@@ -335,36 +417,42 @@ protected:
   bool isPhoton;
 
   Event::Handle<float> h_Ak4_j1_E;
+  Event::Handle<float> h_Ak4_j1_deepjetbscore;
   Event::Handle<float> h_Ak4_j1_eta;
   Event::Handle<float> h_Ak4_j1_m;
   Event::Handle<float> h_Ak4_j1_phi;
   Event::Handle<float> h_Ak4_j1_pt;
 
   Event::Handle<float> h_Ak4_j2_E;
+  Event::Handle<float> h_Ak4_j2_deepjetbscore;
   Event::Handle<float> h_Ak4_j2_eta;
   Event::Handle<float> h_Ak4_j2_m;
   Event::Handle<float> h_Ak4_j2_phi;
   Event::Handle<float> h_Ak4_j2_pt;
   
   Event::Handle<float> h_Ak4_j3_E;
+  Event::Handle<float> h_Ak4_j3_deepjetbscore;
   Event::Handle<float> h_Ak4_j3_eta;
   Event::Handle<float> h_Ak4_j3_m;
   Event::Handle<float> h_Ak4_j3_phi;
   Event::Handle<float> h_Ak4_j3_pt;
   
   Event::Handle<float> h_Ak4_j4_E;
+  Event::Handle<float> h_Ak4_j4_deepjetbscore;
   Event::Handle<float> h_Ak4_j4_eta;
   Event::Handle<float> h_Ak4_j4_m;
   Event::Handle<float> h_Ak4_j4_phi;
   Event::Handle<float> h_Ak4_j4_pt;
   
   Event::Handle<float> h_Ak4_j5_E;
+  Event::Handle<float> h_Ak4_j5_deepjetbscore;
   Event::Handle<float> h_Ak4_j5_eta;
   Event::Handle<float> h_Ak4_j5_m;
   Event::Handle<float> h_Ak4_j5_phi;
   Event::Handle<float> h_Ak4_j5_pt;
   
   Event::Handle<float> h_Ak4_j6_E;
+  Event::Handle<float> h_Ak4_j6_deepjetbscore;
   Event::Handle<float> h_Ak4_j6_eta;
   Event::Handle<float> h_Ak4_j6_m;
   Event::Handle<float> h_Ak4_j6_phi;
@@ -669,36 +757,42 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   lumihists_Chi2.reset(new LuminosityHists(ctx, "Lumi_Chi2"));
 
   h_Ak4_j1_E   = ctx.get_handle<float>("Ak4_j1_E");
+  h_Ak4_j1_deepjetbscore   = ctx.get_handle<float>("Ak4_j1_deepjetbscore");
   h_Ak4_j1_eta = ctx.get_handle<float>("Ak4_j1_eta");
   h_Ak4_j1_m   = ctx.get_handle<float>("Ak4_j1_m");
   h_Ak4_j1_phi = ctx.get_handle<float>("Ak4_j1_phi");
   h_Ak4_j1_pt  = ctx.get_handle<float>("Ak4_j1_pt");
   
   h_Ak4_j2_E   = ctx.get_handle<float>("Ak4_j2_E");
+  h_Ak4_j2_deepjetbscore   = ctx.get_handle<float>("Ak4_j2_deepjetbscore");
   h_Ak4_j2_eta = ctx.get_handle<float>("Ak4_j2_eta");
   h_Ak4_j2_m   = ctx.get_handle<float>("Ak4_j2_m");
   h_Ak4_j2_phi = ctx.get_handle<float>("Ak4_j2_phi");
   h_Ak4_j2_pt  = ctx.get_handle<float>("Ak4_j2_pt");
   
   h_Ak4_j3_E   = ctx.get_handle<float>("Ak4_j3_E");
+  h_Ak4_j3_deepjetbscore   = ctx.get_handle<float>("Ak4_j3_deepjetbscore");
   h_Ak4_j3_eta = ctx.get_handle<float>("Ak4_j3_eta");
   h_Ak4_j3_m   = ctx.get_handle<float>("Ak4_j3_m");
   h_Ak4_j3_phi = ctx.get_handle<float>("Ak4_j3_phi");
   h_Ak4_j3_pt  = ctx.get_handle<float>("Ak4_j3_pt");
   
   h_Ak4_j4_E   = ctx.get_handle<float>("Ak4_j4_E");
+  h_Ak4_j4_deepjetbscore   = ctx.get_handle<float>("Ak4_j4_deepjetbscore");
   h_Ak4_j4_eta = ctx.get_handle<float>("Ak4_j4_eta");
   h_Ak4_j4_m   = ctx.get_handle<float>("Ak4_j4_m");
   h_Ak4_j4_phi = ctx.get_handle<float>("Ak4_j4_phi");
   h_Ak4_j4_pt  = ctx.get_handle<float>("Ak4_j4_pt");
   
   h_Ak4_j5_E   = ctx.get_handle<float>("Ak4_j5_E");
+  h_Ak4_j5_deepjetbscore   = ctx.get_handle<float>("Ak4_j5_deepjetbscore");
   h_Ak4_j5_eta = ctx.get_handle<float>("Ak4_j5_eta");
   h_Ak4_j5_m   = ctx.get_handle<float>("Ak4_j5_m");
   h_Ak4_j5_phi = ctx.get_handle<float>("Ak4_j5_phi");
   h_Ak4_j5_pt  = ctx.get_handle<float>("Ak4_j5_pt");
   
   h_Ak4_j6_E   = ctx.get_handle<float>("Ak4_j6_E");
+  h_Ak4_j6_deepjetbscore   = ctx.get_handle<float>("Ak4_j6_deepjetbscore");
   h_Ak4_j6_eta = ctx.get_handle<float>("Ak4_j6_eta");
   h_Ak4_j6_m   = ctx.get_handle<float>("Ak4_j6_m");
   h_Ak4_j6_phi = ctx.get_handle<float>("Ak4_j6_phi");

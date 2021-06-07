@@ -9,7 +9,7 @@
 <!ENTITY IS_PUPPI            "true">
 <!ENTITY IS_LOOSER_SELECTION "false">
 <!ENTITY CHANNEL             "muon">
-<!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_lowmass_HOTVR/ZPrime_2018/Analysis_2018_UseNN_3cl_BTagM_blind3/&CHANNEL;/">
+<!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_lowmass_HOTVR/ZPrime_2018/Analysis_2018_UseNN_3cl_BTagM_noscore/&CHANNEL;/">
 
 <!ENTITY DATA_SingleMuon_Run2018A   SYSTEM  "../data/Skimming_datasets_2018_Vars_BTagM_blind3/DATA_DATA_SingleMuon_Run2018A_blinded_withoutEmptyNtuples.xml">
 <!ENTITY DATA_SingleMuon_Run2018B   SYSTEM  "../data/Skimming_datasets_2018_Vars_BTagM_blind3/DATA_DATA_SingleMuon_Run2018B_blinded_withoutEmptyNtuples.xml">
@@ -122,7 +122,7 @@
 ]>
 
 <!--
-<ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="50" AutoResubmit="0"/>
+<ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="10" AutoResubmit="0"/>
 <ConfigSGE RAM="2" DISK="2" Mail="ksenia.de.leo@desy.de" Notification="as" Workdir="workdir_Zprime_Analysis_2018"/>
 -->
 
@@ -762,12 +762,12 @@
       <Item Name="Sys_TopTag"              Value="nominal"/>
       <Item Name="channel"                 Value="&CHANNEL;"/>
 
-      <Item Name="additionalBranches" Value=" Ak4_j1_E Ak4_j1_eta Ak4_j1_m Ak4_j1_phi Ak4_j1_pt Ak4_j1_deepjetbscore 
-                                              Ak4_j2_E Ak4_j2_eta Ak4_j2_m Ak4_j2_phi Ak4_j2_pt Ak4_j2_deepjetbscore 
-                                              Ak4_j3_E Ak4_j3_eta Ak4_j3_m Ak4_j3_phi Ak4_j3_pt Ak4_j3_deepjetbscore 
-                                              Ak4_j4_E Ak4_j4_eta Ak4_j4_m Ak4_j4_phi Ak4_j4_pt Ak4_j4_deepjetbscore 
-                                              Ak4_j5_E Ak4_j5_eta Ak4_j5_m Ak4_j5_phi Ak4_j5_pt Ak4_j5_deepjetbscore 
-                                              Ak4_j6_E Ak4_j6_eta Ak4_j6_m Ak4_j6_phi Ak4_j6_pt Ak4_j6_deepjetbscore 
+      <Item Name="additionalBranches" Value=" Ak4_j1_E Ak4_j1_eta Ak4_j1_m Ak4_j1_phi Ak4_j1_pt  
+                                              Ak4_j2_E Ak4_j2_eta Ak4_j2_m Ak4_j2_phi Ak4_j2_pt  
+                                              Ak4_j3_E Ak4_j3_eta Ak4_j3_m Ak4_j3_phi Ak4_j3_pt  
+                                              Ak4_j4_E Ak4_j4_eta Ak4_j4_m Ak4_j4_phi Ak4_j4_pt  
+                                              Ak4_j5_E Ak4_j5_eta Ak4_j5_m Ak4_j5_phi Ak4_j5_pt  
+                                              Ak4_j6_E Ak4_j6_eta Ak4_j6_m Ak4_j6_phi Ak4_j6_pt  
                                               HOTVR_j1_E HOTVR_j1_eta HOTVR_j1_mSD HOTVR_j1_phi HOTVR_j1_pt HOTVR_j1_tau21 HOTVR_j1_tau32
                                               HOTVR_j2_E HOTVR_j2_eta HOTVR_j2_mSD HOTVR_j2_phi HOTVR_j2_pt HOTVR_j2_tau21 HOTVR_j2_tau32
                                               HOTVR_j3_E HOTVR_j3_eta HOTVR_j3_mSD HOTVR_j3_phi HOTVR_j3_pt HOTVR_j3_tau21 HOTVR_j3_tau32

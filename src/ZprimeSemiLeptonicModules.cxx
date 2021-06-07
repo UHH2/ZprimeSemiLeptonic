@@ -6,6 +6,8 @@
 #include <UHH2/common/include/Utils.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeCandidate.h>
 
+#include "boost/algorithm/string.hpp"
+
 #include "Riostream.h"
 #include "TFile.h"
 #include "TH1F.h"
@@ -1372,7 +1374,55 @@ bool NLOCorrections::process(uhh2::Event& event){
 }
 
 
+// Top pT Reweight extended - from Alex F.
 
+TopPtReweighting::TopPtReweighting(uhh2::Context& ctx,
+				   float a, float b,
+				   const std::string& syst_a,
+				   const std::string& syst_b,
+				   const std::string& ttgen_name,
+				   const std::string& weight_name):
+  a_(a), b_(b),
+  ttgen_name_(ttgen_name){
+  
+  weight_name_ = weight_name;
+  if(!weight_name_.empty())
+    h_weight_= ctx.get_handle<float>(weight_name);
+  version_ = ctx.get("dataset_version", "");
+  boost::algorithm::to_lower(version_);
+  if(!ttgen_name_.empty()){
+    h_ttbargen_ = ctx.get_handle<TTbarGen>(ttgen_name);
+  }
+
+  if (syst_a == "up")
+    a_ *= 1.5;
+  else if (syst_a == "down")
+    a_ *= 0.5;
+
+  if (syst_b == "up")
+    b_ *= 1.5;
+  else if (syst_b == "down")
+    b_ *= 0.5;
+}
+
+bool TopPtReweighting::process(uhh2::Event& event){
+  if (event.isRealData || (!boost::algorithm::contains(version_,"ttbar") && !boost::algorithm::contains(version_,"ttjets") && !boost::algorithm::starts_with(version_,"tt")) ) {
+    return true;
+  }
+  const TTbarGen& ttbargen = !ttgen_name_.empty() ? event.get(h_ttbargen_) : TTbarGen(*event.genparticles,false);
+  float wgt = 1.;
+  if (ttbargen.DecayChannel() != TTbarGen::e_notfound) {
+    float tpt1 = ttbargen.Top().v4().Pt();
+    float tpt2 = ttbargen.Antitop().v4().Pt();
+    wgt = sqrt(exp(a_+b_*tpt1)*exp(a_+b_*tpt2));
+  }
+
+  if(!weight_name_.empty())
+    event.set(h_weight_, wgt);
+
+  event.weight *= wgt;
+  return true;
+}
 
 
 ////
