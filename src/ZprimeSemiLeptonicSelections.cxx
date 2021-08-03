@@ -38,8 +38,8 @@ ZprimeTopTagSelection::ZprimeTopTagSelection(Context& ctx){
 bool ZprimeTopTagSelection::passes(const Event & event){
 
   bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2);
-  //if(!is_zprime_reconstructed_chi2) return false;
-  if(!is_zprime_reconstructed_chi2) throw runtime_error("In ZprimeSemiLeptonicSelections.cxx:ZprimeTopTagSelection::passes(): The Zprime was never reconstructed via the chi2 method. This must be done before looking for the way it was reconstructed.");
+  if(!is_zprime_reconstructed_chi2) return false;
+  //if(!is_zprime_reconstructed_chi2) throw runtime_error("In ZprimeSemiLeptonicSelections.cxx:ZprimeTopTagSelection::passes(): The Zprime was never reconstructed via the chi2 method. This must be done before looking for the way it was reconstructed.");
 
   ZprimeCandidate* cand = event.get(h_BestZprimeCandidate_chi2);
 

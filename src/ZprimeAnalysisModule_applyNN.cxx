@@ -71,36 +71,42 @@ uhh2::Event::Handle<float> h_Ak4_j1_eta;
 uhh2::Event::Handle<float> h_Ak4_j1_m;
 uhh2::Event::Handle<float> h_Ak4_j1_phi;
 uhh2::Event::Handle<float> h_Ak4_j1_pt;
+uhh2::Event::Handle<float> h_Ak4_j1_deepjetbscore;
 
 uhh2::Event::Handle<float> h_Ak4_j2_E;
 uhh2::Event::Handle<float> h_Ak4_j2_eta;
 uhh2::Event::Handle<float> h_Ak4_j2_m;
 uhh2::Event::Handle<float> h_Ak4_j2_phi;
 uhh2::Event::Handle<float> h_Ak4_j2_pt;
+uhh2::Event::Handle<float> h_Ak4_j2_deepjetbscore;
 
 uhh2::Event::Handle<float> h_Ak4_j3_E;
 uhh2::Event::Handle<float> h_Ak4_j3_eta;
 uhh2::Event::Handle<float> h_Ak4_j3_m;
 uhh2::Event::Handle<float> h_Ak4_j3_phi;
 uhh2::Event::Handle<float> h_Ak4_j3_pt;
+uhh2::Event::Handle<float> h_Ak4_j3_deepjetbscore;
 
 uhh2::Event::Handle<float> h_Ak4_j4_E;
 uhh2::Event::Handle<float> h_Ak4_j4_eta;
 uhh2::Event::Handle<float> h_Ak4_j4_m;
 uhh2::Event::Handle<float> h_Ak4_j4_phi;
 uhh2::Event::Handle<float> h_Ak4_j4_pt;
+uhh2::Event::Handle<float> h_Ak4_j4_deepjetbscore;
 
 uhh2::Event::Handle<float> h_Ak4_j5_E;
 uhh2::Event::Handle<float> h_Ak4_j5_eta;
 uhh2::Event::Handle<float> h_Ak4_j5_m;
 uhh2::Event::Handle<float> h_Ak4_j5_phi;
 uhh2::Event::Handle<float> h_Ak4_j5_pt;
+uhh2::Event::Handle<float> h_Ak4_j5_deepjetbscore;
 
 uhh2::Event::Handle<float> h_Ak4_j6_E;
 uhh2::Event::Handle<float> h_Ak4_j6_eta;
 uhh2::Event::Handle<float> h_Ak4_j6_m;
 uhh2::Event::Handle<float> h_Ak4_j6_phi;
 uhh2::Event::Handle<float> h_Ak4_j6_pt;
+uhh2::Event::Handle<float> h_Ak4_j6_deepjetbscore;
 
 uhh2::Event::Handle<float> h_HOTVR_j1_E;
 uhh2::Event::Handle<float> h_HOTVR_j1_eta;
@@ -148,36 +154,42 @@ h_Ak4_j1_eta = ctx.get_handle<float>("Ak4_j1_eta");
 h_Ak4_j1_m   = ctx.get_handle<float>("Ak4_j1_m");
 h_Ak4_j1_phi = ctx.get_handle<float>("Ak4_j1_phi");
 h_Ak4_j1_pt  = ctx.get_handle<float>("Ak4_j1_pt");
+h_Ak4_j1_deepjetbscore  = ctx.get_handle<float>("Ak4_j1_deepjetbscore");
 
 h_Ak4_j2_E   = ctx.get_handle<float>("Ak4_j2_E");
 h_Ak4_j2_eta = ctx.get_handle<float>("Ak4_j2_eta");
 h_Ak4_j2_m   = ctx.get_handle<float>("Ak4_j2_m");
 h_Ak4_j2_phi = ctx.get_handle<float>("Ak4_j2_phi");
 h_Ak4_j2_pt  = ctx.get_handle<float>("Ak4_j2_pt");
+h_Ak4_j2_deepjetbscore  = ctx.get_handle<float>("Ak4_j2_deepjetbscore");
 
 h_Ak4_j3_E   = ctx.get_handle<float>("Ak4_j3_E");
 h_Ak4_j3_eta = ctx.get_handle<float>("Ak4_j3_eta");
 h_Ak4_j3_m   = ctx.get_handle<float>("Ak4_j3_m");
 h_Ak4_j3_phi = ctx.get_handle<float>("Ak4_j3_phi");
 h_Ak4_j3_pt  = ctx.get_handle<float>("Ak4_j3_pt");
+h_Ak4_j3_deepjetbscore  = ctx.get_handle<float>("Ak4_j3_deepjetbscore");
 
 h_Ak4_j4_E   = ctx.get_handle<float>("Ak4_j4_E");
 h_Ak4_j4_eta = ctx.get_handle<float>("Ak4_j4_eta");
 h_Ak4_j4_m   = ctx.get_handle<float>("Ak4_j4_m");
 h_Ak4_j4_phi = ctx.get_handle<float>("Ak4_j4_phi");
 h_Ak4_j4_pt  = ctx.get_handle<float>("Ak4_j4_pt");
+h_Ak4_j4_deepjetbscore  = ctx.get_handle<float>("Ak4_j4_deepjetbscore");
 
 h_Ak4_j5_E   = ctx.get_handle<float>("Ak4_j5_E");
 h_Ak4_j5_eta = ctx.get_handle<float>("Ak4_j5_eta");
 h_Ak4_j5_m   = ctx.get_handle<float>("Ak4_j5_m");
 h_Ak4_j5_phi = ctx.get_handle<float>("Ak4_j5_phi");
 h_Ak4_j5_pt  = ctx.get_handle<float>("Ak4_j5_pt");
+h_Ak4_j5_deepjetbscore  = ctx.get_handle<float>("Ak4_j5_deepjetbscore");
 
 h_Ak4_j6_E   = ctx.get_handle<float>("Ak4_j6_E");
 h_Ak4_j6_eta = ctx.get_handle<float>("Ak4_j6_eta");
 h_Ak4_j6_m   = ctx.get_handle<float>("Ak4_j6_m");
 h_Ak4_j6_phi = ctx.get_handle<float>("Ak4_j6_phi");
 h_Ak4_j6_pt  = ctx.get_handle<float>("Ak4_j6_pt");
+h_Ak4_j6_deepjetbscore  = ctx.get_handle<float>("Ak4_j6_deepjetbscore");
 
 h_HOTVR_j1_E     = ctx.get_handle<float>("HOTVR_j1_E");
 h_HOTVR_j1_eta   = ctx.get_handle<float>("HOTVR_j1_eta");
@@ -220,15 +232,15 @@ void NeuralNetworkModule::CreateInputs(Event & event){
   NNInputs.clear();
   NNoutputs.clear();
 
-  string varname[59];
-  string scal[59];
-  string mean[59];
-  string std[59];
-  double mean_val[59];
-  double std_val[59];
-  ifstream normfile ("/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_HOTVR_BTag_noscore/NormInfo.txt", ios::in);
+  string varname[65];
+  string scal[65];
+  string mean[65];
+  string std[65];
+  double mean_val[65];
+  double std_val[65];
+  ifstream normfile ("/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_HOTVR_BTag_SF/NormInfo.txt", ios::in);
   if (normfile.is_open()){ 
-        for(int i = 0; i < 59; ++i)
+        for(int i = 0; i < 65; ++i)
         {   
             normfile >> varname[i] >> scal[i] >> mean[i] >> std[i];
             mean_val[i] = std::stod(mean[i]);
@@ -238,12 +250,12 @@ void NeuralNetworkModule::CreateInputs(Event & event){
   }
 
 
-  NNInputs.push_back( tensorflow::Tensor(tensorflow::DT_FLOAT, {1, 59}));
+  NNInputs.push_back( tensorflow::Tensor(tensorflow::DT_FLOAT, {1, 65}));
 
 
-  vector<uhh2::Event::Handle<float>> inputs = { h_Ak4_j1_E, h_Ak4_j1_eta, h_Ak4_j1_m, h_Ak4_j1_phi, h_Ak4_j1_pt,h_Ak4_j2_E,h_Ak4_j2_eta,h_Ak4_j2_m,h_Ak4_j2_phi,h_Ak4_j2_pt,h_Ak4_j3_E,h_Ak4_j3_eta,h_Ak4_j3_m,h_Ak4_j3_phi, h_Ak4_j3_pt,  h_Ak4_j4_E,   h_Ak4_j4_eta, h_Ak4_j4_m,   h_Ak4_j4_phi, h_Ak4_j4_pt,  h_Ak4_j5_E,   h_Ak4_j5_eta, h_Ak4_j5_m,   h_Ak4_j5_phi, h_Ak4_j5_pt,  h_Ak4_j6_E,   h_Ak4_j6_eta, h_Ak4_j6_m,   h_Ak4_j6_phi, h_Ak4_j6_pt,  h_HOTVR_j1_E,     h_HOTVR_j1_eta,   h_HOTVR_j1_mSD,   h_HOTVR_j1_phi,   h_HOTVR_j1_pt,    h_HOTVR_j1_tau21, h_HOTVR_j1_tau32, h_HOTVR_j2_E,     h_HOTVR_j2_eta,   h_HOTVR_j2_mSD,   h_HOTVR_j2_phi,   h_HOTVR_j2_pt,    h_HOTVR_j2_tau21, h_HOTVR_j2_tau32, h_HOTVR_j3_E,     h_HOTVR_j3_eta,   h_HOTVR_j3_mSD,   h_HOTVR_j3_phi,h_HOTVR_j3_pt,h_HOTVR_j3_tau21,h_HOTVR_j3_tau32,h_MET_phi,h_MET_pt,h_Mu_E,  h_Mu_eta,h_Mu_phi,h_Mu_pt, h_N_Ak4,h_N_HOTVR }; 
+  vector<uhh2::Event::Handle<float>> inputs = { h_Ak4_j1_E, h_Ak4_j1_deepjetbscore, h_Ak4_j1_eta, h_Ak4_j1_m, h_Ak4_j1_phi, h_Ak4_j1_pt,h_Ak4_j2_E,h_Ak4_j2_deepjetbscore,h_Ak4_j2_eta,h_Ak4_j2_m,h_Ak4_j2_phi,h_Ak4_j2_pt,h_Ak4_j3_E,h_Ak4_j3_deepjetbscore,h_Ak4_j3_eta,h_Ak4_j3_m,h_Ak4_j3_phi, h_Ak4_j3_pt,  h_Ak4_j4_E, h_Ak4_j4_deepjetbscore,  h_Ak4_j4_eta, h_Ak4_j4_m,   h_Ak4_j4_phi, h_Ak4_j4_pt,  h_Ak4_j5_E, h_Ak4_j5_deepjetbscore,  h_Ak4_j5_eta, h_Ak4_j5_m,   h_Ak4_j5_phi, h_Ak4_j5_pt,  h_Ak4_j6_E, h_Ak4_j6_deepjetbscore,  h_Ak4_j6_eta, h_Ak4_j6_m,   h_Ak4_j6_phi, h_Ak4_j6_pt,  h_HOTVR_j1_E,     h_HOTVR_j1_eta,   h_HOTVR_j1_mSD,   h_HOTVR_j1_phi,   h_HOTVR_j1_pt,    h_HOTVR_j1_tau21, h_HOTVR_j1_tau32, h_HOTVR_j2_E,     h_HOTVR_j2_eta,   h_HOTVR_j2_mSD,   h_HOTVR_j2_phi,   h_HOTVR_j2_pt,    h_HOTVR_j2_tau21, h_HOTVR_j2_tau32, h_HOTVR_j3_E,     h_HOTVR_j3_eta,   h_HOTVR_j3_mSD,   h_HOTVR_j3_phi,h_HOTVR_j3_pt,h_HOTVR_j3_tau21,h_HOTVR_j3_tau32,h_MET_phi,h_MET_pt,h_Mu_E,  h_Mu_eta,h_Mu_phi,h_Mu_pt, h_N_Ak4,h_N_HOTVR }; 
 
-  for(int i = 0; i < 59; ++i){
+  for(int i = 0; i < 65; ++i){
      NNInputs.at(0).tensor<float, 2>()(0,i)  = (event.get(inputs.at(i))   - mean_val[i]) / (std_val[i]);
   }
 
@@ -269,8 +281,9 @@ protected:
   unique_ptr<MCElecScaleFactor> EleID_module, EleTrigger_module;
 
   // AnalysisModules
-  unique_ptr<AnalysisModule> LumiWeight_module, PUWeight_module, BTagWeight_module, TopPtReweight_module, MCScale_module;
+  unique_ptr<AnalysisModule> LumiWeight_module, PUWeight_module, TopPtReweight_module, MCScale_module;
   unique_ptr<AnalysisModule> Corrections_module;
+  unique_ptr<AnalysisModule> BTagWeight_module;
 
   // Taggers
   //unique_ptr<AK8PuppiTopTagger> TopTaggerPuppi;
@@ -339,36 +352,42 @@ protected:
   Event::Handle<float> h_Ak4_j1_m;
   Event::Handle<float> h_Ak4_j1_phi;
   Event::Handle<float> h_Ak4_j1_pt;
+  Event::Handle<float> h_Ak4_j1_deepjetbscore;
 
   Event::Handle<float> h_Ak4_j2_E;
   Event::Handle<float> h_Ak4_j2_eta;
   Event::Handle<float> h_Ak4_j2_m;
   Event::Handle<float> h_Ak4_j2_phi;
   Event::Handle<float> h_Ak4_j2_pt;
+  Event::Handle<float> h_Ak4_j2_deepjetbscore;
   
   Event::Handle<float> h_Ak4_j3_E;
   Event::Handle<float> h_Ak4_j3_eta;
   Event::Handle<float> h_Ak4_j3_m;
   Event::Handle<float> h_Ak4_j3_phi;
   Event::Handle<float> h_Ak4_j3_pt;
+  Event::Handle<float> h_Ak4_j3_deepjetbscore;
   
   Event::Handle<float> h_Ak4_j4_E;
   Event::Handle<float> h_Ak4_j4_eta;
   Event::Handle<float> h_Ak4_j4_m;
   Event::Handle<float> h_Ak4_j4_phi;
   Event::Handle<float> h_Ak4_j4_pt;
+  Event::Handle<float> h_Ak4_j4_deepjetbscore;
   
   Event::Handle<float> h_Ak4_j5_E;
   Event::Handle<float> h_Ak4_j5_eta;
   Event::Handle<float> h_Ak4_j5_m;
   Event::Handle<float> h_Ak4_j5_phi;
   Event::Handle<float> h_Ak4_j5_pt;
+  Event::Handle<float> h_Ak4_j5_deepjetbscore;
   
   Event::Handle<float> h_Ak4_j6_E;
   Event::Handle<float> h_Ak4_j6_eta;
   Event::Handle<float> h_Ak4_j6_m;
   Event::Handle<float> h_Ak4_j6_phi;
   Event::Handle<float> h_Ak4_j6_pt;
+  Event::Handle<float> h_Ak4_j6_deepjetbscore;
   
   Event::Handle<float> h_HOTVR_j1_E;
   Event::Handle<float> h_HOTVR_j1_eta;
@@ -464,7 +483,7 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   double jet1_pt(50.);
   double jet2_pt(30.);
   double chi2_max(30.);
-  double mtt_blind(3000.);
+  double mtt_blind(2000.);
   string trigger_mu_A,trigger_mu_B,trigger_mu_C,trigger_mu_D;
   string trigger_ele_A,trigger_ele_B;
   string trigger_ph_A;
@@ -529,7 +548,7 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   Sys_EleID = ctx.get("Sys_EleID");
   Sys_EleTrigger = ctx.get("Sys_EleTrigger");
   Sys_PU = ctx.get("Sys_PU");
-  Sys_btag = ctx.get("Sys_BTagSF");
+  Sys_btag = ctx.get("Sys_btag");
 
   BTag::algo btag_algo = BTag::DEEPJET;
   BTag::wp btag_wp = BTag::WP_MEDIUM;
@@ -541,12 +560,12 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   // Modules
   LumiWeight_module.reset(new MCLumiWeight(ctx));
   PUWeight_module.reset(new MCPileupReweight(ctx, Sys_PU));
-  //BTagWeight_module.reset(new MCBTagDiscriminantReweighting(ctx, btag_algo, "jets", Sys_btag));
-  TopPtReweight_module.reset(new TopPtReweight(ctx, a_toppt, b_toppt,"","weight_ttbar",true));
+  TopPtReweight_module.reset(new TopPtReweighting(ctx, a_toppt, b_toppt, ctx.get("Systematic_TopPt_a", "nominal"), ctx.get("Systematic_TopPt_b", "nominal"), "", ""));
   MCScale_module.reset(new MCScaleVariation(ctx));
   hadronic_top.reset(new HadronicTop(ctx));
   sf_toptag.reset(new HOTVRScaleFactor(ctx, toptagID, ctx.get("Sys_TopTag", "nominal"), "HadronicTop", "TopTagSF", "HOTVRTopTagSFs")); 
   Corrections_module.reset(new NLOCorrections(ctx));
+  BTagWeight_module.reset(new MCBTagDiscriminantReweighting(ctx, btag_algo, "jets", Sys_btag,"iterativefit","","BTagCalibration"));
 
   if((is2016v3 || is2016v2) && isMuon){
     MuonID_module_low.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2016/MuonID_EfficienciesAndSF_average_RunBtoH.root", "NUM_TightID_DEN_genTracks_eta_pt", 1.0, "tightID", false, Sys_MuonID_low));
@@ -644,7 +663,7 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   TopJetBtagSubjet_selection.reset(new ZprimeBTagFatSubJetSelection(ctx));
 
   // Book histograms
-  vector<string> histogram_tags = {"Weights_Init", "Weights_PU", "Weights_Lumi", "Weights_TopPt", "Weights_MCScale", "Weights_HOTVR_SF", "Corrections", "IDMuon_SF", "IsoMuon_SF", "Muon1_LowPt", "Muon1_HighPt", "Ele1_LowPt", "Ele1_HighPt", "TriggerMuon_SF", "TriggerMuon", "TriggerEle", "TwoDCut_Muon", "TwoDCut_Ele", "Jet1", "Jet2", "MET", "HTlep", "Btags1", "NNInputsBeforeReweight","DNN_output0","DNN_output1","DNN_output2","DNN_output3", "DNN_output0_TopTag","DNN_output1_TopTag","DNN_output2_TopTag","DNN_output3_TopTag","DNN_output0_NoTopTag","DNN_output1_NoTopTag","DNN_output2_NoTopTag","DNN_output3_NoTopTag"};
+  vector<string> histogram_tags = {"Weights_Init", "Weights_PU", "Weights_Lumi", "Weights_TopPt", "Weights_MCScale", "Weights_HOTVR_SF", "Corrections", "IDMuon_SF", "IsoMuon_SF", "Muon1_LowPt", "Muon1_HighPt", "Ele1_LowPt", "Ele1_HighPt", "TriggerMuon_SF", "TriggerMuon", "TriggerEle", "TwoDCut_Muon", "TwoDCut_Ele", "Jet1", "Jet2", "MET", "HTlep", "Btags1", "Btags1_SF", "NNInputsBeforeReweight","DNN_output0","DNN_output1","DNN_output2","DNN_output3", "DNN_output0_TopTag","DNN_output1_TopTag","DNN_output2_TopTag","DNN_output3_TopTag","DNN_output0_NoTopTag","DNN_output1_NoTopTag","DNN_output2_NoTopTag","DNN_output3_NoTopTag"};
   book_histograms(ctx, histogram_tags);
 
   h_MulticlassNN_output.reset(new ZprimeSemiLeptonicMulticlassNNHists(ctx, "MulticlassNN"));
@@ -673,36 +692,42 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   h_Ak4_j1_m   = ctx.get_handle<float>("Ak4_j1_m");
   h_Ak4_j1_phi = ctx.get_handle<float>("Ak4_j1_phi");
   h_Ak4_j1_pt  = ctx.get_handle<float>("Ak4_j1_pt");
+  h_Ak4_j1_deepjetbscore  = ctx.get_handle<float>("Ak4_j1_deepjetbscore");
   
   h_Ak4_j2_E   = ctx.get_handle<float>("Ak4_j2_E");
   h_Ak4_j2_eta = ctx.get_handle<float>("Ak4_j2_eta");
   h_Ak4_j2_m   = ctx.get_handle<float>("Ak4_j2_m");
   h_Ak4_j2_phi = ctx.get_handle<float>("Ak4_j2_phi");
   h_Ak4_j2_pt  = ctx.get_handle<float>("Ak4_j2_pt");
+  h_Ak4_j2_deepjetbscore  = ctx.get_handle<float>("Ak4_j2_deepjetbscore");
   
   h_Ak4_j3_E   = ctx.get_handle<float>("Ak4_j3_E");
   h_Ak4_j3_eta = ctx.get_handle<float>("Ak4_j3_eta");
   h_Ak4_j3_m   = ctx.get_handle<float>("Ak4_j3_m");
   h_Ak4_j3_phi = ctx.get_handle<float>("Ak4_j3_phi");
   h_Ak4_j3_pt  = ctx.get_handle<float>("Ak4_j3_pt");
+  h_Ak4_j3_deepjetbscore  = ctx.get_handle<float>("Ak4_j3_deepjetbscore");
   
   h_Ak4_j4_E   = ctx.get_handle<float>("Ak4_j4_E");
   h_Ak4_j4_eta = ctx.get_handle<float>("Ak4_j4_eta");
   h_Ak4_j4_m   = ctx.get_handle<float>("Ak4_j4_m");
   h_Ak4_j4_phi = ctx.get_handle<float>("Ak4_j4_phi");
   h_Ak4_j4_pt  = ctx.get_handle<float>("Ak4_j4_pt");
+  h_Ak4_j4_deepjetbscore  = ctx.get_handle<float>("Ak4_j4_deepjetbscore");
   
   h_Ak4_j5_E   = ctx.get_handle<float>("Ak4_j5_E");
   h_Ak4_j5_eta = ctx.get_handle<float>("Ak4_j5_eta");
   h_Ak4_j5_m   = ctx.get_handle<float>("Ak4_j5_m");
   h_Ak4_j5_phi = ctx.get_handle<float>("Ak4_j5_phi");
   h_Ak4_j5_pt  = ctx.get_handle<float>("Ak4_j5_pt");
+  h_Ak4_j5_deepjetbscore  = ctx.get_handle<float>("Ak4_j5_deepjetbscore");
   
   h_Ak4_j6_E   = ctx.get_handle<float>("Ak4_j6_E");
   h_Ak4_j6_eta = ctx.get_handle<float>("Ak4_j6_eta");
   h_Ak4_j6_m   = ctx.get_handle<float>("Ak4_j6_m");
   h_Ak4_j6_phi = ctx.get_handle<float>("Ak4_j6_phi");
   h_Ak4_j6_pt  = ctx.get_handle<float>("Ak4_j6_pt");
+  h_Ak4_j6_deepjetbscore  = ctx.get_handle<float>("Ak4_j6_deepjetbscore");
   
   h_HOTVR_j1_E     = ctx.get_handle<float>("HOTVR_j1_E");
   h_HOTVR_j1_eta   = ctx.get_handle<float>("HOTVR_j1_eta");
@@ -745,7 +770,7 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   h_NNoutput1 = ctx.declare_event_output<double>("NNoutput1");
   h_NNoutput2 = ctx.declare_event_output<double>("NNoutput2");
   //h_NNoutput3 = ctx.declare_event_output<double>("NNoutput3");
-  NNModule.reset( new NeuralNetworkModule(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_HOTVR_BTag_noscore/model.pb", "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_HOTVR_BTag_noscore/model.config.pbtxt"));
+  NNModule.reset( new NeuralNetworkModule(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_HOTVR_BTag_SF/model.pb", "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_HOTVR_BTag_SF/model.config.pbtxt"));
 
 }
 
@@ -1041,6 +1066,9 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
   // Apply min 1 b-tag medium wp
   if(!sel_1btag->passes(event)) return false;
   fill_histograms(event, "Btags1");
+  // btag shape (Ak4 chs jets)
+  BTagWeight_module->process(event);
+  fill_histograms(event, "Btags1_SF");
 
   // Variables for NN 
   Variables_module->process(event);
@@ -1096,7 +1124,7 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
   //  if( ZprimeTopTag_selection->passes(event) ) fill_histograms(event, "DNN_output3_TopTag");
   //  else fill_histograms(event, "DNN_output3_NoTopTag");
   //}
-
+  
 
 
   return true;

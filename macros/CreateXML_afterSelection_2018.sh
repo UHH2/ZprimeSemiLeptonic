@@ -2,10 +2,10 @@
 #where UHH2 code installed
 pathGL_code=/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/
 #where (NOT MERGED) trees after preselection stored
-path_data=/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_lowmass_HOTVR/ZPrime_2018/Analysis_2018_NNVars_wBtagMedium_blind3/muon/workdir_Zprime_Analysis_2018/uhh2.AnalysisModuleRunner. 
+path_data=/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_lowmass_HOTVR/ZPrime_2018/Analysis_2018_NNVars_wBtagMedium_JER_up/muon/workdir_Zprime_Analysis_2018_jer/uhh2.AnalysisModuleRunner. 
 
-mkdir $pathGL_code/ZprimeSemiLeptonic/data/Skimming_datasets_2018_Vars_BTagM_blind3
-cd $pathGL_code/ZprimeSemiLeptonic/data/Skimming_datasets_2018_Vars_BTagM_blind3
+mkdir $pathGL_code/ZprimeSemiLeptonic/data/Skimming_datasets_2018_Vars_BTagM_JER_up
+cd $pathGL_code/ZprimeSemiLeptonic/data/Skimming_datasets_2018_Vars_BTagM_JER_up
 
 
 # #MC

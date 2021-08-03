@@ -2,8 +2,8 @@
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
 
 <!ENTITY TargetLumi      "59740">
-<!ENTITY PRESELdir       "/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_lowmass_HOTVR/ZPrime_2018/Preselection_2018/">
-<!--<!ENTITY PRESELdir       "/nfs/dust/cms/group/zprime-uhh/Presel_2018/">-->
+<!--<!ENTITY PRESELdir       "/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_lowmass_HOTVR/ZPrime_2018/Preselection_2018/JEC_UP/">-->
+<!ENTITY PRESELdir       "/nfs/dust/cms/group/zprime-uhh/HOTVR/Presel_2018/JER_down">
 <!ENTITY b_Cacheable     "False">
 <!ENTITY NEVT            "-1">
 <!ENTITY IS_PUPPI        "true">
@@ -765,7 +765,7 @@
                         <Item Name="Sys_PU" Value="central"/>
 
 			<Item Name="use_sframe_weight" Value="false"/>
-			<Item Name="jersmear_direction" Value="nominal"/>
+			<Item Name="jersmear_direction" Value="down"/>
 			<Item Name="jecsmear_direction" Value="nominal"/>
 
 
