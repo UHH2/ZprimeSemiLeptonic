@@ -9,7 +9,7 @@
 <!ENTITY IS_PUPPI            "true">
 <!ENTITY IS_LOOSER_SELECTION "false">
 <!ENTITY CHANNEL             "muon">
-<!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_lowmass_HOTVR/ZPrime_2018/Analysis_2018_UseNN_3cl_BTagM_SF_syst/&CHANNEL;/btag_test_DOWN/">
+<!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_lowmass_HOTVR/ZPrime_2018/Analysis_2018_UseNN_3cl_BTagM_SF_syst/&CHANNEL;/Btag_hfstats1up/">
 
 <!ENTITY DATA_SingleMuon_Run2018A   SYSTEM  "../data/Skimming_datasets_2018_Vars_BTagM_220621/DATA_DATA_SingleMuon_Run2018A_blinded_withoutEmptyNtuples.xml">
 <!ENTITY DATA_SingleMuon_Run2018B   SYSTEM  "../data/Skimming_datasets_2018_Vars_BTagM_220621/DATA_DATA_SingleMuon_Run2018B_blinded_withoutEmptyNtuples.xml">
@@ -132,7 +132,7 @@
 
         <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTPUTdir;/" PostFix="" TargetLumi="&TargetLumi;">
 
-<!--
+
 	  <InputData Lumi="7432926.584" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_inclusiveDecays_2018" Cacheable="&b_Cacheable;">
 	    &ST_tW_antitop_5f_inclusiveDecays;
 	    <InputTree Name="AnalysisTree" />
@@ -177,7 +177,7 @@
 	    &ZZ_2018;
 	    <InputTree Name="AnalysisTree" />
 	  </InputData>
--->
+
 <!--
 	  <InputData Lumi="198000" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTTJet_M500_2018" Cacheable="&b_Cacheable;">
 	    &ZprimeToTTJet_M500_2018;
@@ -244,7 +244,7 @@
 	    <InputTree Name="AnalysisTree" />
 	  </InputData>
 -->
-<!--
+
           <InputData Lumi="182928" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTT_M1000_W100_2018" Cacheable="&b_Cacheable;">
             &ZprimeToTT_M1000_W100_2018;
             <InputTree Name="AnalysisTree" />
@@ -389,7 +389,7 @@
             &ZprimeToTT_M9000_W900_2018;
             <InputTree Name="AnalysisTree" />
           </InputData>
--->
+
 <!--
           <InputData Lumi="180809" NEventsMax="&NEVT;" Type="MC" Version="ZprimeToTT_M1000_W10_2018" Cacheable="&b_Cacheable;">
             &ZprimeToTT_M1000_W10_2018;
@@ -451,7 +451,7 @@
             <InputTree Name="AnalysisTree" />
           </InputData>
 -->
-<!--
+
 	  <InputData Lumi="21906.58658" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-70To100_2018" Cacheable="&b_Cacheable;">
 	    &WJetsToLNu_HT-70To100_2018;
 	    <InputTree Name="AnalysisTree" />
@@ -605,7 +605,7 @@
             &DYJetsToLL_M-50_HT-1200to2500_2018;
             <InputTree Name="AnalysisTree"/>
           </InputData>
--->
+
           <InputData Lumi="97390164.08" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-2500toInf_2018" Cacheable="&b_Cacheable;">
             &DYJetsToLL_M-50_HT-2500toInf_2018;
             <InputTree Name="AnalysisTree"/>
@@ -661,7 +661,25 @@
       <Item Name="Sys_EleID"               Value="nominal"/>
       <Item Name="Sys_EleTrigger"          Value="nominal"/>
       <Item Name="Sys_PU"                  Value="nominal"/>
-      <Item Name="Sys_BTagSF"              Value="down"/>
+      <Item Name="Sys_btag"                Value="hfstats1up"/> <!--    central  ok
+                                                                     jesup   ok 
+                                                                     jesdown ok
+                                                                     lfup    ok
+                                                                     lfdown  ok 
+                                                                     hfup    ok 
+                                                                     hfdown  ok 
+                                                                     hfstats1up ok 
+                                                                     hfstats1down 
+                                                                     hfstats2up  
+                                                                     hfstats2down 
+                                                                     lfstats1up  
+                                                                     lfstats1down 
+                                                                     lfstats2up  
+                                                                     lfstats2down 
+                                                                     cferr1up  
+                                                                     cferr1down 
+                                                                     cferr2up  
+                                                                     cferr2down  -->
       <Item Name="Sys_TopTag"              Value="nominal"/>
 
       <Item Name="channel"                 Value="&CHANNEL;"/>

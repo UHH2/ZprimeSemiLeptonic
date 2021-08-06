@@ -70,12 +70,12 @@ protected:
   // Scale Factors -- Systematics
   unique_ptr<MCMuonScaleFactor> MuonID_module_low, MuonISO_module_low, MuonID_module_high, MuonTrigger_module_low, MuonTrigger_module_high;
   unique_ptr<MCElecScaleFactor> EleID_module, EleTrigger_module;
-  //unique_ptr<MCBTagScaleFactor> sf_btag;
+  unique_ptr<MCBTagScaleFactor> sf_btag;
 
   // AnalysisModules
   unique_ptr<AnalysisModule> LumiWeight_module, PUWeight_module, TopPtReweight_module, MCScale_module;
   unique_ptr<AnalysisModule> Corrections_module;
-  unique_ptr<AnalysisModule> BTagWeight_module;
+  //unique_ptr<AnalysisModule> BTagWeight_module;
 
   // Taggers
   //unique_ptr<AK8PuppiTopTagger> TopTaggerPuppi;
@@ -269,8 +269,8 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   sf_toptag.reset(new HOTVRScaleFactor(ctx, toptagID, ctx.get("Sys_TopTag", "nominal"), "HadronicTop", "TopTagSF", "HOTVRTopTagSFs")); 
   Corrections_module.reset(new NLOCorrections(ctx));
   hist_BTagMCEfficiency.reset(new BTagMCEfficiencyHists(ctx,"BTagMCEfficiency", id_btag));
-  //sf_btag.reset(new MCBTagScaleFactor(ctx, btag_algo, btag_wp, "jets", ctx.get("Sys_btag", "nominal"), "comb", "incl", "MCBtagEfficiencies"));
-  BTagWeight_module.reset(new MCBTagDiscriminantReweighting(ctx, btag_algo, "jets", Sys_btag,"iterativefit","","BTagCalibration"));
+  sf_btag.reset(new MCBTagScaleFactor(ctx, btag_algo, btag_wp, "jets", ctx.get("Sys_btag", "nominal"), "comb", "incl", "MCBtagEfficiencies"));
+  //BTagWeight_module.reset(new MCBTagDiscriminantReweighting(ctx, btag_algo, "jets", Sys_btag,"iterativefit","","BTagCalibration"));
 
   if((is2016v3 || is2016v2) && isMuon){
     MuonID_module_low.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2016/MuonID_EfficienciesAndSF_average_RunBtoH.root", "NUM_TightID_DEN_genTracks_eta_pt", 1.0, "tightID", false, Sys_MuonID_low));
@@ -683,9 +683,9 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   if(!sel_1btag->passes(event)) return false;
   fill_histograms(event, "Btags1");
   // btag sf wp only (Ak4 chs jets)
-  //sf_btag->process(event);
+  sf_btag->process(event);
   // btag shape (Ak4 chs jets)
-  BTagWeight_module->process(event);
+  //BTagWeight_module->process(event);
   fill_histograms(event, "Btags1_SF");
 
 
