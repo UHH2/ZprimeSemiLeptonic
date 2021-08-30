@@ -9,7 +9,7 @@
 <!ENTITY IS_PUPPI            "true">
 <!ENTITY IS_LOOSER_SELECTION "false">
 <!ENTITY CHANNEL             "muon">
-<!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_lowmass_HOTVR/ZPrime_2018/Analysis_2018_UseNN_3cl_BTagM_SF_syst/&CHANNEL;/Btag_hfstats1up/">
+<!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/RunII_102X_v2/ZPrime_lowmass_HOTVR/ZPrime_2018/Analysis_2018_UseNN_3cl_BTagM_SF_syst/&CHANNEL;/Btag_lfstats2down/">
 
 <!ENTITY DATA_SingleMuon_Run2018A   SYSTEM  "../data/Skimming_datasets_2018_Vars_BTagM_220621/DATA_DATA_SingleMuon_Run2018A_blinded_withoutEmptyNtuples.xml">
 <!ENTITY DATA_SingleMuon_Run2018B   SYSTEM  "../data/Skimming_datasets_2018_Vars_BTagM_220621/DATA_DATA_SingleMuon_Run2018B_blinded_withoutEmptyNtuples.xml">
@@ -661,7 +661,7 @@
       <Item Name="Sys_EleID"               Value="nominal"/>
       <Item Name="Sys_EleTrigger"          Value="nominal"/>
       <Item Name="Sys_PU"                  Value="nominal"/>
-      <Item Name="Sys_btag"                Value="hfstats1up"/> <!--    central  ok
+      <Item Name="Sys_btag"                Value="lfstats2down"/> <!--    central  ok
                                                                      jesup   ok 
                                                                      jesdown ok
                                                                      lfup    ok
@@ -669,12 +669,12 @@
                                                                      hfup    ok 
                                                                      hfdown  ok 
                                                                      hfstats1up ok 
-                                                                     hfstats1down 
-                                                                     hfstats2up  
-                                                                     hfstats2down 
-                                                                     lfstats1up  
-                                                                     lfstats1down 
-                                                                     lfstats2up  
+                                                                     hfstats1down ok 
+                                                                     hfstats2up ok 
+                                                                     hfstats2down ok 
+                                                                     lfstats1up ok 
+                                                                     lfstats1down ok 
+                                                                     lfstats2up ok 
                                                                      lfstats2down 
                                                                      cferr1up  
                                                                      cferr1down 

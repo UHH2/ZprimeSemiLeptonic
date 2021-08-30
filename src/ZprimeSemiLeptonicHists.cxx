@@ -71,6 +71,10 @@ void ZprimeSemiLeptonicHists::init(){
   N_bJets_med       = book<TH1F>("N_bJets_med", "N_{jets}^{CSV medium}", 11, -0.5, 10.5);
   N_bJets_tight     = book<TH1F>("N_bJets_tight", "N_{jets}^{CSV tight}", 11, -0.5, 10.5);
 
+  N_bJetsDeepJet_loose     = book<TH1F>("N_bJetsDeepJet_loose", "N_{jets}^{DeepJet loose}", 11, -0.5, 10.5);
+  N_bJetsDeepJet_med       = book<TH1F>("N_bJetsDeepJet_med", "N_{jets}^{DeepJet medium}", 11, -0.5, 10.5);
+  N_bJetsDeepJet_tight     = book<TH1F>("N_bJetsDeepJet_tight", "N_{jets}^{DeepJet tight}", 11, -0.5, 10.5);
+
   // leptons
   N_mu              = book<TH1F>("N_mu", "N^{#mu}", 11, -0.5, 10.5);
   pt_mu             = book<TH1F>("pt_mu", "p_{T}^{#mu} [GeV]", 90, 0, 900);
@@ -556,6 +560,24 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
   N_bJets_loose->Fill(Nbjets_loose,weight);
   N_bJets_med->Fill(Nbjets_medium,weight);
   N_bJets_tight->Fill(Nbjets_tight,weight);
+
+
+
+  int NbjetsDeepJet_loose = 0, NbjetsDeepJet_medium = 0, NbjetsDeepJet_tight = 0;
+  DeepJetBTag BtagDeepJet_loose = DeepJetBTag(DeepJetBTag::WP_LOOSE);
+  DeepJetBTag BtagDeepJet_medium = DeepJetBTag(DeepJetBTag::WP_MEDIUM);
+  DeepJetBTag BtagDeepJet_tight = DeepJetBTag(DeepJetBTag::WP_TIGHT);
+
+  for (unsigned int i =0; i<jets->size(); i++) {
+    if(BtagDeepJet_loose(jets->at(i),event))  NbjetsDeepJet_loose++;
+    if(BtagDeepJet_medium(jets->at(i),event)) NbjetsDeepJet_medium++;
+    if(BtagDeepJet_tight(jets->at(i),event))  NbjetsDeepJet_tight++;
+  }
+
+  N_bJetsDeepJet_loose->Fill(NbjetsDeepJet_loose,weight);
+  N_bJetsDeepJet_med->Fill(NbjetsDeepJet_medium,weight);
+  N_bJetsDeepJet_tight->Fill(NbjetsDeepJet_tight,weight);
+
 
   /*
   █ ██   ██    █████  ██████ ██    ██   █████ 
