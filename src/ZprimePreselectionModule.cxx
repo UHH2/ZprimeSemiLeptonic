@@ -175,7 +175,7 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   //topjet_cleaner.reset(new TopJetCleaner(ctx, TopJetId(PtEtaCut(200., 2.4)), "topjets"));
   //topjet_puppi_IDcleaner.reset(new TopJetCleaner(ctx, jetID_PUPPI, "toppuppijets"));
   //topjet_puppi_cleaner.reset(new TopJetCleaner(ctx, TopJetId(PtEtaCut(200., 2.4)), "toppuppijets"));
-  hotvrjet_cleaner.reset(new TopJetCleaner(ctx, PtEtaCut(200., 2.5)));
+  hotvrjet_cleaner.reset(new TopJetCleaner(ctx, PtEtaCut(200., 2.5))); 
   
 
   // common modules
@@ -216,23 +216,6 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
 
 double electron_pt_high(120.);
 double muon_pt_high(55.);
-
-//debug
-//if(event.event != 565592) return false; 
-//cout << "Event number = " << event.event << endl;
-//cout << "__________________________" << endl;
-//
-//uint jetInd = 0;
-//for (const TopJet & toppuppijet: *event.toppuppijets) {
-//cout << "-- PUPPI Top jet pt = " << toppuppijet.pt()  << "     "  << "jet eta = " << toppuppijet.eta()<< "     "  << "jet phi = " << toppuppijet.phi() << "	"  << "for jet#" << jetInd << endl;
-//jetInd++;
-//}
-//uint hotvrjetInd = 0;
-//for (const TopJet & hotvrjet: *event.topjets) {
-//cout << "--- HOTVR jet pt = " << hotvrjet.pt() << "     "  << "jet eta = " << hotvrjet.eta()<< "     "  << "jet phi = " << hotvrjet.phi()  << "	" << "for jet#" << hotvrjetInd << endl;
-//hotvrjetInd++;
-//}
-
 
   //cout<<"Getting started... "<<event.event<<endl;
   fill_histograms(event, "Input");
