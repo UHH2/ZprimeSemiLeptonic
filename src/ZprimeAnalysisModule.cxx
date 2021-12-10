@@ -294,8 +294,19 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
     MuonID_module_high.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2018/Muon_ID_SF_RunABCD.root", "NUM_TightID_DEN_TrackerMuons_pt_abseta", 1.0, "tightID", true, Sys_MuonID_high));
     MuonTrigger_module_low.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2018/Muon_Trigger_Eff_SF_AfterMuonHLTUpdate.root", "IsoMu24_PtEtaBins/pt_abseta_ratio", 0.5, "Trigger", true, Sys_MuonTrigger_low));
     MuonTrigger_module_high.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2018/Muon_Trigger_Eff_SF_AfterMuonHLTUpdate.root", "Mu50_OR_OldMu100_OR_TkMu100_PtEtaBins/pt_abseta_ratio", 0.5, "Trigger", true, Sys_MuonTrigger_high));
-    //EleID_module.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2018/2018_ElectronTight.root", 0., "TightID", Sys_EleID));
-    //EleTrigger_module.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2018/SF_2018.root", 0.5, "Trigger", Sys_EleTrigger));
+  }
+
+  if((is2016v3 || is2016v2) && isElectron){
+    EleID_module.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2016/egammaEffi.txt_EGM2D_CutBased_Tight_ID.root", 0., "TightID", Sys_EleID));
+   // EleTrigger_module.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2018/SF_2018.root", 0.5, "Trigger", Sys_EleTrigger));
+  }
+  if(is2017v2 && isElectron){
+    EleID_module.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2017/2017_ElectronTight.root", 0., "TightID", Sys_EleID));
+   // EleTrigger_module.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2018/SF_2018.root", 0.5, "Trigger", Sys_EleTrigger));
+  }
+  if(is2018 && isElectron){
+    EleID_module.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2018/2018_ElectronTight.root", 0., "TightID", Sys_EleID));
+   // EleTrigger_module.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2018/SF_2018.root", 0.5, "Trigger", Sys_EleTrigger));
   }
 
   // Selection modules
@@ -513,10 +524,10 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
      }
   fill_histograms(event, "IDMuon_SF");
   }
-  //if(isElectron){
-  //  EleID_module->process(event);
-  //  if(debug)  cout<<"EleID ok"<<endl;
-  //}
+  if(isElectron){
+    EleID_module->process(event);
+    if(debug)  cout<<"EleID ok"<<endl;
+  }
 
 
   // Muon ISO SF
@@ -529,7 +540,12 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
     }
   fill_histograms(event, "IsoMuon_SF");
   }
-  
+  // dummy for ele channel
+  if(isElectron){
+    event.set(h_musf_iso, 1.);
+    event.set(h_musf_iso_up, 1.);
+    event.set(h_musf_iso_down, 1.);
+  }
   
   
   // Trigger MUON channel
@@ -588,7 +604,7 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
             // 2017
             if(is2017v2){
               // below runnumb trigger Ele115 does not exist
-              if(event.run < 299329){
+              if(event.run <= 299329){
                 if(isPhoton){ // photon stream
                     if(Trigger_ele_A_selection->passes(event) && !Trigger_ph_A_selection->passes(event)) return false;
                 }else{ // electron stream

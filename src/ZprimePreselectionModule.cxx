@@ -129,9 +129,9 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   if(is2016v2 || is2016v3){
     //eleID = ElectronID_Summer16_tight_noIso;//ToDo: compare cutBased without iso and MVA-based via wp in UHH2
     //muID      = MuonID(Muon::Highpt);
-    eleID_low = ElectronID_Summer16_medium;
+    eleID_low = ElectronID_Summer16_tight;
     muID_low  = MuonID(Muon::CutBasedIdTight); 
-    eleID_high = ElectronID_Summer16_medium_noIso;
+    eleID_high = ElectronID_Summer16_tight_noIso;
     muID_high  = MuonID(Muon::CutBasedIdTight); // see more muonIDs https://github.com/cms-sw/cmssw/blob/master/DataFormats/MuonReco/interface/Muon.h#L201
   }
   double electron_pt_low(35.);

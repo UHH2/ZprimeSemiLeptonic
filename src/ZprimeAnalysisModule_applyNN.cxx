@@ -108,6 +108,12 @@ uhh2::Event::Handle<float> h_Ak4_j6_phi;
 uhh2::Event::Handle<float> h_Ak4_j6_pt;
 uhh2::Event::Handle<float> h_Ak4_j6_deepjetbscore;
 
+//Only Ele or Mu variables!!
+uhh2::Event::Handle<float> h_Ele_E;
+uhh2::Event::Handle<float> h_Ele_eta;
+uhh2::Event::Handle<float> h_Ele_phi;
+uhh2::Event::Handle<float> h_Ele_pt;
+
 uhh2::Event::Handle<float> h_HOTVR_j1_E;
 uhh2::Event::Handle<float> h_HOTVR_j1_eta;
 uhh2::Event::Handle<float> h_HOTVR_j1_mSD;
@@ -135,10 +141,11 @@ uhh2::Event::Handle<float> h_HOTVR_j3_tau32;
 uhh2::Event::Handle<float> h_MET_phi;
 uhh2::Event::Handle<float> h_MET_pt;
 
-uhh2::Event::Handle<float> h_Mu_E;
-uhh2::Event::Handle<float> h_Mu_eta;
-uhh2::Event::Handle<float> h_Mu_phi;
-uhh2::Event::Handle<float> h_Mu_pt;
+//Only Ele or Mu variables!!
+//uhh2::Event::Handle<float> h_Mu_E;
+//uhh2::Event::Handle<float> h_Mu_eta;
+//uhh2::Event::Handle<float> h_Mu_phi;
+//uhh2::Event::Handle<float> h_Mu_pt;
 
 uhh2::Event::Handle<float> h_N_Ak4;
 uhh2::Event::Handle<float> h_N_HOTVR;
@@ -191,6 +198,12 @@ h_Ak4_j6_phi = ctx.get_handle<float>("Ak4_j6_phi");
 h_Ak4_j6_pt  = ctx.get_handle<float>("Ak4_j6_pt");
 h_Ak4_j6_deepjetbscore  = ctx.get_handle<float>("Ak4_j6_deepjetbscore");
 
+//Only Ele or Mu variables!!
+h_Ele_E    = ctx.get_handle<float>("Ele_E");
+h_Ele_eta  = ctx.get_handle<float>("Ele_eta");
+h_Ele_phi  = ctx.get_handle<float>("Ele_phi");
+h_Ele_pt   = ctx.get_handle<float>("Ele_pt");
+
 h_HOTVR_j1_E     = ctx.get_handle<float>("HOTVR_j1_E");
 h_HOTVR_j1_eta   = ctx.get_handle<float>("HOTVR_j1_eta");
 h_HOTVR_j1_mSD   = ctx.get_handle<float>("HOTVR_j1_mSD");
@@ -218,10 +231,11 @@ h_HOTVR_j3_tau32 = ctx.get_handle<float>("HOTVR_j3_tau32");
 h_MET_phi = ctx.get_handle<float>("MET_phi");
 h_MET_pt = ctx.get_handle<float>("MET_pt");
 
-h_Mu_E    = ctx.get_handle<float>("Mu_E");
-h_Mu_eta  = ctx.get_handle<float>("Mu_eta");
-h_Mu_phi  = ctx.get_handle<float>("Mu_phi");
-h_Mu_pt   = ctx.get_handle<float>("Mu_pt");
+//Only Ele or Mu variables!!
+//h_Mu_E    = ctx.get_handle<float>("Mu_E");
+//h_Mu_eta  = ctx.get_handle<float>("Mu_eta");
+//h_Mu_phi  = ctx.get_handle<float>("Mu_phi");
+//h_Mu_pt   = ctx.get_handle<float>("Mu_pt");
 
 h_N_Ak4 = ctx.get_handle<float>("N_Ak4");
 h_N_HOTVR = ctx.get_handle<float>("N_HOTVR");
@@ -238,7 +252,9 @@ void NeuralNetworkModule::CreateInputs(Event & event){
   string std[65];
   double mean_val[65];
   double std_val[65];
-  ifstream normfile ("/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_HOTVR_BTag_SF/NormInfo.txt", ios::in);
+  //Only Ele or Mu variables!!
+  ifstream normfile ("/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_HOTVR_Ele/NormInfo.txt", ios::in);
+  //ifstream normfile ("/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_HOTVR_BTag_SF/NormInfo.txt", ios::in);
   if (normfile.is_open()){ 
         for(int i = 0; i < 65; ++i)
         {   
@@ -253,7 +269,9 @@ void NeuralNetworkModule::CreateInputs(Event & event){
   NNInputs.push_back( tensorflow::Tensor(tensorflow::DT_FLOAT, {1, 65}));
 
 
-  vector<uhh2::Event::Handle<float>> inputs = { h_Ak4_j1_E, h_Ak4_j1_deepjetbscore, h_Ak4_j1_eta, h_Ak4_j1_m, h_Ak4_j1_phi, h_Ak4_j1_pt,h_Ak4_j2_E,h_Ak4_j2_deepjetbscore,h_Ak4_j2_eta,h_Ak4_j2_m,h_Ak4_j2_phi,h_Ak4_j2_pt,h_Ak4_j3_E,h_Ak4_j3_deepjetbscore,h_Ak4_j3_eta,h_Ak4_j3_m,h_Ak4_j3_phi, h_Ak4_j3_pt,  h_Ak4_j4_E, h_Ak4_j4_deepjetbscore,  h_Ak4_j4_eta, h_Ak4_j4_m,   h_Ak4_j4_phi, h_Ak4_j4_pt,  h_Ak4_j5_E, h_Ak4_j5_deepjetbscore,  h_Ak4_j5_eta, h_Ak4_j5_m,   h_Ak4_j5_phi, h_Ak4_j5_pt,  h_Ak4_j6_E, h_Ak4_j6_deepjetbscore,  h_Ak4_j6_eta, h_Ak4_j6_m,   h_Ak4_j6_phi, h_Ak4_j6_pt,  h_HOTVR_j1_E,     h_HOTVR_j1_eta,   h_HOTVR_j1_mSD,   h_HOTVR_j1_phi,   h_HOTVR_j1_pt,    h_HOTVR_j1_tau21, h_HOTVR_j1_tau32, h_HOTVR_j2_E,     h_HOTVR_j2_eta,   h_HOTVR_j2_mSD,   h_HOTVR_j2_phi,   h_HOTVR_j2_pt,    h_HOTVR_j2_tau21, h_HOTVR_j2_tau32, h_HOTVR_j3_E,     h_HOTVR_j3_eta,   h_HOTVR_j3_mSD,   h_HOTVR_j3_phi,h_HOTVR_j3_pt,h_HOTVR_j3_tau21,h_HOTVR_j3_tau32,h_MET_phi,h_MET_pt,h_Mu_E,  h_Mu_eta,h_Mu_phi,h_Mu_pt, h_N_Ak4,h_N_HOTVR }; 
+//Only Ele or Mu variables!!
+// vector<uhh2::Event::Handle<float>> inputs = { h_Ak4_j1_E, h_Ak4_j1_deepjetbscore, h_Ak4_j1_eta, h_Ak4_j1_m, h_Ak4_j1_phi, h_Ak4_j1_pt,h_Ak4_j2_E,h_Ak4_j2_deepjetbscore,h_Ak4_j2_eta,h_Ak4_j2_m,h_Ak4_j2_phi,h_Ak4_j2_pt,h_Ak4_j3_E,h_Ak4_j3_deepjetbscore,h_Ak4_j3_eta,h_Ak4_j3_m,h_Ak4_j3_phi, h_Ak4_j3_pt,  h_Ak4_j4_E, h_Ak4_j4_deepjetbscore,  h_Ak4_j4_eta, h_Ak4_j4_m,   h_Ak4_j4_phi, h_Ak4_j4_pt,  h_Ak4_j5_E, h_Ak4_j5_deepjetbscore,  h_Ak4_j5_eta, h_Ak4_j5_m,   h_Ak4_j5_phi, h_Ak4_j5_pt,  h_Ak4_j6_E, h_Ak4_j6_deepjetbscore,  h_Ak4_j6_eta, h_Ak4_j6_m,   h_Ak4_j6_phi, h_Ak4_j6_pt,  h_HOTVR_j1_E,     h_HOTVR_j1_eta,   h_HOTVR_j1_mSD,   h_HOTVR_j1_phi,   h_HOTVR_j1_pt,    h_HOTVR_j1_tau21, h_HOTVR_j1_tau32, h_HOTVR_j2_E,     h_HOTVR_j2_eta,   h_HOTVR_j2_mSD,   h_HOTVR_j2_phi,   h_HOTVR_j2_pt,    h_HOTVR_j2_tau21, h_HOTVR_j2_tau32, h_HOTVR_j3_E,     h_HOTVR_j3_eta,   h_HOTVR_j3_mSD,   h_HOTVR_j3_phi,h_HOTVR_j3_pt,h_HOTVR_j3_tau21,h_HOTVR_j3_tau32,h_MET_phi,h_MET_pt,h_Mu_E,  h_Mu_eta,h_Mu_phi,h_Mu_pt, h_N_Ak4,h_N_HOTVR }; 
+ vector<uhh2::Event::Handle<float>> inputs = { h_Ak4_j1_E, h_Ak4_j1_deepjetbscore, h_Ak4_j1_eta, h_Ak4_j1_m, h_Ak4_j1_phi, h_Ak4_j1_pt,h_Ak4_j2_E,h_Ak4_j2_deepjetbscore,h_Ak4_j2_eta,h_Ak4_j2_m,h_Ak4_j2_phi,h_Ak4_j2_pt,h_Ak4_j3_E,h_Ak4_j3_deepjetbscore,h_Ak4_j3_eta,h_Ak4_j3_m,h_Ak4_j3_phi, h_Ak4_j3_pt,  h_Ak4_j4_E, h_Ak4_j4_deepjetbscore,  h_Ak4_j4_eta, h_Ak4_j4_m,   h_Ak4_j4_phi, h_Ak4_j4_pt,  h_Ak4_j5_E, h_Ak4_j5_deepjetbscore,  h_Ak4_j5_eta, h_Ak4_j5_m,   h_Ak4_j5_phi, h_Ak4_j5_pt,  h_Ak4_j6_E, h_Ak4_j6_deepjetbscore,  h_Ak4_j6_eta, h_Ak4_j6_m,   h_Ak4_j6_phi, h_Ak4_j6_pt, h_Ele_E,  h_Ele_eta,h_Ele_phi,h_Ele_pt,  h_HOTVR_j1_E,     h_HOTVR_j1_eta,   h_HOTVR_j1_mSD,   h_HOTVR_j1_phi,   h_HOTVR_j1_pt,    h_HOTVR_j1_tau21, h_HOTVR_j1_tau32, h_HOTVR_j2_E,     h_HOTVR_j2_eta,   h_HOTVR_j2_mSD,   h_HOTVR_j2_phi,   h_HOTVR_j2_pt,    h_HOTVR_j2_tau21, h_HOTVR_j2_tau32, h_HOTVR_j3_E,     h_HOTVR_j3_eta,   h_HOTVR_j3_mSD,   h_HOTVR_j3_phi,h_HOTVR_j3_pt,h_HOTVR_j3_tau21,h_HOTVR_j3_tau32,h_MET_phi,h_MET_pt, h_N_Ak4,h_N_HOTVR }; 
 
   for(int i = 0; i < 65; ++i){
      NNInputs.at(0).tensor<float, 2>()(0,i)  = (event.get(inputs.at(i))   - mean_val[i]) / (std_val[i]);
@@ -279,6 +297,7 @@ protected:
   // Scale Factors -- Systematics
   unique_ptr<MCMuonScaleFactor> MuonID_module_low, MuonISO_module_low, MuonID_module_high, MuonTrigger_module_low, MuonTrigger_module_high; 
   unique_ptr<MCElecScaleFactor> EleID_module, EleTrigger_module;
+  //unique_ptr<MCBTagScaleFactor> sf_btag;
 
   // AnalysisModules
   unique_ptr<AnalysisModule> LumiWeight_module, PUWeight_module, TopPtReweight_module, MCScale_module;
@@ -388,6 +407,12 @@ protected:
   Event::Handle<float> h_Ak4_j6_phi;
   Event::Handle<float> h_Ak4_j6_pt;
   Event::Handle<float> h_Ak4_j6_deepjetbscore;
+
+//Only Ele or Mu variables!!
+  Event::Handle<float> h_Ele_E;
+  Event::Handle<float> h_Ele_eta;
+  Event::Handle<float> h_Ele_phi;
+  Event::Handle<float> h_Ele_pt;
   
   Event::Handle<float> h_HOTVR_j1_E;
   Event::Handle<float> h_HOTVR_j1_eta;
@@ -416,10 +441,11 @@ protected:
   Event::Handle<float> h_MET_phi;
   Event::Handle<float> h_MET_pt;
   
-  Event::Handle<float> h_Mu_E;
-  Event::Handle<float> h_Mu_eta;
-  Event::Handle<float> h_Mu_phi;
-  Event::Handle<float> h_Mu_pt;
+//Only Ele or Mu variables!!
+//  Event::Handle<float> h_Mu_E;
+//  Event::Handle<float> h_Mu_eta;
+//  Event::Handle<float> h_Mu_phi;
+//  Event::Handle<float> h_Mu_pt;
   
   Event::Handle<float> h_N_Ak4;
   Event::Handle<float> h_N_HOTVR;
@@ -483,7 +509,7 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   double jet1_pt(50.);
   double jet2_pt(30.);
   double chi2_max(30.);
-  double mtt_blind(2000.);
+  double mtt_blind(3000.);
   string trigger_mu_A,trigger_mu_B,trigger_mu_C,trigger_mu_D;
   string trigger_ele_A,trigger_ele_B;
   string trigger_ph_A;
@@ -565,6 +591,7 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   hadronic_top.reset(new HadronicTop(ctx));
   sf_toptag.reset(new HOTVRScaleFactor(ctx, toptagID, ctx.get("Sys_TopTag", "nominal"), "HadronicTop", "TopTagSF", "HOTVRTopTagSFs")); 
   Corrections_module.reset(new NLOCorrections(ctx));
+  ///sf_btag.reset(new MCBTagScaleFactor(ctx, btag_algo, btag_wp, "jets", ctx.get("Sys_btag", "nominal"), "comb", "incl", "MCBtagEfficiencies"));
   BTagWeight_module.reset(new MCBTagDiscriminantReweighting(ctx, btag_algo, "jets", Sys_btag,"iterativefit","","BTagCalibration"));
 
   if((is2016v3 || is2016v2) && isMuon){
@@ -589,9 +616,21 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
     MuonID_module_high.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2018/Muon_ID_SF_RunABCD.root", "NUM_TightID_DEN_TrackerMuons_pt_abseta", 1.0, "tightID", true, Sys_MuonID_high));
     MuonTrigger_module_low.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2018/Muon_Trigger_Eff_SF_AfterMuonHLTUpdate.root", "IsoMu24_PtEtaBins/pt_abseta_ratio", 0.5, "Trigger", true, Sys_MuonTrigger_low));
     MuonTrigger_module_high.reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2018/Muon_Trigger_Eff_SF_AfterMuonHLTUpdate.root", "Mu50_OR_OldMu100_OR_TkMu100_PtEtaBins/pt_abseta_ratio", 0.5, "Trigger", true, Sys_MuonTrigger_high));
-    //EleID_module.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2018/2018_ElectronTight.root", 0., "TightID", Sys_EleID));
-    //EleTrigger_module.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2018/SF_2018.root", 0.5, "Trigger", Sys_EleTrigger));
   }
+
+  if((is2016v3 || is2016v2) && isElectron){
+    EleID_module.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2016/egammaEffi.txt_EGM2D_CutBased_Tight_ID.root", 0., "TightID", Sys_EleID));
+    // EleTrigger_module.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2018/SF_2018.root", 0.5, "Trigger", Sys_EleTrigger));
+  }
+  if(is2017v2 && isElectron){
+    EleID_module.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2017/2017_ElectronTight.root", 0., "TightID", Sys_EleID));
+    // EleTrigger_module.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2018/SF_2018.root", 0.5, "Trigger", Sys_EleTrigger));
+  }
+  if(is2018 && isElectron){
+    EleID_module.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2018/2018_ElectronTight.root", 0., "TightID", Sys_EleID));
+    // EleTrigger_module.reset(new MCElecScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2018/SF_2018.root", 0.5, "Trigger", Sys_EleTrigger));
+   }
+
 
   // Selection modules
   MuonVeto_selection.reset(new NMuonSelection(0, 0)); 
@@ -728,6 +767,12 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   h_Ak4_j6_phi = ctx.get_handle<float>("Ak4_j6_phi");
   h_Ak4_j6_pt  = ctx.get_handle<float>("Ak4_j6_pt");
   h_Ak4_j6_deepjetbscore  = ctx.get_handle<float>("Ak4_j6_deepjetbscore");
+
+//Only Ele or Mu variables!!
+  h_Ele_E    = ctx.get_handle<float>("Ele_E");
+  h_Ele_eta  = ctx.get_handle<float>("Ele_eta");
+  h_Ele_phi  = ctx.get_handle<float>("Ele_phi");
+  h_Ele_pt   = ctx.get_handle<float>("Ele_pt");
   
   h_HOTVR_j1_E     = ctx.get_handle<float>("HOTVR_j1_E");
   h_HOTVR_j1_eta   = ctx.get_handle<float>("HOTVR_j1_eta");
@@ -756,10 +801,11 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   h_MET_phi = ctx.get_handle<float>("MET_phi");
   h_MET_pt = ctx.get_handle<float>("MET_pt");
   
-  h_Mu_E    = ctx.get_handle<float>("Mu_E");
-  h_Mu_eta  = ctx.get_handle<float>("Mu_eta");
-  h_Mu_phi  = ctx.get_handle<float>("Mu_phi");
-  h_Mu_pt   = ctx.get_handle<float>("Mu_pt");
+//Only Ele or Mu variables!!
+//  h_Mu_E    = ctx.get_handle<float>("Mu_E");
+//  h_Mu_eta  = ctx.get_handle<float>("Mu_eta");
+//  h_Mu_phi  = ctx.get_handle<float>("Mu_phi");
+//  h_Mu_pt   = ctx.get_handle<float>("Mu_pt");
   
   h_N_Ak4 = ctx.get_handle<float>("N_Ak4");
   h_N_HOTVR = ctx.get_handle<float>("N_HOTVR");
@@ -770,7 +816,9 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   h_NNoutput1 = ctx.declare_event_output<double>("NNoutput1");
   h_NNoutput2 = ctx.declare_event_output<double>("NNoutput2");
   //h_NNoutput3 = ctx.declare_event_output<double>("NNoutput3");
-  NNModule.reset( new NeuralNetworkModule(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_HOTVR_BTag_SF/model.pb", "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_HOTVR_BTag_SF/model.config.pbtxt"));
+  ////Only Ele or Mu variables!!
+  NNModule.reset( new NeuralNetworkModule(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_HOTVR_Ele/model.pb", "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_HOTVR_Ele/model.config.pbtxt"));
+  //NNModule.reset( new NeuralNetworkModule(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_HOTVR_BTag_SF/model.pb", "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_V4_HOTVR_BTag_SF/model.config.pbtxt"));
 
 }
 
@@ -899,10 +947,10 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
      }
   fill_histograms(event, "IDMuon_SF");
   }
-  //if(isElectron){
-  //  EleID_module->process(event);
-  //  if(debug)  cout<<"EleID ok"<<endl;
-  //}
+  if(isElectron){
+    EleID_module->process(event);
+    if(debug)  cout<<"EleID ok"<<endl;
+  }
 
 
   // Muon ISO SF
@@ -915,7 +963,12 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
     }
   fill_histograms(event, "IsoMuon_SF");
   }
-
+  // dummy for ele channel
+  if(isElectron){
+    event.set(h_musf_iso, 1.);
+    event.set(h_musf_iso_up, 1.);
+    event.set(h_musf_iso_down, 1.);
+  }
 
 
 //  // Trigger MUON channel
@@ -1078,14 +1131,14 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
   NNModule->process(event);
   std::vector<tensorflow::Tensor> NNoutputs = NNModule->GetOutputs();
 
-  event.set(h_NNoutput0, (double)(NNoutputs[0].tensor<float, 2>()(0,0)));
-  event.set(h_NNoutput1, (double)(NNoutputs[0].tensor<float, 2>()(0,1)));
+  event.set(h_NNoutput0, (double)(NNoutputs[0].tensor<float, 2>()(0,1)));
+  event.set(h_NNoutput1, (double)(NNoutputs[0].tensor<float, 2>()(0,0)));
   event.set(h_NNoutput2, (double)(NNoutputs[0].tensor<float, 2>()(0,2)));
   //event.set(h_NNoutput3, (double)(NNoutputs[0].tensor<float, 2>()(0,3)));
   event.set(h_NNoutput, NNoutputs);
 
-  double out0 = (double)(NNoutputs[0].tensor<float, 2>()(0,0));
-  double out1 = (double)(NNoutputs[0].tensor<float, 2>()(0,1));
+  double out0 = (double)(NNoutputs[0].tensor<float, 2>()(0,1));
+  double out1 = (double)(NNoutputs[0].tensor<float, 2>()(0,0));
   double out2 = (double)(NNoutputs[0].tensor<float, 2>()(0,2));
   //double out3 = (double)(NNoutputs[0].tensor<float, 2>()(0,3));
   //vector<double> out_event = {out0, out1, out2, out3};
