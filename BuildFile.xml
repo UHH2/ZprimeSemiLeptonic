@@ -9,3 +9,4 @@
 <use name="tensorflow-cc"/>
 <use name="Eigen"/>
 <use name="protobuf"/>
+<use name="UHH2/HOTVR"/>
