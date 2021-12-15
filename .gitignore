@@ -11,3 +11,4 @@ obj/*
 *.log
 *.eps
 *.pdf
+config/workdir_*
