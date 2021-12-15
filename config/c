@@ -1,3 +1,0 @@
-cd /nfs/dust/cms/user/reimersa/CMSSW_9_4_1/src/UHH2/ZprimeSemiLeptonic;
-make -j;
-cd /nfs/dust/cms/user/reimersa/CMSSW_9_4_1/src/UHH2/ZprimeSemiLeptonic/config/;
