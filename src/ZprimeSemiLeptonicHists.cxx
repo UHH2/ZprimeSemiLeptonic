@@ -19,8 +19,6 @@ using namespace uhh2;
 
 ZprimeSemiLeptonicHists::ZprimeSemiLeptonicHists(uhh2::Context& ctx, const std::string& dirname):
 Hists(ctx, dirname) {
-
-
   is_mc = ctx.get("dataset_type") == "MC";
   //h_AK8PuppiTopTags = ctx.get_handle<std::vector<TopJet>>("AK8PuppiTopTags");
   h_HOTVRTopTags = ctx.get_handle<std::vector<TopJet>>("HOTVRTopTags");
@@ -28,11 +26,10 @@ Hists(ctx, dirname) {
   h_BestZprimeCandidateCorrectMatch = ctx.get_handle<ZprimeCandidate*>("ZprimeCandidateBestCorrectMatch");
   h_is_zprime_reconstructed_chi2 = ctx.get_handle<bool>("is_zprime_reconstructed_chi2");
   h_is_zprime_reconstructed_correctmatch = ctx.get_handle<bool>("is_zprime_reconstructed_correctmatch");
-/*  h_NNoutput0 = ctx.get_handle<double>("NNoutput0");
-  h_NNoutput1 = ctx.get_handle<double>("NNoutput1");
-  h_NNoutput2 = ctx.get_handle<double>("NNoutput2");
-  h_NNoutput3 = ctx.get_handle<double>("NNoutput3");
-*/
+  // h_NNoutput0 = ctx.get_handle<double>("NNoutput0");
+  // h_NNoutput1 = ctx.get_handle<double>("NNoutput1");
+  // h_NNoutput2 = ctx.get_handle<double>("NNoutput2");
+  // h_NNoutput3 = ctx.get_handle<double>("NNoutput3");
   //  h_chi2 = ctx.get_handle<float>("chi2");
   init();
 }
@@ -40,58 +37,50 @@ Hists(ctx, dirname) {
 void ZprimeSemiLeptonicHists::init(){
 
   // jets
-  N_jets            = book<TH1F>("N_jets", "N_{jets}", 21, -0.5, 20.5);
-  pt_jet            = book<TH1F>("pt_jet", "p_{T}^{jets} [GeV]", 45, 0, 900);
-  pt_jet1           = book<TH1F>("pt_jet1", "p_{T}^{jet 1} [GeV]", 45, 0, 900);
-  pt_jet2           = book<TH1F>("pt_jet2", "p_{T}^{jet 2} [GeV]", 45, 0, 900);
-  pt_jet3           = book<TH1F>("pt_jet3", "p_{T}^{jet 3} [GeV]", 45, 0, 900);
-  eta_jet           = book<TH1F>("eta_jet", "#eta^{jets}", 50, -2.5, 2.5);
-  eta_jet1          = book<TH1F>("eta_jet1", "#eta^{jet 1}", 50, -2.5, 2.5);
-  eta_jet2          = book<TH1F>("eta_jet2", "#eta^{jet 2}", 50, -2.5, 2.5);
-  eta_jet3          = book<TH1F>("eta_jet3", "#eta^{jet 3}", 50, -2.5, 2.5);
-  phi_jet           = book<TH1F>("phi_jet", "#phi^{jets}", 35, -3.5, 3.5);
-  phi_jet1          = book<TH1F>("phi_jet1", "#phi^{jet 1}", 35, -3.5, 3.5);
-  phi_jet2          = book<TH1F>("phi_jet2", "#phi^{jet 2}", 35, -3.5, 3.5);
-  phi_jet3          = book<TH1F>("phi_jet3", "#phi^{jet 3}", 35, -3.5, 3.5);
-  m_jet             = book<TH1F>("m_jet", "m^{jets}", 50, 0, 500);
-  m_jet1            = book<TH1F>("m_jet1", "m^{jet 1}", 50, 0, 500);
-  m_jet2            = book<TH1F>("m_jet2", "m^{jet 2}", 50, 0, 500);
-  m_jet3            = book<TH1F>("m_jet3", "m^{jet 3}", 50, 0, 500);
-  csv_jet           = book<TH1F>("csv_jet", "CSV^{jets}", 20, 0, 1);
-  csv_jet1          = book<TH1F>("csv_jet1", "CSV^{jet 1}", 20, 0, 1);
-  csv_jet2          = book<TH1F>("csv_jet2", "CSV^{jet 2}", 20, 0, 1);
-  csv_jet3          = book<TH1F>("csv_jet3", "CSV^{jet 3}", 20, 0, 1);
+  N_jets   = book<TH1F>("N_jets", "N_{jets}", 21, -0.5, 20.5);
+  pt_jet   = book<TH1F>("pt_jet", "p_{T}^{jets} [GeV]", 45, 0, 900);
+  pt_jet1  = book<TH1F>("pt_jet1", "p_{T}^{jet 1} [GeV]", 45, 0, 900);
+  pt_jet2  = book<TH1F>("pt_jet2", "p_{T}^{jet 2} [GeV]", 45, 0, 900);
+  pt_jet3  = book<TH1F>("pt_jet3", "p_{T}^{jet 3} [GeV]", 45, 0, 900);
+  eta_jet  = book<TH1F>("eta_jet", "#eta^{jets}", 50, -2.5, 2.5);
+  eta_jet1 = book<TH1F>("eta_jet1", "#eta^{jet 1}", 50, -2.5, 2.5);
+  eta_jet2 = book<TH1F>("eta_jet2", "#eta^{jet 2}", 50, -2.5, 2.5);
+  eta_jet3 = book<TH1F>("eta_jet3", "#eta^{jet 3}", 50, -2.5, 2.5);
+  phi_jet  = book<TH1F>("phi_jet", "#phi^{jets}", 35, -3.5, 3.5);
+  phi_jet1 = book<TH1F>("phi_jet1", "#phi^{jet 1}", 35, -3.5, 3.5);
+  phi_jet2 = book<TH1F>("phi_jet2", "#phi^{jet 2}", 35, -3.5, 3.5);
+  phi_jet3 = book<TH1F>("phi_jet3", "#phi^{jet 3}", 35, -3.5, 3.5);
+  m_jet    = book<TH1F>("m_jet", "m^{jets}", 50, 0, 500);
+  m_jet1   = book<TH1F>("m_jet1", "m^{jet 1}", 50, 0, 500);
+  m_jet2   = book<TH1F>("m_jet2", "m^{jet 2}", 50, 0, 500);
+  m_jet3   = book<TH1F>("m_jet3", "m^{jet 3}", 50, 0, 500);
 
-  deepjetbscore_jet           = book<TH1F>("deepjetbscore_jet", "DeepJet b-tag score all AK4 jets", 20, 0, 1);
-  deepjetbscore_jet1          = book<TH1F>("deepjetbscore_jet1", "DeppJet b-tag score AK4 jet 1}", 20, 0, 1);
-  deepjetbscore_jet2          = book<TH1F>("deepjetbscore_jet2", "DeepJet b-tag score AK4 jet 2}", 20, 0, 1);
-  deepjetbscore_jet3          = book<TH1F>("deepjetbscore_jet3", "DeepJet b-tag score AK4 jet 3}", 20, 0, 1);
-
-  N_bJets_loose     = book<TH1F>("N_bJets_loose", "N_{jets}^{CSV loose}", 11, -0.5, 10.5);
-  N_bJets_med       = book<TH1F>("N_bJets_med", "N_{jets}^{CSV medium}", 11, -0.5, 10.5);
-  N_bJets_tight     = book<TH1F>("N_bJets_tight", "N_{jets}^{CSV tight}", 11, -0.5, 10.5);
-
-  N_bJetsDeepJet_loose     = book<TH1F>("N_bJetsDeepJet_loose", "N_{jets}^{DeepJet loose}", 11, -0.5, 10.5);
-  N_bJetsDeepJet_med       = book<TH1F>("N_bJetsDeepJet_med", "N_{jets}^{DeepJet medium}", 11, -0.5, 10.5);
-  N_bJetsDeepJet_tight     = book<TH1F>("N_bJetsDeepJet_tight", "N_{jets}^{DeepJet tight}", 11, -0.5, 10.5);
+  deepjetbscore_jet  = book<TH1F>("deepjetbscore_jet", "DeepJet b-tag score all AK4 jets", 20, 0, 1);
+  deepjetbscore_jet1 = book<TH1F>("deepjetbscore_jet1", "DeppJet b-tag score AK4 jet 1}", 20, 0, 1);
+  deepjetbscore_jet2 = book<TH1F>("deepjetbscore_jet2", "DeepJet b-tag score AK4 jet 2}", 20, 0, 1);
+  deepjetbscore_jet3 = book<TH1F>("deepjetbscore_jet3", "DeepJet b-tag score AK4 jet 3}", 20, 0, 1);
+  N_bJetsDeepJet_loose = book<TH1F>("N_bJetsDeepJet_loose", "N_{jets}^{DeepJet loose}", 11, -0.5, 10.5);
+  N_bJetsDeepJet_med   = book<TH1F>("N_bJetsDeepJet_med", "N_{jets}^{DeepJet medium}", 11, -0.5, 10.5);
+  N_bJetsDeepJet_tight = book<TH1F>("N_bJetsDeepJet_tight", "N_{jets}^{DeepJet tight}", 11, -0.5, 10.5);
 
   // leptons
-  N_mu              = book<TH1F>("N_mu", "N^{#mu}", 11, -0.5, 10.5);
-  pt_mu             = book<TH1F>("pt_mu", "p_{T}^{#mu} [GeV]", 90, 0, 900);
-  pt_mu1            = book<TH1F>("pt_mu1", "p_{T}^{#mu 1} [GeV]", 90, 0, 900);
-  pt_mu2            = book<TH1F>("pt_mu2", "p_{T}^{#mu 2} [GeV]", 90, 0, 900);
-  eta_mu            = book<TH1F>("eta_mu", "#eta^{#mu}", 50, -2.5, 2.5);
-  eta_mu1           = book<TH1F>("eta_mu1", "#eta^{#mu 1}", 50, -2.5, 2.5);
-  eta_mu2           = book<TH1F>("eta_mu2", "#eta^{#mu 2}", 50, -2.5, 2.5);
-  phi_mu            = book<TH1F>("phi_mu", "#phi^{#mu}", 35, -3.5, 3.5);
-  phi_mu1           = book<TH1F>("phi_mu1", "#phi^{#mu 1}", 35, 3.5, 3.5);
-  phi_mu2           = book<TH1F>("phi_mu2", "#phi^{#mu 2}", 35, 3.5, 3.5);
-  reliso_mu         = book<TH1F>("reliso_mu", "#mu rel. Iso", 40, 0, 0.5);
-  reliso_mu1        = book<TH1F>("reliso_mu1", "#mu 1 rel. Iso", 40, 0, 0.5);
-  reliso_mu2        = book<TH1F>("reliso_mu2", "#mu 2 rel. Iso", 40, 0, 0.5);
-  reliso_mu_rebin   = book<TH1F>("reliso_mu_rebin", "#mu rel. Iso ", 400, 0, 5);
-  reliso_mu1_rebin  = book<TH1F>("reliso_mu1_rebin", "#mu 1 rel. Iso ", 400, 0, 5);
-  reliso_mu2_rebin  = book<TH1F>("reliso_mu2_rebin", "#mu 2 rel. Iso ", 400, 0, 5);
+  N_mu             = book<TH1F>("N_mu", "N^{#mu}", 11, -0.5, 10.5);
+  pt_mu            = book<TH1F>("pt_mu", "p_{T}^{#mu} [GeV]", 90, 0, 900);
+  pt_mu1           = book<TH1F>("pt_mu1", "p_{T}^{#mu 1} [GeV]", 90, 0, 900);
+  pt_mu2           = book<TH1F>("pt_mu2", "p_{T}^{#mu 2} [GeV]", 90, 0, 900);
+  eta_mu           = book<TH1F>("eta_mu", "#eta^{#mu}", 50, -2.5, 2.5);
+  eta_mu1          = book<TH1F>("eta_mu1", "#eta^{#mu 1}", 50, -2.5, 2.5);
+  eta_mu2          = book<TH1F>("eta_mu2", "#eta^{#mu 2}", 50, -2.5, 2.5);
+  phi_mu           = book<TH1F>("phi_mu", "#phi^{#mu}", 35, -3.5, 3.5);
+  phi_mu1          = book<TH1F>("phi_mu1", "#phi^{#mu 1}", 35, 3.5, 3.5);
+  phi_mu2          = book<TH1F>("phi_mu2", "#phi^{#mu 2}", 35, 3.5, 3.5);
+  reliso_mu        = book<TH1F>("reliso_mu", "#mu rel. Iso", 40, 0, 0.5);
+  reliso_mu1       = book<TH1F>("reliso_mu1", "#mu 1 rel. Iso", 40, 0, 0.5);
+  reliso_mu2       = book<TH1F>("reliso_mu2", "#mu 2 rel. Iso", 40, 0, 0.5);
+  reliso_mu_rebin  = book<TH1F>("reliso_mu_rebin", "#mu rel. Iso ", 400, 0, 5);
+  reliso_mu1_rebin = book<TH1F>("reliso_mu1_rebin", "#mu 1 rel. Iso ", 400, 0, 5);
+  reliso_mu2_rebin = book<TH1F>("reliso_mu2_rebin", "#mu 2 rel. Iso ", 400, 0, 5);
+
   N_ele             = book<TH1F>("N_ele", "N^{e}", 11, -0.5, 10.5);
   pt_ele            = book<TH1F>("pt_ele", "p_{T}^{e} [GeV]", 90, 0, 900);
   pt_ele1           = book<TH1F>("pt_ele1", "p_{T}^{e 1} [GeV]", 90, 0, 900);
@@ -124,15 +113,15 @@ void ZprimeSemiLeptonicHists::init(){
   ptrel_mu1_jet         = book<TH1F>("ptrel_mu1_jet", "p_{T}^{rel}(#mu1, jet)", 50, 0, 500);
   ptrel_ele1_jet        = book<TH1F>("ptrel_ele1_jet", "p_{T}^{rel}(e1, jet)", 50, 0, 500);
 
-  dR_mu_nearjet     = book<TH1F>("dR_mu_nearjet", "#DeltaR(#mu, nearest jet)", 60, 0, 3); 
-  dR_ele_nearjet    = book<TH1F>("dR_ele_nearjet", "#DeltaR(e, nearest jet)", 60, 0, 3); 
-  pt_mu_nearjet     = book<TH1F>("pt_mu_nearjet", "p_{T} (nearest jet to #mu)", 50, 0, 500); 
-  pt_ele_nearjet    = book<TH1F>("pt_ele_nearjet", "p_{T} (nearest jet to e)", 50, 0, 500); 
+  dR_mu_nearjet  = book<TH1F>("dR_mu_nearjet", "#DeltaR(#mu, nearest jet)", 60, 0, 3);
+  dR_ele_nearjet = book<TH1F>("dR_ele_nearjet", "#DeltaR(e, nearest jet)", 60, 0, 3);
+  pt_mu_nearjet  = book<TH1F>("pt_mu_nearjet", "p_{T} (nearest jet to #mu)", 50, 0, 500);
+  pt_ele_nearjet = book<TH1F>("pt_ele_nearjet", "p_{T} (nearest jet to e)", 50, 0, 500);
 
-  dRmin_ptrel_mu    = book<TH2F>("dRmin_ptrel_mu", "#DeltaR_{min}(#mu, jet);p_{T}^{rel}(#mu, jet);p_{T}^{rel}(#mu, jet) vs. #DeltaR_{min}(#mu, jet)", 60, 0, 3, 50, 0, 500);
-  dRmin_ptrel_mu1   = book<TH2F>("dRmin_ptrel_mu1", "#DeltaR_{min}(#mu1, jet);p_{T}^{rel}(#mu1, jet);p_{T}^{rel}(#mu1, jet) vs. #DeltaR_{min}(#mu1, jet)", 60, 0, 3, 50, 0, 500);
-  dRmin_ptrel_ele   = book<TH2F>("dRmin_ptrel_ele", "#DeltaR_{min}(e, jet);p_{T}^{rel}(e, jet);p_{T}^{rel}(e, jet) vs. #DeltaR_{min}(e, jet)", 60, 0, 3, 50, 0, 500);
-  dRmin_ptrel_ele1  = book<TH2F>("dRmin_ptrel_ele1", "#DeltaR_{min}(e1, jet);p_{T}^{rel}(e1, jet);p_{T}^{rel}(e1, jet) vs. #DeltaR_{min}(e1, jet)", 60, 0, 3, 50, 0, 500);
+  dRmin_ptrel_mu   = book<TH2F>("dRmin_ptrel_mu", "#DeltaR_{min}(#mu, jet);p_{T}^{rel}(#mu, jet);p_{T}^{rel}(#mu, jet) vs. #DeltaR_{min}(#mu, jet)", 60, 0, 3, 50, 0, 500);
+  dRmin_ptrel_mu1  = book<TH2F>("dRmin_ptrel_mu1", "#DeltaR_{min}(#mu1, jet);p_{T}^{rel}(#mu1, jet);p_{T}^{rel}(#mu1, jet) vs. #DeltaR_{min}(#mu1, jet)", 60, 0, 3, 50, 0, 500);
+  dRmin_ptrel_ele  = book<TH2F>("dRmin_ptrel_ele", "#DeltaR_{min}(e, jet);p_{T}^{rel}(e, jet);p_{T}^{rel}(e, jet) vs. #DeltaR_{min}(e, jet)", 60, 0, 3, 50, 0, 500);
+  dRmin_ptrel_ele1 = book<TH2F>("dRmin_ptrel_ele1", "#DeltaR_{min}(e1, jet);p_{T}^{rel}(e1, jet);p_{T}^{rel}(e1, jet) vs. #DeltaR_{min}(e1, jet)", 60, 0, 3, 50, 0, 500);
 
   // HOTVR jets
   N_HOTVRjets              = book<TH1F>("N_HOTVRjets", "N_{HOTVR jets}", 6, -0.5, 5.5);
@@ -299,57 +288,57 @@ void ZprimeSemiLeptonicHists::init(){
   tau32_HOTVRTaggedjet2        = book<TH1F>("tau32_HOTVRTaggedjet2", "#tau_{3/2}^{HOTVR Tagged jet 2}", 24, 0, 1.2);
   tau32_HOTVRTaggedjet3        = book<TH1F>("tau32_HOTVRTaggedjet3", "#tau_{3/2}^{HOTVR  Tagged jet 3}", 24, 0, 1.2);
 
-  deepjet_topscore_jet           = book<TH1F>("deepjet_topscore_jet", "DeepJet top score all AK8 jets", 20, 0, 1);
-  deepjet_topscore_jet1          = book<TH1F>("deepjet_topscore_jet1", "DeppJet top score AK8 jet 1}", 20, 0, 1);
-  deepjet_topscore_jet2          = book<TH1F>("deepjet_topscore_jet2", "DeepJet top score AK8 jet 2}", 20, 0, 1);
-  deepjet_wscore_jet           = book<TH1F>("deepjet_wscore_jet", "DeepJet W score all AK8 jets", 20, 0, 1);
-  deepjet_wscore_jet1          = book<TH1F>("deepjet_wscore_jet1", "DeppJet W score AK8 jet 1}", 20, 0, 1);
-  deepjet_wscore_jet2          = book<TH1F>("deepjet_wscore_jet2", "DeepJet W score AK8 jet 2}", 20, 0, 1);
-  deepjet_zscore_jet           = book<TH1F>("deepjet_zscore_jet", "DeepJet Z score all AK8 jets", 20, 0, 1);
-  deepjet_zscore_jet1          = book<TH1F>("deepjet_zscore_jet1", "DeppJet Z score AK8 jet 1}", 20, 0, 1);
-  deepjet_zscore_jet2          = book<TH1F>("deepjet_zscore_jet2", "DeepJet Z score AK8 jet 2}", 20, 0, 1);
-  deepjet_higgsscore_jet           = book<TH1F>("deepjet_higgsscore_jet", "DeepJet Higgs score all AK8 jets", 20, 0, 1);
-  deepjet_higgsscore_jet1          = book<TH1F>("deepjet_higgsscore_jet1", "DeppJet Higgs score AK8 jet 1}", 20, 0, 1);
-  deepjet_higgsscore_jet2          = book<TH1F>("deepjet_higgsscore_jet2", "DeepJet Higgs score AK8 jet 2}", 20, 0, 1);
-  deepjet_qcdscore_jet           = book<TH1F>("deepjet_qcdscore_jet", "DeepJet qcd score all AK8 jets", 20, 0, 1);
-  deepjet_qcdscore_jet1          = book<TH1F>("deepjet_qcdscore_jet1", "DeppJet qcd score AK8 jet 1}", 20, 0, 1);
-  deepjet_qcdscore_jet2          = book<TH1F>("deepjet_qcdscore_jet2", "DeepJet qcd score AK8 jet 2}", 20, 0, 1);
+  deepjet_topscore_jet    = book<TH1F>("deepjet_topscore_jet", "DeepJet top score all AK8 jets", 20, 0, 1);
+  deepjet_topscore_jet1   = book<TH1F>("deepjet_topscore_jet1", "DeppJet top score AK8 jet 1}", 20, 0, 1);
+  deepjet_topscore_jet2   = book<TH1F>("deepjet_topscore_jet2", "DeepJet top score AK8 jet 2}", 20, 0, 1);
+  deepjet_wscore_jet      = book<TH1F>("deepjet_wscore_jet", "DeepJet W score all AK8 jets", 20, 0, 1);
+  deepjet_wscore_jet1     = book<TH1F>("deepjet_wscore_jet1", "DeppJet W score AK8 jet 1}", 20, 0, 1);
+  deepjet_wscore_jet2     = book<TH1F>("deepjet_wscore_jet2", "DeepJet W score AK8 jet 2}", 20, 0, 1);
+  deepjet_zscore_jet      = book<TH1F>("deepjet_zscore_jet", "DeepJet Z score all AK8 jets", 20, 0, 1);
+  deepjet_zscore_jet1     = book<TH1F>("deepjet_zscore_jet1", "DeppJet Z score AK8 jet 1}", 20, 0, 1);
+  deepjet_zscore_jet2     = book<TH1F>("deepjet_zscore_jet2", "DeepJet Z score AK8 jet 2}", 20, 0, 1);
+  deepjet_higgsscore_jet  = book<TH1F>("deepjet_higgsscore_jet", "DeepJet Higgs score all AK8 jets", 20, 0, 1);
+  deepjet_higgsscore_jet1 = book<TH1F>("deepjet_higgsscore_jet1", "DeppJet Higgs score AK8 jet 1}", 20, 0, 1);
+  deepjet_higgsscore_jet2 = book<TH1F>("deepjet_higgsscore_jet2", "DeepJet Higgs score AK8 jet 2}", 20, 0, 1);
+  deepjet_qcdscore_jet    = book<TH1F>("deepjet_qcdscore_jet", "DeepJet qcd score all AK8 jets", 20, 0, 1);
+  deepjet_qcdscore_jet1   = book<TH1F>("deepjet_qcdscore_jet1", "DeppJet qcd score AK8 jet 1}", 20, 0, 1);
+  deepjet_qcdscore_jet2   = book<TH1F>("deepjet_qcdscore_jet2", "DeepJet qcd score AK8 jet 2}", 20, 0, 1);
 
-  massdecordeepjet_topscore_jet           = book<TH1F>("massdecordeepjet_topscore_jet", "Mass decor deepjet top score all AK8 jets", 20, 0, 1);
-  massdecordeepjet_topscore_jet1          = book<TH1F>("massdecordeepjet_topscore_jet1", "Mass decor deepjet top score AK8 jet 1", 20, 0, 1);
-  massdecordeepjet_topscore_jet2          = book<TH1F>("massdecordeepjet_topscore_jet2", "Mass decor deepjet top score AK8 jet 2", 20, 0, 1);
-  massdecordeepjet_wscore_jet           = book<TH1F>("massdecordeepjet_wscore_jet", "Mass decor deepjet W score all AK8 jets", 20, 0, 1);
-  massdecordeepjet_wscore_jet1          = book<TH1F>("massdecordeepjet_wscore_jet1", "Mass decor deepjet  W score AK8 jet 1", 20, 0, 1);
-  massdecordeepjet_wscore_jet2          = book<TH1F>("massdecordeepjet_wscore_jet2", "Mass decor deepjet W score AK8 jet 2", 20, 0, 1);
-  massdecordeepjet_zscore_jet           = book<TH1F>("massdecordeepjet_zscore_jet", "Mass decor deepjet Z score all AK8 jets", 20, 0, 1);
-  massdecordeepjet_zscore_jet1          = book<TH1F>("massdecordeepjet_zscore_jet1", "Mass decor deepjet  Z score AK8 jet 1", 20, 0, 1);
-  massdecordeepjet_zscore_jet2          = book<TH1F>("massdecordeepjet_zscore_jet2", "Mass decor deepjet Z score AK8 jet 2", 20, 0, 1);
-  massdecordeepjet_higgsscore_jet           = book<TH1F>("massdecordeepjet_higgsscore_jet", "Mass decor deepjet Higgs score all AK8 jets", 20, 0, 1);
-  massdecordeepjet_higgsscore_jet1          = book<TH1F>("massdecordeepjet_higgsscore_jet1", "Mass decor deepjet  Higgs score AK8 jet 1", 20, 0, 1);
-  massdecordeepjet_higgsscore_jet2          = book<TH1F>("massdecordeepjet_higgsscore_jet2", "Mass decor deepjet Higgs score AK8 jet 2", 20, 0, 1);
-  massdecordeepjet_qcdscore_jet           = book<TH1F>("massdecordeepjet_qcdscore_jet", "Mass decor deepjet qcd score all AK8 jets", 20, 0, 1);
-  massdecordeepjet_qcdscore_jet1          = book<TH1F>("massdecordeepjet_qcdscore_jet1", "Mass decor deepjet qcd score AK8 jet 1", 20, 0, 1);
-  massdecordeepjet_qcdscore_jet2          = book<TH1F>("massdecordeepjet_qcdscore_jet2", "Mass decor deepjet qcd score AK8 jet 2", 20, 0, 1);
+  massdecordeepjet_topscore_jet    = book<TH1F>("massdecordeepjet_topscore_jet", "Mass decor deepjet top score all AK8 jets", 20, 0, 1);
+  massdecordeepjet_topscore_jet1   = book<TH1F>("massdecordeepjet_topscore_jet1", "Mass decor deepjet top score AK8 jet 1", 20, 0, 1);
+  massdecordeepjet_topscore_jet2   = book<TH1F>("massdecordeepjet_topscore_jet2", "Mass decor deepjet top score AK8 jet 2", 20, 0, 1);
+  massdecordeepjet_wscore_jet      = book<TH1F>("massdecordeepjet_wscore_jet", "Mass decor deepjet W score all AK8 jets", 20, 0, 1);
+  massdecordeepjet_wscore_jet1     = book<TH1F>("massdecordeepjet_wscore_jet1", "Mass decor deepjet  W score AK8 jet 1", 20, 0, 1);
+  massdecordeepjet_wscore_jet2     = book<TH1F>("massdecordeepjet_wscore_jet2", "Mass decor deepjet W score AK8 jet 2", 20, 0, 1);
+  massdecordeepjet_zscore_jet      = book<TH1F>("massdecordeepjet_zscore_jet", "Mass decor deepjet Z score all AK8 jets", 20, 0, 1);
+  massdecordeepjet_zscore_jet1     = book<TH1F>("massdecordeepjet_zscore_jet1", "Mass decor deepjet  Z score AK8 jet 1", 20, 0, 1);
+  massdecordeepjet_zscore_jet2     = book<TH1F>("massdecordeepjet_zscore_jet2", "Mass decor deepjet Z score AK8 jet 2", 20, 0, 1);
+  massdecordeepjet_higgsscore_jet  = book<TH1F>("massdecordeepjet_higgsscore_jet", "Mass decor deepjet Higgs score all AK8 jets", 20, 0, 1);
+  massdecordeepjet_higgsscore_jet1 = book<TH1F>("massdecordeepjet_higgsscore_jet1", "Mass decor deepjet  Higgs score AK8 jet 1", 20, 0, 1);
+  massdecordeepjet_higgsscore_jet2 = book<TH1F>("massdecordeepjet_higgsscore_jet2", "Mass decor deepjet Higgs score AK8 jet 2", 20, 0, 1);
+  massdecordeepjet_qcdscore_jet    = book<TH1F>("massdecordeepjet_qcdscore_jet", "Mass decor deepjet qcd score all AK8 jets", 20, 0, 1);
+  massdecordeepjet_qcdscore_jet1   = book<TH1F>("massdecordeepjet_qcdscore_jet1", "Mass decor deepjet qcd score AK8 jet 1", 20, 0, 1);
+  massdecordeepjet_qcdscore_jet2   = book<TH1F>("massdecordeepjet_qcdscore_jet2", "Mass decor deepjet qcd score AK8 jet 2", 20, 0, 1);
 
 
   // general
-  NPV               = book<TH1F>("NPV", "number of primary vertices", 91, -0.50, 90.5);
-  MET               = book<TH1F>("MET", "missing E_{T} [GeV]", 50, 0, 7000);
-  MET_rebin         = book<TH1F>("MET_rebin", "missing E_{T} [GeV]", 45, 0, 900);
-  MET_rebin2        = book<TH1F>("MET_rebin2", "missing E_{T} [GeV]", 30, 0, 1500);
-  MET_rebin3        = book<TH1F>("MET_rebin3", "missing E_{T} [GeV]", 15, 0, 1500);
-  ST                = book<TH1F>("ST", "S_{T} [GeV]", 50, 0, 7000);
-  ST_rebin          = book<TH1F>("ST_rebin", "S_{T} [GeV]", 200, 0, 5000);
-  ST_rebin2         = book<TH1F>("ST_rebin2", "S_{T} [GeV]", 100, 0, 5000);
-  ST_rebin3         = book<TH1F>("ST_rebin3", "S_{T} [GeV]", 50, 0, 5000);
-  STjets            = book<TH1F>("STjets", "S_{T}^{jets} [GeV]", 50, 0, 7000);
-  STjets_rebin      = book<TH1F>("STjets_rebin", "S_{T}^{jets} [GeV]", 200, 0, 5000);
-  STjets_rebin2     = book<TH1F>("STjets_rebin2", "S_{T}^{jets} [GeV]", 100, 0, 5000);
-  STjets_rebin3     = book<TH1F>("STjets_rebin3", "S_{T}^{jets} [GeV]", 50, 0, 5000);
-  STlep             = book<TH1F>("STlep", "S_{T}^{lep} [GeV]", 50, 0, 7000);
-  STlep_rebin       = book<TH1F>("STlep_rebin", "S_{T}^{lep} [GeV]", 45, 0, 900);
-  STlep_rebin2      = book<TH1F>("STlep_rebin2", "S_{T}^{lep} [GeV]", 30, 0, 1500);
-  STlep_rebin3      = book<TH1F>("STlep_rebin3", "S_{T}^{lep} [GeV]", 15, 0, 1500);
+  NPV           = book<TH1F>("NPV", "number of primary vertices", 91, -0.50, 90.5);
+  MET           = book<TH1F>("MET", "missing E_{T} [GeV]", 50, 0, 7000);
+  MET_rebin     = book<TH1F>("MET_rebin", "missing E_{T} [GeV]", 45, 0, 900);
+  MET_rebin2    = book<TH1F>("MET_rebin2", "missing E_{T} [GeV]", 30, 0, 1500);
+  MET_rebin3    = book<TH1F>("MET_rebin3", "missing E_{T} [GeV]", 15, 0, 1500);
+  ST            = book<TH1F>("ST", "S_{T} [GeV]", 50, 0, 7000);
+  ST_rebin      = book<TH1F>("ST_rebin", "S_{T} [GeV]", 200, 0, 5000);
+  ST_rebin2     = book<TH1F>("ST_rebin2", "S_{T} [GeV]", 100, 0, 5000);
+  ST_rebin3     = book<TH1F>("ST_rebin3", "S_{T} [GeV]", 50, 0, 5000);
+  STjets        = book<TH1F>("STjets", "S_{T}^{jets} [GeV]", 50, 0, 7000);
+  STjets_rebin  = book<TH1F>("STjets_rebin", "S_{T}^{jets} [GeV]", 200, 0, 5000);
+  STjets_rebin2 = book<TH1F>("STjets_rebin2", "S_{T}^{jets} [GeV]", 100, 0, 5000);
+  STjets_rebin3 = book<TH1F>("STjets_rebin3", "S_{T}^{jets} [GeV]", 50, 0, 5000);
+  STlep         = book<TH1F>("STlep", "S_{T}^{lep} [GeV]", 50, 0, 7000);
+  STlep_rebin   = book<TH1F>("STlep_rebin", "S_{T}^{lep} [GeV]", 45, 0, 900);
+  STlep_rebin2  = book<TH1F>("STlep_rebin2", "S_{T}^{lep} [GeV]", 30, 0, 1500);
+  STlep_rebin3  = book<TH1F>("STlep_rebin3", "S_{T}^{lep} [GeV]", 15, 0, 1500);
 
   // Zprime reconstruction
   vector<float> bins_Zprime4 = {0,400,600,800,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200,3400,3600,3800,4000,4400,4800,5200,5600,6000,6100};
@@ -411,85 +400,85 @@ void ZprimeSemiLeptonicHists::init(){
 
 
   // NN Hists
-  NN_Mu_pt         = book<TH1F>("NN_Mu_pt", "NN_Mu_pt", 50, 0, 1000);
-  NN_Mu_eta        = book<TH1F>("NN_Mu_eta", "NN_Mu_eta", 50, -2.5, 2.5);
-  NN_Mu_phi        = book<TH1F>("NN_Mu_phi", "NN_Mu_phi", 35, -3.5, 3.5);
-  NN_Mu_E          = book<TH1F>("NN_Mu_E", "NN_Mu_E", 150, 0, 3000);
-  NN_Ele_pt        = book<TH1F>("NN_Ele_pt", "NN_Ele_pt", 50, 0, 1000);
-  NN_Ele_eta       = book<TH1F>("NN_Ele_eta", "NN_Ele_eta", 50, -2.5, 2.5);
-  NN_Ele_phi       = book<TH1F>("NN_Ele_phi", "NN_Ele_phi", 35, -3.5, 3.5);
-  NN_Ele_E         = book<TH1F>("NN_Ele_E", "NN_Ele_E", 150, 0, 3000);
-  NN_MET_pt        = book<TH1F>("NN_MET_pt", "NN_MET_pt", 150, 0, 1500);
-  NN_MET_phi       = book<TH1F>("NN_MET_phi", "NN_MET_phi", 35, -3.5, 3.5);
-  NN_N_Ak4         = book<TH1F>("NN_N_Ak4", "NN_N_Ak4", 20, 0, 20);
-  NN_Ak4_j1_pt     = book<TH1F>("NN_Ak4_j1_pt", "NN_Ak4_j1_pt", 150, 0, 3000);
-  NN_Ak4_j1_eta    = book<TH1F>("NN_Ak4_j1_eta", "NN_Ak4_j1_eta", 50, -2.5, 2.5);
-  NN_Ak4_j1_phi    = book<TH1F>("NN_Ak4_j1_phi", "NN_Ak4_j1_phi", 35, -3.5, 3.5);
-  NN_Ak4_j1_E      = book<TH1F>("NN_Ak4_j1_E", "NN_Ak4_j1_E", 100, 0, 5000);
-  NN_Ak4_j1_m      = book<TH1F>("NN_Ak4_j1_m", "NN_Ak4_j1_m", 50, 0, 300);
-  NN_Ak4_j1_btag   = book<TH1F>("NN_Ak4_j1_btag", "NN_Ak4_j1_btag", 50, 0, 1);
-  NN_Ak4_j2_pt     = book<TH1F>("NN_Ak4_j2_pt", "NN_Ak4_j2_pt", 150, 0, 3000);
-  NN_Ak4_j2_eta    = book<TH1F>("NN_Ak4_j2_eta", "NN_Ak4_j2_eta", 50, -2.5, 2.5);
-  NN_Ak4_j2_phi    = book<TH1F>("NN_Ak4_j2_phi", "NN_Ak4_j2_phi", 35, -3.5, 3.5);
-  NN_Ak4_j2_E      = book<TH1F>("NN_Ak4_j2_E", "NN_Ak4_j2_E", 100, 0, 5000);
-  NN_Ak4_j2_m      = book<TH1F>("NN_Ak4_j2_m", "NN_Ak4_j2_m", 50, 0, 300);
-  NN_Ak4_j2_btag   = book<TH1F>("NN_Ak4_j2_btag", "NN_Ak4_j2_btag", 50, 0, 1);
-  NN_Ak4_j3_pt     = book<TH1F>("NN_Ak4_j3_pt", "NN_Ak4_j3_pt", 150, 0, 3000);
-  NN_Ak4_j3_eta    = book<TH1F>("NN_Ak4_j3_eta", "NN_Ak4_j3_eta", 50, -2.5, 2.5);
-  NN_Ak4_j3_phi    = book<TH1F>("NN_Ak4_j3_phi", "NN_Ak4_j3_phi", 35, -3.5, 3.5);
-  NN_Ak4_j3_E      = book<TH1F>("NN_Ak4_j3_E", "NN_Ak4_j3_E", 100, 0, 5000);
-  NN_Ak4_j3_m      = book<TH1F>("NN_Ak4_j3_m", "NN_Ak4_j3_m", 50, 0, 300);
-  NN_Ak4_j3_btag   = book<TH1F>("NN_Ak4_j3_btag", "NN_Ak4_j3_btag", 50, 0, 1);
-  NN_Ak4_j4_pt     = book<TH1F>("NN_Ak4_j4_pt", "NN_Ak4_j4_pt", 150, 0, 3000);
-  NN_Ak4_j4_eta    = book<TH1F>("NN_Ak4_j4_eta", "NN_Ak4_j4_eta", 50, -2.5, 2.5);
-  NN_Ak4_j4_phi    = book<TH1F>("NN_Ak4_j4_phi", "NN_Ak4_j4_phi", 35, -3.5, 3.5);
-  NN_Ak4_j4_E      = book<TH1F>("NN_Ak4_j4_E", "NN_Ak4_j4_E", 100, 0, 5000);
-  NN_Ak4_j4_m      = book<TH1F>("NN_Ak4_j4_m", "NN_Ak4_j4_m", 50, 0, 300);
-  NN_Ak4_j4_btag   = book<TH1F>("NN_Ak4_j4_btag", "NN_Ak4_j4_btag", 50, 0, 1);
-  NN_Ak4_j5_pt     = book<TH1F>("NN_Ak4_j5_pt", "NN_Ak4_j5_pt", 150, 0, 3000);
-  NN_Ak4_j5_eta    = book<TH1F>("NN_Ak4_j5_eta", "NN_Ak4_j5_eta", 50, -2.5, 2.5);
-  NN_Ak4_j5_phi    = book<TH1F>("NN_Ak4_j5_phi", "NN_Ak4_j5_phi", 35, -3.5, 3.5);
-  NN_Ak4_j5_E      = book<TH1F>("NN_Ak4_j5_E", "NN_Ak4_j5_E", 100, 0, 5000);
-  NN_Ak4_j5_m      = book<TH1F>("NN_Ak4_j5_m", "NN_Ak4_j5_m", 50, 0, 300);
-  NN_Ak4_j5_btag   = book<TH1F>("NN_Ak4_j5_btag", "NN_Ak4_j5_btag", 50, 0, 1);
-  NN_Ak4_j6_pt     = book<TH1F>("NN_Ak4_j6_pt", "NN_Ak4_j6_pt", 150, 0, 3000);
-  NN_Ak4_j6_eta    = book<TH1F>("NN_Ak4_j6_eta", "NN_Ak4_j6_eta", 50, -2.5, 2.5);
-  NN_Ak4_j6_phi    = book<TH1F>("NN_Ak4_j6_phi", "NN_Ak4_j6_phi", 35, -3.5, 3.5);
-  NN_Ak4_j6_E      = book<TH1F>("NN_Ak4_j6_E", "NN_Ak4_j6_E", 100, 0, 5000);
-  NN_Ak4_j6_m      = book<TH1F>("NN_Ak4_j6_m", "NN_Ak4_j6_m", 50, 0, 300);
-  NN_Ak4_j6_btag   = book<TH1F>("NN_Ak4_j6_btag", "NN_Ak4_j6_btag", 50, 0, 1);
-  NN_N_HOTVR         = book<TH1F>("NN_N_HOTVR", "NN_N_HOTVR", 20, 0, 20);
-  NN_HOTVR_j1_pt     = book<TH1F>("NN_HOTVR_j1_pt", "NN_HOTVR_j1_pt", 150, 0, 3000);
-  NN_HOTVR_j1_eta    = book<TH1F>("NN_HOTVR_j1_eta", "NN_HOTVR_j1_eta", 50, -2.5, 2.5);
-  NN_HOTVR_j1_phi    = book<TH1F>("NN_HOTVR_j1_phi", "NN_HOTVR_j1_phi", 35, -3.5, 3.5);
-  NN_HOTVR_j1_E      = book<TH1F>("NN_HOTVR_j1_E", "NN_HOTVR_j1_E", 100, 0, 5000);
-  NN_HOTVR_j1_mSD    = book<TH1F>("NN_HOTVR_j1_mSD", "NN_HOTVR_j1_mSD", 50, 0, 500);
-  NN_HOTVR_j1_tau21  = book<TH1F>("NN_HOTVR_j1_tau21", "NN_HOTVR_j1_tau21", 24, 0, 1.2);
-  NN_HOTVR_j1_tau32  = book<TH1F>("NN_HOTVR_j1_tau32", "NN_HOTVR_j1_tau32", 24, 0, 1.2);
-  NN_HOTVR_j2_pt     = book<TH1F>("NN_HOTVR_j2_pt", "NN_HOTVR_j2_pt", 150, 0, 3000);
-  NN_HOTVR_j2_eta    = book<TH1F>("NN_HOTVR_j2_eta", "NN_HOTVR_j2_eta", 50, -2.5, 2.5);
-  NN_HOTVR_j2_phi    = book<TH1F>("NN_HOTVR_j2_phi", "NN_HOTVR_j2_phi", 35, -3.5, 3.5);
-  NN_HOTVR_j2_E      = book<TH1F>("NN_HOTVR_j2_E", "NN_HOTVR_j2_E", 100, 0, 5000);
-  NN_HOTVR_j2_mSD    = book<TH1F>("NN_HOTVR_j2_mSD", "NN_HOTVR_j2_mSD", 50, 0, 500);
-  NN_HOTVR_j2_tau21  = book<TH1F>("NN_HOTVR_j2_tau21", "NN_HOTVR_j2_tau21", 24, 0, 1.2);
-  NN_HOTVR_j2_tau32  = book<TH1F>("NN_HOTVR_j2_tau32", "NN_HOTVR_j2_tau32", 24, 0, 1.2);
-  NN_HOTVR_j3_pt     = book<TH1F>("NN_HOTVR_j3_pt", "NN_HOTVR_j3_pt", 150, 0, 3000);
-  NN_HOTVR_j3_eta    = book<TH1F>("NN_HOTVR_j3_eta", "NN_HOTVR_j3_eta", 50, -2.5, 2.5);
-  NN_HOTVR_j3_phi    = book<TH1F>("NN_HOTVR_j3_phi", "NN_HOTVR_j3_phi", 35, -3.5, 3.5);
-  NN_HOTVR_j3_E      = book<TH1F>("NN_HOTVR_j3_E", "NN_HOTVR_j3_E", 100, 0, 5000);
-  NN_HOTVR_j3_mSD    = book<TH1F>("NN_HOTVR_j3_mSD", "NN_HOTVR_j3_mSD", 50, 0, 500);
-  NN_HOTVR_j3_tau21  = book<TH1F>("NN_HOTVR_j3_tau21", "NN_HOTVR_j3_tau21", 24, 0, 1.2);
-  NN_HOTVR_j3_tau32  = book<TH1F>("NN_HOTVR_j3_tau32", "NN_HOTVR_j3_tau32", 24, 0, 1.2);
-  NN_M_tt_weighted = book<TH1F>("NN_M_tt_weighted", "NN_M_tt_weighted", 100, 0, 14000);
+  NN_Mu_pt            = book<TH1F>("NN_Mu_pt", "NN_Mu_pt", 50, 0, 1000);
+  NN_Mu_eta           = book<TH1F>("NN_Mu_eta", "NN_Mu_eta", 50, -2.5, 2.5);
+  NN_Mu_phi           = book<TH1F>("NN_Mu_phi", "NN_Mu_phi", 35, -3.5, 3.5);
+  NN_Mu_E             = book<TH1F>("NN_Mu_E", "NN_Mu_E", 150, 0, 3000);
+  NN_Ele_pt           = book<TH1F>("NN_Ele_pt", "NN_Ele_pt", 50, 0, 1000);
+  NN_Ele_eta          = book<TH1F>("NN_Ele_eta", "NN_Ele_eta", 50, -2.5, 2.5);
+  NN_Ele_phi          = book<TH1F>("NN_Ele_phi", "NN_Ele_phi", 35, -3.5, 3.5);
+  NN_Ele_E            = book<TH1F>("NN_Ele_E", "NN_Ele_E", 150, 0, 3000);
+  NN_MET_pt           = book<TH1F>("NN_MET_pt", "NN_MET_pt", 150, 0, 1500);
+  NN_MET_phi          = book<TH1F>("NN_MET_phi", "NN_MET_phi", 35, -3.5, 3.5);
+  NN_N_Ak4            = book<TH1F>("NN_N_Ak4", "NN_N_Ak4", 20, 0, 20);
+  NN_Ak4_j1_pt        = book<TH1F>("NN_Ak4_j1_pt", "NN_Ak4_j1_pt", 150, 0, 3000);
+  NN_Ak4_j1_eta       = book<TH1F>("NN_Ak4_j1_eta", "NN_Ak4_j1_eta", 50, -2.5, 2.5);
+  NN_Ak4_j1_phi       = book<TH1F>("NN_Ak4_j1_phi", "NN_Ak4_j1_phi", 35, -3.5, 3.5);
+  NN_Ak4_j1_E         = book<TH1F>("NN_Ak4_j1_E", "NN_Ak4_j1_E", 100, 0, 5000);
+  NN_Ak4_j1_m         = book<TH1F>("NN_Ak4_j1_m", "NN_Ak4_j1_m", 50, 0, 300);
+  NN_Ak4_j1_btag      = book<TH1F>("NN_Ak4_j1_btag", "NN_Ak4_j1_btag", 50, 0, 1);
+  NN_Ak4_j2_pt        = book<TH1F>("NN_Ak4_j2_pt", "NN_Ak4_j2_pt", 150, 0, 3000);
+  NN_Ak4_j2_eta       = book<TH1F>("NN_Ak4_j2_eta", "NN_Ak4_j2_eta", 50, -2.5, 2.5);
+  NN_Ak4_j2_phi       = book<TH1F>("NN_Ak4_j2_phi", "NN_Ak4_j2_phi", 35, -3.5, 3.5);
+  NN_Ak4_j2_E         = book<TH1F>("NN_Ak4_j2_E", "NN_Ak4_j2_E", 100, 0, 5000);
+  NN_Ak4_j2_m         = book<TH1F>("NN_Ak4_j2_m", "NN_Ak4_j2_m", 50, 0, 300);
+  NN_Ak4_j2_btag      = book<TH1F>("NN_Ak4_j2_btag", "NN_Ak4_j2_btag", 50, 0, 1);
+  NN_Ak4_j3_pt        = book<TH1F>("NN_Ak4_j3_pt", "NN_Ak4_j3_pt", 150, 0, 3000);
+  NN_Ak4_j3_eta       = book<TH1F>("NN_Ak4_j3_eta", "NN_Ak4_j3_eta", 50, -2.5, 2.5);
+  NN_Ak4_j3_phi       = book<TH1F>("NN_Ak4_j3_phi", "NN_Ak4_j3_phi", 35, -3.5, 3.5);
+  NN_Ak4_j3_E         = book<TH1F>("NN_Ak4_j3_E", "NN_Ak4_j3_E", 100, 0, 5000);
+  NN_Ak4_j3_m         = book<TH1F>("NN_Ak4_j3_m", "NN_Ak4_j3_m", 50, 0, 300);
+  NN_Ak4_j3_btag      = book<TH1F>("NN_Ak4_j3_btag", "NN_Ak4_j3_btag", 50, 0, 1);
+  NN_Ak4_j4_pt        = book<TH1F>("NN_Ak4_j4_pt", "NN_Ak4_j4_pt", 150, 0, 3000);
+  NN_Ak4_j4_eta       = book<TH1F>("NN_Ak4_j4_eta", "NN_Ak4_j4_eta", 50, -2.5, 2.5);
+  NN_Ak4_j4_phi       = book<TH1F>("NN_Ak4_j4_phi", "NN_Ak4_j4_phi", 35, -3.5, 3.5);
+  NN_Ak4_j4_E         = book<TH1F>("NN_Ak4_j4_E", "NN_Ak4_j4_E", 100, 0, 5000);
+  NN_Ak4_j4_m         = book<TH1F>("NN_Ak4_j4_m", "NN_Ak4_j4_m", 50, 0, 300);
+  NN_Ak4_j4_btag      = book<TH1F>("NN_Ak4_j4_btag", "NN_Ak4_j4_btag", 50, 0, 1);
+  NN_Ak4_j5_pt        = book<TH1F>("NN_Ak4_j5_pt", "NN_Ak4_j5_pt", 150, 0, 3000);
+  NN_Ak4_j5_eta       = book<TH1F>("NN_Ak4_j5_eta", "NN_Ak4_j5_eta", 50, -2.5, 2.5);
+  NN_Ak4_j5_phi       = book<TH1F>("NN_Ak4_j5_phi", "NN_Ak4_j5_phi", 35, -3.5, 3.5);
+  NN_Ak4_j5_E         = book<TH1F>("NN_Ak4_j5_E", "NN_Ak4_j5_E", 100, 0, 5000);
+  NN_Ak4_j5_m         = book<TH1F>("NN_Ak4_j5_m", "NN_Ak4_j5_m", 50, 0, 300);
+  NN_Ak4_j5_btag      = book<TH1F>("NN_Ak4_j5_btag", "NN_Ak4_j5_btag", 50, 0, 1);
+  NN_Ak4_j6_pt        = book<TH1F>("NN_Ak4_j6_pt", "NN_Ak4_j6_pt", 150, 0, 3000);
+  NN_Ak4_j6_eta       = book<TH1F>("NN_Ak4_j6_eta", "NN_Ak4_j6_eta", 50, -2.5, 2.5);
+  NN_Ak4_j6_phi       = book<TH1F>("NN_Ak4_j6_phi", "NN_Ak4_j6_phi", 35, -3.5, 3.5);
+  NN_Ak4_j6_E         = book<TH1F>("NN_Ak4_j6_E", "NN_Ak4_j6_E", 100, 0, 5000);
+  NN_Ak4_j6_m         = book<TH1F>("NN_Ak4_j6_m", "NN_Ak4_j6_m", 50, 0, 300);
+  NN_Ak4_j6_btag      = book<TH1F>("NN_Ak4_j6_btag", "NN_Ak4_j6_btag", 50, 0, 1);
+  NN_N_HOTVR          = book<TH1F>("NN_N_HOTVR", "NN_N_HOTVR", 20, 0, 20);
+  NN_HOTVR_j1_pt      = book<TH1F>("NN_HOTVR_j1_pt", "NN_HOTVR_j1_pt", 150, 0, 3000);
+  NN_HOTVR_j1_eta     = book<TH1F>("NN_HOTVR_j1_eta", "NN_HOTVR_j1_eta", 50, -2.5, 2.5);
+  NN_HOTVR_j1_phi     = book<TH1F>("NN_HOTVR_j1_phi", "NN_HOTVR_j1_phi", 35, -3.5, 3.5);
+  NN_HOTVR_j1_E       = book<TH1F>("NN_HOTVR_j1_E", "NN_HOTVR_j1_E", 100, 0, 5000);
+  NN_HOTVR_j1_mSD     = book<TH1F>("NN_HOTVR_j1_mSD", "NN_HOTVR_j1_mSD", 50, 0, 500);
+  NN_HOTVR_j1_tau21   = book<TH1F>("NN_HOTVR_j1_tau21", "NN_HOTVR_j1_tau21", 24, 0, 1.2);
+  NN_HOTVR_j1_tau32   = book<TH1F>("NN_HOTVR_j1_tau32", "NN_HOTVR_j1_tau32", 24, 0, 1.2);
+  NN_HOTVR_j2_pt      = book<TH1F>("NN_HOTVR_j2_pt", "NN_HOTVR_j2_pt", 150, 0, 3000);
+  NN_HOTVR_j2_eta     = book<TH1F>("NN_HOTVR_j2_eta", "NN_HOTVR_j2_eta", 50, -2.5, 2.5);
+  NN_HOTVR_j2_phi     = book<TH1F>("NN_HOTVR_j2_phi", "NN_HOTVR_j2_phi", 35, -3.5, 3.5);
+  NN_HOTVR_j2_E       = book<TH1F>("NN_HOTVR_j2_E", "NN_HOTVR_j2_E", 100, 0, 5000);
+  NN_HOTVR_j2_mSD     = book<TH1F>("NN_HOTVR_j2_mSD", "NN_HOTVR_j2_mSD", 50, 0, 500);
+  NN_HOTVR_j2_tau21   = book<TH1F>("NN_HOTVR_j2_tau21", "NN_HOTVR_j2_tau21", 24, 0, 1.2);
+  NN_HOTVR_j2_tau32   = book<TH1F>("NN_HOTVR_j2_tau32", "NN_HOTVR_j2_tau32", 24, 0, 1.2);
+  NN_HOTVR_j3_pt      = book<TH1F>("NN_HOTVR_j3_pt", "NN_HOTVR_j3_pt", 150, 0, 3000);
+  NN_HOTVR_j3_eta     = book<TH1F>("NN_HOTVR_j3_eta", "NN_HOTVR_j3_eta", 50, -2.5, 2.5);
+  NN_HOTVR_j3_phi     = book<TH1F>("NN_HOTVR_j3_phi", "NN_HOTVR_j3_phi", 35, -3.5, 3.5);
+  NN_HOTVR_j3_E       = book<TH1F>("NN_HOTVR_j3_E", "NN_HOTVR_j3_E", 100, 0, 5000);
+  NN_HOTVR_j3_mSD     = book<TH1F>("NN_HOTVR_j3_mSD", "NN_HOTVR_j3_mSD", 50, 0, 500);
+  NN_HOTVR_j3_tau21   = book<TH1F>("NN_HOTVR_j3_tau21", "NN_HOTVR_j3_tau21", 24, 0, 1.2);
+  NN_HOTVR_j3_tau32   = book<TH1F>("NN_HOTVR_j3_tau32", "NN_HOTVR_j3_tau32", 24, 0, 1.2);
+  NN_M_tt_weighted    = book<TH1F>("NN_M_tt_weighted", "NN_M_tt_weighted", 100, 0, 14000);
   NN_M_tt_notweighted = book<TH1F>("NN_M_tt_notweighted", "NN_M_tt_notweighted", 100, 0, 14000);
 
 
-/*
+  /*
   DNN_out0 = book<TH1F>("DNN_out0", "NN output 0", 100, 0, 1);
   DNN_out1 = book<TH1F>("DNN_out1", "NN output 1", 100, 0, 1);
   DNN_out2 = book<TH1F>("DNN_out2", "NN output 2", 100, 0, 1);
   DNN_out3 = book<TH1F>("DNN_out3", "NN output 3", 100, 0, 1);
-*/
+  */
 }
 
 
@@ -517,7 +506,6 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
     eta_jet->Fill(jets->at(i).eta(),weight);
     phi_jet->Fill(jets->at(i).phi(),weight);
     m_jet->Fill(jets->at(i).v4().M(),weight);
-    csv_jet->Fill(jets->at(i).btag_combinedSecondaryVertex(), weight);
     deepjetbscore_jet->Fill(jets->at(i).btag_DeepJet(), weight);
 
     if(i==0){
@@ -525,7 +513,6 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
       eta_jet1->Fill(jets->at(i).eta(),weight);
       phi_jet1->Fill(jets->at(i).phi(),weight);
       m_jet1->Fill(jets->at(i).v4().M(),weight);
-      csv_jet1->Fill(jets->at(i).btag_combinedSecondaryVertex(), weight);
       deepjetbscore_jet1->Fill(jets->at(i).btag_DeepJet(), weight);
     }
     else if(i==1){
@@ -533,7 +520,6 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
       eta_jet2->Fill(jets->at(i).eta(),weight);
       phi_jet2->Fill(jets->at(i).phi(),weight);
       m_jet2->Fill(jets->at(i).v4().M(),weight);
-      csv_jet2->Fill(jets->at(i).btag_combinedSecondaryVertex(), weight);
       deepjetbscore_jet2->Fill(jets->at(i).btag_DeepJet(), weight);
     }
     else if(i==2){
@@ -541,26 +527,9 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
       eta_jet3->Fill(jets->at(i).eta(),weight);
       phi_jet3->Fill(jets->at(i).phi(),weight);
       m_jet3->Fill(jets->at(i).v4().M(),weight);
-      csv_jet3->Fill(jets->at(i).btag_combinedSecondaryVertex(), weight);
       deepjetbscore_jet3->Fill(jets->at(i).btag_DeepJet(), weight);
     }
   }
-
-  int Nbjets_loose = 0, Nbjets_medium = 0, Nbjets_tight = 0;
-  CSVBTag Btag_loose = CSVBTag(CSVBTag::WP_LOOSE);
-  CSVBTag Btag_medium = CSVBTag(CSVBTag::WP_MEDIUM);
-  CSVBTag Btag_tight = CSVBTag(CSVBTag::WP_TIGHT);
-
-  for (unsigned int i =0; i<jets->size(); i++) {
-    if(Btag_loose(jets->at(i),event))  Nbjets_loose++;
-    if(Btag_medium(jets->at(i),event)) Nbjets_medium++;
-    if(Btag_tight(jets->at(i),event))  Nbjets_tight++;
-  }
-
-  N_bJets_loose->Fill(Nbjets_loose,weight);
-  N_bJets_med->Fill(Nbjets_medium,weight);
-  N_bJets_tight->Fill(Nbjets_tight,weight);
-
 
 
   int NbjetsDeepJet_loose = 0, NbjetsDeepJet_medium = 0, NbjetsDeepJet_tight = 0;
@@ -580,11 +549,11 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
 
 
   /*
-  █ ██   ██    █████  ██████ ██    ██   █████ 
+  █ ██   ██    █████  ██████ ██    ██   █████
   █ ██   ██  ██     ██  ██   ██    ██   ██  ██
-  █ ███████  ██     ██  ██    ██  ██    █████ 
-  █ ██   ██  ██     ██  ██     ████     ██  ██ 
-  █ ██   ██    █████    ██      ██      ██   ██ 
+  █ ███████  ██     ██  ██    ██  ██    █████
+  █ ██   ██  ██     ██  ██     ████     ██  ██
+  █ ██   ██    █████    ██      ██      ██   ██
   */
 
   vector<TopJet>* HOTVRjets = event.topjets;
@@ -929,13 +898,13 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
       reliso_mu2_rebin->Fill(muons->at(i).relIso(),weight);
     }
 
- 
+
     double minDeltaR = 999;
-    for(unsigned int k = 0; k < jets->size(); k++){ 
+    for(unsigned int k = 0; k < jets->size(); k++){
       if(deltaR(muons->at(i), jets->at(k))<minDeltaR){
-         minDeltaR = deltaR(muons->at(i), jets->at(k));
-         dR_mu_nearjet->Fill(minDeltaR,weight);
-         pt_mu_nearjet->Fill(jets->at(k).pt(),weight);
+        minDeltaR = deltaR(muons->at(i), jets->at(k));
+        dR_mu_nearjet->Fill(minDeltaR,weight);
+        pt_mu_nearjet->Fill(jets->at(k).pt(),weight);
       }
     }
 
@@ -991,12 +960,12 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
     }
 
 
-    for(unsigned int k = 0; k < jets->size(); k++){ 
+    for(unsigned int k = 0; k < jets->size(); k++){
       double minDeltaR = 999;
       if(deltaR(electrons->at(i), jets->at(k))<minDeltaR){
-         minDeltaR = deltaR(electrons->at(i), jets->at(k));
-         dR_ele_nearjet->Fill(minDeltaR,weight);
-         pt_ele_nearjet->Fill(jets->at(k).pt(),weight);
+        minDeltaR = deltaR(electrons->at(i), jets->at(k));
+        dR_ele_nearjet->Fill(minDeltaR,weight);
+        pt_ele_nearjet->Fill(jets->at(k).pt(),weight);
       }
     }
 
@@ -1166,29 +1135,29 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
   sum_event_weights->Fill(1., weight);
 
 
-/*
- ███    ██ ███    ██ 
- ████   ██ ████   ██ 
- ██ ██  ██ ██ ██  ██ 
- ██  ██ ██ ██  ██ ██ 
- ██   ████ ██   ████ 
-*/
+  /*
+  ███    ██ ███    ██
+  ████   ██ ████   ██
+  ██ ██  ██ ██ ██  ██
+  ██  ██ ██ ██  ██ ██
+  ██   ████ ██   ████
+  */
 
 
   for(int i=0; i<Nmuons; i++){
-      NN_Mu_pt->Fill(muons->at(i).pt(),weight); 
-      NN_Mu_eta->Fill(muons->at(i).eta(),weight);
-      NN_Mu_phi->Fill(muons->at(i).phi(),weight);
-      NN_Mu_E->Fill(muons->at(i).energy(),weight);
+    NN_Mu_pt->Fill(muons->at(i).pt(),weight);
+    NN_Mu_eta->Fill(muons->at(i).eta(),weight);
+    NN_Mu_phi->Fill(muons->at(i).phi(),weight);
+    NN_Mu_E->Fill(muons->at(i).energy(),weight);
   }
 
 
 
   for(int i=0; i<Nelectrons; i++){
-      NN_Ele_pt->Fill(electrons->at(i).pt(),weight);
-      NN_Ele_eta->Fill(electrons->at(i).eta(),weight);
-      NN_Ele_phi->Fill(electrons->at(i).phi(),weight);
-      NN_Ele_E->Fill(electrons->at(i).energy(),weight);
+    NN_Ele_pt->Fill(electrons->at(i).pt(),weight);
+    NN_Ele_eta->Fill(electrons->at(i).eta(),weight);
+    NN_Ele_phi->Fill(electrons->at(i).phi(),weight);
+    NN_Ele_E->Fill(electrons->at(i).energy(),weight);
   }
 
   NN_MET_pt->Fill(event.met->pt(),weight);
@@ -1199,54 +1168,54 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
   NN_N_Ak4->Fill(NAk4jets,weight);
 
   for(int i=0; i<NAk4jets; i++){
-      if(i==0){
+    if(i==0){
       NN_Ak4_j1_pt->Fill(Ak4jets->at(i).pt(),weight);
       NN_Ak4_j1_eta->Fill(Ak4jets->at(i).eta(),weight);
       NN_Ak4_j1_phi->Fill(Ak4jets->at(i).phi(),weight);
       NN_Ak4_j1_E->Fill(Ak4jets->at(i).energy(),weight);
       NN_Ak4_j1_m->Fill(Ak4jets->at(i).v4().M(),weight);
       NN_Ak4_j1_btag->Fill(Ak4jets->at(i).btag_DeepJet(),weight);
-      }
-      if(i==1){
+    }
+    if(i==1){
       NN_Ak4_j2_pt->Fill(Ak4jets->at(i).pt(),weight);
       NN_Ak4_j2_eta->Fill(Ak4jets->at(i).eta(),weight);
       NN_Ak4_j2_phi->Fill(Ak4jets->at(i).phi(),weight);
       NN_Ak4_j2_E->Fill(Ak4jets->at(i).energy(),weight);
       NN_Ak4_j2_m->Fill(Ak4jets->at(i).v4().M(),weight);
       NN_Ak4_j2_btag->Fill(Ak4jets->at(i).btag_DeepJet(),weight);
-      }
-      if(i==2){
+    }
+    if(i==2){
       NN_Ak4_j3_pt->Fill(Ak4jets->at(i).pt(),weight);
       NN_Ak4_j3_eta->Fill(Ak4jets->at(i).eta(),weight);
       NN_Ak4_j3_phi->Fill(Ak4jets->at(i).phi(),weight);
       NN_Ak4_j3_E->Fill(Ak4jets->at(i).energy(),weight);
       NN_Ak4_j3_m->Fill(Ak4jets->at(i).v4().M(),weight);
       NN_Ak4_j3_btag->Fill(Ak4jets->at(i).btag_DeepJet(),weight);
-      }
-      if(i==3){
+    }
+    if(i==3){
       NN_Ak4_j4_pt->Fill(Ak4jets->at(i).pt(),weight);
       NN_Ak4_j4_eta->Fill(Ak4jets->at(i).eta(),weight);
       NN_Ak4_j4_phi->Fill(Ak4jets->at(i).phi(),weight);
       NN_Ak4_j4_E->Fill(Ak4jets->at(i).energy(),weight);
       NN_Ak4_j4_m->Fill(Ak4jets->at(i).v4().M(),weight);
       NN_Ak4_j4_btag->Fill(Ak4jets->at(i).btag_DeepJet(),weight);
-      }
-      if(i==4){
+    }
+    if(i==4){
       NN_Ak4_j5_pt->Fill(Ak4jets->at(i).pt(),weight);
       NN_Ak4_j5_eta->Fill(Ak4jets->at(i).eta(),weight);
       NN_Ak4_j5_phi->Fill(Ak4jets->at(i).phi(),weight);
       NN_Ak4_j5_E->Fill(Ak4jets->at(i).energy(),weight);
       NN_Ak4_j5_m->Fill(Ak4jets->at(i).v4().M(),weight);
       NN_Ak4_j5_btag->Fill(Ak4jets->at(i).btag_DeepJet(),weight);
-      }
-      if(i==5){
+    }
+    if(i==5){
       NN_Ak4_j6_pt->Fill(Ak4jets->at(i).pt(),weight);
       NN_Ak4_j6_eta->Fill(Ak4jets->at(i).eta(),weight);
       NN_Ak4_j6_phi->Fill(Ak4jets->at(i).phi(),weight);
       NN_Ak4_j6_E->Fill(Ak4jets->at(i).energy(),weight);
       NN_Ak4_j6_m->Fill(Ak4jets->at(i).v4().M(),weight);
       NN_Ak4_j6_btag->Fill(Ak4jets->at(i).btag_DeepJet(),weight);
-      }
+    }
   }
 
 
@@ -1254,7 +1223,7 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
   NN_N_HOTVR->Fill(N_HOTVRjets,weight);
 
   for(int i=0; i<N_HOTVRjets; i++){
-      if(i==0){
+    if(i==0){
       NN_HOTVR_j1_pt->Fill(HOTVRjets->at(i).pt(),weight);
       NN_HOTVR_j1_eta->Fill(HOTVRjets->at(i).eta(),weight);
       NN_HOTVR_j1_phi->Fill(HOTVRjets->at(i).phi(),weight);
@@ -1262,8 +1231,8 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
       NN_HOTVR_j1_mSD->Fill(HOTVRjets->at(i).v4().M(),weight);
       NN_HOTVR_j1_tau21->Fill(HOTVRjets->at(i).tau2_groomed()/HOTVRjets->at(i).tau1_groomed(),weight);
       NN_HOTVR_j1_tau32->Fill(HOTVRjets->at(i).tau3_groomed()/HOTVRjets->at(i).tau2_groomed(),weight);
-      }
-      if(i==1){
+    }
+    if(i==1){
       NN_HOTVR_j2_pt->Fill(HOTVRjets->at(i).pt(),weight);
       NN_HOTVR_j2_eta->Fill(HOTVRjets->at(i).eta(),weight);
       NN_HOTVR_j2_phi->Fill(HOTVRjets->at(i).phi(),weight);
@@ -1271,8 +1240,8 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
       NN_HOTVR_j2_mSD->Fill(HOTVRjets->at(i).v4().M(),weight);
       NN_HOTVR_j2_tau21->Fill(HOTVRjets->at(i).tau2_groomed()/HOTVRjets->at(i).tau1_groomed(),weight);
       NN_HOTVR_j2_tau32->Fill(HOTVRjets->at(i).tau3_groomed()/HOTVRjets->at(i).tau2_groomed(),weight);
-      }
-      if(i==2){
+    }
+    if(i==2){
       NN_HOTVR_j3_pt->Fill(HOTVRjets->at(i).pt(),weight);
       NN_HOTVR_j3_eta->Fill(HOTVRjets->at(i).eta(),weight);
       NN_HOTVR_j3_phi->Fill(HOTVRjets->at(i).phi(),weight);
@@ -1280,7 +1249,7 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
       NN_HOTVR_j3_mSD->Fill(HOTVRjets->at(i).v4().M(),weight);
       NN_HOTVR_j3_tau21->Fill(HOTVRjets->at(i).tau2_groomed()/HOTVRjets->at(i).tau1_groomed(),weight);
       NN_HOTVR_j3_tau32->Fill(HOTVRjets->at(i).tau3_groomed()/HOTVRjets->at(i).tau2_groomed(),weight);
-      }
+    }
   }
 
   if(is_zprime_reconstructed_chi2){
@@ -1290,8 +1259,8 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
     NN_M_tt_notweighted->Fill(Mass_tt);
   }
 
-/// DNN score
-/*
+  /// DNN score
+  /*
   double output0= event.get(h_NNoutput0);
   double output1= event.get(h_NNoutput1);
   double output2= event.get(h_NNoutput2);
@@ -1301,23 +1270,23 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
 
   double maxval_score = 0.0;
   for ( int i = 0; i < 4; i++ ) {
-    if ( output_event[i] > maxval_score) {
-    maxval_score = output_event[i];
-    }
-  } 
+  if ( output_event[i] > maxval_score) {
+  maxval_score = output_event[i];
+}
+}
 
-  if( output0 == maxval_score ){ 
-     DNN_out0->Fill(output0, weight);
-  }
-  if( output1 == maxval_score ){ 
-     DNN_out1->Fill(output1, weight);
-  }
-  if( output2 == maxval_score ){ 
-     DNN_out2->Fill(output2, weight);
-  }
-  if( output3 == maxval_score ){ 
-     DNN_out3->Fill(output3, weight);
-  }
+if( output0 == maxval_score ){
+DNN_out0->Fill(output0, weight);
+}
+if( output1 == maxval_score ){
+DNN_out1->Fill(output1, weight);
+}
+if( output2 == maxval_score ){
+DNN_out2->Fill(output2, weight);
+}
+if( output3 == maxval_score ){
+DNN_out3->Fill(output3, weight);
+}
 */
 
 

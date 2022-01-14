@@ -36,7 +36,7 @@
 //#include <UHH2/ZprimeSemiLeptonic/include/TopPuppiJetCorrections.h>
 
 #include "UHH2/HOTVR/include/HOTVRJetCorrectionModule.h"
-                           
+
 using namespace std;
 using namespace uhh2;
 
@@ -49,20 +49,18 @@ public:
   void fill_histograms(uhh2::Event&, string);
 
 protected:
-
-
   // Corrections
   std::unique_ptr<CommonModules> common;
   //std::unique_ptr<TopJetCorrections> topjetCorr;
   //std::unique_ptr<TopPuppiJetCorrections> toppuppijetCorr;
-  std::unique_ptr<AnalysisModule> hotvrjetCorr; 
+  std::unique_ptr<AnalysisModule> hotvrjetCorr;
 
   // Cleaners
-  std::unique_ptr<MuonCleaner>                     muon_cleaner_low, muon_cleaner_high;
-  std::unique_ptr<ElectronCleaner>                 electron_cleaner_low, electron_cleaner_high;
-  std::unique_ptr<JetCleaner>                      jet_IDcleaner, jet_cleaner1, jet_cleaner2;
-  //std::unique_ptr<TopJetCleaner>                   topjet_puppi_IDcleaner, topjet_puppi_cleaner, topjet_IDcleaner, topjet_cleaner;
-  std::unique_ptr<AnalysisModule>                  hotvrjet_cleaner;
+  std::unique_ptr<MuonCleaner>     muon_cleaner_low, muon_cleaner_high;
+  std::unique_ptr<ElectronCleaner> electron_cleaner_low, electron_cleaner_high;
+  std::unique_ptr<JetCleaner>      jet_IDcleaner, jet_cleaner1, jet_cleaner2;
+  // std::unique_ptr<TopJetCleaner>   topjet_puppi_IDcleaner, topjet_puppi_cleaner, topjet_IDcleaner, topjet_cleaner;
+  std::unique_ptr<AnalysisModule>  hotvrjet_cleaner;
 
   // Selections
   std::unique_ptr<uhh2::Selection> genflavor_sel;
@@ -76,8 +74,7 @@ protected:
   std::unique_ptr<Hists> lumihists;
   TString METcollection;
 
-  bool is2016v2, is2016v3, is2017v2, is2018;
-
+  bool isUL16preVFP, isUL16postVFP, isUL17, isUL18;
 };
 
 void ZprimePreselectionModule::book_histograms(uhh2::Context& ctx, vector<string> tags){
@@ -95,45 +92,62 @@ void ZprimePreselectionModule::fill_histograms(uhh2::Event& event, string tag){
 
 
 ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
-
   for(auto & kv : ctx.get_all()){
     cout << " " << kv.first << " = " << kv.second << endl;
   }
 
   //// CONFIGURATION
   const TString METcollection = ctx.get("METName");
-  isMC = ctx.get("dataset_type") == "MC";
+  isMC    = ctx.get("dataset_type") == "MC";
   ispuppi = (ctx.get("is_puppi") == "true");
   isHOTVR = (ctx.get("is_HOTVR") == "true");
-  is2016v2 = (ctx.get("dataset_version").find("2016v2") != std::string::npos);
-  is2016v3 = (ctx.get("dataset_version").find("2016v3") != std::string::npos);
-  is2017v2 = (ctx.get("dataset_version").find("2017v2") != std::string::npos);
-  is2018 = (ctx.get("dataset_version").find("2018") != std::string::npos);
-  Sys_PU = ctx.get("Sys_PU");
+  Sys_PU  = ctx.get("Sys_PU");
+
+  isUL16preVFP  = (ctx.get("dataset_version").find("UL16preVFP")  != std::string::npos);
+  isUL16postVFP = (ctx.get("dataset_version").find("UL16postVFP") != std::string::npos);
+  isUL17        = (ctx.get("dataset_version").find("UL17")        != std::string::npos);
+  isUL18        = (ctx.get("dataset_version").find("UL18")        != std::string::npos);
 
   cout << "Is this running on puppi: " << ispuppi << endl;
   cout << "Is this running on HOTVR: " << isHOTVR << endl;
 
 
-  ElectronId eleID_low; 
+  ElectronId eleID_low;
+  ElectronId eleID_high;
   MuonId muID_low;
-  ElectronId eleID_high; 
   MuonId muID_high;
 
-  if(is2017v2 || is2018){
+  // TODO: check lepton ids
+  if(isUL16preVFP || isUL16postVFP){
+    // eleID = ElectronID_Summer16_tight_noIso;//ToDo: compare cutBased without iso and MVA-based via wp in UHH2
+    // muID      = MuonID(Muon::Highpt);
+    eleID_low = ElectronID_Summer16_tight;
+    muID_low  = MuonID(Muon::CutBasedIdTight);
+    eleID_high = ElectronID_Summer16_tight_noIso;
+    muID_high  = MuonID(Muon::CutBasedIdTight); // see more muonIDs https://github.com/cms-sw/cmssw/blob/master/DataFormats/MuonReco/interface/Muon.h#L201
+  }
+  if(isUL17 || isUL18){
     eleID_low = ElectronID_Fall17_tight;
     muID_low  = MuonID(Muon::CutBasedIdTight);
     eleID_high = ElectronID_Fall17_tight_noIso;
     muID_high  = MuonID(Muon::CutBasedIdGlobalHighPt);
   }
-  if(is2016v2 || is2016v3){
-    //eleID = ElectronID_Summer16_tight_noIso;//ToDo: compare cutBased without iso and MVA-based via wp in UHH2
-    //muID      = MuonID(Muon::Highpt);
-    eleID_low = ElectronID_Summer16_tight;
-    muID_low  = MuonID(Muon::CutBasedIdTight); 
-    eleID_high = ElectronID_Summer16_tight_noIso;
-    muID_high  = MuonID(Muon::CutBasedIdTight); // see more muonIDs https://github.com/cms-sw/cmssw/blob/master/DataFormats/MuonReco/interface/Muon.h#L201
-  }
+
+  // if(is2017v2 || is2018){
+  //   eleID_low = ElectronID_Fall17_tight;
+  //   muID_low  = MuonID(Muon::CutBasedIdTight);
+  //   eleID_high = ElectronID_Fall17_tight_noIso;
+  //   muID_high  = MuonID(Muon::CutBasedIdGlobalHighPt);
+  // }
+  // if(is2016v2 || is2016v3){
+  //   //eleID = ElectronID_Summer16_tight_noIso;//ToDo: compare cutBased without iso and MVA-based via wp in UHH2
+  //   //muID      = MuonID(Muon::Highpt);
+  //   eleID_low = ElectronID_Summer16_tight;
+  //   muID_low  = MuonID(Muon::CutBasedIdTight);
+  //   eleID_high = ElectronID_Summer16_tight_noIso;
+  //   muID_high  = MuonID(Muon::CutBasedIdTight); // see more muonIDs https://github.com/cms-sw/cmssw/blob/master/DataFormats/MuonReco/interface/Muon.h#L201
+  // }
+
   double electron_pt_low(35.);
   double muon_pt_low(30.);
   double electron_pt_high(120.);
@@ -144,7 +158,7 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
 
 
 
-  // GEN Flavor selection [W+jets flavor-splitting] 
+  // GEN Flavor selection [W+jets flavor-splitting]
   if(ctx.get("dataset_version").find("WJets") != std::string::npos){
 
     if     (ctx.get("dataset_version").find("_B") != std::string::npos) genflavor_sel.reset(new GenFlavorSelection("b"));
@@ -161,8 +175,8 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   const ElectronId electronID_low(AndId<Electron>(PtEtaSCCut(electron_pt_low, 2.5), eleID_low));
   const MuonId muonID_high(AndId<Muon>(PtEtaCut(muon_pt_high, 2.4), muID_high));
   const ElectronId electronID_high(AndId<Electron>(PtEtaSCCut(electron_pt_high, 2.5), eleID_high));
-  const JetPFID jetID_CHS(JetPFID::WP_TIGHT_CHS); 
-  const JetPFID jetID_PUPPI(JetPFID::WP_TIGHT_PUPPI); 
+  const JetPFID jetID_CHS(JetPFID::WP_TIGHT_CHS);
+  const JetPFID jetID_PUPPI(JetPFID::WP_TIGHT_PUPPI);
 
   muon_cleaner_low.reset(new MuonCleaner(muonID_low));
   electron_cleaner_low.reset(new ElectronCleaner(electronID_low));
@@ -175,8 +189,8 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   //topjet_cleaner.reset(new TopJetCleaner(ctx, TopJetId(PtEtaCut(200., 2.4)), "topjets"));
   //topjet_puppi_IDcleaner.reset(new TopJetCleaner(ctx, jetID_PUPPI, "toppuppijets"));
   //topjet_puppi_cleaner.reset(new TopJetCleaner(ctx, TopJetId(PtEtaCut(200., 2.4)), "toppuppijets"));
-  hotvrjet_cleaner.reset(new TopJetCleaner(ctx, PtEtaCut(200., 2.5))); 
-  
+  hotvrjet_cleaner.reset(new TopJetCleaner(ctx, PtEtaCut(200., 2.5)));
+
 
   // common modules
   common.reset(new CommonModules());
@@ -185,8 +199,8 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   common->disable_jetpfidfilter();
   common->switch_jetPtSorter(true);
   common->switch_metcorrection(true);
-//  common->set_muon_id(OrId<Muon>(AndId<Muon>(PtEtaCut(muon_pt_low, 2.4), muID_low), AndId<Muon>(PtEtaCut(muon_pt_high, 2.4), muID_high)));  
-//  common->set_electron_id(OrId<Electron>(AndId<Electron>(PtEtaSCCut(electron_pt_low, 2.5), eleID_low), AndId<Electron>(PtEtaSCCut(electron_pt_high, 2.5), eleID_high)));  
+//  common->set_muon_id(OrId<Muon>(AndId<Muon>(PtEtaCut(muon_pt_low, 2.4), muID_low), AndId<Muon>(PtEtaCut(muon_pt_high, 2.4), muID_high)));
+//  common->set_electron_id(OrId<Electron>(AndId<Electron>(PtEtaSCCut(electron_pt_low, 2.5), eleID_low), AndId<Electron>(PtEtaSCCut(electron_pt_high, 2.5), eleID_high)));
   common->init(ctx, Sys_PU);
 
   //topjetCorr.reset(new TopJetCorrections());
@@ -260,7 +274,7 @@ double muon_pt_high(55.);
   //if(!ispuppi && !isHOTVR){
   //topjetCorr->process(event);
   //}
-  
+
   //cout<<"TopJEC_JLC ... "<<event.event<<endl;
 
 

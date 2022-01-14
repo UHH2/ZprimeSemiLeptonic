@@ -44,13 +44,6 @@ void ZprimeSemiLeptonicPreselectionHists::init(){
   m_jet1            = book<TH1F>("m_jet1", "m^{jet 1}", 50, 0, 500);
   m_jet2            = book<TH1F>("m_jet2", "m^{jet 2}", 50, 0, 500);
   m_jet3            = book<TH1F>("m_jet3", "m^{jet 3}", 50, 0, 500);
-  csv_jet           = book<TH1F>("csv_jet", "CSV^{jets}", 20, 0, 1);
-  csv_jet1          = book<TH1F>("csv_jet1", "CSV^{jet 1}", 20, 0, 1);
-  csv_jet2          = book<TH1F>("csv_jet2", "CSV^{jet 2}", 20, 0, 1);
-  csv_jet3          = book<TH1F>("csv_jet3", "CSV^{jet 3}", 20, 0, 1);
-  N_bJets_loose     = book<TH1F>("N_bJets_loose", "N_{jets}^{CSV loose}", 11, -0.5, 10.5);
-  N_bJets_med       = book<TH1F>("N_bJets_med", "N_{jets}^{CSV medium}", 11, -0.5, 10.5);
-  N_bJets_tight     = book<TH1F>("N_bJets_tight", "N_{jets}^{CSV tight}", 11, -0.5, 10.5);
 
   // leptons
   N_mu              = book<TH1F>("N_mu", "N^{#mu}", 11, -0.5, 10.5);
@@ -271,50 +264,32 @@ void ZprimeSemiLeptonicPreselectionHists::fill(const Event & event){
     eta_jet->Fill(jets->at(i).eta(),weight);
     phi_jet->Fill(jets->at(i).phi(),weight);
     m_jet->Fill(jets->at(i).v4().M(),weight);
-    csv_jet->Fill(jets->at(i).btag_combinedSecondaryVertex(), weight);
     if(i==0){
       pt_jet1->Fill(jets->at(i).pt(),weight);
       eta_jet1->Fill(jets->at(i).eta(),weight);
       phi_jet1->Fill(jets->at(i).phi(),weight);
       m_jet1->Fill(jets->at(i).v4().M(),weight);
-      csv_jet1->Fill(jets->at(i).btag_combinedSecondaryVertex(), weight);
     }
     else if(i==1){
       pt_jet2->Fill(jets->at(i).pt(),weight);
       eta_jet2->Fill(jets->at(i).eta(),weight);
       phi_jet2->Fill(jets->at(i).phi(),weight);
       m_jet2->Fill(jets->at(i).v4().M(),weight);
-      csv_jet2->Fill(jets->at(i).btag_combinedSecondaryVertex(), weight);
     }
     else if(i==2){
       pt_jet3->Fill(jets->at(i).pt(),weight);
       eta_jet3->Fill(jets->at(i).eta(),weight);
       phi_jet3->Fill(jets->at(i).phi(),weight);
       m_jet3->Fill(jets->at(i).v4().M(),weight);
-      csv_jet3->Fill(jets->at(i).btag_combinedSecondaryVertex(), weight);
     }
   }
 
-  int Nbjets_loose = 0, Nbjets_medium = 0, Nbjets_tight = 0;
-  CSVBTag Btag_loose = CSVBTag(CSVBTag::WP_LOOSE);
-  CSVBTag Btag_medium = CSVBTag(CSVBTag::WP_MEDIUM);
-  CSVBTag Btag_tight = CSVBTag(CSVBTag::WP_TIGHT);
-
-  for (unsigned int i =0; i<jets->size(); i++) {
-    if(Btag_loose(jets->at(i),event))  Nbjets_loose++;
-    if(Btag_medium(jets->at(i),event)) Nbjets_medium++;
-    if(Btag_tight(jets->at(i),event))  Nbjets_tight++;
-  }
-
-  N_bJets_loose->Fill(Nbjets_loose,weight);
-  N_bJets_med->Fill(Nbjets_medium,weight);
-  N_bJets_tight->Fill(Nbjets_tight,weight);
 
   /*
-  █ ██   ██    █████  ██████ ██    ██   █████ 
+  █ ██   ██    █████  ██████ ██    ██   █████
   █ ██   ██  ██     ██  ██   ██    ██   ██  ██
-  █ ███████  ██     ██  ██    ██  ██    █████ 
-  █ ██   ██  ██     ██  ██     ████     ██  ██ 
+  █ ███████  ██     ██  ██    ██  ██    █████
+  █ ██   ██  ██     ██  ██     ████     ██  ██
   █ ██   ██    █████    ██      ██      ██   ██
   */
 
