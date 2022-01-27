@@ -1,20 +1,11 @@
 TTbarLJ workflow
 ----------------
-This branch is for the full dataset towards Moriond 17
-* TTbarLJSkimmingModule
-This module takes ntuples and cleans leptons and jets and applies preliminary cuts
-  * input: NtupleWriter output
-  * object reconstruction (leptons, jets, MET)
-  * preselection:
-    * \>=1 lepton + \>=2 jets + MET
-    * lower thresholds for MET and jet pTs, compared to final analysis selection
+This branch is for the full Run2 with UL datasets, for resonant and non-resonant searches  
 
-* BDTWJetsVariableDumpModule
-This module takes the root file output from the skimming modules and dumps the variables needed for 
-BDT training and testing into the AnalysisTree
-  * input:  TTbarLJSkimmingModule output
+Main changes with respect to previous CMS result:
 
-* TTbarLJAnalysisLiteModule
-  * input: TTbarLJSkimmingModule output
-  * final l+jets analysis selection
-  * sub-ntuple with minimal set of variables and weights
+*Use of HOTVR jets for top-tagging
+*Add iso lepton triggers, lower lepton and jet pt thresholds
+*Use DNN to categorise events
+
+
