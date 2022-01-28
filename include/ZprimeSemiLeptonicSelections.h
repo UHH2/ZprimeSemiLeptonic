@@ -16,6 +16,7 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <TLorentzVector.h>
 
 namespace uhh2 {
 
@@ -304,6 +305,16 @@ namespace uhh2 {
   double phi_up = -0.87;
   double phi_down = -1.57;
   };
+  ////
 
+  class ThetaStarSelection : public Selection{
+  public:
+    explicit ThetaStarSelection(uhh2::Context&, float theta_cut);
+    virtual bool passes(const Event&) override;
+  private:
+    uhh2::Event::Handle<ZprimeCandidate*> h_BestZprimeCandidateChi2;
+    uhh2::Event::Handle<bool> h_is_zprime_reconstructed_chi2;
+    float theta_cut_;
+  };
 
 }

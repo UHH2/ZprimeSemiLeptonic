@@ -8,6 +8,7 @@
 #include <UHH2/common/include/TTbarReconstruction.h>
 #include <UHH2/common/include/ReconstructionHypothesisDiscriminators.h>
 
+#include <TLorentzVector.h>
 
 class ZprimeSemiLeptonicHists: public uhh2::Hists {
 public:
@@ -43,8 +44,6 @@ TH1F *NPV, *MET, *MET_rebin, *MET_rebin2, *MET_rebin3, *ST, *ST_rebin, *ST_rebin
 
 TH1F *NN_Mu_pt, *NN_Mu_eta, *NN_Mu_phi, *NN_Mu_E, *NN_Ele_pt, *NN_Ele_eta, *NN_Ele_phi, *NN_Ele_E, *NN_MET_pt, *NN_MET_phi, *NN_N_Ak4, *NN_Ak4_j1_pt, *NN_Ak4_j1_eta, *NN_Ak4_j1_phi, *NN_Ak4_j1_E, *NN_Ak4_j1_m, *NN_Ak4_j1_btag, *NN_Ak4_j2_pt, *NN_Ak4_j2_eta, *NN_Ak4_j2_phi, *NN_Ak4_j2_E, *NN_Ak4_j2_m, *NN_Ak4_j2_btag, *NN_Ak4_j3_pt, *NN_Ak4_j3_eta, *NN_Ak4_j3_phi, *NN_Ak4_j3_E, *NN_Ak4_j3_m, *NN_Ak4_j3_btag, *NN_Ak4_j4_pt, *NN_Ak4_j4_eta, *NN_Ak4_j4_phi, *NN_Ak4_j4_E, *NN_Ak4_j4_m, *NN_Ak4_j4_btag, *NN_Ak4_j5_pt, *NN_Ak4_j5_eta, *NN_Ak4_j5_phi, *NN_Ak4_j5_E, *NN_Ak4_j5_m, *NN_Ak4_j5_btag, *NN_Ak4_j6_pt, *NN_Ak4_j6_eta, *NN_Ak4_j6_phi, *NN_Ak4_j6_E, *NN_Ak4_j6_m, *NN_Ak4_j6_btag, *NN_N_HOTVR, *NN_HOTVR_j1_pt, *NN_HOTVR_j1_eta, *NN_HOTVR_j1_phi, *NN_HOTVR_j1_E, *NN_HOTVR_j1_mSD, *NN_HOTVR_j1_tau21, *NN_HOTVR_j1_tau32, *NN_HOTVR_j2_pt, *NN_HOTVR_j2_eta, *NN_HOTVR_j2_phi, *NN_HOTVR_j2_E, *NN_HOTVR_j2_mSD, *NN_HOTVR_j2_tau21, *NN_HOTVR_j2_tau32, *NN_HOTVR_j3_pt, *NN_HOTVR_j3_eta, *NN_HOTVR_j3_phi, *NN_HOTVR_j3_E, *NN_HOTVR_j3_mSD, *NN_HOTVR_j3_tau21, *NN_HOTVR_j3_tau32, *NN_M_tt_weighted, *NN_M_tt_notweighted;
 
-//TH1F *DNN_out0, *DNN_out1, *DNN_out2, *DNN_out3;
-
 TH2F *dRmin_ptrel_mu, *dRmin_ptrel_mu1, *dRmin_ptrel_ele, *dRmin_ptrel_ele1;
 
  TH1F *deepjetbscore_jet,*deepjetbscore_jet1,*deepjetbscore_jet2,*deepjetbscore_jet3;
@@ -61,6 +60,8 @@ TH2F *dRmin_ptrel_mu, *dRmin_ptrel_mu1, *dRmin_ptrel_ele, *dRmin_ptrel_ele1;
  TH1F *massdecordeepjet_higgsscore_jet,*massdecordeepjet_higgsscore_jet1,*massdecordeepjet_higgsscore_jet2;
  TH1F *massdecordeepjet_qcdscore_jet,*massdecordeepjet_qcdscore_jet1,*massdecordeepjet_qcdscore_jet2;
 
+ TH1F *hadtop_thetastar, *cos_hadtop_thetastar, *leptop_thetastar, *cos_leptop_thetastar;
+
 //uhh2::Event::Handle< std::vector<TopJet> > h_AK8PuppiTopTags;
 uhh2::Event::Handle< std::vector<TopJet> > h_HOTVRTopTags;
 uhh2::Event::Handle<bool> h_is_zprime_reconstructed_chi2;
@@ -69,10 +70,5 @@ uhh2::Event::Handle<ZprimeCandidate*> h_BestZprimeCandidateChi2;
 uhh2::Event::Handle<ZprimeCandidate*> h_BestZprimeCandidateCorrectMatch;
 uhh2::Event::Handle<std::vector<ReconstructionHypothesis>> h_ttbar_hyps;
 //uhh2::Event::Handle<float> h_chi2;
-/*uhh2::Event::Handle<double> h_NNoutput0;
-uhh2::Event::Handle<double> h_NNoutput1;
-uhh2::Event::Handle<double> h_NNoutput2;
-uhh2::Event::Handle<double> h_NNoutput3;
-*/
   virtual ~ZprimeSemiLeptonicHists();
 };
