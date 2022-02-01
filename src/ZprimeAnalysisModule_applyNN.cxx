@@ -306,7 +306,6 @@ protected:
   unique_ptr<AnalysisModule> BTagWeight_module;
 
   // Taggers
-  //unique_ptr<AK8PuppiTopTagger> TopTaggerPuppi;
   unique_ptr<HOTVRTopTagger> TopTaggerHOTVR;
   unique_ptr<AnalysisModule> hadronic_top;
   unique_ptr<AnalysisModule> sf_toptag;
@@ -687,7 +686,6 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   ThetaStar_selection_bin3.reset(new ThetaStarSelection(ctx, theta_bin3));
 
   // Taggers
-  //TopTaggerPuppi.reset(new AK8PuppiTopTagger(ctx));
   TopTaggerHOTVR.reset(new HOTVRTopTagger(ctx));
 
   // Zprime candidate builder
@@ -881,7 +879,6 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
   }
 
   // Run top-tagging
-  //TopTaggerPuppi->process(event);
   TopTaggerHOTVR->process(event);
   if(debug) cout<<"Top Tagger ok"<<endl;
 
