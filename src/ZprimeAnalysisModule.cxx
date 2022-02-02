@@ -166,7 +166,6 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   for(auto & kv : ctx.get_all()){
     cout << " " << kv.first << " = " << kv.second << endl;
   }
-  cout << "1" << endl;
   // Configuration
   isMC = (ctx.get("dataset_type") == "MC");
   ispuppi = (ctx.get("is_puppi") == "true");

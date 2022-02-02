@@ -107,26 +107,11 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   cout << "Is this running on HOTVR: " << isHOTVR << endl;
 
 
-  ElectronId eleID_low;
-  ElectronId eleID_high;
-  MuonId muID_low;
-  MuonId muID_high;
-
   // TODO: check lepton ids
-  if(isUL16preVFP || isUL16postVFP){
-    // eleID = ElectronID_Summer16_tight_noIso;//ToDo: compare cutBased without iso and MVA-based via wp in UHH2
-    // muID      = MuonID(Muon::Highpt);
-    eleID_low = ElectronID_Summer16_tight;
-    muID_low  = MuonID(Muon::CutBasedIdTight);
-    eleID_high = ElectronID_Summer16_tight_noIso;
-    muID_high  = MuonID(Muon::CutBasedIdTight); // see more muonIDs https://github.com/cms-sw/cmssw/blob/master/DataFormats/MuonReco/interface/Muon.h#L201
-  }
-  if(isUL17 || isUL18){
-    eleID_low = ElectronID_Fall17_tight;
-    muID_low  = MuonID(Muon::CutBasedIdTight);
-    eleID_high = ElectronID_Fall17_tight_noIso;
-    muID_high  = MuonID(Muon::CutBasedIdGlobalHighPt);
-  }
+  ElectronId eleID_low = ElectronTagID(Electron::cutBasedElectronID_Fall17_94X_V2_tight); //check also mvaEleID_Fall17_Iso_V2_wp90
+  MuonId muID_low  = MuonID(Muon::CutBasedIdTight);
+  ElectronId eleID_high = ElectronTagID(Electron::mvaEleID_Fall17_noIso_V2_wp90);
+  MuonId muID_high  = MuonID(Muon::CutBasedIdGlobalHighPt);
 
   // if(is2017v2 || is2018){
   //   eleID_low = ElectronID_Fall17_tight;
@@ -204,7 +189,7 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
 
 
   // Book histograms
-  vector<string> histogram_tags = {"Input", "CommonModules", "MuonCleanerLowPt", "MuonCleanerHighPt","EleCleanerLowPt", "EleCleanerHighPt","Lepton1", "JetID", "JetCleaner1", "JetCleaner2", "TopjetCleaner", "Jet1", "Jet2", "MET"};
+  vector<string> histogram_tags = {"Input", "CommonModules", "MuonCleanerLowPt", "MuonCleanerHighPt","EleCleanerLowPt", "EleCleanerHighPt", "HOTVRCorrections", "Lepton1", "JetID", "JetCleaner1", "JetCleaner2", "TopjetCleaner", "Jet1", "Jet2", "MET"};
   book_histograms(ctx, histogram_tags);
 
   lumihists.reset(new LuminosityHists(ctx, "lumi"));
@@ -253,6 +238,7 @@ double muon_pt_high(55.);
   if(isHOTVR){
   hotvrjetCorr->process(event);
   }
+  fill_histograms(event, "HOTVRCorrections");
 
   //cout<<"TopJEC_JLC ... "<<event.event<<endl;
 
