@@ -78,7 +78,6 @@ protected:
   unique_ptr<AnalysisModule> BTagWeight_module;
 
   // Taggers
-  //unique_ptr<AK8PuppiTopTagger> TopTaggerPuppi;
   unique_ptr<HOTVRTopTagger> TopTaggerHOTVR;
   unique_ptr<AnalysisModule> hadronic_top;
   unique_ptr<AnalysisModule> sf_toptag;
@@ -353,7 +352,6 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   Variables_module.reset(new Variables_NN(ctx)); // variables for NN
 
   // Taggers
-  //TopTaggerPuppi.reset(new AK8PuppiTopTagger(ctx));
   TopTaggerHOTVR.reset(new HOTVRTopTagger(ctx));
 
   // Zprime candidate builder
@@ -447,7 +445,6 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   }
 
   // Run top-tagging
-  //TopTaggerPuppi->process(event);
   TopTaggerHOTVR->process(event);
   if(debug) cout<<"Top Tagger ok"<<endl;
 
@@ -718,13 +715,6 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   Variables_module->process(event);
   fill_histograms(event, "NNInputsBeforeReweight");
 
-  //  //Test with b-tagging before chi2 cut
-  //  if(sel_2btag->passes(event)) fill_histograms(event, "Btags2");
-  //  if(sel_1btag->passes(event)) fill_histograms(event, "Btags1");
-  //  if(debug) cout<<"Btags1 is ok"<<endl;
-  //  if(TopJetBtagSubjet_selection->passes(event)) fill_histograms(event, "TopJetBtagSubjet");
-  //  if(debug) cout<<"TopJetBtagSubjet_selection is ok"<<endl;
-  //
   //  if(TTbarMatchable_selection->passes(event)) fill_histograms(event, "MatchableBeforeChi2Cut");
   //  else fill_histograms(event, "NotMatchableBeforeChi2Cut");
   //  if(debug) cout<<"TTbarMatchable_selection is ok"<<endl;
@@ -755,13 +745,6 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   //  if(ZprimeTopTag_selection->passes(event)) fill_histograms(event, "TopTagReconstruction");
   //  else fill_histograms(event, "NotTopTagReconstruction");
   //  if(debug) cout<<"ZprimeTopTag_selection is ok"<<endl;
-  //
-  //  //Test with b-tagging after chi2 cut
-  //  if(sel_2btag->passes(event)) fill_histograms(event, "Btags2_Chi2");
-  //  if(sel_1btag->passes(event)) fill_histograms(event, "Btags1_Chi2");
-  //  if(debug) cout<<"Btags1 is ok"<<endl;
-  //  if(TopJetBtagSubjet_selection->passes(event)) fill_histograms(event, "TopJetBtagSubjet_Chi2");
-  //  if(debug) cout<<"TopJetBtagSubjet_selection is ok"<<endl;
   //
   //  //Fill some vars for monitoring and comparison
   //  bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2);

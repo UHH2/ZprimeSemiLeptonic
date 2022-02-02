@@ -10,6 +10,8 @@
 #include <UHH2/common/include/TTbarReconstruction.h>
 #include <UHH2/common/include/ReconstructionHypothesisDiscriminators.h>
 
+#include <UHH2/core/include/LorentzVector.h>
+
 #include "TH1F.h"
 #include "TH2D.h"
 #include <iostream>
@@ -26,10 +28,6 @@ Hists(ctx, dirname) {
   h_BestZprimeCandidateCorrectMatch = ctx.get_handle<ZprimeCandidate*>("ZprimeCandidateBestCorrectMatch");
   h_is_zprime_reconstructed_chi2 = ctx.get_handle<bool>("is_zprime_reconstructed_chi2");
   h_is_zprime_reconstructed_correctmatch = ctx.get_handle<bool>("is_zprime_reconstructed_correctmatch");
-  // h_NNoutput0 = ctx.get_handle<double>("NNoutput0");
-  // h_NNoutput1 = ctx.get_handle<double>("NNoutput1");
-  // h_NNoutput2 = ctx.get_handle<double>("NNoutput2");
-  // h_NNoutput3 = ctx.get_handle<double>("NNoutput3");
   //  h_chi2 = ctx.get_handle<float>("chi2");
   init();
 }
@@ -398,6 +396,11 @@ void ZprimeSemiLeptonicHists::init(){
 
   sum_event_weights = book<TH1F>("sum_event_weights", "counting experiment", 1, 0.5, 1.5);
 
+  // define theta star angles wrt ttbar rest frame
+  hadtop_thetastar     = book<TH1F>("hadtop_thetastar", "hadtop #theta^*", 70, -3.5, 3.5);
+  cos_hadtop_thetastar = book<TH1F>("cos_hadtop_thetastar", "cos(hadtop #theta^*)", 100, -1.0, 1.0);
+  leptop_thetastar     = book<TH1F>("leptop_thetastar", "leptop #theta^*", 70, -3.5, 3.5);
+  cos_leptop_thetastar = book<TH1F>("cos_leptop_thetastar", "cos(leptop #theta^*)", 100, -1.0, 1.0);
 
   // NN Hists
   NN_Mu_pt            = book<TH1F>("NN_Mu_pt", "NN_Mu_pt", 50, 0, 1000);
@@ -472,13 +475,6 @@ void ZprimeSemiLeptonicHists::init(){
   NN_M_tt_weighted    = book<TH1F>("NN_M_tt_weighted", "NN_M_tt_weighted", 100, 0, 14000);
   NN_M_tt_notweighted = book<TH1F>("NN_M_tt_notweighted", "NN_M_tt_notweighted", 100, 0, 14000);
 
-
-  /*
-  DNN_out0 = book<TH1F>("DNN_out0", "NN output 0", 100, 0, 1);
-  DNN_out1 = book<TH1F>("DNN_out1", "NN output 1", 100, 0, 1);
-  DNN_out2 = book<TH1F>("DNN_out2", "NN output 2", 100, 0, 1);
-  DNN_out3 = book<TH1F>("DNN_out3", "NN output 3", 100, 0, 1);
-  */
 }
 
 
@@ -1134,6 +1130,33 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
 
   sum_event_weights->Fill(1., weight);
 
+  // theta star angle
+  if(is_zprime_reconstructed_chi2 ){
+    float ang_hadtop_thetastar;
+    float ang_leptop_thetastar;
+    ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
+
+    LorentzVector had_top = BestZprimeCandidate->top_hadronic_v4();
+    LorentzVector lep_top = BestZprimeCandidate->top_leptonic_v4();
+
+    TLorentzVector had_top_frame(0,0,0,0);
+    had_top_frame.SetPtEtaPhiE(had_top.pt(), had_top.eta(), had_top.phi(), had_top.E());
+    TLorentzVector lep_top_frame(0,0,0,0);
+    lep_top_frame.SetPtEtaPhiE(lep_top.pt(), lep_top.eta(), lep_top.phi(), lep_top.E());
+    TLorentzVector ttbar(0,0,0,0);
+    ttbar.SetPtEtaPhiE((had_top+lep_top).pt(), (had_top+lep_top).eta(), (had_top+lep_top).phi(), (had_top+lep_top).E());
+
+    had_top_frame.Boost(-ttbar.BoostVector());
+    lep_top_frame.Boost(-ttbar.BoostVector());
+
+    ang_hadtop_thetastar = had_top_frame.Theta();
+    ang_leptop_thetastar = lep_top_frame.Theta();
+
+    hadtop_thetastar->Fill(ang_hadtop_thetastar, weight);
+    cos_hadtop_thetastar->Fill(TMath::Cos(ang_hadtop_thetastar), weight);
+    leptop_thetastar->Fill(ang_leptop_thetastar, weight);
+    cos_leptop_thetastar->Fill(TMath::Cos(ang_leptop_thetastar), weight);
+  }
 
   /*
   ███    ██ ███    ██
@@ -1258,36 +1281,6 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
     NN_M_tt_weighted->Fill(Mass_tt,weight);
     NN_M_tt_notweighted->Fill(Mass_tt);
   }
-
-  /// DNN score
-  /*
-  double output0= event.get(h_NNoutput0);
-  double output1= event.get(h_NNoutput1);
-  double output2= event.get(h_NNoutput2);
-  double output3= event.get(h_NNoutput3);
-
-  vector<double> output_event = {output0, output1, output2, output3};
-
-  double maxval_score = 0.0;
-  for ( int i = 0; i < 4; i++ ) {
-  if ( output_event[i] > maxval_score) {
-  maxval_score = output_event[i];
-}
-}
-
-if( output0 == maxval_score ){
-DNN_out0->Fill(output0, weight);
-}
-if( output1 == maxval_score ){
-DNN_out1->Fill(output1, weight);
-}
-if( output2 == maxval_score ){
-DNN_out2->Fill(output2, weight);
-}
-if( output3 == maxval_score ){
-DNN_out3->Fill(output3, weight);
-}
-*/
 
 
 } //Method

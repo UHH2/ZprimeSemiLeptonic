@@ -32,8 +32,6 @@
 //#include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicModules.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicPreselectionHists.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicGeneratorHists.h>
-//#include <UHH2/ZprimeSemiLeptonic/include/TopJetCorrections.h>
-//#include <UHH2/ZprimeSemiLeptonic/include/TopPuppiJetCorrections.h>
 
 #include "UHH2/HOTVR/include/HOTVRJetCorrectionModule.h"
 
@@ -51,15 +49,12 @@ public:
 protected:
   // Corrections
   std::unique_ptr<CommonModules> common;
-  //std::unique_ptr<TopJetCorrections> topjetCorr;
-  //std::unique_ptr<TopPuppiJetCorrections> toppuppijetCorr;
   std::unique_ptr<AnalysisModule> hotvrjetCorr;
 
   // Cleaners
   std::unique_ptr<MuonCleaner>     muon_cleaner_low, muon_cleaner_high;
   std::unique_ptr<ElectronCleaner> electron_cleaner_low, electron_cleaner_high;
   std::unique_ptr<JetCleaner>      jet_IDcleaner, jet_cleaner1, jet_cleaner2;
-  // std::unique_ptr<TopJetCleaner>   topjet_puppi_IDcleaner, topjet_puppi_cleaner, topjet_IDcleaner, topjet_cleaner;
   std::unique_ptr<AnalysisModule>  hotvrjet_cleaner;
 
   // Selections
@@ -185,10 +180,6 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   jet_IDcleaner.reset(new JetCleaner(ctx, jetID_PUPPI));
   jet_cleaner1.reset(new JetCleaner(ctx, 15., 3.0));
   jet_cleaner2.reset(new JetCleaner(ctx, 30., 2.4));
-  //topjet_IDcleaner.reset(new TopJetCleaner(ctx, jetID_CHS, "topjets"));
-  //topjet_cleaner.reset(new TopJetCleaner(ctx, TopJetId(PtEtaCut(200., 2.4)), "topjets"));
-  //topjet_puppi_IDcleaner.reset(new TopJetCleaner(ctx, jetID_PUPPI, "toppuppijets"));
-  //topjet_puppi_cleaner.reset(new TopJetCleaner(ctx, TopJetId(PtEtaCut(200., 2.4)), "toppuppijets"));
   hotvrjet_cleaner.reset(new TopJetCleaner(ctx, PtEtaCut(200., 2.5)));
 
 
@@ -202,12 +193,6 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
 //  common->set_muon_id(OrId<Muon>(AndId<Muon>(PtEtaCut(muon_pt_low, 2.4), muID_low), AndId<Muon>(PtEtaCut(muon_pt_high, 2.4), muID_high)));
 //  common->set_electron_id(OrId<Electron>(AndId<Electron>(PtEtaSCCut(electron_pt_low, 2.5), eleID_low), AndId<Electron>(PtEtaSCCut(electron_pt_high, 2.5), eleID_high)));
   common->init(ctx, Sys_PU);
-
-  //topjetCorr.reset(new TopJetCorrections());
-  //topjetCorr->init(ctx);
-
-  //toppuppijetCorr.reset(new TopPuppiJetCorrections());
-  //toppuppijetCorr->init(ctx);
 
   hotvrjetCorr.reset(new HOTVRJetCorrectionModule(ctx));
 
@@ -265,15 +250,9 @@ double muon_pt_high(55.);
   }
   sort_by_pt<Electron>(*event.electrons);
 
-  //if(ispuppi){
-  //toppuppijetCorr->process(event);
-  //}
   if(isHOTVR){
   hotvrjetCorr->process(event);
   }
-  //if(!ispuppi && !isHOTVR){
-  //topjetCorr->process(event);
-  //}
 
   //cout<<"TopJEC_JLC ... "<<event.event<<endl;
 
@@ -322,14 +301,6 @@ double muon_pt_high(55.);
   sort_by_pt<Jet>(*event.jets);
   fill_histograms(event, "JetCleaner2");
     //cout<<"JetCleaner2 ... "<<event.event<<endl;
-
-  //topjet_IDcleaner->process(event);
-  //topjet_cleaner->process(event);
-  //sort_by_pt<TopJet>(*event.topjets);
-
-  //topjet_puppi_IDcleaner->process(event);
-  //topjet_puppi_cleaner->process(event);
-  //sort_by_pt<TopJet>(*event.toppuppijets);
 
   hotvrjet_cleaner->process(event);
   sort_by_pt<TopJet>(*event.topjets);
