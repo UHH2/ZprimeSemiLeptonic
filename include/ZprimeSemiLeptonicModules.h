@@ -6,6 +6,9 @@
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeCandidate.h>
 #include <UHH2/core/include/LorentzVector.h>
 #include <UHH2/common/include/TTbarGen.h>
+#include <UHH2/common/include/NSelections.h>
+#include "UHH2/common/include/BTagCalibrationStandalone.h"
+#include "UHH2/common/include/JetIds.h"
 
 #include <UHH2/HOTVR/include/HOTVRIds.h>
 
@@ -170,6 +173,7 @@ public:
 private:
   uhh2::Event::Handle<bool> h_is_zprime_reconstructed_chi2;
   uhh2::Event::Handle<ZprimeCandidate*> h_BestZprimeCandidateChi2;
+  uhh2::Event::Handle< std::vector<Jet> > h_CHSjets_matched;
   uhh2::Event::Handle< float > h_eventweight;
   uhh2::Event::Handle< float > h_Mu_pt, h_Mu_eta, h_Mu_phi, h_Mu_E;
   uhh2::Event::Handle< float > h_Ele_pt, h_Ele_eta, h_Ele_phi, h_Ele_E;
@@ -238,4 +242,57 @@ class TopPtReweighting : public uhh2::AnalysisModule {
   std::string ttgen_name_;
   std::string weight_name_;
 };
+
+
+class PuppiCHS_matching : public uhh2::AnalysisModule {
+
+public:
+  explicit PuppiCHS_matching(uhh2::Context&);
+  virtual bool process(uhh2::Event&) override;
+
+private:
+  uhh2::Event::Handle< std::vector<Jet> > h_CHSjets;
+  uhh2::Event::Handle< std::vector<Jet> > h_CHS_matched_;
+};
+
+
+class CustomMCBTagDiscriminantReweighting: public uhh2::AnalysisModule {
+ public:
+  explicit CustomMCBTagDiscriminantReweighting(uhh2::Context & ctx,
+					 BTag::algo algorithm,
+					 const std::string & jets_handle_name="jets",
+					 const std::string & sysType="central",
+					 const std::string & measType="iterativefit",
+					 const std::string & weights_name_postfix="",
+					 const std::string & xml_calib_name="BTagCalibration");
+
+  virtual bool process(uhh2::Event & event) override;
+
+ protected:
+  BTag::algo algorithm_;
+  std::unique_ptr<BTagCalibrationReader> reader;
+  uhh2::Event::Handle<std::vector<Jet>> h_jets_;
+  uhh2::Event::Handle< std::vector<Jet> > h_CHSjets_matched;
+  std::string sysType_;
+  uhh2::Event::Handle<float> h_weight_btagdisc_central;
+  uhh2::Event::Handle<float> h_weight_btagdisc_jesup;
+  uhh2::Event::Handle<float> h_weight_btagdisc_jesdown;
+  uhh2::Event::Handle<float> h_weight_btagdisc_lfup;
+  uhh2::Event::Handle<float> h_weight_btagdisc_lfdown;
+  uhh2::Event::Handle<float> h_weight_btagdisc_hfup;
+  uhh2::Event::Handle<float> h_weight_btagdisc_hfdown;
+  uhh2::Event::Handle<float> h_weight_btagdisc_hfstats1up;
+  uhh2::Event::Handle<float> h_weight_btagdisc_hfstats1down;
+  uhh2::Event::Handle<float> h_weight_btagdisc_hfstats2up;
+  uhh2::Event::Handle<float> h_weight_btagdisc_hfstats2down;
+  uhh2::Event::Handle<float> h_weight_btagdisc_lfstats1up;
+  uhh2::Event::Handle<float> h_weight_btagdisc_lfstats1down;
+  uhh2::Event::Handle<float> h_weight_btagdisc_lfstats2up;
+  uhh2::Event::Handle<float> h_weight_btagdisc_lfstats2down;
+  uhh2::Event::Handle<float> h_weight_btagdisc_cferr1up;
+  uhh2::Event::Handle<float> h_weight_btagdisc_cferr1down;
+  uhh2::Event::Handle<float> h_weight_btagdisc_cferr2up;
+  uhh2::Event::Handle<float> h_weight_btagdisc_cferr2down;
+};
+
 
