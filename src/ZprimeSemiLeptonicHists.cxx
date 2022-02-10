@@ -543,7 +543,6 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
   N_bJetsDeepJet_med->Fill(NbjetsDeepJet_medium,weight);
   N_bJetsDeepJet_tight->Fill(NbjetsDeepJet_tight,weight);
 
-
   /*
   █ ██   ██    █████  ██████ ██    ██   █████
   █ ██   ██  ██     ██  ██   ██    ██   ██  ██
@@ -718,7 +717,6 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
       tau32_HOTVRTaggedjet3->Fill(tau32, weight);
     }
 
-
   }
 
   N_HOTVRjets->Fill(NHOTVRjets, weight);
@@ -863,7 +861,6 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
   vector<Muon>* muons = event.muons;
   int Nmuons = muons->size();
   N_mu->Fill(Nmuons, weight);
-
   for(int i=0; i<Nmuons; i++){
 
     pt_mu->Fill(muons->at(i).pt(),weight);
@@ -973,7 +970,6 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
       M_ee->Fill((electrons->at(i).v4() + electrons->at(j).v4()).M() ,weight);
     }
   }
-
 
   /*
   ██████  ███████ ███    ██ ███████ ██████   █████  ██
@@ -1240,7 +1236,6 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
       NN_Ak4_j6_btag->Fill(Ak4jets->at(i).btag_DeepJet(),weight);
     }
   }
-
 
   int N_HOTVRjets = HOTVRjets->size();
   NN_N_HOTVR->Fill(N_HOTVRjets,weight);

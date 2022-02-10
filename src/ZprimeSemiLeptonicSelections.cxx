@@ -14,7 +14,6 @@
 
 using namespace std;
 
-
 BlindDataSelection::BlindDataSelection(Context& ctx, float mtt_max) : mtt_max_(mtt_max){
   h_BestZprimeCandidate_chi2 = ctx.get_handle<ZprimeCandidate*>("ZprimeCandidateBestChi2");
   h_is_zprime_reconstructed_chi2 = ctx.get_handle<bool>("is_zprime_reconstructed_chi2");
@@ -579,4 +578,39 @@ return pass;
 /////////////////////////////////////////////////////
 
 
+PuppiCHS_BTagging::PuppiCHS_BTagging(Context& ctx){
 
+  h_CHSjets_matched = ctx.get_handle< std::vector<Jet> >("CHS_matched");
+
+  BTag::algo btag_algo = BTag::DEEPJET;
+  BTag::wp btag_wp = BTag::WP_MEDIUM;
+  JetId id_btag = BTag(btag_algo, btag_wp);
+
+  sel_1btag.reset(new NJetSelection(1, -1, id_btag));
+}
+bool PuppiCHS_BTagging::passes(const Event & event){
+
+  vector<Jet> CHSjets = event.get(h_CHSjets_matched);
+
+  bool btagged = false;
+  for(const Jet & jet : *event.jets){
+     double deltaR_min = 99;
+     for(const Jet & CHSjet : CHSjets){
+        double deltaR_CHS = deltaR(jet,CHSjet);
+        if(deltaR_CHS<deltaR_min) deltaR_min = deltaR_CHS;
+     }
+     if(deltaR_min>0.2) continue;
+     for(const Jet & CHSjet : CHSjets){
+     if(deltaR(jet,CHSjet)!=deltaR_min) continue;
+     else{
+        if(sel_1btag->passes(event)) {
+        btagged = true;
+        }
+     }
+     }
+  }
+  if(!(btagged)) return false;
+
+
+return true;
+}

@@ -20,8 +20,6 @@
 
 namespace uhh2 {
 
-
-
   class BlindDataSelection : public Selection{
   public:
     explicit BlindDataSelection(uhh2::Context&, float mtt_max);
@@ -316,5 +314,16 @@ namespace uhh2 {
     uhh2::Event::Handle<bool> h_is_zprime_reconstructed_chi2;
     float theta_cut_;
   };
+  ////
+
+  class PuppiCHS_BTagging : public Selection{
+  public:
+    explicit PuppiCHS_BTagging(uhh2::Context&);
+    virtual bool passes(const Event&) override;
+
+  private:
+  uhh2::Event::Handle< std::vector<Jet> > h_CHSjets_matched;
+  std::unique_ptr<Selection> sel_1btag;
+};
 
 }

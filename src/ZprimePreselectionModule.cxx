@@ -219,7 +219,7 @@ double muon_pt_high(55.);
   //cout<<"Common Modules... "<<event.event<<endl;
   fill_histograms(event, "CommonModules");
 
-  //// correct AK4 CHS jets 
+  // Correct AK4 CHS jets 
   CHSjetCorr->process(event);
 
   // CLEANER MUONS
