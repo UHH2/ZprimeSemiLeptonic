@@ -33,7 +33,7 @@
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicPreselectionHists.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicGeneratorHists.h>
 #include <UHH2/ZprimeSemiLeptonic/include/CHSJetCorrections.h>
-
+#include <UHH2/ZprimeSemiLeptonic/include/TopPuppiJetCorrections.h>
 #include "UHH2/HOTVR/include/HOTVRJetCorrectionModule.h"
 
 using namespace std;
@@ -51,13 +51,15 @@ protected:
   // Corrections
   std::unique_ptr<CommonModules> common;
   std::unique_ptr<AnalysisModule> hotvrjetCorr;
+  std::unique_ptr<TopPuppiJetCorrections> toppuppijetCorr;
+  std::unique_ptr<CHSJetCorrections> CHSjetCorr;
 
   // Cleaners
   std::unique_ptr<MuonCleaner>     muon_cleaner_low, muon_cleaner_high;
   std::unique_ptr<ElectronCleaner> electron_cleaner_low, electron_cleaner_high;
   std::unique_ptr<JetCleaner>      jet_IDcleaner, jet_cleaner1, jet_cleaner2;
   std::unique_ptr<AnalysisModule>  hotvrjet_cleaner;
-  std::unique_ptr<CHSJetCorrections> CHSjetCorr;
+  std::unique_ptr<TopJetCleaner>   topjet_puppi_IDcleaner, topjet_puppi_cleaner;
 
   // Selections
   std::unique_ptr<uhh2::Selection> genflavor_sel;
@@ -172,7 +174,8 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   jet_cleaner1.reset(new JetCleaner(ctx, 15., 3.0));
   jet_cleaner2.reset(new JetCleaner(ctx, 30., 2.4));
   hotvrjet_cleaner.reset(new TopJetCleaner(ctx, PtEtaCut(200., 2.5)));
-
+  topjet_puppi_IDcleaner.reset(new TopJetCleaner(ctx, jetID_PUPPI, "toppuppijets"));
+  topjet_puppi_cleaner.reset(new TopJetCleaner(ctx, TopJetId(PtEtaCut(200., 2.4)), "toppuppijets"));
 
   // common modules
   common.reset(new CommonModules());
@@ -187,6 +190,9 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
 
   hotvrjetCorr.reset(new HOTVRJetCorrectionModule(ctx));
 
+  toppuppijetCorr.reset(new TopPuppiJetCorrections());
+  toppuppijetCorr->init(ctx);
+
   CHSjetCorr.reset(new CHSJetCorrections());
   CHSjetCorr->init(ctx);
 
@@ -199,7 +205,7 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   h_CHSjets = ctx.get_handle<vector<Jet>>("jetsAk4CHS");
 
   // Book histograms
-  vector<string> histogram_tags = {"Input", "CommonModules", "MuonCleanerLowPt", "MuonCleanerHighPt","EleCleanerLowPt", "EleCleanerHighPt", "HOTVRCorrections", "Lepton1", "JetID", "JetCleaner1", "JetCleaner2", "TopjetCleaner", "Jet1", "Jet2", "MET"};
+  vector<string> histogram_tags = {"Input", "CommonModules", "MuonCleanerLowPt", "MuonCleanerHighPt","EleCleanerLowPt", "EleCleanerHighPt", "HOTVRCorrections", "PUPPICorrections", "Lepton1", "JetID", "JetCleaner1", "JetCleaner2", "TopjetCleaner", "Jet1", "Jet2", "MET"};
   book_histograms(ctx, histogram_tags);
 
   lumihists.reset(new LuminosityHists(ctx, "lumi"));
@@ -253,6 +259,9 @@ double muon_pt_high(55.);
   }
   fill_histograms(event, "HOTVRCorrections");
 
+  toppuppijetCorr->process(event);
+  fill_histograms(event, "PUPPICorrections");
+
   //cout<<"TopJEC_JLC ... "<<event.event<<endl;
 
   // GEN ME quark-flavor selection
@@ -302,6 +311,10 @@ double muon_pt_high(55.);
 
   hotvrjet_cleaner->process(event);
   sort_by_pt<TopJet>(*event.topjets);
+
+  topjet_puppi_IDcleaner->process(event);
+  topjet_puppi_cleaner->process(event);
+  sort_by_pt<TopJet>(*event.toppuppijets);
 
   fill_histograms(event, "TopjetCleaner");
     //cout<<"TopjetCleaner ... "<<event.event<<endl;
