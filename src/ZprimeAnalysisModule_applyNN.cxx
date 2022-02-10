@@ -309,6 +309,7 @@ protected:
   unique_ptr<HOTVRTopTagger> TopTaggerHOTVR;
   unique_ptr<AnalysisModule> hadronic_top;
   unique_ptr<AnalysisModule> sf_toptag;
+  //unique_ptr<DeepAK8TopTagger> TopTaggerDeepAK8;
 
   // Mass reconstruction
   unique_ptr<ZprimeCandidateBuilder> CandidateBuilder;
@@ -687,6 +688,7 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
 
   // Taggers
   TopTaggerHOTVR.reset(new HOTVRTopTagger(ctx));
+  // TopTaggerDeepAK8.reset(new DeepAK8TopTagger(ctx));
 
   // Zprime candidate builder
   CandidateBuilder.reset(new ZprimeCandidateBuilder(ctx, mode));
@@ -877,8 +879,12 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
   }
 
   // Run top-tagging
+  // HOTVR
   TopTaggerHOTVR->process(event);
   hadronic_top->process(event);
+  // DeepAK8
+  //TopTaggerDeepAK8->process(event);
+
   if(debug) cout<<"Top Tagger ok"<<endl;
 
   fill_histograms(event, "Weights_Init");

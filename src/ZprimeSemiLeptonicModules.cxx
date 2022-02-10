@@ -85,6 +85,8 @@ ZprimeCandidateBuilder::ZprimeCandidateBuilder(uhh2::Context& ctx, TString mode,
   //h_AK8TopTagsPtr = ctx.get_handle<std::vector<const TopJet*>>("AK8PuppiTopTagsPtr");
   h_AK8TopTags = ctx.get_handle<std::vector<TopJet>>("HOTVRTopTags");
   h_AK8TopTagsPtr = ctx.get_handle<std::vector<const TopJet*>>("HOTVRTopTagsPtr");
+  //h_AK8TopTags = ctx.get_handle<std::vector<TopJet>>("DeepAK8TopTags");
+  //h_AK8TopTagsPtr = ctx.get_handle<std::vector<const TopJet*>>("DeepAK8TopTagsPtr");
 
   if(mode_ != "chs" && mode_ != "puppi") throw runtime_error("In ZprimeCandidateBuilder::ZprimeCandidateBuilder(): 'mode' must be 'chs' or 'puppi'");
 
@@ -684,8 +686,6 @@ bool AK8PuppiTopTagger::process(uhh2::Event& event){
 
 
 
-
-
 HOTVRTopTagger::HOTVRTopTagger(uhh2::Context& ctx) {
 
   h_HOTVRTopTags_ = ctx.get_handle< std::vector<TopJet> >("HOTVRTopTags");
@@ -710,6 +710,41 @@ bool HOTVRTopTagger::process(uhh2::Event& event){
 }
 
 
+DeepAK8TopTagger::DeepAK8TopTagger(uhh2::Context& ctx, float min_mSD, float max_mSD, float max_score, float pt_min) : min_mSD_(min_mSD), max_mSD_(max_mSD), max_score_(max_score), pt_min_(pt_min) {
+
+  h_DeepAK8TopTags_ = ctx.get_handle< std::vector<TopJet> >("DeepAK8TopTags");
+  h_DeepAK8TopTagsPtr_ = ctx.get_handle< std::vector<const TopJet*> >("DeepAK8TopTagsPtr");
+
+}
+
+bool DeepAK8TopTagger::process(uhh2::Event& event){
+
+  std::vector<TopJet> toptags;
+  vector<const TopJet*> toptags_ptr;
+  for(const TopJet & puppijet : *event.toppuppijets){
+
+     // pT threshold
+     if(!( puppijet.pt() > pt_min_ )) continue;
+ 
+     // cut on SD mass 
+     LorentzVector SumSubjets(0.,0.,0.,0.);
+     for(unsigned int k=0; k<puppijet.subjets().size(); k++) SumSubjets = SumSubjets + puppijet.subjets().at(k).v4();
+     float mSD = SumSubjets.M();
+     if(!(min_mSD_ < mSD && mSD < max_mSD_)) continue;
+
+     // cut on score
+     if(!( puppijet.btag_MassDecorrelatedDeepBoosted_TvsQCD() > max_score_ )) continue;
+ 
+     toptags.emplace_back(puppijet);
+     toptags_ptr.emplace_back(&puppijet);
+
+  }
+
+  event.set(h_DeepAK8TopTags_, toptags);
+  event.set(h_DeepAK8TopTagsPtr_, toptags_ptr);
+  return (toptags.size() >= 1);
+
+}
 
 bool JetLeptonDeltaRCleaner::process(uhh2::Event& event){
 
