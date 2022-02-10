@@ -598,7 +598,7 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   TopPtReweight_module.reset(new TopPtReweighting(ctx, a_toppt, b_toppt, ctx.get("Systematic_TopPt_a", "nominal"), ctx.get("Systematic_TopPt_b", "nominal"), "", ""));
   MCScale_module.reset(new MCScaleVariation(ctx));
   hadronic_top.reset(new HadronicTop(ctx));
-  // sf_toptag.reset(new HOTVRScaleFactor(ctx, toptagID, ctx.get("Sys_TopTag", "nominal"), "HadronicTop", "TopTagSF", "HOTVRTopTagSFs"));
+  sf_toptag.reset(new HOTVRScaleFactor(ctx, toptagID, ctx.get("Sys_TopTag", "nominal"), "HadronicTop", "TopTagSF", "HOTVRTopTagSFs"));
   Corrections_module.reset(new NLOCorrections(ctx));
   ///sf_btag.reset(new MCBTagScaleFactor(ctx, btag_algo, btag_wp, "jets", ctx.get("Sys_btag", "nominal"), "comb", "incl", "MCBtagEfficiencies"));
   BTagWeight_module.reset(new MCBTagDiscriminantReweighting(ctx, btag_algo, "jets", Sys_btag,"iterativefit","","BTagCalibration"));
@@ -880,12 +880,8 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
 
   // Run top-tagging
   TopTaggerHOTVR->process(event);
-  if(debug) cout<<"Top Tagger ok"<<endl;
-
-  // HOTVR TopTag SFs
   hadronic_top->process(event);
-  // sf_toptag->process(event);
-  fill_histograms(event, "Weights_HOTVR_SF");
+  if(debug) cout<<"Top Tagger ok"<<endl;
 
   fill_histograms(event, "Weights_Init");
   lumihists_Weights_Init->fill(event);
@@ -908,6 +904,10 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
   MCScale_module->process(event);
   fill_histograms(event, "Weights_MCScale");
   lumihists_Weights_MCScale->fill(event);
+
+  // HOTVR TopTag SFs
+  sf_toptag->process(event);
+  fill_histograms(event, "Weights_HOTVR_SF");  
 
   // Higher order corrections - EWK & QCD NLO
   Corrections_module->process(event);

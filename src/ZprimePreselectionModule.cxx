@@ -32,6 +32,7 @@
 //#include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicModules.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicPreselectionHists.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicGeneratorHists.h>
+#include <UHH2/ZprimeSemiLeptonic/include/CHSJetCorrections.h>
 
 #include "UHH2/HOTVR/include/HOTVRJetCorrectionModule.h"
 
@@ -56,6 +57,7 @@ protected:
   std::unique_ptr<ElectronCleaner> electron_cleaner_low, electron_cleaner_high;
   std::unique_ptr<JetCleaner>      jet_IDcleaner, jet_cleaner1, jet_cleaner2;
   std::unique_ptr<AnalysisModule>  hotvrjet_cleaner;
+  std::unique_ptr<CHSJetCorrections> CHSjetCorr;
 
   // Selections
   std::unique_ptr<uhh2::Selection> genflavor_sel;
@@ -70,6 +72,10 @@ protected:
   TString METcollection;
 
   bool isUL16preVFP, isUL16postVFP, isUL17, isUL18;
+
+  // additional branch with AK4 CHS jets -> for b-tagging
+  Event::Handle<vector<Jet>> h_CHSjets;
+
 };
 
 void ZprimePreselectionModule::book_histograms(uhh2::Context& ctx, vector<string> tags){
@@ -107,26 +113,11 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   cout << "Is this running on HOTVR: " << isHOTVR << endl;
 
 
-  ElectronId eleID_low;
-  ElectronId eleID_high;
-  MuonId muID_low;
-  MuonId muID_high;
-
   // TODO: check lepton ids
-  if(isUL16preVFP || isUL16postVFP){
-    // eleID = ElectronID_Summer16_tight_noIso;//ToDo: compare cutBased without iso and MVA-based via wp in UHH2
-    // muID      = MuonID(Muon::Highpt);
-    eleID_low = ElectronID_Summer16_tight;
-    muID_low  = MuonID(Muon::CutBasedIdTight);
-    eleID_high = ElectronID_Summer16_tight_noIso;
-    muID_high  = MuonID(Muon::CutBasedIdTight); // see more muonIDs https://github.com/cms-sw/cmssw/blob/master/DataFormats/MuonReco/interface/Muon.h#L201
-  }
-  if(isUL17 || isUL18){
-    eleID_low = ElectronID_Fall17_tight;
-    muID_low  = MuonID(Muon::CutBasedIdTight);
-    eleID_high = ElectronID_Fall17_tight_noIso;
-    muID_high  = MuonID(Muon::CutBasedIdGlobalHighPt);
-  }
+  ElectronId eleID_low = ElectronTagID(Electron::cutBasedElectronID_Fall17_94X_V2_tight); //check also mvaEleID_Fall17_Iso_V2_wp90
+  MuonId muID_low  = MuonID(Muon::CutBasedIdTight);
+  ElectronId eleID_high = ElectronTagID(Electron::mvaEleID_Fall17_noIso_V2_wp90);
+  MuonId muID_high  = MuonID(Muon::CutBasedIdGlobalHighPt);
 
   // if(is2017v2 || is2018){
   //   eleID_low = ElectronID_Fall17_tight;
@@ -196,15 +187,19 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
 
   hotvrjetCorr.reset(new HOTVRJetCorrectionModule(ctx));
 
+  CHSjetCorr.reset(new CHSJetCorrections());
+  CHSjetCorr->init(ctx);
 
   //// EVENT SELECTION
   jet1_sel.reset(new NJetSelection(1, -1, JetId(PtEtaCut(jet1_pt, 2.4))));
   jet2_sel.reset(new NJetSelection(2, -1, JetId(PtEtaCut(jet2_pt, 2.4))));
   met_sel  .reset(new METCut  (MET   , uhh2::infinity));
 
+  // additional branch with Ak4 CHS jets
+  h_CHSjets = ctx.get_handle<vector<Jet>>("jetsAk4CHS");
 
   // Book histograms
-  vector<string> histogram_tags = {"Input", "CommonModules", "MuonCleanerLowPt", "MuonCleanerHighPt","EleCleanerLowPt", "EleCleanerHighPt","Lepton1", "JetID", "JetCleaner1", "JetCleaner2", "TopjetCleaner", "Jet1", "Jet2", "MET"};
+  vector<string> histogram_tags = {"Input", "CommonModules", "MuonCleanerLowPt", "MuonCleanerHighPt","EleCleanerLowPt", "EleCleanerHighPt", "HOTVRCorrections", "Lepton1", "JetID", "JetCleaner1", "JetCleaner2", "TopjetCleaner", "Jet1", "Jet2", "MET"};
   book_histograms(ctx, histogram_tags);
 
   lumihists.reset(new LuminosityHists(ctx, "lumi"));
@@ -223,6 +218,9 @@ double muon_pt_high(55.);
   if (!commonResult) return false;
   //cout<<"Common Modules... "<<event.event<<endl;
   fill_histograms(event, "CommonModules");
+
+  //// correct AK4 CHS jets 
+  CHSjetCorr->process(event);
 
   // CLEANER MUONS
   vector<Muon>* muons = event.muons;
@@ -253,9 +251,9 @@ double muon_pt_high(55.);
   if(isHOTVR){
   hotvrjetCorr->process(event);
   }
+  fill_histograms(event, "HOTVRCorrections");
 
   //cout<<"TopJEC_JLC ... "<<event.event<<endl;
-
 
   // GEN ME quark-flavor selection
   if(!event.isRealData){

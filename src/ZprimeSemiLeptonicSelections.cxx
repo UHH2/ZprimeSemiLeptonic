@@ -48,12 +48,6 @@ bool ZprimeTopTagSelection::passes(const Event & event){
 }
 
 ZprimeBTagFatSubJetSelection::ZprimeBTagFatSubJetSelection(Context& ctx){
-  // btag 
-  // CSVBTag::wp btag_wp = CSVBTag::WP_TIGHT; // b-tag workingpoint
-  // JetId id_btag = CSVBTag(btag_wp);
-
-  // DeepCSVBTag::wp btag_wp = DeepCSVBTag::WP_TIGHT; // b-tag workingpoint
-  // JetId id_btag = DeepCSVBTag(btag_wp);
 
   DeepJetBTag::wp btag_wp = DeepJetBTag::WP_TIGHT; // b-tag workingpoint
   JetId id_btag = DeepJetBTag(btag_wp);
