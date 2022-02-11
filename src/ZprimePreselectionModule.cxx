@@ -115,26 +115,11 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   cout << "Is this running on HOTVR: " << isHOTVR << endl;
 
 
-  // TODO: check lepton ids
-  ElectronId eleID_low = ElectronTagID(Electron::cutBasedElectronID_Fall17_94X_V2_tight); //check also mvaEleID_Fall17_Iso_V2_wp90
+  // lepton IDs
+  ElectronId eleID_low = ElectronTagID(Electron::mvaEleID_Fall17_iso_V2_wp80); 
   MuonId muID_low  = MuonID(Muon::CutBasedIdTight);
-  ElectronId eleID_high = ElectronTagID(Electron::mvaEleID_Fall17_noIso_V2_wp90);
+  ElectronId eleID_high = ElectronTagID(Electron::mvaEleID_Fall17_noIso_V2_wp80);
   MuonId muID_high  = MuonID(Muon::CutBasedIdGlobalHighPt);
-
-  // if(is2017v2 || is2018){
-  //   eleID_low = ElectronID_Fall17_tight;
-  //   muID_low  = MuonID(Muon::CutBasedIdTight);
-  //   eleID_high = ElectronID_Fall17_tight_noIso;
-  //   muID_high  = MuonID(Muon::CutBasedIdGlobalHighPt);
-  // }
-  // if(is2016v2 || is2016v3){
-  //   //eleID = ElectronID_Summer16_tight_noIso;//ToDo: compare cutBased without iso and MVA-based via wp in UHH2
-  //   //muID      = MuonID(Muon::Highpt);
-  //   eleID_low = ElectronID_Summer16_tight;
-  //   muID_low  = MuonID(Muon::CutBasedIdTight);
-  //   eleID_high = ElectronID_Summer16_tight_noIso;
-  //   muID_high  = MuonID(Muon::CutBasedIdTight); // see more muonIDs https://github.com/cms-sw/cmssw/blob/master/DataFormats/MuonReco/interface/Muon.h#L201
-  // }
 
   double electron_pt_low(35.);
   double muon_pt_low(30.);
@@ -184,8 +169,6 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   common->disable_jetpfidfilter();
   common->switch_jetPtSorter(true);
   common->switch_metcorrection(true);
-//  common->set_muon_id(OrId<Muon>(AndId<Muon>(PtEtaCut(muon_pt_low, 2.4), muID_low), AndId<Muon>(PtEtaCut(muon_pt_high, 2.4), muID_high)));
-//  common->set_electron_id(OrId<Electron>(AndId<Electron>(PtEtaSCCut(electron_pt_low, 2.5), eleID_low), AndId<Electron>(PtEtaSCCut(electron_pt_high, 2.5), eleID_high)));
   common->init(ctx, Sys_PU);
 
   hotvrjetCorr.reset(new HOTVRJetCorrectionModule(ctx));
