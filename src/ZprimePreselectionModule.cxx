@@ -116,10 +116,10 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
 
 
   // lepton IDs
-  ElectronId eleID_low = ElectronTagID(Electron::mvaEleID_Fall17_iso_V2_wp80); 
-  MuonId muID_low  = MuonID(Muon::CutBasedIdTight);
+  ElectronId eleID_low  = ElectronTagID(Electron::mvaEleID_Fall17_iso_V2_wp80);
+  MuonId     muID_low   = MuonID(Muon::CutBasedIdTight);
   ElectronId eleID_high = ElectronTagID(Electron::mvaEleID_Fall17_noIso_V2_wp80);
-  MuonId muID_high  = MuonID(Muon::CutBasedIdGlobalHighPt);
+  MuonId     muID_high  = MuonID(Muon::CutBasedIdGlobalHighPt);
 
   double electron_pt_low(35.);
   double muon_pt_low(30.);
@@ -182,7 +182,7 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   //// EVENT SELECTION
   jet1_sel.reset(new NJetSelection(1, -1, JetId(PtEtaCut(jet1_pt, 2.4))));
   jet2_sel.reset(new NJetSelection(2, -1, JetId(PtEtaCut(jet2_pt, 2.4))));
-  met_sel  .reset(new METCut  (MET   , uhh2::infinity));
+  met_sel .reset(new METCut  (MET   , uhh2::infinity));
 
   // additional branch with Ak4 CHS jets
   h_CHSjets = ctx.get_handle<vector<Jet>>("jetsAk4CHS");
@@ -208,7 +208,7 @@ double muon_pt_high(55.);
   //cout<<"Common Modules... "<<event.event<<endl;
   fill_histograms(event, "CommonModules");
 
-  // Correct AK4 CHS jets 
+  // Correct AK4 CHS jets
   CHSjetCorr->process(event);
 
   // CLEANER MUONS
