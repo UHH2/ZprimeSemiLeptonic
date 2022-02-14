@@ -1,7 +1,8 @@
 {
   // options
-  bool logyaxis   = false; // true/false
+  bool logyaxis   = true; // true/false
   TString channel = "muon"; // electron/muon
+  TString region  = "SR0T"; // SR0T/SR1T/CR1/CR2
 
   // colors
   // SM backgrounds: filled histograms
@@ -21,7 +22,7 @@
   double x_axis_upperBound = 5E+03;
   // y axis range
   double y_axis_lowerBound = 1;
-  double y_axis_upperBound = 1E+06;
+  double y_axis_upperBound = 3E+06;
 
 
 
@@ -40,9 +41,21 @@
   // TString root_dir = "Chi2_General";
 
   // after DNN
-  TString dir      = "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_102X_v2/2018/" + channel + "/ZPrime_lowmass_HOTVR_afterDNN/NOMINAL/";
-  TString histname = "M_Zprime_rebin2";
-  TString root_dir = "DNN_output0_General";
+  TString dir      = "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_102X_v2/2018/" + channel + "/ZPrime_lowmass_HOTVR_afterDNN_fromKsenia/";
+  TString histname = "M_Zprime_rebin5";
+
+  // select region
+  TString root_dir;
+  if (region == "SR0T") {
+    root_dir = "DNN_output0_NoTopTag_General";
+  } else if (region == "SR1T") {
+    root_dir = "DNN_output0_TopTag_General";
+  } else if (region == "CR1"){
+    root_dir = "DNN_output1_General";
+  } else if (region == "CR2"){
+    root_dir = "DNN_output2_General";
+  }
+
 
   // ALP interference
   TFile *file_ALPinterference = TFile::Open(dir + "uhh2.AnalysisModuleRunner.MC.ALP_ttbar_interference_UL18.root");
@@ -122,16 +135,31 @@
   h_bkg->Add(h_diboson);
 
 
-  double c_i_over_f_a = 1.;
+  // scaling
+  double f_a = 10.0;
+  double c_G = 10.0;
+  double c_Phi = 5.0;
+  double C = abs((c_G * c_Phi));
+  double k = C / pow(f_a,2);
+  double mu = pow(k,2);
+  cout << "         f_a = " <<   f_a << endl;
+  cout << "         c_G = " <<   c_G << endl;
+  cout << "       c_Phi = " << c_Phi << endl;
+  cout << "k = sqrt(mu) = " <<     k << endl;
+  cout << "    k^2 = mu = " <<    mu << endl;
+  cout << endl;
+
+
+
   TH1F *h_bkgplusALP = (TH1F*) h_ALPinterference->Clone();
-  h_bkgplusALP->Scale(c_i_over_f_a);
+  h_bkgplusALP->Scale(sqrt(mu));
   h_bkgplusALP->Add(h_ttbar);
   h_bkgplusALP->Add(h_wjets);
   h_bkgplusALP->Add(h_dy);
   h_bkgplusALP->Add(h_st);
   h_bkgplusALP->Add(h_qcd);
   h_bkgplusALP->Add(h_diboson);
-  h_bkgplusALP->Add(h_ALPsignal,c_i_over_f_a*c_i_over_f_a);
+  h_bkgplusALP->Add(h_ALPsignal,mu);
   h_bkgplusALP->SetLineColor(color_signal);
   h_bkgplusALP->SetLineWidth(2);
   h_bkgplusALP->SetLineStyle(2);
@@ -157,15 +185,9 @@
   lumitag->SetTextFont(42);
   lumitag->SetTextSize(0.032);
   // channel tag
-  // if(logyaxis){
-  //   x_pos = 0.144;
-  //   y_pos = 0.957;
-  // }
-  // else{
   x_pos = 0.18;
   y_pos = 0.9;
-  // }
-  TLatex *channeltag = new TLatex(3.5,24, channel + " channel: 2018 SM + UL18 signal");
+  TLatex *channeltag = new TLatex(3.5,24, region + " " + channel + " channel (2018 SM + UL18 ALP)");
   channeltag->SetNDC();
   channeltag->SetTextAlign(11);
   channeltag->SetX(x_pos);
@@ -236,13 +258,13 @@
   stack.GetXaxis()->SetNdivisions(50205);
   // y axis
   stack.GetYaxis()->SetTitle("Events");
-  stack.GetYaxis()->SetTitleOffset(1.6);
+  stack.GetYaxis()->SetTitleOffset(2.1);
   if(logyaxis){
     stack.SetMinimum(y_axis_lowerBound);
     stack.SetMaximum(y_axis_upperBound);
   }
   else{
-    stack.SetMaximum(6E+05);
+    stack.SetMaximum(5000000);
   }
 
   // lower pad
@@ -282,10 +304,10 @@
 
   // y axis
   // TLatex yaxis_title =
-  h_ratio->GetYaxis()->SetTitle("signal/bkg");
+  h_ratio->GetYaxis()->SetTitle("#frac{S+I+B}{B}");
   h_ratio->GetYaxis()->CenterTitle(true);
   h_ratio->GetYaxis()->SetTitleSize(upperpad_titlesize * 10/3);
-  h_ratio->GetYaxis()->SetTitleOffset(0.4);
+  h_ratio->GetYaxis()->SetTitleOffset(0.5);
   h_ratio->GetYaxis()->SetLabelSize(upperpad_titlesize * 10/3);
   h_ratio->GetYaxis()->SetNdivisions(-502);
   h_ratio->GetYaxis()->SetRangeUser(0.5,1.5);
@@ -296,8 +318,8 @@
 
   // saving
   TString save_dir = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/plots/";
-  if(logyaxis) c1->SaveAs(save_dir + "mttbar_" + channel + "_logscale.pdf");
-  else c1->SaveAs(save_dir + "mttbar_" + channel + ".pdf");
+  if(logyaxis) c1->SaveAs(save_dir + "mttbar_" + region + "_" + channel + "_logscale_test.pdf");
+  else c1->SaveAs(save_dir + "mttbar_" + region + "_" + channel + ".pdf");
   c1->Close();
 
 
