@@ -102,8 +102,8 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   //// CONFIGURATION
   const TString METcollection = ctx.get("METName");
   isMC    = ctx.get("dataset_type") == "MC";
-  ispuppi = (ctx.get("is_puppi") == "true");
-  isHOTVR = (ctx.get("is_HOTVR") == "true");
+  ispuppi = ctx.get("is_puppi") == "true";
+  isHOTVR = ctx.get("is_HOTVR") == "true";
   Sys_PU  = ctx.get("Sys_PU");
 
   isUL16preVFP  = (ctx.get("dataset_version").find("UL16preVFP")  != std::string::npos);
