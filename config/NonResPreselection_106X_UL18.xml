@@ -51,7 +51,6 @@
 <!ENTITY ST_t-channel_antitop_4f_InclusiveDecays_UL18 SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/SM/UL18/ST_t-channel_antitop_4f_InclusiveDecays_CP5_powheg-madspin-pythia8_Summer20UL18_v1.xml">
 <!ENTITY ST_t-channel_top_4f_InclusiveDecays_UL18     SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/SM/UL18/ST_t-channel_top_4f_InclusiveDecays_CP5_powheg-madspin-pythia8_Summer20UL18_v1.xml">
 <!ENTITY ST_s-channel_4f_leptonDecays_UL18            SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/SM/UL18/ST_s-channel_4f_leptonDecays_CP5_amcatnlo-pythia8_Summer20UL18_v1.xml">
-<!-- <!ENTITY ST_s-channel_4f_hadronDecays_UL18            SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/SM/UL18/"> TODO: does this still exist? -->
 <!-- QCD -->
 <!ENTITY QCD_HT50to100_UL18    SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL18/QCD_HT50to100_CP5_PSWeights_madgraph-pythia8_Summer20UL18_v1.xml">
 <!ENTITY QCD_HT100to200_UL18   SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL18/QCD_HT100to200_CP5_PSWeights_madgraph-pythia8_Summer20UL18_v1.xml">
