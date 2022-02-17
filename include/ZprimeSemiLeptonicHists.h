@@ -17,7 +17,7 @@ public:
 
 protected:
   void init();
-  bool is_mc;
+  bool is_mc, ishotvr, isdeepAK8;
 
 TH1F *N_jets, *pt_jet, *pt_jet1, *pt_jet2, *pt_jet3, *eta_jet, *eta_jet1, *eta_jet2, *eta_jet3, *phi_jet, *phi_jet1, *phi_jet2, *phi_jet3, *m_jet, *m_jet1, *m_jet2, *m_jet3, *csv_jet, *csv_jet1, *csv_jet2, *csv_jet3, *N_bJets_loose, *N_bJets_med, *N_bJets_tight;
 
@@ -39,31 +39,40 @@ TH1F *N_AK8Puppijets, *pt_AK8Puppijet, *pt_AK8Puppijet1, *pt_AK8Puppijet2, *pt_A
 
 TH1F *N_HOTVRTaggedjets, *pt_HOTVRTaggedjet, *pt_HOTVRTaggedjet1, *pt_HOTVRTaggedjet2, *pt_HOTVRTaggedjet3, *eta_HOTVRTaggedjet, *eta_HOTVRTaggedjet1, *eta_HOTVRTaggedjet2, *eta_HOTVRTaggedjet3, *phi_HOTVRTaggedjet, *phi_HOTVRTaggedjet1, *phi_HOTVRTaggedjet2, *phi_HOTVRTaggedjet3, *m_HOTVRTaggedjet, *m_HOTVRTaggedjet1, *m_HOTVRTaggedjet2, *m_HOTVRTaggedjet3, *N_subjets_HOTVRTaggedjet, *N_subjets_HOTVRTaggedjet1, *N_subjets_HOTVRTaggedjet2, *N_subjets_HOTVRTaggedjet3, *N_daughters_HOTVRTaggedjet, *N_daughters_HOTVRTaggedjet1, *N_daughters_HOTVRTaggedjet2, *N_daughters_HOTVRTaggedjet3, *dRmin_AK8_HOTVRTaggedjet, *dRmin_AK8_HOTVRTaggedjet1, *dRmin_AK8_HOTVRTaggedjet2, *dRmin_AK8_HOTVRTaggedjet3, *dRmin_mu_HOTVRTaggedjet, *dRmin_mu_HOTVRTaggedjet1, *dRmin_mu_HOTVRTaggedjet2, *dRmin_mu_HOTVRTaggedjet3, *tau1_HOTVRTaggedjet, *tau1_HOTVRTaggedjet1, *tau1_HOTVRTaggedjet2, *tau1_HOTVRTaggedjet3, *tau2_HOTVRTaggedjet, *tau2_HOTVRTaggedjet1, *tau2_HOTVRTaggedjet2, *tau2_HOTVRTaggedjet3, *tau3_HOTVRTaggedjet, *tau3_HOTVRTaggedjet1, *tau3_HOTVRTaggedjet2, *tau3_HOTVRTaggedjet3, *tau21_HOTVRTaggedjet, *tau21_HOTVRTaggedjet1, *tau21_HOTVRTaggedjet2, *tau21_HOTVRTaggedjet3, *tau32_HOTVRTaggedjet, *tau32_HOTVRTaggedjet1, *tau32_HOTVRTaggedjet2, *tau32_HOTVRTaggedjet3;
 
+TH1F *N_AK8PuppiTaggedjets, *pt_AK8PuppiTaggedjet, *pt_AK8PuppiTaggedjet1, *pt_AK8PuppiTaggedjet2, *pt_AK8PuppiTaggedjet3, *eta_AK8PuppiTaggedjet, *eta_AK8PuppiTaggedjet1, *eta_AK8PuppiTaggedjet2, *eta_AK8PuppiTaggedjet3, *phi_AK8PuppiTaggedjet, *phi_AK8PuppiTaggedjet1, *phi_AK8PuppiTaggedjet2, *phi_AK8PuppiTaggedjet3, *mSD_AK8PuppiTaggedjet, *mSD_AK8PuppiTaggedjet1, *mSD_AK8PuppiTaggedjet2, *mSD_AK8PuppiTaggedjet3, *N_subjets_AK8PuppiTaggedjet, *N_subjets_AK8PuppiTaggedjet1, *N_subjets_AK8PuppiTaggedjet2, *N_subjets_AK8PuppiTaggedjet3, *N_daughters_AK8PuppiTaggedjet, *N_daughters_AK8PuppiTaggedjet1, *N_daughters_AK8PuppiTaggedjet2, *N_daughters_AK8PuppiTaggedjet3, *dRmin_HOTVR_AK8PuppiTaggedjet, *dRmin_HOTVR_AK8PuppiTaggedjet1, *dRmin_HOTVR_AK8PuppiTaggedjet2, *dRmin_HOTVR_AK8PuppiTaggedjet3, *dRmin_mu_AK8PuppiTaggedjet, *dRmin_mu_AK8PuppiTaggedjet1, *dRmin_mu_AK8PuppiTaggedjet2, *dRmin_mu_AK8PuppiTaggedjet3, *tau1_AK8PuppiTaggedjet, *tau1_AK8PuppiTaggedjet1, *tau1_AK8PuppiTaggedjet2, *tau1_AK8PuppiTaggedjet3, *tau2_AK8PuppiTaggedjet, *tau2_AK8PuppiTaggedjet1, *tau2_AK8PuppiTaggedjet2, *tau2_AK8PuppiTaggedjet3, *tau3_AK8PuppiTaggedjet, *tau3_AK8PuppiTaggedjet1, *tau3_AK8PuppiTaggedjet2, *tau3_AK8PuppiTaggedjet3, *tau21_AK8PuppiTaggedjet, *tau21_AK8PuppiTaggedjet1, *tau21_AK8PuppiTaggedjet2, *tau21_AK8PuppiTaggedjet3, *tau32_AK8PuppiTaggedjet, *tau32_AK8PuppiTaggedjet1, *tau32_AK8PuppiTaggedjet2, *tau32_AK8PuppiTaggedjet3;
+
 TH1F *NPV, *MET, *MET_rebin, *MET_rebin2, *MET_rebin3, *ST, *ST_rebin, *ST_rebin2, *ST_rebin3, *STjets, *STjets_rebin, *STjets_rebin2, *STjets_rebin3, *STlep, *STlep_rebin, *STlep_rebin2, *STlep_rebin3, *M_Zprime, *M_Zprime_rebin, *M_Zprime_rebin2, *M_Zprime_rebin3, *M_Zprime_rebin4, *M_Zprime_rebin5, *chi2_Zprime, *chi2_Zprime_rebin, *chi2_Zprime_rebin2, *M_tophad, *M_toplep, *M_Zprime_ak4, *M_Zprime_ak4_rebin, *M_Zprime_ak4_rebin2, *M_Zprime_ak4_rebin3, *M_Zprime_ak4_rebin4, *M_Zprime_ak4_rebin5, *chi2_Zprime_ak4, *chi2_Zprime_ak4_rebin, *chi2_Zprime_ak4_rebin2, *M_tophad_ak4, *M_toplep_ak4, *M_Zprime_ttag, *M_Zprime_ttag_rebin, *M_Zprime_ttag_rebin2, *M_Zprime_ttag_rebin3, *M_Zprime_ttag_rebin4, *M_Zprime_ttag_rebin5, *chi2_Zprime_ttag, *chi2_Zprime_ttag_rebin, *chi2_Zprime_ttag_rebin2, *M_tophad_ttag, *M_tophad_ttag_M, *M_tophad_ttag_v4, *M_toplep_ttag, *M_tophad_dr_ak4, *M_toplep_dr_ak4, *M_tophad_dr_ttag, *M_toplep_dr_ttag, *dr_discr_Zprime, *M_Zprime_dr, *M_Zprime_dr_rebin, *M_Zprime_dr_rebin2, *M_Zprime_dr_rebin3, *S11, *S12, *S13, *S22, *S23, *S33, *sum_event_weights;
 
 
-TH1F *NN_Mu_pt, *NN_Mu_eta, *NN_Mu_phi, *NN_Mu_E, *NN_Ele_pt, *NN_Ele_eta, *NN_Ele_phi, *NN_Ele_E, *NN_MET_pt, *NN_MET_phi, *NN_N_Ak4, *NN_Ak4_j1_pt, *NN_Ak4_j1_eta, *NN_Ak4_j1_phi, *NN_Ak4_j1_E, *NN_Ak4_j1_m, *NN_Ak4_j1_btag, *NN_Ak4_j2_pt, *NN_Ak4_j2_eta, *NN_Ak4_j2_phi, *NN_Ak4_j2_E, *NN_Ak4_j2_m, *NN_Ak4_j2_btag, *NN_Ak4_j3_pt, *NN_Ak4_j3_eta, *NN_Ak4_j3_phi, *NN_Ak4_j3_E, *NN_Ak4_j3_m, *NN_Ak4_j3_btag, *NN_Ak4_j4_pt, *NN_Ak4_j4_eta, *NN_Ak4_j4_phi, *NN_Ak4_j4_E, *NN_Ak4_j4_m, *NN_Ak4_j4_btag, *NN_Ak4_j5_pt, *NN_Ak4_j5_eta, *NN_Ak4_j5_phi, *NN_Ak4_j5_E, *NN_Ak4_j5_m, *NN_Ak4_j5_btag, *NN_Ak4_j6_pt, *NN_Ak4_j6_eta, *NN_Ak4_j6_phi, *NN_Ak4_j6_E, *NN_Ak4_j6_m, *NN_Ak4_j6_btag, *NN_N_HOTVR, *NN_HOTVR_j1_pt, *NN_HOTVR_j1_eta, *NN_HOTVR_j1_phi, *NN_HOTVR_j1_E, *NN_HOTVR_j1_mSD, *NN_HOTVR_j1_tau21, *NN_HOTVR_j1_tau32, *NN_HOTVR_j2_pt, *NN_HOTVR_j2_eta, *NN_HOTVR_j2_phi, *NN_HOTVR_j2_E, *NN_HOTVR_j2_mSD, *NN_HOTVR_j2_tau21, *NN_HOTVR_j2_tau32, *NN_HOTVR_j3_pt, *NN_HOTVR_j3_eta, *NN_HOTVR_j3_phi, *NN_HOTVR_j3_E, *NN_HOTVR_j3_mSD, *NN_HOTVR_j3_tau21, *NN_HOTVR_j3_tau32, *NN_M_tt_weighted, *NN_M_tt_notweighted;
+TH1F *NN_Mu_pt, *NN_Mu_eta, *NN_Mu_phi, *NN_Mu_E, *NN_Ele_pt, *NN_Ele_eta, *NN_Ele_phi, *NN_Ele_E, *NN_MET_pt, *NN_MET_phi, *NN_N_Ak4, *NN_Ak4_j1_pt, *NN_Ak4_j1_eta, *NN_Ak4_j1_phi, *NN_Ak4_j1_E, *NN_Ak4_j1_m, *NN_Ak4_j1_btag, *NN_Ak4_j2_pt, *NN_Ak4_j2_eta, *NN_Ak4_j2_phi, *NN_Ak4_j2_E, *NN_Ak4_j2_m, *NN_Ak4_j2_btag, *NN_Ak4_j3_pt, *NN_Ak4_j3_eta, *NN_Ak4_j3_phi, *NN_Ak4_j3_E, *NN_Ak4_j3_m, *NN_Ak4_j3_btag, *NN_Ak4_j4_pt, *NN_Ak4_j4_eta, *NN_Ak4_j4_phi, *NN_Ak4_j4_E, *NN_Ak4_j4_m, *NN_Ak4_j4_btag, *NN_Ak4_j5_pt, *NN_Ak4_j5_eta, *NN_Ak4_j5_phi, *NN_Ak4_j5_E, *NN_Ak4_j5_m, *NN_Ak4_j5_btag, *NN_Ak4_j6_pt, *NN_Ak4_j6_eta, *NN_Ak4_j6_phi, *NN_Ak4_j6_E, *NN_Ak4_j6_m, *NN_Ak4_j6_btag, *NN_N_HOTVR, *NN_HOTVR_j1_pt, *NN_HOTVR_j1_eta, *NN_HOTVR_j1_phi, *NN_HOTVR_j1_E, *NN_HOTVR_j1_mSD, *NN_HOTVR_j1_tau21, *NN_HOTVR_j1_tau32, *NN_HOTVR_j2_pt, *NN_HOTVR_j2_eta, *NN_HOTVR_j2_phi, *NN_HOTVR_j2_E, *NN_HOTVR_j2_mSD, *NN_HOTVR_j2_tau21, *NN_HOTVR_j2_tau32, *NN_HOTVR_j3_pt, *NN_HOTVR_j3_eta, *NN_HOTVR_j3_phi, *NN_HOTVR_j3_E, *NN_HOTVR_j3_mSD, *NN_HOTVR_j3_tau21, *NN_HOTVR_j3_tau32, *NN_M_tt_weighted, *NN_M_tt_notweighted,*NN_N_Ak8, *NN_Ak8_j1_pt, *NN_Ak8_j1_eta, *NN_Ak8_j1_phi, *NN_Ak8_j1_E, *NN_Ak8_j1_mSD, *NN_Ak8_j1_tau21, *NN_Ak8_j1_tau32, *NN_Ak8_j2_pt, *NN_Ak8_j2_eta, *NN_Ak8_j2_phi, *NN_Ak8_j2_E, *NN_Ak8_j2_mSD, *NN_Ak8_j2_tau21, *NN_Ak8_j2_tau32, *NN_Ak8_j3_pt, *NN_Ak8_j3_eta, *NN_Ak8_j3_phi, *NN_Ak8_j3_E, *NN_Ak8_j3_mSD, *NN_Ak8_j3_tau21, *NN_Ak8_j3_tau32;
 
 TH2F *dRmin_ptrel_mu, *dRmin_ptrel_mu1, *dRmin_ptrel_ele, *dRmin_ptrel_ele1;
 
  TH1F *deepjetbscore_jet,*deepjetbscore_jet1,*deepjetbscore_jet2,*deepjetbscore_jet3;
 
- TH1F *deepjet_topscore_jet,*deepjet_topscore_jet1,*deepjet_topscore_jet2;
+ TH1F *deepjet_topscore_jet,*deepjet_topscore_jet1,*deepjet_topscore_jet2,*deepjet_topscore_jet3;
  TH1F *deepjet_wscore_jet,*deepjet_wscore_jet1,*deepjet_wscore_jet2;
  TH1F *deepjet_zscore_jet,*deepjet_zscore_jet1,*deepjet_zscore_jet2;
  TH1F *deepjet_higgsscore_jet,*deepjet_higgsscore_jet1,*deepjet_higgsscore_jet2;
  TH1F *deepjet_qcdscore_jet,*deepjet_qcdscore_jet1,*deepjet_qcdscore_jet2;
 
- TH1F *massdecordeepjet_topscore_jet,*massdecordeepjet_topscore_jet1,*massdecordeepjet_topscore_jet2;
+ TH1F *massdecordeepjet_topscore_jet,*massdecordeepjet_topscore_jet1,*massdecordeepjet_topscore_jet2,*massdecordeepjet_topscore_jet3;
  TH1F *massdecordeepjet_wscore_jet,*massdecordeepjet_wscore_jet1,*massdecordeepjet_wscore_jet2;
  TH1F *massdecordeepjet_zscore_jet,*massdecordeepjet_zscore_jet1,*massdecordeepjet_zscore_jet2;
  TH1F *massdecordeepjet_higgsscore_jet,*massdecordeepjet_higgsscore_jet1,*massdecordeepjet_higgsscore_jet2;
  TH1F *massdecordeepjet_qcdscore_jet,*massdecordeepjet_qcdscore_jet1,*massdecordeepjet_qcdscore_jet2;
 
+ TH1F *deepjet_topscore_Taggedjet,*deepjet_topscore_Taggedjet1,*deepjet_topscore_Taggedjet2,*deepjet_topscore_Taggedjet3;
+ TH1F *massdecordeepjet_topscore_Taggedjet,*massdecordeepjet_topscore_Taggedjet1,*massdecordeepjet_topscore_Taggedjet2,*massdecordeepjet_topscore_Taggedjet3;
+ 
+ TH1F *deepjet_TvsQCD_jet,*deepjet_TvsQCD_jet1,*deepjet_TvsQCD_jet2,*deepjet_TvsQCD_jet3;
+ TH1F *massdecordeepjet_TvsQCD_jet,*massdecordeepjet_TvsQCD_jet1,*massdecordeepjet_TvsQCD_jet2,*massdecordeepjet_TvsQCD_jet3;
+ TH1F *deepjet_TvsQCD_Taggedjet,*deepjet_TvsQCD_Taggedjet1,*deepjet_TvsQCD_Taggedjet2,*deepjet_TvsQCD_Taggedjet3;
+ TH1F *massdecordeepjet_TvsQCD_Taggedjet,*massdecordeepjet_TvsQCD_Taggedjet1,*massdecordeepjet_TvsQCD_Taggedjet2,*massdecordeepjet_TvsQCD_Taggedjet3;
+
  TH1F *hadtop_thetastar, *cos_hadtop_thetastar, *leptop_thetastar, *cos_leptop_thetastar;
 
-//uhh2::Event::Handle< std::vector<TopJet> > h_AK8PuppiTopTags;
-uhh2::Event::Handle< std::vector<TopJet> > h_HOTVRTopTags;
+uhh2::Event::Handle< std::vector<TopJet> > h_AK8TopTags;
 uhh2::Event::Handle<bool> h_is_zprime_reconstructed_chi2;
 uhh2::Event::Handle<bool> h_is_zprime_reconstructed_correctmatch;
 uhh2::Event::Handle<ZprimeCandidate*> h_BestZprimeCandidateChi2;

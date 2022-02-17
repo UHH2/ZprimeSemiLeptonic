@@ -81,14 +81,16 @@ vector<LorentzVector> reconstruct_neutrino(const LorentzVector & lepton, const L
 ZprimeCandidateBuilder::ZprimeCandidateBuilder(uhh2::Context& ctx, TString mode, float minDR) : minDR_(minDR), mode_(mode){
 
   h_ZprimeCandidates_ = ctx.get_handle< vector<ZprimeCandidate> >("ZprimeCandidates");
-  //h_AK8TopTags = ctx.get_handle<std::vector<TopJet>>("AK8PuppiTopTags");
-  //h_AK8TopTagsPtr = ctx.get_handle<std::vector<const TopJet*>>("AK8PuppiTopTagsPtr");
+  
+  if(mode_ == "deepAK8"){
+  h_AK8TopTags = ctx.get_handle<std::vector<TopJet>>("DeepAK8TopTags");
+  h_AK8TopTagsPtr = ctx.get_handle<std::vector<const TopJet*>>("DeepAK8TopTagsPtr");
+  }else if(mode_ == "hotvr"){
   h_AK8TopTags = ctx.get_handle<std::vector<TopJet>>("HOTVRTopTags");
   h_AK8TopTagsPtr = ctx.get_handle<std::vector<const TopJet*>>("HOTVRTopTagsPtr");
-  //h_AK8TopTags = ctx.get_handle<std::vector<TopJet>>("DeepAK8TopTags");
-  //h_AK8TopTagsPtr = ctx.get_handle<std::vector<const TopJet*>>("DeepAK8TopTagsPtr");
+  }
 
-  if(mode_ != "chs" && mode_ != "puppi") throw runtime_error("In ZprimeCandidateBuilder::ZprimeCandidateBuilder(): 'mode' must be 'chs' or 'puppi'");
+  if(mode_ != "hotvr" && mode_ != "deepAK8") throw runtime_error("In ZprimeCandidateBuilder::ZprimeCandidateBuilder(): 'mode' must be 'hotvr' or 'deepAK8'"); 
 
 }
 
@@ -96,7 +98,6 @@ bool ZprimeCandidateBuilder::process(uhh2::Event& event){
   assert(event.jets);
   assert(event.muons || event.electrons);
   assert(event.met);
-
 
   // Declare output
   vector<ZprimeCandidate> candidates;
@@ -111,52 +112,30 @@ bool ZprimeCandidateBuilder::process(uhh2::Event& event){
   // Build all necessary loops
   vector<TopJet> TopTags = event.get(h_AK8TopTags);
   vector<const TopJet*> TopTagsPtr = event.get(h_AK8TopTagsPtr);
+
   if((event.muons->size() < 1 && event.electrons->size() < 1)) throw runtime_error("Event content did not allow reconstructing the Zprime: Leptons");
   if((event.jets->size() < 2 && TopTags.size() == 0)) throw runtime_error("Event content did not allow reconstructing the Zprime: AK4");
   if((event.jets->size() < 1 && TopTags.size() >= 1)) throw runtime_error("Event content did not allow reconstructing the Zprime: Top-tag");
-
-  vector<bool> matches_chs;
-  vector<vector<TopJet>> chs_matched;
-  if(mode_ == "chs"){
-    // Check if top-tag reconstruction is possible
-    for(const TopJet & toptag : TopTags){
-      bool match = false;
-      vector<TopJet> matches_this;
-      for(const TopJet & chsjet : *event.topjets){
-        double dR = uhh2::deltaR(chsjet, toptag);
-        if(dR < 1.0){
-          match = true;
-          matches_this.emplace_back(chsjet);
-        }
-      }
-      matches_chs.emplace_back(match);
-      chs_matched.emplace_back(matches_this);
-    }
-  }
 
   // Must have at least one AK4 jet with dR > 1.2
   vector<bool> has_separated_jet;
   for(unsigned int i=0; i<TopTags.size(); i++){
     bool is_sep = false;
-    if(mode_ == "chs"){
-      for(unsigned int j=0; j<chs_matched[i].size(); j++){
-        for(unsigned int k = 0; k < event.jets->size(); k++){
-          if(deltaR(event.jets->at(k), chs_matched[i][j]) > 1.2) is_sep = true;
-        }
-      }
-    }
-    else{
-      for(unsigned int k = 0; k < event.jets->size(); k++){
-        if(deltaR(event.jets->at(k), TopTags[i]) > 1.2) is_sep = true;
-      }
+    for(unsigned int k = 0; k < event.jets->size(); k++){
+      if(deltaR(event.jets->at(k), TopTags[i]) > 1.2) is_sep = true;
     }
     has_separated_jet.emplace_back(is_sep);
   }
 
-
-  double maxDeltaR = -1;
   vector<bool> overlap_with_lepton;
-  if(mode_ == "puppi"){
+  double maxDeltaR = -1;
+  if(mode_ == "deepAK8"){ 
+    for(const TopJet & toptag : TopTags){
+      bool overlap = true;
+      if(deltaR(lepton, toptag) > 0.8) overlap = false;
+      overlap_with_lepton.emplace_back(overlap);
+    }
+  } else if(mode_ == "hotvr"){
     for(const TopJet & toptag : TopTags){
       if(deltaR(lepton, toptag)>maxDeltaR) maxDeltaR = deltaR(lepton, toptag);
       bool overlap = true;
@@ -164,27 +143,13 @@ bool ZprimeCandidateBuilder::process(uhh2::Event& event){
       overlap_with_lepton.emplace_back(overlap);
     }
   }
-  else{
-    for(unsigned int i=0; i<TopTags.size(); i++){
-      bool overlap = true;
-      for(unsigned int j=0; j<chs_matched[i].size(); j++){
-        if(deltaR(lepton, chs_matched[i][j]) > 0.8) overlap = false;
-      }
-      overlap_with_lepton.emplace_back(overlap);
-    }
-  }
 
   bool do_toptag_reco = false;
   if(TopTags.size() >= 1){
     for(unsigned int i=0; i<TopTags.size(); i++){
-      if(mode_ == "chs"){
-        if(matches_chs[i] && has_separated_jet[i] &&  !overlap_with_lepton[i]) do_toptag_reco = true;
-      }
-      else if(mode_ == "puppi"){
-         //cout << "Number of toptags: " << TopTags.size() << endl;
-         //cout << "At " << i << " of " << has_separated_jet.size() << " and " << overlap_with_lepton.size() << endl;
-        if(has_separated_jet[i] &&  !overlap_with_lepton[i]) do_toptag_reco = true;
-      }
+     //cout << "Number of toptags: " << TopTags.size() << endl;
+     //cout << "At " << i << " of " << has_separated_jet.size() << " and " << overlap_with_lepton.size() << endl;
+    if(has_separated_jet[i] &&  !overlap_with_lepton[i]) do_toptag_reco = true;
     }
   }
 
@@ -237,123 +202,59 @@ bool ZprimeCandidateBuilder::process(uhh2::Event& event){
   else{ // TopTag reconstruction
     for(const auto & neutrino_v4 : neutrinos) {
       for (unsigned int j=0; j < TopTags.size(); j++) {
-        if(mode_ == "chs"){
-          if(!(matches_chs[j] && has_separated_jet[j] &&  !overlap_with_lepton[j])) continue;
+        if(!(has_separated_jet[j] &&  !overlap_with_lepton[j])) continue;
 
-          // Find matched AK8CHS jet
-          TopJet chsjet_matched;
-          const TopJet* chsjet_matched_ptr;
-          for(const TopJet & chsjet : *event.topjets){
-            double dR = uhh2::deltaR(chsjet, TopTags.at(j));
-            chsjet_matched = chsjet;
-            chsjet_matched_ptr = &chsjet;
-            if(!(dR < 1.0)) continue;
+        TopJet toptag = TopTags.at(j);
+        const TopJet* toptag_ptr = TopTagsPtr.at(j);
 
-            //only consider CHS jets not overlapping with the primary lepton
-            if(!(deltaR(lepton, chsjet) > 0.8)) continue;
-
-            // Only consider well-separated AK4 jets
-            vector<Jet> separated_jets;
-            for(unsigned int k = 0; k < event.jets->size(); k++){
-              if(deltaR(event.jets->at(k), chsjet_matched) > minDR_) separated_jets.emplace_back(event.jets->at(k));
-            }
-            unsigned int njets = separated_jets.size();
-	    if(njets < 1)  continue; //only consider AK8 jets not overlaping with AK4
-	    //            if(njets < 1) throw runtime_error("In TopTagReco (CHS): This toptag does not have >= 1 well-separated AK4 jet. This should have been caught by earlier messages. There is a logic error.");
-            if(njets > 10) njets = 10;
-
-            unsigned int jetiters = pow(2, njets);
-            for (unsigned int k=0; k < jetiters; k++) {
-
-              LorentzVector tophadv4 = chsjet_matched.v4();
-              vector<Particle> tophadjets;
-              tophadjets.emplace_back(chsjet_matched);
-              LorentzVector toplepv4 = lepton.v4() + neutrino_v4;
-              vector<Particle> toplepjets;
-              int num = k;
-              ZprimeCandidate candidate;
-              candidate.set_is_toptag_reconstruction(true);
-              candidate.set_is_puppi_reconstruction(false);
-
-              for (unsigned int l=0; l<njets; l++) {
-                if(num%2==0){
-                  toplepv4 = toplepv4 + separated_jets.at(l).v4();
-                  toplepjets.emplace_back(separated_jets.at(l));
-                }
-                num /= 2;
-              }
-
-              if(tophadjets.size() < 1 || toplepjets.size() < 1 || separated_jets.size() < 1) continue;
-
-              // Set all member variables of the candidate
-              candidate.set_Zprime_v4(tophadv4 + toplepv4);
-              candidate.set_top_hadronic_v4(tophadv4);
-              candidate.set_top_leptonic_v4(toplepv4);
-              candidate.set_jets_hadronic(tophadjets);
-              candidate.set_jets_leptonic(toplepjets);
-              candidate.set_tophad_topjet_ptr(chsjet_matched_ptr);
-              candidate.set_lepton(lepton);
-              candidate.set_neutrinoindex(neutrinoidx);
-              candidate.set_neutrino_v4(neutrino_v4);
-              candidates.emplace_back(candidate);
-
-            }
-          }
-        }
-        else if(mode_ == "puppi"){
-          if(!(has_separated_jet[j] &&  !overlap_with_lepton[j])) continue;
-
-          TopJet toptag = TopTags.at(j);
-          const TopJet* toptag_ptr = TopTagsPtr.at(j);
-
+        if(mode_ == "hotvr"){
           // Only HOTVR jet farest from lepton
           if(deltaR(lepton,toptag)<maxDeltaR) continue;
+        }
 
-          // Only consider well-separated AK4 jets
-          vector<Jet> separated_jets;
-          for(unsigned int k = 0; k < event.jets->size(); k++){
-            if(deltaR(event.jets->at(k), toptag) > minDR_) separated_jets.emplace_back(event.jets->at(k));
-          }
-          unsigned int njets = separated_jets.size();
-          if(njets < 1) throw runtime_error("In TopTagReco (PUPPI): This toptag does not have >= 1 well-separated AK4 jet. This should have been caught by earlier messages. There is a logic error.");
-          if(njets > 10) njets = 10;
+        // Only consider well-separated AK4 jets
+        vector<Jet> separated_jets;
+        for(unsigned int k = 0; k < event.jets->size(); k++){
+          if(deltaR(event.jets->at(k), toptag) > minDR_) separated_jets.emplace_back(event.jets->at(k));
+        }
+        unsigned int njets = separated_jets.size();
+        if(njets < 1) throw runtime_error("In TopTagReco (PUPPI): This toptag does not have >= 1 well-separated AK4 jet. This should have been caught by earlier messages. There is a logic error.");
+        if(njets > 10) njets = 10;
 
-          unsigned int jetiters = pow(2, njets);
-          for (unsigned int k=0; k < jetiters; k++) {
+        unsigned int jetiters = pow(2, njets);
+        for (unsigned int k=0; k < jetiters; k++) {
 
-            LorentzVector tophadv4 = toptag.v4();
-            vector<Particle> tophadjets;
-            tophadjets.emplace_back(toptag);
-            LorentzVector toplepv4 = lepton.v4() + neutrino_v4;
-            vector<Particle> toplepjets;
-            int num = k;
-            ZprimeCandidate candidate;
-            candidate.set_is_toptag_reconstruction(true);
-            candidate.set_is_puppi_reconstruction(true);
+          LorentzVector tophadv4 = toptag.v4();
+          vector<Particle> tophadjets;
+          tophadjets.emplace_back(toptag);
+          LorentzVector toplepv4 = lepton.v4() + neutrino_v4;
+          vector<Particle> toplepjets;
+          int num = k;
+          ZprimeCandidate candidate;
+          candidate.set_is_toptag_reconstruction(true);
+          candidate.set_is_puppi_reconstruction(true);
 
-            for (unsigned int l=0; l<njets; l++) {
-              if(num%2==0){
-                toplepv4 = toplepv4 + separated_jets.at(l).v4();
-                toplepjets.emplace_back(separated_jets.at(l));
-              }
-              num /= 2;
+          for (unsigned int l=0; l<njets; l++) {
+            if(num%2==0){
+              toplepv4 = toplepv4 + separated_jets.at(l).v4();
+              toplepjets.emplace_back(separated_jets.at(l));
             }
-
-            if(tophadjets.size() < 1 || toplepjets.size() < 1 || separated_jets.size() < 1) continue;
-
-            // Set all member variables of the candidate
-            candidate.set_Zprime_v4(tophadv4 + toplepv4);
-            candidate.set_top_hadronic_v4(tophadv4);
-            candidate.set_top_leptonic_v4(toplepv4);
-            candidate.set_jets_hadronic(tophadjets);
-            candidate.set_jets_leptonic(toplepjets);
-            candidate.set_tophad_topjet_ptr(toptag_ptr);
-            candidate.set_lepton(lepton);
-            candidate.set_neutrinoindex(neutrinoidx);
-            candidate.set_neutrino_v4(neutrino_v4);
-            candidates.emplace_back(candidate);
-
+            num /= 2;
           }
+
+          if(tophadjets.size() < 1 || toplepjets.size() < 1 || separated_jets.size() < 1) continue;
+
+          // Set all member variables of the candidate
+          candidate.set_Zprime_v4(tophadv4 + toplepv4);
+          candidate.set_top_hadronic_v4(tophadv4);
+          candidate.set_top_leptonic_v4(toplepv4);
+          candidate.set_jets_hadronic(tophadjets);
+          candidate.set_jets_leptonic(toplepjets);
+          candidate.set_tophad_topjet_ptr(toptag_ptr);
+          candidate.set_lepton(lepton);
+          candidate.set_neutrinoindex(neutrinoidx);
+          candidate.set_neutrino_v4(neutrino_v4);
+          candidates.emplace_back(candidate);
 
         }
       }
@@ -977,7 +878,7 @@ bool MEPartonFinder::process(uhh2::Event& evt){
 /////////////// Variables for NN
 //////////////////////////////////////////////////////////////
 
-Variables_NN::Variables_NN(uhh2::Context& ctx){
+Variables_NN::Variables_NN(uhh2::Context& ctx, TString mode): mode_(mode){
   h_BestZprimeCandidateChi2 = ctx.get_handle<ZprimeCandidate*>("ZprimeCandidateBestChi2");
   h_is_zprime_reconstructed_chi2 = ctx.get_handle<bool>("is_zprime_reconstructed_chi2");
   h_CHSjets_matched = ctx.get_handle<std::vector<Jet>>("CHS_matched");
@@ -1044,7 +945,35 @@ Variables_NN::Variables_NN(uhh2::Context& ctx){
   h_Ak4_j6_m = ctx.declare_event_output<float>  ("Ak4_j6_m");
   h_Ak4_j6_deepjetbscore = ctx.declare_event_output<float>  ("Ak4_j6_deepjetbscore");
 
-///  HOTVR JETS
+/// AK8 JETS  
+  if(mode_ == "deepAK8"){
+  h_N_Ak8 = ctx.declare_event_output<float> ("N_Ak8");
+
+  h_Ak8_j1_pt = ctx.declare_event_output<float> ("Ak8_j1_pt");
+  h_Ak8_j1_eta = ctx.declare_event_output<float>("Ak8_j1_eta");
+  h_Ak8_j1_phi = ctx.declare_event_output<float>("Ak8_j1_phi");
+  h_Ak8_j1_E = ctx.declare_event_output<float>  ("Ak8_j1_E");
+  h_Ak8_j1_mSD = ctx.declare_event_output<float>("Ak8_j1_mSD");
+  h_Ak8_j1_tau21 = ctx.declare_event_output<float>("Ak8_j1_tau21");
+  h_Ak8_j1_tau32 = ctx.declare_event_output<float>("Ak8_j1_tau32");
+
+  h_Ak8_j2_pt = ctx.declare_event_output<float> ("Ak8_j2_pt");
+  h_Ak8_j2_eta = ctx.declare_event_output<float>("Ak8_j2_eta");
+  h_Ak8_j2_phi = ctx.declare_event_output<float>("Ak8_j2_phi");
+  h_Ak8_j2_E = ctx.declare_event_output<float>  ("Ak8_j2_E");
+  h_Ak8_j2_mSD = ctx.declare_event_output<float>("Ak8_j2_mSD");
+  h_Ak8_j2_tau21 = ctx.declare_event_output<float>("Ak8_j2_tau21");
+  h_Ak8_j2_tau32 = ctx.declare_event_output<float>("Ak8_j2_tau32");
+
+  h_Ak8_j3_pt = ctx.declare_event_output<float> ("Ak8_j3_pt");
+  h_Ak8_j3_eta = ctx.declare_event_output<float>("Ak8_j3_eta");
+  h_Ak8_j3_phi = ctx.declare_event_output<float>("Ak8_j3_phi");
+  h_Ak8_j3_E = ctx.declare_event_output<float>  ("Ak8_j3_E");
+  h_Ak8_j3_mSD = ctx.declare_event_output<float>("Ak8_j3_mSD");
+  h_Ak8_j3_tau21 = ctx.declare_event_output<float>("Ak8_j3_tau21");
+  h_Ak8_j3_tau32 = ctx.declare_event_output<float>("Ak8_j3_tau32");
+  }else if(mode_ == "hotvr"){
+///  HOTVR JETS  
   h_N_HOTVR = ctx.declare_event_output<float> ("N_HOTVR");
 
   h_HOTVR_j1_pt = ctx.declare_event_output<float> ("HOTVR_j1_pt");
@@ -1070,7 +999,7 @@ Variables_NN::Variables_NN(uhh2::Context& ctx){
   h_HOTVR_j3_mSD = ctx.declare_event_output<float>("HOTVR_j3_mSD");
   h_HOTVR_j3_tau21 = ctx.declare_event_output<float>("HOTVR_j3_tau21");
   h_HOTVR_j3_tau32 = ctx.declare_event_output<float>("HOTVR_j3_tau32");
-
+  }
 
 ///  M ttbar
   h_M_tt = ctx.declare_event_output<float> ("M_tt");
@@ -1248,8 +1177,71 @@ bool Variables_NN::process(uhh2::Event& evt){
       }
   }
 
+/////////   AK8 JETS
+  if(mode_ == "deepAK8"){
+  evt.set(h_N_Ak8, -10);
+
+  evt.set(h_Ak8_j1_pt, -10);
+  evt.set(h_Ak8_j1_eta, -10);
+  evt.set(h_Ak8_j1_phi, -10);
+  evt.set(h_Ak8_j1_E, -10);
+  evt.set(h_Ak8_j1_mSD, -10);
+  evt.set(h_Ak8_j1_tau21, -10);
+  evt.set(h_Ak8_j1_tau32, -10);
+
+  evt.set(h_Ak8_j2_pt, -10);
+  evt.set(h_Ak8_j2_eta, -10);
+  evt.set(h_Ak8_j2_phi, -10);
+  evt.set(h_Ak8_j2_E, -10);
+  evt.set(h_Ak8_j2_mSD, -10);
+  evt.set(h_Ak8_j2_tau21, -10);
+  evt.set(h_Ak8_j2_tau32, -10);
+
+  evt.set(h_Ak8_j3_pt, -10);
+  evt.set(h_Ak8_j3_eta, -10);
+  evt.set(h_Ak8_j3_phi, -10);
+  evt.set(h_Ak8_j3_E, -10);
+  evt.set(h_Ak8_j3_mSD, -10);
+  evt.set(h_Ak8_j3_tau21, -10);
+  evt.set(h_Ak8_j3_tau32, -10);
+
+  vector<TopJet>* Ak8jets = evt.toppuppijets;
+  int NAk8jets = Ak8jets->size();
+  evt.set(h_N_Ak8, NAk8jets);
+
+  for(int i=0; i<NAk8jets; i++){
+      if(i==0){
+      evt.set(h_Ak8_j1_pt, Ak8jets->at(i).pt());
+      evt.set(h_Ak8_j1_eta, Ak8jets->at(i).eta());
+      evt.set(h_Ak8_j1_phi, Ak8jets->at(i).phi());
+      evt.set(h_Ak8_j1_E, Ak8jets->at(i).energy());
+      evt.set(h_Ak8_j1_mSD, Ak8jets->at(i).softdropmass());
+      evt.set(h_Ak8_j1_tau21, Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1());
+      evt.set(h_Ak8_j1_tau32, Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2());
+      }
+      if(i==1){
+      evt.set(h_Ak8_j2_pt, Ak8jets->at(i).pt());
+      evt.set(h_Ak8_j2_eta, Ak8jets->at(i).eta());
+      evt.set(h_Ak8_j2_phi, Ak8jets->at(i).phi());
+      evt.set(h_Ak8_j2_E, Ak8jets->at(i).energy());
+      evt.set(h_Ak8_j2_mSD, Ak8jets->at(i).softdropmass());
+      evt.set(h_Ak8_j2_tau21, Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1());
+      evt.set(h_Ak8_j2_tau32, Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2());
+      }
+      if(i==2){
+      evt.set(h_Ak8_j3_pt, Ak8jets->at(i).pt());
+      evt.set(h_Ak8_j3_eta, Ak8jets->at(i).eta());
+      evt.set(h_Ak8_j3_phi, Ak8jets->at(i).phi());
+      evt.set(h_Ak8_j3_E, Ak8jets->at(i).energy());
+      evt.set(h_Ak8_j3_mSD, Ak8jets->at(i).softdropmass());
+      evt.set(h_Ak8_j3_tau21, Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1());
+      evt.set(h_Ak8_j3_tau32, Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2());
+      }
+  }
+  }// end deepAK8 mode
 
 /////////   HOTVR JETS
+  if(mode_ == "hotvr"){
   evt.set(h_N_HOTVR, -10);
 
   evt.set(h_HOTVR_j1_pt, -10);
@@ -1276,9 +1268,6 @@ bool Variables_NN::process(uhh2::Event& evt){
   evt.set(h_HOTVR_j3_tau21, -10);
   evt.set(h_HOTVR_j3_tau32, -10);
 
-
-  // Top Tagged Jets
-  //vector<TopJet> AK8PuppiTopTags = event.get(h_AK8PuppiTopTags);
 
   vector<TopJet>* HOTVRjets = evt.topjets;
   int NHOTVRjets = HOTVRjets->size();
@@ -1313,6 +1302,7 @@ bool Variables_NN::process(uhh2::Event& evt){
       evt.set(h_HOTVR_j3_tau32, HOTVRjets->at(i).tau3_groomed()/HOTVRjets->at(i).tau2_groomed());
       }
   }
+  } // end hotvr mode
 
   // ttbar mass
   evt.set(h_M_tt, -10);

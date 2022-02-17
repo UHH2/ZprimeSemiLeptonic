@@ -81,7 +81,7 @@ protected:
   unique_ptr<HOTVRTopTagger> TopTaggerHOTVR;
   unique_ptr<AnalysisModule> hadronic_top;
   unique_ptr<AnalysisModule> sf_toptag;
-  //unique_ptr<DeepAK8TopTagger> TopTaggerDeepAK8;
+  unique_ptr<DeepAK8TopTagger> TopTaggerDeepAK8;
 
   // Mass reconstruction
   unique_ptr<ZprimeCandidateBuilder> CandidateBuilder;
@@ -136,7 +136,7 @@ protected:
   std::unique_ptr<Hists> h_CHSMatchHists_afterBTagSF;
 
   // Configuration
-  bool isMC, ispuppi, islooserselection;
+  bool isMC, ishotvr, isdeepAK8, islooserselection;
   string Sys_MuonID_low, Sys_MuonISO_low, Sys_MuonID_high, Sys_MuonTrigger_low, Sys_MuonTrigger_high;
   string Sys_PU, Sys_btag, Sys_EleID, Sys_EleTrigger;
   TString sample;
@@ -178,9 +178,10 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   }
   // Configuration
   isMC = (ctx.get("dataset_type") == "MC");
-  ispuppi = (ctx.get("is_puppi") == "true");
-  TString mode = "chs";
-  if(ispuppi) mode = "puppi";
+  ishotvr = (ctx.get("is_hotvr") == "true");
+  isdeepAK8 = (ctx.get("is_deepAK8") == "true");
+  TString mode = "hotvr";
+  if(isdeepAK8) mode = "deepAK8";
   string tmp = ctx.get("dataset_version");
   sample = tmp;
   isUL16preVFP  = (ctx.get("dataset_version").find("UL16preVFP")  != std::string::npos);
@@ -282,7 +283,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   TopPtReweight_module.reset(new TopPtReweighting(ctx, a_toppt, b_toppt, ctx.get("Systematic_TopPt_a", "nominal"), ctx.get("Systematic_TopPt_b", "nominal"), "", ""));
   MCScale_module.reset(new MCScaleVariation(ctx));
   hadronic_top.reset(new HadronicTop(ctx));
-  sf_toptag.reset(new HOTVRScaleFactor(ctx, toptagID, ctx.get("Sys_TopTag", "nominal"), "HadronicTop", "TopTagSF", "HOTVRTopTagSFs"));
+  //sf_toptag.reset(new HOTVRScaleFactor(ctx, toptagID, ctx.get("Sys_TopTag", "nominal"), "HadronicTop", "TopTagSF", "HOTVRTopTagSFs"));
   Corrections_module.reset(new NLOCorrections(ctx));
   hist_BTagMCEfficiency.reset(new BTagMCEfficiencyHists(ctx,"BTagMCEfficiency", id_btag));
   // TODO: adapt b-tag sf module for UL
@@ -357,11 +358,11 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
 
   HEM_selection.reset(new HEMSelection(ctx)); // HEM issue in 2018, veto on leptons and jets
 
-  Variables_module.reset(new Variables_NN(ctx)); // variables for NN
+  Variables_module.reset(new Variables_NN(ctx, mode)); // variables for NN
 
   // Taggers
   TopTaggerHOTVR.reset(new HOTVRTopTagger(ctx));
-  //TopTaggerDeepAK8.reset(new DeepAK8TopTagger(ctx));
+  TopTaggerDeepAK8.reset(new DeepAK8TopTagger(ctx));
 
   // Zprime candidate builder
   CandidateBuilder.reset(new ZprimeCandidateBuilder(ctx, mode));
@@ -402,7 +403,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   h_CHSMatchHists_afterBTagSF.reset(new ZprimeSemiLeptonicCHSMatchHists(ctx, "CHSMatch_afterBTagSF"));
 
   // Book histograms
-  vector<string> histogram_tags = {"Weights_Init", "Weights_PU", "Weights_Lumi", "Weights_TopPt", "Weights_MCScale", "Weights_HOTVR_SF", "Corrections", "Muon1_LowPt", "Muon1_HighPt", "Ele1_LowPt", "Ele1_HighPt", "IDMuon_SF", "IsoMuon_SF", "TriggerMuon", "TriggerEle", "TriggerMuon_SF", "TwoDCut_Muon", "TwoDCut_Ele", "Jet1", "Jet2", "MET", "HTlep", "Btags1", "Btags1_SF", "NNInputsBeforeReweight", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction"};
+  vector<string> histogram_tags = {"Weights_Init", "Weights_PU", "Weights_Lumi", "Weights_TopPt", "Weights_MCScale", "Weights_TopTag_SF", "Corrections", "Muon1_LowPt", "Muon1_HighPt", "Ele1_LowPt", "Ele1_HighPt", "IDMuon_SF", "IsoMuon_SF", "TriggerMuon", "TriggerEle", "TriggerMuon_SF", "TwoDCut_Muon", "TwoDCut_Ele", "Jet1", "Jet2", "MET", "HTlep", "Btags1", "Btags1_SF", "NNInputsBeforeReweight", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction"};
   book_histograms(ctx, histogram_tags);
 
   lumihists_Weights_Init.reset(new LuminosityHists(ctx, "Lumi_Weights_Init"));
@@ -460,13 +461,12 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   }
 
   // Run top-tagging
-  // HOTVR
+  if(ishotvr){ 
   TopTaggerHOTVR->process(event);
   hadronic_top->process(event);
-  // DeepAK8
-  //TopTaggerDeepAK8->process(event);
-
-  if(debug) cout<<"Top Tagger ok"<<endl;
+  }else if(isdeepAK8){
+  TopTaggerDeepAK8->process(event);
+  }
 
   fill_histograms(event, "Weights_Init");
   lumihists_Weights_Init->fill(event);
@@ -491,8 +491,8 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   lumihists_Weights_MCScale->fill(event);
 
   // HOTVR TopTag SFs
-  sf_toptag->process(event);
-  fill_histograms(event, "Weights_HOTVR_SF");
+  //if(ishotvr) sf_toptag->process(event);  
+  //fill_histograms(event, "Weights_TopTag_SF");
 
   // Higher order corrections - EWK & QCD NLO
   Corrections_module->process(event);
@@ -722,6 +722,7 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   //CustomBTagWeight_module->process(event);
   //fill_histograms(event, "Btags1_SF");
   //h_CHSMatchHists_afterBTagSF->fill(event);
+
 
   CandidateBuilder->process(event);
   if(debug) cout<<"CandidateBuilder is ok"<<endl;
