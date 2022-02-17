@@ -272,7 +272,6 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-		<!-- TODO: does ST_s-channel_4f_hadronDecays_UL18 or not? -->
 
 
 		 <InputData Lumi="0.2076352286175363" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT50to100_UL18" Cacheable="&b_Cacheable;">
