@@ -1,8 +1,8 @@
 {
   // options
-  bool logyaxis   = true; // true/false
+  bool logyaxis   = false; // true/false
   TString channel = "muon"; // electron/muon
-  TString region  = "SR0T"; // SR0T/SR1T/CR1/CR2
+  TString region  = "CR2"; // SR0T/SR1T/CR1/CR2
 
   // colors
   // SM backgrounds: filled histograms
@@ -21,13 +21,14 @@
   double x_axis_lowerBound = 0;
   double x_axis_upperBound = 5E+03;
   // y axis range
-  double y_axis_lowerBound = 1;
+  double y_axis_lowerBound = 0.05;
   double y_axis_upperBound = 3E+06;
 
 
 
   cout << endl;
   cout << "----- plotting options -----" << endl;
+  cout << "              region: " + channel << endl;
   cout << "             channel: " + channel << endl;
   if(logyaxis) cout << "log scale for y axis: true" << endl; else cout << "log scale for y axis: false" << endl;
 
@@ -136,8 +137,8 @@
 
 
   // scaling
-  double f_a = 10.0;
-  double c_G = 10.0;
+  double f_a = 5.0;
+  double c_G = 5.0;
   double c_Phi = 5.0;
   double C = abs((c_G * c_Phi));
   double k = C / pow(f_a,2);
@@ -309,16 +310,16 @@
   h_ratio->GetYaxis()->SetTitleSize(upperpad_titlesize * 10/3);
   h_ratio->GetYaxis()->SetTitleOffset(0.5);
   h_ratio->GetYaxis()->SetLabelSize(upperpad_titlesize * 10/3);
-  h_ratio->GetYaxis()->SetNdivisions(-502);
-  h_ratio->GetYaxis()->SetRangeUser(0.5,1.5);
-  // h_ratio->SetMinimum(0.3);
-  // h_ratio->SetMaximum(1.7);
+  // h_ratio->GetYaxis()->SetRangeUser(0.5,1.5);
+  // h_ratio->GetYaxis()->SetNdivisions(-502);
+  h_ratio->SetMinimum(0.74);
+  h_ratio->SetMaximum(1.26);
 
   c1->Modified();
 
   // saving
   TString save_dir = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/plots/";
-  if(logyaxis) c1->SaveAs(save_dir + "mttbar_" + region + "_" + channel + "_logscale_test.pdf");
+  if(logyaxis) c1->SaveAs(save_dir + "mttbar_" + region + "_" + channel + "_logscale.pdf");
   else c1->SaveAs(save_dir + "mttbar_" + region + "_" + channel + ".pdf");
   c1->Close();
 
