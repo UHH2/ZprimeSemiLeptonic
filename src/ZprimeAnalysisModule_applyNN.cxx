@@ -309,7 +309,7 @@ protected:
   unique_ptr<HOTVRTopTagger> TopTaggerHOTVR;
   unique_ptr<AnalysisModule> hadronic_top;
   unique_ptr<AnalysisModule> sf_toptag;
-  //unique_ptr<DeepAK8TopTagger> TopTaggerDeepAK8;
+  unique_ptr<DeepAK8TopTagger> TopTaggerDeepAK8;
 
   // Mass reconstruction
   unique_ptr<ZprimeCandidateBuilder> CandidateBuilder;
@@ -360,7 +360,7 @@ protected:
   std::unique_ptr<Hists> h_MulticlassNN_output;
 
   // Configuration
-  bool isMC, ispuppi, islooserselection;
+  bool isMC, ishotvr, isdeepAK8, islooserselection;
   string Sys_MuonID_low, Sys_MuonISO_low, Sys_MuonID_high, Sys_MuonTrigger_low, Sys_MuonTrigger_high;
   string Sys_PU, Sys_btag, Sys_EleID, Sys_EleTrigger;
   TString sample;
@@ -495,9 +495,10 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   }
   // Configuration
   isMC = (ctx.get("dataset_type") == "MC");
-  ispuppi = (ctx.get("is_puppi") == "true");
-  TString mode = "chs";
-  if(ispuppi) mode = "puppi";
+  ishotvr = (ctx.get("is_hotvr") == "true");
+  isdeepAK8 = (ctx.get("is_deepAK8") == "true");
+  TString mode = "hotvr";
+  if(isdeepAK8) mode = "deepAK8";
   string tmp = ctx.get("dataset_version");
   sample = tmp;
   isUL16preVFP  = (ctx.get("dataset_version").find("UL16preVFP")  != std::string::npos);
@@ -513,8 +514,8 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   double jet2_pt(30.);
   double chi2_max(30.);
   double mtt_blind(3000.);
-  string trigger_mu_A,trigger_mu_B,trigger_mu_C,trigger_mu_D;
-  string trigger_ele_A,trigger_ele_B;
+  string trigger_mu_A, trigger_mu_B, trigger_mu_C, trigger_mu_D;
+  string trigger_ele_A, trigger_ele_B;
   string trigger_ph_A;
   double MET_cut, HT_lep_cut;
   isMuon = false; isElectron = false;
@@ -599,7 +600,7 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   TopPtReweight_module.reset(new TopPtReweighting(ctx, a_toppt, b_toppt, ctx.get("Systematic_TopPt_a", "nominal"), ctx.get("Systematic_TopPt_b", "nominal"), "", ""));
   MCScale_module.reset(new MCScaleVariation(ctx));
   hadronic_top.reset(new HadronicTop(ctx));
-  sf_toptag.reset(new HOTVRScaleFactor(ctx, toptagID, ctx.get("Sys_TopTag", "nominal"), "HadronicTop", "TopTagSF", "HOTVRTopTagSFs"));
+  //sf_toptag.reset(new HOTVRScaleFactor(ctx, toptagID, ctx.get("Sys_TopTag", "nominal"), "HadronicTop", "TopTagSF", "HOTVRTopTagSFs"));
   Corrections_module.reset(new NLOCorrections(ctx));
   // TODO: adapt b-tag sf module for UL
   //CustomBTagWeight_module.reset(new CustomMCBTagDiscriminantReweighting(ctx, btag_algo, "jets", Sys_btag,"iterativefit","","BTagCalibration"));
@@ -674,7 +675,7 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
 
   HEM_selection.reset(new HEMSelection(ctx)); // HEM issue in 2018, veto on leptons and jets
 
-  Variables_module.reset(new Variables_NN(ctx)); // variables for NN
+  Variables_module.reset(new Variables_NN(ctx, mode)); // variables for NN
 
   // Selections on scattering angle theta star
   double theta_cut(0.7);
@@ -688,7 +689,7 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
 
   // Taggers
   TopTaggerHOTVR.reset(new HOTVRTopTagger(ctx));
-  // TopTaggerDeepAK8.reset(new DeepAK8TopTagger(ctx));
+  TopTaggerDeepAK8.reset(new DeepAK8TopTagger(ctx));
 
   // Zprime candidate builder
   CandidateBuilder.reset(new ZprimeCandidateBuilder(ctx, mode));
@@ -722,7 +723,7 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   TopJetBtagSubjet_selection.reset(new ZprimeBTagFatSubJetSelection(ctx));
 
   // Book histograms
- vector<string> histogram_tags = {"Weights_Init", "Weights_PU", "Weights_Lumi", "Weights_TopPt", "Weights_MCScale", "Weights_HOTVR_SF", "Corrections", "IDMuon_SF", "IsoMuon_SF", "Muon1_LowPt", "Muon1_HighPt", "Ele1_LowPt", "Ele1_HighPt", "TriggerMuon_SF", "TriggerMuon", "TriggerEle", "TwoDCut_Muon", "TwoDCut_Ele", "Jet1", "Jet2", "MET", "HTlep","Btags1", "Btags1_SF", "NNInputsBeforeReweight","DNN_output0","DNN_output1","DNN_output2","DNN_output0_TopTag","DNN_output1_TopTag","DNN_output2_TopTag","DNN_output0_NoTopTag","DNN_output1_NoTopTag","DNN_output2_NoTopTag","DNN_output0_thetastar_below0p7","DNN_output1_thetastar_below0p7","DNN_output2_thetastar_below0p7","DNN_output0_TopTag_thetastar_below0p7","DNN_output1_TopTag_thetastar_below0p7","DNN_output2_TopTag_thetastar_below0p7","DNN_output0_NoTopTag_thetastar_below0p7","DNN_output1_NoTopTag_thetastar_below0p7","DNN_output2_NoTopTag_thetastar_below0p7","DNN_output0_thetastar_above0p7","DNN_output1_thetastar_above0p7","DNN_output2_thetastar_above0p7","DNN_output0_TopTag_thetastar_above0p7","DNN_output1_TopTag_thetastar_above0p7","DNN_output2_TopTag_thetastar_above0p7","DNN_output0_NoTopTag_thetastar_above0p7","DNN_output1_NoTopTag_thetastar_above0p7","DNN_output2_NoTopTag_thetastar_above0p7", "DNN_output1_thetastar_bin1", "DNN_output1_thetastar_bin2", "DNN_output1_thetastar_bin3", "DNN_output1_thetastar_bin4", "DNN_output1_TopTag_thetastar_bin1", "DNN_output1_TopTag_thetastar_bin2", "DNN_output1_TopTag_thetastar_bin3", "DNN_output1_TopTag_thetastar_bin4", "DNN_output1_NoTopTag_thetastar_bin1", "DNN_output1_NoTopTag_thetastar_bin2", "DNN_output1_NoTopTag_thetastar_bin3", "DNN_output1_NoTopTag_thetastar_bin4"};
+ vector<string> histogram_tags = {"Weights_Init", "Weights_PU", "Weights_Lumi", "Weights_TopPt", "Weights_MCScale", "Weights_TopTag_SF", "Corrections", "IDMuon_SF", "IsoMuon_SF", "Muon1_LowPt", "Muon1_HighPt", "Ele1_LowPt", "Ele1_HighPt", "TriggerMuon_SF", "TriggerMuon", "TriggerEle", "TwoDCut_Muon", "TwoDCut_Ele", "Jet1", "Jet2", "MET", "HTlep","Btags1", "Btags1_SF", "NNInputsBeforeReweight","DNN_output0","DNN_output1","DNN_output2","DNN_output0_TopTag","DNN_output1_TopTag","DNN_output2_TopTag","DNN_output0_NoTopTag","DNN_output1_NoTopTag","DNN_output2_NoTopTag","DNN_output0_thetastar_below0p7","DNN_output1_thetastar_below0p7","DNN_output2_thetastar_below0p7","DNN_output0_TopTag_thetastar_below0p7","DNN_output1_TopTag_thetastar_below0p7","DNN_output2_TopTag_thetastar_below0p7","DNN_output0_NoTopTag_thetastar_below0p7","DNN_output1_NoTopTag_thetastar_below0p7","DNN_output2_NoTopTag_thetastar_below0p7","DNN_output0_thetastar_above0p7","DNN_output1_thetastar_above0p7","DNN_output2_thetastar_above0p7","DNN_output0_TopTag_thetastar_above0p7","DNN_output1_TopTag_thetastar_above0p7","DNN_output2_TopTag_thetastar_above0p7","DNN_output0_NoTopTag_thetastar_above0p7","DNN_output1_NoTopTag_thetastar_above0p7","DNN_output2_NoTopTag_thetastar_above0p7", "DNN_output1_thetastar_bin1", "DNN_output1_thetastar_bin2", "DNN_output1_thetastar_bin3", "DNN_output1_thetastar_bin4", "DNN_output1_TopTag_thetastar_bin1", "DNN_output1_TopTag_thetastar_bin2", "DNN_output1_TopTag_thetastar_bin3", "DNN_output1_TopTag_thetastar_bin4", "DNN_output1_NoTopTag_thetastar_bin1", "DNN_output1_NoTopTag_thetastar_bin2", "DNN_output1_NoTopTag_thetastar_bin3", "DNN_output1_NoTopTag_thetastar_bin4"};
   book_histograms(ctx, histogram_tags);
 
   h_MulticlassNN_output.reset(new ZprimeSemiLeptonicMulticlassNNHists(ctx, "MulticlassNN"));
@@ -851,7 +852,6 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
 
 bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
 
-
   if(debug)   cout << "++++++++++++ NEW EVENT ++++++++++++++" << endl;
   if(debug)   cout<<" run.event: "<<event.run<<". "<<event.event<<endl;
   // Initialize reco flags with false
@@ -879,12 +879,12 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
   }
 
   // Run top-tagging
-  // HOTVR
+  if(ishotvr){
   TopTaggerHOTVR->process(event);
   hadronic_top->process(event);
-  // DeepAK8
-  //TopTaggerDeepAK8->process(event);
-
+  }else if(isdeepAK8){
+  TopTaggerDeepAK8->process(event);
+  }
   if(debug) cout<<"Top Tagger ok"<<endl;
 
   fill_histograms(event, "Weights_Init");
@@ -910,8 +910,8 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
   lumihists_Weights_MCScale->fill(event);
 
   // HOTVR TopTag SFs
-  sf_toptag->process(event);
-  fill_histograms(event, "Weights_HOTVR_SF");  
+  //if(ishotvr) sf_toptag->process(event);
+  //fill_histograms(event, "Weights_TopTag_SF");  
 
   // Higher order corrections - EWK & QCD NLO
   Corrections_module->process(event);
@@ -1090,21 +1090,6 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
   //  fill_histograms(event, "TriggerEle");
   //}
 
-  //
-  //
-  //  if((event.muons->size()+event.electrons->size()) != 1) return false; //veto events without leptons or with too many
-  //  if(debug) cout<<"N leptons ok: Nelectrons="<<event.electrons->size()<<" Nmuons="<<event.muons->size()<<endl;
-  //
-  //  if(isMuon && muon_is_high){
-  //    if(!TwoDCut_selection->passes(event)) return false;
-  //  }
-  //  fill_histograms(event, "TwoDCut_Muon");
-  //  lumihists_TwoDCut_Muon->fill(event);
-  //  if(isElectron && ele_is_high){
-  //    if(!TwoDCut_selection->passes(event)) return false;
-  //  }
-  //  fill_histograms(event, "TwoDCut_Ele");
-  //  lumihists_TwoDCut_Ele->fill(event);
 
   ////btag shape sf (Ak4 chs jets)
   //CustomBTagWeight_module->process(event);
@@ -1119,28 +1104,6 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
   if(sample.Contains("_blinded")){
     if(!BlindData_selection->passes(event)) return false;
   }
-  //  if(!Jet1_selection->passes(event)) return false;
-  //  if(debug) cout<<"Jet1_selection is ok"<<endl;
-  //  fill_histograms(event, "Jet1");
-  //  lumihists_Jet1->fill(event);
-  //
-  //  if(!Jet2_selection->passes(event)) return false;
-  //  if(debug) cout<<"Jet2_selection is ok"<<endl;
-  //  fill_histograms(event, "Jet2");
-  //  lumihists_Jet2->fill(event);
-  //
-  //  // MET selection
-  //  if(!met_sel->passes(event)) return false;
-  //  if(debug) cout<<"MET is ok"<<endl;
-  //  fill_histograms(event, "MET");
-  //  lumihists_MET->fill(event);
-  //  if(isMuon){
-  //    if(!htlep_sel->passes(event)) return false;
-  //    fill_histograms(event, "HTlep");
-  //    lumihists_HTlep->fill(event);
-  //    if(debug) cout<<"HTlep is ok"<<endl;
-  //  }
-
 
   // Variables for NN
   Variables_module->process(event);

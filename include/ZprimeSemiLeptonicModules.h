@@ -184,7 +184,7 @@ protected:
 class Variables_NN : uhh2::AnalysisModule{
 
 public:
-  explicit Variables_NN(uhh2::Context&);
+  explicit Variables_NN(uhh2::Context&, TString mode);
   virtual bool process(uhh2::Event&) override;
 
 private:
@@ -199,6 +199,10 @@ private:
   uhh2::Event::Handle< float > h_HOTVR_j1_pt, h_HOTVR_j1_eta, h_HOTVR_j1_phi, h_HOTVR_j1_E, h_HOTVR_j1_mSD, h_HOTVR_j1_tau21, h_HOTVR_j1_tau32;
   uhh2::Event::Handle< float > h_HOTVR_j2_pt, h_HOTVR_j2_eta, h_HOTVR_j2_phi, h_HOTVR_j2_E, h_HOTVR_j2_mSD, h_HOTVR_j2_tau21, h_HOTVR_j2_tau32;
   uhh2::Event::Handle< float > h_HOTVR_j3_pt, h_HOTVR_j3_eta, h_HOTVR_j3_phi, h_HOTVR_j3_E, h_HOTVR_j3_mSD, h_HOTVR_j3_tau21, h_HOTVR_j3_tau32;
+  uhh2::Event::Handle< float > h_N_Ak8;
+  uhh2::Event::Handle< float > h_Ak8_j1_pt, h_Ak8_j1_eta, h_Ak8_j1_phi, h_Ak8_j1_E, h_Ak8_j1_mSD, h_Ak8_j1_tau21, h_Ak8_j1_tau32;
+  uhh2::Event::Handle< float > h_Ak8_j2_pt, h_Ak8_j2_eta, h_Ak8_j2_phi, h_Ak8_j2_E, h_Ak8_j2_mSD, h_Ak8_j2_tau21, h_Ak8_j2_tau32;
+  uhh2::Event::Handle< float > h_Ak8_j3_pt, h_Ak8_j3_eta, h_Ak8_j3_phi, h_Ak8_j3_E, h_Ak8_j3_mSD, h_Ak8_j3_tau21, h_Ak8_j3_tau32;
   uhh2::Event::Handle< float > h_N_Ak4;
   uhh2::Event::Handle< float > h_Ak4_j1_pt, h_Ak4_j1_eta, h_Ak4_j1_phi, h_Ak4_j1_E, h_Ak4_j1_m, h_Ak4_j1_deepjetbscore;
   uhh2::Event::Handle< float > h_Ak4_j2_pt, h_Ak4_j2_eta, h_Ak4_j2_phi, h_Ak4_j2_E, h_Ak4_j2_m, h_Ak4_j2_deepjetbscore;
@@ -207,6 +211,8 @@ private:
   uhh2::Event::Handle< float > h_Ak4_j5_pt, h_Ak4_j5_eta, h_Ak4_j5_phi, h_Ak4_j5_E, h_Ak4_j5_m, h_Ak4_j5_deepjetbscore;
   uhh2::Event::Handle< float > h_Ak4_j6_pt, h_Ak4_j6_eta, h_Ak4_j6_phi, h_Ak4_j6_E, h_Ak4_j6_m, h_Ak4_j6_deepjetbscore;
   uhh2::Event::Handle< float > h_M_tt;
+
+  TString mode_;
 
 };
 

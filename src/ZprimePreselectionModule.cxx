@@ -67,7 +67,7 @@ protected:
   std::unique_ptr<uhh2::Selection> jet2_sel;
   std::unique_ptr<uhh2::Selection> met_sel;
 
-  bool isMC, ispuppi, isHOTVR;
+  bool isMC, isHOTVR;
   string Sys_PU;
 
   std::unique_ptr<Hists> lumihists;
@@ -102,7 +102,6 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   //// CONFIGURATION
   const TString METcollection = ctx.get("METName");
   isMC    = ctx.get("dataset_type") == "MC";
-  ispuppi = (ctx.get("is_puppi") == "true");
   isHOTVR = (ctx.get("is_HOTVR") == "true");
   Sys_PU  = ctx.get("Sys_PU");
 
@@ -110,10 +109,6 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   isUL16postVFP = (ctx.get("dataset_version").find("UL16postVFP") != std::string::npos);
   isUL17        = (ctx.get("dataset_version").find("UL17")        != std::string::npos);
   isUL18        = (ctx.get("dataset_version").find("UL18")        != std::string::npos);
-
-  cout << "Is this running on puppi: " << ispuppi << endl;
-  cout << "Is this running on HOTVR: " << isHOTVR << endl;
-
 
   // lepton IDs
   ElectronId eleID_low = ElectronTagID(Electron::mvaEleID_Fall17_iso_V2_wp80); 
