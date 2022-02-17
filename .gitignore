@@ -11,4 +11,6 @@ obj/*
 *.log
 *.eps
 *.pdf
+.fuse_*
+*.bak
 config/workdir_*

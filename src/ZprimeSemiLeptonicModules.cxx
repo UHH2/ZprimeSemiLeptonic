@@ -626,8 +626,8 @@ bool DeepAK8TopTagger::process(uhh2::Event& event){
 
      // pT threshold
      if(!( puppijet.pt() > pt_min_ )) continue;
- 
-     // cut on SD mass 
+
+     // cut on SD mass
      LorentzVector SumSubjets(0.,0.,0.,0.);
      for(unsigned int k=0; k<puppijet.subjets().size(); k++) SumSubjets = SumSubjets + puppijet.subjets().at(k).v4();
      float mSD = SumSubjets.M();
@@ -635,7 +635,7 @@ bool DeepAK8TopTagger::process(uhh2::Event& event){
 
      // cut on score
      if(!( puppijet.btag_MassDecorrelatedDeepBoosted_TvsQCD() > max_score_ )) continue;
- 
+
      toptags.emplace_back(puppijet);
      toptags_ptr.emplace_back(&puppijet);
 
@@ -1156,7 +1156,7 @@ bool Variables_NN::process(uhh2::Event& evt){
 
   // save b-tag score of matched CHS jet
   vector<Jet> AK4CHSjets_matched = evt.get(h_CHSjets_matched);
-  for(uint i=0; i<AK4CHSjets_matched.size(); i++){
+  for(unsigned int i=0; i<AK4CHSjets_matched.size(); i++){
       if(i==0){
       evt.set(h_Ak4_j1_deepjetbscore, AK4CHSjets_matched.at(i).btag_DeepJet());
       }
@@ -1348,13 +1348,13 @@ NLOCorrections::NLOCorrections(uhh2::Context& ctx) {
  // Corrections for 2017 and 2018 are the same. 2016 is different
  is2016 = (ctx.get("dataset_version").find("2016") != std::string::npos);
 
- is_Wjets  = (ctx.get("dataset_version").find("WJets") != std::string::npos); 
- is_Znn  = (ctx.get("dataset_version").find("DY_inv") != std::string::npos); 
+ is_Wjets  = (ctx.get("dataset_version").find("WJets") != std::string::npos);
+ is_Znn  = (ctx.get("dataset_version").find("DY_inv") != std::string::npos);
  is_DY  = (ctx.get("dataset_version").find("DY") != std::string::npos) && !is_Znn;
- is_Zjets  = is_DY || is_Znn; 
+ is_Zjets  = is_DY || is_Znn;
 
 
- std::string folder_ = ctx.get("NLOCorrections"); 
+ std::string folder_ = ctx.get("NLOCorrections");
  for (const std::string& proc: {"w","z"}) {
     TFile* file_ = new TFile((folder_+"merged_kfactors_"+proc+"jets.root").c_str());
     for (const std::string& corr: {"ewk","qcd","qcd_ewk"}) LoadHisto(file_, proc+"_"+corr, "kfactor_monojet_"+corr);
@@ -1435,7 +1435,7 @@ TopPtReweighting::TopPtReweighting(uhh2::Context& ctx,
 				   const std::string& weight_name):
   a_(a), b_(b),
   ttgen_name_(ttgen_name){
-  
+
   weight_name_ = weight_name;
   if(!weight_name_.empty())
     h_weight_= ctx.get_handle<float>(weight_name);
@@ -1497,7 +1497,7 @@ bool PuppiCHS_matching::process(uhh2::Event& event){
      for(const Jet & CHSjet : CHSjets){
         double deltaR_CHS = deltaR(jet,CHSjet);
         if(deltaR_CHS<deltaR_min) deltaR_min = deltaR_CHS;
-     } //CHS loop 
+     } //CHS loop
 
      if(deltaR_min>0.2) continue;
 
@@ -1725,4 +1725,3 @@ CustomMCBTagDiscriminantReweighting::CustomMCBTagDiscriminantReweighting(uhh2::C
               return true;
             }
 ////
-
