@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
 
-<!ENTITY TargetLumi      "59830"> <!-- from https://twiki.cern.ch/twiki/bin/view/CMS/TWikiLUM#SummaryTable -->
-<!ENTITY PRESELdir       "/nfs/dust/cms/group/zprime-uhh/Presel_UL18/">
-<!-- <!ENTITY PRESELdir       "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/UL18/preselection/"> -->
-<!ENTITY b_Cacheable     "False">
-<!ENTITY NEVT            "-1">
-<!ENTITY IS_PUPPI        "true">
+<!ENTITY TargetLumi  "59830"> <!-- from https://twiki.cern.ch/twiki/bin/view/CMS/TWikiLUM#SummaryTable -->
+<!ENTITY PRESELdir   "/nfs/dust/cms/group/zprime-uhh/Presel_UL18/">
+<!-- <!ENTITY PRESELdir   "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/UL18/preselection/"> -->
+<!ENTITY b_Cacheable "False">
+<!ENTITY NEVT        "-1">
+<!ENTITY IS_PUPPI    "true">
 
 <!-- DATA -->
 <!ENTITY DATA_EGamma_RunA_UL18     SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL18/EGamma_Run2018A-UL2018_MiniAODv2-v1.xml">
@@ -274,7 +274,7 @@
 		</InputData>
 
 
-		 <InputData Lumi="0.2076352286175363" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT50to100_UL18" Cacheable="&b_Cacheable;">
+		<InputData Lumi="0.2076352286175363" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT50to100_UL18" Cacheable="&b_Cacheable;">
 			&QCD_HT50to100_UL18;
 			<InputTree Name="AnalysisTree"/>
 			<OutputTree Name="AnalysisTree"/>
