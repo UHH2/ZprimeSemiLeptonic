@@ -67,7 +67,7 @@
 ]>
 
 <!--
-<ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="5" AutoResubmit="0"/>
+<ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="1" AutoResubmit="0"/>
 <ConfigSGE RAM="2" DISK="2" Mail="ksenia.de.leo@desy.de" Notification="as" Workdir="workdir_Zprime_Analysis_UL18_muon_SM"/>
 -->
 
@@ -82,6 +82,7 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData> -->
+<!--
 		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_RunB_UL18" Cacheable="&b_Cacheable;">
 			&DATA_SingleMuon_RunB_UL18;
 			<InputTree Name="AnalysisTree" />
@@ -98,23 +99,25 @@
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
 
-		 <InputData Lumi="395620274.2531324" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_UL18" Cacheable="&b_Cacheable;">
+-->		 <InputData Lumi="395620274.2531324" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_UL18" Cacheable="&b_Cacheable;">
 			&TTToSemiLeptonic_UL18;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
+<!--
 		<InputData Lumi="283464035.5169992" NEventsMax="&NEVT;" Type="MC" Version="TTToHadronic_UL18" Cacheable="&b_Cacheable;">
 			&TTToHadronic_UL18;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
+-->
 		<InputData Lumi="120558683.78584482" NEventsMax="&NEVT;" Type="MC" Version="TTTo2L2Nu_UL18" Cacheable="&b_Cacheable;">
 			&TTTo2L2Nu_UL18;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
 
-
+<!--
 		<InputData Lumi="52375.64752163651" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-70To100_UL18" Cacheable="&b_Cacheable;">
 			&WJetsToLNu_HT-70To100_UL18;
 			<InputTree Name="AnalysisTree" />
@@ -215,7 +218,7 @@
 			<OutputTree Name="AnalysisTree" />
 		</InputData> -->
 
-
+<!--
 		<InputData Lumi="7026559.400055788" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_inclusiveDecays_UL18" Cacheable="&b_Cacheable;">
 			&ST_tW_antitop_5f_inclusiveDecays_UL18;
 			<InputTree Name="AnalysisTree" />
@@ -310,7 +313,7 @@
 			<OutputTree Name="AnalysisTree"/>
 		</InputData>
 
-
+-->
 
 		<UserConfig>
 			<Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices"/>
