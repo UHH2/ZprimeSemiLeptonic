@@ -3,13 +3,13 @@
 # simple script for creating xmls
 
 # directory holding the root files
-dir="/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/UL18/muon/ZPrime_DeepAK8/workdir_Zprime_Analysis_UL18_muon/"
+dir="/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/UL18/electron/ZPrime_DeepAK8/workdir_Zprime_Analysis_UL18_electron/"
 
-# DATA: currently DATA_SingleMuon_RunA_UL18_blinded missing
-for i in DATA_SingleMuon_RunB_UL18_blinded DATA_SingleMuon_RunC_UL18_blinded DATA_SingleMuon_RunD_UL18_blinded
+# DATA
+for i in DATA_EGamma_RunA_UL18_blinded DATA_EGamma_RunB_UL18_blinded DATA_EGamma_RunC_UL18_blinded DATA_EGamma_RunD_UL18_blinded
 do
   echo "----- ${i} -----"
-    ./../../../scripts/create-dataset-xmlfile "${dir}uhh2.AnalysisModuleRunner.DATA.${i}_*.root" ${i}.xml
+  ./../../../scripts/create-dataset-xmlfile "${dir}uhh2.AnalysisModuleRunner.DATA.${i}_*.root" ${i}.xml
   python ../../../scripts/crab/readaMCatNloEntries.py 10 ${i}.xml True
 done
 

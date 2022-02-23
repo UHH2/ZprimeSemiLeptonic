@@ -196,7 +196,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   double jet1_pt(50.);
   double jet2_pt(30.);
   double chi2_max(30.);
-  double mtt_blind(3000.);
+  // double mtt_blind(3000.);
   string trigger_mu_A, trigger_mu_B, trigger_mu_C, trigger_mu_D;
   string trigger_ele_A, trigger_ele_B;
   string trigger_ph_A;
@@ -354,7 +354,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   TTbarMatchable_selection.reset(new TTbarSemiLepMatchableSelection());
   Chi2CandidateMatched_selection.reset(new Chi2CandidateMatchedSelection(ctx));
   ZprimeTopTag_selection.reset(new ZprimeTopTagSelection(ctx));
-  BlindData_selection.reset(new BlindDataSelection(ctx, mtt_blind));
+  // BlindData_selection.reset(new BlindDataSelection(ctx, mtt_blind));
 
   HEM_selection.reset(new HEMSelection(ctx)); // HEM issue in 2018, veto on leptons and jets
 
@@ -395,7 +395,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
 
   TopJetBtagSubjet_selection.reset(new ZprimeBTagFatSubJetSelection(ctx));
 
-  //PUPPI CHS match modules & hists 
+  //PUPPI CHS match modules & hists
   AK4PuppiCHS_matching.reset(new PuppiCHS_matching(ctx));
   AK4PuppiCHS_BTagging.reset(new PuppiCHS_BTagging(ctx));
   h_CHSMatchHists.reset(new ZprimeSemiLeptonicCHSMatchHists(ctx, "CHSMatch"));
@@ -461,7 +461,7 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   }
 
   // Run top-tagging
-  if(ishotvr){ 
+  if(ishotvr){
   TopTaggerHOTVR->process(event);
   hadronic_top->process(event);
   }else if(isdeepAK8){
@@ -491,7 +491,7 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   lumihists_Weights_MCScale->fill(event);
 
   // HOTVR TopTag SFs
-  //if(ishotvr) sf_toptag->process(event);  
+  //if(ishotvr) sf_toptag->process(event);
   //fill_histograms(event, "Weights_TopTag_SF");
 
   // Higher order corrections - EWK & QCD NLO
@@ -730,9 +730,9 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   if(debug)  cout<<"Chi2DiscriminatorZprime is ok"<<endl;
   CorrectMatchDiscriminatorZprime->process(event);
   if(debug) cout<<"CorrectMatchDiscriminatorZprime is ok"<<endl;
-  if(sample.Contains("_blinded")){
-    if(!BlindData_selection->passes(event)) return false;
-  }
+  // if(sample.Contains("_blinded")){
+  //   if(!BlindData_selection->passes(event)) return false;
+  // }
 
   // Variables for NN
   Variables_module->process(event);
