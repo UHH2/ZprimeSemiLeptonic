@@ -14,3 +14,4 @@ obj/*
 .fuse_*
 *.bak
 config/workdir_*
+plotting/*
