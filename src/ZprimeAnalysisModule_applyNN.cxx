@@ -256,7 +256,7 @@ void NeuralNetworkModule::CreateInputs(Event & event){
   double mean_val[65];
   double std_val[65];
   //Only Ele or Mu variables!!
-  ifstream normfile ("/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_lowmass_AK8/NormInfo.txt", ios::in);
+  ifstream normfile ("/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_DeepAK8_UL18_muon/NormInfo.txt", ios::in);
   if(!normfile.good()) throw runtime_error("NeuralNetworkModule: The specified norm file does not exist.");
   if (normfile.is_open()){
     for(int i = 0; i < 65; ++i)
@@ -834,7 +834,7 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   h_NNoutput1 = ctx.declare_event_output<double>("NNoutput1");
   h_NNoutput2 = ctx.declare_event_output<double>("NNoutput2");
   ////Only Ele or Mu variables!!
-  NNModule.reset( new NeuralNetworkModule(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_lowmass_AK8/model.pb", "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_lowmass_AK8/model.config.pbtxt"));
+  NNModule.reset( new NeuralNetworkModule(ctx, "/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_DeepAK8_UL18_muon/model.pb", "/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_DeepAK8_UL18_muon/model.config.pbtxt"));
 
 }
 
@@ -1109,13 +1109,13 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
   NNModule->process(event);
   std::vector<tensorflow::Tensor> NNoutputs = NNModule->GetOutputs();
 
-  event.set(h_NNoutput0, (double)(NNoutputs[0].tensor<float, 2>()(0,1)));
-  event.set(h_NNoutput1, (double)(NNoutputs[0].tensor<float, 2>()(0,0)));
+  event.set(h_NNoutput0, (double)(NNoutputs[0].tensor<float, 2>()(0,0)));
+  event.set(h_NNoutput1, (double)(NNoutputs[0].tensor<float, 2>()(0,1)));
   event.set(h_NNoutput2, (double)(NNoutputs[0].tensor<float, 2>()(0,2)));
   event.set(h_NNoutput, NNoutputs);
 
-  double out0 = (double)(NNoutputs[0].tensor<float, 2>()(0,1));
-  double out1 = (double)(NNoutputs[0].tensor<float, 2>()(0,0));
+  double out0 = (double)(NNoutputs[0].tensor<float, 2>()(0,0));
+  double out1 = (double)(NNoutputs[0].tensor<float, 2>()(0,1));
   double out2 = (double)(NNoutputs[0].tensor<float, 2>()(0,2));
   vector<double> out_event = {out0, out1, out2};
 
@@ -1128,7 +1128,7 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
     }
   }
 
-// FIXME in muon channel output1 is TTbar SR, in ele channel output0 is SR
+// out0=TTbar, out1=ST, out2=WJets
   if( out0 == max_score ){
     fill_histograms(event, "DNN_output0");
     if( ZprimeTopTag_selection->passes(event) ) fill_histograms(event, "DNN_output0_TopTag");
