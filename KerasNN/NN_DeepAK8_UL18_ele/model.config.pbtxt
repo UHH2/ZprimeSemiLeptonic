@@ -1,0 +1,11 @@
+feed {
+  id { node_name: "dense_1_input" }
+  shape {
+    dim { size : 1 }
+    dim { size : 65 }
+  }
+}
+
+fetch {
+  id { node_name: "dense_3/Softmax" }
+}
