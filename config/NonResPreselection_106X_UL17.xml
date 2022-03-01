@@ -2,10 +2,11 @@
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
 
 <!ENTITY TargetLumi      "41480"> <!-- from https://twiki.cern.ch/twiki/bin/view/CMS/TWikiLUM#SummaryTable -->
-<!-- <!ENTITY PRESELdir       "/nfs/dust/cms/group/zprime-uhh/Presel_UL17/"> -->
-<!ENTITY PRESELdir       "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/UL17/preselection/">
+<!ENTITY PRESELdir       "/nfs/dust/cms/group/zprime-uhh/Presel_UL17/"> 
+<!--<!ENTITY PRESELdir       "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/UL17/preselection/">-->
 <!ENTITY b_Cacheable     "False">
 <!ENTITY NEVT            "-1">
+<!ENTITY IS_HOTVR        "true">
 <!ENTITY IS_PUPPI        "true">
 
 <!-- DATA -->
@@ -75,7 +76,7 @@
 
 <!--
 <ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="50" AutoResubmit="0"/>
-<ConfigSGE RAM="2" DISK="2" Mail="henrik.jabusch@desy.de" Notification="as" Workdir="workdir_Zprime_Preselection_UL17"/>
+<ConfigSGE RAM="2" DISK="2" Mail="ksenia.de.leo@desy.de" Notification="as" Workdir="workdir_Zprime_Preselection_UL17"/>
 -->
 
 <JobConfiguration JobName="ZprimePreselectionJob" OutputLevel="INFO">
