@@ -10,159 +10,159 @@
 <!ENTITY IS_DEEPAK8          "true">
 <!ENTITY IS_LOOSER_SELECTION "false">
 <!ENTITY CHANNEL             "electron">
-<!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/RunII_106_v2/HHSignal_UseNN_DEEPAK8/&CHANNEL;/">
+<!ENTITY OUTPUTdir           "/nfs/dust/cms/group/zprime-uhh/Analysis_UL18_UseNN/&CHANNEL;/">
 
 <!-- Scalar H 10% -->
-<!ENTITY HscalarToTTTo1L1Nu2J_m365_w36p5_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m365_w36p5_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m400_w40p0_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m400_w40p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m500_w50p0_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m500_w50p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m600_w60p0_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m600_w60p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m800_w80p0_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m800_w80p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m1000_w100p0_res_UL18  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m1000_w100p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m365_w36p5_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m365_w36p5_res_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m400_w40p0_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m400_w40p0_res_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m500_w50p0_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m500_w50p0_res_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m600_w60p0_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m600_w60p0_res_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m800_w80p0_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m800_w80p0_res_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m1000_w100p0_res_UL18  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m1000_w100p0_res_UL18.xml">
 
-<!ENTITY HscalarToTTTo1L1Nu2J_m365_w36p5_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m365_w36p5_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m400_w40p0_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m400_w40p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m500_w50p0_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m500_w50p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m600_w60p0_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m600_w60p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m800_w80p0_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m800_w80p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m1000_w100p0_int_UL18  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m1000_w100p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m365_w36p5_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m365_w36p5_int_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m400_w40p0_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m400_w40p0_int_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m500_w50p0_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m500_w50p0_int_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m600_w60p0_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m600_w60p0_int_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m800_w80p0_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m800_w80p0_int_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m1000_w100p0_int_UL18  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m1000_w100p0_int_UL18.xml">
 
 <!-- Pseudoscalar A 10% -->
-<!ENTITY HpseudoToTTTo1L1Nu2J_m365_w36p5_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m365_w36p5_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m400_w40p0_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m400_w40p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m500_w50p0_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m500_w50p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m600_w60p0_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m600_w60p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m800_w80p0_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m800_w80p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m1000_w100p0_res_UL18  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m1000_w100p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m365_w36p5_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m365_w36p5_res_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m400_w40p0_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m400_w40p0_res_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m500_w50p0_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m500_w50p0_res_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m600_w60p0_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m600_w60p0_res_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m800_w80p0_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m800_w80p0_res_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m1000_w100p0_res_UL18  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m1000_w100p0_res_UL18.xml">
 
-<!ENTITY HpseudoToTTTo1L1Nu2J_m365_w36p5_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m365_w36p5_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m400_w40p0_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m400_w40p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m500_w50p0_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m500_w50p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m600_w60p0_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m600_w60p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m800_w80p0_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m800_w80p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m1000_w100p0_int_UL18  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m1000_w100p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m365_w36p5_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m365_w36p5_int_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m400_w40p0_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m400_w40p0_int_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m500_w50p0_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m500_w50p0_int_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m600_w60p0_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m600_w60p0_int_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m800_w80p0_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m800_w80p0_int_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m1000_w100p0_int_UL18  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m1000_w100p0_int_UL18.xml">
 
 <!-- Scalar H 25% -->
-<!ENTITY HscalarToTTTo1L1Nu2J_m365_w91p25_res_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m365_w91p25_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m400_w100p0_res_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m400_w100p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m500_w125p0_res_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m500_w125p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m600_w150p0_res_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m600_w150p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m800_w200p0_res_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m800_w200p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m1000_w250p0_res_UL18  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m1000_w250p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m365_w91p25_res_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m365_w91p25_res_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m400_w100p0_res_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m400_w100p0_res_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m500_w125p0_res_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m500_w125p0_res_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m600_w150p0_res_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m600_w150p0_res_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m800_w200p0_res_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m800_w200p0_res_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m1000_w250p0_res_UL18  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m1000_w250p0_res_UL18.xml">
 
-<!ENTITY HscalarToTTTo1L1Nu2J_m365_w91p25_int_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m365_w91p25_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m400_w100p0_int_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m400_w100p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m500_w125p0_int_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m500_w125p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m600_w150p0_int_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m600_w150p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m800_w200p0_int_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m800_w200p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m1000_w250p0_int_UL18  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m1000_w250p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m365_w91p25_int_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m365_w91p25_int_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m400_w100p0_int_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m400_w100p0_int_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m500_w125p0_int_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m500_w125p0_int_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m600_w150p0_int_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m600_w150p0_int_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m800_w200p0_int_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m800_w200p0_int_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m1000_w250p0_int_UL18  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m1000_w250p0_int_UL18.xml">
 
 <!-- Pseudoscalar A 25% -->
-<!ENTITY HpseudoToTTTo1L1Nu2J_m365_w91p25_res_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m365_w91p25_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m400_w100p0_res_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m400_w100p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m500_w125p0_res_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m500_w125p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m600_w150p0_res_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m600_w150p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m800_w200p0_res_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m800_w200p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m1000_w250p0_res_UL18  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m1000_w250p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m365_w91p25_res_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m365_w91p25_res_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m400_w100p0_res_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m400_w100p0_res_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m500_w125p0_res_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m500_w125p0_res_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m600_w150p0_res_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m600_w150p0_res_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m800_w200p0_res_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m800_w200p0_res_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m1000_w250p0_res_UL18  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m1000_w250p0_res_UL18.xml">
 
-<!ENTITY HpseudoToTTTo1L1Nu2J_m365_w91p25_int_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m365_w91p25_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m400_w100p0_int_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m400_w100p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m500_w125p0_int_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m500_w125p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m600_w150p0_int_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m600_w150p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m800_w200p0_int_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m800_w200p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m1000_w250p0_int_UL18  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m1000_w250p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m365_w91p25_int_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m365_w91p25_int_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m400_w100p0_int_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m400_w100p0_int_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m500_w125p0_int_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m500_w125p0_int_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m600_w150p0_int_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m600_w150p0_int_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m800_w200p0_int_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m800_w200p0_int_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m1000_w250p0_int_UL18  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m1000_w250p0_int_UL18.xml">
 
 <!-- Scalar H 2.5% -->
-<!ENTITY HscalarToTTTo1L1Nu2J_m365_w9p125_res_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m365_w9p125_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m400_w10p0_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m400_w10p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m500_w12p5_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m500_w12p5_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m600_w15p0_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m600_w15p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m800_w20p0_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m800_w20p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m1000_w25p0_res_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m1000_w25p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m365_w9p125_res_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m365_w9p125_res_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m400_w10p0_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m400_w10p0_res_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m500_w12p5_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m500_w12p5_res_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m600_w15p0_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m600_w15p0_res_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m800_w20p0_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m800_w20p0_res_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m1000_w25p0_res_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m1000_w25p0_res_UL18.xml">
 
-<!ENTITY HscalarToTTTo1L1Nu2J_m365_w9p125_int_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m365_w9p125_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m400_w10p0_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m400_w10p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m500_w12p5_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m500_w12p5_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m600_w15p0_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m600_w15p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m800_w20p0_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m800_w20p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m1000_w25p0_int_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HscalarToTTTo1L1Nu2J_m1000_w25p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m365_w9p125_int_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m365_w9p125_int_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m400_w10p0_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m400_w10p0_int_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m500_w12p5_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m500_w12p5_int_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m600_w15p0_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m600_w15p0_int_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m800_w20p0_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m800_w20p0_int_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m1000_w25p0_int_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HscalarToTTTo1L1Nu2J_m1000_w25p0_int_UL18.xml">
 
 <!-- Pseudoscalar A 2.5% -->
-<!ENTITY HpseudoToTTTo1L1Nu2J_m365_w9p125_res_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m365_w9p125_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m400_w10p0_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m400_w10p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m500_w12p5_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m500_w12p5_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m600_w15p0_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m600_w15p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m800_w20p0_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m800_w20p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m1000_w25p0_res_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m1000_w25p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m365_w9p125_res_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m365_w9p125_res_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m400_w10p0_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m400_w10p0_res_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m500_w12p5_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m500_w12p5_res_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m600_w15p0_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m600_w15p0_res_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m800_w20p0_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m800_w20p0_res_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m1000_w25p0_res_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m1000_w25p0_res_UL18.xml">
 
-<!ENTITY HpseudoToTTTo1L1Nu2J_m365_w9p125_int_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m365_w9p125_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m400_w10p0_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m400_w10p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m500_w12p5_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m500_w12p5_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m600_w15p0_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m600_w15p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m800_w20p0_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m800_w20p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m1000_w25p0_int_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_HpseudoToTTTo1L1Nu2J_m1000_w25p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m365_w9p125_int_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m365_w9p125_int_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m400_w10p0_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m400_w10p0_int_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m500_w12p5_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m500_w12p5_int_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m600_w15p0_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m600_w15p0_int_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m800_w20p0_int_UL18    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m800_w20p0_int_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m1000_w25p0_int_UL18   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_HpseudoToTTTo1L1Nu2J_m1000_w25p0_int_UL18.xml">
 
 <!-- RS gluon -->
-<!ENTITY RSGluonToTT_M-500_UL18                      SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_RSGluonToTT_M-500_CP5_pythia8_Summer20UL18_v1.xml">
-<!ENTITY RSGluonToTT_M-1000_UL18                     SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_RSGluonToTT_M-1000_CP5_pythia8_Summer20UL18_v1.xml">
-<!ENTITY RSGluonToTT_M-1500_UL18                     SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_RSGluonToTT_M-1500_CP5_pythia8_Summer20UL18_v1.xml">
-<!ENTITY RSGluonToTT_M-2000_UL18                     SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_RSGluonToTT_M-2000_CP5_pythia8_Summer20UL18_v1.xml">
-<!ENTITY RSGluonToTT_M-2500_UL18                     SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_RSGluonToTT_M-2500_CP5_pythia8_Summer20UL18_v1.xml">
-<!ENTITY RSGluonToTT_M-3000_UL18                     SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_RSGluonToTT_M-3000_CP5_pythia8_Summer20UL18_v1.xml">
-<!ENTITY RSGluonToTT_M-3500_UL18                     SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_RSGluonToTT_M-3500_CP5_pythia8_Summer20UL18_v1.xml">
-<!ENTITY RSGluonToTT_M-4000_UL18                     SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_RSGluonToTT_M-4000_CP5_pythia8_Summer20UL18_v1.xml">
-<!ENTITY RSGluonToTT_M-4500_UL18                     SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_RSGluonToTT_M-4500_CP5_pythia8_Summer20UL18_v1.xml">
-<!ENTITY RSGluonToTT_M-5000_UL18                     SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_RSGluonToTT_M-5000_CP5_pythia8_Summer20UL18_v1.xml">
-<!ENTITY RSGluonToTT_M-5500_UL18                     SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_RSGluonToTT_M-5500_CP5_pythia8_Summer20UL18_v1.xml">
-<!ENTITY RSGluonToTT_M-6000_UL18                     SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_RSGluonToTT_M-6000_CP5_pythia8_Summer20UL18_v1.xml">
+<!ENTITY RSGluonToTT_M-500_UL18                      SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_RSGluonToTT_M-500_UL18.xml">
+<!ENTITY RSGluonToTT_M-1000_UL18                     SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_RSGluonToTT_M-1000_UL18.xml">
+<!ENTITY RSGluonToTT_M-1500_UL18                     SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_RSGluonToTT_M-1500_UL18.xml">
+<!ENTITY RSGluonToTT_M-2000_UL18                     SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_RSGluonToTT_M-2000_UL18.xml">
+<!ENTITY RSGluonToTT_M-2500_UL18                     SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_RSGluonToTT_M-2500_UL18.xml">
+<!ENTITY RSGluonToTT_M-3000_UL18                     SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_RSGluonToTT_M-3000_UL18.xml">
+<!ENTITY RSGluonToTT_M-3500_UL18                     SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_RSGluonToTT_M-3500_UL18.xml">
+<!ENTITY RSGluonToTT_M-4000_UL18                     SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_RSGluonToTT_M-4000_UL18.xml">
+<!ENTITY RSGluonToTT_M-4500_UL18                     SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_RSGluonToTT_M-4500_UL18.xml">
+<!ENTITY RSGluonToTT_M-5000_UL18                     SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_RSGluonToTT_M-5000_UL18.xml">
+<!ENTITY RSGluonToTT_M-5500_UL18                     SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_RSGluonToTT_M-5500_UL18.xml">
+<!ENTITY RSGluonToTT_M-6000_UL18                     SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_RSGluonToTT_M-6000_UL18.xml">
 
 <!-- ZPrime 10% -->
-<!ENTITY ZPrimeToTT_M400_W40_UL18                    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M400_W40_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M500_W50_UL18                    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M500_W50_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M600_W60_UL18                    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M600_W60_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M700_W70_UL18                    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M700_W70_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M800_W80_UL18                    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M800_W80_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M900_W90_UL18                    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M900_W90_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M1000_W100_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M1000_W100_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M1200_W120_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M1200_W120_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M1400_W140_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M1400_W140_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M1600_W160_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M1600_W160_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M1800_W180_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M1800_W180_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M2000_W200_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M2000_W200_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M2500_W250_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M2500_W250_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M3000_W300_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M3000_W300_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M3500_W350_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M3500_W350_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M4000_W400_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M4000_W400_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M4500_W450_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M4500_W450_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M5000_W500_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M5000_W500_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M6000_W600_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M6000_W600_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M7000_W700_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M7000_W700_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M8000_W800_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M8000_W800_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M9000_W900_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M9000_W900_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
+<!ENTITY ZPrimeToTT_M400_W40_UL18                    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M400_W40_UL18.xml">
+<!ENTITY ZPrimeToTT_M500_W50_UL18                    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M500_W50_UL18.xml">
+<!ENTITY ZPrimeToTT_M600_W60_UL18                    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M600_W60_UL18.xml">
+<!ENTITY ZPrimeToTT_M700_W70_UL18                    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M700_W70_UL18.xml">
+<!ENTITY ZPrimeToTT_M800_W80_UL18                    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M800_W80_UL18.xml">
+<!ENTITY ZPrimeToTT_M900_W90_UL18                    SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M900_W90_UL18.xml">
+<!ENTITY ZPrimeToTT_M1000_W100_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M1000_W100_UL18.xml">
+<!ENTITY ZPrimeToTT_M1200_W120_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M1200_W120_UL18.xml">
+<!ENTITY ZPrimeToTT_M1400_W140_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M1400_W140_UL18.xml">
+<!ENTITY ZPrimeToTT_M1600_W160_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M1600_W160_UL18.xml">
+<!ENTITY ZPrimeToTT_M1800_W180_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M1800_W180_UL18.xml">
+<!ENTITY ZPrimeToTT_M2000_W200_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M2000_W200_UL18.xml">
+<!ENTITY ZPrimeToTT_M2500_W250_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M2500_W250_UL18.xml">
+<!ENTITY ZPrimeToTT_M3000_W300_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M3000_W300_UL18.xml">
+<!ENTITY ZPrimeToTT_M3500_W350_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M3500_W350_UL18.xml">
+<!ENTITY ZPrimeToTT_M4000_W400_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M4000_W400_UL18.xml">
+<!ENTITY ZPrimeToTT_M4500_W450_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M4500_W450_UL18.xml">
+<!ENTITY ZPrimeToTT_M5000_W500_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M5000_W500_UL18.xml">
+<!ENTITY ZPrimeToTT_M6000_W600_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M6000_W600_UL18.xml">
+<!ENTITY ZPrimeToTT_M7000_W700_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M7000_W700_UL18.xml">
+<!ENTITY ZPrimeToTT_M8000_W800_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M8000_W800_UL18.xml">
+<!ENTITY ZPrimeToTT_M9000_W900_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M9000_W900_UL18.xml">
 
 <!-- ZPrime 30% -->
-<!ENTITY ZPrimeToTT_M400_W120_UL18                   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M400_W120_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M500_W150_UL18                   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M500_W150_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M600_W180_UL18                   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M600_W180_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M700_W210_UL18                   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M700_W210_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M800_W240_UL18                   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M800_W240_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M900_W270_UL18                   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M900_W270_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M1000_W300_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M1000_W300_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M1200_W360_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M1200_W360_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M1400_W420_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M1400_W420_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M1600_W480_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M1600_W480_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M1800_W540_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M1800_W540_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M2000_W600_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M2000_W600_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M2500_W750_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M2500_W750_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M3000_W900_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M3000_W900_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M3500_W1050_UL18                 SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M3500_W1050_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M4000_W1200_UL18                 SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M4000_W1200_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M4500_W1350_UL18                 SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M4500_W1350_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M5000_W1500_UL18                 SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M5000_W1500_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M6000_W1800_UL18                 SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M6000_W1800_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M7000_W2100_UL18                 SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M7000_W2100_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M8000_W2400_UL18                 SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M8000_W2400_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M9000_W2700_UL18                 SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars/MC_ZPrimeToTT_M9000_W2700_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
+<!ENTITY ZPrimeToTT_M400_W120_UL18                   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M400_W120_UL18.xml">
+<!ENTITY ZPrimeToTT_M500_W150_UL18                   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M500_W150_UL18.xml">
+<!ENTITY ZPrimeToTT_M600_W180_UL18                   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M600_W180_UL18.xml">
+<!ENTITY ZPrimeToTT_M700_W210_UL18                   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M700_W210_UL18.xml">
+<!ENTITY ZPrimeToTT_M800_W240_UL18                   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M800_W240_UL18.xml">
+<!ENTITY ZPrimeToTT_M900_W270_UL18                   SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M900_W270_UL18.xml">
+<!ENTITY ZPrimeToTT_M1000_W300_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M1000_W300_UL18.xml">
+<!ENTITY ZPrimeToTT_M1200_W360_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M1200_W360_UL18.xml">
+<!ENTITY ZPrimeToTT_M1400_W420_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M1400_W420_UL18.xml">
+<!ENTITY ZPrimeToTT_M1600_W480_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M1600_W480_UL18.xml">
+<!ENTITY ZPrimeToTT_M1800_W540_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M1800_W540_UL18.xml">
+<!ENTITY ZPrimeToTT_M2000_W600_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M2000_W600_UL18.xml">
+<!ENTITY ZPrimeToTT_M2500_W750_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M2500_W750_UL18.xml">
+<!ENTITY ZPrimeToTT_M3000_W900_UL18                  SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M3000_W900_UL18.xml">
+<!ENTITY ZPrimeToTT_M3500_W1050_UL18                 SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M3500_W1050_UL18.xml">
+<!ENTITY ZPrimeToTT_M4000_W1200_UL18                 SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M4000_W1200_UL18.xml">
+<!ENTITY ZPrimeToTT_M4500_W1350_UL18                 SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M4500_W1350_UL18.xml">
+<!ENTITY ZPrimeToTT_M5000_W1500_UL18                 SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M5000_W1500_UL18.xml">
+<!ENTITY ZPrimeToTT_M6000_W1800_UL18                 SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M6000_W1800_UL18.xml">
+<!ENTITY ZPrimeToTT_M7000_W2100_UL18                 SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M7000_W2100_UL18.xml">
+<!ENTITY ZPrimeToTT_M8000_W2400_UL18                 SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M8000_W2400_UL18.xml">
+<!ENTITY ZPrimeToTT_M9000_W2700_UL18                 SYSTEM   "../data/Skimming_datasets_UL18_Signal_NNVars_ele/MC_ZPrimeToTT_M9000_W2700_UL18.xml">
 
 
 ]>
@@ -1022,8 +1022,21 @@
       <Item Name="Sys_TopTag"              Value="nominal"/>
       <Item Name="channel"                 Value="&CHANNEL;"/>
 
+      <Item Name="additionalBranches" Value=" Ak4_j1_E Ak4_j1_eta Ak4_j1_m Ak4_j1_phi Ak4_j1_pt Ak4_j1_deepjetbscore 
+                                              Ak4_j2_E Ak4_j2_eta Ak4_j2_m Ak4_j2_phi Ak4_j2_pt Ak4_j2_deepjetbscore 
+                                              Ak4_j3_E Ak4_j3_eta Ak4_j3_m Ak4_j3_phi Ak4_j3_pt Ak4_j3_deepjetbscore 
+                                              Ak4_j4_E Ak4_j4_eta Ak4_j4_m Ak4_j4_phi Ak4_j4_pt Ak4_j4_deepjetbscore 
+                                              Ak4_j5_E Ak4_j5_eta Ak4_j5_m Ak4_j5_phi Ak4_j5_pt Ak4_j5_deepjetbscore 
+                                              Ak4_j6_E Ak4_j6_eta Ak4_j6_m Ak4_j6_phi Ak4_j6_pt Ak4_j6_deepjetbscore 
+                                              Ak8_j1_E Ak8_j1_eta Ak8_j1_mSD Ak8_j1_phi Ak8_j1_pt Ak8_j1_tau21 Ak8_j1_tau32
+                                              Ak8_j2_E Ak8_j2_eta Ak8_j2_mSD Ak8_j2_phi Ak8_j2_pt Ak8_j2_tau21 Ak8_j2_tau32
+                                              Ak8_j3_E Ak8_j3_eta Ak8_j3_mSD Ak8_j3_phi Ak8_j3_pt Ak8_j3_tau21 Ak8_j3_tau32
+                                              MET_phi MET_pt
+                                              Ele_E Ele_eta Ele_phi Ele_pt 
+                                              N_Ak4 N_Ak8
+                                              CHS_matched genjetsAk8SubstructureSoftDrop " />
 
-      <Item Name="AnalysisModule" Value="ZprimeAnalysisModule"/>
+      <Item Name="AnalysisModule" Value="ZprimeAnalysisModule_applyNN"/>
     </UserConfig>
 
 
