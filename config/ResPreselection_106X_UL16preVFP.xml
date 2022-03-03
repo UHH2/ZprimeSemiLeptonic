@@ -956,7 +956,7 @@
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
 
-		<InputData Lumi="108000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M9000_2700_UL16preVFP" Cacheable="&b_Cacheable;">
+		<InputData Lumi="108000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M9000_W2700_UL16preVFP" Cacheable="&b_Cacheable;">
 			&ZPrimeToTT_M9000_W2700_UL16preVFP;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
