@@ -84,7 +84,7 @@
 	<Package Name="SUHH2ZprimeSemiLeptonic.par"/>
 
 	<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="&TargetLumi;">
-
+<!--
 		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleElectron_RunB_UL17" Cacheable="&b_Cacheable;">
 			&DATA_SingleElectron_RunB_UL17;
 			<InputTree Name="AnalysisTree" />
@@ -220,7 +220,7 @@
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
 
-
+-->
 		<InputData Lumi="87123.18344039972" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-70to100_UL17" Cacheable="&b_Cacheable;">
 			&DYJetsToLL_M-50_HT-70to100_UL17;
 			<InputTree Name="AnalysisTree"/>
