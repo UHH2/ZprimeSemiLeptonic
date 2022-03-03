@@ -3,7 +3,7 @@ sys.path.insert(1, '/nfs/dust/cms/user/deleokse/MC_UL_prod/CMSSW_10_6_28/src/UHH
 
 from CrossSectionHelperSignals import *
 
-year = "UL18" # choose: UL16preVFP, UL16postVFP, UL17, UL18
+year = "UL16postVFP" # choose: UL16preVFP, UL16postVFP, UL17, UL18
 print("---------- " + year + " ----------")
 
 samples = [
