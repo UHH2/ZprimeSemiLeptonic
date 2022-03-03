@@ -88,8 +88,8 @@ void ZprimePreselectionModule::book_histograms(uhh2::Context& ctx, vector<string
 }
 
 void ZprimePreselectionModule::fill_histograms(uhh2::Event& event, string tag){
-    string mytag = tag+"_General";
-    HFolder(mytag)->fill(event);
+  string mytag = tag+"_General";
+  HFolder(mytag)->fill(event);
 }
 
 
@@ -192,8 +192,8 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
 
 bool ZprimePreselectionModule::process(uhh2::Event& event){
 
-double electron_pt_high(120.);
-double muon_pt_high(55.);
+  double electron_pt_high(120.);
+  double muon_pt_high(55.);
 
   //cout<<"Getting started... "<<event.event<<endl;
   fill_histograms(event, "Input");
@@ -210,11 +210,11 @@ double muon_pt_high(55.);
   vector<Muon>* muons = event.muons;
   for(unsigned int i=0; i<muons->size(); i++){
     if(event.muons->at(i).pt()<=muon_pt_high){
-    muon_cleaner_low->process(event);
-    fill_histograms(event, "MuonCleanerLowPt");
+      muon_cleaner_low->process(event);
+      fill_histograms(event, "MuonCleanerLowPt");
     }else{
-    muon_cleaner_high->process(event);
-    fill_histograms(event, "MuonCleanerHighPt");
+      muon_cleaner_high->process(event);
+      fill_histograms(event, "MuonCleanerHighPt");
     }
   }
   sort_by_pt<Muon>(*event.muons);
@@ -223,17 +223,17 @@ double muon_pt_high(55.);
   vector<Electron>* electrons = event.electrons;
   for(unsigned int i=0; i<electrons->size(); i++){
     if(event.electrons->at(i).pt()<=electron_pt_high){
-    electron_cleaner_low->process(event);
-    fill_histograms(event, "EleCleanerLowPt");
+      electron_cleaner_low->process(event);
+      fill_histograms(event, "EleCleanerLowPt");
     }else{
-    electron_cleaner_high->process(event);
-    fill_histograms(event, "EleCleanerHighPt");
+      electron_cleaner_high->process(event);
+      fill_histograms(event, "EleCleanerHighPt");
     }
   }
   sort_by_pt<Electron>(*event.electrons);
 
   if(isHOTVR){
-  hotvrjetCorr->process(event);
+    hotvrjetCorr->process(event);
   }
   fill_histograms(event, "HOTVRCorrections");
 
@@ -247,7 +247,7 @@ double muon_pt_high(55.);
     if(!genflavor_sel->passes(event)) return false;
   }
 
-    //cout<<"GEN ME quark-flavor selection ... "<<event.event<<endl;
+  //cout<<"GEN ME quark-flavor selection ... "<<event.event<<endl;
 
   const bool pass_lep1 = ((event.muons->size() >= 1) || (event.electrons->size() >= 1));
   if(!pass_lep1) return false;
@@ -264,7 +264,6 @@ double muon_pt_high(55.);
 
   // Lepton-2Dcut variables
   for(auto& muo : *event.muons){
-
     float    dRmin, pTrel;
     std::tie(dRmin, pTrel) = drmin_pTrel(muo, *event.jets);
 
@@ -273,7 +272,6 @@ double muon_pt_high(55.);
   }
 
   for(auto& ele : *event.electrons){
-
     float    dRmin, pTrel;
     std::tie(dRmin, pTrel) = drmin_pTrel(ele, *event.jets);
 
@@ -285,7 +283,7 @@ double muon_pt_high(55.);
   jet_cleaner2->process(event);
   sort_by_pt<Jet>(*event.jets);
   fill_histograms(event, "JetCleaner2");
-    //cout<<"JetCleaner2 ... "<<event.event<<endl;
+  //cout<<"JetCleaner2 ... "<<event.event<<endl;
 
   hotvrjet_cleaner->process(event);
   sort_by_pt<TopJet>(*event.topjets);
@@ -295,7 +293,7 @@ double muon_pt_high(55.);
   sort_by_pt<TopJet>(*event.toppuppijets);
 
   fill_histograms(event, "TopjetCleaner");
-    //cout<<"TopjetCleaner ... "<<event.event<<endl;
+  //cout<<"TopjetCleaner ... "<<event.event<<endl;
 
   // 1st AK4 jet selection
   const bool pass_jet1 = jet1_sel->passes(event);
@@ -313,7 +311,6 @@ double muon_pt_high(55.);
   fill_histograms(event, "MET");
 
   return true;
-
 }
 
 UHH2_REGISTER_ANALYSIS_MODULE(ZprimePreselectionModule)

@@ -2,11 +2,10 @@
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
 
 <!ENTITY TargetLumi      "16810"> <!-- from https://twiki.cern.ch/twiki/bin/view/CMS/TWikiLUM#SummaryTable, https://twiki.cern.ch/twiki/bin/viewauth/CMS/TopSystematics#Luminosity -->
-<!-- <!ENTITY PRESELdir       "/nfs/dust/cms/group/zprime-uhh/Presel_UL16postVFP/"> -->
-<!ENTITY PRESELdir       "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/UL16postVFP/preselection/">
+<!ENTITY PRESELdir       "/nfs/dust/cms/group/zprime-uhh/Presel_UL16postVFP/">
+<!-- <!ENTITY PRESELdir       "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/UL16postVFP/preselection/"> -->
 <!ENTITY b_Cacheable     "False">
 <!ENTITY NEVT            "-1">
-<!ENTITY IS_PUPPI        "true">
 
 <!-- DATA -->
 <!ENTITY DATA_SingleElectron_RunF_UL16postVFP SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL16postVFP/SingleElectron_Run2016F-UL2016_MiniAODv2-v2.xml">
@@ -51,7 +50,7 @@
 <!ENTITY ST_tW_top_5f_NoFullyHadronicDecays_UL16postVFP      SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16postVFP/ST_tW_top_5f_NoFullyHadronicDecays_CP5_powheg-pythia8_Summer20UL16_v1.xml">
 <!ENTITY ST_t-channel_antitop_4f_InclusiveDecays_UL16postVFP SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16postVFP/ST_t-channel_antitop_4f_InclusiveDecays_CP5_powheg-madspin-pythia8_Summer20UL16_v3.xml">
 <!ENTITY ST_t-channel_top_4f_InclusiveDecays_UL16postVFP     SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16postVFP/ST_t-channel_top_4f_InclusiveDecays_CP5_powheg-madspin-pythia8_Summer20UL16_v3.xml">
-<!-- <!ENTITY ST_s-channel_4f_leptonDecays_UL16postVFP            SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16postVFP/"> not yet in DAS -->
+<!ENTITY ST_s-channel_4f_leptonDecays_UL16postVFP            SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16postVFP/ST_s-channel_4f_leptonDecays_CP5_amcatnlo-pythia8_Summer20UL16_v1.xml">
 <!-- QCD -->
 <!ENTITY QCD_HT50to100_UL16postVFP    SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16postVFP/QCD_HT50to100_CP5_PSWeights_madgraph-pythia8_Summer20UL16_v1.xml">
 <!ENTITY QCD_HT100to200_UL16postVFP   SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16postVFP/QCD_HT100to200_CP5_PSWeights_madgraphMLM-pythia8_Summer20UL16_v1.xml">
@@ -273,11 +272,11 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-		<!-- <InputData Lumi="" NEventsMax="&NEVT;" Type="MC" Version="ST_s-channel_4f_leptonDecays_UL16postVFP" Cacheable="&b_Cacheable;">
+		<InputData Lumi="5776243.669211014" NEventsMax="&NEVT;" Type="MC" Version="ST_s-channel_4f_leptonDecays_UL16postVFP" Cacheable="&b_Cacheable;">
 			&ST_s-channel_4f_leptonDecays_UL16postVFP;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
-		</InputData> -->
+		</InputData>
 
 
 		<InputData Lumi="0.06023230769230769" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT50to100_UL16postVFP" Cacheable="&b_Cacheable;">
@@ -358,7 +357,6 @@
 		<Item Name="pileup_directory"      Value="/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL16postVFP/MyMCPileupHistogram_UL16postVFP.root"/>
 		<Item Name="pileup_directory_data" Value="/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL16postVFP/MyDataPileupHistogram_UL16postVFP.root"/>
 
-		<Item Name="is_puppi" Value="&IS_PUPPI;"/>
 		<Item Name="is_HOTVR" Value="true"/>
 		<Item Name="Sys_PU"   Value="central"/>
 
