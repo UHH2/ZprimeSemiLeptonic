@@ -2,11 +2,10 @@
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
 
 <!ENTITY TargetLumi      "19520"> <!-- from https://twiki.cern.ch/twiki/bin/view/CMS/TWikiLUM#SummaryTable, https://twiki.cern.ch/twiki/bin/viewauth/CMS/TopSystematics#Luminosity -->
-<!-- <!ENTITY PRESELdir       "/nfs/dust/cms/group/zprime-uhh/Presel_UL16preVFP/"> -->
-<!ENTITY PRESELdir       "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/UL16preVFP/preselection/">
+<!ENTITY PRESELdir       "/nfs/dust/cms/group/zprime-uhh/Presel_UL16preVFP/">
+<!-- <!ENTITY PRESELdir       "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/UL16preVFP/preselection/"> -->
 <!ENTITY b_Cacheable     "False">
 <!ENTITY NEVT            "-1">
-<!ENTITY IS_PUPPI        "true">
 
 <!-- DATA -->
 <!ENTITY DATA_SingleElectron_RunB_UL16preVFP SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL16preVFP/SingleElectron_Run2016B_HIPM_UL2016_MiniAODv2-v2.xml">
@@ -29,7 +28,7 @@
 <!ENTITY TTToHadronic_UL16preVFP     SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16preVFP/TTToHadronic_CP5_powheg-pythia8_Summer20UL16APV_v1.xml">
 <!ENTITY TTTo2L2Nu_UL16preVFP        SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16preVFP/TTTo2L2Nu_CP5_powheg-pythia8_Summer20UL16APV_v1.xml">
 <!-- WJets -->
-<!-- <!ENTITY WJetsToLNu_HT-70To100_UL16preVFP    SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16preVFP/"> submitted to CRAB -->
+<!ENTITY WJetsToLNu_HT-70To100_UL16preVFP    SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16preVFP/WJetsToLNu_HT-70To100_CP5_madgraphMLM-pythia8_Summer20UL16APV_v1.xml">
 <!ENTITY WJetsToLNu_HT-100To200_UL16preVFP   SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16preVFP/WJetsToLNu_HT-100To200_CP5_madgraphMLM-pythia8_Summer20UL16APV_v1.xml">
 <!ENTITY WJetsToLNu_HT-200To400_UL16preVFP   SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16preVFP/WJetsToLNu_HT-200To400_CP5_madgraphMLM-pythia8_Summer20UL16APV_v1.xml">
 <!ENTITY WJetsToLNu_HT-400To600_UL16preVFP   SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16preVFP/WJetsToLNu_HT-400To600_CP5_madgraphMLM-pythia8_Summer20UL16APV_v1.xml">
@@ -62,7 +61,7 @@
 <!ENTITY QCD_HT50to100_UL16preVFP    SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16preVFP/QCD_HT50to100_CP5_PSWeights_madgraphMLM-pythia8_Summer20UL16APV_v1.xml">
 <!ENTITY QCD_HT100to200_UL16preVFP   SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16preVFP/QCD_HT100to200_CP5_PSWeights_madgraphMLM-pythia8_Summer20UL16APV_v1.xml">
 <!ENTITY QCD_HT200to300_UL16preVFP   SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16preVFP/QCD_HT200to300_CP5_PSWeights_madgraph-pythia8_Summer20UL16APV_v1.xml">
-<!-- <!ENTITY QCD_HT300to500_UL16preVFP   SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16preVFP/"> still missing in DAS -->
+<!ENTITY QCD_HT300to500_UL16preVFP   SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16preVFP/QCD_HT300to500_CP5_PSWeights_madgraph-pythia8_Summer20UL16APV_v1.xml">
 <!ENTITY QCD_HT500to700_UL16preVFP   SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16preVFP/QCD_HT500to700_CP5_PSWeights_madgraphMLM-pythia8_Summer20UL16APV_v1.xml">
 <!ENTITY QCD_HT700to1000_UL16preVFP  SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16preVFP/QCD_HT700to1000_CP5_PSWeights_madgraph-pythia8_Summer20UL16APV_v1.xml">
 <!ENTITY QCD_HT1000to1500_UL16preVFP SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16preVFP/QCD_HT1000to1500_CP5_PSWeights_madgraphMLM-pythia8_Summer20UL16APV_v1.xml">
@@ -159,7 +158,7 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-		
+
 
 		<InputData Lumi="109171337.28424472" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_UL16preVFP" Cacheable="&b_Cacheable;">
 			&TTToSemiLeptonic_UL16preVFP;
@@ -178,11 +177,11 @@
 		</InputData>
 
 
-		<!-- <InputData Lumi="" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-70To100_UL16preVFP" Cacheable="&b_Cacheable;">
+		<InputData Lumi="13321.608969315499" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-70To100_UL16preVFP" Cacheable="&b_Cacheable;">
 			&WJetsToLNu_HT-70To100_UL16preVFP;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
-		</InputData> -->
+		</InputData>
 		<InputData Lumi="17345.993615323223" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-100To200_UL16preVFP" Cacheable="&b_Cacheable;">
 			&WJetsToLNu_HT-100To200_UL16preVFP;
 			<InputTree Name="AnalysisTree" />
@@ -331,11 +330,11 @@
 			<InputTree Name="AnalysisTree"/>
 			<OutputTree Name="AnalysisTree"/>
 		</InputData>
-		<!-- <InputData Lumi="" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT300to500_UL16preVFP" Cacheable="&b_Cacheable;">
+		<InputData Lumi="47.3059111933395" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT300to500_UL16preVFP" Cacheable="&b_Cacheable;">
 			&QCD_HT300to500_UL16preVFP;
 			<InputTree Name="AnalysisTree"/>
 			<OutputTree Name="AnalysisTree"/>
-		</InputData> -->
+		</InputData>
 		<InputData Lumi="1874.3831245880026" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT500to700_UL16preVFP" Cacheable="&b_Cacheable;">
 			&QCD_HT500to700_UL16preVFP;
 			<InputTree Name="AnalysisTree"/>
@@ -361,6 +360,7 @@
 			<InputTree Name="AnalysisTree"/>
 			<OutputTree Name="AnalysisTree"/>
 		</InputData>
+
 
 		<InputData Lumi="763337.1169125993" NEventsMax="&NEVT;" Type="MC" Version="ALP_ttbar_signal_UL16preVFP" Cacheable="&b_Cacheable;">
 			&ALP_ttbar_signal_UL16preVFP;
@@ -393,7 +393,6 @@
 		<Item Name="pileup_directory"      Value="/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL16preVFP/MyMCPileupHistogram_UL16preVFP.root"/>
 		<Item Name="pileup_directory_data" Value="/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL16preVFP/MyDataPileupHistogram_UL16preVFP.root"/>
 
-		<Item Name="is_puppi" Value="&IS_PUPPI;"/>
 		<Item Name="is_HOTVR" Value="true"/>
 		<Item Name="Sys_PU"   Value="central"/>
 

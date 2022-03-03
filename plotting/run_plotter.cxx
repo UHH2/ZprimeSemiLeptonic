@@ -1,8 +1,9 @@
 {
   // options
-  bool logyaxis   = false; // true/false
-  TString channel = "muon"; // electron/muon
-  TString region  = "CR2"; // SR0T/SR1T/CR1/CR2
+  bool logyaxis   = true; // true/false
+  bool afterDNN   = true; // true/false (false: before DNN, after full selection)
+  TString channel = "combination"; // electron/muon/combination
+  TString region  = "SR1T"; // SR0T/SR1T/CR1/CR2
 
   // colors
   // SM backgrounds: filled histograms
@@ -21,9 +22,8 @@
   double x_axis_lowerBound = 0;
   double x_axis_upperBound = 5E+03;
   // y axis range
-  double y_axis_lowerBound = 0.05;
-  double y_axis_upperBound = 3E+06;
-
+  double y_axis_lowerBound = 0.4;
+  double y_axis_upperBound = 5E+07;
 
 
   cout << endl;
@@ -31,9 +31,7 @@
   cout << "              region: " + channel << endl;
   cout << "             channel: " + channel << endl;
   if(logyaxis) cout << "log scale for y axis: true" << endl; else cout << "log scale for y axis: false" << endl;
-
   cout << endl;
-
 
 
   // after full selection
@@ -41,32 +39,45 @@
   // TString histname = "M_Zprime_rebin2";
   // TString root_dir = "Chi2_General";
 
-  // after DNN
-  TString dir      = "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_102X_v2/2018/" + channel + "/ZPrime_lowmass_HOTVR_afterDNN_fromKsenia/";
+  // after full selection or DNN
+  TString dir;
+  if(afterDNN){
+    dir = "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/UL18/" + channel + "/ZPrime_DeepAK8_afterDNN/";
+  }
+  else{
+    if(channel == "muon")        dir = "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/UL18/" + channel + "/ZPrime_DeepAK8/NOMINAL/";
+    if(channel == "electron")    dir = "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/UL18/" + channel + "/ZPrime_DeepAK8/";
+    if(channel == "combination") dir = "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/UL18/" + channel + "/ZPrime_DeepAK8/";
+  }
   TString histname = "M_Zprime_rebin5";
 
   // select region
   TString root_dir;
-  if (region == "SR0T") {
-    root_dir = "DNN_output0_NoTopTag_General";
-  } else if (region == "SR1T") {
-    root_dir = "DNN_output0_TopTag_General";
-  } else if (region == "CR1"){
-    root_dir = "DNN_output1_General";
-  } else if (region == "CR2"){
-    root_dir = "DNN_output2_General";
+  if(afterDNN){
+    if (region == "SR0T") {
+      root_dir = "DNN_output0_NoTopTag_General";
+    } else if (region == "SR1T") {
+      root_dir = "DNN_output0_TopTag_General";
+    } else if (region == "CR1"){
+      root_dir = "DNN_output1_General";
+    } else if (region == "CR2"){
+      root_dir = "DNN_output2_General";
+    }
+  }
+  else{
+    root_dir = "NNInputsBeforeReweight_General";
   }
 
 
   // ALP interference
-  TFile *file_ALPinterference = TFile::Open(dir + "uhh2.AnalysisModuleRunner.MC.ALP_ttbar_interference_UL18.root");
+  TFile *file_ALPinterference = TFile::Open(dir + "uhh2.AnalysisModuleRunner.MC.ALP_ttbar_interference.root");
   file_ALPinterference->cd(root_dir);
   TH1F *h_ALPinterference = (TH1F*) gDirectory->Get(histname);
   h_ALPinterference->SetLineColor(kGray);
   h_ALPinterference->SetLineWidth(2);
   h_ALPinterference->SetLineStyle(2);
 
-  TFile *file_ALPsignal = TFile::Open(dir + "uhh2.AnalysisModuleRunner.MC.ALP_ttbar_signal_UL18.root");
+  TFile *file_ALPsignal = TFile::Open(dir + "uhh2.AnalysisModuleRunner.MC.ALP_ttbar_signal.root");
   file_ALPsignal->cd(root_dir);
   TH1F *h_ALPsignal = (TH1F*) gDirectory->Get(histname);
   h_ALPsignal->SetLineColor(kBlack);
@@ -178,7 +189,7 @@
   // lumi tag
   double x_pos = 0.95;
   double y_pos = 0.957;
-  TLatex *lumitag = new TLatex(3.5,24,"59.7/59.8 fb^{-1} (13 TeV)");
+  TLatex *lumitag = new TLatex(3.5,24,"59.8 fb^{-1} (13 TeV)");
   lumitag->SetNDC();
   lumitag->SetTextAlign(31);
   lumitag->SetX(x_pos);
@@ -186,9 +197,10 @@
   lumitag->SetTextFont(42);
   lumitag->SetTextSize(0.032);
   // channel tag
-  x_pos = 0.18;
+  x_pos = 0.5;
   y_pos = 0.9;
-  TLatex *channeltag = new TLatex(3.5,24, region + " " + channel + " channel (2018 SM + UL18 ALP)");
+  TLatex *channeltag = new TLatex(3.5,24, region);
+  // TLatex *channeltag = new TLatex(3.5,24, region + " (" + channel + " channel)");
   channeltag->SetNDC();
   channeltag->SetTextAlign(11);
   channeltag->SetX(x_pos);
@@ -199,7 +211,7 @@
   channeltag->SetLineWidth(1);
   // legend
   x_pos  = 0.49;
-  y_pos  = 0.6;
+  y_pos  = 0.64;
   double x_width =  0.3;
   double y_width =  0.25;
   TLegend *legend;
@@ -210,15 +222,54 @@
   legend->SetFillColor(0);
   legend->SetFillStyle(1001);
   legend->SetNColumns(1);
-  legend->AddEntry(h_ttbar          ,"TTbar"                                      ,"f");
+  legend->AddEntry(h_ttbar          ,"t#bar{t}"                                      ,"f");
   legend->AddEntry(h_wjets          ,"W#plusJets"                                 ,"f");
-  legend->AddEntry(h_dy             ,"DY"                                         ,"f");
-  legend->AddEntry(h_st             ,"ST"                                         ,"f");
+  legend->AddEntry(h_dy             ,"Drell-Yan"                                         ,"f");
+  legend->AddEntry(h_st             ,"Single top"                                         ,"f");
   legend->AddEntry(h_qcd            ,"QCD"                                        ,"f");
   legend->AddEntry(h_diboson        ,"Diboson"                                    ,"f");
   // legend->AddEntry(h_ALPinterference,"ALP pure interference #times (-1)"          ,"l");
   // legend->AddEntry(h_ALPsignal      ,"ALP pure signal"                            ,"l");
   legend->AddEntry(h_bkgplusALP     ,"SM + ALP incl. interference (c_{i}/f_{a}=1)","l");
+
+  // CMS logo
+  x_pos = 0.18;
+  y_pos = 0.915;
+  TString cmslogo_text = "CMS";
+  TLatex *cmslogo = new TLatex(3.5, 24, cmslogo_text);
+  cmslogo->SetX(x_pos);
+  cmslogo->SetY(y_pos);
+  cmslogo->SetNDC();
+  cmslogo->SetTextAlign(13);
+  cmslogo->SetTextFont(62);
+  cmslogo->SetTextSize(0.05);
+
+
+  // sub line: simulation
+  x_pos = 0.18;
+  y_pos = 0.87;
+  TString subline_text_sim = "Simulation";
+  TLatex *subline_sim = new TLatex(3.5, 24, subline_text_sim);
+  subline_sim->SetX(x_pos);
+  subline_sim->SetY(y_pos);
+  subline_sim->SetNDC();
+  subline_sim->SetTextAlign(13);
+  subline_sim->SetTextFont(52);
+  subline_sim->SetTextSize(0.03);
+
+
+  // sub line: private work
+  x_pos = 0.18;
+  y_pos = 0.84;
+  TString subline_text_pw = "Work in Progress"; // Private Work or Work in Progress
+  TLatex *subline_pw = new TLatex(3.5, 24, subline_text_pw);
+  subline_pw->SetX(x_pos);
+  subline_pw->SetY(y_pos);
+  subline_pw->SetNDC();
+  subline_pw->SetTextAlign(13);
+  subline_pw->SetTextFont(52);
+  subline_pw->SetTextSize(0.03);
+
 
 
 
@@ -252,8 +303,12 @@
   // h_ALPsignal      ->Draw("hist same");
   h_bkgplusALP     ->Draw("hist same");
   lumitag          ->Draw("same");
-  channeltag       ->Draw("same");
+  if(afterDNN) channeltag       ->Draw("same");
   legend           ->Draw("same");
+  cmslogo->Draw();
+  subline_sim->Draw();
+  subline_pw->Draw();
+
   // x axis
   stack.GetXaxis()->SetRangeUser(x_axis_lowerBound,x_axis_upperBound);
   stack.GetXaxis()->SetNdivisions(50205);
@@ -265,7 +320,18 @@
     stack.SetMaximum(y_axis_upperBound);
   }
   else{
-    stack.SetMaximum(5000000);
+    if(region == "SR0T"){
+      stack.SetMaximum(1200000);
+    }
+    else if(region == "SR1T"){
+      stack.SetMaximum(4000);
+    }
+    else if(region == "CR1"){
+      stack.SetMaximum(10000);
+    }
+    else if(region == "CR2"){
+      stack.SetMaximum(150000);
+    }
   }
 
   // lower pad
@@ -318,9 +384,25 @@
   c1->Modified();
 
   // saving
-  TString save_dir = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/plots/";
-  if(logyaxis) c1->SaveAs(save_dir + "mttbar_" + region + "_" + channel + "_logscale.pdf");
-  else c1->SaveAs(save_dir + "mttbar_" + region + "_" + channel + ".pdf");
+
+  TString save_dir;
+  if(afterDNN){
+    save_dir = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/plots/";
+  }
+  else{
+    save_dir = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/plots_fullsel/";
+  }
+
+
+
+  if(logyaxis){
+    if(afterDNN) c1->SaveAs(save_dir + "mttbar_" + region + "_" + channel + "_logscale.pdf");
+    else         c1->SaveAs(save_dir + "mttbar_logscale.pdf");
+  }
+  else{
+    if(afterDNN) c1->SaveAs(save_dir + "mttbar_" + region + "_" + channel + ".pdf");
+    else         c1->SaveAs(save_dir + "mttbar.pdf");
+  }
   c1->Close();
 
 

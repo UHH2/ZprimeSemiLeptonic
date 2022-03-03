@@ -958,7 +958,7 @@
             <OutputTree Name="AnalysisTree" />
           </InputData>
 
-          <InputData Lumi="92000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M9000_2700_UL16postVFP" Cacheable="&b_Cacheable;">
+          <InputData Lumi="92000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M9000_W2700_UL16postVFP" Cacheable="&b_Cacheable;">
             &ZPrimeToTT_M9000_W2700_UL16postVFP;
             <InputTree Name="AnalysisTree" />
             <OutputTree Name="AnalysisTree" />
@@ -971,9 +971,9 @@
 			<Item Name="ElectronCollection"      Value="slimmedElectronsUSER"/>
 			<Item Name="MuonCollection"          Value="slimmedMuonsUSER"/>
 			<Item Name="JetCollection"           Value="jetsAk4Puppi"/>
-			<Item Name="GenJetCollection"        Value="slimmedGenJets"/> 
+			<Item Name="GenJetCollection"        Value="slimmedGenJets"/>
 			<Item Name="TopJetCollection"        Value="hotvrPuppi"/>
-			<Item Name="GenTopJetCollection"     Value="hotvrGen"/>  
+			<Item Name="GenTopJetCollection"     Value="hotvrGen"/>
 			<Item Name="TopPuppiJetCollection"   Value="jetsAk8PuppiSubstructure_SoftDropPuppi"/>
 			<Item Name="METName"                 Value="slimmedMETsPuppi"/>
 			<Item Name="genMETName"              Value="slimmedMETs_GenMET"/>
