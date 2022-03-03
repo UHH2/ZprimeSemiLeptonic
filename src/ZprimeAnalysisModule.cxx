@@ -220,6 +220,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
     HT_lep_cut = 0;
   }
   if(isElectron){//semileptonic electron channel
+    trigger_ele_B = "HLT_Ele115_CaloIdVT_GsfTrkIdT_v*";
     if(isUL16preVFP || isUL16postVFP){
       trigger_ele_A = "HLT_Ele27_WPTight_Gsf_v*";
     }
@@ -228,7 +229,6 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
     }
     if(isUL18){
       trigger_ele_A = "HLT_Ele32_WPTight_Gsf_v*";
-      trigger_ele_B = "HLT_Ele115_CaloIdVT_GsfTrkIdT_v*";
     }
     if(isUL16preVFP || isUL16postVFP){
       trigger_ph_A = "HLT_Photon175_v*";
@@ -286,7 +286,6 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   //sf_toptag.reset(new HOTVRScaleFactor(ctx, toptagID, ctx.get("Sys_TopTag", "nominal"), "HadronicTop", "TopTagSF", "HOTVRTopTagSFs"));
   Corrections_module.reset(new NLOCorrections(ctx));
   hist_BTagMCEfficiency.reset(new BTagMCEfficiencyHists(ctx,"BTagMCEfficiency", id_btag));
-  // TODO: adapt b-tag sf module for UL
   //CustomBTagWeight_module.reset(new CustomMCBTagDiscriminantReweighting(ctx, btag_algo, "jets", Sys_btag,"iterativefit","","BTagCalibration"));
 
   if((isUL16preVFP || isUL16postVFP) && isMuon){
