@@ -13,16 +13,16 @@
 <!ENTITY DATA_SingleElectron_RunD_UL16preVFP SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL16preVFP/SingleElectron_Run2016D-HIPM_UL2016_MiniAODv2-v2.xml">
 <!ENTITY DATA_SingleElectron_RunE_UL16preVFP SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL16preVFP/SingleElectron_Run2016E-HIPM_UL2016_MiniAODv2-v5.xml">
 <!ENTITY DATA_SingleElectron_RunF_UL16preVFP SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL16preVFP/SingleElectron_Run2016F-HIPM_UL2016_MiniAODv2-v2.xml">
-<!ENTITY DATA_SinglePhoton_RunB_UL16preVFP   SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL16preVFP/SingleMuon_Run2016B-HIPM_UL2016_MiniAODv2-v2.xml">
-<!ENTITY DATA_SinglePhoton_RunC_UL16preVFP   SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL16preVFP/SingleMuon_Run2016C-HIPM_UL2016_MiniAODv2-v2.xml">
-<!ENTITY DATA_SinglePhoton_RunD_UL16preVFP   SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL16preVFP/SingleMuon_Run2016D-HIPM_UL2016_MiniAODv2-v2.xml">
-<!ENTITY DATA_SinglePhoton_RunE_UL16preVFP   SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL16preVFP/SingleMuon_Run2016E-HIPM_UL2016_MiniAODv2-v2.xml">
-<!ENTITY DATA_SinglePhoton_RunF_UL16preVFP   SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL16preVFP/SingleMuon_Run2016F-HIPM_UL2016_MiniAODv2-v2.xml">
-<!ENTITY DATA_SingleMuon_RunB_UL16preVFP     SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL16preVFP/SinglePhoton_Run2016B-HIPM_UL2016_MiniAODv2-v2.xml">
-<!ENTITY DATA_SingleMuon_RunC_UL16preVFP     SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL16preVFP/SinglePhoton_Run2016C-HIPM_UL2016_MiniAODv2-v2.xml">
-<!ENTITY DATA_SingleMuon_RunD_UL16preVFP     SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL16preVFP/SinglePhoton_Run2016D-HIPM_UL2016_MiniAODv2-v2.xml">
-<!ENTITY DATA_SingleMuon_RunE_UL16preVFP     SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL16preVFP/SinglePhoton_Run2016E-HIPM_UL2016_MiniAODv2-v2.xml">
-<!ENTITY DATA_SingleMuon_RunF_UL16preVFP     SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL16preVFP/SinglePhoton_Run2016F-HIPM_UL2016_MiniAODv2-v2.xml">
+<!ENTITY DATA_SinglePhoton_RunB_UL16preVFP   SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL16preVFP/SinglePhoton_Run2016B-HIPM_UL2016_MiniAODv2-v2.xml">
+<!ENTITY DATA_SinglePhoton_RunC_UL16preVFP   SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL16preVFP/SinglePhoton_Run2016C-HIPM_UL2016_MiniAODv2-v2.xml">
+<!ENTITY DATA_SinglePhoton_RunD_UL16preVFP   SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL16preVFP/SinglePhoton_Run2016D-HIPM_UL2016_MiniAODv2-v2.xml">
+<!ENTITY DATA_SinglePhoton_RunE_UL16preVFP   SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL16preVFP/SinglePhoton_Run2016E-HIPM_UL2016_MiniAODv2-v2.xml">
+<!ENTITY DATA_SinglePhoton_RunF_UL16preVFP   SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL16preVFP/SinglePhoton_Run2016F-HIPM_UL2016_MiniAODv2-v2.xml">
+<!ENTITY DATA_SingleMuon_RunB_UL16preVFP     SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL16preVFP/SingleMuon_Run2016B-HIPM_UL2016_MiniAODv2-v2.xml">
+<!ENTITY DATA_SingleMuon_RunC_UL16preVFP     SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL16preVFP/SingleMuon_Run2016C-HIPM_UL2016_MiniAODv2-v2.xml">
+<!ENTITY DATA_SingleMuon_RunD_UL16preVFP     SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL16preVFP/SingleMuon_Run2016D-HIPM_UL2016_MiniAODv2-v2.xml">
+<!ENTITY DATA_SingleMuon_RunE_UL16preVFP     SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL16preVFP/SingleMuon_Run2016E-HIPM_UL2016_MiniAODv2-v2.xml">
+<!ENTITY DATA_SingleMuon_RunF_UL16preVFP     SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL16preVFP/SingleMuon_Run2016F-HIPM_UL2016_MiniAODv2-v2.xml">
 <!-- TTbar -->
 <!ENTITY TTToSemiLeptonic_UL16preVFP SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16preVFP/TTToSemiLeptonic_CP5_powheg-pythia8_Summer20UL16APV_v1.xml">
 <!ENTITY TTToHadronic_UL16preVFP     SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16preVFP/TTToHadronic_CP5_powheg-pythia8_Summer20UL16APV_v1.xml">
@@ -74,7 +74,7 @@
 
 <!--
 <ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="50" AutoResubmit="0"/>
-<ConfigSGE RAM="2" DISK="2" Mail="henrik.jabusch@desy.de" Notification="as" Workdir="workdir_Zprime_Preselection_UL16preVFP"/>
+<ConfigSGE RAM="2" DISK="2" Mail="henrik.jabusch@desy.de" Notification="as" Workdir="workdir_Zprime_Preselection_UL16preVFP_fix"/>
 -->
 
 <JobConfiguration JobName="ZprimePreselectionJob" OutputLevel="INFO">
@@ -83,7 +83,7 @@
 
 	<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="&TargetLumi;">
 
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleElectron_RunB_UL16preVFP" Cacheable="&b_Cacheable;">
+		<!-- <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleElectron_RunB_UL16preVFP" Cacheable="&b_Cacheable;">
 			&DATA_SingleElectron_RunB_UL16preVFP;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
@@ -107,7 +107,7 @@
 			&DATA_SingleElectron_RunF_UL16preVFP;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
-		</InputData>
+		</InputData> -->
 		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SinglePhoton_RunB_UL16preVFP" Cacheable="&b_Cacheable;">
 			&DATA_SinglePhoton_RunB_UL16preVFP;
 			<InputTree Name="AnalysisTree" />
@@ -160,7 +160,7 @@
 		</InputData>
 
 
-		<InputData Lumi="109171337.28424472" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_UL16preVFP" Cacheable="&b_Cacheable;">
+		<!-- <InputData Lumi="109171337.28424472" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_UL16preVFP" Cacheable="&b_Cacheable;">
 			&TTToSemiLeptonic_UL16preVFP;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
@@ -371,7 +371,7 @@
 			&ALP_ttbar_interference_UL16preVFP;
 			<InputTree Name="AnalysisTree"/>
 			<OutputTree Name="AnalysisTree"/>
-		</InputData>
+		</InputData> -->
 
 
 	<UserConfig>
