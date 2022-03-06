@@ -133,7 +133,7 @@ protected:
   uhh2::Event::Handle<float> h_Ak8_j1_pt;
   uhh2::Event::Handle<float> h_Ak8_j1_tau21;
   uhh2::Event::Handle<float> h_Ak8_j1_tau32;
-  
+
   uhh2::Event::Handle<float> h_Ak8_j2_E;
   uhh2::Event::Handle<float> h_Ak8_j2_eta;
   uhh2::Event::Handle<float> h_Ak8_j2_mSD;
@@ -141,7 +141,7 @@ protected:
   uhh2::Event::Handle<float> h_Ak8_j2_pt;
   uhh2::Event::Handle<float> h_Ak8_j2_tau21;
   uhh2::Event::Handle<float> h_Ak8_j2_tau32;
-  
+
   uhh2::Event::Handle<float> h_Ak8_j3_E;
   uhh2::Event::Handle<float> h_Ak8_j3_eta;
   uhh2::Event::Handle<float> h_Ak8_j3_mSD;
@@ -149,7 +149,7 @@ protected:
   uhh2::Event::Handle<float> h_Ak8_j3_pt;
   uhh2::Event::Handle<float> h_Ak8_j3_tau21;
   uhh2::Event::Handle<float> h_Ak8_j3_tau32;
-  
+
   uhh2::Event::Handle<float> h_N_Ak8;
 
 };
@@ -224,7 +224,7 @@ NeuralNetworkModule::NeuralNetworkModule(Context& ctx, const std::string & Model
   h_Ak8_j1_pt    = ctx.get_handle<float>("Ak8_j1_pt");
   h_Ak8_j1_tau21 = ctx.get_handle<float>("Ak8_j1_tau21");
   h_Ak8_j1_tau32 = ctx.get_handle<float>("Ak8_j1_tau32");
-  
+
   h_Ak8_j2_E     = ctx.get_handle<float>("Ak8_j2_E");
   h_Ak8_j2_eta   = ctx.get_handle<float>("Ak8_j2_eta");
   h_Ak8_j2_mSD   = ctx.get_handle<float>("Ak8_j2_mSD");
@@ -232,7 +232,7 @@ NeuralNetworkModule::NeuralNetworkModule(Context& ctx, const std::string & Model
   h_Ak8_j2_pt    = ctx.get_handle<float>("Ak8_j2_pt");
   h_Ak8_j2_tau21 = ctx.get_handle<float>("Ak8_j2_tau21");
   h_Ak8_j2_tau32 = ctx.get_handle<float>("Ak8_j2_tau32");
-  
+
   h_Ak8_j3_E     = ctx.get_handle<float>("Ak8_j3_E");
   h_Ak8_j3_eta   = ctx.get_handle<float>("Ak8_j3_eta");
   h_Ak8_j3_mSD   = ctx.get_handle<float>("Ak8_j3_mSD");
@@ -240,7 +240,7 @@ NeuralNetworkModule::NeuralNetworkModule(Context& ctx, const std::string & Model
   h_Ak8_j3_pt    = ctx.get_handle<float>("Ak8_j3_pt");
   h_Ak8_j3_tau21 = ctx.get_handle<float>("Ak8_j3_tau21");
   h_Ak8_j3_tau32 = ctx.get_handle<float>("Ak8_j3_tau32");
-  
+
   h_N_Ak8 = ctx.get_handle<float>("N_Ak8");
 
 }
@@ -438,7 +438,7 @@ protected:
   Event::Handle<float> h_Ak8_j1_pt;
   Event::Handle<float> h_Ak8_j1_tau21;
   Event::Handle<float> h_Ak8_j1_tau32;
-  
+
   Event::Handle<float> h_Ak8_j2_E;
   Event::Handle<float> h_Ak8_j2_eta;
   Event::Handle<float> h_Ak8_j2_mSD;
@@ -446,7 +446,7 @@ protected:
   Event::Handle<float> h_Ak8_j2_pt;
   Event::Handle<float> h_Ak8_j2_tau21;
   Event::Handle<float> h_Ak8_j2_tau32;
-  
+
   Event::Handle<float> h_Ak8_j3_E;
   Event::Handle<float> h_Ak8_j3_eta;
   Event::Handle<float> h_Ak8_j3_mSD;
@@ -604,7 +604,7 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   //sf_toptag.reset(new HOTVRScaleFactor(ctx, toptagID, ctx.get("Sys_TopTag", "nominal"), "HadronicTop", "TopTagSF", "HOTVRTopTagSFs"));
   Corrections_module.reset(new NLOCorrections(ctx));
   //CustomBTagWeight_module.reset(new CustomMCBTagDiscriminantReweighting(ctx, btag_algo, "jets", Sys_btag,"iterativefit","","BTagCalibration"));
-  
+
   if((isUL16preVFP || isUL16postVFP) && isMuon){
     MuonID_module_low      .reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2016/MuonID_EfficienciesAndSF_average_RunBtoH.root"     , "NUM_TightID_DEN_genTracks_eta_pt"              , 1.0, "tightID"  , false, Sys_MuonID_low));
     MuonISO_module_low     .reset(new MCMuonScaleFactor(ctx, "/nfs/dust/cms/user/deleokse/RunII_102X_v2/CMSSW_10_2_17/src/UHH2/common/data/2016/MuonIso_EfficienciesAndSF_average_RunBtoH.root"    , "NUM_TightRelIso_DEN_TightIDandIPCut_eta_pt"    , 1.0, "isolation", false, Sys_MuonISO_low));
@@ -811,7 +811,7 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   h_Ak8_j1_pt    = ctx.get_handle<float>("Ak8_j1_pt");
   h_Ak8_j1_tau21 = ctx.get_handle<float>("Ak8_j1_tau21");
   h_Ak8_j1_tau32 = ctx.get_handle<float>("Ak8_j1_tau32");
-  
+
   h_Ak8_j2_E     = ctx.get_handle<float>("Ak8_j2_E");
   h_Ak8_j2_eta   = ctx.get_handle<float>("Ak8_j2_eta");
   h_Ak8_j2_mSD   = ctx.get_handle<float>("Ak8_j2_mSD");
@@ -819,7 +819,7 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   h_Ak8_j2_pt    = ctx.get_handle<float>("Ak8_j2_pt");
   h_Ak8_j2_tau21 = ctx.get_handle<float>("Ak8_j2_tau21");
   h_Ak8_j2_tau32 = ctx.get_handle<float>("Ak8_j2_tau32");
-  
+
   h_Ak8_j3_E     = ctx.get_handle<float>("Ak8_j3_E");
   h_Ak8_j3_eta   = ctx.get_handle<float>("Ak8_j3_eta");
   h_Ak8_j3_mSD   = ctx.get_handle<float>("Ak8_j3_mSD");
@@ -909,7 +909,7 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
 
   // HOTVR TopTag SFs
   //if(ishotvr) sf_toptag->process(event);
-  //fill_histograms(event, "Weights_TopTag_SF");  
+  //fill_histograms(event, "Weights_TopTag_SF");
 
   // Higher order corrections - EWK & QCD NLO
   Corrections_module->process(event);
