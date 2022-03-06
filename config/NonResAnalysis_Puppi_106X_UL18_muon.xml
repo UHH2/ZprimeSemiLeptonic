@@ -334,8 +334,7 @@
 			<Item Name="pileup_directory_data_down" Value="/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL18/MyDataPileupHistogram_UL18_66017.root"/>
 
 			<Item Name="MCBtagEfficiencies" Value = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/data/2018/BTagMCEfficiencyHists_muon2018.root"/>
-			<!-- <Item Name="BTagCalibration"    Value = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/data/2018/DeepJet_102XSF_WP_V1.csv"/>  --> <!-- WP only -->
-			<Item Name="BTagCalibration"    Value = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL18/DeepJet_106XUL18SF.csv"/> <!-- reshape -->
+			<Item Name="BTagCalibration"    Value = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL18/reshaping_deepJet_106XUL18_v2.csv"/> <!-- reshape -->
 			<Item Name="HOTVRTopTagSFs"     Value = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/HOTVR/data/TopTaggingScaleFactors_RunIISummer19UL18_PUPPIv15.root"/>
 
 			<Item Name="NLOCorrections" Value = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/data/"/>
