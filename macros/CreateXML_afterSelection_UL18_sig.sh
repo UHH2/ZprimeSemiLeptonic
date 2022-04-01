@@ -2,13 +2,13 @@
 #where UHH2 code installed
 pathGL_code=/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/
 #where (NOT MERGED) trees after preselection stored
-#path_data=/nfs/dust/cms/group/zprime-uhh/Analysis_UL18_Signal/muon/workdir_Zprime_Analysis_UL18_muon/uhh2.AnalysisModuleRunner.
-path_data=/nfs/dust/cms/group/zprime-uhh/Analysis_UL18_Signal/electron/workdir_Zprime_Analysis_UL18_ele/uhh2.AnalysisModuleRunner.
+path_data=/nfs/dust/cms/group/zprime-uhh/Analysis_UL18_Signal/muon/workdir_Zprime_Analysis_UL18_muon/uhh2.AnalysisModuleRunner.
+#path_data=/nfs/dust/cms/group/zprime-uhh/Analysis_UL18_Signal/electron/workdir_Zprime_Analysis_UL18_ele/uhh2.AnalysisModuleRunner.
 
-#mkdir $pathGL_code/ZprimeSemiLeptonic/data/Skimming_datasets_UL18_Signal_NNVars
-#cd $pathGL_code/ZprimeSemiLeptonic/data/Skimming_datasets_UL18_Signal_NNVars
-mkdir $pathGL_code/ZprimeSemiLeptonic/data/Skimming_datasets_UL18_Signal_NNVars_ele
-cd $pathGL_code/ZprimeSemiLeptonic/data/Skimming_datasets_UL18_Signal_NNVars_ele
+mkdir $pathGL_code/ZprimeSemiLeptonic/data/Skimming_datasets_UL18_Signal_NNVars
+cd $pathGL_code/ZprimeSemiLeptonic/data/Skimming_datasets_UL18_Signal_NNVars
+#mkdir $pathGL_code/ZprimeSemiLeptonic/data/Skimming_datasets_UL18_Signal_NNVars_ele
+#cd $pathGL_code/ZprimeSemiLeptonic/data/Skimming_datasets_UL18_Signal_NNVars_ele
 
 
 # #MC
