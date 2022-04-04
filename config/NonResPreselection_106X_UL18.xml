@@ -42,7 +42,7 @@
 <!-- Diboson -->
 <!ENTITY WW_UL18 SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/SM/UL18/WW_CP5_pythia8_Summer20UL18_v1.xml">
 <!ENTITY WZ_UL18 SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/SM/UL18/WZ_CP5_pythia8_Summer20UL18_v1.xml">
-<!-- <!ENTITY ZZ_UL18 SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/SM/UL18/"> -->
+<!ENTITY ZZ_UL18 SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/SM/UL18/ZZ_CP5_pythia8_Summer20UL18_v2.xml">
 <!-- ST -->
 <!ENTITY ST_tW_antitop_5f_inclusiveDecays_UL18        SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/SM/UL18/ST_tW_antitop_5f_inclusiveDecays_CP5_powheg-pythia8_Summer20UL18_v2.xml">
 <!ENTITY ST_tW_top_5f_inclusiveDecays_UL18            SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/SM/UL18/ST_tW_top_5f_inclusiveDecays_CP5_powheg-pythia8_Summer20UL18_v2.xml">
@@ -68,7 +68,7 @@
 
 <!--
 <ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="50" AutoResubmit="0"/>
-<ConfigSGE RAM="2" DISK="2" Mail="henrik.jabusch@desy.de" Notification="as" Workdir="workdir_Zprime_Preselection_UL18"/>
+<ConfigSGE RAM="2" DISK="2" Mail="henrik.jabusch@desy.de" Notification="as" Workdir="workdir_Zprime_Preselection_UL18_ZZ"/>
 -->
 
 <JobConfiguration JobName="ZprimePreselectionJob" OutputLevel="INFO">
@@ -77,7 +77,7 @@
 
 	<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="&TargetLumi;">
 
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_RunA_UL18" Cacheable="&b_Cacheable;">
+		<!-- <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_RunA_UL18" Cacheable="&b_Cacheable;">
 			&DATA_EGamma_RunA_UL18;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
@@ -97,11 +97,11 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-		<!-- <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_RunA_UL18" Cacheable="&b_Cacheable;">
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_RunA_UL18" Cacheable="&b_Cacheable;">
 			&DATA_SingleMuon_RunA_UL18;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
-		</InputData> -->
+		</InputData>
 		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_RunB_UL18" Cacheable="&b_Cacheable;">
 			&DATA_SingleMuon_RunB_UL18;
 			<InputTree Name="AnalysisTree" />
@@ -229,15 +229,15 @@
 			&WZ_UL18;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
-		</InputData>
-		 <!-- <InputData Lumi="" NEventsMax="&NEVT;" Type="MC" Version="ZZ_UL18" Cacheable="&b_Cacheable;">
+		</InputData> -->
+		 <InputData Lumi="290684.25391591096" NEventsMax="&NEVT;" Type="MC" Version="ZZ_UL18" Cacheable="&b_Cacheable;">
 			&ZZ_UL18;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
-		</InputData> -->
+		</InputData>
 
 
-		<InputData Lumi="7026559.400055788" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_inclusiveDecays_UL18" Cacheable="&b_Cacheable;">
+		<!-- <InputData Lumi="7026559.400055788" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_inclusiveDecays_UL18" Cacheable="&b_Cacheable;">
 			&ST_tW_antitop_5f_inclusiveDecays_UL18;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
@@ -330,7 +330,7 @@
 			&ALP_ttbar_interference_UL18;
 			<InputTree Name="AnalysisTree"/>
 			<OutputTree Name="AnalysisTree"/>
-		</InputData>
+		</InputData> -->
 
 
 	<UserConfig>

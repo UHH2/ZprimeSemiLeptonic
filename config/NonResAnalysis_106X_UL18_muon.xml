@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
 
-<!ENTITY TargetLumi  "59830">
+<!ENTITY TargetLumi  "59830"> <!-- from https://twiki.cern.ch/twiki/bin/view/CMS/TWikiLUM#SummaryTable -->
 <!ENTITY PREFIX      "uhh2.AnalysisModuleRunner.">
 <!ENTITY b_Cacheable "False">
 <!ENTITY NEVT        "-1">
@@ -10,7 +10,7 @@
 <!ENTITY IS_DEEPAK8          "true">
 <!ENTITY IS_LOOSER_SELECTION "false">
 <!ENTITY CHANNEL             "muon">
-<!ENTITY OUTPUTdir           "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/UL18/&CHANNEL;/ZPrime_DeepAK8/">
+<!ENTITY OUTPUTdir           "/nfs/dust/cms/group/zprime-uhh/Analysis_UL18/&CHANNEL;/">
 
 <!-- DATA -->
 <!-- <!ENTITY DATA_SingleMuon_RunA_UL18_blinded SYSTEM  "../data/Skimming_datasets_UL18_preselection/"> -->
@@ -42,7 +42,7 @@
 <!-- Diboson -->
 <!ENTITY WW_UL18 SYSTEM  "../data/Skimming_datasets_UL18_preselection/WW_UL18.xml">
 <!ENTITY WZ_UL18 SYSTEM  "../data/Skimming_datasets_UL18_preselection/WZ_UL18.xml">
-<!-- <!ENTITY ZZ_UL18 SYSTEM  "../data/Skimming_datasets_UL18_preselection/"> -->
+<!ENTITY ZZ_UL18 SYSTEM  "../data/Skimming_datasets_UL18_preselection/ZZ_UL18.xml">
 <!-- ST -->
 <!ENTITY ST_tW_antitop_5f_inclusiveDecays_UL18        SYSTEM  "../data/Skimming_datasets_UL18_preselection/ST_tW_antitop_5f_inclusiveDecays_UL18.xml">
 <!ENTITY ST_tW_top_5f_inclusiveDecays_UL18            SYSTEM  "../data/Skimming_datasets_UL18_preselection/ST_tW_top_5f_inclusiveDecays_UL18.xml">
@@ -81,7 +81,7 @@
 			&DATA_SingleMuon_RunA_UL18_blinded;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
-		</InputData> -->
+		</InputData>
 		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_RunB_UL18_blinded" Cacheable="&b_Cacheable;">
 			&DATA_SingleMuon_RunB_UL18_blinded;
 			<InputTree Name="AnalysisTree" />
@@ -208,15 +208,15 @@
 			&WZ_UL18;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
-		</InputData>
-		<!-- <InputData Lumi="" NEventsMax="&NEVT;" Type="MC" Version="ZZ_UL18" Cacheable="&b_Cacheable;">
+		</InputData> -->
+		<InputData Lumi="290684.25391591096" NEventsMax="&NEVT;" Type="MC" Version="ZZ_UL18" Cacheable="&b_Cacheable;">
 			&ZZ_UL18;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
-		</InputData> -->
+		</InputData>
 
 
-		<InputData Lumi="7026559.400055788" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_inclusiveDecays_UL18" Cacheable="&b_Cacheable;">
+		<!-- <InputData Lumi="7026559.400055788" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_inclusiveDecays_UL18" Cacheable="&b_Cacheable;">
 			&ST_tW_antitop_5f_inclusiveDecays_UL18;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
@@ -308,7 +308,7 @@
 			&ALP_ttbar_interference_UL18;
 			<InputTree Name="AnalysisTree"/>
 			<OutputTree Name="AnalysisTree"/>
-		</InputData>
+		</InputData> -->
 
 
 
