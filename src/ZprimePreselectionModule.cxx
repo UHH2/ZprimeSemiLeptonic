@@ -112,7 +112,7 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
 
   // lepton IDs
   ElectronId eleID_low  = ElectronTagID(Electron::mvaEleID_Fall17_iso_V2_wp80);
-  MuonId     muID_low   = MuonID(Muon::CutBasedIdTight);
+  MuonId     muID_low   = AndId<Muon>(MuonID(Muon::CutBasedIdTight), MuonID(Muon::PFIsoTight));
   ElectronId eleID_high = ElectronTagID(Electron::mvaEleID_Fall17_noIso_V2_wp80);
   MuonId     muID_high  = MuonID(Muon::CutBasedIdGlobalHighPt);
 
@@ -139,7 +139,7 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
 
 
   // Cleaning: Mu, Ele, Jets
-  const MuonId muonID_low(AndId<Muon>(PtEtaCut(muon_pt_low, 2.4), muID_low, MuonIso(0.15)));
+  const MuonId muonID_low(AndId<Muon>(PtEtaCut(muon_pt_low, 2.4), muID_low));
   const ElectronId electronID_low(AndId<Electron>(PtEtaSCCut(electron_pt_low, 2.5), eleID_low));
   const MuonId muonID_high(AndId<Muon>(PtEtaCut(muon_pt_high, 2.4), muID_high));
   const ElectronId electronID_high(AndId<Electron>(PtEtaSCCut(electron_pt_high, 2.5), eleID_high));
@@ -177,7 +177,7 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   //// EVENT SELECTION
   jet1_sel.reset(new NJetSelection(1, -1, JetId(PtEtaCut(jet1_pt, 2.4))));
   jet2_sel.reset(new NJetSelection(2, -1, JetId(PtEtaCut(jet2_pt, 2.4))));
-  met_sel .reset(new METCut  (MET   , uhh2::infinity));
+  met_sel.reset(new METCut(MET, uhh2::infinity));
 
   // additional branch with Ak4 CHS jets
   h_CHSjets = ctx.get_handle<vector<Jet>>("jetsAk4CHS");
