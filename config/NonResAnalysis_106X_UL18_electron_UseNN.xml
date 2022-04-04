@@ -9,67 +9,67 @@
 <!ENTITY IS_HOTVR            "false">
 <!ENTITY IS_DEEPAK8          "true">
 <!ENTITY IS_LOOSER_SELECTION "false">
-<!ENTITY CHANNEL             "muon">
+<!ENTITY CHANNEL             "electron">
 <!ENTITY OUTPUTdir           "/nfs/dust/cms/group/zprime-uhh/Analysis_UL18_UseNN/&CHANNEL;/">
 <!-- <!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/RunII_106_v2/Analysis_UL18_UseNN/&CHANNEL;"> -->
 
 <!-- DATA -->
-<!-- <!ENTITY DATA_SingleMuon_RunA_UL18 SYSTEM  "../data/Skimming_datasets_UL18_muon/"> -->
-<!ENTITY DATA_SingleMuon_RunB_UL18 SYSTEM  "../data/Skimming_datasets_UL18_muon/DATA_SingleMuon_RunB_UL18.xml">
-<!ENTITY DATA_SingleMuon_RunC_UL18 SYSTEM  "../data/Skimming_datasets_UL18_muon/DATA_SingleMuon_RunC_UL18.xml">
-<!ENTITY DATA_SingleMuon_RunD_UL18 SYSTEM  "../data/Skimming_datasets_UL18_muon/DATA_SingleMuon_RunD_UL18.xml">
+<!ENTITY DATA_EGamma_RunA_UL18 SYSTEM  "../data/Skimming_datasets_UL18_electron/DATA_EGamma_RunA_UL18_blinded.xml">
+<!ENTITY DATA_EGamma_RunB_UL18 SYSTEM  "../data/Skimming_datasets_UL18_electron/DATA_EGamma_RunB_UL18_blinded.xml">
+<!ENTITY DATA_EGamma_RunC_UL18 SYSTEM  "../data/Skimming_datasets_UL18_electron/DATA_EGamma_RunC_UL18_blinded.xml">
+<!ENTITY DATA_EGamma_RunD_UL18 SYSTEM  "../data/Skimming_datasets_UL18_electron/DATA_EGamma_RunD_UL18_blinded.xml">
 <!-- TTbar -->
-<!ENTITY TTToSemiLeptonic_UL18 SYSTEM  "../data/Skimming_datasets_UL18_muon/TTToSemiLeptonic_UL18.xml">
-<!ENTITY TTToHadronic_UL18     SYSTEM  "../data/Skimming_datasets_UL18_muon/TTToHadronic_UL18.xml">
-<!ENTITY TTTo2L2Nu_UL18        SYSTEM  "../data/Skimming_datasets_UL18_muon/TTTo2L2Nu_UL18.xml">
+<!ENTITY TTToSemiLeptonic_UL18 SYSTEM  "../data/Skimming_datasets_UL18_electron/TTToSemiLeptonic_UL18.xml">
+<!ENTITY TTToHadronic_UL18     SYSTEM  "../data/Skimming_datasets_UL18_electron/TTToHadronic_UL18.xml">
+<!ENTITY TTTo2L2Nu_UL18        SYSTEM  "../data/Skimming_datasets_UL18_electron/TTTo2L2Nu_UL18.xml">
 <!-- WJets -->
-<!ENTITY WJetsToLNu_HT-70To100_UL18    SYSTEM  "../data/Skimming_datasets_UL18_muon/WJetsToLNu_HT-70To100_UL18.xml">
-<!ENTITY WJetsToLNu_HT-100To200_UL18   SYSTEM  "../data/Skimming_datasets_UL18_muon/WJetsToLNu_HT-100To200_UL18.xml">
-<!ENTITY WJetsToLNu_HT-200To400_UL18   SYSTEM  "../data/Skimming_datasets_UL18_muon/WJetsToLNu_HT-200To400_UL18.xml">
-<!ENTITY WJetsToLNu_HT-400To600_UL18   SYSTEM  "../data/Skimming_datasets_UL18_muon/WJetsToLNu_HT-400To600_UL18.xml">
-<!ENTITY WJetsToLNu_HT-600To800_UL18   SYSTEM  "../data/Skimming_datasets_UL18_muon/WJetsToLNu_HT-600To800_UL18.xml">
-<!ENTITY WJetsToLNu_HT-800To1200_UL18  SYSTEM  "../data/Skimming_datasets_UL18_muon/WJetsToLNu_HT-800To1200_UL18.xml">
-<!ENTITY WJetsToLNu_HT-1200To2500_UL18 SYSTEM  "../data/Skimming_datasets_UL18_muon/WJetsToLNu_HT-1200To2500_UL18.xml">
-<!ENTITY WJetsToLNu_HT-2500ToInf_UL18  SYSTEM  "../data/Skimming_datasets_UL18_muon/WJetsToLNu_HT-2500ToInf_UL18.xml">
+<!ENTITY WJetsToLNu_HT-70To100_UL18    SYSTEM  "../data/Skimming_datasets_UL18_electron/WJetsToLNu_HT-70To100_UL18.xml">
+<!ENTITY WJetsToLNu_HT-100To200_UL18   SYSTEM  "../data/Skimming_datasets_UL18_electron/WJetsToLNu_HT-100To200_UL18.xml">
+<!ENTITY WJetsToLNu_HT-200To400_UL18   SYSTEM  "../data/Skimming_datasets_UL18_electron/WJetsToLNu_HT-200To400_UL18.xml">
+<!ENTITY WJetsToLNu_HT-400To600_UL18   SYSTEM  "../data/Skimming_datasets_UL18_electron/WJetsToLNu_HT-400To600_UL18.xml">
+<!ENTITY WJetsToLNu_HT-600To800_UL18   SYSTEM  "../data/Skimming_datasets_UL18_electron/WJetsToLNu_HT-600To800_UL18.xml">
+<!ENTITY WJetsToLNu_HT-800To1200_UL18  SYSTEM  "../data/Skimming_datasets_UL18_electron/WJetsToLNu_HT-800To1200_UL18.xml">
+<!ENTITY WJetsToLNu_HT-1200To2500_UL18 SYSTEM  "../data/Skimming_datasets_UL18_electron/WJetsToLNu_HT-1200To2500_UL18.xml">
+<!ENTITY WJetsToLNu_HT-2500ToInf_UL18  SYSTEM  "../data/Skimming_datasets_UL18_electron/WJetsToLNu_HT-2500ToInf_UL18.xml">
 <!-- DY -->
-<!ENTITY DYJetsToLL_M-50_HT-70to100_UL18    SYSTEM  "../data/Skimming_datasets_UL18_muon/DYJetsToLL_M-50_HT-70to100_UL18.xml">
-<!ENTITY DYJetsToLL_M-50_HT-100to200_UL18   SYSTEM  "../data/Skimming_datasets_UL18_muon/DYJetsToLL_M-50_HT-100to200_UL18.xml">
-<!ENTITY DYJetsToLL_M-50_HT-200to400_UL18   SYSTEM  "../data/Skimming_datasets_UL18_muon/DYJetsToLL_M-50_HT-200to400_UL18.xml">
-<!ENTITY DYJetsToLL_M-50_HT-400to600_UL18   SYSTEM  "../data/Skimming_datasets_UL18_muon/DYJetsToLL_M-50_HT-400to600_UL18.xml">
-<!ENTITY DYJetsToLL_M-50_HT-600to800_UL18   SYSTEM  "../data/Skimming_datasets_UL18_muon/DYJetsToLL_M-50_HT-600to800_UL18.xml">
-<!ENTITY DYJetsToLL_M-50_HT-800to1200_UL18  SYSTEM  "../data/Skimming_datasets_UL18_muon/DYJetsToLL_M-50_HT-800to1200_UL18.xml">
-<!ENTITY DYJetsToLL_M-50_HT-1200to2500_UL18 SYSTEM  "../data/Skimming_datasets_UL18_muon/DYJetsToLL_M-50_HT-1200to2500_UL18.xml">
-<!ENTITY DYJetsToLL_M-50_HT-2500toInf_UL18  SYSTEM  "../data/Skimming_datasets_UL18_muon/DYJetsToLL_M-50_HT-2500toInf_UL18.xml">
+<!ENTITY DYJetsToLL_M-50_HT-70to100_UL18    SYSTEM  "../data/Skimming_datasets_UL18_electron/DYJetsToLL_M-50_HT-70to100_UL18.xml">
+<!ENTITY DYJetsToLL_M-50_HT-100to200_UL18   SYSTEM  "../data/Skimming_datasets_UL18_electron/DYJetsToLL_M-50_HT-100to200_UL18.xml">
+<!ENTITY DYJetsToLL_M-50_HT-200to400_UL18   SYSTEM  "../data/Skimming_datasets_UL18_electron/DYJetsToLL_M-50_HT-200to400_UL18.xml">
+<!ENTITY DYJetsToLL_M-50_HT-400to600_UL18   SYSTEM  "../data/Skimming_datasets_UL18_electron/DYJetsToLL_M-50_HT-400to600_UL18.xml">
+<!ENTITY DYJetsToLL_M-50_HT-600to800_UL18   SYSTEM  "../data/Skimming_datasets_UL18_electron/DYJetsToLL_M-50_HT-600to800_UL18.xml">
+<!ENTITY DYJetsToLL_M-50_HT-800to1200_UL18  SYSTEM  "../data/Skimming_datasets_UL18_electron/DYJetsToLL_M-50_HT-800to1200_UL18.xml">
+<!ENTITY DYJetsToLL_M-50_HT-1200to2500_UL18 SYSTEM  "../data/Skimming_datasets_UL18_electron/DYJetsToLL_M-50_HT-1200to2500_UL18.xml">
+<!ENTITY DYJetsToLL_M-50_HT-2500toInf_UL18  SYSTEM  "../data/Skimming_datasets_UL18_electron/DYJetsToLL_M-50_HT-2500toInf_UL18.xml">
 <!-- Diboson -->
-<!ENTITY WW_UL18 SYSTEM  "../data/Skimming_datasets_UL18_muon/WW_UL18.xml">
-<!ENTITY WZ_UL18 SYSTEM  "../data/Skimming_datasets_UL18_muon/WZ_UL18.xml">
-<!ENTITY ZZ_UL18 SYSTEM  "../data/Skimming_datasets_UL18_muon/ZZ_UL18.xml">
+<!ENTITY WW_UL18 SYSTEM  "../data/Skimming_datasets_UL18_electron/WW_UL18.xml">
+<!ENTITY WZ_UL18 SYSTEM  "../data/Skimming_datasets_UL18_electron/WZ_UL18.xml">
+<!ENTITY ZZ_UL18 SYSTEM  "../data/Skimming_datasets_UL18_electron/ZZ_UL18.xml">
 <!-- ST -->
-<!ENTITY ST_tW_antitop_5f_inclusiveDecays_UL18        SYSTEM  "../data/Skimming_datasets_UL18_muon/ST_tW_antitop_5f_inclusiveDecays_UL18.xml">
-<!ENTITY ST_tW_top_5f_inclusiveDecays_UL18            SYSTEM  "../data/Skimming_datasets_UL18_muon/ST_tW_top_5f_inclusiveDecays_UL18.xml">
-<!ENTITY ST_tW_antitop_5f_NoFullyHadronicDecays_UL18  SYSTEM  "../data/Skimming_datasets_UL18_muon/ST_tW_antitop_5f_NoFullyHadronicDecays_UL18.xml">
-<!ENTITY ST_tW_top_5f_NoFullyHadronicDecays_UL18      SYSTEM  "../data/Skimming_datasets_UL18_muon/ST_tW_top_5f_NoFullyHadronicDecays_UL18.xml">
-<!ENTITY ST_t-channel_antitop_4f_InclusiveDecays_UL18 SYSTEM  "../data/Skimming_datasets_UL18_muon/ST_t-channel_antitop_4f_InclusiveDecays_UL18.xml">
-<!ENTITY ST_t-channel_top_4f_InclusiveDecays_UL18     SYSTEM  "../data/Skimming_datasets_UL18_muon/ST_t-channel_top_4f_InclusiveDecays_UL18.xml">
-<!ENTITY ST_s-channel_4f_leptonDecays_UL18            SYSTEM  "../data/Skimming_datasets_UL18_muon/ST_s-channel_4f_leptonDecays_UL18.xml">
+<!ENTITY ST_tW_antitop_5f_inclusiveDecays_UL18        SYSTEM  "../data/Skimming_datasets_UL18_electron/ST_tW_antitop_5f_inclusiveDecays_UL18.xml">
+<!ENTITY ST_tW_top_5f_inclusiveDecays_UL18            SYSTEM  "../data/Skimming_datasets_UL18_electron/ST_tW_top_5f_inclusiveDecays_UL18.xml">
+<!ENTITY ST_tW_antitop_5f_NoFullyHadronicDecays_UL18  SYSTEM  "../data/Skimming_datasets_UL18_electron/ST_tW_antitop_5f_NoFullyHadronicDecays_UL18.xml">
+<!ENTITY ST_tW_top_5f_NoFullyHadronicDecays_UL18      SYSTEM  "../data/Skimming_datasets_UL18_electron/ST_tW_top_5f_NoFullyHadronicDecays_UL18.xml">
+<!ENTITY ST_t-channel_antitop_4f_InclusiveDecays_UL18 SYSTEM  "../data/Skimming_datasets_UL18_electron/ST_t-channel_antitop_4f_InclusiveDecays_UL18.xml">
+<!ENTITY ST_t-channel_top_4f_InclusiveDecays_UL18     SYSTEM  "../data/Skimming_datasets_UL18_electron/ST_t-channel_top_4f_InclusiveDecays_UL18.xml">
+<!ENTITY ST_s-channel_4f_leptonDecays_UL18            SYSTEM  "../data/Skimming_datasets_UL18_electron/ST_s-channel_4f_leptonDecays_UL18.xml">
 <!-- QCD -->
-<!ENTITY QCD_HT50to100_UL18    SYSTEM "../data/Skimming_datasets_UL18_muon/QCD_HT50to100_UL18.xml">
-<!ENTITY QCD_HT100to200_UL18   SYSTEM "../data/Skimming_datasets_UL18_muon/QCD_HT100to200_UL18.xml">
-<!ENTITY QCD_HT200to300_UL18   SYSTEM "../data/Skimming_datasets_UL18_muon/QCD_HT200to300_UL18.xml">
-<!ENTITY QCD_HT300to500_UL18   SYSTEM "../data/Skimming_datasets_UL18_muon/QCD_HT300to500_UL18.xml">
-<!ENTITY QCD_HT500to700_UL18   SYSTEM "../data/Skimming_datasets_UL18_muon/QCD_HT500to700_UL18.xml">
-<!ENTITY QCD_HT700to1000_UL18  SYSTEM "../data/Skimming_datasets_UL18_muon/QCD_HT700to1000_UL18.xml">
-<!ENTITY QCD_HT1000to1500_UL18 SYSTEM "../data/Skimming_datasets_UL18_muon/QCD_HT1000to1500_UL18.xml">
-<!ENTITY QCD_HT1500to2000_UL18 SYSTEM "../data/Skimming_datasets_UL18_muon/QCD_HT1500to2000_UL18.xml">
-<!ENTITY QCD_HT2000toInf_UL18  SYSTEM "../data/Skimming_datasets_UL18_muon/QCD_HT2000toInf_UL18.xml">
+<!ENTITY QCD_HT50to100_UL18    SYSTEM "../data/Skimming_datasets_UL18_electron/QCD_HT50to100_UL18.xml">
+<!ENTITY QCD_HT100to200_UL18   SYSTEM "../data/Skimming_datasets_UL18_electron/QCD_HT100to200_UL18.xml">
+<!ENTITY QCD_HT200to300_UL18   SYSTEM "../data/Skimming_datasets_UL18_electron/QCD_HT200to300_UL18.xml">
+<!ENTITY QCD_HT300to500_UL18   SYSTEM "../data/Skimming_datasets_UL18_electron/QCD_HT300to500_UL18.xml">
+<!ENTITY QCD_HT500to700_UL18   SYSTEM "../data/Skimming_datasets_UL18_electron/QCD_HT500to700_UL18.xml">
+<!ENTITY QCD_HT700to1000_UL18  SYSTEM "../data/Skimming_datasets_UL18_electron/QCD_HT700to1000_UL18.xml">
+<!ENTITY QCD_HT1000to1500_UL18 SYSTEM "../data/Skimming_datasets_UL18_electron/QCD_HT1000to1500_UL18.xml">
+<!ENTITY QCD_HT1500to2000_UL18 SYSTEM "../data/Skimming_datasets_UL18_electron/QCD_HT1500to2000_UL18.xml">
+<!ENTITY QCD_HT2000toInf_UL18  SYSTEM "../data/Skimming_datasets_UL18_electron/QCD_HT2000toInf_UL18.xml">
 <!-- ALP -->
-<!ENTITY ALP_ttbar_signal_UL18       SYSTEM "../data/Skimming_datasets_UL18_muon/ALP_ttbar_signal_UL18.xml">
-<!ENTITY ALP_ttbar_interference_UL18 SYSTEM "../data/Skimming_datasets_UL18_muon/ALP_ttbar_interference_UL18.xml">
+<!ENTITY ALP_ttbar_signal_UL18       SYSTEM "../data/Skimming_datasets_UL18_electron/ALP_ttbar_signal_UL18.xml">
+<!ENTITY ALP_ttbar_interference_UL18 SYSTEM "../data/Skimming_datasets_UL18_electron/ALP_ttbar_interference_UL18.xml">
 ]>
 
 <!--
 <ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="1" AutoResubmit="0"/>
-<ConfigSGE RAM="2" DISK="2" Mail="henrik.jabusch@desy.de" Notification="as" Workdir="workdir_Zprime_Analysis_UL18_muon_UseNN"/>
+<ConfigSGE RAM="2" DISK="2" Mail="henrik.jabusch@desy.de" Notification="as" Workdir="workdir_Zprime_Analysis_UL18_electron_UseNN"/>
 -->
 
 <JobConfiguration JobName="ZprimePreselectionJob" OutputLevel="INFO">
@@ -78,24 +78,23 @@
 
 	<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTPUTdir;/" PostFix="" TargetLumi="&TargetLumi;">
 
-		<!-- <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_RunA_UL18" Cacheable="&b_Cacheable;">
-			&DATA_SingleMuon_RunA_UL18;
+		<!-- <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_RunA_UL18" Cacheable="&b_Cacheable;">
+			&DATA_EGamma_RunA_UL18;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_RunB_UL18" Cacheable="&b_Cacheable;">
-			&DATA_SingleMuon_RunB_UL18;
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_RunB_UL18" Cacheable="&b_Cacheable;">
+			&DATA_EGamma_RunB_UL18;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_RunC_UL18" Cacheable="&b_Cacheable;">
-			&DATA_SingleMuon_RunC_UL18;
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_RunC_UL18" Cacheable="&b_Cacheable;">
+			&DATA_EGamma_RunC_UL18;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_RunD_UL18" Cacheable="&b_Cacheable;">
-			&DATA_SingleMuon_RunD_UL18;
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_RunD_UL18" Cacheable="&b_Cacheable;">
+			&DATA_EGamma_RunD_UL18;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
@@ -355,7 +354,7 @@
                                                                 Ak8_j2_E Ak8_j2_eta Ak8_j2_mSD Ak8_j2_phi Ak8_j2_pt Ak8_j2_tau21 Ak8_j2_tau32
                                                                 Ak8_j3_E Ak8_j3_eta Ak8_j3_mSD Ak8_j3_phi Ak8_j3_pt Ak8_j3_tau21 Ak8_j3_tau32
                                                                 MET_phi MET_pt
-                                                                Mu_E Mu_eta Mu_phi Mu_pt
+                                                                Ele_E Ele_eta Ele_phi Ele_pt
                                                                 N_Ak4 N_Ak8
                                                                 CHS_matched genjetsAk8SubstructureSoftDrop " />
 

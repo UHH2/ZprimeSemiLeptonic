@@ -463,7 +463,7 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   if(ishotvr){
   TopTaggerHOTVR->process(event);
   hadronic_top->process(event);
-  }else if(isdeepAK8){
+  } else if(isdeepAK8){
   TopTaggerDeepAK8->process(event);
   }
 
