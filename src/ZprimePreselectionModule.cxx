@@ -114,7 +114,7 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   ElectronId eleID_low  = ElectronTagID(Electron::mvaEleID_Fall17_iso_V2_wp80);
   MuonId     muID_low   = AndId<Muon>(MuonID(Muon::CutBasedIdTight), MuonID(Muon::PFIsoTight));
   ElectronId eleID_high = ElectronTagID(Electron::mvaEleID_Fall17_noIso_V2_wp80);
-  MuonId     muID_high  = MuonID(Muon::CutBasedIdGlobalHighPt);
+  MuonId     muID_high  = AndId<Muon>(MuonID(Muon::CutBasedIdGlobalHighPt), MuonID(Muon::TkIsoLoose));
 
   double electron_pt_low(35.);
   double muon_pt_low(30.);

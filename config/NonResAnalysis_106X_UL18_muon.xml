@@ -11,46 +11,47 @@
 <!ENTITY IS_LOOSER_SELECTION "false">
 <!ENTITY CHANNEL             "muon">
 <!ENTITY OUTPUTdir           "/nfs/dust/cms/group/zprime-uhh/Analysis_UL18/&CHANNEL;/">
+<!-- <!ENTITY OUTPUTdir           "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/UL18/&CHANNEL;/"> -->
 
 <!-- DATA -->
-<!-- <!ENTITY DATA_SingleMuon_RunA_UL18_blinded SYSTEM  "../data/Skimming_datasets_UL18_preselection/"> -->
-<!ENTITY DATA_SingleMuon_RunB_UL18_blinded SYSTEM  "../data/Skimming_datasets_UL18_preselection/DATA_SingleMuon_RunB_UL18.xml">
-<!ENTITY DATA_SingleMuon_RunC_UL18_blinded SYSTEM  "../data/Skimming_datasets_UL18_preselection/DATA_SingleMuon_RunC_UL18.xml">
-<!ENTITY DATA_SingleMuon_RunD_UL18_blinded SYSTEM  "../data/Skimming_datasets_UL18_preselection/DATA_SingleMuon_RunD_UL18.xml">
+<!ENTITY DATA_SingleMuon_RunA_UL18_blinded SYSTEM "../data/Skimming_datasets_UL18_preselection/DATA_SingleMuon_RunB_UL18.xml">
+<!ENTITY DATA_SingleMuon_RunB_UL18_blinded SYSTEM "../data/Skimming_datasets_UL18_preselection/DATA_SingleMuon_RunB_UL18.xml">
+<!ENTITY DATA_SingleMuon_RunC_UL18_blinded SYSTEM "../data/Skimming_datasets_UL18_preselection/DATA_SingleMuon_RunC_UL18.xml">
+<!ENTITY DATA_SingleMuon_RunD_UL18_blinded SYSTEM "../data/Skimming_datasets_UL18_preselection/DATA_SingleMuon_RunD_UL18.xml">
 <!-- TTbar -->
-<!ENTITY TTToSemiLeptonic_UL18 SYSTEM  "../data/Skimming_datasets_UL18_preselection/TTToSemiLeptonic_UL18.xml">
-<!ENTITY TTToHadronic_UL18     SYSTEM  "../data/Skimming_datasets_UL18_preselection/TTToHadronic_UL18.xml">
-<!ENTITY TTTo2L2Nu_UL18        SYSTEM  "../data/Skimming_datasets_UL18_preselection/TTTo2L2Nu_UL18.xml">
+<!ENTITY TTToSemiLeptonic_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/TTToSemiLeptonic_UL18.xml">
+<!ENTITY TTToHadronic_UL18     SYSTEM "../data/Skimming_datasets_UL18_preselection/TTToHadronic_UL18.xml">
+<!ENTITY TTTo2L2Nu_UL18        SYSTEM "../data/Skimming_datasets_UL18_preselection/TTTo2L2Nu_UL18.xml">
 <!-- WJets -->
-<!ENTITY WJetsToLNu_HT-70To100_UL18    SYSTEM  "../data/Skimming_datasets_UL18_preselection/WJetsToLNu_HT-70To100_UL18.xml">
-<!ENTITY WJetsToLNu_HT-100To200_UL18   SYSTEM  "../data/Skimming_datasets_UL18_preselection/WJetsToLNu_HT-100To200_UL18.xml">
-<!ENTITY WJetsToLNu_HT-200To400_UL18   SYSTEM  "../data/Skimming_datasets_UL18_preselection/WJetsToLNu_HT-200To400_UL18.xml">
-<!ENTITY WJetsToLNu_HT-400To600_UL18   SYSTEM  "../data/Skimming_datasets_UL18_preselection/WJetsToLNu_HT-400To600_UL18.xml">
-<!ENTITY WJetsToLNu_HT-600To800_UL18   SYSTEM  "../data/Skimming_datasets_UL18_preselection/WJetsToLNu_HT-600To800_UL18.xml">
-<!ENTITY WJetsToLNu_HT-800To1200_UL18  SYSTEM  "../data/Skimming_datasets_UL18_preselection/WJetsToLNu_HT-800To1200_UL18.xml">
-<!ENTITY WJetsToLNu_HT-1200To2500_UL18 SYSTEM  "../data/Skimming_datasets_UL18_preselection/WJetsToLNu_HT-1200To2500_UL18.xml">
-<!ENTITY WJetsToLNu_HT-2500ToInf_UL18  SYSTEM  "../data/Skimming_datasets_UL18_preselection/WJetsToLNu_HT-2500ToInf_UL18.xml">
+<!ENTITY WJetsToLNu_HT-70To100_UL18    SYSTEM "../data/Skimming_datasets_UL18_preselection/WJetsToLNu_HT-70To100_UL18.xml">
+<!ENTITY WJetsToLNu_HT-100To200_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/WJetsToLNu_HT-100To200_UL18.xml">
+<!ENTITY WJetsToLNu_HT-200To400_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/WJetsToLNu_HT-200To400_UL18.xml">
+<!ENTITY WJetsToLNu_HT-400To600_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/WJetsToLNu_HT-400To600_UL18.xml">
+<!ENTITY WJetsToLNu_HT-600To800_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/WJetsToLNu_HT-600To800_UL18.xml">
+<!ENTITY WJetsToLNu_HT-800To1200_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/WJetsToLNu_HT-800To1200_UL18.xml">
+<!ENTITY WJetsToLNu_HT-1200To2500_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/WJetsToLNu_HT-1200To2500_UL18.xml">
+<!ENTITY WJetsToLNu_HT-2500ToInf_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/WJetsToLNu_HT-2500ToInf_UL18.xml">
 <!-- DY -->
-<!ENTITY DYJetsToLL_M-50_HT-70to100_UL18    SYSTEM  "../data/Skimming_datasets_UL18_preselection/DYJetsToLL_M-50_HT-70to100_UL18.xml">
-<!ENTITY DYJetsToLL_M-50_HT-100to200_UL18   SYSTEM  "../data/Skimming_datasets_UL18_preselection/DYJetsToLL_M-50_HT-100to200_UL18.xml">
-<!ENTITY DYJetsToLL_M-50_HT-200to400_UL18   SYSTEM  "../data/Skimming_datasets_UL18_preselection/DYJetsToLL_M-50_HT-200to400_UL18.xml">
-<!ENTITY DYJetsToLL_M-50_HT-400to600_UL18   SYSTEM  "../data/Skimming_datasets_UL18_preselection/DYJetsToLL_M-50_HT-400to600_UL18.xml">
-<!ENTITY DYJetsToLL_M-50_HT-600to800_UL18   SYSTEM  "../data/Skimming_datasets_UL18_preselection/DYJetsToLL_M-50_HT-600to800_UL18.xml">
-<!ENTITY DYJetsToLL_M-50_HT-800to1200_UL18  SYSTEM  "../data/Skimming_datasets_UL18_preselection/DYJetsToLL_M-50_HT-800to1200_UL18.xml">
-<!ENTITY DYJetsToLL_M-50_HT-1200to2500_UL18 SYSTEM  "../data/Skimming_datasets_UL18_preselection/DYJetsToLL_M-50_HT-1200to2500_UL18.xml">
-<!ENTITY DYJetsToLL_M-50_HT-2500toInf_UL18  SYSTEM  "../data/Skimming_datasets_UL18_preselection/DYJetsToLL_M-50_HT-2500toInf_UL18.xml">
+<!ENTITY DYJetsToLL_M-50_HT-70to100_UL18    SYSTEM "../data/Skimming_datasets_UL18_preselection/DYJetsToLL_M-50_HT-70to100_UL18.xml">
+<!ENTITY DYJetsToLL_M-50_HT-100to200_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/DYJetsToLL_M-50_HT-100to200_UL18.xml">
+<!ENTITY DYJetsToLL_M-50_HT-200to400_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/DYJetsToLL_M-50_HT-200to400_UL18.xml">
+<!ENTITY DYJetsToLL_M-50_HT-400to600_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/DYJetsToLL_M-50_HT-400to600_UL18.xml">
+<!ENTITY DYJetsToLL_M-50_HT-600to800_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/DYJetsToLL_M-50_HT-600to800_UL18.xml">
+<!ENTITY DYJetsToLL_M-50_HT-800to1200_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/DYJetsToLL_M-50_HT-800to1200_UL18.xml">
+<!ENTITY DYJetsToLL_M-50_HT-1200to2500_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/DYJetsToLL_M-50_HT-1200to2500_UL18.xml">
+<!ENTITY DYJetsToLL_M-50_HT-2500toInf_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/DYJetsToLL_M-50_HT-2500toInf_UL18.xml">
 <!-- Diboson -->
-<!ENTITY WW_UL18 SYSTEM  "../data/Skimming_datasets_UL18_preselection/WW_UL18.xml">
-<!ENTITY WZ_UL18 SYSTEM  "../data/Skimming_datasets_UL18_preselection/WZ_UL18.xml">
-<!ENTITY ZZ_UL18 SYSTEM  "../data/Skimming_datasets_UL18_preselection/ZZ_UL18.xml">
+<!ENTITY WW_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/WW_UL18.xml">
+<!ENTITY WZ_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/WZ_UL18.xml">
+<!ENTITY ZZ_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/ZZ_UL18.xml">
 <!-- ST -->
-<!ENTITY ST_tW_antitop_5f_inclusiveDecays_UL18        SYSTEM  "../data/Skimming_datasets_UL18_preselection/ST_tW_antitop_5f_inclusiveDecays_UL18.xml">
-<!ENTITY ST_tW_top_5f_inclusiveDecays_UL18            SYSTEM  "../data/Skimming_datasets_UL18_preselection/ST_tW_top_5f_inclusiveDecays_UL18.xml">
-<!ENTITY ST_tW_antitop_5f_NoFullyHadronicDecays_UL18  SYSTEM  "../data/Skimming_datasets_UL18_preselection/ST_tW_antitop_5f_NoFullyHadronicDecays_UL18.xml">
-<!ENTITY ST_tW_top_5f_NoFullyHadronicDecays_UL18      SYSTEM  "../data/Skimming_datasets_UL18_preselection/ST_tW_top_5f_NoFullyHadronicDecays_UL18.xml">
-<!ENTITY ST_t-channel_antitop_4f_InclusiveDecays_UL18 SYSTEM  "../data/Skimming_datasets_UL18_preselection/ST_t-channel_antitop_4f_InclusiveDecays_UL18.xml">
-<!ENTITY ST_t-channel_top_4f_InclusiveDecays_UL18     SYSTEM  "../data/Skimming_datasets_UL18_preselection/ST_t-channel_top_4f_InclusiveDecays_UL18.xml">
-<!ENTITY ST_s-channel_4f_leptonDecays_UL18            SYSTEM  "../data/Skimming_datasets_UL18_preselection/ST_s-channel_4f_leptonDecays_UL18.xml">
+<!ENTITY ST_tW_antitop_5f_inclusiveDecays_UL18        SYSTEM "../data/Skimming_datasets_UL18_preselection/ST_tW_antitop_5f_inclusiveDecays_UL18.xml">
+<!ENTITY ST_tW_top_5f_inclusiveDecays_UL18            SYSTEM "../data/Skimming_datasets_UL18_preselection/ST_tW_top_5f_inclusiveDecays_UL18.xml">
+<!ENTITY ST_tW_antitop_5f_NoFullyHadronicDecays_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/ST_tW_antitop_5f_NoFullyHadronicDecays_UL18.xml">
+<!ENTITY ST_tW_top_5f_NoFullyHadronicDecays_UL18      SYSTEM "../data/Skimming_datasets_UL18_preselection/ST_tW_top_5f_NoFullyHadronicDecays_UL18.xml">
+<!ENTITY ST_t-channel_antitop_4f_InclusiveDecays_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/ST_t-channel_antitop_4f_InclusiveDecays_UL18.xml">
+<!ENTITY ST_t-channel_top_4f_InclusiveDecays_UL18     SYSTEM "../data/Skimming_datasets_UL18_preselection/ST_t-channel_top_4f_InclusiveDecays_UL18.xml">
+<!ENTITY ST_s-channel_4f_leptonDecays_UL18            SYSTEM "../data/Skimming_datasets_UL18_preselection/ST_s-channel_4f_leptonDecays_UL18.xml">
 <!-- QCD -->
 <!ENTITY QCD_HT50to100_UL18    SYSTEM "../data/Skimming_datasets_UL18_preselection/QCD_HT50to100_UL18.xml">
 <!ENTITY QCD_HT100to200_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/QCD_HT100to200_UL18.xml">
@@ -335,7 +336,7 @@
 
 			<Item Name="MCBtagEfficiencies" Value = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/data/2018/BTagMCEfficiencyHists_muon2018.root"/>
 			<Item Name="BTagCalibration"    Value = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL18/reshaping_deepJet_106XUL18_v2.csv"/> <!-- reshape -->
-			<Item Name="HOTVRTopTagSFs"     Value = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/HOTVR/data/TopTaggingScaleFactors_RunIISummer19UL18_PUPPIv15.root"/>
+			<!-- <Item Name="HOTVRTopTagSFs"     Value = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/HOTVR/data/TopTaggingScaleFactors_RunIISummer19UL18_PUPPIv15.root"/> -->
 
 			<Item Name="NLOCorrections" Value = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/data/"/>
 
@@ -343,22 +344,20 @@
 			<Item Name="is_deepAK8" Value="&IS_DEEPAK8;"/>
 			<Item Name="is_looser_selection" Value="&IS_LOOSER_SELECTION;"/>
 
-			<Item Name="use_sframe_weight"    Value="false"/>
-			<Item Name="jersmear_direction"   Value="nominal"/>
-			<Item Name="jecsmear_direction"   Value="nominal"/>
-			<Item Name="ScaleVariationMuR"    Value="nominal"/>
-			<Item Name="ScaleVariationMuF"    Value="nominal"/>
-			<Item Name="Sys_MuonID_low"       Value="nominal"/>
-			<Item Name="Sys_MuonISO_low"      Value="nominal"/>
-			<Item Name="Sys_MuonID_high"      Value="nominal"/>
-			<Item Name="Sys_MuonTrigger_low"  Value="nominal"/>
-			<Item Name="Sys_MuonTrigger_high" Value="nominal"/>
-			<Item Name="Sys_EleID"            Value="nominal"/>
-			<Item Name="Sys_EleTrigger"       Value="nominal"/>
-			<Item Name="Sys_PU"               Value="central"/>
-			<Item Name="Sys_btag"             Value="central"/>
-			<Item Name="Sys_TopTag"           Value="nominal"/>
-			<Item Name="channel"              Value="&CHANNEL;"/>
+			<Item Name="use_sframe_weight"          Value="false"/>
+			<Item Name="jersmear_direction"         Value="nominal"/>
+			<Item Name="jecsmear_direction"         Value="nominal"/>
+			<Item Name="ScaleVariationMuR"          Value="nominal"/>
+			<Item Name="ScaleVariationMuF"          Value="nominal"/>
+			<Item Name="SystDirection_MuonIso"      Value="nominal"/>
+			<Item Name="SystDirection_MuonTrigger"  Value="nominal"/>
+			<Item Name="SystDirection_ElectronId"   Value="nominal"/>
+			<Item Name="SystDirection_ElectronReco" Value="nominal"/>
+			<!-- add electron trigger SFs -->
+			<Item Name="Sys_PU"                     Value="central"/>
+			<Item Name="Sys_btag"                   Value="central"/>
+			<Item Name="Sys_TopTag"                 Value="nominal"/>
+			<Item Name="channel"                    Value="&CHANNEL;"/>
 
 			<Item Name="additionalBranches"	   Value="jetsAk4CHS
 																								genjetsAk8SubstructureSoftDrop"/> <!-- ADDED ADDITIONAL CHS AK4 JETS FOR MATCHING, GEN JETS for AK8PUPPI -->
