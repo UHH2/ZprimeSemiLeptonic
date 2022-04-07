@@ -344,36 +344,34 @@
 			<Item Name="is_deepAK8" Value="&IS_DEEPAK8;"/>
 			<Item Name="is_looser_selection" Value="&IS_LOOSER_SELECTION;"/>
 
-                        <Item Name="additionalBranches" Value=" Ak4_j1_E Ak4_j1_eta Ak4_j1_m Ak4_j1_phi Ak4_j1_pt Ak4_j1_deepjetbscore
-                                                                Ak4_j2_E Ak4_j2_eta Ak4_j2_m Ak4_j2_phi Ak4_j2_pt Ak4_j2_deepjetbscore
-                                                                Ak4_j3_E Ak4_j3_eta Ak4_j3_m Ak4_j3_phi Ak4_j3_pt Ak4_j3_deepjetbscore
-                                                                Ak4_j4_E Ak4_j4_eta Ak4_j4_m Ak4_j4_phi Ak4_j4_pt Ak4_j4_deepjetbscore
-                                                                Ak4_j5_E Ak4_j5_eta Ak4_j5_m Ak4_j5_phi Ak4_j5_pt Ak4_j5_deepjetbscore
-                                                                Ak4_j6_E Ak4_j6_eta Ak4_j6_m Ak4_j6_phi Ak4_j6_pt Ak4_j6_deepjetbscore
-                                                                Ak8_j1_E Ak8_j1_eta Ak8_j1_mSD Ak8_j1_phi Ak8_j1_pt Ak8_j1_tau21 Ak8_j1_tau32
-                                                                Ak8_j2_E Ak8_j2_eta Ak8_j2_mSD Ak8_j2_phi Ak8_j2_pt Ak8_j2_tau21 Ak8_j2_tau32
-                                                                Ak8_j3_E Ak8_j3_eta Ak8_j3_mSD Ak8_j3_phi Ak8_j3_pt Ak8_j3_tau21 Ak8_j3_tau32
-                                                                MET_phi MET_pt
-                                                                Ele_E Ele_eta Ele_phi Ele_pt
-                                                                N_Ak4 N_Ak8
-                                                                CHS_matched genjetsAk8SubstructureSoftDrop " />
+      <Item Name="additionalBranches" Value=" Ak4_j1_E Ak4_j1_eta Ak4_j1_m Ak4_j1_phi Ak4_j1_pt Ak4_j1_deepjetbscore
+                                              Ak4_j2_E Ak4_j2_eta Ak4_j2_m Ak4_j2_phi Ak4_j2_pt Ak4_j2_deepjetbscore
+                                              Ak4_j3_E Ak4_j3_eta Ak4_j3_m Ak4_j3_phi Ak4_j3_pt Ak4_j3_deepjetbscore
+                                              Ak4_j4_E Ak4_j4_eta Ak4_j4_m Ak4_j4_phi Ak4_j4_pt Ak4_j4_deepjetbscore
+                                              Ak4_j5_E Ak4_j5_eta Ak4_j5_m Ak4_j5_phi Ak4_j5_pt Ak4_j5_deepjetbscore
+                                              Ak4_j6_E Ak4_j6_eta Ak4_j6_m Ak4_j6_phi Ak4_j6_pt Ak4_j6_deepjetbscore
+                                              Ak8_j1_E Ak8_j1_eta Ak8_j1_mSD Ak8_j1_phi Ak8_j1_pt Ak8_j1_tau21 Ak8_j1_tau32
+                                              Ak8_j2_E Ak8_j2_eta Ak8_j2_mSD Ak8_j2_phi Ak8_j2_pt Ak8_j2_tau21 Ak8_j2_tau32
+                                              Ak8_j3_E Ak8_j3_eta Ak8_j3_mSD Ak8_j3_phi Ak8_j3_pt Ak8_j3_tau21 Ak8_j3_tau32
+                                              MET_phi MET_pt
+                                              Ele_E Ele_eta Ele_phi Ele_pt
+                                              N_Ak4 N_Ak8
+                                              CHS_matched genjetsAk8SubstructureSoftDrop " />
 
-			<Item Name="use_sframe_weight"    Value="false"/>
-			<Item Name="jersmear_direction"   Value="nominal"/>
-			<Item Name="jecsmear_direction"   Value="nominal"/>
-			<Item Name="ScaleVariationMuR"    Value="nominal"/>
-			<Item Name="ScaleVariationMuF"    Value="nominal"/>
-			<Item Name="Sys_MuonID_low"       Value="nominal"/>
-			<Item Name="Sys_MuonISO_low"      Value="nominal"/>
-			<Item Name="Sys_MuonID_high"      Value="nominal"/>
-			<Item Name="Sys_MuonTrigger_low"  Value="nominal"/>
-			<Item Name="Sys_MuonTrigger_high" Value="nominal"/>
-			<Item Name="Sys_EleID"            Value="nominal"/>
-			<Item Name="Sys_EleTrigger"       Value="nominal"/>
-			<Item Name="Sys_PU"               Value="central"/>
-			<Item Name="Sys_btag"             Value="central"/>
-			<Item Name="Sys_TopTag"           Value="nominal"/>
-			<Item Name="channel"              Value="&CHANNEL;"/>
+			<Item Name="use_sframe_weight"          Value="false"/>
+			<Item Name="jersmear_direction"         Value="nominal"/>
+			<Item Name="jecsmear_direction"         Value="nominal"/>
+			<Item Name="ScaleVariationMuR"          Value="nominal"/>
+			<Item Name="ScaleVariationMuF"          Value="nominal"/>
+			<Item Name="SystDirection_MuonIso"      Value="nominal"/>
+			<Item Name="SystDirection_MuonTrigger"  Value="nominal"/>
+			<Item Name="SystDirection_ElectronId"   Value="nominal"/>
+			<Item Name="SystDirection_ElectronReco" Value="nominal"/>
+			<!-- add electron trigger SFs -->
+			<Item Name="Sys_PU"                     Value="central"/>
+			<Item Name="Sys_btag"                   Value="central"/>
+			<Item Name="Sys_TopTag"                 Value="nominal"/>
+			<Item Name="channel"                    Value="&CHANNEL;"/>
 
 
 				<Item Name="AnalysisModule" Value="ZprimeAnalysisModule_applyNN"/>

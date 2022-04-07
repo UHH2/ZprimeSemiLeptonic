@@ -13,7 +13,7 @@
 <!ENTITY DATA_EGamma_RunB_UL18     SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL18/EGamma_Run2018B-UL2018_MiniAODv2-v1.xml">
 <!ENTITY DATA_EGamma_RunC_UL18     SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL18/EGamma_Run2018C-UL2018_MiniAODv2-v1.xml">
 <!ENTITY DATA_EGamma_RunD_UL18     SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL18/EGamma_Run2018D-UL2018_MiniAODv2-v2.xml">
-<!-- <!ENTITY DATA_SingleMuon_RunA_UL18 SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL18/"> TODO: still missing in DAS -->
+<!ENTITY DATA_SingleMuon_RunA_UL18 SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL18/SingleMuon_Run2018A-UL2018_MiniAODv2-v3.xml">
 <!ENTITY DATA_SingleMuon_RunB_UL18 SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL18/SingleMuon_Run2018B-UL2018_MiniAODv2-v2.xml">
 <!ENTITY DATA_SingleMuon_RunC_UL18 SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL18/SingleMuon_Run2018C-UL2018_MiniAODv2-v2.xml">
 <!ENTITY DATA_SingleMuon_RunD_UL18 SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/data/UL18/SingleMuon_Run2018D-UL2018_MiniAODv2-v3.xml">
@@ -68,7 +68,7 @@
 
 <!--
 <ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="50" AutoResubmit="0"/>
-<ConfigSGE RAM="2" DISK="2" Mail="henrik.jabusch@desy.de" Notification="as" Workdir="workdir_Zprime_Preselection_UL18_ZZ"/>
+<ConfigSGE RAM="2" DISK="2" Mail="henrik.jabusch@desy.de" Notification="as" Workdir="workdir_Zprime_Preselection_UL18"/>
 -->
 
 <JobConfiguration JobName="ZprimePreselectionJob" OutputLevel="INFO">
