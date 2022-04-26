@@ -161,7 +161,7 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   jet_cleaner2.reset(new JetCleaner(ctx, 30., 2.5));
   hotvrjet_cleaner.reset(new TopJetCleaner(ctx, PtEtaCut(200., 2.5)));
   topjet_puppi_IDcleaner.reset(new TopJetCleaner(ctx, jetID_PUPPI, "toppuppijets"));
-  topjet_puppi_cleaner.reset(new TopJetCleaner(ctx, TopJetId(PtEtaCut(200., 2.4)), "toppuppijets"));
+  topjet_puppi_cleaner.reset(new TopJetCleaner(ctx, TopJetId(PtEtaCut(200., 2.5)), "toppuppijets"));
 
   // common modules
   common.reset(new CommonModules());
