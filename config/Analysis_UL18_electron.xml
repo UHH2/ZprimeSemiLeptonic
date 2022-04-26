@@ -10,197 +10,197 @@
 <!ENTITY IS_DEEPAK8          "true">
 <!ENTITY IS_LOOSER_SELECTION "false">
 <!ENTITY CHANNEL             "electron">
-<!ENTITY OUTPUTdir           "/nfs/dust/cms/group/zprime-uhh/Analysis_UL18/&CHANNEL;/">
+<!ENTITY OUTPUTdir           "/nfs/dust/cms/group/zprime-uhh/Analysis_UL18_new/&CHANNEL;/">
 
 <!-- EGamma -->
-<!ENTITY DATA_EGamma_RunA_UL18 SYSTEM  "../data/Skimming_datasets_UL18_preselection/DATA_EGamma_RunA_UL18.xml">
-<!ENTITY DATA_EGamma_RunB_UL18 SYSTEM  "../data/Skimming_datasets_UL18_preselection/DATA_EGamma_RunB_UL18.xml">
-<!ENTITY DATA_EGamma_RunC_UL18 SYSTEM  "../data/Skimming_datasets_UL18_preselection/DATA_EGamma_RunC_UL18.xml">
-<!ENTITY DATA_EGamma_RunD_UL18 SYSTEM  "../data/Skimming_datasets_UL18_preselection/DATA_EGamma_RunD_UL18.xml">
+<!ENTITY DATA_EGamma_RunA_UL18 SYSTEM  "../data/UL18_Preselection/DATA_EGamma_RunA_UL18.xml">
+<!ENTITY DATA_EGamma_RunB_UL18 SYSTEM  "../data/UL18_Preselection/DATA_EGamma_RunB_UL18.xml">
+<!ENTITY DATA_EGamma_RunC_UL18 SYSTEM  "../data/UL18_Preselection/DATA_EGamma_RunC_UL18.xml">
+<!-- <!ENTITY DATA_EGamma_RunD_UL18 SYSTEM  "../data/UL18_Preselection/DATA_EGamma_RunD_UL18.xml"> -->
 <!-- TTbar -->
-<!ENTITY TTToSemiLeptonic_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/TTToSemiLeptonic_UL18.xml">
-<!ENTITY TTToHadronic_UL18     SYSTEM "../data/Skimming_datasets_UL18_preselection/TTToHadronic_UL18.xml">
-<!ENTITY TTTo2L2Nu_UL18        SYSTEM "../data/Skimming_datasets_UL18_preselection/TTTo2L2Nu_UL18.xml">
+<!ENTITY TTToSemiLeptonic_UL18 SYSTEM "../data/UL18_Preselection/TTToSemiLeptonic_UL18.xml">
+<!ENTITY TTToHadronic_UL18     SYSTEM "../data/UL18_Preselection/TTToHadronic_UL18.xml">
+<!ENTITY TTTo2L2Nu_UL18        SYSTEM "../data/UL18_Preselection/TTTo2L2Nu_UL18.xml">
 <!-- WJets -->
-<!ENTITY WJetsToLNu_HT-70To100_UL18    SYSTEM "../data/Skimming_datasets_UL18_preselection/WJetsToLNu_HT-70To100_UL18.xml">
-<!ENTITY WJetsToLNu_HT-100To200_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/WJetsToLNu_HT-100To200_UL18.xml">
-<!ENTITY WJetsToLNu_HT-200To400_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/WJetsToLNu_HT-200To400_UL18.xml">
-<!ENTITY WJetsToLNu_HT-400To600_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/WJetsToLNu_HT-400To600_UL18.xml">
-<!ENTITY WJetsToLNu_HT-600To800_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/WJetsToLNu_HT-600To800_UL18.xml">
-<!ENTITY WJetsToLNu_HT-800To1200_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/WJetsToLNu_HT-800To1200_UL18.xml">
-<!ENTITY WJetsToLNu_HT-1200To2500_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/WJetsToLNu_HT-1200To2500_UL18.xml">
-<!ENTITY WJetsToLNu_HT-2500ToInf_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/WJetsToLNu_HT-2500ToInf_UL18.xml">
+<!ENTITY WJetsToLNu_HT-70To100_UL18    SYSTEM "../data/UL18_Preselection/WJetsToLNu_HT-70To100_UL18.xml">
+<!ENTITY WJetsToLNu_HT-100To200_UL18   SYSTEM "../data/UL18_Preselection/WJetsToLNu_HT-100To200_UL18.xml">
+<!ENTITY WJetsToLNu_HT-200To400_UL18   SYSTEM "../data/UL18_Preselection/WJetsToLNu_HT-200To400_UL18.xml">
+<!ENTITY WJetsToLNu_HT-400To600_UL18   SYSTEM "../data/UL18_Preselection/WJetsToLNu_HT-400To600_UL18.xml">
+<!ENTITY WJetsToLNu_HT-600To800_UL18   SYSTEM "../data/UL18_Preselection/WJetsToLNu_HT-600To800_UL18.xml">
+<!ENTITY WJetsToLNu_HT-800To1200_UL18  SYSTEM "../data/UL18_Preselection/WJetsToLNu_HT-800To1200_UL18.xml">
+<!ENTITY WJetsToLNu_HT-1200To2500_UL18 SYSTEM "../data/UL18_Preselection/WJetsToLNu_HT-1200To2500_UL18.xml">
+<!ENTITY WJetsToLNu_HT-2500ToInf_UL18  SYSTEM "../data/UL18_Preselection/WJetsToLNu_HT-2500ToInf_UL18.xml">
 <!-- DY -->
-<!ENTITY DYJetsToLL_M-50_HT-70to100_UL18    SYSTEM "../data/Skimming_datasets_UL18_preselection/DYJetsToLL_M-50_HT-70to100_UL18.xml">
-<!ENTITY DYJetsToLL_M-50_HT-100to200_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/DYJetsToLL_M-50_HT-100to200_UL18.xml">
-<!ENTITY DYJetsToLL_M-50_HT-200to400_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/DYJetsToLL_M-50_HT-200to400_UL18.xml">
-<!ENTITY DYJetsToLL_M-50_HT-400to600_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/DYJetsToLL_M-50_HT-400to600_UL18.xml">
-<!ENTITY DYJetsToLL_M-50_HT-600to800_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/DYJetsToLL_M-50_HT-600to800_UL18.xml">
-<!ENTITY DYJetsToLL_M-50_HT-800to1200_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/DYJetsToLL_M-50_HT-800to1200_UL18.xml">
-<!ENTITY DYJetsToLL_M-50_HT-1200to2500_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/DYJetsToLL_M-50_HT-1200to2500_UL18.xml">
-<!ENTITY DYJetsToLL_M-50_HT-2500toInf_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/DYJetsToLL_M-50_HT-2500toInf_UL18.xml">
+<!ENTITY DYJetsToLL_M-50_HT-70to100_UL18    SYSTEM "../data/UL18_Preselection/DYJetsToLL_M-50_HT-70to100_UL18.xml">
+<!ENTITY DYJetsToLL_M-50_HT-100to200_UL18   SYSTEM "../data/UL18_Preselection/DYJetsToLL_M-50_HT-100to200_UL18.xml">
+<!ENTITY DYJetsToLL_M-50_HT-200to400_UL18   SYSTEM "../data/UL18_Preselection/DYJetsToLL_M-50_HT-200to400_UL18.xml">
+<!ENTITY DYJetsToLL_M-50_HT-400to600_UL18   SYSTEM "../data/UL18_Preselection/DYJetsToLL_M-50_HT-400to600_UL18.xml">
+<!ENTITY DYJetsToLL_M-50_HT-600to800_UL18   SYSTEM "../data/UL18_Preselection/DYJetsToLL_M-50_HT-600to800_UL18.xml">
+<!ENTITY DYJetsToLL_M-50_HT-800to1200_UL18  SYSTEM "../data/UL18_Preselection/DYJetsToLL_M-50_HT-800to1200_UL18.xml">
+<!ENTITY DYJetsToLL_M-50_HT-1200to2500_UL18 SYSTEM "../data/UL18_Preselection/DYJetsToLL_M-50_HT-1200to2500_UL18.xml">
+<!ENTITY DYJetsToLL_M-50_HT-2500toInf_UL18  SYSTEM "../data/UL18_Preselection/DYJetsToLL_M-50_HT-2500toInf_UL18.xml">
 <!-- Diboson -->
-<!ENTITY WW_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/WW_UL18.xml">
-<!ENTITY WZ_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/WZ_UL18.xml">
-<!ENTITY ZZ_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/ZZ_UL18.xml">
+<!ENTITY WW_UL18 SYSTEM "../data/UL18_Preselection/WW_UL18.xml">
+<!ENTITY WZ_UL18 SYSTEM "../data/UL18_Preselection/WZ_UL18.xml">
+<!ENTITY ZZ_UL18 SYSTEM "../data/UL18_Preselection/ZZ_UL18.xml">
 <!-- ST -->
-<!ENTITY ST_tW_antitop_5f_inclusiveDecays_UL18        SYSTEM "../data/Skimming_datasets_UL18_preselection/ST_tW_antitop_5f_inclusiveDecays_UL18.xml">
-<!ENTITY ST_tW_top_5f_inclusiveDecays_UL18            SYSTEM "../data/Skimming_datasets_UL18_preselection/ST_tW_top_5f_inclusiveDecays_UL18.xml">
-<!ENTITY ST_tW_antitop_5f_NoFullyHadronicDecays_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/ST_tW_antitop_5f_NoFullyHadronicDecays_UL18.xml">
-<!ENTITY ST_tW_top_5f_NoFullyHadronicDecays_UL18      SYSTEM "../data/Skimming_datasets_UL18_preselection/ST_tW_top_5f_NoFullyHadronicDecays_UL18.xml">
-<!ENTITY ST_t-channel_antitop_4f_InclusiveDecays_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/ST_t-channel_antitop_4f_InclusiveDecays_UL18.xml">
-<!ENTITY ST_t-channel_top_4f_InclusiveDecays_UL18     SYSTEM "../data/Skimming_datasets_UL18_preselection/ST_t-channel_top_4f_InclusiveDecays_UL18.xml">
-<!ENTITY ST_s-channel_4f_leptonDecays_UL18            SYSTEM "../data/Skimming_datasets_UL18_preselection/ST_s-channel_4f_leptonDecays_UL18.xml">
+<!-- <!ENTITY ST_tW_antitop_5f_inclusiveDecays_UL18        SYSTEM "../data/UL18_Preselection/ST_tW_antitop_5f_inclusiveDecays_UL18.xml"> -->
+<!-- <!ENTITY ST_tW_top_5f_inclusiveDecays_UL18            SYSTEM "../data/UL18_Preselection/ST_tW_top_5f_inclusiveDecays_UL18.xml"> -->
+<!ENTITY ST_tW_antitop_5f_NoFullyHadronicDecays_UL18  SYSTEM "../data/UL18_Preselection/ST_tW_antitop_5f_NoFullyHadronicDecays_UL18.xml">
+<!ENTITY ST_tW_top_5f_NoFullyHadronicDecays_UL18      SYSTEM "../data/UL18_Preselection/ST_tW_top_5f_NoFullyHadronicDecays_UL18.xml">
+<!ENTITY ST_t-channel_antitop_4f_InclusiveDecays_UL18 SYSTEM "../data/UL18_Preselection/ST_t-channel_antitop_4f_InclusiveDecays_UL18.xml">
+<!ENTITY ST_t-channel_top_4f_InclusiveDecays_UL18     SYSTEM "../data/UL18_Preselection/ST_t-channel_top_4f_InclusiveDecays_UL18.xml">
+<!ENTITY ST_s-channel_4f_leptonDecays_UL18            SYSTEM "../data/UL18_Preselection/ST_s-channel_4f_leptonDecays_UL18.xml">
 <!-- QCD -->
-<!ENTITY QCD_HT50to100_UL18    SYSTEM "../data/Skimming_datasets_UL18_preselection/QCD_HT50to100_UL18.xml">
-<!ENTITY QCD_HT100to200_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/QCD_HT100to200_UL18.xml">
-<!ENTITY QCD_HT200to300_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/QCD_HT200to300_UL18.xml">
-<!ENTITY QCD_HT300to500_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/QCD_HT300to500_UL18.xml">
-<!ENTITY QCD_HT500to700_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/QCD_HT500to700_UL18.xml">
-<!ENTITY QCD_HT700to1000_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/QCD_HT700to1000_UL18.xml">
-<!ENTITY QCD_HT1000to1500_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/QCD_HT1000to1500_UL18.xml">
-<!ENTITY QCD_HT1500to2000_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/QCD_HT1500to2000_UL18.xml">
-<!ENTITY QCD_HT2000toInf_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/QCD_HT2000toInf_UL18.xml">
+<!ENTITY QCD_HT50to100_UL18    SYSTEM "../data/UL18_Preselection/QCD_HT50to100_UL18.xml">
+<!ENTITY QCD_HT100to200_UL18   SYSTEM "../data/UL18_Preselection/QCD_HT100to200_UL18.xml">
+<!ENTITY QCD_HT200to300_UL18   SYSTEM "../data/UL18_Preselection/QCD_HT200to300_UL18.xml">
+<!ENTITY QCD_HT300to500_UL18   SYSTEM "../data/UL18_Preselection/QCD_HT300to500_UL18.xml">
+<!ENTITY QCD_HT500to700_UL18   SYSTEM "../data/UL18_Preselection/QCD_HT500to700_UL18.xml">
+<!ENTITY QCD_HT700to1000_UL18  SYSTEM "../data/UL18_Preselection/QCD_HT700to1000_UL18.xml">
+<!ENTITY QCD_HT1000to1500_UL18 SYSTEM "../data/UL18_Preselection/QCD_HT1000to1500_UL18.xml">
+<!ENTITY QCD_HT1500to2000_UL18 SYSTEM "../data/UL18_Preselection/QCD_HT1500to2000_UL18.xml">
+<!ENTITY QCD_HT2000toInf_UL18  SYSTEM "../data/UL18_Preselection/QCD_HT2000toInf_UL18.xml">
 <!-- ALP -->
-<!ENTITY ALP_ttbar_signal_UL18       SYSTEM "../data/Skimming_datasets_UL18_preselection/ALP_ttbar_signal_UL18.xml">
-<!ENTITY ALP_ttbar_interference_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/ALP_ttbar_interference_UL18.xml">
+<!ENTITY ALP_ttbar_signal_UL18       SYSTEM "../data/UL18_Preselection/ALP_ttbar_signal_UL18.xml">
+<!ENTITY ALP_ttbar_interference_UL18 SYSTEM "../data/UL18_Preselection/ALP_ttbar_interference_UL18.xml">
 <!-- Scalar H 10% -->
-<!ENTITY HscalarToTTTo1L1Nu2J_m365_w36p5_res_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m365_w36p5_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m400_w40p0_res_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m400_w40p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m500_w50p0_res_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m500_w50p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m600_w60p0_res_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m600_w60p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m800_w80p0_res_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m800_w80p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m1000_w100p0_res_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m1000_w100p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m365_w36p5_int_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m365_w36p5_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m400_w40p0_int_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m400_w40p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m500_w50p0_int_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m500_w50p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m600_w60p0_int_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m600_w60p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m800_w80p0_int_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m800_w80p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m1000_w100p0_int_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m1000_w100p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m365_w36p5_res_UL18   SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m365_w36p5_res_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m400_w40p0_res_UL18   SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m400_w40p0_res_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m500_w50p0_res_UL18   SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m500_w50p0_res_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m600_w60p0_res_UL18   SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m600_w60p0_res_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m800_w80p0_res_UL18   SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m800_w80p0_res_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m1000_w100p0_res_UL18 SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m1000_w100p0_res_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m365_w36p5_int_UL18   SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m365_w36p5_int_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m400_w40p0_int_UL18   SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m400_w40p0_int_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m500_w50p0_int_UL18   SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m500_w50p0_int_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m600_w60p0_int_UL18   SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m600_w60p0_int_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m800_w80p0_int_UL18   SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m800_w80p0_int_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m1000_w100p0_int_UL18 SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m1000_w100p0_int_UL18.xml">
 <!-- Pseudoscalar A 10% -->
-<!ENTITY HpseudoToTTTo1L1Nu2J_m365_w36p5_res_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m365_w36p5_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m400_w40p0_res_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m400_w40p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m500_w50p0_res_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m500_w50p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m600_w60p0_res_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m600_w60p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m800_w80p0_res_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m800_w80p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m1000_w100p0_res_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m1000_w100p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m365_w36p5_int_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m365_w36p5_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m400_w40p0_int_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m400_w40p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m500_w50p0_int_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m500_w50p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m600_w60p0_int_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m600_w60p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m800_w80p0_int_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m800_w80p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m1000_w100p0_int_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m1000_w100p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m365_w36p5_res_UL18   SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m365_w36p5_res_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m400_w40p0_res_UL18   SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m400_w40p0_res_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m500_w50p0_res_UL18   SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m500_w50p0_res_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m600_w60p0_res_UL18   SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m600_w60p0_res_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m800_w80p0_res_UL18   SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m800_w80p0_res_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m1000_w100p0_res_UL18 SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m1000_w100p0_res_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m365_w36p5_int_UL18   SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m365_w36p5_int_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m400_w40p0_int_UL18   SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m400_w40p0_int_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m500_w50p0_int_UL18   SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m500_w50p0_int_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m600_w60p0_int_UL18   SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m600_w60p0_int_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m800_w80p0_int_UL18   SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m800_w80p0_int_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m1000_w100p0_int_UL18 SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m1000_w100p0_int_UL18.xml">
 <!-- Scalar H 25% -->
-<!ENTITY HscalarToTTTo1L1Nu2J_m365_w91p25_res_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m365_w91p25_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m400_w100p0_res_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m400_w100p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m500_w125p0_res_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m500_w125p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m600_w150p0_res_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m600_w150p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m800_w200p0_res_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m800_w200p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m1000_w250p0_res_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m1000_w250p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m365_w91p25_int_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m365_w91p25_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m400_w100p0_int_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m400_w100p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m500_w125p0_int_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m500_w125p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m600_w150p0_int_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m600_w150p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m800_w200p0_int_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m800_w200p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m1000_w250p0_int_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m1000_w250p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m365_w91p25_res_UL18  SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m365_w91p25_res_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m400_w100p0_res_UL18  SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m400_w100p0_res_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m500_w125p0_res_UL18  SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m500_w125p0_res_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m600_w150p0_res_UL18  SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m600_w150p0_res_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m800_w200p0_res_UL18  SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m800_w200p0_res_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m1000_w250p0_res_UL18 SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m1000_w250p0_res_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m365_w91p25_int_UL18  SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m365_w91p25_int_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m400_w100p0_int_UL18  SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m400_w100p0_int_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m500_w125p0_int_UL18  SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m500_w125p0_int_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m600_w150p0_int_UL18  SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m600_w150p0_int_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m800_w200p0_int_UL18  SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m800_w200p0_int_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m1000_w250p0_int_UL18 SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m1000_w250p0_int_UL18.xml">
 <!-- Pseudoscalar A 25% -->
-<!ENTITY HpseudoToTTTo1L1Nu2J_m365_w91p25_res_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m365_w91p25_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m400_w100p0_res_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m400_w100p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m500_w125p0_res_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m500_w125p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m600_w150p0_res_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m600_w150p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m800_w200p0_res_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m800_w200p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m1000_w250p0_res_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m1000_w250p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m365_w91p25_int_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m365_w91p25_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m400_w100p0_int_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m400_w100p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m500_w125p0_int_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m500_w125p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m600_w150p0_int_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m600_w150p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m800_w200p0_int_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m800_w200p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m1000_w250p0_int_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m1000_w250p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m365_w91p25_res_UL18  SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m365_w91p25_res_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m400_w100p0_res_UL18  SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m400_w100p0_res_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m500_w125p0_res_UL18  SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m500_w125p0_res_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m600_w150p0_res_UL18  SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m600_w150p0_res_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m800_w200p0_res_UL18  SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m800_w200p0_res_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m1000_w250p0_res_UL18 SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m1000_w250p0_res_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m365_w91p25_int_UL18  SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m365_w91p25_int_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m400_w100p0_int_UL18  SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m400_w100p0_int_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m500_w125p0_int_UL18  SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m500_w125p0_int_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m600_w150p0_int_UL18  SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m600_w150p0_int_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m800_w200p0_int_UL18  SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m800_w200p0_int_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m1000_w250p0_int_UL18 SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m1000_w250p0_int_UL18.xml">
 <!-- Scalar H 2.5% -->
-<!ENTITY HscalarToTTTo1L1Nu2J_m365_w9p125_res_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m365_w9p125_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m400_w10p0_res_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m400_w10p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m500_w12p5_res_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m500_w12p5_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m600_w15p0_res_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m600_w15p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m800_w20p0_res_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m800_w20p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m1000_w25p0_res_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m1000_w25p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m365_w9p125_int_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m365_w9p125_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m400_w10p0_int_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m400_w10p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m500_w12p5_int_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m500_w12p5_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m600_w15p0_int_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m600_w15p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m800_w20p0_int_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m800_w20p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HscalarToTTTo1L1Nu2J_m1000_w25p0_int_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/HscalarToTTTo1L1Nu2J_m1000_w25p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m365_w9p125_res_UL18 SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m365_w9p125_res_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m400_w10p0_res_UL18  SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m400_w10p0_res_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m500_w12p5_res_UL18  SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m500_w12p5_res_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m600_w15p0_res_UL18  SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m600_w15p0_res_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m800_w20p0_res_UL18  SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m800_w20p0_res_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m1000_w25p0_res_UL18 SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m1000_w25p0_res_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m365_w9p125_int_UL18 SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m365_w9p125_int_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m400_w10p0_int_UL18  SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m400_w10p0_int_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m500_w12p5_int_UL18  SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m500_w12p5_int_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m600_w15p0_int_UL18  SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m600_w15p0_int_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m800_w20p0_int_UL18  SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m800_w20p0_int_UL18.xml">
+<!ENTITY HscalarToTTTo1L1Nu2J_m1000_w25p0_int_UL18 SYSTEM "../data/UL18_Preselection/HscalarToTTTo1L1Nu2J_m1000_w25p0_int_UL18.xml">
 <!-- Pseudoscalar A 2.5% -->
-<!ENTITY HpseudoToTTTo1L1Nu2J_m365_w9p125_res_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m365_w9p125_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m400_w10p0_res_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m400_w10p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m500_w12p5_res_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m500_w12p5_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m600_w15p0_res_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m600_w15p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m800_w20p0_res_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m800_w20p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m1000_w25p0_res_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m1000_w25p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m365_w9p125_int_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m365_w9p125_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m400_w10p0_int_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m400_w10p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m500_w12p5_int_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m500_w12p5_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m600_w15p0_int_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m600_w15p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m800_w20p0_int_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m800_w20p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
-<!ENTITY HpseudoToTTTo1L1Nu2J_m1000_w25p0_int_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/HpseudoToTTTo1L1Nu2J_m1000_w25p0_int_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m365_w9p125_res_UL18 SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m365_w9p125_res_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m400_w10p0_res_UL18  SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m400_w10p0_res_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m500_w12p5_res_UL18  SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m500_w12p5_res_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m600_w15p0_res_UL18  SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m600_w15p0_res_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m800_w20p0_res_UL18  SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m800_w20p0_res_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m1000_w25p0_res_UL18 SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m1000_w25p0_res_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m365_w9p125_int_UL18 SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m365_w9p125_int_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m400_w10p0_int_UL18  SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m400_w10p0_int_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m500_w12p5_int_UL18  SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m500_w12p5_int_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m600_w15p0_int_UL18  SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m600_w15p0_int_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m800_w20p0_int_UL18  SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m800_w20p0_int_UL18.xml">
+<!ENTITY HpseudoToTTTo1L1Nu2J_m1000_w25p0_int_UL18 SYSTEM "../data/UL18_Preselection/HpseudoToTTTo1L1Nu2J_m1000_w25p0_int_UL18.xml">
 <!-- RS gluon -->
-<!ENTITY RSGluonToTT_M-500_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/RSGluonToTT_M-500_CP5_pythia8_Summer20UL18_v1.xml">
-<!ENTITY RSGluonToTT_M-1000_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/RSGluonToTT_M-1000_CP5_pythia8_Summer20UL18_v1.xml">
-<!ENTITY RSGluonToTT_M-1500_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/RSGluonToTT_M-1500_CP5_pythia8_Summer20UL18_v1.xml">
-<!ENTITY RSGluonToTT_M-2000_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/RSGluonToTT_M-2000_CP5_pythia8_Summer20UL18_v1.xml">
-<!ENTITY RSGluonToTT_M-2500_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/RSGluonToTT_M-2500_CP5_pythia8_Summer20UL18_v1.xml">
-<!ENTITY RSGluonToTT_M-3000_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/RSGluonToTT_M-3000_CP5_pythia8_Summer20UL18_v1.xml">
-<!ENTITY RSGluonToTT_M-3500_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/RSGluonToTT_M-3500_CP5_pythia8_Summer20UL18_v1.xml">
-<!ENTITY RSGluonToTT_M-4000_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/RSGluonToTT_M-4000_CP5_pythia8_Summer20UL18_v1.xml">
-<!ENTITY RSGluonToTT_M-4500_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/RSGluonToTT_M-4500_CP5_pythia8_Summer20UL18_v1.xml">
-<!ENTITY RSGluonToTT_M-5000_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/RSGluonToTT_M-5000_CP5_pythia8_Summer20UL18_v1.xml">
-<!ENTITY RSGluonToTT_M-5500_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/RSGluonToTT_M-5500_CP5_pythia8_Summer20UL18_v1.xml">
-<!ENTITY RSGluonToTT_M-6000_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/RSGluonToTT_M-6000_CP5_pythia8_Summer20UL18_v1.xml">
+<!ENTITY RSGluonToTT_M-500_UL18  SYSTEM "../data/UL18_Preselection/RSGluonToTT_M-500_UL18.xml">
+<!ENTITY RSGluonToTT_M-1000_UL18 SYSTEM "../data/UL18_Preselection/RSGluonToTT_M-1000_UL18.xml">
+<!ENTITY RSGluonToTT_M-1500_UL18 SYSTEM "../data/UL18_Preselection/RSGluonToTT_M-1500_UL18.xml">
+<!ENTITY RSGluonToTT_M-2000_UL18 SYSTEM "../data/UL18_Preselection/RSGluonToTT_M-2000_UL18.xml">
+<!ENTITY RSGluonToTT_M-2500_UL18 SYSTEM "../data/UL18_Preselection/RSGluonToTT_M-2500_UL18.xml">
+<!ENTITY RSGluonToTT_M-3000_UL18 SYSTEM "../data/UL18_Preselection/RSGluonToTT_M-3000_UL18.xml">
+<!ENTITY RSGluonToTT_M-3500_UL18 SYSTEM "../data/UL18_Preselection/RSGluonToTT_M-3500_UL18.xml">
+<!ENTITY RSGluonToTT_M-4000_UL18 SYSTEM "../data/UL18_Preselection/RSGluonToTT_M-4000_UL18.xml">
+<!ENTITY RSGluonToTT_M-4500_UL18 SYSTEM "../data/UL18_Preselection/RSGluonToTT_M-4500_UL18.xml">
+<!ENTITY RSGluonToTT_M-5000_UL18 SYSTEM "../data/UL18_Preselection/RSGluonToTT_M-5000_UL18.xml">
+<!ENTITY RSGluonToTT_M-5500_UL18 SYSTEM "../data/UL18_Preselection/RSGluonToTT_M-5500_UL18.xml">
+<!ENTITY RSGluonToTT_M-6000_UL18 SYSTEM "../data/UL18_Preselection/RSGluonToTT_M-6000_UL18.xml">
 <!-- ZPrime 10% -->
-<!ENTITY ZPrimeToTT_M400_W40_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M400_W40_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M500_W50_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M500_W50_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M600_W60_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M600_W60_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M700_W70_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M700_W70_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M800_W80_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M800_W80_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M900_W90_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M900_W90_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M1000_W100_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M1000_W100_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M1200_W120_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M1200_W120_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M1400_W140_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M1400_W140_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M1600_W160_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M1600_W160_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M1800_W180_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M1800_W180_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M2000_W200_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M2000_W200_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M2500_W250_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M2500_W250_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M3000_W300_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M3000_W300_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M3500_W350_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M3500_W350_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M4000_W400_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M4000_W400_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M4500_W450_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M4500_W450_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M5000_W500_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M5000_W500_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M6000_W600_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M6000_W600_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M7000_W700_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M7000_W700_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M8000_W800_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M8000_W800_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M9000_W900_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M9000_W900_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
+<!ENTITY ZPrimeToTT_M400_W40_UL18   SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M400_W40_UL18.xml">
+<!ENTITY ZPrimeToTT_M500_W50_UL18   SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M500_W50_UL18.xml">
+<!ENTITY ZPrimeToTT_M600_W60_UL18   SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M600_W60_UL18.xml">
+<!ENTITY ZPrimeToTT_M700_W70_UL18   SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M700_W70_UL18.xml">
+<!ENTITY ZPrimeToTT_M800_W80_UL18   SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M800_W80_UL18.xml">
+<!ENTITY ZPrimeToTT_M900_W90_UL18   SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M900_W90_UL18.xml">
+<!ENTITY ZPrimeToTT_M1000_W100_UL18 SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M1000_W100_UL18.xml">
+<!ENTITY ZPrimeToTT_M1200_W120_UL18 SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M1200_W120_UL18.xml">
+<!ENTITY ZPrimeToTT_M1400_W140_UL18 SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M1400_W140_UL18.xml">
+<!ENTITY ZPrimeToTT_M1600_W160_UL18 SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M1600_W160_UL18.xml">
+<!ENTITY ZPrimeToTT_M1800_W180_UL18 SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M1800_W180_UL18.xml">
+<!ENTITY ZPrimeToTT_M2000_W200_UL18 SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M2000_W200_UL18.xml">
+<!ENTITY ZPrimeToTT_M2500_W250_UL18 SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M2500_W250_UL18.xml">
+<!ENTITY ZPrimeToTT_M3000_W300_UL18 SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M3000_W300_UL18.xml">
+<!ENTITY ZPrimeToTT_M3500_W350_UL18 SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M3500_W350_UL18.xml">
+<!ENTITY ZPrimeToTT_M4000_W400_UL18 SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M4000_W400_UL18.xml">
+<!ENTITY ZPrimeToTT_M4500_W450_UL18 SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M4500_W450_UL18.xml">
+<!-- <!ENTITY ZPrimeToTT_M5000_W500_UL18 SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M5000_W500_UL18.xml">
+<!ENTITY ZPrimeToTT_M6000_W600_UL18 SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M6000_W600_UL18.xml">
+<!ENTITY ZPrimeToTT_M7000_W700_UL18 SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M7000_W700_UL18.xml">
+<!ENTITY ZPrimeToTT_M8000_W800_UL18 SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M8000_W800_UL18.xml">
+<!ENTITY ZPrimeToTT_M9000_W900_UL18 SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M9000_W900_UL18.xml"> -->
 <!-- ZPrime 30% -->
-<!ENTITY ZPrimeToTT_M400_W120_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M400_W120_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M500_W150_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M500_W150_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M600_W180_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M600_W180_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M700_W210_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M700_W210_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M800_W240_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M800_W240_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M900_W270_UL18   SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M900_W270_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M1000_W300_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M1000_W300_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M1200_W360_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M1200_W360_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M1400_W420_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M1400_W420_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M1600_W480_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M1600_W480_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M1800_W540_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M1800_W540_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M2000_W600_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M2000_W600_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M2500_W750_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M2500_W750_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M3000_W900_UL18  SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M3000_W900_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M3500_W1050_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M3500_W1050_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M4000_W1200_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M4000_W1200_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M4500_W1350_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M4500_W1350_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M5000_W1500_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M5000_W1500_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M6000_W1800_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M6000_W1800_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M7000_W2100_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M7000_W2100_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M8000_W2400_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M8000_W2400_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ZPrimeToTT_M9000_W2700_UL18 SYSTEM "../data/Skimming_datasets_UL18_preselection/ZPrimeToTT_M9000_W2700_CP2_madgraph-pythia8_Summer20UL18_v2.xml">
+<!ENTITY ZPrimeToTT_M400_W120_UL18   SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M400_W120_UL18.xml">
+<!ENTITY ZPrimeToTT_M500_W150_UL18   SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M500_W150_UL18.xml">
+<!ENTITY ZPrimeToTT_M600_W180_UL18   SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M600_W180_UL18.xml">
+<!ENTITY ZPrimeToTT_M700_W210_UL18   SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M700_W210_UL18.xml">
+<!ENTITY ZPrimeToTT_M800_W240_UL18   SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M800_W240_UL18.xml">
+<!ENTITY ZPrimeToTT_M900_W270_UL18   SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M900_W270_UL18.xml">
+<!ENTITY ZPrimeToTT_M1000_W300_UL18  SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M1000_W300_UL18.xml">
+<!ENTITY ZPrimeToTT_M1200_W360_UL18  SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M1200_W360_UL18.xml">
+<!ENTITY ZPrimeToTT_M1400_W420_UL18  SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M1400_W420_UL18.xml">
+<!ENTITY ZPrimeToTT_M1600_W480_UL18  SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M1600_W480_UL18.xml">
+<!ENTITY ZPrimeToTT_M1800_W540_UL18  SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M1800_W540_UL18.xml">
+<!ENTITY ZPrimeToTT_M2000_W600_UL18  SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M2000_W600_UL18.xml">
+<!ENTITY ZPrimeToTT_M2500_W750_UL18  SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M2500_W750_UL18.xml">
+<!ENTITY ZPrimeToTT_M3000_W900_UL18  SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M3000_W900_UL18.xml">
+<!ENTITY ZPrimeToTT_M3500_W1050_UL18 SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M3500_W1050_UL18.xml">
+<!ENTITY ZPrimeToTT_M4000_W1200_UL18 SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M4000_W1200_UL18.xml">
+<!ENTITY ZPrimeToTT_M4500_W1350_UL18 SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M4500_W1350_UL18.xml">
+<!-- <!ENTITY ZPrimeToTT_M5000_W1500_UL18 SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M5000_W1500_UL18.xml">
+<!ENTITY ZPrimeToTT_M6000_W1800_UL18 SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M6000_W1800_UL18.xml">
+<!ENTITY ZPrimeToTT_M7000_W2100_UL18 SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M7000_W2100_UL18.xml">
+<!ENTITY ZPrimeToTT_M8000_W2400_UL18 SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M8000_W2400_UL18.xml">
+<!ENTITY ZPrimeToTT_M9000_W2700_UL18 SYSTEM "../data/UL18_Preselection/ZPrimeToTT_M9000_W2700_UL18.xml"> -->
 ]>
 
 <!--
@@ -214,7 +214,7 @@
 
 	<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTPUTdir;/" PostFix="" TargetLumi="&TargetLumi;">
 
-		<<!-- EGamma -->
+		<!-- EGamma -->
 		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_RunA_UL18" Cacheable="&b_Cacheable;">
 			&DATA_EGamma_RunA_UL18;
 			<InputTree Name="AnalysisTree" />
@@ -230,11 +230,11 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_RunD_UL18" Cacheable="&b_Cacheable;">
+		<!-- <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_RunD_UL18" Cacheable="&b_Cacheable;">
 			&DATA_EGamma_RunD_UL18;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
-		</InputData>
+		</InputData> -->
 		<!-- TTbar -->
 		<InputData Lumi="395620274.2531324" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_UL18" Cacheable="&b_Cacheable;">
 			&TTToSemiLeptonic_UL18;
@@ -350,7 +350,7 @@
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
 		<!-- ST -->
-		<InputData Lumi="7026559.400055788" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_inclusiveDecays_UL18" Cacheable="&b_Cacheable;">
+		<!-- <InputData Lumi="7026559.400055788" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_inclusiveDecays_UL18" Cacheable="&b_Cacheable;">
 			&ST_tW_antitop_5f_inclusiveDecays_UL18;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
@@ -359,7 +359,7 @@
 			&ST_tW_top_5f_inclusiveDecays_UL18;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
-		</InputData>
+		</InputData> -->
 		<InputData Lumi="18395780.114452742" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_NoFullyHadronicDecays_UL18" Cacheable="&b_Cacheable;">
 			&ST_tW_antitop_5f_NoFullyHadronicDecays_UL18;
 			<InputTree Name="AnalysisTree" />
@@ -955,13 +955,12 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-
-		<InputData Lumi="" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M5000_W500_UL18" Cacheable="&b_Cacheable;">
+		<!-- <InputData Lumi="" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M5000_W500_UL18" Cacheable="&b_Cacheable;">
 			&ZPrimeToTT_M5000_W500_UL18;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-		<!-- <InputData Lumi="" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M6000_W600_UL18" Cacheable="&b_Cacheable;">
+		<InputData Lumi="" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M6000_W600_UL18" Cacheable="&b_Cacheable;">
 			&ZPrimeToTT_M6000_W600_UL18;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
@@ -1106,7 +1105,7 @@
 			<Item Name="TopPuppiJetCollection"   Value="jetsAk8PuppiSubstructure_SoftDropPuppi"/>
 			<Item Name="METName"                 Value="slimmedMETsPuppi"/>
 			<Item Name="genMETName"              Value="slimmedMETs_GenMET"/>
-			<Item Name="additionalBranches"      Value="jetsAk4CHS CHS_matched hotvrGen" />
+			<Item Name="additionalBranches"      Value="jetsAk4CHS hotvrGen" />
 
 			<Item Name="lumi_file"              Value="/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL18/Cert_314472-325175_13TeV_Legacy2018_Collisions18_JSON_normtag.root"/>
 			<Item Name="lumihists_lumi_per_bin" Value="500.0"/>
@@ -1116,9 +1115,8 @@
 			<Item Name="pileup_directory_data_up"   Value="/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL18/MyDataPileupHistogram_UL18_72383.root"/>
 			<Item Name="pileup_directory_data_down" Value="/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL18/MyDataPileupHistogram_UL18_66017.root"/>
 
-			<Item Name="MCBtagEfficiencies" Value = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/data/2018/BTagMCEfficiencyHists_muon2018.root"/>
-			<Item Name="BTagCalibration"    Value = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL18/reshaping_deepJet_106XUL18_v2.csv"/> <!-- reshape -->
-			<!-- <Item Name="HOTVRTopTagSFs"     Value = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/HOTVR/data/TopTaggingScaleFactors_RunIISummer19UL18_PUPPIv15.root"/> -->
+			<Item Name="BTagCalibration" Value = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/btagging_SFs_UL/reshaping_deepJet_106XUL18_v2.csv"/>
+			<!-- add DeepAK8 top tag SF -->
 
 			<Item Name="NLOCorrections" Value = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/data/"/>
 

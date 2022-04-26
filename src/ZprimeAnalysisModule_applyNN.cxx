@@ -567,7 +567,13 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   }
 
 
-  double electron_pt_low(35.);
+  double electron_pt_low;
+  if(isUL17){
+    electron_pt_low = 38.; // UL17 ele trigger threshold is 35 (HLT_Ele35WPTight _Gsf) -> be above turn on
+  }
+  else{
+    electron_pt_low = 35.;
+  }
   double muon_pt_low(30.);
   double electron_pt_high(120.);
   double muon_pt_high(55.);

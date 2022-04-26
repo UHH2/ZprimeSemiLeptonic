@@ -4,7 +4,7 @@
 #include <UHH2/core/include/AnalysisModule.h>
 #include <UHH2/core/include/Event.h>
 #include <UHH2/core/include/Selection.h>
-#include "UHH2/common/include/PrintingModules.h"
+#include <UHH2/common/include/PrintingModules.h>
 
 #include <UHH2/common/include/CleaningModules.h>
 #include <UHH2/common/include/NSelections.h>
@@ -60,6 +60,7 @@ using namespace uhh2;
 class ZprimeAnalysisModule : public ModuleBASE {
 
 public:
+
   explicit ZprimeAnalysisModule(uhh2::Context&);
   virtual bool process(uhh2::Event&) override;
   void book_histograms(uhh2::Context&, vector<string>);
@@ -69,18 +70,19 @@ protected:
 
   bool debug;
 
-  // scale factors - systematics: new
-  unique_ptr<AnalysisModule> sf_muon_iso_low, sf_muon_iso_high, sf_muon_trigger_low, sf_muon_trigger_high;
-  unique_ptr<AnalysisModule> sf_muon_iso_low_dummy, sf_muon_iso_high_dummy, sf_muon_trigger_low_dummy, sf_muon_trigger_high_dummy;
+  // scale factors
+  unique_ptr<AnalysisModule> sf_muon_iso_low, sf_muon_id_high, sf_muon_trigger_low, sf_muon_trigger_high;
+  unique_ptr<AnalysisModule> sf_muon_iso_low_dummy, sf_muon_id_high_dummy, sf_muon_trigger_low_dummy, sf_muon_trigger_high_dummy;
   unique_ptr<AnalysisModule> sf_ele_id_low, sf_ele_id_high, sf_ele_reco, sf_ele_trigger_low, sf_ele_trigger_high;
   unique_ptr<AnalysisModule> sf_ele_id_low_dummy, sf_ele_id_high_dummy, sf_ele_reco_dummy, sf_ele_trigger_low_dummy, sf_ele_trigger_high_dummy;
+  unique_ptr<AnalysisModule> sf_btagging;
 
   // AnalysisModules
   unique_ptr<AnalysisModule> LumiWeight_module, PUWeight_module, TopPtReweight_module, MCScale_module;
   unique_ptr<AnalysisModule> Corrections_module;
   unique_ptr<AnalysisModule> CustomBTagWeight_module;
 
-  // Taggers
+  // top tagging
   unique_ptr<HOTVRTopTagger> TopTaggerHOTVR;
   unique_ptr<AnalysisModule> hadronic_top;
   unique_ptr<AnalysisModule> sf_toptag;
@@ -149,14 +151,14 @@ protected:
 void ZprimeAnalysisModule::book_histograms(uhh2::Context& ctx, vector<string> tags){
   for(const auto & tag : tags){
     string mytag = tag + "_Skimming";
-    mytag = tag+"_General";
+    mytag = tag + "_General";
     book_HFolder(mytag, new ZprimeSemiLeptonicHists(ctx,mytag));
   }
 }
 
 void ZprimeAnalysisModule::fill_histograms(uhh2::Event& event, string tag){
   string mytag = tag + "_Skimming";
-  mytag = tag+"_General";
+  mytag = tag + "_General";
   HFolder(mytag)->fill(event);
 }
 
@@ -169,10 +171,13 @@ void ZprimeAnalysisModule::fill_histograms(uhh2::Event& event, string tag){
 */
 
 ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
-  debug = false; // false/true
+
+  debug = false;
+
   for(auto & kv : ctx.get_all()){
     cout << " " << kv.first << " = " << kv.second << endl;
   }
+
   // Configuration
   isMC = (ctx.get("dataset_type") == "MC");
   ishotvr = (ctx.get("is_hotvr") == "true");
@@ -219,7 +224,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
     MET_cut = 50;
     HT_lep_cut = 0;
   }
-  if(isElectron){ //semileptonic electron channel
+  if(isElectron){ // semileptonic electron channel
     trigger_ele_B = "HLT_Ele115_CaloIdVT_GsfTrkIdT_v*";
     if(isUL16preVFP || isUL16postVFP){
       trigger_ele_A = "HLT_Ele27_WPTight_Gsf_v*";
@@ -249,14 +254,20 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   }
 
 
-  double electron_pt_low(35.);
+  double electron_pt_low;
+  if(isUL17){
+    electron_pt_low = 38.; // UL17 ele trigger threshold is 35 (HLT_Ele35WPTight _Gsf) -> be above turn on
+  }
+  else{
+    electron_pt_low = 35.;
+  }
   double muon_pt_low(30.);
   double electron_pt_high(120.);
   double muon_pt_high(55.);
 
   const MuonId muonID_low(PtEtaCut(muon_pt_low, 2.4));
-  const ElectronId electronID_low(PtEtaSCCut(electron_pt_low, 2.5));
   const MuonId muonID_high(PtEtaCut(muon_pt_high, 2.4));
+  const ElectronId electronID_low(PtEtaSCCut(electron_pt_low, 2.5));
   const ElectronId electronID_high(PtEtaSCCut(electron_pt_high, 2.5));
   const TopJetId toptagID = AndId<TopJet>(HOTVRTopTag(0.8, 140.0, 220.0, 50.0), Tau32Groomed(0.56));
 
@@ -276,15 +287,19 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   TopPtReweight_module.reset(new TopPtReweighting(ctx, a_toppt, b_toppt, ctx.get("Systematic_TopPt_a", "nominal"), ctx.get("Systematic_TopPt_b", "nominal"), "", ""));
   MCScale_module.reset(new MCScaleVariation(ctx));
   hadronic_top.reset(new HadronicTop(ctx));
-  //sf_toptag.reset(new HOTVRScaleFactor(ctx, toptagID, ctx.get("Sys_TopTag", "nominal"), "HadronicTop", "TopTagSF", "HOTVRTopTagSFs"));
+  // sf_toptag.reset(new HOTVRScaleFactor(ctx, toptagID, ctx.get("Sys_TopTag", "nominal"), "HadronicTop", "TopTagSF", "HOTVRTopTagSFs"));
   Corrections_module.reset(new NLOCorrections(ctx));
+
+  // b-tagging SFs
+  // sf_btagging.reset(new MCBTagDiscriminantReweighting(ctx, BTag::algo::DEEPJET));
+
   hist_BTagMCEfficiency.reset(new BTagMCEfficiencyHists(ctx,"BTagMCEfficiency", id_btag));
-  //CustomBTagWeight_module.reset(new CustomMCBTagDiscriminantReweighting(ctx, btag_algo, "jets", Sys_btag,"iterativefit","","BTagCalibration"));
+  CustomBTagWeight_module.reset(new CustomMCBTagDiscriminantReweighting(ctx, btag_algo, "jets", Sys_btag, "iterativefit", "", "BTagCalibration"));
 
 
-  // set lepton scale factors: see common/include/LeptonScaleFactors.{h,cxx}
-  sf_muon_iso_low.reset(new uhh2::MuonIsoScaleFactors(ctx, Muon::Selector::PFIsoTight, Muon::Selector::CutBasedIdTight));
-  sf_muon_iso_high.reset(new uhh2::MuonIsoScaleFactors(ctx, Muon::Selector::TkIsoLoose, Muon::Selector::CutBasedIdGlobalHighPt));
+  // set lepton scale factors: see UHH2/common/include/LeptonScaleFactors.h
+  sf_muon_iso_low.reset(new uhh2::MuonIsoScaleFactors(ctx, Muon::Selector::PFIsoTight, Muon::Selector::CutBasedIdTight, true));
+  sf_muon_id_high.reset(new uhh2::MuonIdScaleFactors(ctx, Muon::Selector::CutBasedIdGlobalHighPt, true));
   sf_muon_trigger_low.reset(new uhh2::MuonTriggerScaleFactors(ctx, false, true));
   sf_muon_trigger_high.reset(new uhh2::MuonTriggerScaleFactors(ctx, true, true));
   sf_ele_id_low.reset(new uhh2::ElectronIdScaleFactors(ctx, Electron::tag::mvaEleID_Fall17_iso_V2_wp80, true));
@@ -293,7 +308,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
 
   // dummies (needed to aviod set value errors)
   sf_muon_iso_low_dummy.reset(new uhh2::MuonIsoScaleFactors(ctx, boost::none, boost::none, boost::none, boost::none, boost::none, true));
-  sf_muon_iso_high_dummy.reset(new uhh2::MuonIsoScaleFactors(ctx, boost::none, boost::none, boost::none, boost::none, boost::none, true));
+  sf_muon_id_high_dummy.reset(new uhh2::MuonIdScaleFactors(ctx, boost::none, boost::none, boost::none, boost::none, true));
   sf_muon_trigger_low_dummy.reset(new uhh2::MuonTriggerScaleFactors(ctx, boost::none, boost::none, boost::none, boost::none, boost::none, true));
   sf_muon_trigger_high_dummy.reset(new uhh2::MuonTriggerScaleFactors(ctx, boost::none, boost::none, boost::none, boost::none, boost::none, true));
   sf_ele_id_low_dummy.reset(new uhh2::ElectronIdScaleFactors(ctx, boost::none, boost::none, boost::none, boost::none, true));
@@ -368,9 +383,9 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
 
   TopJetBtagSubjet_selection.reset(new ZprimeBTagFatSubJetSelection(ctx));
 
-  //PUPPI CHS match modules & hists
-  AK4PuppiCHS_matching.reset(new PuppiCHS_matching(ctx));
-  AK4PuppiCHS_BTagging.reset(new PuppiCHS_BTagging(ctx));
+  // PUPPI CHS match modules & hists
+  AK4PuppiCHS_matching.reset(new PuppiCHS_matching(ctx)); // match AK4 PUPPI jets to AK$ CHS jets for b-tagging
+  AK4PuppiCHS_BTagging.reset(new PuppiCHS_BTagging(ctx)); // b-tagging on matched CHS jets
   h_CHSMatchHists.reset(new ZprimeSemiLeptonicCHSMatchHists(ctx, "CHSMatch"));
   h_CHSMatchHists_afterBTag.reset(new ZprimeSemiLeptonicCHSMatchHists(ctx, "CHSMatch_afterBTag"));
   h_CHSMatchHists_afterBTagSF.reset(new ZprimeSemiLeptonicCHSMatchHists(ctx, "CHSMatch_afterBTagSF"));
@@ -437,7 +452,8 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   if(ishotvr){
     TopTaggerHOTVR->process(event);
     hadronic_top->process(event);
-  } else if(isdeepAK8){
+  }
+  else if(isdeepAK8){
     TopTaggerDeepAK8->process(event);
   }
 
@@ -535,16 +551,16 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   if(isMuon){
     if(muon_is_low){
       sf_muon_iso_low->process(event);
-      sf_muon_iso_high_dummy->process(event);
+      sf_muon_id_high_dummy->process(event);
     }
     else if(muon_is_high){
       sf_muon_iso_low_dummy->process(event);
-      sf_muon_iso_high->process(event);
+      sf_muon_id_high->process(event);
     }
     fill_histograms(event, "IsoMuon_SF");
   }
   if(isElectron){
-    sf_muon_iso_high_dummy->process(event);
+    sf_muon_id_high_dummy->process(event);
     sf_muon_iso_low_dummy->process(event);
   }
 
@@ -713,14 +729,18 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   // BTag MC efficiency
   if(isMC) hist_BTagMCEfficiency->fill(event);
 
-  // Apply min 1 b-tag medium wp - on matched CHS jet
+  // b-tagging: >= 1 b-tag medium WP (on matched CHS jet)
   if(!AK4PuppiCHS_BTagging->passes(event)) return false;
   fill_histograms(event, "Btags1");
   h_CHSMatchHists_afterBTag->fill(event);
-  ////btag shape sf (Ak4 chs jets)
-  //CustomBTagWeight_module->process(event);
-  //fill_histograms(event, "Btags1_SF");
-  //h_CHSMatchHists_afterBTagSF->fill(event);
+
+  // btag shape sf (Ak4 chs jets)
+  // new: using new modules, without PUPPI-CHS matching
+  // sf_btagging->process(event);
+  // old: using custom modules, with PUPPI-CHS matching
+  CustomBTagWeight_module->process(event);
+  h_CHSMatchHists_afterBTagSF->fill(event);
+  fill_histograms(event, "Btags1_SF");
 
 
   CandidateBuilder->process(event);

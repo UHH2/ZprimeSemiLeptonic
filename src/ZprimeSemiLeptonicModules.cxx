@@ -81,7 +81,7 @@ vector<LorentzVector> reconstruct_neutrino(const LorentzVector & lepton, const L
 ZprimeCandidateBuilder::ZprimeCandidateBuilder(uhh2::Context& ctx, TString mode, float minDR) : minDR_(minDR), mode_(mode){
 
   h_ZprimeCandidates_ = ctx.get_handle< vector<ZprimeCandidate> >("ZprimeCandidates");
-  
+
   if(mode_ == "deepAK8"){
   h_AK8TopTags = ctx.get_handle<std::vector<TopJet>>("DeepAK8TopTags");
   h_AK8TopTagsPtr = ctx.get_handle<std::vector<const TopJet*>>("DeepAK8TopTagsPtr");
@@ -90,7 +90,7 @@ ZprimeCandidateBuilder::ZprimeCandidateBuilder(uhh2::Context& ctx, TString mode,
   h_AK8TopTagsPtr = ctx.get_handle<std::vector<const TopJet*>>("HOTVRTopTagsPtr");
   }
 
-  if(mode_ != "hotvr" && mode_ != "deepAK8") throw runtime_error("In ZprimeCandidateBuilder::ZprimeCandidateBuilder(): 'mode' must be 'hotvr' or 'deepAK8'"); 
+  if(mode_ != "hotvr" && mode_ != "deepAK8") throw runtime_error("In ZprimeCandidateBuilder::ZprimeCandidateBuilder(): 'mode' must be 'hotvr' or 'deepAK8'");
 
 }
 
@@ -129,7 +129,7 @@ bool ZprimeCandidateBuilder::process(uhh2::Event& event){
 
   vector<bool> overlap_with_lepton;
   double maxDeltaR = -1;
-  if(mode_ == "deepAK8"){ 
+  if(mode_ == "deepAK8"){
     for(const TopJet & toptag : TopTags){
       bool overlap = true;
       if(deltaR(lepton, toptag) > 0.8) overlap = false;
@@ -945,7 +945,7 @@ Variables_NN::Variables_NN(uhh2::Context& ctx, TString mode): mode_(mode){
   h_Ak4_j6_m = ctx.declare_event_output<float>  ("Ak4_j6_m");
   h_Ak4_j6_deepjetbscore = ctx.declare_event_output<float>  ("Ak4_j6_deepjetbscore");
 
-/// AK8 JETS  
+/// AK8 JETS
   if(mode_ == "deepAK8"){
   h_N_Ak8 = ctx.declare_event_output<float> ("N_Ak8");
 
@@ -973,7 +973,7 @@ Variables_NN::Variables_NN(uhh2::Context& ctx, TString mode): mode_(mode){
   h_Ak8_j3_tau21 = ctx.declare_event_output<float>("Ak8_j3_tau21");
   h_Ak8_j3_tau32 = ctx.declare_event_output<float>("Ak8_j3_tau32");
   }else if(mode_ == "hotvr"){
-///  HOTVR JETS  
+///  HOTVR JETS
   h_N_HOTVR = ctx.declare_event_output<float> ("N_HOTVR");
 
   h_HOTVR_j1_pt = ctx.declare_event_output<float> ("HOTVR_j1_pt");
@@ -1481,7 +1481,7 @@ bool TopPtReweighting::process(uhh2::Event& event){
 PuppiCHS_matching::PuppiCHS_matching(uhh2::Context& ctx){
 
   h_CHSjets = ctx.get_handle< std::vector<Jet> >("jetsAk4CHS");
-  h_CHS_matched_    = ctx.declare_event_output<vector<Jet>>("CHS_matched");
+  h_CHS_matched_ = ctx.declare_event_output<vector<Jet>>("CHS_matched");
 
 }
 
@@ -1491,13 +1491,13 @@ bool PuppiCHS_matching::process(uhh2::Event& event){
   std::vector<Jet> matched_jets;
   std::vector<Jet> matched_jets_PUPPI;
 
-  for(const Jet & jet : *event.jets){
+  for(const Jet & jet : *event.jets){ // PUPPI jets
      double deltaR_min = 99;
 
-     for(const Jet & CHSjet : CHSjets){
+     for(const Jet & CHSjet : CHSjets){ // CHS jets
         double deltaR_CHS = deltaR(jet,CHSjet);
         if(deltaR_CHS<deltaR_min) deltaR_min = deltaR_CHS;
-     } //CHS loop
+     } // end CHS loop
 
      if(deltaR_min>0.2) continue;
 
@@ -1509,7 +1509,7 @@ bool PuppiCHS_matching::process(uhh2::Event& event){
      }
      }
 
-  } // PUPPI loop
+  } // end PUPPI loop
   std::swap(matched_jets_PUPPI, *event.jets);
   event.set(h_CHS_matched_, matched_jets);
   if(event.jets->size()==0) return false;

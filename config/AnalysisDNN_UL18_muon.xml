@@ -44,8 +44,8 @@
 <!ENTITY WZ_UL18 SYSTEM "../data/Skimming_datasets_UL18_muon/WZ_UL18.xml">
 <!ENTITY ZZ_UL18 SYSTEM "../data/Skimming_datasets_UL18_muon/ZZ_UL18.xml">
 <!-- ST -->
-<!ENTITY ST_tW_antitop_5f_inclusiveDecays_UL18        SYSTEM "../data/Skimming_datasets_UL18_muon/ST_tW_antitop_5f_inclusiveDecays_UL18.xml">
-<!ENTITY ST_tW_top_5f_inclusiveDecays_UL18            SYSTEM "../data/Skimming_datasets_UL18_muon/ST_tW_top_5f_inclusiveDecays_UL18.xml">
+<!-- <!ENTITY ST_tW_antitop_5f_inclusiveDecays_UL18        SYSTEM "../data/Skimming_datasets_UL18_muon/ST_tW_antitop_5f_inclusiveDecays_UL18.xml"> -->
+<!-- <!ENTITY ST_tW_top_5f_inclusiveDecays_UL18            SYSTEM "../data/Skimming_datasets_UL18_muon/ST_tW_top_5f_inclusiveDecays_UL18.xml"> -->
 <!ENTITY ST_tW_antitop_5f_NoFullyHadronicDecays_UL18  SYSTEM "../data/Skimming_datasets_UL18_muon/ST_tW_antitop_5f_NoFullyHadronicDecays_UL18.xml">
 <!ENTITY ST_tW_top_5f_NoFullyHadronicDecays_UL18      SYSTEM "../data/Skimming_datasets_UL18_muon/ST_tW_top_5f_NoFullyHadronicDecays_UL18.xml">
 <!ENTITY ST_t-channel_antitop_4f_InclusiveDecays_UL18 SYSTEM "../data/Skimming_datasets_UL18_muon/ST_t-channel_antitop_4f_InclusiveDecays_UL18.xml">
@@ -351,7 +351,7 @@
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
 		<!-- ST -->
-		<InputData Lumi="7026559.400055788" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_inclusiveDecays_UL18" Cacheable="&b_Cacheable;">
+		<!-- <InputData Lumi="7026559.400055788" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_inclusiveDecays_UL18" Cacheable="&b_Cacheable;">
 			&ST_tW_antitop_5f_inclusiveDecays_UL18;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
@@ -360,7 +360,7 @@
 			&ST_tW_top_5f_inclusiveDecays_UL18;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
-		</InputData>
+		</InputData> -->
 		<InputData Lumi="18395780.114452742" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_NoFullyHadronicDecays_UL18" Cacheable="&b_Cacheable;">
 			&ST_tW_antitop_5f_NoFullyHadronicDecays_UL18;
 			<InputTree Name="AnalysisTree" />
@@ -1107,7 +1107,6 @@
 			<Item Name="TopPuppiJetCollection"   Value="jetsAk8PuppiSubstructure_SoftDropPuppi"/>
 			<Item Name="METName"                 Value="slimmedMETsPuppi"/>
 			<Item Name="genMETName"              Value="slimmedMETs_GenMET"/>
-			<Item Name="additionalBranches"      Value="jetsAk4CHS CHS_matched hotvrGen" />
 
 			<Item Name="lumi_file"              Value="/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL18/Cert_314472-325175_13TeV_Legacy2018_Collisions18_JSON_normtag.root"/>
 			<Item Name="lumihists_lumi_per_bin" Value="500.0"/>
@@ -1117,9 +1116,8 @@
 			<Item Name="pileup_directory_data_up"   Value="/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL18/MyDataPileupHistogram_UL18_72383.root"/>
 			<Item Name="pileup_directory_data_down" Value="/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL18/MyDataPileupHistogram_UL18_66017.root"/>
 
-			<Item Name="MCBtagEfficiencies" Value = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/data/2018/BTagMCEfficiencyHists_muon2018.root"/>
-			<Item Name="BTagCalibration"    Value = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL18/reshaping_deepJet_106XUL18_v2.csv"/> <!-- reshape -->
-			<Item Name="HOTVRTopTagSFs"     Value = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/HOTVR/data/TopTaggingScaleFactors_RunIISummer19UL18_PUPPIv15.root"/>
+			<Item Name="BTagCalibration" Value = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/btagging_SFs_UL/reshaping_deepJet_106XUL18_v2.csv"/>
+			<!-- add DeepAK8 top tag SF -->
 
 			<Item Name="NLOCorrections" Value = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/data/"/>
 
@@ -1127,7 +1125,8 @@
 			<Item Name="is_deepAK8" Value="&IS_DEEPAK8;"/>
 			<Item Name="is_looser_selection" Value="&IS_LOOSER_SELECTION;"/>
 
-			<Item Name="additionalBranches" Value=" Ak4_j1_E Ak4_j1_eta Ak4_j1_m Ak4_j1_phi Ak4_j1_pt Ak4_j1_deepjetbscore
+			<Item Name="additionalBranches" Value="jetsAk4CHS CHS_matched hotvrGen
+				Ak4_j1_E Ak4_j1_eta Ak4_j1_m Ak4_j1_phi Ak4_j1_pt Ak4_j1_deepjetbscore
 				Ak4_j2_E Ak4_j2_eta Ak4_j2_m Ak4_j2_phi Ak4_j2_pt Ak4_j2_deepjetbscore
 				Ak4_j3_E Ak4_j3_eta Ak4_j3_m Ak4_j3_phi Ak4_j3_pt Ak4_j3_deepjetbscore
 				Ak4_j4_E Ak4_j4_eta Ak4_j4_m Ak4_j4_phi Ak4_j4_pt Ak4_j4_deepjetbscore

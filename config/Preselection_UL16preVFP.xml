@@ -52,8 +52,8 @@
 <!ENTITY WZ_UL16preVFP SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16preVFP/WZ_CP5_pythia8_Summer20UL16APV_v1.xml">
 <!ENTITY ZZ_UL16preVFP SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16preVFP/ZZ_CP5_pythia8_Summer20UL16APV_v1.xml">
 <!-- ST -->
-<!ENTITY ST_tW_antitop_5f_inclusiveDecays_UL16preVFP        SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16preVFP/ST_tW_antitop_5f_inclusiveDecays_CP5_powheg-pythia8_Summer20UL16APV_v1.xml">
-<!ENTITY ST_tW_top_5f_inclusiveDecays_UL16preVFP            SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16preVFP/ST_tW_top_5f_inclusiveDecays_CP5_powheg-pythia8_Summer20UL16APV_v1.xml">
+<!-- <!ENTITY ST_tW_antitop_5f_inclusiveDecays_UL16preVFP        SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16preVFP/ST_tW_antitop_5f_inclusiveDecays_CP5_powheg-pythia8_Summer20UL16APV_v1.xml"> -->
+<!-- <!ENTITY ST_tW_top_5f_inclusiveDecays_UL16preVFP            SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16preVFP/ST_tW_top_5f_inclusiveDecays_CP5_powheg-pythia8_Summer20UL16APV_v1.xml"> -->
 <!ENTITY ST_tW_antitop_5f_NoFullyHadronicDecays_UL16preVFP  SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16preVFP/ST_tW_antitop_5f_NoFullyHadronicDecays_CP5_powheg-pythia8_Summer20UL16APV_v1.xml">
 <!ENTITY ST_tW_top_5f_NoFullyHadronicDecays_UL16preVFP      SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16preVFP/ST_tW_top_5f_NoFullyHadronicDecays_CP5_powheg-pythia8_Summer20UL16APV_v1.xml">
 <!ENTITY ST_t-channel_antitop_4f_InclusiveDecays_UL16preVFP SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16preVFP/ST_t-channel_antitop_4f_InclusiveDecays_CP5_powheg-madspin-pythia8_Summer20UL16APV_v3.xml">
@@ -415,7 +415,7 @@
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
 		<!-- ST -->
-		<InputData Lumi="2085532.5289818689" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_inclusiveDecays_UL16preVFP" Cacheable="&b_Cacheable;">
+		<!-- <InputData Lumi="2085532.5289818689" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_inclusiveDecays_UL16preVFP" Cacheable="&b_Cacheable;">
 			&ST_tW_antitop_5f_inclusiveDecays_UL16preVFP;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
@@ -424,7 +424,7 @@
 			&ST_tW_top_5f_inclusiveDecays_UL16preVFP;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
-		</InputData>
+		</InputData> -->
 		<InputData Lumi="5304489.65599965" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_NoFullyHadronicDecays_UL16preVFP" Cacheable="&b_Cacheable;">
 			&ST_tW_antitop_5f_NoFullyHadronicDecays_UL16preVFP;
 			<InputTree Name="AnalysisTree" />
@@ -1169,7 +1169,7 @@
 			<Item Name="TopPuppiJetCollection"   Value="jetsAk8PuppiSubstructure_SoftDropPuppi"/>
 			<Item Name="METName"                 Value="slimmedMETsPuppi"/>
 			<Item Name="genMETName"              Value="slimmedMETs_GenMET"/>
-			<Item Name="additionalBranches"      Value="jetsAk4CHS CHS_matched hotvrGen" />
+			<Item Name="additionalBranches"      Value="jetsAk4CHS hotvrGen" />
 
 			<Item Name="lumi_file"              Value="/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL16preVFP/Cert_271036-284044_13TeV_Legacy2016_Collisions16_JSON_UL16preVFP_normtag.root"/>
 			<Item Name="lumihists_lumi_per_bin" Value="500.0"/>

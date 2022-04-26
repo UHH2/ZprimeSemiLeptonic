@@ -45,8 +45,8 @@
 <!ENTITY WZ_UL17 SYSTEM "../data/Skimming_datasets_UL17_muon/MC_WZ_UL17.xml">
 <!ENTITY ZZ_UL17 SYSTEM "../data/Skimming_datasets_UL17_muon/MC_ZZ_UL17.xml">
 <!-- ST -->
-<!ENTITY ST_tW_antitop_5f_inclusiveDecays_UL17        SYSTEM "../data/Skimming_datasets_UL17_muon/MC_ST_tW_antitop_5f_inclusiveDecays_UL17.xml">
-<!ENTITY ST_tW_top_5f_inclusiveDecays_UL17            SYSTEM "../data/Skimming_datasets_UL17_muon/MC_ST_tW_top_5f_inclusiveDecays_UL17.xml">
+<!-- <!ENTITY ST_tW_antitop_5f_inclusiveDecays_UL17        SYSTEM "../data/Skimming_datasets_UL17_muon/MC_ST_tW_antitop_5f_inclusiveDecays_UL17.xml"> -->
+<!-- <!ENTITY ST_tW_top_5f_inclusiveDecays_UL17            SYSTEM "../data/Skimming_datasets_UL17_muon/MC_ST_tW_top_5f_inclusiveDecays_UL17.xml"> -->
 <!ENTITY ST_tW_antitop_5f_NoFullyHadronicDecays_UL17  SYSTEM "../data/Skimming_datasets_UL17_muon/MC_ST_tW_antitop_5f_NoFullyHadronicDecays_UL17.xml">
 <!ENTITY ST_tW_top_5f_NoFullyHadronicDecays_UL17      SYSTEM "../data/Skimming_datasets_UL17_muon/MC_ST_tW_top_5f_NoFullyHadronicDecays_UL17.xml">
 <!ENTITY ST_t-channel_antitop_4f_InclusiveDecays_UL17 SYSTEM "../data/Skimming_datasets_UL17_muon/MC_ST_t-channel_antitop_4f_InclusiveDecays_UL17.xml">
@@ -357,7 +357,7 @@
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
 		<!-- ST -->
-		<InputData Lumi="5144945.79944212" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_inclusiveDecays_UL17" Cacheable="&b_Cacheable;">
+		<!-- <InputData Lumi="5144945.79944212" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_inclusiveDecays_UL17" Cacheable="&b_Cacheable;">
 			&ST_tW_antitop_5f_inclusiveDecays_UL17;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
@@ -366,7 +366,7 @@
 			&ST_tW_top_5f_inclusiveDecays_UL17;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
-		</InputData>
+		</InputData> -->
 		<InputData Lumi="14084075.638929343" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_NoFullyHadronicDecays_UL17" Cacheable="&b_Cacheable;">
 			&ST_tW_antitop_5f_NoFullyHadronicDecays_UL17;
 			<InputTree Name="AnalysisTree" />
@@ -1122,9 +1122,8 @@
 			<Item Name="pileup_directory_data_up"    Value="/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL17/MyDataPileupHistogram_UL17_72383.root" />
 			<Item Name="pileup_directory_data_down"  Value="/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL17/MyDataPileupHistogram_UL17_66017.root" />
 
-			<!--<Item Name="MCBtagEfficiencies" Value = "/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/data/2018/BTagMCEfficiencyHists_muon2018.root" />-->
-			<Item Name="BTagCalibration" Value = "/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL17/reshaping_deepJet_106XUL17_v3.csv" /> <!--reshape -->
-			<Item Name="HOTVRTopTagSFs"  Value = "/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/HOTVR/data/TopTaggingScaleFactors_RunIISummer19UL17_PUPPIv15.root " />
+			<Item Name="BTagCalibration" Value = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/btagging_SFs_UL/reshaping_deepJet_106XUL17_v3.csv"/>
+			<!-- add DeepAK8 top tag SF -->
 
 			<Item Name="NLOCorrections" Value = "/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/data/" />
 
