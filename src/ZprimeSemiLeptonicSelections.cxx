@@ -92,7 +92,7 @@ TTbarSemiLepMatchableSelection::TTbarSemiLepMatchableSelection(){
   thad =  GenParticle(); tlep =  GenParticle();
   lepton =  GenParticle(); neutrino =  GenParticle();
   Whadd1 =  GenParticle(); Whadd2 =  GenParticle();
-}  
+}
 bool TTbarSemiLepMatchableSelection::passes(const Event & event){
   if(event.isRealData) return false;
   assert(event.genparticles);
@@ -534,7 +534,7 @@ if( (event.isRealData && event.run >= min_runnum) || (!event.isRealData) ){
    for(const auto & toppuppijet : *event.toppuppijets){
       if ( toppuppijet.eta() < eta_up && toppuppijet.eta() > eta_down && toppuppijet.phi() < phi_up && toppuppijet.phi() > phi_down) return false;
    }
-} 
+}
 return true;
 }
 
@@ -580,7 +580,7 @@ return pass;
 
 PuppiCHS_BTagging::PuppiCHS_BTagging(Context& ctx){
 
-  h_CHSjets_matched = ctx.get_handle< std::vector<Jet> >("CHS_matched");
+  h_CHSjets_matched = ctx.get_handle<std::vector<Jet>>("CHS_matched");
 
   BTag::algo btag_algo = BTag::DEEPJET;
   BTag::wp btag_wp = BTag::WP_MEDIUM;

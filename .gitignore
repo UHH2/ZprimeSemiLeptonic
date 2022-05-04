@@ -14,4 +14,5 @@ obj/*
 .fuse_*
 *.bak
 config/workdir_*
+config/jobTempOutput_*
 plotting/*

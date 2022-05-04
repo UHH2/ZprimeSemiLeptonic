@@ -1,7 +1,8 @@
 {
   // options
   bool logyaxis   = true; // true/false
-  bool afterDNN   = true; // true/false (false: before DNN, after full selection)
+  bool afterDNN   = false; // true/false (false: before DNN, after full selection)
+  TString year    = "combination"; // UL18/combination
   TString channel = "combination"; // electron/muon/combination
   TString region  = "SR1T"; // SR0T/SR1T/CR1/CR2
 
@@ -22,8 +23,8 @@
   double x_axis_lowerBound = 0;
   double x_axis_upperBound = 5E+03;
   // y axis range
-  double y_axis_lowerBound = 0.4;
-  double y_axis_upperBound = 5E+07;
+  double y_axis_lowerBound = 1;
+  double y_axis_upperBound = 5E+08;
 
 
   cout << endl;
@@ -42,12 +43,22 @@
   // after full selection or DNN
   TString dir;
   if(afterDNN){
-    dir = "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/UL18/" + channel + "/ZPrime_DeepAK8_afterDNN/";
+    if(year == "UL18"){
+      dir = "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/" + year + "/" + channel + "/ZPrime_DeepAK8_afterDNN/";
+    }
+    else if (year == "combination"){
+      dir = "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/" + year + "/ZPrime_DeepAK8_afterDNN/";
+    }
   }
   else{
-    if(channel == "muon")        dir = "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/UL18/" + channel + "/ZPrime_DeepAK8/NOMINAL/";
-    if(channel == "electron")    dir = "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/UL18/" + channel + "/ZPrime_DeepAK8/";
-    if(channel == "combination") dir = "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/UL18/" + channel + "/ZPrime_DeepAK8/";
+    if(year == "UL18"){
+      if(channel == "muon")        dir = "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/" + year + "/" + channel + "/ZPrime_DeepAK8/NOMINAL/";
+      if(channel == "electron")    dir = "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/" + year + "/" + channel + "/ZPrime_DeepAK8/";
+      if(channel == "combination") dir = "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/" + year + "/" + channel + "/ZPrime_DeepAK8/";
+    }
+    else if(year == "combination"){
+      dir = "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/" + year + "/ZPrime_DeepAK8/";
+    }
   }
   TString histname = "M_Zprime_rebin5";
 
@@ -149,8 +160,8 @@
 
   // scaling
   double f_a = 5.0;
-  double c_G = 5.0;
-  double c_Phi = 5.0;
+  double c_G = 7.5;
+  double c_Phi = 7.5;
   double C = abs((c_G * c_Phi));
   double k = C / pow(f_a,2);
   double mu = pow(k,2);
@@ -189,7 +200,7 @@
   // lumi tag
   double x_pos = 0.95;
   double y_pos = 0.957;
-  TLatex *lumitag = new TLatex(3.5,24,"59.8 fb^{-1} (13 TeV)");
+  TLatex *lumitag = new TLatex(3.5,24,"138 fb^{-1} (13 TeV)");
   lumitag->SetNDC();
   lumitag->SetTextAlign(31);
   lumitag->SetX(x_pos);
@@ -210,7 +221,7 @@
   channeltag->SetLineColor(kBlack);
   channeltag->SetLineWidth(1);
   // legend
-  x_pos  = 0.49;
+  x_pos  = 0.46;
   y_pos  = 0.64;
   double x_width =  0.3;
   double y_width =  0.25;
@@ -230,7 +241,7 @@
   legend->AddEntry(h_diboson        ,"Diboson"                                    ,"f");
   // legend->AddEntry(h_ALPinterference,"ALP pure interference #times (-1)"          ,"l");
   // legend->AddEntry(h_ALPsignal      ,"ALP pure signal"                            ,"l");
-  legend->AddEntry(h_bkgplusALP     ,"SM + ALP incl. interference (c_{i}/f_{a}=1)","l");
+  legend->AddEntry(h_bkgplusALP     ,"SM + ALP incl. interference (c_{i}/f_{a}=1.5)","l");
 
   // CMS logo
   x_pos = 0.18;
@@ -378,8 +389,8 @@
   h_ratio->GetYaxis()->SetLabelSize(upperpad_titlesize * 10/3);
   // h_ratio->GetYaxis()->SetRangeUser(0.5,1.5);
   // h_ratio->GetYaxis()->SetNdivisions(-502);
-  h_ratio->SetMinimum(0.74);
-  h_ratio->SetMaximum(1.26);
+  h_ratio->SetMinimum(0.71);
+  h_ratio->SetMaximum(1.29);
 
   c1->Modified();
 
@@ -396,12 +407,22 @@
 
 
   if(logyaxis){
-    if(afterDNN) c1->SaveAs(save_dir + "mttbar_" + region + "_" + channel + "_logscale.pdf");
-    else         c1->SaveAs(save_dir + "mttbar_logscale.pdf");
+    if(year == "UL18"){
+      if(afterDNN) c1->SaveAs(save_dir + "mttbar_" + region + "_" + year + "_" + channel + "_logscale.pdf");
+      else         c1->SaveAs(save_dir + "mttbar_" + year + "_" + channel + "_logscale.pdf");
+    }
+    else if(year == "combination"){
+      c1->SaveAs(save_dir + "mttbar_" + region + "_" + year + "_logscale.pdf");
+    }
   }
   else{
-    if(afterDNN) c1->SaveAs(save_dir + "mttbar_" + region + "_" + channel + ".pdf");
-    else         c1->SaveAs(save_dir + "mttbar.pdf");
+    if(year == "UL18"){
+      if(afterDNN) c1->SaveAs(save_dir + "mttbar_" + region + "_" + year + "_" + channel + ".pdf");
+      else         c1->SaveAs(save_dir + "mttbar" + + year + "_" + channel + ".pdf");
+    }
+    else if(year == "combination"){
+      c1->SaveAs(save_dir + "mttbar_" + region + "_" + year + ".pdf");
+    }
   }
   c1->Close();
 

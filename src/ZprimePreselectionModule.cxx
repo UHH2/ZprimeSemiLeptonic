@@ -112,11 +112,17 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
 
   // lepton IDs
   ElectronId eleID_low  = ElectronTagID(Electron::mvaEleID_Fall17_iso_V2_wp80);
-  MuonId     muID_low   = MuonID(Muon::CutBasedIdTight);
   ElectronId eleID_high = ElectronTagID(Electron::mvaEleID_Fall17_noIso_V2_wp80);
+  MuonId     muID_low   = AndId<Muon>(MuonID(Muon::CutBasedIdTight), MuonID(Muon::PFIsoTight));
   MuonId     muID_high  = MuonID(Muon::CutBasedIdGlobalHighPt);
 
-  double electron_pt_low(35.);
+  double electron_pt_low;
+  if(isUL17){
+    electron_pt_low = 38.; // UL17 ele trigger threshold is 35 (HLT_Ele35WPTight _Gsf) -> be above turn on
+  }
+  else{
+    electron_pt_low = 35.;
+  }
   double muon_pt_low(30.);
   double electron_pt_high(120.);
   double muon_pt_high(55.);
@@ -139,7 +145,7 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
 
 
   // Cleaning: Mu, Ele, Jets
-  const MuonId muonID_low(AndId<Muon>(PtEtaCut(muon_pt_low, 2.4), muID_low, MuonIso(0.15)));
+  const MuonId muonID_low(AndId<Muon>(PtEtaCut(muon_pt_low, 2.4), muID_low));
   const ElectronId electronID_low(AndId<Electron>(PtEtaSCCut(electron_pt_low, 2.5), eleID_low));
   const MuonId muonID_high(AndId<Muon>(PtEtaCut(muon_pt_high, 2.4), muID_high));
   const ElectronId electronID_high(AndId<Electron>(PtEtaSCCut(electron_pt_high, 2.5), eleID_high));
@@ -152,10 +158,10 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   electron_cleaner_high.reset(new ElectronCleaner(electronID_high));
   jet_IDcleaner.reset(new JetCleaner(ctx, jetID_PUPPI));
   jet_cleaner1.reset(new JetCleaner(ctx, 15., 3.0));
-  jet_cleaner2.reset(new JetCleaner(ctx, 30., 2.4));
+  jet_cleaner2.reset(new JetCleaner(ctx, 30., 2.5));
   hotvrjet_cleaner.reset(new TopJetCleaner(ctx, PtEtaCut(200., 2.5)));
   topjet_puppi_IDcleaner.reset(new TopJetCleaner(ctx, jetID_PUPPI, "toppuppijets"));
-  topjet_puppi_cleaner.reset(new TopJetCleaner(ctx, TopJetId(PtEtaCut(200., 2.4)), "toppuppijets"));
+  topjet_puppi_cleaner.reset(new TopJetCleaner(ctx, TopJetId(PtEtaCut(200., 2.5)), "toppuppijets"));
 
   // common modules
   common.reset(new CommonModules());
@@ -175,9 +181,9 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   CHSjetCorr->init(ctx);
 
   //// EVENT SELECTION
-  jet1_sel.reset(new NJetSelection(1, -1, JetId(PtEtaCut(jet1_pt, 2.4))));
-  jet2_sel.reset(new NJetSelection(2, -1, JetId(PtEtaCut(jet2_pt, 2.4))));
-  met_sel .reset(new METCut  (MET   , uhh2::infinity));
+  jet1_sel.reset(new NJetSelection(1, -1, JetId(PtEtaCut(jet1_pt, 2.5))));
+  jet2_sel.reset(new NJetSelection(2, -1, JetId(PtEtaCut(jet2_pt, 2.5))));
+  met_sel.reset(new METCut(MET, uhh2::infinity));
 
   // additional branch with Ak4 CHS jets
   h_CHSjets = ctx.get_handle<vector<Jet>>("jetsAk4CHS");

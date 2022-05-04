@@ -88,7 +88,7 @@ private:
 
 class HOTVRTopTagger : public uhh2::AnalysisModule {
 
-public:  
+public:
   explicit HOTVRTopTagger(uhh2::Context&);
   virtual bool process(uhh2::Event&) override;
 
@@ -103,7 +103,7 @@ private:
 
 class DeepAK8TopTagger : public uhh2::AnalysisModule {
 
-public:  
+public:
   explicit DeepAK8TopTagger(uhh2::Context&, float min_mSD = 105., float max_mSD = 210., float max_score = 0.685, float pt_min = 400); // WP from https://indico.cern.ch/event/877167/contributions/3744193/attachments/1989744/3379280/DeepAK8_Top_W_SFs_V2.pdf
   virtual bool process(uhh2::Event&) override;
 
@@ -114,8 +114,6 @@ private:
   float pt_min_;
   uhh2::Event::Handle< std::vector<TopJet> > h_DeepAK8TopTags_;
   uhh2::Event::Handle< std::vector<const TopJet*> > h_DeepAK8TopTagsPtr_;
-
-
 };
 
 
@@ -317,5 +315,3 @@ class CustomMCBTagDiscriminantReweighting: public uhh2::AnalysisModule {
   uhh2::Event::Handle<float> h_weight_btagdisc_cferr2up;
   uhh2::Event::Handle<float> h_weight_btagdisc_cferr2down;
 };
-
-
