@@ -80,7 +80,6 @@ protected:
   // AnalysisModules
   unique_ptr<AnalysisModule> LumiWeight_module, PUWeight_module, TopPtReweight_module, MCScale_module;
   unique_ptr<AnalysisModule> Corrections_module;
-  unique_ptr<AnalysisModule> CustomBTagWeight_module;
 
   // top tagging
   unique_ptr<HOTVRTopTagger> TopTaggerHOTVR;
@@ -138,7 +137,7 @@ protected:
   // Configuration
   bool isMC, ishotvr, isdeepAK8, islooserselection;
   string Sys_MuonID_low, Sys_MuonID_high, Sys_MuonTrigger_low, Sys_MuonTrigger_high;
-  string Sys_PU, Sys_btag, Sys_EleID, Sys_EleTrigger;
+  string Sys_PU, Sys_EleID, Sys_EleTrigger;
   TString sample;
   int runnr_oldtriggers = 299368;
 
@@ -272,7 +271,6 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   const TopJetId toptagID = AndId<TopJet>(HOTVRTopTag(0.8, 140.0, 220.0, 50.0), Tau32Groomed(0.56));
 
   Sys_PU = ctx.get("Sys_PU");
-  Sys_btag = ctx.get("Sys_btag");
 
   BTag::algo btag_algo = BTag::DEEPJET;
   BTag::wp btag_wp = BTag::WP_MEDIUM;
@@ -291,11 +289,9 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   Corrections_module.reset(new NLOCorrections(ctx));
 
   // b-tagging SFs
-  // sf_btagging.reset(new MCBTagDiscriminantReweighting(ctx, BTag::algo::DEEPJET));
+   sf_btagging.reset(new MCBTagDiscriminantReweighting(ctx, BTag::algo::DEEPJET, "CHS_matched"));
 
   hist_BTagMCEfficiency.reset(new BTagMCEfficiencyHists(ctx,"BTagMCEfficiency", id_btag));
-  CustomBTagWeight_module.reset(new CustomMCBTagDiscriminantReweighting(ctx, btag_algo, "jets", Sys_btag, "iterativefit", "", "BTagCalibration"));
-
 
   // set lepton scale factors: see UHH2/common/include/LeptonScaleFactors.h
   sf_muon_iso_low.reset(new uhh2::MuonIsoScaleFactors(ctx, Muon::Selector::PFIsoTight, Muon::Selector::CutBasedIdTight, true));
@@ -735,10 +731,8 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   h_CHSMatchHists_afterBTag->fill(event);
 
   // btag shape sf (Ak4 chs jets)
-  // new: using new modules, without PUPPI-CHS matching
-  // sf_btagging->process(event);
-  // old: using custom modules, with PUPPI-CHS matching
-  CustomBTagWeight_module->process(event);
+  // new: using new modules, wit PUPPI-CHS matching
+  sf_btagging->process(event);
   h_CHSMatchHists_afterBTagSF->fill(event);
   fill_histograms(event, "Btags1_SF");
 
