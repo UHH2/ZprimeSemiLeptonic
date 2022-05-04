@@ -10,7 +10,8 @@
 <!ENTITY IS_DEEPAK8          "true">
 <!ENTITY IS_LOOSER_SELECTION "false">
 <!ENTITY CHANNEL             "muon">
-<!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/RunII_106_v2/Analysis_UL18_UseNN/&CHANNEL;">
+<!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/RunII_106_v2/TEST/&CHANNEL;">
+<!--<!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/RunII_106_v2/Analysis_UL18_UseNN_highchi2/&CHANNEL;">-->
 <!--<!ENTITY OUTPUTdir           "/nfs/dust/cms/group/zprime-uhh/Analysis_UL18_UseNN/&CHANNEL;">-->
 
 <!-- DATA -->

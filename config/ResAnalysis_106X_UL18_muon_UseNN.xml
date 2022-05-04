@@ -10,7 +10,7 @@
 <!ENTITY IS_DEEPAK8          "true">
 <!ENTITY IS_LOOSER_SELECTION "false">
 <!ENTITY CHANNEL             "muon">
-<!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/RunII_106_v2/Analysis_UL18_UseNN_sig/&CHANNEL;/">
+<!ENTITY OUTPUTdir           "/nfs/dust/cms/user/deleokse/RunII_106_v2/Analysis_UL18_UseNN_sig_highchi2/&CHANNEL;/">
 
 <!-- Scalar H 10% -->
 <!ENTITY HscalarToTTTo1L1Nu2J_m365_w36p5_res_UL18    SYSTEM   "../data/Skimming_datasets_UL18_muon_Signal/MC_HscalarToTTTo1L1Nu2J_m365_w36p5_res_UL18.xml">
