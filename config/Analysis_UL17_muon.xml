@@ -1130,20 +1130,20 @@
 			<Item Name="is_deepAK8" Value="&IS_DEEPAK8;"/>
 			<Item Name="is_looser_selection" Value="&IS_LOOSER_SELECTION;"/>
 
-			<Item Name="use_sframe_weight"          Value="false"/>
-			<Item Name="jersmear_direction"         Value="nominal"/>
-			<Item Name="jecsmear_direction"         Value="nominal"/>
-			<Item Name="ScaleVariationMuR"          Value="nominal"/>
-			<Item Name="ScaleVariationMuF"          Value="nominal"/>
-			<Item Name="SystDirection_MuonIso"      Value="nominal"/>
-			<Item Name="SystDirection_MuonTrigger"  Value="nominal"/>
-			<Item Name="SystDirection_ElectronId"   Value="nominal"/>
-			<Item Name="SystDirection_ElectronReco" Value="nominal"/>
+			<Item Name="use_sframe_weight"           Value="false"/>
+			<Item Name="jersmear_direction"          Value="nominal"/>
+			<Item Name="jecsmear_direction"          Value="nominal"/>
+			<Item Name="ScaleVariationMuR"           Value="nominal"/>
+			<Item Name="ScaleVariationMuF"           Value="nominal"/>
+			<Item Name="SystDirection_MuonIso"       Value="nominal"/>
+			<Item Name="SystDirection_MuonTrigger"   Value="nominal"/>
+			<Item Name="SystDirection_ElectronId"    Value="nominal"/>
+			<Item Name="SystDirection_ElectronReco"  Value="nominal"/>
 			<!-- add electron trigger SFs -->
-			<Item Name="Sys_PU"                     Value="central"/>
-			<Item Name="Sys_btag"                   Value="central"/>
-			<Item Name="Sys_TopTag"                 Value="nominal"/>
-			<Item Name="channel"                    Value="&CHANNEL;"/>
+			<Item Name="Sys_PU"                      Value="central"/>
+                        <Item Name="SystDirection_BTaggingShape" Value="central"/>
+			<Item Name="Sys_TopTag"                  Value="nominal"/>
+			<Item Name="channel"                     Value="&CHANNEL;"/>
 
 			<Item Name="AnalysisModule" Value="ZprimeAnalysisModule"/>
 		</UserConfig>

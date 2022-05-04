@@ -305,11 +305,11 @@ protected:
   unique_ptr<AnalysisModule> sf_muon_iso_low_dummy, sf_muon_iso_high_dummy, sf_muon_trigger_low_dummy, sf_muon_trigger_high_dummy;
   unique_ptr<AnalysisModule> sf_ele_id_low, sf_ele_id_high, sf_ele_reco, sf_ele_trigger_low, sf_ele_trigger_high;
   unique_ptr<AnalysisModule> sf_ele_id_low_dummy, sf_ele_id_high_dummy, sf_ele_reco_dummy, sf_ele_trigger_low_dummy, sf_ele_trigger_high_dummy;
+  unique_ptr<AnalysisModule> sf_btagging;
 
   // AnalysisModules
   unique_ptr<AnalysisModule> LumiWeight_module, PUWeight_module, TopPtReweight_module, MCScale_module;
   unique_ptr<AnalysisModule> Corrections_module;
-  unique_ptr<AnalysisModule> CustomBTagWeight_module;
 
   // Taggers
   unique_ptr<HOTVRTopTagger> TopTaggerHOTVR;
@@ -361,7 +361,7 @@ protected:
   // Configuration
   bool isMC, ishotvr, isdeepAK8, islooserselection;
   string Sys_MuonID_low, Sys_MuonISO_low, Sys_MuonID_high, Sys_MuonTrigger_low, Sys_MuonTrigger_high;
-  string Sys_PU, Sys_btag, Sys_EleID, Sys_EleTrigger;
+  string Sys_PU, Sys_EleID, Sys_EleTrigger;
   TString sample;
   int runnr_oldtriggers = 299368;
 
@@ -585,7 +585,6 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   const TopJetId toptagID = AndId<TopJet>(HOTVRTopTag(0.8, 140.0, 220.0, 50.0), Tau32Groomed(0.56));
 
   Sys_PU = ctx.get("Sys_PU");
-  Sys_btag = ctx.get("Sys_btag");
 
   BTag::algo btag_algo = BTag::DEEPJET;
   BTag::wp btag_wp = BTag::WP_MEDIUM;
@@ -602,8 +601,8 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   hadronic_top.reset(new HadronicTop(ctx));
   //sf_toptag.reset(new HOTVRScaleFactor(ctx, toptagID, ctx.get("Sys_TopTag", "nominal"), "HadronicTop", "TopTagSF", "HOTVRTopTagSFs"));
   Corrections_module.reset(new NLOCorrections(ctx));
-  //CustomBTagWeight_module.reset(new CustomMCBTagDiscriminantReweighting(ctx, btag_algo, "jets", Sys_btag,"iterativefit","","BTagCalibration"));
-
+  // b-tagging SFs
+  sf_btagging.reset(new MCBTagDiscriminantReweighting(ctx, BTag::algo::DEEPJET, "CHS_matched"));
 
   // set lepton scale factors: see common/include/LeptonScaleFactors.{h,cxx}
   sf_muon_iso_low.reset(new uhh2::MuonIsoScaleFactors(ctx, Muon::Selector::PFIsoTight, Muon::Selector::CutBasedIdTight));
@@ -1084,9 +1083,10 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
   }
 
 
-  ////btag shape sf (Ak4 chs jets)
-  //CustomBTagWeight_module->process(event);
-  //fill_histograms(event, "Btags1_SF");
+  // btag shape sf (Ak4 chs jets)
+  // new: using new modules, wit PUPPI-CHS matching
+  sf_btagging->process(event);
+  fill_histograms(event, "Btags1_SF");
 
   CandidateBuilder->process(event);
   if(debug) cout << "CandidateBuilder: ok" << endl;
