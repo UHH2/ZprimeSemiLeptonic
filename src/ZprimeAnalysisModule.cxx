@@ -593,16 +593,37 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
     // high pt
     if(muon_is_high){
       if(isUL16preVFP || isUL16postVFP){ // 2016
-        // DATA below runnumb
-        if(!isMC && event.run < 274954){
+        if(!isMC){ //2016 DATA RunB
+          if( event.run < 274889){
+            if(!Trigger_mu_C_selection->passes(event)) return false;
+          }else{ // DATA above Run B
+            if(!(Trigger_mu_C_selection->passes(event) || Trigger_mu_D_selection->passes(event))) return false;
+          }
+        }else{ // 2016 MC RunB
+          float runB_UL16_mu = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+          if( runB_UL16_mu < 0.1429){
+            if(!Trigger_mu_C_selection->passes(event)) return false;
+          }else{  // 2016 MC above RunB
+            if(!(Trigger_mu_C_selection->passes(event) || Trigger_mu_D_selection->passes(event))) return false;
+          }
+        } 
+      } 
+      if(isUL17 && !isMC){ //2017 DATA
+        if(event.run <= 299329){ //RunB
           if(!Trigger_mu_C_selection->passes(event)) return false;
+        }else{
+          if(!(Trigger_mu_C_selection->passes(event) || Trigger_mu_E_selection->passes(event) || Trigger_mu_F_selection->passes(event))) return false;
         }
-        // DATA above runnumb & MC
-        else{
-          if(!(Trigger_mu_C_selection->passes(event) || Trigger_mu_D_selection->passes(event))) return false;
+      }
+      if(isUL17 && isMC){ // 2017 MC
+        float runB_mu = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+        if(runB_mu <= 0.1158){ 
+          if(!Trigger_mu_C_selection->passes(event)) return false;
+        }else{
+          if(!(Trigger_mu_C_selection->passes(event) || Trigger_mu_E_selection->passes(event) || Trigger_mu_F_selection->passes(event))) return false;
         }
-      } // 2017 & 2018
-      else{
+      }
+      if(isUL18){ //2018
         if(!(Trigger_mu_C_selection->passes(event) || Trigger_mu_E_selection->passes(event) || Trigger_mu_F_selection->passes(event))) return false;
       }
     }
@@ -618,10 +639,19 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
     }
     // high pt
     if(ele_is_high){
-      // MC
-      if(isMC){
+      // MC (UL16preVFP/UL16postVFP/UL18) since UL17 needs special treatment
+      if(isMC && (isUL16preVFP || isUL16postVFP || isUL18) ){
         if(!(Trigger_ele_B_selection->passes(event) || Trigger_ph_A_selection->passes(event))) return false;
-      }else{
+      }
+      if(isMC && isUL17){
+        float runB_ele = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+        if(runB_ele <= 0.1158){ // in RunB (below runnumb 299329) Ele115 does not exist, use Ele35 instead. To apply randomly in MC if random numb < RunB percetage (11.58%, calculated by Christopher Matthies) 
+           if(!(Trigger_ele_A_selection->passes(event) || Trigger_ph_A_selection->passes(event))) return false;
+        }else{
+           if(!(Trigger_ele_B_selection->passes(event) || Trigger_ph_A_selection->passes(event))) return false;
+        }   
+      }     
+      if(!isMC){
         //DATA
         // 2016
         if(isUL16preVFP || isUL16postVFP){
