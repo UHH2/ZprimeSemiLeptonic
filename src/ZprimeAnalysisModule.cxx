@@ -136,8 +136,7 @@ protected:
 
   // Configuration
   bool isMC, ishotvr, isdeepAK8, islooserselection;
-  string Sys_MuonID_low, Sys_MuonID_high, Sys_MuonTrigger_low, Sys_MuonTrigger_high;
-  string Sys_PU, Sys_EleID, Sys_EleTrigger;
+  string Sys_PU, Prefiring_direction;
   TString sample;
   int runnr_oldtriggers = 299368;
 
@@ -271,6 +270,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   const TopJetId toptagID = AndId<TopJet>(HOTVRTopTag(0.8, 140.0, 220.0, 50.0), Tau32Groomed(0.56));
 
   Sys_PU = ctx.get("Sys_PU");
+  Prefiring_direction = ctx.get("Sys_prefiring");
 
   BTag::algo btag_algo = BTag::DEEPJET;
   BTag::wp btag_wp = BTag::WP_MEDIUM;
@@ -387,7 +387,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   h_CHSMatchHists_afterBTagSF.reset(new ZprimeSemiLeptonicCHSMatchHists(ctx, "CHSMatch_afterBTagSF"));
 
   // Book histograms
-  vector<string> histogram_tags = {"Weights_Init", "Weights_PU", "Weights_Lumi", "Weights_TopPt", "Weights_MCScale", "Weights_TopTag_SF", "Corrections", "Muon1_LowPt", "Muon1_HighPt", "Ele1_LowPt", "Ele1_HighPt", "IdEle_SF", "IsoMuon_SF", "RecoEle_SF", "TriggerMuon", "TriggerEle", "TriggerMuon_SF", "TwoDCut_Muon", "TwoDCut_Ele", "Jet1", "Jet2", "MET", "HTlep", "Btags1", "Btags1_SF", "NNInputsBeforeReweight", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction"};
+  vector<string> histogram_tags = {"Weights_Init", "Weights_PU", "Weights_Lumi", "Weights_TopPt", "Weights_MCScale", "Weights_Prefiring", "Weights_TopTag_SF", "Corrections", "Muon1_LowPt", "Muon1_HighPt", "Ele1_LowPt", "Ele1_HighPt", "IdEle_SF", "IsoMuon_SF", "RecoEle_SF", "TriggerMuon", "TriggerEle", "TriggerMuon_SF", "TwoDCut_Muon", "TwoDCut_Ele", "Jet1", "Jet2", "MET", "HTlep", "Btags1", "Btags1_SF", "NNInputsBeforeReweight", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction"};
   book_histograms(ctx, histogram_tags);
 
   lumihists_Weights_Init.reset(new LuminosityHists(ctx, "Lumi_Weights_Init"));
@@ -477,6 +477,14 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   MCScale_module->process(event);
   fill_histograms(event, "Weights_MCScale");
   lumihists_Weights_MCScale->fill(event);
+
+  // Prefiring weights
+  if (isMC) {
+     if (Prefiring_direction == "nominal") event.weight *= event.prefiringWeight;
+     else if (Prefiring_direction == "up") event.weight *= event.prefiringWeightUp;
+     else if (Prefiring_direction == "down") event.weight *= event.prefiringWeightDown;
+  }
+  fill_histograms(event, "Weights_Prefiring");
 
   // HOTVR TopTag SFs
   //if(ishotvr) sf_toptag->process(event);

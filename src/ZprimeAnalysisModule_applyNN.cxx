@@ -360,8 +360,7 @@ protected:
 
   // Configuration
   bool isMC, ishotvr, isdeepAK8, islooserselection;
-  string Sys_MuonID_low, Sys_MuonISO_low, Sys_MuonID_high, Sys_MuonTrigger_low, Sys_MuonTrigger_high;
-  string Sys_PU, Sys_EleID, Sys_EleTrigger;
+  string Sys_PU, Prefiring_direction;
   TString sample;
   int runnr_oldtriggers = 299368;
 
@@ -585,6 +584,7 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   const TopJetId toptagID = AndId<TopJet>(HOTVRTopTag(0.8, 140.0, 220.0, 50.0), Tau32Groomed(0.56));
 
   Sys_PU = ctx.get("Sys_PU");
+  Prefiring_direction = ctx.get("Sys_prefiring");
 
   BTag::algo btag_algo = BTag::DEEPJET;
   BTag::wp btag_wp = BTag::WP_MEDIUM;
@@ -700,7 +700,7 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   TopJetBtagSubjet_selection.reset(new ZprimeBTagFatSubJetSelection(ctx));
 
   // Book histograms
-  vector<string> histogram_tags = {"Weights_Init", "Weights_PU", "Weights_Lumi", "Weights_TopPt", "Weights_MCScale", "Weights_TopTag_SF", "Corrections", "Muon1_LowPt", "Muon1_HighPt", "Ele1_LowPt", "Ele1_HighPt", "IdEle_SF", "IsoMuon_SF", "RecoEle_SF", "TriggerMuon", "TriggerEle", "TriggerMuon_SF", "TwoDCut_Muon", "TwoDCut_Ele", "Jet1", "Jet2", "MET", "HTlep", "Btags1", "Btags1_SF", "NNInputsBeforeReweight", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction", "DNN_output0","DNN_output1","DNN_output2","DNN_output0_TopTag","DNN_output1_TopTag","DNN_output2_TopTag","DNN_output0_NoTopTag","DNN_output1_NoTopTag","DNN_output2_NoTopTag", "DNN_output0_thetastar_bin1", "DNN_output0_thetastar_bin2", "DNN_output0_thetastar_bin3", "DNN_output0_thetastar_bin4", "DNN_output0_TopTag_thetastar_bin1", "DNN_output0_TopTag_thetastar_bin2", "DNN_output0_TopTag_thetastar_bin3", "DNN_output0_TopTag_thetastar_bin4", "DNN_output0_NoTopTag_thetastar_bin1", "DNN_output0_NoTopTag_thetastar_bin2", "DNN_output0_NoTopTag_thetastar_bin3", "DNN_output0_NoTopTag_thetastar_bin4", "DNN_output0_TopTag_chi2_max1", "DNN_output0_NoTopTag_chi2_max1", "DNN_output0_TopTag_chi2_max2", "DNN_output0_NoTopTag_chi2_max2", "DNN_output0_thetastar_bin1_chi2_max1", "DNN_output0_thetastar_bin2_chi2_max1", "DNN_output0_thetastar_bin3_chi2_max1", "DNN_output0_thetastar_bin4_chi2_max1", "DNN_output0_TopTag_thetastar_bin1_chi2_max1", "DNN_output0_TopTag_thetastar_bin2_chi2_max1", "DNN_output0_TopTag_thetastar_bin3_chi2_max1", "DNN_output0_TopTag_thetastar_bin4_chi2_max1", "DNN_output0_NoTopTag_thetastar_bin1_chi2_max1", "DNN_output0_NoTopTag_thetastar_bin2_chi2_max1", "DNN_output0_NoTopTag_thetastar_bin3_chi2_max1", "DNN_output0_NoTopTag_thetastar_bin4_chi2_max1", "DNN_output0_thetastar_bin1_chi2_max2", "DNN_output0_thetastar_bin2_chi2_max2", "DNN_output0_thetastar_bin3_chi2_max2", "DNN_output0_thetastar_bin4_chi2_max2", "DNN_output0_TopTag_thetastar_bin1_chi2_max2", "DNN_output0_TopTag_thetastar_bin2_chi2_max2", "DNN_output0_TopTag_thetastar_bin3_chi2_max2", "DNN_output0_TopTag_thetastar_bin4_chi2_max2", "DNN_output0_NoTopTag_thetastar_bin1_chi2_max2", "DNN_output0_NoTopTag_thetastar_bin2_chi2_max2", "DNN_output0_NoTopTag_thetastar_bin3_chi2_max2", "DNN_output0_NoTopTag_thetastar_bin4_chi2_max2", "DNN_output0_chi2_max1", "DNN_output0_Nochi2_max1", "DNN_output0_NoTopTag_Nochi2_max1", "DNN_output0_TopTag_Nochi2_max1"};
+  vector<string> histogram_tags = {"Weights_Init", "Weights_PU", "Weights_Lumi", "Weights_TopPt", "Weights_MCScale", "Weights_Prefiring", "Weights_TopTag_SF", "Corrections", "Muon1_LowPt", "Muon1_HighPt", "Ele1_LowPt", "Ele1_HighPt", "IdEle_SF", "IsoMuon_SF", "RecoEle_SF", "TriggerMuon", "TriggerEle", "TriggerMuon_SF", "TwoDCut_Muon", "TwoDCut_Ele", "Jet1", "Jet2", "MET", "HTlep", "Btags1", "Btags1_SF", "NNInputsBeforeReweight", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction", "DNN_output0","DNN_output1","DNN_output2","DNN_output0_TopTag","DNN_output1_TopTag","DNN_output2_TopTag","DNN_output0_NoTopTag","DNN_output1_NoTopTag","DNN_output2_NoTopTag", "DNN_output0_thetastar_bin1", "DNN_output0_thetastar_bin2", "DNN_output0_thetastar_bin3", "DNN_output0_thetastar_bin4", "DNN_output0_TopTag_thetastar_bin1", "DNN_output0_TopTag_thetastar_bin2", "DNN_output0_TopTag_thetastar_bin3", "DNN_output0_TopTag_thetastar_bin4", "DNN_output0_NoTopTag_thetastar_bin1", "DNN_output0_NoTopTag_thetastar_bin2", "DNN_output0_NoTopTag_thetastar_bin3", "DNN_output0_NoTopTag_thetastar_bin4", "DNN_output0_TopTag_chi2_max1", "DNN_output0_NoTopTag_chi2_max1", "DNN_output0_TopTag_chi2_max2", "DNN_output0_NoTopTag_chi2_max2", "DNN_output0_thetastar_bin1_chi2_max1", "DNN_output0_thetastar_bin2_chi2_max1", "DNN_output0_thetastar_bin3_chi2_max1", "DNN_output0_thetastar_bin4_chi2_max1", "DNN_output0_TopTag_thetastar_bin1_chi2_max1", "DNN_output0_TopTag_thetastar_bin2_chi2_max1", "DNN_output0_TopTag_thetastar_bin3_chi2_max1", "DNN_output0_TopTag_thetastar_bin4_chi2_max1", "DNN_output0_NoTopTag_thetastar_bin1_chi2_max1", "DNN_output0_NoTopTag_thetastar_bin2_chi2_max1", "DNN_output0_NoTopTag_thetastar_bin3_chi2_max1", "DNN_output0_NoTopTag_thetastar_bin4_chi2_max1", "DNN_output0_thetastar_bin1_chi2_max2", "DNN_output0_thetastar_bin2_chi2_max2", "DNN_output0_thetastar_bin3_chi2_max2", "DNN_output0_thetastar_bin4_chi2_max2", "DNN_output0_TopTag_thetastar_bin1_chi2_max2", "DNN_output0_TopTag_thetastar_bin2_chi2_max2", "DNN_output0_TopTag_thetastar_bin3_chi2_max2", "DNN_output0_TopTag_thetastar_bin4_chi2_max2", "DNN_output0_NoTopTag_thetastar_bin1_chi2_max2", "DNN_output0_NoTopTag_thetastar_bin2_chi2_max2", "DNN_output0_NoTopTag_thetastar_bin3_chi2_max2", "DNN_output0_NoTopTag_thetastar_bin4_chi2_max2", "DNN_output0_chi2_max1", "DNN_output0_Nochi2_max1", "DNN_output0_NoTopTag_Nochi2_max1", "DNN_output0_TopTag_Nochi2_max1"};
   book_histograms(ctx, histogram_tags);
 
   h_MulticlassNN_output.reset(new ZprimeSemiLeptonicMulticlassNNHists(ctx, "MulticlassNN"));
@@ -888,6 +888,14 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
   MCScale_module->process(event);
   fill_histograms(event, "Weights_MCScale");
   lumihists_Weights_MCScale->fill(event);
+
+  // Prefiring weights
+  if (isMC) {
+     if (Prefiring_direction == "nominal") event.weight *= event.prefiringWeight;
+     else if (Prefiring_direction == "up") event.weight *= event.prefiringWeightUp;
+     else if (Prefiring_direction == "down") event.weight *= event.prefiringWeightDown;
+  }
+  fill_histograms(event, "Weights_Prefiring");
 
   // HOTVR TopTag SFs
   //if(ishotvr) sf_toptag->process(event);
