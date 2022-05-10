@@ -1516,3 +1516,98 @@ bool PuppiCHS_matching::process(uhh2::Event& event){
   return true;
 }
 
+////
+
+MuonRecoSF::MuonRecoSF(uhh2::Context& ctx){
+  
+  year = extract_year(ctx);
+  is_mc = ctx.get("dataset_type") == "MC";
+  is_Muon = ctx.get("channel") == "muon";
+
+  h_muonrecSF_nominal = ctx.declare_event_output<float> ("muonrecSF_nominal");
+  h_muonrecSF_up      = ctx.declare_event_output<float> ("muonrecSF_up");
+  h_muonrecSF_down    = ctx.declare_event_output<float> ("muonrecSF_down");
+
+}
+
+bool MuonRecoSF::process(uhh2::Event& event){
+
+  float Tot_P = event.muons->at(0).pt()*cosh(event.muons->at(0).eta());
+
+  event.set(h_muonrecSF_nominal, 1.0);
+  event.set(h_muonrecSF_up, 1.0);
+  event.set(h_muonrecSF_down, 1.0);
+
+  if(is_mc && is_Muon){ 
+    if(year == Year::isUL16preVFP || year == Year::isUL16postVFP){
+        if( abs(event.muons->at(0).eta()) <= 1.6){ 
+            if( 50 < Tot_P && Tot_P <= 100)   { event.set(h_muonrecSF_nominal, 0.9914); event.set(h_muonrecSF_up, 0.9914+0.0008); event.set(h_muonrecSF_down, 0.9914-0.0008); event.weight *= 0.9914; }
+            if( 100 < Tot_P && Tot_P <= 150)  { event.set(h_muonrecSF_nominal, 0.9936); event.set(h_muonrecSF_up, 0.9936+0.0009); event.set(h_muonrecSF_down, 0.9936-0.0009); event.weight *= 0.9936; }
+            if( 150 < Tot_P && Tot_P <= 200)  { event.set(h_muonrecSF_nominal, 0.993); event.set(h_muonrecSF_up, 0.993+0.001); event.set(h_muonrecSF_down, 0.993-0.001); event.weight *= 0.993; }
+            if( 200 < Tot_P && Tot_P <= 300)  { event.set(h_muonrecSF_nominal, 0.993); event.set(h_muonrecSF_up, 0.993+0.002); event.set(h_muonrecSF_down, 0.993-0.002); event.weight *= 0.993; }
+            if( 300 < Tot_P && Tot_P <= 400)  { event.set(h_muonrecSF_nominal, 0.990); event.set(h_muonrecSF_up, 0.990+0.004); event.set(h_muonrecSF_down, 0.990-0.004); event.weight *= 0.990; }
+            if( 400 < Tot_P && Tot_P <= 600)  { event.set(h_muonrecSF_nominal, 0.990); event.set(h_muonrecSF_up, 0.990+0.003); event.set(h_muonrecSF_down, 0.990-0.003); event.weight *= 0.990; }
+            if( 600 < Tot_P && Tot_P <= 1500) { event.set(h_muonrecSF_nominal, 0.989); event.set(h_muonrecSF_up, 0.989+0.004); event.set(h_muonrecSF_down, 0.989-0.004); event.weight *= 0.989; }
+            if( 1500 < Tot_P && Tot_P <= 3500){ event.set(h_muonrecSF_nominal, 0.8); event.set(h_muonrecSF_up, 0.8+0.3); event.set(h_muonrecSF_down, 0.8-0.3); event.weight *= 0.8; }
+        }
+        if(abs(event.muons->at(0).eta()) > 1.6 && abs(event.muons->at(0).eta()) < 2.4){ 
+            if( 50 < Tot_P && Tot_P <= 100)   { event.set(h_muonrecSF_nominal, 1.0); event.set(h_muonrecSF_up, 1.0); event.set(h_muonrecSF_down, 1.0); event.weight *= 1.0; }
+            if( 100 < Tot_P && Tot_P <= 150)  { event.set(h_muonrecSF_nominal, 0.993); event.set(h_muonrecSF_up, 0.993+0.001); event.set(h_muonrecSF_down, 0.993-0.001); event.weight *= 0.993; }
+            if( 150 < Tot_P && Tot_P <= 200)  { event.set(h_muonrecSF_nominal, 0.991); event.set(h_muonrecSF_up, 0.991+0.001); event.set(h_muonrecSF_down, 0.991-0.001); event.weight *= 0.991; }
+            if( 200 < Tot_P && Tot_P <= 300)  { event.set(h_muonrecSF_nominal, 0.985); event.set(h_muonrecSF_up, 0.985+0.001); event.set(h_muonrecSF_down, 0.985-0.001); event.weight *= 0.985; }
+            if( 300 < Tot_P && Tot_P <= 400)  { event.set(h_muonrecSF_nominal, 0.981); event.set(h_muonrecSF_up, 0.981+0.002); event.set(h_muonrecSF_down, 0.981-0.002); event.weight *= 0.981; }
+            if( 400 < Tot_P && Tot_P <= 600)  { event.set(h_muonrecSF_nominal, 0.979); event.set(h_muonrecSF_up, 0.979+0.004); event.set(h_muonrecSF_down, 0.979-0.004); event.weight *= 0.979; }
+            if( 600 < Tot_P && Tot_P <= 1500) { event.set(h_muonrecSF_nominal, 0.978); event.set(h_muonrecSF_up, 0.978+0.005); event.set(h_muonrecSF_down, 0.978-0.005); event.weight *= 0.978; }
+            if( 1500 < Tot_P && Tot_P <= 3500){ event.set(h_muonrecSF_nominal, 0.9); event.set(h_muonrecSF_up, 0.9+0.2); event.set(h_muonrecSF_down, 0.9-0.2); event.weight *= 0.9; }
+        }
+    }
+    if(year == Year::isUL17){
+        if( abs(event.muons->at(0).eta()) <= 1.6){ 
+            if( 50 < Tot_P && Tot_P <= 100)   { event.set(h_muonrecSF_nominal, 0.9938); event.set(h_muonrecSF_up, 0.9938+0.0006); event.set(h_muonrecSF_down, 0.9938-0.0006); event.weight *= 0.9938; }
+            if( 100 < Tot_P && Tot_P <= 150)  { event.set(h_muonrecSF_nominal, 0.9950); event.set(h_muonrecSF_up, 0.9950+0.0007); event.set(h_muonrecSF_down, 0.9950-0.0007); event.weight *= 0.9950; }
+            if( 150 < Tot_P && Tot_P <= 200)  { event.set(h_muonrecSF_nominal, 0.996); event.set(h_muonrecSF_up, 0.996+0.001); event.set(h_muonrecSF_down, 0.996-0.001); event.weight *= 0.996; }
+            if( 200 < Tot_P && Tot_P <= 300)  { event.set(h_muonrecSF_nominal, 0.996); event.set(h_muonrecSF_up, 0.996+0.001); event.set(h_muonrecSF_down, 0.996-0.001); event.weight *= 0.996; }
+            if( 300 < Tot_P && Tot_P <= 400)  { event.set(h_muonrecSF_nominal, 0.994); event.set(h_muonrecSF_up, 0.994+0.001); event.set(h_muonrecSF_down, 0.994-0.001); event.weight *= 0.994; }
+            if( 400 < Tot_P && Tot_P <= 600)  { event.set(h_muonrecSF_nominal, 1.003); event.set(h_muonrecSF_up, 1.003+0.006); event.set(h_muonrecSF_down, 1.003-0.006); event.weight *= 1.003; }
+            if( 600 < Tot_P && Tot_P <= 1500) { event.set(h_muonrecSF_nominal, 0.987); event.set(h_muonrecSF_up, 0.987+0.003); event.set(h_muonrecSF_down, 0.987-0.003); event.weight *= 0.987; }
+            if( 1500 < Tot_P && Tot_P <= 3500){ event.set(h_muonrecSF_nominal, 0.9); event.set(h_muonrecSF_up, 0.9+0.1); event.set(h_muonrecSF_down, 0.9-0.1); event.weight *= 0.9; }
+        }
+        if(abs(event.muons->at(0).eta()) > 1.6 && abs(event.muons->at(0).eta()) < 2.4){ 
+            if( 50 < Tot_P && Tot_P <= 100)   { event.set(h_muonrecSF_nominal, 1.0); event.set(h_muonrecSF_up, 1.0); event.set(h_muonrecSF_down, 1.0); event.weight *= 1.0; }
+            if( 100 < Tot_P && Tot_P <= 150)  { event.set(h_muonrecSF_nominal, 0.993); event.set(h_muonrecSF_up, 0.993+0.001); event.set(h_muonrecSF_down, 0.993-0.001); event.weight *= 0.993; }
+            if( 150 < Tot_P && Tot_P <= 200)  { event.set(h_muonrecSF_nominal, 0.989); event.set(h_muonrecSF_up, 0.989+0.001); event.set(h_muonrecSF_down, 0.989-0.001); event.weight *= 0.989; }
+            if( 200 < Tot_P && Tot_P <= 300)  { event.set(h_muonrecSF_nominal, 0.986); event.set(h_muonrecSF_up, 0.986+0.001); event.set(h_muonrecSF_down, 0.986-0.001); event.weight *= 0.986; }
+            if( 300 < Tot_P && Tot_P <= 400)  { event.set(h_muonrecSF_nominal, 0.989); event.set(h_muonrecSF_up, 0.989+0.001); event.set(h_muonrecSF_down, 0.989-0.001); event.weight *= 0.989; }
+            if( 400 < Tot_P && Tot_P <= 600)  { event.set(h_muonrecSF_nominal, 0.983); event.set(h_muonrecSF_up, 0.983+0.003); event.set(h_muonrecSF_down, 0.983-0.003); event.weight *= 0.983; }
+            if( 600 < Tot_P && Tot_P <= 1500) { event.set(h_muonrecSF_nominal, 0.986); event.set(h_muonrecSF_up, 0.986+0.006); event.set(h_muonrecSF_down, 0.986-0.006); event.weight *= 0.986; }
+            if( 1500 < Tot_P && Tot_P <= 3500){ event.set(h_muonrecSF_nominal, 1.01); event.set(h_muonrecSF_up, 1.01+0.01); event.set(h_muonrecSF_down, 1.01-0.01); event.weight *= 1.01; }
+        }
+    }
+    if(year == Year::isUL18){
+        if( abs(event.muons->at(0).eta()) <= 1.6){ 
+            if( 50 < Tot_P && Tot_P <= 100)   { event.set(h_muonrecSF_nominal, 0.9943); event.set(h_muonrecSF_up, 0.9943+0.0007); event.set(h_muonrecSF_down, 0.9943-0.0007); event.weight *= 0.9943; }
+            if( 100 < Tot_P && Tot_P <= 150)  { event.set(h_muonrecSF_nominal, 0.9948); event.set(h_muonrecSF_up, 0.9948+0.0007); event.set(h_muonrecSF_down, 0.9948-0.0007); event.weight *= 0.9948; }
+            if( 150 < Tot_P && Tot_P <= 200)  { event.set(h_muonrecSF_nominal, 0.9950); event.set(h_muonrecSF_up, 0.9950+0.0009); event.set(h_muonrecSF_down, 0.9950-0.0009); event.weight *= 0.9950; }
+            if( 200 < Tot_P && Tot_P <= 300)  { event.set(h_muonrecSF_nominal, 0.994); event.set(h_muonrecSF_up, 0.994+0.001); event.set(h_muonrecSF_down, 0.994-0.001); event.weight *= 0.994; }
+            if( 300 < Tot_P && Tot_P <= 400)  { event.set(h_muonrecSF_nominal, 0.9914); event.set(h_muonrecSF_up, 0.9914+0.0009); event.set(h_muonrecSF_down, 0.9914-0.0009); event.weight *= 0.9914; }
+            if( 400 < Tot_P && Tot_P <= 600)  { event.set(h_muonrecSF_nominal, 0.993); event.set(h_muonrecSF_up, 0.993+0.002); event.set(h_muonrecSF_down, 0.993-0.002); event.weight *= 0.993; }
+            if( 600 < Tot_P && Tot_P <= 1500) { event.set(h_muonrecSF_nominal, 0.991); event.set(h_muonrecSF_up, 0.991+0.004); event.set(h_muonrecSF_down, 0.991-0.004); event.weight *= 0.991; }
+            if( 1500 < Tot_P && Tot_P <= 3500){ event.set(h_muonrecSF_nominal, 1.0); event.set(h_muonrecSF_up, 1.0+0.1); event.set(h_muonrecSF_down, 1.0-0.1); event.weight *= 1.0; }
+        }
+        if(abs(event.muons->at(0).eta()) > 1.6 && abs(event.muons->at(0).eta()) < 2.4){ 
+            if( 50 < Tot_P && Tot_P <= 100)   { event.set(h_muonrecSF_nominal, 1.0); event.set(h_muonrecSF_up, 1.0); event.set(h_muonrecSF_down, 1.0); event.weight *= 1.0; }
+            if( 100 < Tot_P && Tot_P <= 150)  { event.set(h_muonrecSF_nominal, 0.993); event.set(h_muonrecSF_up, 0.993+0.001); event.set(h_muonrecSF_down, 0.993-0.001); event.weight *= 0.993; }
+            if( 150 < Tot_P && Tot_P <= 200)  { event.set(h_muonrecSF_nominal, 0.990); event.set(h_muonrecSF_up, 0.990+0.001); event.set(h_muonrecSF_down, 0.990-0.001); event.weight *= 0.990; }
+            if( 200 < Tot_P && Tot_P <= 300)  { event.set(h_muonrecSF_nominal, 0.988); event.set(h_muonrecSF_up, 0.988+0.001); event.set(h_muonrecSF_down, 0.988-0.001); event.weight *= 0.988; }
+            if( 300 < Tot_P && Tot_P <= 400)  { event.set(h_muonrecSF_nominal, 0.981); event.set(h_muonrecSF_up, 0.981+0.002); event.set(h_muonrecSF_down, 0.981-0.002); event.weight *= 0.981; }
+            if( 400 < Tot_P && Tot_P <= 600)  { event.set(h_muonrecSF_nominal, 0.983); event.set(h_muonrecSF_up, 0.983+0.003); event.set(h_muonrecSF_down, 0.983-0.003); event.weight *= 0.983; }
+            if( 600 < Tot_P && Tot_P <= 1500) { event.set(h_muonrecSF_nominal, 0.978); event.set(h_muonrecSF_up, 0.978+0.006); event.set(h_muonrecSF_down, 0.978-0.006); event.weight *= 0.978; }
+            if( 1500 < Tot_P && Tot_P <= 3500){ event.set(h_muonrecSF_nominal, 0.98); event.set(h_muonrecSF_up, 0.98+0.03); event.set(h_muonrecSF_down, 0.98-0.03); event.weight *= 0.98; }
+        }
+    }
+  }
+
+
+  return true;
+}
+
