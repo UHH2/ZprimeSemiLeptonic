@@ -582,7 +582,8 @@ bool AK8PuppiTopTagger::process(uhh2::Event& event){
   }
   event.set(h_AK8PuppiTopTags_, toptags);
   event.set(h_AK8PuppiTopTagsPtr_, toptags_ptr);
-  return (toptags.size() >= 1);
+  //return (toptags.size() >= 1);
+  return (toptags.size() == 1);
 }
 
 
@@ -607,7 +608,8 @@ bool HOTVRTopTagger::process(uhh2::Event& event){
   }
   event.set(h_HOTVRTopTags_, toptags);
   event.set(h_HOTVRTopTagsPtr_, toptags_ptr);
-  return (toptags.size() >= 1);
+  //return (toptags.size() >= 1);
+  return (toptags.size() == 1);
 }
 
 
@@ -643,7 +645,8 @@ bool DeepAK8TopTagger::process(uhh2::Event& event){
 
   event.set(h_DeepAK8TopTags_, toptags);
   event.set(h_DeepAK8TopTagsPtr_, toptags_ptr);
-  return (toptags.size() >= 1);
+  //return (toptags.size() >= 1);
+  return (toptags.size() == 1);
 
 }
 
@@ -1532,13 +1535,12 @@ MuonRecoSF::MuonRecoSF(uhh2::Context& ctx){
 
 bool MuonRecoSF::process(uhh2::Event& event){
 
-  float Tot_P = event.muons->at(0).pt()*cosh(event.muons->at(0).eta());
-
   event.set(h_muonrecSF_nominal, 1.0);
   event.set(h_muonrecSF_up, 1.0);
   event.set(h_muonrecSF_down, 1.0);
 
   if(is_mc && is_Muon){ 
+  float Tot_P = event.muons->at(0).pt()*cosh(event.muons->at(0).eta());
     if(year == Year::isUL16preVFP || year == Year::isUL16postVFP){
         if( abs(event.muons->at(0).eta()) <= 1.6){ 
             if( 50 < Tot_P && Tot_P <= 100)   { event.set(h_muonrecSF_nominal, 0.9914); event.set(h_muonrecSF_up, 0.9914+0.0008); event.set(h_muonrecSF_down, 0.9914-0.0008); event.weight *= 0.9914; }
