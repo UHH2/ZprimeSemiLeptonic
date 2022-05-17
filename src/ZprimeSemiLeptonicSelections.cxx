@@ -67,7 +67,22 @@ bool ZprimeBTagFatSubJetSelection::passes(const Event & event){
   return false;
 }
 
+TopTag_VetoSelection::TopTag_VetoSelection(Context& ctx, TString mode) : mode_(mode){
 
+  if(mode_ == "deepAK8"){
+  h_AK8TopTags = ctx.get_handle<std::vector<TopJet>>("DeepAK8TopTags");
+  }else if(mode_ == "hotvr"){
+  h_AK8TopTags = ctx.get_handle<std::vector<TopJet>>("HOTVRTopTags");
+  }
+}
+
+bool TopTag_VetoSelection::passes(const Event & event){
+
+    vector<TopJet> TopTags = event.get(h_AK8TopTags);
+
+    if(TopTags.size() <= 1) return true;
+    return false;
+}
 
 Chi2CandidateMatchedSelection::Chi2CandidateMatchedSelection(Context& ctx){
   h_BestZprimeCandidate_chi2 = ctx.get_handle<ZprimeCandidate*>("ZprimeCandidateBestChi2");
