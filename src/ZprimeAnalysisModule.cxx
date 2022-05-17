@@ -107,7 +107,6 @@ protected:
   std::unique_ptr<uhh2::Selection> met_sel;
   std::unique_ptr<uhh2::Selection> htlep_sel;
   std::unique_ptr<Selection> sel_1btag, sel_2btag;
-  std::unique_ptr<Selection> TopJetBtagSubjet_selection;
   std::unique_ptr<Selection> HEM_selection;
 
   // NN variables handles
@@ -137,7 +136,7 @@ protected:
   std::unique_ptr<Hists> h_CHSMatchHists_afterBTagSF;
 
   // Configuration
-  bool isMC, ishotvr, isdeepAK8, islooserselection;
+  bool isMC, ishotvr, isdeepAK8;
   string Sys_PU, Prefiring_direction;
   TString sample;
   int runnr_oldtriggers = 299368;
@@ -226,7 +225,6 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   NEle1_selection.reset(new NElectronSelection(1, 1));
 
   // Important selection values
-  islooserselection = (ctx.get("is_looser_selection") == "true");
   double jet1_pt(50.);
   double jet2_pt(30.);
   double chi2_max(30.);
@@ -279,12 +277,6 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
 
 
   double TwoD_dr = 0.4, TwoD_ptrel = 25.;
-  if(islooserselection){
-    jet1_pt = 100.;
-    TwoD_dr = 0.2;
-    TwoD_ptrel = 10.;
-  }
-
 
   const TopJetId toptagID = AndId<TopJet>(HOTVRTopTag(0.8, 140.0, 220.0, 50.0), Tau32Groomed(0.56));
 
@@ -388,8 +380,6 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
 
   sel_1btag.reset(new NJetSelection(1, -1, id_btag));
   sel_2btag.reset(new NJetSelection(2,-1, id_btag));
-
-  TopJetBtagSubjet_selection.reset(new ZprimeBTagFatSubJetSelection(ctx));
 
   // PUPPI CHS match modules & hists
   AK4PuppiCHS_matching.reset(new PuppiCHS_matching(ctx)); // match AK4 PUPPI jets to AK$ CHS jets for b-tagging

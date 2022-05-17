@@ -42,6 +42,16 @@ namespace uhh2 {
     uhh2::Event::Handle<bool> h_is_zprime_reconstructed_chi2;
   };
 
+  class TopTag_VetoSelection : public Selection{
+  public:
+    explicit TopTag_VetoSelection(uhh2::Context&, TString mode);
+    virtual bool passes(const Event&) override;    
+
+  private:
+  uhh2::Event::Handle< std::vector<TopJet> > h_AK8TopTags;
+  TString mode_;
+  };
+
   class Chi2CandidateMatchedSelection : public Selection{
   public:
     explicit Chi2CandidateMatchedSelection(uhh2::Context&);

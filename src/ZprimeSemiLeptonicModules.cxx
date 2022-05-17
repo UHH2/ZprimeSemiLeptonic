@@ -78,6 +78,7 @@ vector<LorentzVector> reconstruct_neutrino(const LorentzVector & lepton, const L
   return solutions;
 }
 
+
 ZprimeCandidateBuilder::ZprimeCandidateBuilder(uhh2::Context& ctx, TString mode, float minDR) : minDR_(minDR), mode_(mode){
 
   h_ZprimeCandidates_ = ctx.get_handle< vector<ZprimeCandidate> >("ZprimeCandidates");
@@ -582,8 +583,7 @@ bool AK8PuppiTopTagger::process(uhh2::Event& event){
   }
   event.set(h_AK8PuppiTopTags_, toptags);
   event.set(h_AK8PuppiTopTagsPtr_, toptags_ptr);
-  //return (toptags.size() >= 1);
-  return (toptags.size() == 1);
+  return (toptags.size() >= 1);
 }
 
 
@@ -608,8 +608,7 @@ bool HOTVRTopTagger::process(uhh2::Event& event){
   }
   event.set(h_HOTVRTopTags_, toptags);
   event.set(h_HOTVRTopTagsPtr_, toptags_ptr);
-  //return (toptags.size() >= 1);
-  return (toptags.size() == 1);
+  return (toptags.size() >= 1);
 }
 
 
@@ -645,8 +644,7 @@ bool DeepAK8TopTagger::process(uhh2::Event& event){
 
   event.set(h_DeepAK8TopTags_, toptags);
   event.set(h_DeepAK8TopTagsPtr_, toptags_ptr);
-  //return (toptags.size() >= 1);
-  return (toptags.size() == 1);
+  return (toptags.size() >= 1);
 
 }
 

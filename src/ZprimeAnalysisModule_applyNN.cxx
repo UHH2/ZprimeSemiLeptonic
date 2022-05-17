@@ -322,6 +322,9 @@ protected:
   unique_ptr<AnalysisModule> sf_toptag;
   unique_ptr<DeepAK8TopTagger> TopTaggerDeepAK8;
 
+  // TopTags veto
+  unique_ptr<Selection> TopTagVetoSelection;
+
   // Mass reconstruction
   unique_ptr<ZprimeCandidateBuilder> CandidateBuilder;
 
@@ -333,11 +336,10 @@ protected:
   unique_ptr<Selection> MuonVeto_selection, EleVeto_selection, NMuon1_selection, NEle1_selection;
   unique_ptr<Selection> Trigger_mu_A_selection, Trigger_mu_B_selection, Trigger_mu_C_selection, Trigger_mu_D_selection, Trigger_mu_E_selection, Trigger_mu_F_selection;
   unique_ptr<Selection> Trigger_ele_A_selection, Trigger_ele_B_selection, Trigger_ph_A_selection;
-  unique_ptr<Selection> TwoDCut_selection, Jet1_selection, Jet2_selection, Met_selection, Chi2_selection1, Chi2_selection2, TTbarMatchable_selection, Chi2CandidateMatched_selection, ZprimeTopTag_selection, BlindData_selection;
+  unique_ptr<Selection> Chi2_selection1, Chi2_selection2, TTbarMatchable_selection, Chi2CandidateMatched_selection, ZprimeTopTag_selection, BlindData_selection;
   std::unique_ptr<uhh2::Selection> met_sel;
   std::unique_ptr<uhh2::Selection> htlep_sel;
   std::unique_ptr<Selection> sel_1btag, sel_2btag;
-  std::unique_ptr<Selection> TopJetBtagSubjet_selection;
   std::unique_ptr<Selection> HEM_selection;
   unique_ptr<Selection> ThetaStar_selection_bin1, ThetaStar_selection_bin2, ThetaStar_selection_bin3;
 
@@ -356,7 +358,7 @@ protected:
   uhh2::Event::Handle<ZprimeCandidate*> h_BestZprimeCandidateChi2;
 
   // Lumi hists
-  std::unique_ptr<Hists> lumihists_Weights_Init, lumihists_Weights_PU, lumihists_Weights_Lumi, lumihists_Weights_TopPt, lumihists_Weights_MCScale, lumihists_Muon1_LowPt, lumihists_Muon1_HighPt, lumihists_Ele1_LowPt, lumihists_Ele1_HighPt, lumihists_TriggerMuon, lumihists_TriggerEle, lumihists_TwoDCut_Muon, lumihists_TwoDCut_Ele, lumihists_Jet1, lumihists_Jet2, lumihists_MET, lumihists_HTlep, lumihists_Chi2;
+  std::unique_ptr<Hists> lumihists_Weights_Init, lumihists_Weights_PU, lumihists_Weights_Lumi, lumihists_Weights_TopPt, lumihists_Weights_MCScale, lumihists_Muon1_LowPt, lumihists_Muon1_HighPt, lumihists_Ele1_LowPt, lumihists_Ele1_HighPt, lumihists_TriggerMuon, lumihists_TriggerEle, lumihists_Chi2;
 
   float inv_mass(const LorentzVector& p4){ return p4.isTimelike() ? p4.mass() : -sqrt(-p4.mass2()); }
 
@@ -364,7 +366,7 @@ protected:
   std::unique_ptr<Hists> h_MulticlassNN_output;
 
   // Configuration
-  bool isMC, ishotvr, isdeepAK8, islooserselection;
+  bool isMC, ishotvr, isdeepAK8;
   string Sys_PU, Prefiring_direction;
   TString sample;
   int runnr_oldtriggers = 299368;
@@ -543,16 +545,12 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   NEle1_selection.reset(new NElectronSelection(1, 1));
 
   // Important selection values
-  islooserselection = (ctx.get("is_looser_selection") == "true");
-  double jet1_pt(50.);
-  double jet2_pt(30.);
   double chi2_max1(100.);
   double chi2_max2(30.);
   double mtt_blind(3000.);
   string trigger_mu_A, trigger_mu_B, trigger_mu_C, trigger_mu_D, trigger_mu_E, trigger_mu_F;
   string trigger_ele_A, trigger_ele_B;
   string trigger_ph_A;
-  double MET_cut, HT_lep_cut;
   isMuon = false; isElectron = false;
   if(ctx.get("channel") == "muon") isMuon = true;
   if(ctx.get("channel") == "electron") isElectron = true;
@@ -570,8 +568,6 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
     trigger_mu_E = "HLT_OldMu100_v*";
     trigger_mu_F = "HLT_TkMu100_v*";
 
-    MET_cut = 50;
-    HT_lep_cut = 0;
   }
   if(isElectron){//semileptonic electron channel
     trigger_ele_B = "HLT_Ele115_CaloIdVT_GsfTrkIdT_v*";
@@ -590,16 +586,6 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
     else{
       trigger_ph_A = "HLT_Photon200_v*";
     }
-    MET_cut = 50;
-    HT_lep_cut = 0;
-  }
-
-
-  double TwoD_dr = 0.4, TwoD_ptrel = 25.;
-  if(islooserselection){
-    jet1_pt = 100.;
-    TwoD_dr = 0.2;
-    TwoD_ptrel = 10.;
   }
 
 
@@ -659,13 +645,6 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   Trigger_ele_B_selection.reset(new TriggerSelection(trigger_ele_B));
   Trigger_ph_A_selection.reset(new TriggerSelection(trigger_ph_A));
 
-
-  TwoDCut_selection.reset(new TwoDCut(TwoD_dr, TwoD_ptrel));
-  Jet1_selection.reset(new NJetSelection(1, -1, JetId(PtEtaCut(jet1_pt, 2.5))));
-  Jet2_selection.reset(new NJetSelection(2, -1, JetId(PtEtaCut(jet2_pt, 2.5))));
-  met_sel.reset(new METCut  (MET_cut   , uhh2::infinity));
-  htlep_sel.reset(new HTlepCut(HT_lep_cut, uhh2::infinity));
-
   Chi2_selection1.reset(new Chi2Cut(ctx, 0., chi2_max1));
   Chi2_selection2.reset(new Chi2Cut(ctx, 0., chi2_max2));
   TTbarMatchable_selection.reset(new TTbarSemiLepMatchableSelection());
@@ -688,6 +667,9 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   // Taggers
   TopTaggerHOTVR.reset(new HOTVRTopTagger(ctx));
   TopTaggerDeepAK8.reset(new DeepAK8TopTagger(ctx));
+
+  // TopTags veto
+  TopTagVetoSelection.reset(new TopTag_VetoSelection(ctx, mode));
 
   // Zprime candidate builder
   CandidateBuilder.reset(new ZprimeCandidateBuilder(ctx, mode));
@@ -714,10 +696,8 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   sel_1btag.reset(new NJetSelection(1, -1, id_btag));
   sel_2btag.reset(new NJetSelection(2,-1, id_btag));
 
-  TopJetBtagSubjet_selection.reset(new ZprimeBTagFatSubJetSelection(ctx));
-
   // Book histograms
-  vector<string> histogram_tags = {"Weights_Init", "Weights_PU", "Weights_Lumi", "Weights_TopPt", "Weights_MCScale", "Weights_Prefiring", "Weights_TopTag_SF", "Corrections", "Muon1_LowPt", "Muon1_HighPt", "Muon1_Tot", "Ele1_LowPt", "Ele1_HighPt", "Ele1_Tot", "IdMuon_SF", "IdEle_SF", "IsoMuon_SF", "RecoEle_SF", "MuonReco_SF", "TriggerMuon", "TriggerEle", "TriggerMuon_SF", "TwoDCut_Muon", "TwoDCut_Ele", "Jet1", "Jet2", "MET", "HTlep", "Btags1", "Btags1_SF", "NNInputsBeforeReweight", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction", "DNN_output0","DNN_output1","DNN_output2","DNN_output0_TopTag","DNN_output1_TopTag","DNN_output2_TopTag","DNN_output0_NoTopTag","DNN_output1_NoTopTag","DNN_output2_NoTopTag", "DNN_output0_thetastar_bin1", "DNN_output0_thetastar_bin2", "DNN_output0_thetastar_bin3", "DNN_output0_thetastar_bin4", "DNN_output0_TopTag_thetastar_bin1", "DNN_output0_TopTag_thetastar_bin2", "DNN_output0_TopTag_thetastar_bin3", "DNN_output0_TopTag_thetastar_bin4", "DNN_output0_NoTopTag_thetastar_bin1", "DNN_output0_NoTopTag_thetastar_bin2", "DNN_output0_NoTopTag_thetastar_bin3", "DNN_output0_NoTopTag_thetastar_bin4", "DNN_output0_TopTag_chi2_max1", "DNN_output0_NoTopTag_chi2_max1", "DNN_output0_TopTag_chi2_max2", "DNN_output0_NoTopTag_chi2_max2", "DNN_output0_thetastar_bin1_chi2_max1", "DNN_output0_thetastar_bin2_chi2_max1", "DNN_output0_thetastar_bin3_chi2_max1", "DNN_output0_thetastar_bin4_chi2_max1", "DNN_output0_TopTag_thetastar_bin1_chi2_max1", "DNN_output0_TopTag_thetastar_bin2_chi2_max1", "DNN_output0_TopTag_thetastar_bin3_chi2_max1", "DNN_output0_TopTag_thetastar_bin4_chi2_max1", "DNN_output0_NoTopTag_thetastar_bin1_chi2_max1", "DNN_output0_NoTopTag_thetastar_bin2_chi2_max1", "DNN_output0_NoTopTag_thetastar_bin3_chi2_max1", "DNN_output0_NoTopTag_thetastar_bin4_chi2_max1", "DNN_output0_thetastar_bin1_chi2_max2", "DNN_output0_thetastar_bin2_chi2_max2", "DNN_output0_thetastar_bin3_chi2_max2", "DNN_output0_thetastar_bin4_chi2_max2", "DNN_output0_TopTag_thetastar_bin1_chi2_max2", "DNN_output0_TopTag_thetastar_bin2_chi2_max2", "DNN_output0_TopTag_thetastar_bin3_chi2_max2", "DNN_output0_TopTag_thetastar_bin4_chi2_max2", "DNN_output0_NoTopTag_thetastar_bin1_chi2_max2", "DNN_output0_NoTopTag_thetastar_bin2_chi2_max2", "DNN_output0_NoTopTag_thetastar_bin3_chi2_max2", "DNN_output0_NoTopTag_thetastar_bin4_chi2_max2", "DNN_output0_chi2_max1", "DNN_output0_Nochi2_max1", "DNN_output0_NoTopTag_Nochi2_max1", "DNN_output0_TopTag_Nochi2_max1"};
+  vector<string> histogram_tags = {"Weights_Init", "Weights_PU", "Weights_Lumi", "Weights_TopPt", "Weights_MCScale", "Weights_Prefiring", "Weights_TopTag_SF", "Corrections", "Muon1_LowPt", "Muon1_HighPt", "Muon1_Tot", "Ele1_LowPt", "Ele1_HighPt", "Ele1_Tot", "IdMuon_SF", "IdEle_SF", "IsoMuon_SF", "RecoEle_SF", "MuonReco_SF", "TriggerMuon", "TriggerEle", "TriggerMuon_SF", "Btags1", "Btags1_SF", "NNInputsBeforeReweight", "TopTagVeto", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Chi2", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch", "TopTagReconstruction", "NotTopTagReconstruction", "DNN_output0","DNN_output1","DNN_output2","DNN_output0_TopTag","DNN_output1_TopTag","DNN_output2_TopTag","DNN_output0_NoTopTag","DNN_output1_NoTopTag","DNN_output2_NoTopTag", "DNN_output0_thetastar_bin1", "DNN_output0_thetastar_bin2", "DNN_output0_thetastar_bin3", "DNN_output0_thetastar_bin4", "DNN_output0_TopTag_thetastar_bin1", "DNN_output0_TopTag_thetastar_bin2", "DNN_output0_TopTag_thetastar_bin3", "DNN_output0_TopTag_thetastar_bin4", "DNN_output0_NoTopTag_thetastar_bin1", "DNN_output0_NoTopTag_thetastar_bin2", "DNN_output0_NoTopTag_thetastar_bin3", "DNN_output0_NoTopTag_thetastar_bin4", "DNN_output0_TopTag_chi2_max1", "DNN_output0_NoTopTag_chi2_max1", "DNN_output0_TopTag_chi2_max2", "DNN_output0_NoTopTag_chi2_max2", "DNN_output0_thetastar_bin1_chi2_max1", "DNN_output0_thetastar_bin2_chi2_max1", "DNN_output0_thetastar_bin3_chi2_max1", "DNN_output0_thetastar_bin4_chi2_max1", "DNN_output0_TopTag_thetastar_bin1_chi2_max1", "DNN_output0_TopTag_thetastar_bin2_chi2_max1", "DNN_output0_TopTag_thetastar_bin3_chi2_max1", "DNN_output0_TopTag_thetastar_bin4_chi2_max1", "DNN_output0_NoTopTag_thetastar_bin1_chi2_max1", "DNN_output0_NoTopTag_thetastar_bin2_chi2_max1", "DNN_output0_NoTopTag_thetastar_bin3_chi2_max1", "DNN_output0_NoTopTag_thetastar_bin4_chi2_max1", "DNN_output0_thetastar_bin1_chi2_max2", "DNN_output0_thetastar_bin2_chi2_max2", "DNN_output0_thetastar_bin3_chi2_max2", "DNN_output0_thetastar_bin4_chi2_max2", "DNN_output0_TopTag_thetastar_bin1_chi2_max2", "DNN_output0_TopTag_thetastar_bin2_chi2_max2", "DNN_output0_TopTag_thetastar_bin3_chi2_max2", "DNN_output0_TopTag_thetastar_bin4_chi2_max2", "DNN_output0_NoTopTag_thetastar_bin1_chi2_max2", "DNN_output0_NoTopTag_thetastar_bin2_chi2_max2", "DNN_output0_NoTopTag_thetastar_bin3_chi2_max2", "DNN_output0_NoTopTag_thetastar_bin4_chi2_max2", "DNN_output0_chi2_max1", "DNN_output0_Nochi2_max1", "DNN_output0_NoTopTag_Nochi2_max1", "DNN_output0_TopTag_Nochi2_max1"};
   book_histograms(ctx, histogram_tags);
 
   h_MulticlassNN_output.reset(new ZprimeSemiLeptonicMulticlassNNHists(ctx, "MulticlassNN"));
@@ -733,12 +713,6 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   lumihists_Ele1_HighPt.reset(new LuminosityHists(ctx, "Lumi_Ele1_HighPt"));
   lumihists_TriggerMuon.reset(new LuminosityHists(ctx, "Lumi_TriggerMuon"));
   lumihists_TriggerEle.reset(new LuminosityHists(ctx, "Lumi_TriggerEle"));
-  lumihists_TwoDCut_Muon.reset(new LuminosityHists(ctx, "Lumi_TwoDCut_Muon"));
-  lumihists_TwoDCut_Ele.reset(new LuminosityHists(ctx, "Lumi_TwoDCut_Ele"));
-  lumihists_Jet1.reset(new LuminosityHists(ctx, "Lumi_Jet1"));
-  lumihists_Jet2.reset(new LuminosityHists(ctx, "Lumi_Jet2"));
-  lumihists_MET.reset(new LuminosityHists(ctx, "Lumi_MET"));
-  lumihists_HTlep.reset(new LuminosityHists(ctx, "Lumi_HTlep"));
   lumihists_Chi2.reset(new LuminosityHists(ctx, "Lumi_Chi2"));
 
   h_Ak4_j1_E   = ctx.get_handle<float>("Ak4_j1_E");
@@ -1228,6 +1202,10 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
       max_score = out_event[i];
     }
   }
+
+  // Veto events with >= 2 TopTagged large-R jets
+  if(!TopTagVetoSelection->passes(event)) return false;
+  fill_histograms(event, "TopTagVeto");
 
   // out0=TTbar, out1=ST, out2=WJets
   if( out0 == max_score ){
