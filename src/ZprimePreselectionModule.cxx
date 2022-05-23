@@ -116,7 +116,7 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   double muon_pt(25.);
   double jet1_pt(50.);
   double jet2_pt(20.);
-  double MET(50.);
+  double MET(20.);
 
 
   // GEN Flavor selection [W+jets flavor-splitting]
