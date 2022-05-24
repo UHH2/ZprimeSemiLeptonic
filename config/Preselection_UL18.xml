@@ -365,20 +365,10 @@
 		</InputData>
 		<InputData Lumi="290684.25391591096" NEventsMax="&NEVT;" Type="MC" Version="ZZ_UL18" Cacheable="&b_Cacheable;">
 			&ZZ_UL18;
-			<InputTree Name="AnalysisTree"/>			
+			<InputTree Name="AnalysisTree"/>	
 			<OutputTree Name="AnalysisTree"/>
 		</InputData>
 		<!-- ST -->
-		<!-- <InputData Lumi="7026559.400055788" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_inclusiveDecays_UL18" Cacheable="&b_Cacheable;">
-			&ST_tW_antitop_5f_inclusiveDecays_UL18;
-			<InputTree Name="AnalysisTree"/>
-			<OutputTree Name="AnalysisTree"/>
-		</InputData>
-		<InputData Lumi="7200485.489735007" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_top_5f_inclusiveDecays_UL18" Cacheable="&b_Cacheable;">
-			&ST_tW_top_5f_inclusiveDecays_UL18;
-			<InputTree Name="AnalysisTree"/>
-			<OutputTree Name="AnalysisTree"/>
-		</InputData> -->
 		<InputData Lumi="18395780.114452742" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_NoFullyHadronicDecays_UL18" Cacheable="&b_Cacheable;">
 			&ST_tW_antitop_5f_NoFullyHadronicDecays_UL18;
 			<InputTree Name="AnalysisTree"/>

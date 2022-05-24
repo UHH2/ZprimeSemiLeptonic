@@ -45,8 +45,6 @@
 <!ENTITY WZ_UL17 SYSTEM "../data/Skimming_datasets_UL17_preselection/MC_WZ_UL17.xml">
 <!ENTITY ZZ_UL17 SYSTEM "../data/Skimming_datasets_UL17_preselection/MC_ZZ_UL17.xml">
 <!-- ST -->
-<!-- <!ENTITY ST_tW_antitop_5f_inclusiveDecays_UL17        SYSTEM "../data/Skimming_datasets_UL17_preselection/MC_ST_tW_antitop_5f_inclusiveDecays_UL17.xml"> -->
-<!-- <!ENTITY ST_tW_top_5f_inclusiveDecays_UL17            SYSTEM "../data/Skimming_datasets_UL17_preselection/MC_ST_tW_top_5f_inclusiveDecays_UL17.xml"> -->
 <!ENTITY ST_tW_antitop_5f_NoFullyHadronicDecays_UL17  SYSTEM "../data/Skimming_datasets_UL17_preselection/MC_ST_tW_antitop_5f_NoFullyHadronicDecays_UL17.xml">
 <!ENTITY ST_tW_top_5f_NoFullyHadronicDecays_UL17      SYSTEM "../data/Skimming_datasets_UL17_preselection/MC_ST_tW_top_5f_NoFullyHadronicDecays_UL17.xml">
 <!ENTITY ST_t-channel_antitop_4f_InclusiveDecays_UL17 SYSTEM "../data/Skimming_datasets_UL17_preselection/MC_ST_t-channel_antitop_4f_InclusiveDecays_UL17.xml">
@@ -356,16 +354,6 @@
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
 		<!-- ST -->
-		<!-- <InputData Lumi="5144945.79944212" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_inclusiveDecays_UL17" Cacheable="&b_Cacheable;">
-			&ST_tW_antitop_5f_inclusiveDecays_UL17;
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData>
-		<InputData Lumi="5112549.300529986" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_top_5f_inclusiveDecays_UL17" Cacheable="&b_Cacheable;">
-			&ST_tW_top_5f_inclusiveDecays_UL17;
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData> -->
 		<InputData Lumi="14084075.638929343" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_NoFullyHadronicDecays_UL17" Cacheable="&b_Cacheable;">
 			&ST_tW_antitop_5f_NoFullyHadronicDecays_UL17;
 			<InputTree Name="AnalysisTree" />

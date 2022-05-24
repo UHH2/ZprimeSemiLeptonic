@@ -10,7 +10,7 @@
 <!ENTITY IS_DEEPAK8          "true">
 <!ENTITY IS_LOOSER_SELECTION "false">
 <!ENTITY CHANNEL             "muon">
-<!ENTITY OUTPUTdir           "/nfs/dust/cms/group/zprime-uhh/Analysis_UL16postVFP_UseNN_muon/&CHANNEL;/">
+<!ENTITY OUTPUTdir           "/nfs/dust/cms/group/zprime-uhh/AnalysisDNN_UL16postVFP/&CHANNEL;/">
 
 <!-- SingleMuon -->
 <!ENTITY DATA_SingleMuon_RunF_UL16postVFP SYSTEM "../data/Skimming_datasets_UL16postVFP_muon/DATA_SingleMuon_RunF_UL16postVFP.xml">
@@ -43,8 +43,6 @@
 <!ENTITY WZ_UL16postVFP SYSTEM "../data/Skimming_datasets_UL16postVFP_muon/WZ_UL16postVFP.xml">
 <!ENTITY ZZ_UL16postVFP SYSTEM "../data/Skimming_datasets_UL16postVFP_muon/ZZ_UL16postVFP.xml">
 <!-- ST -->
-<!-- <!ENTITY ST_tW_antitop_5f_inclusiveDecays_UL16postVFP        SYSTEM "../data/Skimming_datasets_UL16postVFP_muon/ST_tW_antitop_5f_inclusiveDecays_UL16postVFP.xml"> -->
-<!-- <!ENTITY ST_tW_top_5f_inclusiveDecays_UL16postVFP            SYSTEM "../data/Skimming_datasets_UL16postVFP_muon/ST_tW_top_5f_inclusiveDecays_UL16postVFP.xml"> -->
 <!ENTITY ST_tW_antitop_5f_NoFullyHadronicDecays_UL16postVFP  SYSTEM "../data/Skimming_datasets_UL16postVFP_muon/ST_tW_antitop_5f_NoFullyHadronicDecays_UL16postVFP.xml">
 <!ENTITY ST_tW_top_5f_NoFullyHadronicDecays_UL16postVFP      SYSTEM "../data/Skimming_datasets_UL16postVFP_muon/ST_tW_top_5f_NoFullyHadronicDecays_UL16postVFP.xml">
 <!ENTITY ST_t-channel_antitop_4f_InclusiveDecays_UL16postVFP SYSTEM "../data/Skimming_datasets_UL16postVFP_muon/ST_t-channel_antitop_4f_InclusiveDecays_UL16postVFP.xml">
@@ -344,16 +342,6 @@
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
 		<!-- ST -->
-		<!-- <InputData Lumi="2315875.7897517434" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_inclusiveDecays_UL16postVFP" Cacheable="&b_Cacheable;">
-			&ST_tW_antitop_5f_inclusiveDecays_UL16postVFP;
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData>
-		<InputData Lumi="2254433.3204490934" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_top_5f_inclusiveDecays_UL16postVFP" Cacheable="&b_Cacheable;">
-			&ST_tW_top_5f_inclusiveDecays_UL16postVFP;
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData> -->
 		<InputData Lumi="6102742.841797853" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_NoFullyHadronicDecays_UL16postVFP" Cacheable="&b_Cacheable;">
 			&ST_tW_antitop_5f_NoFullyHadronicDecays_UL16postVFP;
 			<InputTree Name="AnalysisTree" />

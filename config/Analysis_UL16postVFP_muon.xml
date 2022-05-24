@@ -43,8 +43,6 @@
 <!ENTITY WZ_UL16postVFP SYSTEM "../data/Skimming_datasets_UL16postVFP_preselection/WZ_UL16postVFP.xml">
 <!ENTITY ZZ_UL16postVFP SYSTEM "../data/Skimming_datasets_UL16postVFP_preselection/ZZ_UL16postVFP.xml">
 <!-- ST -->
-<!-- <!ENTITY ST_tW_antitop_5f_inclusiveDecays_UL16postVFP        SYSTEM "../data/Skimming_datasets_UL16postVFP_preselection/ST_tW_antitop_5f_inclusiveDecays_UL16postVFP.xml"> -->
-<!-- <!ENTITY ST_tW_top_5f_inclusiveDecays_UL16postVFP            SYSTEM "../data/Skimming_datasets_UL16postVFP_preselection/ST_tW_top_5f_inclusiveDecays_UL16postVFP.xml"> -->
 <!ENTITY ST_tW_antitop_5f_NoFullyHadronicDecays_UL16postVFP  SYSTEM "../data/Skimming_datasets_UL16postVFP_preselection/ST_tW_antitop_5f_NoFullyHadronicDecays_UL16postVFP.xml">
 <!ENTITY ST_tW_top_5f_NoFullyHadronicDecays_UL16postVFP      SYSTEM "../data/Skimming_datasets_UL16postVFP_preselection/ST_tW_top_5f_NoFullyHadronicDecays_UL16postVFP.xml">
 <!ENTITY ST_t-channel_antitop_4f_InclusiveDecays_UL16postVFP SYSTEM "../data/Skimming_datasets_UL16postVFP_preselection/ST_t-channel_antitop_4f_InclusiveDecays_UL16postVFP.xml">
@@ -344,16 +342,6 @@
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
 		<!-- ST -->
-		<!-- <InputData Lumi="2315875.7897517434" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_inclusiveDecays_UL16postVFP" Cacheable="&b_Cacheable;">
-			&ST_tW_antitop_5f_inclusiveDecays_UL16postVFP;
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData>
-		<InputData Lumi="2254433.3204490934" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_top_5f_inclusiveDecays_UL16postVFP" Cacheable="&b_Cacheable;">
-			&ST_tW_top_5f_inclusiveDecays_UL16postVFP;
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData> -->
 		<InputData Lumi="6102742.841797853" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_NoFullyHadronicDecays_UL16postVFP" Cacheable="&b_Cacheable;">
 			&ST_tW_antitop_5f_NoFullyHadronicDecays_UL16postVFP;
 			<InputTree Name="AnalysisTree" />
