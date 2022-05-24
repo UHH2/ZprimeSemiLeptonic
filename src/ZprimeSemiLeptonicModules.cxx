@@ -635,7 +635,7 @@ bool DeepAK8TopTagger::process(uhh2::Event& event){
      if(!(min_mSD_ < mSD && mSD < max_mSD_)) continue;
 
      // cut on score
-     if(!( puppijet.btag_MassDecorrelatedDeepBoosted_TvsQCD() > max_score_ )) continue;
+     if( !(puppijet.btag_MassDecorrelatedDeepBoosted_TvsQCD() >= max_score_ ) ) continue;
 
      toptags.emplace_back(puppijet);
      toptags_ptr.emplace_back(&puppijet);
