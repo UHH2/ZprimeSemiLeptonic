@@ -11,7 +11,7 @@
 <!ENTITY DATA_EGamma_RunA_UL18 SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/data/UL18/EGamma_Run2018A-UL2018_MiniAODv2-v1.xml">
 <!ENTITY DATA_EGamma_RunB_UL18 SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/data/UL18/EGamma_Run2018B-UL2018_MiniAODv2-v1.xml">
 <!ENTITY DATA_EGamma_RunC_UL18 SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/data/UL18/EGamma_Run2018C-UL2018_MiniAODv2-v1.xml">
-<!-- <!ENTITY DATA_EGamma_RunD_UL18 SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/data/UL18/EGamma_Run2018D-UL2018_MiniAODv2-v2.xml"> not available yet -->
+<!ENTITY DATA_EGamma_RunD_UL18 SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/data/UL18/EGamma_Run2018D-UL2018_MiniAODv2-v2.xml"> 
 <!-- SingleMuon -->
 <!ENTITY DATA_SingleMuon_RunA_UL18 SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/data/UL18/SingleMuon_Run2018A-UL2018_MiniAODv2-v3.xml">
 <!ENTITY DATA_SingleMuon_RunB_UL18 SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/data/UL18/SingleMuon_Run2018B-UL2018_MiniAODv2-v2.xml">
@@ -44,8 +44,6 @@
 <!ENTITY WZ_UL18 SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL18/WZ_CP5_pythia8_Summer20UL18_v1.xml">
 <!ENTITY ZZ_UL18 SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL18/ZZ_CP5_pythia8_Summer20UL18_v2.xml">
 <!-- ST -->
-<!-- <!ENTITY ST_tW_antitop_5f_inclusiveDecays_UL18        SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL18/ST_tW_antitop_5f_inclusiveDecays_CP5_powheg-pythia8_Summer20UL18_v2.xml"> -->
-<!-- <!ENTITY ST_tW_top_5f_inclusiveDecays_UL18            SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL18/ST_tW_top_5f_inclusiveDecays_CP5_powheg-pythia8_Summer20UL18_v2.xml"> -->
 <!ENTITY ST_tW_antitop_5f_NoFullyHadronicDecays_UL18  SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL18/ST_tW_antitop_5f_NoFullyHadronicDecays_CP5_powheg-pythia8_Summer20UL18_v1.xml">
 <!ENTITY ST_tW_top_5f_NoFullyHadronicDecays_UL18      SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL18/ST_tW_top_5f_NoFullyHadronicDecays_CP5_powheg-pythia8_Summer20UL18_v1.xml">
 <!ENTITY ST_t-channel_antitop_4f_InclusiveDecays_UL18 SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL18/ST_t-channel_antitop_4f_InclusiveDecays_CP5_powheg-madspin-pythia8_Summer20UL18_v1.xml">
@@ -230,11 +228,11 @@
 			<InputTree Name="AnalysisTree"/>
 			<OutputTree Name="AnalysisTree"/>
 		</InputData>
-		<!-- <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_RunD_UL18" Cacheable="&b_Cacheable;">
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_RunD_UL18" Cacheable="&b_Cacheable;">
 			&DATA_EGamma_RunD_UL18;
 			<InputTree Name="AnalysisTree"/>
 			<OutputTree Name="AnalysisTree"/>
-		</InputData> -->
+		</InputData>
 		<!-- SingleMuon -->
 		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_RunA_UL18" Cacheable="&b_Cacheable;">
 			&DATA_SingleMuon_RunA_UL18;
@@ -367,20 +365,10 @@
 		</InputData>
 		<InputData Lumi="290684.25391591096" NEventsMax="&NEVT;" Type="MC" Version="ZZ_UL18" Cacheable="&b_Cacheable;">
 			&ZZ_UL18;
-			<InputTree Name="AnalysisTree"/>
+			<InputTree Name="AnalysisTree"/>	
 			<OutputTree Name="AnalysisTree"/>
 		</InputData>
 		<!-- ST -->
-		<!-- <InputData Lumi="7026559.400055788" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_inclusiveDecays_UL18" Cacheable="&b_Cacheable;">
-			&ST_tW_antitop_5f_inclusiveDecays_UL18;
-			<InputTree Name="AnalysisTree"/>
-			<OutputTree Name="AnalysisTree"/>
-		</InputData>
-		<InputData Lumi="7200485.489735007" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_top_5f_inclusiveDecays_UL18" Cacheable="&b_Cacheable;">
-			&ST_tW_top_5f_inclusiveDecays_UL18;
-			<InputTree Name="AnalysisTree"/>
-			<OutputTree Name="AnalysisTree"/>
-		</InputData> -->
 		<InputData Lumi="18395780.114452742" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_NoFullyHadronicDecays_UL18" Cacheable="&b_Cacheable;">
 			&ST_tW_antitop_5f_NoFullyHadronicDecays_UL18;
 			<InputTree Name="AnalysisTree"/>
