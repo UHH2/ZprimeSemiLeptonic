@@ -52,8 +52,6 @@
 <!ENTITY WZ_UL17 SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL17/WZ_CP5_pythia8_Summer20UL17_v1.xml">
 <!ENTITY ZZ_UL17 SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL17/ZZ_CP5_pythia8_Summer20UL17_v1.xml">
 <!-- ST -->
-<!-- <!ENTITY ST_tW_antitop_5f_inclusiveDecays_UL17        SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL17/ST_tW_antitop_5f_inclusiveDecays_CP5_powheg-pythia8_Summer20UL17_v2.xml"> -->
-<!-- <!ENTITY ST_tW_top_5f_inclusiveDecays_UL17            SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL17/ST_tW_top_5f_inclusiveDecays_CP5_powheg-pythia8_Summer20UL17_v2.xml"> -->
 <!ENTITY ST_tW_antitop_5f_NoFullyHadronicDecays_UL17  SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL17/ST_tW_antitop_5f_NoFullyHadronicDecays_CP5_powheg-pythia8_Summer20UL17_v1.xml">
 <!ENTITY ST_tW_top_5f_NoFullyHadronicDecays_UL17      SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL17/ST_tW_top_5f_NoFullyHadronicDecays_CP5_powheg-pythia8_Summer20UL17_v1.xml">
 <!ENTITY ST_t-channel_antitop_4f_InclusiveDecays_UL17 SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL17/ST_t-channel_antitop_4f_InclusiveDecays_CP5_powheg-madspin-pythia8_Summer20UL17_v1.xml">
@@ -415,16 +413,6 @@
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
 		<!-- ST -->
-		<!-- <InputData Lumi="5144945.79944212" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_inclusiveDecays_UL17" Cacheable="&b_Cacheable;">
-			&ST_tW_antitop_5f_inclusiveDecays_UL17;
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData>
-		<InputData Lumi="5112549.300529986" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_top_5f_inclusiveDecays_UL17" Cacheable="&b_Cacheable;">
-			&ST_tW_top_5f_inclusiveDecays_UL17;
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData> -->
 		<InputData Lumi="14084075.638929343" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_NoFullyHadronicDecays_UL17" Cacheable="&b_Cacheable;">
 			&ST_tW_antitop_5f_NoFullyHadronicDecays_UL17;
 			<InputTree Name="AnalysisTree" />

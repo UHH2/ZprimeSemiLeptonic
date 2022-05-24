@@ -55,8 +55,6 @@ protected:
   std::unique_ptr<CHSJetCorrections> CHSjetCorr;
 
   // Cleaners
-  std::unique_ptr<MuonCleaner>     muon_cleaner_low, muon_cleaner_high;
-  std::unique_ptr<ElectronCleaner> electron_cleaner_low, electron_cleaner_high;
   std::unique_ptr<JetCleaner>      jet_IDcleaner, jet_cleaner1, jet_cleaner2;
   std::unique_ptr<AnalysisModule>  hotvrjet_cleaner;
   std::unique_ptr<TopJetCleaner>   topjet_puppi_IDcleaner, topjet_puppi_cleaner;
@@ -111,25 +109,14 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   isUL18        = (ctx.get("dataset_version").find("UL18")        != std::string::npos);
 
   // lepton IDs
-  ElectronId eleID_low  = ElectronTagID(Electron::mvaEleID_Fall17_iso_V2_wp80);
-  ElectronId eleID_high = ElectronTagID(Electron::mvaEleID_Fall17_noIso_V2_wp80);
-  MuonId     muID_low   = AndId<Muon>(MuonID(Muon::CutBasedIdTight), MuonID(Muon::PFIsoTight));
-  MuonId     muID_high  = MuonID(Muon::CutBasedIdGlobalHighPt);
+  ElectronId eleID_veto = ElectronID_Fall17_tight_noIso;
+  MuonId     muID_veto  = MuonID(Muon::CutBasedIdTight);
 
-  double electron_pt_low;
-  if(isUL17){
-    electron_pt_low = 38.; // UL17 ele trigger threshold is 35 (HLT_Ele35WPTight _Gsf) -> be above turn on
-  }
-  else{
-    electron_pt_low = 35.;
-  }
-  double muon_pt_low(30.);
-  double electron_pt_high(120.);
-  double muon_pt_high(55.);
+  double electron_pt(25.);
+  double muon_pt(25.);
   double jet1_pt(50.);
   double jet2_pt(20.);
-  double MET(50.);
-
+  double MET(20.);
 
 
   // GEN Flavor selection [W+jets flavor-splitting]
@@ -145,17 +132,11 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
 
 
   // Cleaning: Mu, Ele, Jets
-  const MuonId muonID_low(AndId<Muon>(PtEtaCut(muon_pt_low, 2.4), muID_low));
-  const ElectronId electronID_low(AndId<Electron>(PtEtaSCCut(electron_pt_low, 2.5), eleID_low));
-  const MuonId muonID_high(AndId<Muon>(PtEtaCut(muon_pt_high, 2.4), muID_high));
-  const ElectronId electronID_high(AndId<Electron>(PtEtaSCCut(electron_pt_high, 2.5), eleID_high));
+  const MuonId muonID_veto(AndId<Muon>(PtEtaCut(muon_pt, 2.4), muID_veto));
+  const ElectronId electronID_veto(AndId<Electron>(PtEtaSCCut(electron_pt, 2.5), eleID_veto));
   const JetPFID jetID_CHS(JetPFID::WP_TIGHT_CHS);
   const JetPFID jetID_PUPPI(JetPFID::WP_TIGHT_PUPPI);
-
-  muon_cleaner_low.reset(new MuonCleaner(muonID_low));
-  electron_cleaner_low.reset(new ElectronCleaner(electronID_low));
-  muon_cleaner_high.reset(new MuonCleaner(muonID_high));
-  electron_cleaner_high.reset(new ElectronCleaner(electronID_high));
+   
   jet_IDcleaner.reset(new JetCleaner(ctx, jetID_PUPPI));
   jet_cleaner1.reset(new JetCleaner(ctx, 15., 3.0));
   jet_cleaner2.reset(new JetCleaner(ctx, 30., 2.5));
@@ -170,6 +151,8 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   common->disable_jetpfidfilter();
   common->switch_jetPtSorter(true);
   common->switch_metcorrection(true);
+  common->set_muon_id(muonID_veto);
+  common->set_electron_id(electronID_veto);
   common->init(ctx, Sys_PU);
 
   hotvrjetCorr.reset(new HOTVRJetCorrectionModule(ctx));
@@ -189,7 +172,7 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   h_CHSjets = ctx.get_handle<vector<Jet>>("jetsAk4CHS");
 
   // Book histograms
-  vector<string> histogram_tags = {"Input", "CommonModules", "MuonCleanerLowPt", "MuonCleanerHighPt","EleCleanerLowPt", "EleCleanerHighPt", "HOTVRCorrections", "PUPPICorrections", "Lepton1", "JetID", "JetCleaner1", "JetCleaner2", "TopjetCleaner", "Jet1", "Jet2", "MET"};
+  vector<string> histogram_tags = {"Input", "CommonModules", "HOTVRCorrections", "PUPPICorrections", "Lepton1", "JetID", "JetCleaner1", "JetCleaner2", "TopjetCleaner", "Jet1", "Jet2", "MET"};
   book_histograms(ctx, histogram_tags);
 
   lumihists.reset(new LuminosityHists(ctx, "lumi"));
@@ -197,9 +180,6 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
 
 
 bool ZprimePreselectionModule::process(uhh2::Event& event){
-
-  double electron_pt_high(120.);
-  double muon_pt_high(55.);
 
   //cout<<"Getting started... "<<event.event<<endl;
   fill_histograms(event, "Input");
@@ -209,34 +189,11 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
   //cout<<"Common Modules... "<<event.event<<endl;
   fill_histograms(event, "CommonModules");
 
+  sort_by_pt<Muon>(*event.muons);
+  sort_by_pt<Electron>(*event.electrons);
+
   // Correct AK4 CHS jets
   CHSjetCorr->process(event);
-
-  // CLEANER MUONS
-  vector<Muon>* muons = event.muons;
-  for(unsigned int i=0; i<muons->size(); i++){
-    if(event.muons->at(i).pt()<=muon_pt_high){
-      muon_cleaner_low->process(event);
-      fill_histograms(event, "MuonCleanerLowPt");
-    }else{
-      muon_cleaner_high->process(event);
-      fill_histograms(event, "MuonCleanerHighPt");
-    }
-  }
-  sort_by_pt<Muon>(*event.muons);
-
-  // CLEANER ELECTRONS
-  vector<Electron>* electrons = event.electrons;
-  for(unsigned int i=0; i<electrons->size(); i++){
-    if(event.electrons->at(i).pt()<=electron_pt_high){
-      electron_cleaner_low->process(event);
-      fill_histograms(event, "EleCleanerLowPt");
-    }else{
-      electron_cleaner_high->process(event);
-      fill_histograms(event, "EleCleanerHighPt");
-    }
-  }
-  sort_by_pt<Electron>(*event.electrons);
 
   if(isHOTVR){
     hotvrjetCorr->process(event);

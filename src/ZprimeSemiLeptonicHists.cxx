@@ -1019,8 +1019,8 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
     tau32_AK8PuppiTaggedjet->Fill(tau32, weight);
     massdecordeepjet_topscore_Taggedjet->Fill(AK8PuppiTopTags.at(i).btag_MassDecorrelatedDeepBoosted_raw_score_top(), weight);
     deepjet_topscore_Taggedjet->Fill(AK8PuppiTopTags.at(i).btag_DeepBoosted_raw_score_top(), weight);
-    deepjet_TvsQCD_Taggedjet->Fill(AK8Puppijets->at(i).btag_DeepBoosted_TvsQCD(), weight);
-    massdecordeepjet_TvsQCD_Taggedjet->Fill(AK8Puppijets->at(i).btag_MassDecorrelatedDeepBoosted_TvsQCD(), weight);
+    deepjet_TvsQCD_Taggedjet->Fill(AK8PuppiTopTags.at(i).btag_DeepBoosted_TvsQCD(), weight);
+    massdecordeepjet_TvsQCD_Taggedjet->Fill(AK8PuppiTopTags.at(i).btag_MassDecorrelatedDeepBoosted_TvsQCD(), weight);
 
     if(i==0){
       pt_AK8PuppiTaggedjet1->Fill(AK8PuppiTopTags.at(i).pt(), weight);
@@ -1038,8 +1038,8 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
       tau32_AK8PuppiTaggedjet1->Fill(tau32, weight);
       massdecordeepjet_topscore_Taggedjet1->Fill(AK8PuppiTopTags.at(i).btag_MassDecorrelatedDeepBoosted_raw_score_top(), weight);
       deepjet_topscore_Taggedjet1->Fill(AK8PuppiTopTags.at(i).btag_DeepBoosted_raw_score_top(), weight);
-      deepjet_TvsQCD_Taggedjet1->Fill(AK8Puppijets->at(i).btag_DeepBoosted_TvsQCD(), weight);
-      massdecordeepjet_TvsQCD_Taggedjet1->Fill(AK8Puppijets->at(i).btag_MassDecorrelatedDeepBoosted_TvsQCD(), weight);
+      deepjet_TvsQCD_Taggedjet1->Fill(AK8PuppiTopTags.at(i).btag_DeepBoosted_TvsQCD(), weight);
+      massdecordeepjet_TvsQCD_Taggedjet1->Fill(AK8PuppiTopTags.at(i).btag_MassDecorrelatedDeepBoosted_TvsQCD(), weight);
     }
     else if(i==1){
       pt_AK8PuppiTaggedjet2->Fill(AK8PuppiTopTags.at(i).pt(), weight);
@@ -1057,8 +1057,8 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
       tau32_AK8PuppiTaggedjet2->Fill(tau32, weight);
       massdecordeepjet_topscore_Taggedjet2->Fill(AK8PuppiTopTags.at(i).btag_MassDecorrelatedDeepBoosted_raw_score_top(), weight);
       deepjet_topscore_Taggedjet2->Fill(AK8PuppiTopTags.at(i).btag_DeepBoosted_raw_score_top(), weight);
-      deepjet_TvsQCD_Taggedjet2->Fill(AK8Puppijets->at(i).btag_DeepBoosted_TvsQCD(), weight);
-      massdecordeepjet_TvsQCD_Taggedjet2->Fill(AK8Puppijets->at(i).btag_MassDecorrelatedDeepBoosted_TvsQCD(), weight);
+      deepjet_TvsQCD_Taggedjet2->Fill(AK8PuppiTopTags.at(i).btag_DeepBoosted_TvsQCD(), weight);
+      massdecordeepjet_TvsQCD_Taggedjet2->Fill(AK8PuppiTopTags.at(i).btag_MassDecorrelatedDeepBoosted_TvsQCD(), weight);
     }
     else if(i==2){
       pt_AK8PuppiTaggedjet3->Fill(AK8PuppiTopTags.at(i).pt(), weight);
@@ -1076,8 +1076,8 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
       tau32_AK8PuppiTaggedjet3->Fill(tau32, weight);
       massdecordeepjet_topscore_Taggedjet3->Fill(AK8PuppiTopTags.at(i).btag_MassDecorrelatedDeepBoosted_raw_score_top(), weight);
       deepjet_topscore_Taggedjet3->Fill(AK8PuppiTopTags.at(i).btag_DeepBoosted_raw_score_top(), weight);
-      deepjet_TvsQCD_Taggedjet2->Fill(AK8Puppijets->at(i).btag_DeepBoosted_TvsQCD(), weight);
-      massdecordeepjet_TvsQCD_Taggedjet3->Fill(AK8Puppijets->at(i).btag_MassDecorrelatedDeepBoosted_TvsQCD(), weight);
+      deepjet_TvsQCD_Taggedjet2->Fill(AK8PuppiTopTags.at(i).btag_DeepBoosted_TvsQCD(), weight);
+      massdecordeepjet_TvsQCD_Taggedjet3->Fill(AK8PuppiTopTags.at(i).btag_MassDecorrelatedDeepBoosted_TvsQCD(), weight);
     }
 
   }

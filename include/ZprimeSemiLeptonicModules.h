@@ -277,3 +277,21 @@ private:
   uhh2::Event::Handle< std::vector<Jet> > h_CHS_matched_;
 };
 
+////
+
+// Muon RECO SF (from https://twiki.cern.ch/twiki/bin/view/CMS/MuonUL2016#RECO_efficiency)
+// Add handles with nominal values and up/down variations and apply nominal sf to event.weight
+
+class MuonRecoSF : public uhh2::AnalysisModule {
+
+public:
+  explicit MuonRecoSF(uhh2::Context &ctx);
+  virtual bool process(uhh2::Event &event) override;
+
+private:
+  Year year;
+  bool is_mc, is_Muon;
+  uhh2::Event::Handle< float > h_muonrecSF_nominal;
+  uhh2::Event::Handle< float > h_muonrecSF_up;
+  uhh2::Event::Handle< float > h_muonrecSF_down;
+};
