@@ -76,9 +76,9 @@ protected:
 
   // scale factors
   unique_ptr<AnalysisModule> sf_muon_iso_low, sf_muon_id_low, sf_muon_id_high, sf_muon_trigger_low, sf_muon_trigger_high;
-  unique_ptr<AnalysisModule> sf_muon_iso_low_dummy, sf_muon_id_low_dummy, sf_muon_id_high_dummy, sf_muon_trigger_low_dummy, sf_muon_trigger_high_dummy;
+  unique_ptr<AnalysisModule> sf_muon_iso_low_dummy, sf_muon_id_dummy, sf_muon_trigger_dummy;
   unique_ptr<AnalysisModule> sf_ele_id_low, sf_ele_id_high, sf_ele_reco;
-  unique_ptr<AnalysisModule> sf_ele_id_low_dummy, sf_ele_id_high_dummy, sf_ele_reco_dummy;
+  unique_ptr<AnalysisModule> sf_ele_id_dummy, sf_ele_reco_dummy;
   unique_ptr<MuonRecoSF> sf_muon_reco;
   unique_ptr<AnalysisModule> sf_btagging;
 
@@ -309,12 +309,9 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
 
   // dummies (needed to aviod set value errors)
   sf_muon_iso_low_dummy.reset(new uhh2::MuonIsoScaleFactors(ctx, boost::none, boost::none, boost::none, boost::none, boost::none, true));
-  sf_muon_id_low_dummy.reset(new uhh2::MuonIdScaleFactors(ctx, boost::none, boost::none, boost::none, boost::none, true));
-  sf_muon_id_high_dummy.reset(new uhh2::MuonIdScaleFactors(ctx, boost::none, boost::none, boost::none, boost::none, true));
-  sf_muon_trigger_low_dummy.reset(new uhh2::MuonTriggerScaleFactors(ctx, boost::none, boost::none, boost::none, boost::none, boost::none, true));
-  sf_muon_trigger_high_dummy.reset(new uhh2::MuonTriggerScaleFactors(ctx, boost::none, boost::none, boost::none, boost::none, boost::none, true));
-  sf_ele_id_low_dummy.reset(new uhh2::ElectronIdScaleFactors(ctx, boost::none, boost::none, boost::none, boost::none, true));
-  sf_ele_id_high_dummy.reset(new uhh2::ElectronIdScaleFactors(ctx, boost::none, boost::none, boost::none, boost::none, true));
+  sf_muon_id_dummy.reset(new uhh2::MuonIdScaleFactors(ctx, boost::none, boost::none, boost::none, boost::none, true));
+  sf_muon_trigger_dummy.reset(new uhh2::MuonTriggerScaleFactors(ctx, boost::none, boost::none, boost::none, boost::none, boost::none, true));
+  sf_ele_id_dummy.reset(new uhh2::ElectronIdScaleFactors(ctx, boost::none, boost::none, boost::none, boost::none, true));
   sf_ele_reco_dummy.reset(new uhh2::ElectronRecoScaleFactors(ctx, boost::none, boost::none, boost::none, boost::none, true));
 
   // Selection modules
@@ -541,20 +538,18 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
 
   // apply electron id scale factors
   if(isMuon){
-    sf_ele_id_low_dummy->process(event);
-    sf_ele_id_high_dummy->process(event);
+    sf_ele_id_dummy->process(event);
   }
   if(isElectron){
     if(ele_is_low){
       sf_ele_id_low->process(event);
-      sf_ele_id_high_dummy->process(event);
     }
     else if(ele_is_high){
-      sf_ele_id_low_dummy->process(event);
       sf_ele_id_high->process(event);
     }
     fill_histograms(event, "IdEle_SF");
   }
+
 
   // apply muon isolation scale factors (low pT only)
   if(isMuon){
@@ -573,17 +568,14 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   if(isMuon){
     if(muon_is_low){
       sf_muon_id_low->process(event);
-      sf_muon_id_high_dummy->process(event);
     }
     else if(muon_is_high){
-      sf_muon_id_low_dummy->process(event);
       sf_muon_id_high->process(event);
     }
     fill_histograms(event, "IdMuon_SF");
   }
   if(isElectron){
-    sf_muon_id_low_dummy->process(event);
-    sf_muon_id_high_dummy->process(event);
+    sf_muon_id_dummy->process(event);
   }
 
   // apply electron reco scale factors
@@ -714,10 +706,8 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   if(isMuon){
     if(muon_is_low){
       sf_muon_trigger_low->process(event);
-      sf_muon_trigger_high_dummy->process(event);
     }
     if(muon_is_high){
-      sf_muon_trigger_low_dummy->process(event);
       sf_muon_trigger_high->process(event);
     }
     fill_histograms(event, "TriggerMuon_SF");
@@ -725,8 +715,7 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   if(isElectron){
     // TODO: implement electron trigger SFs (low + high pt)
     // fill_histograms(event, "TriggerEle");
-    sf_muon_trigger_low_dummy->process(event);
-    sf_muon_trigger_high_dummy->process(event);
+    sf_muon_trigger_dummy->process(event);
   }
 
 
