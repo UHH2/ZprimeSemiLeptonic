@@ -1311,6 +1311,8 @@
 			<Item Name="SystDirection_BTaggingShape" Value="central"/>
 			<Item Name="Sys_prefiring"               Value="nominal"/>
 			<Item Name="Sys_TopTag"                  Value="nominal"/>
+                        <Item Name="Systematic_TopPt_a"          Value="nominal"/>
+                        <Item Name="Systematic_TopPt_b"          Value="nominal"/>
 			<Item Name="channel"                     Value="&CHANNEL;"/>
 
 			<Item Name="AnalysisModule" Value="ZprimeAnalysisModule_applyNN"/>
