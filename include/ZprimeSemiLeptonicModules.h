@@ -251,18 +251,20 @@ class TopPtReweighting : public uhh2::AnalysisModule {
 			 float a, float b,
 			 const std::string& syst_a,
 			 const std::string& syst_b,
-			 const std::string& ttgen_name ="",
-			 const std::string& weight_name="weight_ttbar");
+			 const std::string& ttgen_name ="");
 
 
   virtual bool process(uhh2::Event& event) override;
  private:
   uhh2::Event::Handle<TTbarGen> h_ttbargen_;
-  uhh2::Event::Handle<float> h_weight_;
   float a_, b_;
   std::string version_;
   std::string ttgen_name_;
-  std::string weight_name_;
+  uhh2::Event::Handle< float > h_weight_toppt_nominal;
+  uhh2::Event::Handle< float > h_weight_toppt_a_up;
+  uhh2::Event::Handle< float > h_weight_toppt_b_up;
+  uhh2::Event::Handle< float > h_weight_toppt_a_down;
+  uhh2::Event::Handle< float > h_weight_toppt_b_down;
 };
 
 
@@ -295,3 +297,5 @@ private:
   uhh2::Event::Handle< float > h_muonrecSF_up;
   uhh2::Event::Handle< float > h_muonrecSF_down;
 };
+
+////

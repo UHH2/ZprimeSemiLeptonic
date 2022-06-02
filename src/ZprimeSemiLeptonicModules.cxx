@@ -1432,14 +1432,16 @@ TopPtReweighting::TopPtReweighting(uhh2::Context& ctx,
 				   float a, float b,
 				   const std::string& syst_a,
 				   const std::string& syst_b,
-				   const std::string& ttgen_name,
-				   const std::string& weight_name):
+				   const std::string& ttgen_name):
   a_(a), b_(b),
   ttgen_name_(ttgen_name){
 
-  weight_name_ = weight_name;
-  if(!weight_name_.empty())
-    h_weight_= ctx.get_handle<float>(weight_name);
+  h_weight_toppt_nominal = ctx.declare_event_output<float> ("weight_toppt_nominal");
+  h_weight_toppt_a_up      = ctx.declare_event_output<float> ("weight_toppt_a_up");
+  h_weight_toppt_b_up      = ctx.declare_event_output<float> ("weight_toppt_b_up");
+  h_weight_toppt_a_down    = ctx.declare_event_output<float> ("weight_toppt_a_down");
+  h_weight_toppt_b_down    = ctx.declare_event_output<float> ("weight_toppt_b_down");
+
   version_ = ctx.get("dataset_version", "");
   boost::algorithm::to_lower(version_);
   if(!ttgen_name_.empty()){
@@ -1458,21 +1460,34 @@ TopPtReweighting::TopPtReweighting(uhh2::Context& ctx,
 }
 
 bool TopPtReweighting::process(uhh2::Event& event){
-  if (event.isRealData || (!boost::algorithm::contains(version_,"ttbar") && !boost::algorithm::contains(version_,"ttjets") && !boost::algorithm::starts_with(version_,"tt")) ) {
+  if (event.isRealData || (!boost::algorithm::contains(version_,"tttohadronic") && !boost::algorithm::contains(version_,"tttosemileptonic") && !boost::algorithm::starts_with(version_,"ttto2l2nu")) ) {
     return true;
   }
   const TTbarGen& ttbargen = !ttgen_name_.empty() ? event.get(h_ttbargen_) : TTbarGen(*event.genparticles,false);
   float wgt = 1.;
+  float wgt_a_up = 1.;
+  float wgt_a_down = 1.;
+  float wgt_b_up = 1.;
+  float wgt_b_down = 1.;
   if (ttbargen.DecayChannel() != TTbarGen::e_notfound) {
     float tpt1 = ttbargen.Top().v4().Pt();
     float tpt2 = ttbargen.Antitop().v4().Pt();
     wgt = sqrt(exp(a_+b_*tpt1)*exp(a_+b_*tpt2));
+    wgt_a_up = sqrt(exp((1.5*a_)+b_*tpt1)*exp((1.5*a_)+b_*tpt2));
+    wgt_a_down = sqrt(exp((0.5*a_)+b_*tpt1)*exp((0.5*a_)+b_*tpt2));
+    wgt_b_up = sqrt(exp(a_+(1.5*b_)*tpt1)*exp(a_+(1.5*b_)*tpt2));
+    wgt_b_down = sqrt(exp(a_+(0.5*b_)*tpt1)*exp(a_+(0.5*b_)*tpt2));
   }
 
-  if(!weight_name_.empty())
-    event.set(h_weight_, wgt);
-
   event.weight *= wgt;
+
+  event.set(h_weight_toppt_nominal, wgt);
+  event.set(h_weight_toppt_a_up, wgt_a_up);
+  event.set(h_weight_toppt_b_up, wgt_b_up);
+  event.set(h_weight_toppt_a_down, wgt_a_down);
+  event.set(h_weight_toppt_b_down, wgt_b_down);
+
+
   return true;
 }
 
@@ -1611,3 +1626,4 @@ bool MuonRecoSF::process(uhh2::Event& event){
   return true;
 }
 
+////
