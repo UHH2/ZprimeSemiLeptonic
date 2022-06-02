@@ -1461,7 +1461,13 @@ TopPtReweighting::TopPtReweighting(uhh2::Context& ctx,
 
 bool TopPtReweighting::process(uhh2::Event& event){
   if (event.isRealData || (!boost::algorithm::contains(version_,"tttohadronic") && !boost::algorithm::contains(version_,"tttosemileptonic") && !boost::algorithm::starts_with(version_,"ttto2l2nu")) ) {
-    return true;
+ 
+    event.set(h_weight_toppt_nominal, 1.0);
+    event.set(h_weight_toppt_a_up, 1.0);
+    event.set(h_weight_toppt_b_up, 1.0);
+    event.set(h_weight_toppt_a_down, 1.0);
+    event.set(h_weight_toppt_b_down, 1.0); 
+    
   }
   const TTbarGen& ttbargen = !ttgen_name_.empty() ? event.get(h_ttbargen_) : TTbarGen(*event.genparticles,false);
   float wgt = 1.;
