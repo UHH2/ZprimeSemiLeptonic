@@ -503,6 +503,11 @@ void ZprimeSemiLeptonicHists::init(){
   leptop_thetastar     = book<TH1F>("leptop_thetastar", "leptop #theta^*", 70, -3.5, 3.5);
   cos_leptop_thetastar = book<TH1F>("cos_leptop_thetastar", "cos(leptop #theta^*)", 100, -1.0, 1.0);
 
+  // 2D sitributoin NJets/HT to extract custom btag SF
+  vector<float> bins_NJets = {2,3,4,5,6,7,20};
+  vector<float> bins_HT = {0,200,400,600,800,1000,1500,2000,3000,7000};
+  N_Jets_vs_HT  = book<TH2F>("N_Jets_vs_HT", "N_Jets_vs_HT", bins_NJets.size()-1, &bins_NJets[0], bins_HT.size()-1, &bins_HT[0]);
+
   // NN Hists
   NN_Mu_pt            = book<TH1F>("NN_Mu_pt", "NN_Mu_pt", 50, 0, 1000);
   NN_Mu_eta           = book<TH1F>("NN_Mu_eta", "NN_Mu_eta", 50, -2.5, 2.5);
@@ -1226,11 +1231,13 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
 
   double met = event.met->pt();
   double st = 0., st_jets = 0., st_lep = 0.;
+  double ht = 0.;
   double ht_lep = 0.;
   for(const auto & jet : *jets)           st_jets += jet.pt();
   for(const auto & electron : *electrons) st_lep += electron.pt();
   for(const auto & muon : *muons)         st_lep += muon.pt();
   st = st_jets + st_lep + met;
+  ht = st_jets +  met;
   ht_lep = st_lep + met;
 
   MET->Fill(met, weight);
@@ -1398,6 +1405,9 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
     leptop_thetastar->Fill(ang_leptop_thetastar, weight);
     cos_leptop_thetastar->Fill(TMath::Cos(ang_leptop_thetastar), weight);
   }
+
+
+  N_Jets_vs_HT->Fill(Njets, ht, weight);
 
   /*
   ███    ██ ███    ██
