@@ -1467,6 +1467,8 @@ bool TopPtReweighting::process(uhh2::Event& event){
     event.set(h_weight_toppt_b_up, 1.0);
     event.set(h_weight_toppt_a_down, 1.0);
     event.set(h_weight_toppt_b_down, 1.0); 
+
+    return true;
     
   }
   const TTbarGen& ttbargen = !ttgen_name_.empty() ? event.get(h_ttbargen_) : TTbarGen(*event.genparticles,false);
