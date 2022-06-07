@@ -88,8 +88,8 @@ void ZprimeSemiLeptonicSystematicsHists::init(){
   M_Zprime_mu_trigger_down = book<TH1F>("M_Zprime_mu_trigger_down", "M_{t#bar{t}} [GeV] mu_trigger_down",  bins_Zprime.size()-1, &bins_Zprime[0]);
   M_Zprime_ele_id_up       = book<TH1F>("M_Zprime_ele_id_up",   "M_{t#bar{t}} [GeV] ele_id_up",  bins_Zprime.size()-1, &bins_Zprime[0]);
   M_Zprime_ele_id_down     = book<TH1F>("M_Zprime_ele_id_down", "M_{t#bar{t}} [GeV] ele_id_down",  bins_Zprime.size()-1, &bins_Zprime[0]);
-  M_Zprime_ele_reco_up     = book<TH1F>("M_Zprime_ele_reco_up",   "M_{t#bar{t}} [GeV] ele_trigger_up",  bins_Zprime.size()-1, &bins_Zprime[0]);
-  M_Zprime_ele_reco_down   = book<TH1F>("M_Zprime_ele_reco_down", "M_{t#bar{t}} [GeV] ele_trigger_down",  bins_Zprime.size()-1, &bins_Zprime[0]);
+  M_Zprime_ele_reco_up     = book<TH1F>("M_Zprime_ele_reco_up",   "M_{t#bar{t}} [GeV] ele_reco_up",  bins_Zprime.size()-1, &bins_Zprime[0]);
+  M_Zprime_ele_reco_down   = book<TH1F>("M_Zprime_ele_reco_down", "M_{t#bar{t}} [GeV] ele_reco_down",  bins_Zprime.size()-1, &bins_Zprime[0]);
   M_Zprime_toppt_a_up      = book<TH1F>("M_Zprime_toppt_a_up",   "M_{t#bar{t}} [GeV] toppt_a_up",  bins_Zprime.size()-1, &bins_Zprime[0]);
   M_Zprime_toppt_a_down    = book<TH1F>("M_Zprime_toppt_a_down", "M_{t#bar{t}} [GeV] toppt_a_down",  bins_Zprime.size()-1, &bins_Zprime[0]);
   M_Zprime_toppt_b_up      = book<TH1F>("M_Zprime_toppt_b_up",   "M_{t#bar{t}} [GeV] toppt_b_up",  bins_Zprime.size()-1, &bins_Zprime[0]);
