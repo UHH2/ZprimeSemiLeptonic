@@ -1264,7 +1264,6 @@
 			<Item Name="TopPuppiJetCollection"   Value="jetsAk8PuppiSubstructure_SoftDropPuppi"/>
 			<Item Name="METName"                 Value="slimmedMETsPuppi"/>
 			<Item Name="genMETName"              Value="slimmedMETs_GenMET"/>
-			<Item Name="additionalBranches"      Value="jetsAk4CHS CHS_matched hotvrGen" />
 
 			<Item Name="lumi_file" Value="/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL17/Cert_294927-306462_13TeV_UL2017_Collisions17_GoldenJSON_normtag.root"/>
 			<Item Name="lumihists_lumi_per_bin" Value="500.0"/>
@@ -1283,7 +1282,8 @@
 			<Item Name="is_deepAK8" Value="&IS_DEEPAK8;"/>
 			<Item Name="is_looser_selection" Value="&IS_LOOSER_SELECTION;"/>
 
-			<Item Name="additionalBranches" Value=" Ak4_j1_E Ak4_j1_eta Ak4_j1_m Ak4_j1_phi Ak4_j1_pt Ak4_j1_deepjetbscore
+                        <Item Name="additionalBranches" Value="jetsAk4CHS CHS_matched hotvrGen
+                                Ak4_j1_E Ak4_j1_eta Ak4_j1_m Ak4_j1_phi Ak4_j1_pt Ak4_j1_deepjetbscore
 				Ak4_j2_E Ak4_j2_eta Ak4_j2_m Ak4_j2_phi Ak4_j2_pt Ak4_j2_deepjetbscore
 				Ak4_j3_E Ak4_j3_eta Ak4_j3_m Ak4_j3_phi Ak4_j3_pt Ak4_j3_deepjetbscore
 				Ak4_j4_E Ak4_j4_eta Ak4_j4_m Ak4_j4_phi Ak4_j4_pt Ak4_j4_deepjetbscore
