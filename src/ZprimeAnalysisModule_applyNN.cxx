@@ -35,6 +35,7 @@
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicModules.h>
 #include <UHH2/ZprimeSemiLeptonic/include/TTbarLJHists.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicHists.h>
+#include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicSystematicsHists.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicMulticlassNNHists.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicGeneratorHists.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicCHSMatchHists.h>
@@ -257,8 +258,8 @@ void NeuralNetworkModule::CreateInputs(Event & event){
   double mean_val[65];
   double std_val[65];
   //Only Ele or Mu variables!!
-  ifstream normfile ("/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_DeepAK8_UL18_muon/NormInfo.txt", ios::in);
-  //ifstream normfile ("/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_DeepAK8_UL18_ele/NormInfo.txt", ios::in);
+  //ifstream normfile ("/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_DeepAK8_UL18_muon/NormInfo.txt", ios::in);
+  ifstream normfile ("/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_DeepAK8_UL18_ele/NormInfo.txt", ios::in);
   if(!normfile.good()) throw runtime_error("NeuralNetworkModule: The specified norm file does not exist.");
   if (normfile.is_open()){
     for(int i = 0; i < 65; ++i)
@@ -356,6 +357,31 @@ protected:
 
   // DNN multiclass output hist
   std::unique_ptr<Hists> h_MulticlassNN_output;
+
+  // Hists with systematics variations
+  std::unique_ptr<Hists> h_Zprime_SystVariations_DNN_output0;
+  std::unique_ptr<Hists> h_Zprime_SystVariations_DNN_output1;
+  std::unique_ptr<Hists> h_Zprime_SystVariations_DNN_output2;
+  std::unique_ptr<Hists> h_Zprime_SystVariations_DNN_output0_TopTag;
+  std::unique_ptr<Hists> h_Zprime_SystVariations_DNN_output1_TopTag;
+  std::unique_ptr<Hists> h_Zprime_SystVariations_DNN_output2_TopTag;
+  std::unique_ptr<Hists> h_Zprime_SystVariations_DNN_output0_NoTopTag;
+  std::unique_ptr<Hists> h_Zprime_SystVariations_DNN_output1_NoTopTag;
+  std::unique_ptr<Hists> h_Zprime_SystVariations_DNN_output2_NoTopTag;
+  std::unique_ptr<Hists> h_Zprime_SystVariations_DNN_output0_thetastar_bin1;
+  std::unique_ptr<Hists> h_Zprime_SystVariations_DNN_output0_thetastar_bin2;
+  std::unique_ptr<Hists> h_Zprime_SystVariations_DNN_output0_thetastar_bin3;
+  std::unique_ptr<Hists> h_Zprime_SystVariations_DNN_output0_thetastar_bin4;
+  std::unique_ptr<Hists> h_Zprime_SystVariations_DNN_output0_TopTag_thetastar_bin1;
+  std::unique_ptr<Hists> h_Zprime_SystVariations_DNN_output0_TopTag_thetastar_bin2;
+  std::unique_ptr<Hists> h_Zprime_SystVariations_DNN_output0_TopTag_thetastar_bin3;
+  std::unique_ptr<Hists> h_Zprime_SystVariations_DNN_output0_TopTag_thetastar_bin4;
+  std::unique_ptr<Hists> h_Zprime_SystVariations_DNN_output0_NoTopTag_thetastar_bin1;
+  std::unique_ptr<Hists> h_Zprime_SystVariations_DNN_output0_NoTopTag_thetastar_bin2;
+  std::unique_ptr<Hists> h_Zprime_SystVariations_DNN_output0_NoTopTag_thetastar_bin3;
+  std::unique_ptr<Hists> h_Zprime_SystVariations_DNN_output0_NoTopTag_thetastar_bin4;
+
+
 
   // Configuration
   bool isMC, ishotvr, isdeepAK8;
@@ -658,8 +684,31 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   sel_1btag.reset(new NJetSelection(1, -1, id_btag));
   sel_2btag.reset(new NJetSelection(2,-1, id_btag));
 
+  // Hist with Syst Variations
+  h_Zprime_SystVariations_DNN_output0.reset(new ZprimeSemiLeptonicSystematicsHists(ctx, "Zprime_SystVariations_DNN_output0"));
+  h_Zprime_SystVariations_DNN_output1.reset(new ZprimeSemiLeptonicSystematicsHists(ctx, "Zprime_SystVariations_DNN_output1"));
+  h_Zprime_SystVariations_DNN_output2.reset(new ZprimeSemiLeptonicSystematicsHists(ctx, "Zprime_SystVariations_DNN_output2"));
+  h_Zprime_SystVariations_DNN_output0_TopTag.reset(new ZprimeSemiLeptonicSystematicsHists(ctx, "Zprime_SystVariations_DNN_output0_TopTag"));
+  h_Zprime_SystVariations_DNN_output1_TopTag.reset(new ZprimeSemiLeptonicSystematicsHists(ctx, "Zprime_SystVariations_DNN_output1_TopTag"));
+  h_Zprime_SystVariations_DNN_output2_TopTag.reset(new ZprimeSemiLeptonicSystematicsHists(ctx, "Zprime_SystVariations_DNN_output2_TopTag"));
+  h_Zprime_SystVariations_DNN_output0_NoTopTag.reset(new ZprimeSemiLeptonicSystematicsHists(ctx, "Zprime_SystVariations_DNN_output0_NoTopTag"));
+  h_Zprime_SystVariations_DNN_output1_NoTopTag.reset(new ZprimeSemiLeptonicSystematicsHists(ctx, "Zprime_SystVariations_DNN_output1_NoTopTag"));
+  h_Zprime_SystVariations_DNN_output2_NoTopTag.reset(new ZprimeSemiLeptonicSystematicsHists(ctx, "Zprime_SystVariations_DNN_output2_NoTopTag"));
+  h_Zprime_SystVariations_DNN_output0_thetastar_bin1.reset(new ZprimeSemiLeptonicSystematicsHists(ctx, "Zprime_SystVariations_DNN_output0_thetastar_bin1"));
+  h_Zprime_SystVariations_DNN_output0_thetastar_bin2.reset(new ZprimeSemiLeptonicSystematicsHists(ctx, "Zprime_SystVariations_DNN_output0_thetastar_bin2"));
+  h_Zprime_SystVariations_DNN_output0_thetastar_bin3.reset(new ZprimeSemiLeptonicSystematicsHists(ctx, "Zprime_SystVariations_DNN_output0_thetastar_bin3"));
+  h_Zprime_SystVariations_DNN_output0_thetastar_bin4.reset(new ZprimeSemiLeptonicSystematicsHists(ctx, "Zprime_SystVariations_DNN_output0_thetastar_bin4"));
+  h_Zprime_SystVariations_DNN_output0_TopTag_thetastar_bin1.reset(new ZprimeSemiLeptonicSystematicsHists(ctx, "Zprime_SystVariations_DNN_output0_TopTag_thetastar_bin1"));
+  h_Zprime_SystVariations_DNN_output0_TopTag_thetastar_bin2.reset(new ZprimeSemiLeptonicSystematicsHists(ctx, "Zprime_SystVariations_DNN_output0_TopTag_thetastar_bin2"));
+  h_Zprime_SystVariations_DNN_output0_TopTag_thetastar_bin3.reset(new ZprimeSemiLeptonicSystematicsHists(ctx, "Zprime_SystVariations_DNN_output0_TopTag_thetastar_bin3"));
+  h_Zprime_SystVariations_DNN_output0_TopTag_thetastar_bin4.reset(new ZprimeSemiLeptonicSystematicsHists(ctx, "Zprime_SystVariations_DNN_output0_TopTag_thetastar_bin4"));
+  h_Zprime_SystVariations_DNN_output0_NoTopTag_thetastar_bin1.reset(new ZprimeSemiLeptonicSystematicsHists(ctx, "Zprime_SystVariations_DNN_output0_NoTopTag_thetastar_bin1"));
+  h_Zprime_SystVariations_DNN_output0_NoTopTag_thetastar_bin2.reset(new ZprimeSemiLeptonicSystematicsHists(ctx, "Zprime_SystVariations_DNN_output0_NoTopTag_thetastar_bin2"));
+  h_Zprime_SystVariations_DNN_output0_NoTopTag_thetastar_bin3.reset(new ZprimeSemiLeptonicSystematicsHists(ctx, "Zprime_SystVariations_DNN_output0_NoTopTag_thetastar_bin3"));
+  h_Zprime_SystVariations_DNN_output0_NoTopTag_thetastar_bin4.reset(new ZprimeSemiLeptonicSystematicsHists(ctx, "Zprime_SystVariations_DNN_output0_NoTopTag_thetastar_bin4"));
+
   // Book histograms
-  vector<string> histogram_tags = {"Weights_Init", "Weights_PU", "Weights_Lumi", "Weights_TopPt", "Weights_MCScale", "Weights_Prefiring", "Weights_TopTag_SF", "Corrections", "IdMuon_SF", "IdEle_SF", "IsoMuon_SF", "RecoEle_SF", "MuonReco_SF", "TriggerMuon_SF", "Btags1_SF", "NNInputsBeforeReweight", "TopTagVeto", "DNN_output0","DNN_output1","DNN_output2","DNN_output0_TopTag","DNN_output1_TopTag","DNN_output2_TopTag","DNN_output0_NoTopTag","DNN_output1_NoTopTag","DNN_output2_NoTopTag", "DNN_output0_thetastar_bin1", "DNN_output0_thetastar_bin2", "DNN_output0_thetastar_bin3", "DNN_output0_thetastar_bin4", "DNN_output0_TopTag_thetastar_bin1", "DNN_output0_TopTag_thetastar_bin2", "DNN_output0_TopTag_thetastar_bin3", "DNN_output0_TopTag_thetastar_bin4", "DNN_output0_NoTopTag_thetastar_bin1", "DNN_output0_NoTopTag_thetastar_bin2", "DNN_output0_NoTopTag_thetastar_bin3", "DNN_output0_NoTopTag_thetastar_bin4", "DNN_output0_TopTag_chi2_max", "DNN_output0_NoTopTag_chi2_max", "DNN_output0_thetastar_bin1_chi2_max", "DNN_output0_thetastar_bin2_chi2_max", "DNN_output0_thetastar_bin3_chi2_max", "DNN_output0_thetastar_bin4_chi2_max", "DNN_output0_TopTag_thetastar_bin1_chi2_max", "DNN_output0_TopTag_thetastar_bin2_chi2_max", "DNN_output0_TopTag_thetastar_bin3_chi2_max", "DNN_output0_TopTag_thetastar_bin4_chi2_max", "DNN_output0_NoTopTag_thetastar_bin1_chi2_max", "DNN_output0_NoTopTag_thetastar_bin2_chi2_max", "DNN_output0_NoTopTag_thetastar_bin3_chi2_max", "DNN_output0_NoTopTag_thetastar_bin4_chi2_max"};
+  vector<string> histogram_tags = {"Weights_Init", "Weights_PU", "Weights_Lumi", "Weights_TopPt", "Weights_MCScale", "Weights_Prefiring", "Weights_TopTag_SF", "Corrections", "IdMuon_SF", "IdEle_SF", "IsoMuon_SF", "RecoEle_SF", "MuonReco_SF", "TriggerMuon_SF", "Btags1_SF", "NNInputsBeforeReweight", "TopTagVeto", "DNN_output0","DNN_output1","DNN_output2","DNN_output0_TopTag","DNN_output1_TopTag","DNN_output2_TopTag","DNN_output0_NoTopTag","DNN_output1_NoTopTag","DNN_output2_NoTopTag", "DNN_output0_thetastar_bin1", "DNN_output0_thetastar_bin2", "DNN_output0_thetastar_bin3", "DNN_output0_thetastar_bin4", "DNN_output0_TopTag_thetastar_bin1", "DNN_output0_TopTag_thetastar_bin2", "DNN_output0_TopTag_thetastar_bin3", "DNN_output0_TopTag_thetastar_bin4", "DNN_output0_NoTopTag_thetastar_bin1", "DNN_output0_NoTopTag_thetastar_bin2", "DNN_output0_NoTopTag_thetastar_bin3", "DNN_output0_NoTopTag_thetastar_bin4"};
   book_histograms(ctx, histogram_tags);
 
   h_MulticlassNN_output.reset(new ZprimeSemiLeptonicMulticlassNNHists(ctx, "MulticlassNN"));
@@ -761,8 +810,8 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   h_NNoutput1 = ctx.declare_event_output<double>("NNoutput1");
   h_NNoutput2 = ctx.declare_event_output<double>("NNoutput2");
   ////Only Ele or Mu variables!!
-  NNModule.reset( new NeuralNetworkModule(ctx, "/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_DeepAK8_UL18_muon/model.pb", "/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_DeepAK8_UL18_muon/model.config.pbtxt"));
-  //NNModule.reset( new NeuralNetworkModule(ctx, "/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_DeepAK8_UL18_ele/model.pb", "/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_DeepAK8_UL18_ele/model.config.pbtxt"));
+  //NNModule.reset( new NeuralNetworkModule(ctx, "/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_DeepAK8_UL18_muon/model.pb", "/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_DeepAK8_UL18_muon/model.config.pbtxt"));
+  NNModule.reset( new NeuralNetworkModule(ctx, "/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_DeepAK8_UL18_ele/model.pb", "/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_DeepAK8_UL18_ele/model.config.pbtxt"));
 
 }
 
@@ -995,91 +1044,86 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
   // out0=TTbar, out1=ST, out2=WJets
   if( out0 == max_score ){
     fill_histograms(event, "DNN_output0");
-    if( ZprimeTopTag_selection->passes(event) ) fill_histograms(event, "DNN_output0_TopTag");
-    else fill_histograms(event, "DNN_output0_NoTopTag");
+    h_Zprime_SystVariations_DNN_output0->fill(event);
+    if( ZprimeTopTag_selection->passes(event) ){
+      fill_histograms(event, "DNN_output0_TopTag");
+      h_Zprime_SystVariations_DNN_output0_TopTag->fill(event);
+    }else{
+      fill_histograms(event, "DNN_output0_NoTopTag");
+      h_Zprime_SystVariations_DNN_output0_NoTopTag->fill(event);
+    }
   }
 
   if( out1 == max_score ){
     fill_histograms(event, "DNN_output1");
-    if( ZprimeTopTag_selection->passes(event) ) fill_histograms(event, "DNN_output1_TopTag");
-    else fill_histograms(event, "DNN_output1_NoTopTag");
+    h_Zprime_SystVariations_DNN_output1->fill(event);
+    if( ZprimeTopTag_selection->passes(event) ){
+      fill_histograms(event, "DNN_output1_TopTag");
+      h_Zprime_SystVariations_DNN_output1_TopTag->fill(event);
+    }else{
+      fill_histograms(event, "DNN_output1_NoTopTag");
+      h_Zprime_SystVariations_DNN_output1_NoTopTag->fill(event);
+    }
   }
 
   if( out2 == max_score ){
     fill_histograms(event, "DNN_output2");
-    if( ZprimeTopTag_selection->passes(event) ) fill_histograms(event, "DNN_output2_TopTag");
-    else fill_histograms(event, "DNN_output2_NoTopTag");
+    h_Zprime_SystVariations_DNN_output2->fill(event);
+    if( ZprimeTopTag_selection->passes(event) ){
+      fill_histograms(event, "DNN_output2_TopTag");
+      h_Zprime_SystVariations_DNN_output2_TopTag->fill(event);
+    }else{
+      fill_histograms(event, "DNN_output2_NoTopTag");
+      h_Zprime_SystVariations_DNN_output2_NoTopTag->fill(event);
+    }
   }
 
   //Define categories on theta star to reduce ttbar background - only in SR == out0
   if( out0 == max_score ){
-    if(ThetaStar_selection_bin1->passes(event)){
-      fill_histograms(event, "DNN_output0_thetastar_bin1");
-    }else if(ThetaStar_selection_bin2->passes(event)){
-      fill_histograms(event, "DNN_output0_thetastar_bin2");
-    }else if(ThetaStar_selection_bin3->passes(event)){
-      fill_histograms(event, "DNN_output0_thetastar_bin3");
-    }else{
-      fill_histograms(event, "DNN_output0_thetastar_bin4");
-    }
-    if( ZprimeTopTag_selection->passes(event) ){
+    if(Chi2_selection->passes(event)){  // cut on chi2<30 - only in SR == out0
       if(ThetaStar_selection_bin1->passes(event)){
-        fill_histograms(event, "DNN_output0_TopTag_thetastar_bin1");
+        fill_histograms(event, "DNN_output0_thetastar_bin1");
+        h_Zprime_SystVariations_DNN_output0_thetastar_bin1->fill(event);
       }else if(ThetaStar_selection_bin2->passes(event)){
-        fill_histograms(event, "DNN_output0_TopTag_thetastar_bin2");
+        fill_histograms(event, "DNN_output0_thetastar_bin2");
+        h_Zprime_SystVariations_DNN_output0_thetastar_bin2->fill(event);
       }else if(ThetaStar_selection_bin3->passes(event)){
-        fill_histograms(event, "DNN_output0_TopTag_thetastar_bin3");
+        fill_histograms(event, "DNN_output0_thetastar_bin3");
+        h_Zprime_SystVariations_DNN_output0_thetastar_bin3->fill(event);
       }else{
-        fill_histograms(event, "DNN_output0_TopTag_thetastar_bin4");
-      }
-    }else{
-      if(ThetaStar_selection_bin1->passes(event)){
-        fill_histograms(event, "DNN_output0_NoTopTag_thetastar_bin1");
-      }else if(ThetaStar_selection_bin2->passes(event)){
-        fill_histograms(event, "DNN_output0_NoTopTag_thetastar_bin2");
-      }else if(ThetaStar_selection_bin3->passes(event)){
-        fill_histograms(event, "DNN_output0_NoTopTag_thetastar_bin3");
-      }else{
-        fill_histograms(event, "DNN_output0_NoTopTag_thetastar_bin4");
-      }
-    }
-
-    //Cut on chi2<30 - only in SR == out0
-    if(Chi2_selection->passes(event)){
-      if(ThetaStar_selection_bin1->passes(event)){
-        fill_histograms(event, "DNN_output0_thetastar_bin1_chi2_max");
-      }else if(ThetaStar_selection_bin2->passes(event)){
-        fill_histograms(event, "DNN_output0_thetastar_bin2_chi2_max");
-      }else if(ThetaStar_selection_bin3->passes(event)){
-        fill_histograms(event, "DNN_output0_thetastar_bin3_chi2_max");
-      }else{
-        fill_histograms(event, "DNN_output0_thetastar_bin4_chi2_max");
+        fill_histograms(event, "DNN_output0_thetastar_bin4");
+        h_Zprime_SystVariations_DNN_output0_thetastar_bin4->fill(event);
       }
       if( ZprimeTopTag_selection->passes(event) ){
-        fill_histograms(event, "DNN_output0_TopTag_chi2_max");
         if(ThetaStar_selection_bin1->passes(event)){
-          fill_histograms(event, "DNN_output0_TopTag_thetastar_bin1_chi2_max");
+          fill_histograms(event, "DNN_output0_TopTag_thetastar_bin1");
+          h_Zprime_SystVariations_DNN_output0_TopTag_thetastar_bin1->fill(event);
         }else if(ThetaStar_selection_bin2->passes(event)){
-          fill_histograms(event, "DNN_output0_TopTag_thetastar_bin2_chi2_max");
+          fill_histograms(event, "DNN_output0_TopTag_thetastar_bin2");
+          h_Zprime_SystVariations_DNN_output0_TopTag_thetastar_bin2->fill(event);
         }else if(ThetaStar_selection_bin3->passes(event)){
-          fill_histograms(event, "DNN_output0_TopTag_thetastar_bin3_chi2_max");
+          fill_histograms(event, "DNN_output0_TopTag_thetastar_bin3");
+          h_Zprime_SystVariations_DNN_output0_TopTag_thetastar_bin3->fill(event);
         }else{
-          fill_histograms(event, "DNN_output0_TopTag_thetastar_bin4_chi2_max");
+          fill_histograms(event, "DNN_output0_TopTag_thetastar_bin4");
+          h_Zprime_SystVariations_DNN_output0_TopTag_thetastar_bin4->fill(event);
         }
       }else{
-        fill_histograms(event, "DNN_output0_NoTopTag_chi2_max");
         if(ThetaStar_selection_bin1->passes(event)){
-          fill_histograms(event, "DNN_output0_NoTopTag_thetastar_bin1_chi2_max");
+          fill_histograms(event, "DNN_output0_NoTopTag_thetastar_bin1");
+          h_Zprime_SystVariations_DNN_output0_NoTopTag_thetastar_bin1->fill(event);
         }else if(ThetaStar_selection_bin2->passes(event)){
-          fill_histograms(event, "DNN_output0_NoTopTag_thetastar_bin2_chi2_max");
+          fill_histograms(event, "DNN_output0_NoTopTag_thetastar_bin2");
+          h_Zprime_SystVariations_DNN_output0_NoTopTag_thetastar_bin2->fill(event);
         }else if(ThetaStar_selection_bin3->passes(event)){
-          fill_histograms(event, "DNN_output0_NoTopTag_thetastar_bin3_chi2_max");
+          fill_histograms(event, "DNN_output0_NoTopTag_thetastar_bin3");
+          h_Zprime_SystVariations_DNN_output0_NoTopTag_thetastar_bin3->fill(event);
         }else{
-          fill_histograms(event, "DNN_output0_NoTopTag_thetastar_bin4_chi2_max");
+          fill_histograms(event, "DNN_output0_NoTopTag_thetastar_bin4");
+          h_Zprime_SystVariations_DNN_output0_NoTopTag_thetastar_bin4->fill(event);
         }
       }
-    }
-
+    } // end chi2 cut
   }//end out0
 
 

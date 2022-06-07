@@ -72,6 +72,8 @@ protected:
 
   TH1F *hadtop_thetastar, *cos_hadtop_thetastar, *leptop_thetastar, *cos_leptop_thetastar;
 
+  TH2F *N_Jets_vs_HT;
+
   uhh2::Event::Handle< std::vector<TopJet> > h_AK8TopTags;
   uhh2::Event::Handle<bool> h_is_zprime_reconstructed_chi2;
   uhh2::Event::Handle<bool> h_is_zprime_reconstructed_correctmatch;
