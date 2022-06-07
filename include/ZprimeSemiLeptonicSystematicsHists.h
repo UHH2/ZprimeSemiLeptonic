@@ -55,6 +55,23 @@ protected:
   uhh2::Event::Handle<float> h_murmuf_nonedown;
   uhh2::Event::Handle<float> h_murmuf_downnone;
   uhh2::Event::Handle<float> h_murmuf_downdown;
+  uhh2::Event::Handle<float> h_btag;
+  uhh2::Event::Handle<float> h_btag_cferr1_up;
+  uhh2::Event::Handle<float> h_btag_cferr1_down;
+  uhh2::Event::Handle<float> h_btag_cferr2_up;
+  uhh2::Event::Handle<float> h_btag_cferr2_down;
+  uhh2::Event::Handle<float> h_btag_hf_up;
+  uhh2::Event::Handle<float> h_btag_hf_down;
+  uhh2::Event::Handle<float> h_btag_hfstats1_up;
+  uhh2::Event::Handle<float> h_btag_hfstats1_down;
+  uhh2::Event::Handle<float> h_btag_hfstats2_up;
+  uhh2::Event::Handle<float> h_btag_hfstats2_down;
+  uhh2::Event::Handle<float> h_btag_lf_up;
+  uhh2::Event::Handle<float> h_btag_lf_down;
+  uhh2::Event::Handle<float> h_btag_lfstats1_up;
+  uhh2::Event::Handle<float> h_btag_lfstats1_down;
+  uhh2::Event::Handle<float> h_btag_lfstats2_up;
+  uhh2::Event::Handle<float> h_btag_lfstats2_down;
 
   TH1F *M_Zprime;
   TH1F *M_Zprime_mu_reco_up;
@@ -83,6 +100,22 @@ protected:
   TH1F *M_Zprime_murmuf_nonedown;
   TH1F *M_Zprime_murmuf_downnone;
   TH1F *M_Zprime_murmuf_downdown;
+  TH1F *M_Zprime_btag_cferr1_up;     
+  TH1F *M_Zprime_btag_cferr1_down;
+  TH1F *M_Zprime_btag_cferr2_up;     
+  TH1F *M_Zprime_btag_cferr2_down;
+  TH1F *M_Zprime_btag_hf_up;         
+  TH1F *M_Zprime_btag_hf_down;      
+  TH1F *M_Zprime_btag_hfstats1_up;
+  TH1F *M_Zprime_btag_hfstats1_down; 
+  TH1F *M_Zprime_btag_hfstats2_up; 
+  TH1F *M_Zprime_btag_hfstats2_down; 
+  TH1F *M_Zprime_btag_lf_up;         
+  TH1F *M_Zprime_btag_lf_down;       
+  TH1F *M_Zprime_btag_lfstats1_up;  
+  TH1F *M_Zprime_btag_lfstats1_down; 
+  TH1F *M_Zprime_btag_lfstats2_up;  
+  TH1F *M_Zprime_btag_lfstats2_down;
 
 
   uhh2::Event::Handle<bool> h_is_zprime_reconstructed_chi2;
