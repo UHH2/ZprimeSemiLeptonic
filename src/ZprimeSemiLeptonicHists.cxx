@@ -504,9 +504,7 @@ void ZprimeSemiLeptonicHists::init(){
   cos_leptop_thetastar = book<TH1F>("cos_leptop_thetastar", "cos(leptop #theta^*)", 100, -1.0, 1.0);
 
   // 2D sitributoin NJets/HT to extract custom btag SF
-  vector<float> bins_NJets = {2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
-  vector<float> bins_HT = {0,200,400,600,800,1000,1500,2000,3000,7000};
-  N_Jets_vs_HT  = book<TH2F>("N_Jets_vs_HT", "N_Jets_vs_HT", bins_NJets.size()-1, &bins_NJets[0], bins_HT.size()-1, &bins_HT[0]);
+  N_Jets_vs_HT  = book<TH2F>("N_Jets_vs_HT", "N_Jets_vs_HT", 21, 0., 21., 50, 0., 7000.);
 
   // NN Hists
   NN_Mu_pt            = book<TH1F>("NN_Mu_pt", "NN_Mu_pt", 50, 0, 1000);
@@ -1407,7 +1405,7 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
   }
 
 
-  N_Jets_vs_HT->Fill(Njets, ht, weight);
+  N_Jets_vs_HT->Fill(Njets, st_jets, weight);
 
   /*
   ███    ██ ███    ██
