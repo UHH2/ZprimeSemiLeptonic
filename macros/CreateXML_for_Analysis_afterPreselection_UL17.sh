@@ -4,8 +4,8 @@ pathGL_code=/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/
 #where (NOT MERGED) trees after preselection stored
 path_data=/nfs/dust/cms/group/zprime-uhh/Presel_UL17/workdir_Preselection_UL17/uhh2.AnalysisModuleRunner.
 
-mkdir $pathGL_code/ZprimeSemiLeptonic/data/Skimming_datasets_UL17
-cd $pathGL_code/ZprimeSemiLeptonic/data/Skimming_datasets_UL17
+mkdir $pathGL_code/ZprimeSemiLeptonic/data/Skimming_datasets_UL17_preselection
+cd $pathGL_code/ZprimeSemiLeptonic/data/Skimming_datasets_UL17_preselection
 
 
 # #MC
