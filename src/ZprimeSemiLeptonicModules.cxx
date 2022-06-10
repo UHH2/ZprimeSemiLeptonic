@@ -1347,7 +1347,7 @@ double ScaleFactorsFromHistos::Evaluator(std::string hname, double var) {
 NLOCorrections::NLOCorrections(uhh2::Context& ctx) {
 
  // Corrections for 2017 and 2018 are the same. 2016 is different
- is2016 = (ctx.get("dataset_version").find("2016") != std::string::npos);
+ is2016 = (ctx.get("dataset_version").find("UL16") != std::string::npos);
 
  is_Wjets  = (ctx.get("dataset_version").find("WJets") != std::string::npos);
  is_Znn  = (ctx.get("dataset_version").find("DY_inv") != std::string::npos);
