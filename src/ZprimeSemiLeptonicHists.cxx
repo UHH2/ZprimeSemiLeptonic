@@ -1229,13 +1229,11 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
 
   double met = event.met->pt();
   double st = 0., st_jets = 0., st_lep = 0.;
-  double ht = 0.;
   double ht_lep = 0.;
   for(const auto & jet : *jets)           st_jets += jet.pt();
   for(const auto & electron : *electrons) st_lep += electron.pt();
   for(const auto & muon : *muons)         st_lep += muon.pt();
   st = st_jets + st_lep + met;
-  ht = st_jets +  met;
   ht_lep = st_lep + met;
 
   MET->Fill(met, weight);
