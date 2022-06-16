@@ -238,6 +238,25 @@ void ZprimeSemiLeptonicPreselectionHists::init(){
 
   sum_event_weights = book<TH1F>("sum_event_weights", "counting experiment", 1, 0.5, 1.5);
 
+  // calculate sum of event weights with PDF replicas
+  for(int i=0; i<100; i++){
+    std::stringstream ss_name;
+    ss_name << "sum_event_weights_PDF_" << i+1;
+
+    stringstream ss_title;
+    ss_title << "counting experiment for PDF No. "  << i+1 << " out of 100" ;
+
+    std::string s_name = ss_name.str();
+    std::string s_title = ss_title.str();
+    const char* char_name = s_name.c_str();
+    const char* char_title = s_title.c_str();
+
+    hist_names[i] = s_name;
+
+    book<TH1F>(char_name, char_title,  1, 0.5, 1.5);
+
+  }
+
 }
 
 
@@ -647,6 +666,15 @@ void ZprimeSemiLeptonicPreselectionHists::fill(const Event & event){
 
   sum_event_weights->Fill(1., weight);
 
+  if(event.genInfo->systweights().size()){
+    float orig_weight = event.genInfo->originalXWGTUP();
+    int MY_FIRST_INDEX = 9;
+      for(int i=0; i<100; i++){
+        double pdf_weight = event.genInfo->systweights().at(i+MY_FIRST_INDEX);
+        const char* name = hist_names[i].c_str();
+        hist(name)->Fill(1.,weight * pdf_weight / orig_weight);
+     }
+  }
 
 
 } //Method

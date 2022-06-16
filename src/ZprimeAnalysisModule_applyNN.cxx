@@ -36,6 +36,7 @@
 #include <UHH2/ZprimeSemiLeptonic/include/TTbarLJHists.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicHists.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicSystematicsHists.h>
+#include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicPDFHists.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicMulticlassNNHists.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicGeneratorHists.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicCHSMatchHists.h>
@@ -381,6 +382,28 @@ protected:
   std::unique_ptr<Hists> h_Zprime_SystVariations_DNN_output0_NoTopTag_thetastar_bin3;
   std::unique_ptr<Hists> h_Zprime_SystVariations_DNN_output0_NoTopTag_thetastar_bin4;
 
+  // Hists with PDF variations
+  std::unique_ptr<Hists> h_Zprime_PDFVariations_DNN_output0;
+  std::unique_ptr<Hists> h_Zprime_PDFVariations_DNN_output1;
+  std::unique_ptr<Hists> h_Zprime_PDFVariations_DNN_output2;
+  std::unique_ptr<Hists> h_Zprime_PDFVariations_DNN_output0_TopTag;
+  std::unique_ptr<Hists> h_Zprime_PDFVariations_DNN_output1_TopTag;
+  std::unique_ptr<Hists> h_Zprime_PDFVariations_DNN_output2_TopTag;
+  std::unique_ptr<Hists> h_Zprime_PDFVariations_DNN_output0_NoTopTag;
+  std::unique_ptr<Hists> h_Zprime_PDFVariations_DNN_output1_NoTopTag;
+  std::unique_ptr<Hists> h_Zprime_PDFVariations_DNN_output2_NoTopTag;
+  std::unique_ptr<Hists> h_Zprime_PDFVariations_DNN_output0_thetastar_bin1;
+  std::unique_ptr<Hists> h_Zprime_PDFVariations_DNN_output0_thetastar_bin2;
+  std::unique_ptr<Hists> h_Zprime_PDFVariations_DNN_output0_thetastar_bin3;
+  std::unique_ptr<Hists> h_Zprime_PDFVariations_DNN_output0_thetastar_bin4;
+  std::unique_ptr<Hists> h_Zprime_PDFVariations_DNN_output0_TopTag_thetastar_bin1;
+  std::unique_ptr<Hists> h_Zprime_PDFVariations_DNN_output0_TopTag_thetastar_bin2;
+  std::unique_ptr<Hists> h_Zprime_PDFVariations_DNN_output0_TopTag_thetastar_bin3;
+  std::unique_ptr<Hists> h_Zprime_PDFVariations_DNN_output0_TopTag_thetastar_bin4;
+  std::unique_ptr<Hists> h_Zprime_PDFVariations_DNN_output0_NoTopTag_thetastar_bin1;
+  std::unique_ptr<Hists> h_Zprime_PDFVariations_DNN_output0_NoTopTag_thetastar_bin2;
+  std::unique_ptr<Hists> h_Zprime_PDFVariations_DNN_output0_NoTopTag_thetastar_bin3;
+  std::unique_ptr<Hists> h_Zprime_PDFVariations_DNN_output0_NoTopTag_thetastar_bin4;
 
 
   // Configuration
@@ -710,6 +733,29 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   h_Zprime_SystVariations_DNN_output0_NoTopTag_thetastar_bin3.reset(new ZprimeSemiLeptonicSystematicsHists(ctx, "Zprime_SystVariations_DNN_output0_NoTopTag_thetastar_bin3"));
   h_Zprime_SystVariations_DNN_output0_NoTopTag_thetastar_bin4.reset(new ZprimeSemiLeptonicSystematicsHists(ctx, "Zprime_SystVariations_DNN_output0_NoTopTag_thetastar_bin4"));
 
+  // Hist with PDF variations
+  h_Zprime_PDFVariations_DNN_output0.reset(new ZprimeSemiLeptonicPDFHists(ctx, "Zprime_PDFVariations_DNN_output0"));
+  h_Zprime_PDFVariations_DNN_output1.reset(new ZprimeSemiLeptonicPDFHists(ctx, "Zprime_PDFVariations_DNN_output1"));
+  h_Zprime_PDFVariations_DNN_output2.reset(new ZprimeSemiLeptonicPDFHists(ctx, "Zprime_PDFVariations_DNN_output2"));
+  h_Zprime_PDFVariations_DNN_output0_TopTag.reset(new ZprimeSemiLeptonicPDFHists(ctx, "Zprime_PDFVariations_DNN_output0_TopTag"));
+  h_Zprime_PDFVariations_DNN_output1_TopTag.reset(new ZprimeSemiLeptonicPDFHists(ctx, "Zprime_PDFVariations_DNN_output1_TopTag"));
+  h_Zprime_PDFVariations_DNN_output2_TopTag.reset(new ZprimeSemiLeptonicPDFHists(ctx, "Zprime_PDFVariations_DNN_output2_TopTag"));
+  h_Zprime_PDFVariations_DNN_output0_NoTopTag.reset(new ZprimeSemiLeptonicPDFHists(ctx, "Zprime_PDFVariations_DNN_output0_NoTopTag"));
+  h_Zprime_PDFVariations_DNN_output1_NoTopTag.reset(new ZprimeSemiLeptonicPDFHists(ctx, "Zprime_PDFVariations_DNN_output1_NoTopTag"));
+  h_Zprime_PDFVariations_DNN_output2_NoTopTag.reset(new ZprimeSemiLeptonicPDFHists(ctx, "Zprime_PDFVariations_DNN_output2_NoTopTag"));
+  h_Zprime_PDFVariations_DNN_output0_thetastar_bin1.reset(new ZprimeSemiLeptonicPDFHists(ctx, "Zprime_PDFVariations_DNN_output0_thetastar_bin1"));
+  h_Zprime_PDFVariations_DNN_output0_thetastar_bin2.reset(new ZprimeSemiLeptonicPDFHists(ctx, "Zprime_PDFVariations_DNN_output0_thetastar_bin2"));
+  h_Zprime_PDFVariations_DNN_output0_thetastar_bin3.reset(new ZprimeSemiLeptonicPDFHists(ctx, "Zprime_PDFVariations_DNN_output0_thetastar_bin3"));
+  h_Zprime_PDFVariations_DNN_output0_thetastar_bin4.reset(new ZprimeSemiLeptonicPDFHists(ctx, "Zprime_PDFVariations_DNN_output0_thetastar_bin4"));
+  h_Zprime_PDFVariations_DNN_output0_TopTag_thetastar_bin1.reset(new ZprimeSemiLeptonicPDFHists(ctx, "Zprime_PDFVariations_DNN_output0_TopTag_thetastar_bin1"));
+  h_Zprime_PDFVariations_DNN_output0_TopTag_thetastar_bin2.reset(new ZprimeSemiLeptonicPDFHists(ctx, "Zprime_PDFVariations_DNN_output0_TopTag_thetastar_bin2"));
+  h_Zprime_PDFVariations_DNN_output0_TopTag_thetastar_bin3.reset(new ZprimeSemiLeptonicPDFHists(ctx, "Zprime_PDFVariations_DNN_output0_TopTag_thetastar_bin3"));
+  h_Zprime_PDFVariations_DNN_output0_TopTag_thetastar_bin4.reset(new ZprimeSemiLeptonicPDFHists(ctx, "Zprime_PDFVariations_DNN_output0_TopTag_thetastar_bin4"));
+  h_Zprime_PDFVariations_DNN_output0_NoTopTag_thetastar_bin1.reset(new ZprimeSemiLeptonicPDFHists(ctx, "Zprime_PDFVariations_DNN_output0_NoTopTag_thetastar_bin1"));
+  h_Zprime_PDFVariations_DNN_output0_NoTopTag_thetastar_bin2.reset(new ZprimeSemiLeptonicPDFHists(ctx, "Zprime_PDFVariations_DNN_output0_NoTopTag_thetastar_bin2"));
+  h_Zprime_PDFVariations_DNN_output0_NoTopTag_thetastar_bin3.reset(new ZprimeSemiLeptonicPDFHists(ctx, "Zprime_PDFVariations_DNN_output0_NoTopTag_thetastar_bin3"));
+  h_Zprime_PDFVariations_DNN_output0_NoTopTag_thetastar_bin4.reset(new ZprimeSemiLeptonicPDFHists(ctx, "Zprime_PDFVariations_DNN_output0_NoTopTag_thetastar_bin4"));
+
   // Book histograms
   vector<string> histogram_tags = {"Weights_Init", "Weights_PU", "Weights_Lumi", "Weights_TopPt", "Weights_MCScale", "Weights_Prefiring", "Weights_TopTag_SF", "Corrections", "IdMuon_SF", "IdEle_SF", "IsoMuon_SF", "RecoEle_SF", "MuonReco_SF", "TriggerMuon_SF", "BeforeBtagSF", "AfterBtagSF", "AfterCustomBtagSFMuon", "NNInputsBeforeReweight", "TopTagVeto", "DNN_output0","DNN_output1","DNN_output2","DNN_output0_TopTag","DNN_output1_TopTag","DNN_output2_TopTag","DNN_output0_NoTopTag","DNN_output1_NoTopTag","DNN_output2_NoTopTag", "DNN_output0_thetastar_bin1", "DNN_output0_thetastar_bin2", "DNN_output0_thetastar_bin3", "DNN_output0_thetastar_bin4", "DNN_output0_TopTag_thetastar_bin1", "DNN_output0_TopTag_thetastar_bin2", "DNN_output0_TopTag_thetastar_bin3", "DNN_output0_TopTag_thetastar_bin4", "DNN_output0_NoTopTag_thetastar_bin1", "DNN_output0_NoTopTag_thetastar_bin2", "DNN_output0_NoTopTag_thetastar_bin3", "DNN_output0_NoTopTag_thetastar_bin4"};
   book_histograms(ctx, histogram_tags);
@@ -727,7 +773,8 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
     TFile* f_btag2Dsf_muon = new TFile("/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/data/customBtagSF_muon.root");
     TString sample_name = "";
     vector<string> names_bkg  = {"ST", "WJets", "DY", "QCD"};
-    vector<string> names  = {"ALP_ttbar_signal", "ALP_ttbar_interference", "HscalarToTTTo1L1Nu2J_m365_w36p5_res", "HscalarToTTTo1L1Nu2J_m400_w40p0_res", "HscalarToTTTo1L1Nu2J_m500_w50p0_res", "HscalarToTTTo1L1Nu2J_m600_w60p0_res", "HscalarToTTTo1L1Nu2J_m800_w80p0_res", "HscalarToTTTo1L1Nu2J_m1000_w100p0_res", "HscalarToTTTo1L1Nu2J_m365_w36p5_int", "HscalarToTTTo1L1Nu2J_m400_w40p0_int", "HscalarToTTTo1L1Nu2J_m500_w50p0_int", "HscalarToTTTo1L1Nu2J_m600_w60p0_int", "HscalarToTTTo1L1Nu2J_m800_w80p0_int", "HscalarToTTTo1L1Nu2J_m1000_w100p0_int", "HpseudoToTTTo1L1Nu2J_m365_w36p5_res", "HpseudoToTTTo1L1Nu2J_m400_w40p0_res", "HpseudoToTTTo1L1Nu2J_m500_w50p0_res", "HpseudoToTTTo1L1Nu2J_m600_w60p0_res", "HpseudoToTTTo1L1Nu2J_m800_w80p0_res", "HpseudoToTTTo1L1Nu2J_m1000_w100p0_res", "HpseudoToTTTo1L1Nu2J_m365_w36p5_int", "HpseudoToTTTo1L1Nu2J_m400_w40p0_int", "HpseudoToTTTo1L1Nu2J_m500_w50p0_int", "HpseudoToTTTo1L1Nu2J_m600_w60p0_int", "HpseudoToTTTo1L1Nu2J_m800_w80p0_int", "HpseudoToTTTo1L1Nu2J_m1000_w100p0_int", "HscalarToTTTo1L1Nu2J_m365_w91p25_res", "HscalarToTTTo1L1Nu2J_m400_w100p0_res", "HscalarToTTTo1L1Nu2J_m500_w125p0_res", "HscalarToTTTo1L1Nu2J_m600_w150p0_res", "HscalarToTTTo1L1Nu2J_m800_w200p0_res", "HscalarToTTTo1L1Nu2J_m1000_w250p0_res", "HscalarToTTTo1L1Nu2J_m365_w91p25_int", "HscalarToTTTo1L1Nu2J_m400_w100p0_int", "HscalarToTTTo1L1Nu2J_m500_w125p0_int", "HscalarToTTTo1L1Nu2J_m600_w150p0_int", "HscalarToTTTo1L1Nu2J_m800_w200p0_int", "HscalarToTTTo1L1Nu2J_m1000_w250p0_int", "HpseudoToTTTo1L1Nu2J_m365_w91p25_res", "HpseudoToTTTo1L1Nu2J_m400_w100p0_res", "HpseudoToTTTo1L1Nu2J_m500_w125p0_res", "HpseudoToTTTo1L1Nu2J_m600_w150p0_res", "HpseudoToTTTo1L1Nu2J_m800_w200p0_res", "HpseudoToTTTo1L1Nu2J_m1000_w250p0_res", "HpseudoToTTTo1L1Nu2J_m365_w91p25_int", "HpseudoToTTTo1L1Nu2J_m400_w100p0_int", "HpseudoToTTTo1L1Nu2J_m500_w125p0_int", "HpseudoToTTTo1L1Nu2J_m600_w150p0_int", "HpseudoToTTTo1L1Nu2J_m800_w200p0_int", "HpseudoToTTTo1L1Nu2J_m1000_w250p0_int", "HscalarToTTTo1L1Nu2J_m365_w9p125_res", "HscalarToTTTo1L1Nu2J_m400_w10p0_res", "HscalarToTTTo1L1Nu2J_m500_w12p5_res", "HscalarToTTTo1L1Nu2J_m600_w15p0_res", "HscalarToTTTo1L1Nu2J_m800_w20p0_res", "HscalarToTTTo1L1Nu2J_m1000_w25p0_res", "HscalarToTTTo1L1Nu2J_m365_w9p125_int", "HscalarToTTTo1L1Nu2J_m400_w10p0_int", "HscalarToTTTo1L1Nu2J_m500_w12p5_int", "HscalarToTTTo1L1Nu2J_m600_w15p0_int", "HscalarToTTTo1L1Nu2J_m800_w20p0_int", "HscalarToTTTo1L1Nu2J_m1000_w25p0_int", "HpseudoToTTTo1L1Nu2J_m365_w9p125_res", "HpseudoToTTTo1L1Nu2J_m400_w10p0_res", "HpseudoToTTTo1L1Nu2J_m500_w12p5_res", "HpseudoToTTTo1L1Nu2J_m600_w15p0_res", "HpseudoToTTTo1L1Nu2J_m800_w20p0_res", "HpseudoToTTTo1L1Nu2J_m1000_w25p0_res", "HpseudoToTTTo1L1Nu2J_m365_w9p125_int", "HpseudoToTTTo1L1Nu2J_m400_w10p0_int", "HpseudoToTTTo1L1Nu2J_m500_w12p5_int", "HpseudoToTTTo1L1Nu2J_m600_w15p0_int", "HpseudoToTTTo1L1Nu2J_m800_w20p0_int", "HpseudoToTTTo1L1Nu2J_m1000_w25p0_int", "RSGluonToTT_M-500", "RSGluonToTT_M-1000", "RSGluonToTT_M-1500", "RSGluonToTT_M-2000", "RSGluonToTT_M-2500", "RSGluonToTT_M-3000", "RSGluonToTT_M-3500", "RSGluonToTT_M-4000", "RSGluonToTT_M-4500", "RSGluonToTT_M-5000", "RSGluonToTT_M-5500", "RSGluonToTT_M-6000", "ZPrimeToTT_M400_W40", "ZPrimeToTT_M500_W50", "ZPrimeToTT_M600_W60", "ZPrimeToTT_M700_W70", "ZPrimeToTT_M800_W80", "ZPrimeToTT_M900_W90", "ZPrimeToTT_M1000_W100", "ZPrimeToTT_M1200_W120", "ZPrimeToTT_M1400_W140", "ZPrimeToTT_M1600_W160", "ZPrimeToTT_M1800_W180", "ZPrimeToTT_M2000_W200", "ZPrimeToTT_M2500_W250", "ZPrimeToTT_M3000_W300", "ZPrimeToTT_M3500_W350", "ZPrimeToTT_M4000_W400", "ZPrimeToTT_M4500_W450", "ZPrimeToTT_M5000_W500", "ZPrimeToTT_M6000_W600", "ZPrimeToTT_M7000_W700", "ZPrimeToTT_M8000_W800", "ZPrimeToTT_M9000_W900", "ZPrimeToTT_M400_W120", "ZPrimeToTT_M500_W150", "ZPrimeToTT_M600_W180", "ZPrimeToTT_M700_W210", "ZPrimeToTT_M800_W240", "ZPrimeToTT_M900_W270", "ZPrimeToTT_M1000_W300", "ZPrimeToTT_M1200_W360", "ZPrimeToTT_M1400_W420", "ZPrimeToTT_M1600_W480", "ZPrimeToTT_M1800_W540", "ZPrimeToTT_M2000_W600", "ZPrimeToTT_M2500_W750", "ZPrimeToTT_M3000_W900", "ZPrimeToTT_M3500_W1050", "ZPrimeToTT_M4000_W1200", "ZPrimeToTT_M4500_W1350", "ZPrimeToTT_M5000_W1500", "ZPrimeToTT_M6000_W1800", "ZPrimeToTT_M7000_W2100", "ZPrimeToTT_M8000_W2400", "ZPrimeToTT_M9000_W2700", "ZPrimeToTT_M400_W4", "ZPrimeToTT_M500_W5", "ZPrimeToTT_M600_W6", "ZPrimeToTT_M700_W7", "ZPrimeToTT_M800_W8", "ZPrimeToTT_M900_W9", "ZPrimeToTT_M1000_W10", "ZPrimeToTT_M1200_W12", "ZPrimeToTT_M1400_W14", "ZPrimeToTT_M1600_W16", "ZPrimeToTT_M1800_W18", "ZPrimeToTT_M2000_W20", "ZPrimeToTT_M2500_W25", "ZPrimeToTT_M3000_W30", "ZPrimeToTT_M3500_W35", "ZPrimeToTT_M4000_W40", "ZPrimeToTT_M4500_W45", "ZPrimeToTT_M5000_W50", "ZPrimeToTT_M6000_W60", "ZPrimeToTT_M7000_W70", "ZPrimeToTT_M8000_W80", "ZPrimeToTT_M9000_W90"};
+    vector<string> names  = {"ZPrimeToTT_M6000_W600","ZPrimeToTT_M9000_W900"};
+//    vector<string> names  = {"ALP_ttbar_signal", "ALP_ttbar_interference", "HscalarToTTTo1L1Nu2J_m365_w36p5_res", "HscalarToTTTo1L1Nu2J_m400_w40p0_res", "HscalarToTTTo1L1Nu2J_m500_w50p0_res", "HscalarToTTTo1L1Nu2J_m600_w60p0_res", "HscalarToTTTo1L1Nu2J_m800_w80p0_res", "HscalarToTTTo1L1Nu2J_m1000_w100p0_res", "HscalarToTTTo1L1Nu2J_m365_w36p5_int", "HscalarToTTTo1L1Nu2J_m400_w40p0_int", "HscalarToTTTo1L1Nu2J_m500_w50p0_int", "HscalarToTTTo1L1Nu2J_m600_w60p0_int", "HscalarToTTTo1L1Nu2J_m800_w80p0_int", "HscalarToTTTo1L1Nu2J_m1000_w100p0_int", "HpseudoToTTTo1L1Nu2J_m365_w36p5_res", "HpseudoToTTTo1L1Nu2J_m400_w40p0_res", "HpseudoToTTTo1L1Nu2J_m500_w50p0_res", "HpseudoToTTTo1L1Nu2J_m600_w60p0_res", "HpseudoToTTTo1L1Nu2J_m800_w80p0_res", "HpseudoToTTTo1L1Nu2J_m1000_w100p0_res", "HpseudoToTTTo1L1Nu2J_m365_w36p5_int", "HpseudoToTTTo1L1Nu2J_m400_w40p0_int", "HpseudoToTTTo1L1Nu2J_m500_w50p0_int", "HpseudoToTTTo1L1Nu2J_m600_w60p0_int", "HpseudoToTTTo1L1Nu2J_m800_w80p0_int", "HpseudoToTTTo1L1Nu2J_m1000_w100p0_int", "HscalarToTTTo1L1Nu2J_m365_w91p25_res", "HscalarToTTTo1L1Nu2J_m400_w100p0_res", "HscalarToTTTo1L1Nu2J_m500_w125p0_res", "HscalarToTTTo1L1Nu2J_m600_w150p0_res", "HscalarToTTTo1L1Nu2J_m800_w200p0_res", "HscalarToTTTo1L1Nu2J_m1000_w250p0_res", "HscalarToTTTo1L1Nu2J_m365_w91p25_int", "HscalarToTTTo1L1Nu2J_m400_w100p0_int", "HscalarToTTTo1L1Nu2J_m500_w125p0_int", "HscalarToTTTo1L1Nu2J_m600_w150p0_int", "HscalarToTTTo1L1Nu2J_m800_w200p0_int", "HscalarToTTTo1L1Nu2J_m1000_w250p0_int", "HpseudoToTTTo1L1Nu2J_m365_w91p25_res", "HpseudoToTTTo1L1Nu2J_m400_w100p0_res", "HpseudoToTTTo1L1Nu2J_m500_w125p0_res", "HpseudoToTTTo1L1Nu2J_m600_w150p0_res", "HpseudoToTTTo1L1Nu2J_m800_w200p0_res", "HpseudoToTTTo1L1Nu2J_m1000_w250p0_res", "HpseudoToTTTo1L1Nu2J_m365_w91p25_int", "HpseudoToTTTo1L1Nu2J_m400_w100p0_int", "HpseudoToTTTo1L1Nu2J_m500_w125p0_int", "HpseudoToTTTo1L1Nu2J_m600_w150p0_int", "HpseudoToTTTo1L1Nu2J_m800_w200p0_int", "HpseudoToTTTo1L1Nu2J_m1000_w250p0_int", "HscalarToTTTo1L1Nu2J_m365_w9p125_res", "HscalarToTTTo1L1Nu2J_m400_w10p0_res", "HscalarToTTTo1L1Nu2J_m500_w12p5_res", "HscalarToTTTo1L1Nu2J_m600_w15p0_res", "HscalarToTTTo1L1Nu2J_m800_w20p0_res", "HscalarToTTTo1L1Nu2J_m1000_w25p0_res", "HscalarToTTTo1L1Nu2J_m365_w9p125_int", "HscalarToTTTo1L1Nu2J_m400_w10p0_int", "HscalarToTTTo1L1Nu2J_m500_w12p5_int", "HscalarToTTTo1L1Nu2J_m600_w15p0_int", "HscalarToTTTo1L1Nu2J_m800_w20p0_int", "HscalarToTTTo1L1Nu2J_m1000_w25p0_int", "HpseudoToTTTo1L1Nu2J_m365_w9p125_res", "HpseudoToTTTo1L1Nu2J_m400_w10p0_res", "HpseudoToTTTo1L1Nu2J_m500_w12p5_res", "HpseudoToTTTo1L1Nu2J_m600_w15p0_res", "HpseudoToTTTo1L1Nu2J_m800_w20p0_res", "HpseudoToTTTo1L1Nu2J_m1000_w25p0_res", "HpseudoToTTTo1L1Nu2J_m365_w9p125_int", "HpseudoToTTTo1L1Nu2J_m400_w10p0_int", "HpseudoToTTTo1L1Nu2J_m500_w12p5_int", "HpseudoToTTTo1L1Nu2J_m600_w15p0_int", "HpseudoToTTTo1L1Nu2J_m800_w20p0_int", "HpseudoToTTTo1L1Nu2J_m1000_w25p0_int", "RSGluonToTT_M-500", "RSGluonToTT_M-1000", "RSGluonToTT_M-1500", "RSGluonToTT_M-2000", "RSGluonToTT_M-2500", "RSGluonToTT_M-3000", "RSGluonToTT_M-3500", "RSGluonToTT_M-4000", "RSGluonToTT_M-4500", "RSGluonToTT_M-5000", "RSGluonToTT_M-5500", "RSGluonToTT_M-6000", "ZPrimeToTT_M400_W40", "ZPrimeToTT_M500_W50", "ZPrimeToTT_M600_W60", "ZPrimeToTT_M700_W70", "ZPrimeToTT_M800_W80", "ZPrimeToTT_M900_W90", "ZPrimeToTT_M1000_W100", "ZPrimeToTT_M1200_W120", "ZPrimeToTT_M1400_W140", "ZPrimeToTT_M1600_W160", "ZPrimeToTT_M1800_W180", "ZPrimeToTT_M2000_W200", "ZPrimeToTT_M2500_W250", "ZPrimeToTT_M3000_W300", "ZPrimeToTT_M3500_W350", "ZPrimeToTT_M4000_W400", "ZPrimeToTT_M4500_W450", "ZPrimeToTT_M5000_W500", "ZPrimeToTT_M6000_W600", "ZPrimeToTT_M7000_W700", "ZPrimeToTT_M8000_W800", "ZPrimeToTT_M9000_W900", "ZPrimeToTT_M400_W120", "ZPrimeToTT_M500_W150", "ZPrimeToTT_M600_W180", "ZPrimeToTT_M700_W210", "ZPrimeToTT_M800_W240", "ZPrimeToTT_M900_W270", "ZPrimeToTT_M1000_W300", "ZPrimeToTT_M1200_W360", "ZPrimeToTT_M1400_W420", "ZPrimeToTT_M1600_W480", "ZPrimeToTT_M1800_W540", "ZPrimeToTT_M2000_W600", "ZPrimeToTT_M2500_W750", "ZPrimeToTT_M3000_W900", "ZPrimeToTT_M3500_W1050", "ZPrimeToTT_M4000_W1200", "ZPrimeToTT_M4500_W1350", "ZPrimeToTT_M5000_W1500", "ZPrimeToTT_M6000_W1800", "ZPrimeToTT_M7000_W2100", "ZPrimeToTT_M8000_W2400", "ZPrimeToTT_M9000_W2700", "ZPrimeToTT_M400_W4", "ZPrimeToTT_M500_W5", "ZPrimeToTT_M600_W6", "ZPrimeToTT_M700_W7", "ZPrimeToTT_M800_W8", "ZPrimeToTT_M900_W9", "ZPrimeToTT_M1000_W10", "ZPrimeToTT_M1200_W12", "ZPrimeToTT_M1400_W14", "ZPrimeToTT_M1600_W16", "ZPrimeToTT_M1800_W18", "ZPrimeToTT_M2000_W20", "ZPrimeToTT_M2500_W25", "ZPrimeToTT_M3000_W30", "ZPrimeToTT_M3500_W35", "ZPrimeToTT_M4000_W40", "ZPrimeToTT_M4500_W45", "ZPrimeToTT_M5000_W50", "ZPrimeToTT_M6000_W60", "ZPrimeToTT_M7000_W70", "ZPrimeToTT_M8000_W80", "ZPrimeToTT_M9000_W90"};
 
     for(unsigned int i=0; i<names_bkg.size(); i++){
       if( ctx.get("dataset_version").find(names_bkg.at(i)) != std::string::npos ) sample_name = names_bkg.at(i);
@@ -1117,36 +1164,45 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
   if( out0 == max_score ){
     fill_histograms(event, "DNN_output0");
     h_Zprime_SystVariations_DNN_output0->fill(event);
+    h_Zprime_PDFVariations_DNN_output0->fill(event);
     if( ZprimeTopTag_selection->passes(event) ){
       fill_histograms(event, "DNN_output0_TopTag");
       h_Zprime_SystVariations_DNN_output0_TopTag->fill(event);
+      h_Zprime_PDFVariations_DNN_output0_TopTag->fill(event);
     }else{
       fill_histograms(event, "DNN_output0_NoTopTag");
       h_Zprime_SystVariations_DNN_output0_NoTopTag->fill(event);
+      h_Zprime_PDFVariations_DNN_output0_NoTopTag->fill(event);
     }
   }
 
   if( out1 == max_score ){
     fill_histograms(event, "DNN_output1");
     h_Zprime_SystVariations_DNN_output1->fill(event);
+    h_Zprime_PDFVariations_DNN_output1->fill(event);
     if( ZprimeTopTag_selection->passes(event) ){
       fill_histograms(event, "DNN_output1_TopTag");
       h_Zprime_SystVariations_DNN_output1_TopTag->fill(event);
+      h_Zprime_PDFVariations_DNN_output1_TopTag->fill(event);
     }else{
       fill_histograms(event, "DNN_output1_NoTopTag");
       h_Zprime_SystVariations_DNN_output1_NoTopTag->fill(event);
+      h_Zprime_PDFVariations_DNN_output1_NoTopTag->fill(event);
     }
   }
 
   if( out2 == max_score ){
     fill_histograms(event, "DNN_output2");
     h_Zprime_SystVariations_DNN_output2->fill(event);
+    h_Zprime_PDFVariations_DNN_output2->fill(event);
     if( ZprimeTopTag_selection->passes(event) ){
       fill_histograms(event, "DNN_output2_TopTag");
       h_Zprime_SystVariations_DNN_output2_TopTag->fill(event);
+      h_Zprime_PDFVariations_DNN_output2_TopTag->fill(event);
     }else{
       fill_histograms(event, "DNN_output2_NoTopTag");
       h_Zprime_SystVariations_DNN_output2_NoTopTag->fill(event);
+      h_Zprime_PDFVariations_DNN_output2_NoTopTag->fill(event);
     }
   }
 
@@ -1156,43 +1212,55 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
       if(ThetaStar_selection_bin1->passes(event)){
         fill_histograms(event, "DNN_output0_thetastar_bin1");
         h_Zprime_SystVariations_DNN_output0_thetastar_bin1->fill(event);
+        h_Zprime_PDFVariations_DNN_output0_thetastar_bin1->fill(event);
       }else if(ThetaStar_selection_bin2->passes(event)){
         fill_histograms(event, "DNN_output0_thetastar_bin2");
         h_Zprime_SystVariations_DNN_output0_thetastar_bin2->fill(event);
+        h_Zprime_PDFVariations_DNN_output0_thetastar_bin2->fill(event);
       }else if(ThetaStar_selection_bin3->passes(event)){
         fill_histograms(event, "DNN_output0_thetastar_bin3");
         h_Zprime_SystVariations_DNN_output0_thetastar_bin3->fill(event);
+        h_Zprime_PDFVariations_DNN_output0_thetastar_bin3->fill(event);
       }else{
         fill_histograms(event, "DNN_output0_thetastar_bin4");
         h_Zprime_SystVariations_DNN_output0_thetastar_bin4->fill(event);
+        h_Zprime_PDFVariations_DNN_output0_thetastar_bin4->fill(event);
       }
       if( ZprimeTopTag_selection->passes(event) ){
         if(ThetaStar_selection_bin1->passes(event)){
           fill_histograms(event, "DNN_output0_TopTag_thetastar_bin1");
           h_Zprime_SystVariations_DNN_output0_TopTag_thetastar_bin1->fill(event);
+          h_Zprime_PDFVariations_DNN_output0_TopTag_thetastar_bin1->fill(event);
         }else if(ThetaStar_selection_bin2->passes(event)){
           fill_histograms(event, "DNN_output0_TopTag_thetastar_bin2");
           h_Zprime_SystVariations_DNN_output0_TopTag_thetastar_bin2->fill(event);
+          h_Zprime_PDFVariations_DNN_output0_TopTag_thetastar_bin2->fill(event);
         }else if(ThetaStar_selection_bin3->passes(event)){
           fill_histograms(event, "DNN_output0_TopTag_thetastar_bin3");
           h_Zprime_SystVariations_DNN_output0_TopTag_thetastar_bin3->fill(event);
+          h_Zprime_PDFVariations_DNN_output0_TopTag_thetastar_bin3->fill(event);
         }else{
           fill_histograms(event, "DNN_output0_TopTag_thetastar_bin4");
           h_Zprime_SystVariations_DNN_output0_TopTag_thetastar_bin4->fill(event);
+          h_Zprime_PDFVariations_DNN_output0_TopTag_thetastar_bin4->fill(event);
         }
       }else{
         if(ThetaStar_selection_bin1->passes(event)){
           fill_histograms(event, "DNN_output0_NoTopTag_thetastar_bin1");
           h_Zprime_SystVariations_DNN_output0_NoTopTag_thetastar_bin1->fill(event);
+          h_Zprime_PDFVariations_DNN_output0_NoTopTag_thetastar_bin1->fill(event);
         }else if(ThetaStar_selection_bin2->passes(event)){
           fill_histograms(event, "DNN_output0_NoTopTag_thetastar_bin2");
           h_Zprime_SystVariations_DNN_output0_NoTopTag_thetastar_bin2->fill(event);
+          h_Zprime_PDFVariations_DNN_output0_NoTopTag_thetastar_bin2->fill(event);
         }else if(ThetaStar_selection_bin3->passes(event)){
           fill_histograms(event, "DNN_output0_NoTopTag_thetastar_bin3");
           h_Zprime_SystVariations_DNN_output0_NoTopTag_thetastar_bin3->fill(event);
+          h_Zprime_PDFVariations_DNN_output0_NoTopTag_thetastar_bin3->fill(event);
         }else{
           fill_histograms(event, "DNN_output0_NoTopTag_thetastar_bin4");
           h_Zprime_SystVariations_DNN_output0_NoTopTag_thetastar_bin4->fill(event);
+          h_Zprime_PDFVariations_DNN_output0_NoTopTag_thetastar_bin4->fill(event);
         }
       }
     } // end chi2 cut
