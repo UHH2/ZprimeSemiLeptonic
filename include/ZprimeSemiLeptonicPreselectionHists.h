@@ -13,6 +13,7 @@ class ZprimeSemiLeptonicPreselectionHists: public uhh2::Hists {
 public:
   explicit ZprimeSemiLeptonicPreselectionHists(uhh2::Context&, const std::string&);
   virtual void fill(const uhh2::Event&) override;
+  std::string hist_names[100];
 
 protected:
   void init();
