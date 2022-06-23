@@ -464,7 +464,7 @@ bool uhh2::METCut::passes(const uhh2::Event& event){
 bool uhh2::TwoDCut::passes(const uhh2::Event& event){
 
   assert(event.muons || event.electrons);
-  if((event.muons->size()+event.electrons->size()) != 1) throw runtime_error("In TwoDCut: Event does not have exactly one muon and electron.");
+  //if((event.muons->size()+event.electrons->size()) != 1) throw runtime_error("In TwoDCut: Event does not have exactly one muon and electron.");
 
   bool pass = false;
   if(event.muons->size()){
@@ -527,7 +527,7 @@ year = extract_year(ctx);
 }
 bool HEMSelection::passes(const Event & event){
 
-if(year != Year::is2018) return true;
+if(year != Year::isUL18) return true;
 if( (event.isRealData && event.run >= min_runnum) || (!event.isRealData) ){
 
    for(const Electron & ele : *event.electrons){
