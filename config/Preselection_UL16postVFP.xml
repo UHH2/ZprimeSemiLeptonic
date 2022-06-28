@@ -477,7 +477,7 @@
 			<InputTree Name="AnalysisTree"/>
 			<OutputTree Name="AnalysisTree"/>
 		</InputData>
-		<InputData Lumi="-161852.0519314274" NEventsMax="&NEVT;" Type="MC" Version="ALP_ttbar_interference_UL16postVFP" Cacheable="&b_Cacheable;">
+		<InputData Lumi="-161851.9103285823" NEventsMax="&NEVT;" Type="MC" Version="ALP_ttbar_interference_UL16postVFP" Cacheable="&b_Cacheable;">
 			&ALP_ttbar_interference_UL16postVFP;
 			<InputTree Name="AnalysisTree"/>
 			<OutputTree Name="AnalysisTree"/>
@@ -1131,117 +1131,117 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-                <!-- ZPrime 1% -->
-                <InputData Lumi="570127.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M400_W4_UL16postVFP" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M400_W4_UL16postVFP;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="526301.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M500_W5_UL16postVFP" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M500_W5_UL16postVFP;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="510991.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M600_W6_UL16postVFP" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M600_W6_UL16postVFP;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="491452.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M700_W7_UL16postVFP" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M700_W7_UL16postVFP;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="474239.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M800_W8_UL16postVFP" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M800_W8_UL16postVFP;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="461916.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M900_W9_UL16postVFP" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M900_W9_UL16postVFP;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="449628.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1000_W10_UL16postVFP" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M1000_W10_UL16postVFP;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="497321.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1200_W12_UL16postVFP" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M1200_W12_UL16postVFP;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="548913.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1400_W14_UL16postVFP" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M1400_W14_UL16postVFP;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="548012.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1600_W16_UL16postVFP" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M1600_W16_UL16postVFP;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="533048.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1800_W18_UL16postVFP" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M1800_W18_UL16postVFP;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="527279.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M2000_W20_UL16postVFP" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M2000_W20_UL16postVFP;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="508484.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M2500_W25_UL16postVFP" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M2500_W25_UL16postVFP;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="490008.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M3000_W30_UL16postVFP" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M3000_W30_UL16postVFP;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="426819.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M3500_W35_UL16postVFP" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M3500_W35_UL16postVFP;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="452977.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M4000_W40_UL16postVFP" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M4000_W40_UL16postVFP;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="417527.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M4500_W45_UL16postVFP" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M4500_W45_UL16postVFP;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="90300.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M5000_W50_UL16postVFP" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M5000_W50_UL16postVFP;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="91498.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M6000_W60_UL16postVFP" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M6000_W60_UL16postVFP;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="89723.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M7000_W70_UL16postVFP" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M7000_W70_UL16postVFP;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="91227.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M8000_W80_UL16postVFP" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M8000_W80_UL16postVFP;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="91144.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M9000_W90_UL16postVFP" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M9000_W90_UL16postVFP;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
+		<!-- ZPrime 1% -->
+		<InputData Lumi="570127.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M400_W4_UL16postVFP" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M400_W4_UL16postVFP;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="526301.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M500_W5_UL16postVFP" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M500_W5_UL16postVFP;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="510991.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M600_W6_UL16postVFP" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M600_W6_UL16postVFP;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="491452.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M700_W7_UL16postVFP" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M700_W7_UL16postVFP;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="474239.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M800_W8_UL16postVFP" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M800_W8_UL16postVFP;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="461916.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M900_W9_UL16postVFP" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M900_W9_UL16postVFP;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="449628.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1000_W10_UL16postVFP" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M1000_W10_UL16postVFP;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="497321.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1200_W12_UL16postVFP" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M1200_W12_UL16postVFP;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="548913.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1400_W14_UL16postVFP" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M1400_W14_UL16postVFP;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="548012.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1600_W16_UL16postVFP" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M1600_W16_UL16postVFP;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="533048.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1800_W18_UL16postVFP" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M1800_W18_UL16postVFP;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="527279.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M2000_W20_UL16postVFP" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M2000_W20_UL16postVFP;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="508484.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M2500_W25_UL16postVFP" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M2500_W25_UL16postVFP;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="490008.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M3000_W30_UL16postVFP" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M3000_W30_UL16postVFP;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="426819.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M3500_W35_UL16postVFP" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M3500_W35_UL16postVFP;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="452977.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M4000_W40_UL16postVFP" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M4000_W40_UL16postVFP;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="417527.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M4500_W45_UL16postVFP" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M4500_W45_UL16postVFP;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="90300.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M5000_W50_UL16postVFP" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M5000_W50_UL16postVFP;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="91498.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M6000_W60_UL16postVFP" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M6000_W60_UL16postVFP;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="89723.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M7000_W70_UL16postVFP" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M7000_W70_UL16postVFP;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="91227.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M8000_W80_UL16postVFP" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M8000_W80_UL16postVFP;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="91144.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M9000_W90_UL16postVFP" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M9000_W90_UL16postVFP;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
 
 		<UserConfig>
 			<Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices"/>
@@ -1255,13 +1255,15 @@
 			<Item Name="TopPuppiJetCollection"   Value="jetsAk8PuppiSubstructure_SoftDropPuppi"/>
 			<Item Name="METName"                 Value="slimmedMETsPuppi"/>
 			<Item Name="genMETName"              Value="slimmedMETs_GenMET"/>
-			<Item Name="additionalBranches"      Value="jetsAk4CHS hotvrGen" />
+			<Item Name="additionalBranches"      Value="jetsAk4CHS hotvrGen"/>
 
 			<Item Name="lumi_file"              Value="/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL16postVFP/Cert_271036-284044_13TeV_Legacy2016_Collisions16_JSON_UL16postVFP_normtag.root"/>
 			<Item Name="lumihists_lumi_per_bin" Value="500.0"/>
 
 			<Item Name="pileup_directory"      Value="/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL16postVFP/MyMCPileupHistogram_UL16postVFP.root"/>
 			<Item Name="pileup_directory_data" Value="/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL16postVFP/MyDataPileupHistogram_UL16postVFP.root"/>
+			<Item Name="pileup_directory_data_up"   Value="/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL16postVFP/MyDataPileupHistogram_UL16postVFP_72383.root"/>
+			<Item Name="pileup_directory_data_down" Value="/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL16postVFP/MyDataPileupHistogram_UL16postVFP_66017.root"/>
 
 			<Item Name="is_HOTVR" Value="&IS_HOTVR;"/>
 			<Item Name="Sys_PU"   Value="central"/>
