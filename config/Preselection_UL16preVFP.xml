@@ -2,7 +2,7 @@
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
 
 <!ENTITY TargetLumi  "19520"> <!-- from https://twiki.cern.ch/twiki/bin/view/CMS/TWikiLUM#SummaryTable, https://twiki.cern.ch/twiki/bin/viewauth/CMS/TopSystematics#Luminosity -->
-<!ENTITY PRESELdir   "/nfs/dust/cms/group/zprime-uhh/Preselection_UL16preVFP/">
+<!ENTITY PRESELdir   "/nfs/dust/cms/group/zprime-uhh/Presel_UL16preVFP/">
 <!ENTITY b_Cacheable "False">
 <!ENTITY NEVT        "-1">
 <!ENTITY IS_HOTVR    "false">
