@@ -45,7 +45,7 @@ namespace uhh2 {
   class TopTag_VetoSelection : public Selection{
   public:
     explicit TopTag_VetoSelection(uhh2::Context&, TString mode);
-    virtual bool passes(const Event&) override;    
+    virtual bool passes(const Event&) override;
 
   private:
   uhh2::Event::Handle< std::vector<TopJet> > h_AK8TopTags;
@@ -97,7 +97,7 @@ namespace uhh2 {
   };
 
   class HTlepCut : public Selection {
-    
+
   public:
     explicit HTlepCut(float, float max_htlep=infinity);
     virtual bool passes(const Event&) override;
@@ -211,14 +211,14 @@ namespace uhh2 {
   };
   ////
 
-  class ZprimeBTagFatSubJetSelection: public Selection {
-  public:
-    explicit ZprimeBTagFatSubJetSelection(Context& ctx);
-    virtual bool passes(const Event&) override;
-
-  private:
-    std::unique_ptr<Selection> sel_1btag;
-  };
+  // class ZprimeBTagFatSubJetSelection: public Selection {
+  // public:
+  //   explicit ZprimeBTagFatSubJetSelection(;
+  //   virtual bool passes(const Event&) override;
+  //
+  // private:
+  //   std::unique_ptr<Selection> sel_1btag;
+  // };
   ////
 
 
