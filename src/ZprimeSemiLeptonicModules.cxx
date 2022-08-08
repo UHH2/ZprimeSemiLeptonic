@@ -84,11 +84,11 @@ ZprimeCandidateBuilder::ZprimeCandidateBuilder(uhh2::Context& ctx, TString mode,
   h_ZprimeCandidates_ = ctx.get_handle< vector<ZprimeCandidate> >("ZprimeCandidates");
 
   if(mode_ == "deepAK8"){
-  h_AK8TopTags = ctx.get_handle<std::vector<TopJet>>("DeepAK8TopTags");
-  h_AK8TopTagsPtr = ctx.get_handle<std::vector<const TopJet*>>("DeepAK8TopTagsPtr");
+    h_AK8TopTags = ctx.get_handle<std::vector<TopJet>>("DeepAK8TopTags");
+    h_AK8TopTagsPtr = ctx.get_handle<std::vector<const TopJet*>>("DeepAK8TopTagsPtr");
   }else if(mode_ == "hotvr"){
-  h_AK8TopTags = ctx.get_handle<std::vector<TopJet>>("HOTVRTopTags");
-  h_AK8TopTagsPtr = ctx.get_handle<std::vector<const TopJet*>>("HOTVRTopTagsPtr");
+    h_AK8TopTags = ctx.get_handle<std::vector<TopJet>>("HOTVRTopTags");
+    h_AK8TopTagsPtr = ctx.get_handle<std::vector<const TopJet*>>("HOTVRTopTagsPtr");
   }
 
   if(mode_ != "hotvr" && mode_ != "deepAK8") throw runtime_error("In ZprimeCandidateBuilder::ZprimeCandidateBuilder(): 'mode' must be 'hotvr' or 'deepAK8'");
@@ -148,9 +148,9 @@ bool ZprimeCandidateBuilder::process(uhh2::Event& event){
   bool do_toptag_reco = false;
   if(TopTags.size() >= 1){
     for(unsigned int i=0; i<TopTags.size(); i++){
-     //cout << "Number of toptags: " << TopTags.size() << endl;
-     //cout << "At " << i << " of " << has_separated_jet.size() << " and " << overlap_with_lepton.size() << endl;
-    if(has_separated_jet[i] &&  !overlap_with_lepton[i]) do_toptag_reco = true;
+      //cout << "Number of toptags: " << TopTags.size() << endl;
+      //cout << "At " << i << " of " << has_separated_jet.size() << " and " << overlap_with_lepton.size() << endl;
+      if(has_separated_jet[i] &&  !overlap_with_lepton[i]) do_toptag_reco = true;
     }
   }
 
@@ -602,8 +602,8 @@ bool HOTVRTopTagger::process(uhh2::Event& event){
   for(const TopJet & topjet : *event.topjets){
 
     if (toptag_id(topjet, event)){
-       toptags.emplace_back(topjet);
-       toptags_ptr.emplace_back(&topjet);
+      toptags.emplace_back(topjet);
+      toptags_ptr.emplace_back(&topjet);
     }
   }
   event.set(h_HOTVRTopTags_, toptags);
@@ -612,7 +612,9 @@ bool HOTVRTopTagger::process(uhh2::Event& event){
 }
 
 
-DeepAK8TopTagger::DeepAK8TopTagger(uhh2::Context& ctx, float min_mSD, float max_mSD, float max_score, float pt_min) : min_mSD_(min_mSD), max_mSD_(max_mSD), max_score_(max_score), pt_min_(pt_min) {
+DeepAK8TopTagger::DeepAK8TopTagger(uhh2::Context& ctx){
+
+  year = extract_year(ctx);
 
   h_DeepAK8TopTags_ = ctx.get_handle< std::vector<TopJet> >("DeepAK8TopTags");
   h_DeepAK8TopTagsPtr_ = ctx.get_handle< std::vector<const TopJet*> >("DeepAK8TopTagsPtr");
@@ -621,24 +623,39 @@ DeepAK8TopTagger::DeepAK8TopTagger(uhh2::Context& ctx, float min_mSD, float max_
 
 bool DeepAK8TopTagger::process(uhh2::Event& event){
 
+
+  // values from EOY
+  // twiki: https://twiki.cern.ch/twiki/bin/viewauth/CMS/DeepAK8Tagging2018WPsSFs
+  // slides: https://indico.cern.ch/event/877167/contributions/3744193/attachments/1989744/3379280/DeepAK8_Top_W_SFs_V2.pdf
+  double min_mSD = 105.;
+  double max_mSD = 210.;
+  double pt_min = 400.;
+  double max_score;
+
+  if(year == Year::isUL16preVFP || year == Year::isUL16postVFP) max_score = 0.632;
+  else if(year == Year::isUL17) max_score = 0.554;
+  else if(year == Year::isUL18) max_score = 0.685;
+  else throw runtime_error("DeepAK8TopTagger: no valid year selected.");
+
   std::vector<TopJet> toptags;
   vector<const TopJet*> toptags_ptr;
+
   for(const TopJet & puppijet : *event.toppuppijets){
 
-     // pT threshold
-     if(!( puppijet.pt() > pt_min_ )) continue;
+    // pT threshold
+    if(!( puppijet.pt() > pt_min )) continue;
 
-     // cut on SD mass
-     LorentzVector SumSubjets(0.,0.,0.,0.);
-     for(unsigned int k=0; k<puppijet.subjets().size(); k++) SumSubjets = SumSubjets + puppijet.subjets().at(k).v4();
-     float mSD = SumSubjets.M();
-     if(!(min_mSD_ < mSD && mSD < max_mSD_)) continue;
+    // cut on SD mass
+    LorentzVector SumSubjets(0.,0.,0.,0.);
+    for(unsigned int k=0; k<puppijet.subjets().size(); k++) SumSubjets = SumSubjets + puppijet.subjets().at(k).v4();
+    float mSD = SumSubjets.M();
+    if(!(min_mSD < mSD && mSD < max_mSD)) continue;
 
-     // cut on score
-     if( !(puppijet.btag_MassDecorrelatedDeepBoosted_TvsQCD() >= max_score_ ) ) continue;
+    // cut on score
+    if( !(puppijet.btag_MassDecorrelatedDeepBoosted_TvsQCD() >= max_score ) ) continue;
 
-     toptags.emplace_back(puppijet);
-     toptags_ptr.emplace_back(&puppijet);
+    toptags.emplace_back(puppijet);
+    toptags_ptr.emplace_back(&puppijet);
 
   }
 
@@ -885,23 +902,23 @@ Variables_NN::Variables_NN(uhh2::Context& ctx, TString mode): mode_(mode){
   h_CHSjets_matched = ctx.get_handle<std::vector<Jet>>("CHS_matched");
   h_eventweight = ctx.declare_event_output<float> ("eventweight");
 
-///  MUONS
+  ///  MUONS
   h_Mu_pt = ctx.declare_event_output<float> ("Mu_pt");
   h_Mu_eta = ctx.declare_event_output<float> ("Mu_eta");
   h_Mu_phi = ctx.declare_event_output<float> ("Mu_phi");
   h_Mu_E = ctx.declare_event_output<float> ("Mu_E");
 
-///  ELECTRONS
+  ///  ELECTRONS
   h_Ele_pt = ctx.declare_event_output<float> ("Ele_pt");
   h_Ele_eta = ctx.declare_event_output<float> ("Ele_eta");
   h_Ele_phi = ctx.declare_event_output<float> ("Ele_phi");
   h_Ele_E = ctx.declare_event_output<float> ("Ele_E");
 
-///  MET
+  ///  MET
   h_MET_pt = ctx.declare_event_output<float> ("MET_pt");
   h_MET_phi = ctx.declare_event_output<float> ("MET_phi");
 
-///  AK4 JETS
+  ///  AK4 JETS
   h_N_Ak4 = ctx.declare_event_output<float> ("N_Ak4");
 
   h_Ak4_j1_pt = ctx.declare_event_output<float> ("Ak4_j1_pt");
@@ -946,63 +963,63 @@ Variables_NN::Variables_NN(uhh2::Context& ctx, TString mode): mode_(mode){
   h_Ak4_j6_m = ctx.declare_event_output<float>  ("Ak4_j6_m");
   h_Ak4_j6_deepjetbscore = ctx.declare_event_output<float>  ("Ak4_j6_deepjetbscore");
 
-/// AK8 JETS
+  /// AK8 JETS
   if(mode_ == "deepAK8"){
-  h_N_Ak8 = ctx.declare_event_output<float> ("N_Ak8");
+    h_N_Ak8 = ctx.declare_event_output<float> ("N_Ak8");
 
-  h_Ak8_j1_pt = ctx.declare_event_output<float> ("Ak8_j1_pt");
-  h_Ak8_j1_eta = ctx.declare_event_output<float>("Ak8_j1_eta");
-  h_Ak8_j1_phi = ctx.declare_event_output<float>("Ak8_j1_phi");
-  h_Ak8_j1_E = ctx.declare_event_output<float>  ("Ak8_j1_E");
-  h_Ak8_j1_mSD = ctx.declare_event_output<float>("Ak8_j1_mSD");
-  h_Ak8_j1_tau21 = ctx.declare_event_output<float>("Ak8_j1_tau21");
-  h_Ak8_j1_tau32 = ctx.declare_event_output<float>("Ak8_j1_tau32");
+    h_Ak8_j1_pt = ctx.declare_event_output<float> ("Ak8_j1_pt");
+    h_Ak8_j1_eta = ctx.declare_event_output<float>("Ak8_j1_eta");
+    h_Ak8_j1_phi = ctx.declare_event_output<float>("Ak8_j1_phi");
+    h_Ak8_j1_E = ctx.declare_event_output<float>  ("Ak8_j1_E");
+    h_Ak8_j1_mSD = ctx.declare_event_output<float>("Ak8_j1_mSD");
+    h_Ak8_j1_tau21 = ctx.declare_event_output<float>("Ak8_j1_tau21");
+    h_Ak8_j1_tau32 = ctx.declare_event_output<float>("Ak8_j1_tau32");
 
-  h_Ak8_j2_pt = ctx.declare_event_output<float> ("Ak8_j2_pt");
-  h_Ak8_j2_eta = ctx.declare_event_output<float>("Ak8_j2_eta");
-  h_Ak8_j2_phi = ctx.declare_event_output<float>("Ak8_j2_phi");
-  h_Ak8_j2_E = ctx.declare_event_output<float>  ("Ak8_j2_E");
-  h_Ak8_j2_mSD = ctx.declare_event_output<float>("Ak8_j2_mSD");
-  h_Ak8_j2_tau21 = ctx.declare_event_output<float>("Ak8_j2_tau21");
-  h_Ak8_j2_tau32 = ctx.declare_event_output<float>("Ak8_j2_tau32");
+    h_Ak8_j2_pt = ctx.declare_event_output<float> ("Ak8_j2_pt");
+    h_Ak8_j2_eta = ctx.declare_event_output<float>("Ak8_j2_eta");
+    h_Ak8_j2_phi = ctx.declare_event_output<float>("Ak8_j2_phi");
+    h_Ak8_j2_E = ctx.declare_event_output<float>  ("Ak8_j2_E");
+    h_Ak8_j2_mSD = ctx.declare_event_output<float>("Ak8_j2_mSD");
+    h_Ak8_j2_tau21 = ctx.declare_event_output<float>("Ak8_j2_tau21");
+    h_Ak8_j2_tau32 = ctx.declare_event_output<float>("Ak8_j2_tau32");
 
-  h_Ak8_j3_pt = ctx.declare_event_output<float> ("Ak8_j3_pt");
-  h_Ak8_j3_eta = ctx.declare_event_output<float>("Ak8_j3_eta");
-  h_Ak8_j3_phi = ctx.declare_event_output<float>("Ak8_j3_phi");
-  h_Ak8_j3_E = ctx.declare_event_output<float>  ("Ak8_j3_E");
-  h_Ak8_j3_mSD = ctx.declare_event_output<float>("Ak8_j3_mSD");
-  h_Ak8_j3_tau21 = ctx.declare_event_output<float>("Ak8_j3_tau21");
-  h_Ak8_j3_tau32 = ctx.declare_event_output<float>("Ak8_j3_tau32");
+    h_Ak8_j3_pt = ctx.declare_event_output<float> ("Ak8_j3_pt");
+    h_Ak8_j3_eta = ctx.declare_event_output<float>("Ak8_j3_eta");
+    h_Ak8_j3_phi = ctx.declare_event_output<float>("Ak8_j3_phi");
+    h_Ak8_j3_E = ctx.declare_event_output<float>  ("Ak8_j3_E");
+    h_Ak8_j3_mSD = ctx.declare_event_output<float>("Ak8_j3_mSD");
+    h_Ak8_j3_tau21 = ctx.declare_event_output<float>("Ak8_j3_tau21");
+    h_Ak8_j3_tau32 = ctx.declare_event_output<float>("Ak8_j3_tau32");
   }else if(mode_ == "hotvr"){
-///  HOTVR JETS
-  h_N_HOTVR = ctx.declare_event_output<float> ("N_HOTVR");
+    ///  HOTVR JETS
+    h_N_HOTVR = ctx.declare_event_output<float> ("N_HOTVR");
 
-  h_HOTVR_j1_pt = ctx.declare_event_output<float> ("HOTVR_j1_pt");
-  h_HOTVR_j1_eta = ctx.declare_event_output<float>("HOTVR_j1_eta");
-  h_HOTVR_j1_phi = ctx.declare_event_output<float>("HOTVR_j1_phi");
-  h_HOTVR_j1_E = ctx.declare_event_output<float>  ("HOTVR_j1_E");
-  h_HOTVR_j1_mSD = ctx.declare_event_output<float>("HOTVR_j1_mSD");
-  h_HOTVR_j1_tau21 = ctx.declare_event_output<float>("HOTVR_j1_tau21");
-  h_HOTVR_j1_tau32 = ctx.declare_event_output<float>("HOTVR_j1_tau32");
+    h_HOTVR_j1_pt = ctx.declare_event_output<float> ("HOTVR_j1_pt");
+    h_HOTVR_j1_eta = ctx.declare_event_output<float>("HOTVR_j1_eta");
+    h_HOTVR_j1_phi = ctx.declare_event_output<float>("HOTVR_j1_phi");
+    h_HOTVR_j1_E = ctx.declare_event_output<float>  ("HOTVR_j1_E");
+    h_HOTVR_j1_mSD = ctx.declare_event_output<float>("HOTVR_j1_mSD");
+    h_HOTVR_j1_tau21 = ctx.declare_event_output<float>("HOTVR_j1_tau21");
+    h_HOTVR_j1_tau32 = ctx.declare_event_output<float>("HOTVR_j1_tau32");
 
-  h_HOTVR_j2_pt = ctx.declare_event_output<float> ("HOTVR_j2_pt");
-  h_HOTVR_j2_eta = ctx.declare_event_output<float>("HOTVR_j2_eta");
-  h_HOTVR_j2_phi = ctx.declare_event_output<float>("HOTVR_j2_phi");
-  h_HOTVR_j2_E = ctx.declare_event_output<float>  ("HOTVR_j2_E");
-  h_HOTVR_j2_mSD = ctx.declare_event_output<float>("HOTVR_j2_mSD");
-  h_HOTVR_j2_tau21 = ctx.declare_event_output<float>("HOTVR_j2_tau21");
-  h_HOTVR_j2_tau32 = ctx.declare_event_output<float>("HOTVR_j2_tau32");
+    h_HOTVR_j2_pt = ctx.declare_event_output<float> ("HOTVR_j2_pt");
+    h_HOTVR_j2_eta = ctx.declare_event_output<float>("HOTVR_j2_eta");
+    h_HOTVR_j2_phi = ctx.declare_event_output<float>("HOTVR_j2_phi");
+    h_HOTVR_j2_E = ctx.declare_event_output<float>  ("HOTVR_j2_E");
+    h_HOTVR_j2_mSD = ctx.declare_event_output<float>("HOTVR_j2_mSD");
+    h_HOTVR_j2_tau21 = ctx.declare_event_output<float>("HOTVR_j2_tau21");
+    h_HOTVR_j2_tau32 = ctx.declare_event_output<float>("HOTVR_j2_tau32");
 
-  h_HOTVR_j3_pt = ctx.declare_event_output<float> ("HOTVR_j3_pt");
-  h_HOTVR_j3_eta = ctx.declare_event_output<float>("HOTVR_j3_eta");
-  h_HOTVR_j3_phi = ctx.declare_event_output<float>("HOTVR_j3_phi");
-  h_HOTVR_j3_E = ctx.declare_event_output<float>  ("HOTVR_j3_E");
-  h_HOTVR_j3_mSD = ctx.declare_event_output<float>("HOTVR_j3_mSD");
-  h_HOTVR_j3_tau21 = ctx.declare_event_output<float>("HOTVR_j3_tau21");
-  h_HOTVR_j3_tau32 = ctx.declare_event_output<float>("HOTVR_j3_tau32");
+    h_HOTVR_j3_pt = ctx.declare_event_output<float> ("HOTVR_j3_pt");
+    h_HOTVR_j3_eta = ctx.declare_event_output<float>("HOTVR_j3_eta");
+    h_HOTVR_j3_phi = ctx.declare_event_output<float>("HOTVR_j3_phi");
+    h_HOTVR_j3_E = ctx.declare_event_output<float>  ("HOTVR_j3_E");
+    h_HOTVR_j3_mSD = ctx.declare_event_output<float>("HOTVR_j3_mSD");
+    h_HOTVR_j3_tau21 = ctx.declare_event_output<float>("HOTVR_j3_tau21");
+    h_HOTVR_j3_tau32 = ctx.declare_event_output<float>("HOTVR_j3_tau32");
   }
 
-///  M ttbar
+  ///  M ttbar
   h_M_tt = ctx.declare_event_output<float> ("M_tt");
 
 }
@@ -1013,7 +1030,7 @@ bool Variables_NN::process(uhh2::Event& evt){
   evt.set(h_eventweight, -10);
   evt.set(h_eventweight, weight);
 
-/////////   MUONS
+  /////////   MUONS
   evt.set(h_Mu_pt, -10);
   evt.set(h_Mu_eta,-10);
   evt.set(h_Mu_phi, -10);
@@ -1023,14 +1040,14 @@ bool Variables_NN::process(uhh2::Event& evt){
   int Nmuons = muons->size();
 
   for(int i=0; i<Nmuons; i++){
-      evt.set(h_Mu_pt, muons->at(i).pt());
-      evt.set(h_Mu_eta, muons->at(i).eta());
-      evt.set(h_Mu_phi, muons->at(i).phi());
-      evt.set(h_Mu_E, muons->at(i).energy());
+    evt.set(h_Mu_pt, muons->at(i).pt());
+    evt.set(h_Mu_eta, muons->at(i).eta());
+    evt.set(h_Mu_phi, muons->at(i).phi());
+    evt.set(h_Mu_E, muons->at(i).energy());
   }
 
 
-/////////   ELECTRONS
+  /////////   ELECTRONS
   evt.set(h_Ele_pt, -10);
   evt.set(h_Ele_eta, -10);
   evt.set(h_Ele_phi, -10);
@@ -1040,13 +1057,13 @@ bool Variables_NN::process(uhh2::Event& evt){
   int Nelectrons = electrons->size();
 
   for(int i=0; i<Nelectrons; i++){
-      evt.set(h_Ele_pt, electrons->at(i).pt());
-      evt.set(h_Ele_eta, electrons->at(i).eta());
-      evt.set(h_Ele_phi, electrons->at(i).phi());
-      evt.set(h_Ele_E, electrons->at(i).energy());
+    evt.set(h_Ele_pt, electrons->at(i).pt());
+    evt.set(h_Ele_eta, electrons->at(i).eta());
+    evt.set(h_Ele_phi, electrons->at(i).phi());
+    evt.set(h_Ele_E, electrons->at(i).energy());
   }
 
-/////////   MET
+  /////////   MET
   evt.set(h_MET_pt, -10);
   evt.set(h_MET_phi, -10);
 
@@ -1054,7 +1071,7 @@ bool Variables_NN::process(uhh2::Event& evt){
   evt.set(h_MET_phi, evt.met->phi());
 
 
-///////// AK4 JETS
+  ///////// AK4 JETS
   evt.set(h_N_Ak4, -10);
 
   evt.set(h_Ak4_j1_pt, -10);
@@ -1105,204 +1122,204 @@ bool Variables_NN::process(uhh2::Event& evt){
   evt.set(h_N_Ak4, NAk4jets);
 
   for(int i=0; i<NAk4jets; i++){
-      if(i==0){
+    if(i==0){
       evt.set(h_Ak4_j1_pt, Ak4jets->at(i).pt());
       evt.set(h_Ak4_j1_eta, Ak4jets->at(i).eta());
       evt.set(h_Ak4_j1_phi, Ak4jets->at(i).phi());
       evt.set(h_Ak4_j1_E, Ak4jets->at(i).energy());
       evt.set(h_Ak4_j1_m, Ak4jets->at(i).v4().M());
       //evt.set(h_Ak4_j1_deepjetbscore, Ak4jets->at(i).btag_DeepJet());
-      }
-      if(i==1){
+    }
+    if(i==1){
       evt.set(h_Ak4_j2_pt, Ak4jets->at(i).pt());
       evt.set(h_Ak4_j2_eta, Ak4jets->at(i).eta());
       evt.set(h_Ak4_j2_phi, Ak4jets->at(i).phi());
       evt.set(h_Ak4_j2_E, Ak4jets->at(i).energy());
       evt.set(h_Ak4_j2_m, Ak4jets->at(i).v4().M());
       //evt.set(h_Ak4_j2_deepjetbscore, Ak4jets->at(i).btag_DeepJet());
-      }
-      if(i==2){
+    }
+    if(i==2){
       evt.set(h_Ak4_j3_pt, Ak4jets->at(i).pt());
       evt.set(h_Ak4_j3_eta, Ak4jets->at(i).eta());
       evt.set(h_Ak4_j3_phi, Ak4jets->at(i).phi());
       evt.set(h_Ak4_j3_E, Ak4jets->at(i).energy());
       evt.set(h_Ak4_j3_m, Ak4jets->at(i).v4().M());
       //evt.set(h_Ak4_j3_deepjetbscore, Ak4jets->at(i).btag_DeepJet());
-      }
-      if(i==3){
+    }
+    if(i==3){
       evt.set(h_Ak4_j4_pt, Ak4jets->at(i).pt());
       evt.set(h_Ak4_j4_eta, Ak4jets->at(i).eta());
       evt.set(h_Ak4_j4_phi, Ak4jets->at(i).phi());
       evt.set(h_Ak4_j4_E, Ak4jets->at(i).energy());
       evt.set(h_Ak4_j4_m, Ak4jets->at(i).v4().M());
       //evt.set(h_Ak4_j4_deepjetbscore, Ak4jets->at(i).btag_DeepJet());
-      }
-      if(i==4){
+    }
+    if(i==4){
       evt.set(h_Ak4_j5_pt, Ak4jets->at(i).pt());
       evt.set(h_Ak4_j5_eta, Ak4jets->at(i).eta());
       evt.set(h_Ak4_j5_phi, Ak4jets->at(i).phi());
       evt.set(h_Ak4_j5_E, Ak4jets->at(i).energy());
       evt.set(h_Ak4_j5_m, Ak4jets->at(i).v4().M());
       //evt.set(h_Ak4_j5_deepjetbscore, Ak4jets->at(i).btag_DeepJet());
-      }
-      if(i==5){
+    }
+    if(i==5){
       evt.set(h_Ak4_j6_pt, Ak4jets->at(i).pt());
       evt.set(h_Ak4_j6_eta, Ak4jets->at(i).eta());
       evt.set(h_Ak4_j6_phi, Ak4jets->at(i).phi());
       evt.set(h_Ak4_j6_E, Ak4jets->at(i).energy());
       evt.set(h_Ak4_j6_m, Ak4jets->at(i).v4().M());
       //evt.set(h_Ak4_j6_deepjetbscore, Ak4jets->at(i).btag_DeepJet());
-      }
+    }
   }
 
   // save b-tag score of matched CHS jet
   vector<Jet> AK4CHSjets_matched = evt.get(h_CHSjets_matched);
   for(unsigned int i=0; i<AK4CHSjets_matched.size(); i++){
-      if(i==0){
+    if(i==0){
       evt.set(h_Ak4_j1_deepjetbscore, AK4CHSjets_matched.at(i).btag_DeepJet());
-      }
-      if(i==1){
+    }
+    if(i==1){
       evt.set(h_Ak4_j2_deepjetbscore, AK4CHSjets_matched.at(i).btag_DeepJet());
-      }
-      if(i==2){
+    }
+    if(i==2){
       evt.set(h_Ak4_j3_deepjetbscore, AK4CHSjets_matched.at(i).btag_DeepJet());
-      }
-      if(i==3){
+    }
+    if(i==3){
       evt.set(h_Ak4_j4_deepjetbscore, AK4CHSjets_matched.at(i).btag_DeepJet());
-      }
-      if(i==4){
+    }
+    if(i==4){
       evt.set(h_Ak4_j5_deepjetbscore, AK4CHSjets_matched.at(i).btag_DeepJet());
-      }
-      if(i==5){
+    }
+    if(i==5){
       evt.set(h_Ak4_j6_deepjetbscore, AK4CHSjets_matched.at(i).btag_DeepJet());
-      }
+    }
   }
 
-/////////   AK8 JETS
+  /////////   AK8 JETS
   if(mode_ == "deepAK8"){
-  evt.set(h_N_Ak8, -10);
+    evt.set(h_N_Ak8, -10);
 
-  evt.set(h_Ak8_j1_pt, -10);
-  evt.set(h_Ak8_j1_eta, -10);
-  evt.set(h_Ak8_j1_phi, -10);
-  evt.set(h_Ak8_j1_E, -10);
-  evt.set(h_Ak8_j1_mSD, -10);
-  evt.set(h_Ak8_j1_tau21, -10);
-  evt.set(h_Ak8_j1_tau32, -10);
+    evt.set(h_Ak8_j1_pt, -10);
+    evt.set(h_Ak8_j1_eta, -10);
+    evt.set(h_Ak8_j1_phi, -10);
+    evt.set(h_Ak8_j1_E, -10);
+    evt.set(h_Ak8_j1_mSD, -10);
+    evt.set(h_Ak8_j1_tau21, -10);
+    evt.set(h_Ak8_j1_tau32, -10);
 
-  evt.set(h_Ak8_j2_pt, -10);
-  evt.set(h_Ak8_j2_eta, -10);
-  evt.set(h_Ak8_j2_phi, -10);
-  evt.set(h_Ak8_j2_E, -10);
-  evt.set(h_Ak8_j2_mSD, -10);
-  evt.set(h_Ak8_j2_tau21, -10);
-  evt.set(h_Ak8_j2_tau32, -10);
+    evt.set(h_Ak8_j2_pt, -10);
+    evt.set(h_Ak8_j2_eta, -10);
+    evt.set(h_Ak8_j2_phi, -10);
+    evt.set(h_Ak8_j2_E, -10);
+    evt.set(h_Ak8_j2_mSD, -10);
+    evt.set(h_Ak8_j2_tau21, -10);
+    evt.set(h_Ak8_j2_tau32, -10);
 
-  evt.set(h_Ak8_j3_pt, -10);
-  evt.set(h_Ak8_j3_eta, -10);
-  evt.set(h_Ak8_j3_phi, -10);
-  evt.set(h_Ak8_j3_E, -10);
-  evt.set(h_Ak8_j3_mSD, -10);
-  evt.set(h_Ak8_j3_tau21, -10);
-  evt.set(h_Ak8_j3_tau32, -10);
+    evt.set(h_Ak8_j3_pt, -10);
+    evt.set(h_Ak8_j3_eta, -10);
+    evt.set(h_Ak8_j3_phi, -10);
+    evt.set(h_Ak8_j3_E, -10);
+    evt.set(h_Ak8_j3_mSD, -10);
+    evt.set(h_Ak8_j3_tau21, -10);
+    evt.set(h_Ak8_j3_tau32, -10);
 
-  vector<TopJet>* Ak8jets = evt.toppuppijets;
-  int NAk8jets = Ak8jets->size();
-  evt.set(h_N_Ak8, NAk8jets);
+    vector<TopJet>* Ak8jets = evt.toppuppijets;
+    int NAk8jets = Ak8jets->size();
+    evt.set(h_N_Ak8, NAk8jets);
 
-  for(int i=0; i<NAk8jets; i++){
+    for(int i=0; i<NAk8jets; i++){
       if(i==0){
-      evt.set(h_Ak8_j1_pt, Ak8jets->at(i).pt());
-      evt.set(h_Ak8_j1_eta, Ak8jets->at(i).eta());
-      evt.set(h_Ak8_j1_phi, Ak8jets->at(i).phi());
-      evt.set(h_Ak8_j1_E, Ak8jets->at(i).energy());
-      evt.set(h_Ak8_j1_mSD, Ak8jets->at(i).softdropmass());
-      evt.set(h_Ak8_j1_tau21, Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1());
-      evt.set(h_Ak8_j1_tau32, Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2());
+        evt.set(h_Ak8_j1_pt, Ak8jets->at(i).pt());
+        evt.set(h_Ak8_j1_eta, Ak8jets->at(i).eta());
+        evt.set(h_Ak8_j1_phi, Ak8jets->at(i).phi());
+        evt.set(h_Ak8_j1_E, Ak8jets->at(i).energy());
+        evt.set(h_Ak8_j1_mSD, Ak8jets->at(i).softdropmass());
+        evt.set(h_Ak8_j1_tau21, Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1());
+        evt.set(h_Ak8_j1_tau32, Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2());
       }
       if(i==1){
-      evt.set(h_Ak8_j2_pt, Ak8jets->at(i).pt());
-      evt.set(h_Ak8_j2_eta, Ak8jets->at(i).eta());
-      evt.set(h_Ak8_j2_phi, Ak8jets->at(i).phi());
-      evt.set(h_Ak8_j2_E, Ak8jets->at(i).energy());
-      evt.set(h_Ak8_j2_mSD, Ak8jets->at(i).softdropmass());
-      evt.set(h_Ak8_j2_tau21, Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1());
-      evt.set(h_Ak8_j2_tau32, Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2());
+        evt.set(h_Ak8_j2_pt, Ak8jets->at(i).pt());
+        evt.set(h_Ak8_j2_eta, Ak8jets->at(i).eta());
+        evt.set(h_Ak8_j2_phi, Ak8jets->at(i).phi());
+        evt.set(h_Ak8_j2_E, Ak8jets->at(i).energy());
+        evt.set(h_Ak8_j2_mSD, Ak8jets->at(i).softdropmass());
+        evt.set(h_Ak8_j2_tau21, Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1());
+        evt.set(h_Ak8_j2_tau32, Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2());
       }
       if(i==2){
-      evt.set(h_Ak8_j3_pt, Ak8jets->at(i).pt());
-      evt.set(h_Ak8_j3_eta, Ak8jets->at(i).eta());
-      evt.set(h_Ak8_j3_phi, Ak8jets->at(i).phi());
-      evt.set(h_Ak8_j3_E, Ak8jets->at(i).energy());
-      evt.set(h_Ak8_j3_mSD, Ak8jets->at(i).softdropmass());
-      evt.set(h_Ak8_j3_tau21, Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1());
-      evt.set(h_Ak8_j3_tau32, Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2());
+        evt.set(h_Ak8_j3_pt, Ak8jets->at(i).pt());
+        evt.set(h_Ak8_j3_eta, Ak8jets->at(i).eta());
+        evt.set(h_Ak8_j3_phi, Ak8jets->at(i).phi());
+        evt.set(h_Ak8_j3_E, Ak8jets->at(i).energy());
+        evt.set(h_Ak8_j3_mSD, Ak8jets->at(i).softdropmass());
+        evt.set(h_Ak8_j3_tau21, Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1());
+        evt.set(h_Ak8_j3_tau32, Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2());
       }
-  }
+    }
   }// end deepAK8 mode
 
-/////////   HOTVR JETS
+  /////////   HOTVR JETS
   if(mode_ == "hotvr"){
-  evt.set(h_N_HOTVR, -10);
+    evt.set(h_N_HOTVR, -10);
 
-  evt.set(h_HOTVR_j1_pt, -10);
-  evt.set(h_HOTVR_j1_eta, -10);
-  evt.set(h_HOTVR_j1_phi, -10);
-  evt.set(h_HOTVR_j1_E, -10);
-  evt.set(h_HOTVR_j1_mSD, -10);
-  evt.set(h_HOTVR_j1_tau21, -10);
-  evt.set(h_HOTVR_j1_tau32, -10);
+    evt.set(h_HOTVR_j1_pt, -10);
+    evt.set(h_HOTVR_j1_eta, -10);
+    evt.set(h_HOTVR_j1_phi, -10);
+    evt.set(h_HOTVR_j1_E, -10);
+    evt.set(h_HOTVR_j1_mSD, -10);
+    evt.set(h_HOTVR_j1_tau21, -10);
+    evt.set(h_HOTVR_j1_tau32, -10);
 
-  evt.set(h_HOTVR_j2_pt, -10);
-  evt.set(h_HOTVR_j2_eta, -10);
-  evt.set(h_HOTVR_j2_phi, -10);
-  evt.set(h_HOTVR_j2_E, -10);
-  evt.set(h_HOTVR_j2_mSD, -10);
-  evt.set(h_HOTVR_j2_tau21, -10);
-  evt.set(h_HOTVR_j2_tau32, -10);
+    evt.set(h_HOTVR_j2_pt, -10);
+    evt.set(h_HOTVR_j2_eta, -10);
+    evt.set(h_HOTVR_j2_phi, -10);
+    evt.set(h_HOTVR_j2_E, -10);
+    evt.set(h_HOTVR_j2_mSD, -10);
+    evt.set(h_HOTVR_j2_tau21, -10);
+    evt.set(h_HOTVR_j2_tau32, -10);
 
-  evt.set(h_HOTVR_j3_pt, -10);
-  evt.set(h_HOTVR_j3_eta, -10);
-  evt.set(h_HOTVR_j3_phi, -10);
-  evt.set(h_HOTVR_j3_E, -10);
-  evt.set(h_HOTVR_j3_mSD, -10);
-  evt.set(h_HOTVR_j3_tau21, -10);
-  evt.set(h_HOTVR_j3_tau32, -10);
+    evt.set(h_HOTVR_j3_pt, -10);
+    evt.set(h_HOTVR_j3_eta, -10);
+    evt.set(h_HOTVR_j3_phi, -10);
+    evt.set(h_HOTVR_j3_E, -10);
+    evt.set(h_HOTVR_j3_mSD, -10);
+    evt.set(h_HOTVR_j3_tau21, -10);
+    evt.set(h_HOTVR_j3_tau32, -10);
 
 
-  vector<TopJet>* HOTVRjets = evt.topjets;
-  int NHOTVRjets = HOTVRjets->size();
-  evt.set(h_N_HOTVR, NHOTVRjets);
+    vector<TopJet>* HOTVRjets = evt.topjets;
+    int NHOTVRjets = HOTVRjets->size();
+    evt.set(h_N_HOTVR, NHOTVRjets);
 
-  for(int i=0; i<NHOTVRjets; i++){
+    for(int i=0; i<NHOTVRjets; i++){
       if(i==0){
-      evt.set(h_HOTVR_j1_pt, HOTVRjets->at(i).pt());
-      evt.set(h_HOTVR_j1_eta, HOTVRjets->at(i).eta());
-      evt.set(h_HOTVR_j1_phi, HOTVRjets->at(i).phi());
-      evt.set(h_HOTVR_j1_E, HOTVRjets->at(i).energy());
-      evt.set(h_HOTVR_j1_mSD, HOTVRjets->at(i).v4().M());
-      evt.set(h_HOTVR_j1_tau21, HOTVRjets->at(i).tau2_groomed()/HOTVRjets->at(i).tau1_groomed());
-      evt.set(h_HOTVR_j1_tau32, HOTVRjets->at(i).tau3_groomed()/HOTVRjets->at(i).tau2_groomed());
+        evt.set(h_HOTVR_j1_pt, HOTVRjets->at(i).pt());
+        evt.set(h_HOTVR_j1_eta, HOTVRjets->at(i).eta());
+        evt.set(h_HOTVR_j1_phi, HOTVRjets->at(i).phi());
+        evt.set(h_HOTVR_j1_E, HOTVRjets->at(i).energy());
+        evt.set(h_HOTVR_j1_mSD, HOTVRjets->at(i).v4().M());
+        evt.set(h_HOTVR_j1_tau21, HOTVRjets->at(i).tau2_groomed()/HOTVRjets->at(i).tau1_groomed());
+        evt.set(h_HOTVR_j1_tau32, HOTVRjets->at(i).tau3_groomed()/HOTVRjets->at(i).tau2_groomed());
       }
       if(i==1){
-      evt.set(h_HOTVR_j2_pt, HOTVRjets->at(i).pt());
-      evt.set(h_HOTVR_j2_eta, HOTVRjets->at(i).eta());
-      evt.set(h_HOTVR_j2_phi, HOTVRjets->at(i).phi());
-      evt.set(h_HOTVR_j2_E, HOTVRjets->at(i).energy());
-      evt.set(h_HOTVR_j2_mSD, HOTVRjets->at(i).v4().M());
-      evt.set(h_HOTVR_j2_tau21, HOTVRjets->at(i).tau2_groomed()/HOTVRjets->at(i).tau1_groomed());
-      evt.set(h_HOTVR_j2_tau32, HOTVRjets->at(i).tau3_groomed()/HOTVRjets->at(i).tau2_groomed());
+        evt.set(h_HOTVR_j2_pt, HOTVRjets->at(i).pt());
+        evt.set(h_HOTVR_j2_eta, HOTVRjets->at(i).eta());
+        evt.set(h_HOTVR_j2_phi, HOTVRjets->at(i).phi());
+        evt.set(h_HOTVR_j2_E, HOTVRjets->at(i).energy());
+        evt.set(h_HOTVR_j2_mSD, HOTVRjets->at(i).v4().M());
+        evt.set(h_HOTVR_j2_tau21, HOTVRjets->at(i).tau2_groomed()/HOTVRjets->at(i).tau1_groomed());
+        evt.set(h_HOTVR_j2_tau32, HOTVRjets->at(i).tau3_groomed()/HOTVRjets->at(i).tau2_groomed());
       }
       if(i==2){
-      evt.set(h_HOTVR_j3_pt, HOTVRjets->at(i).pt());
-      evt.set(h_HOTVR_j3_eta, HOTVRjets->at(i).eta());
-      evt.set(h_HOTVR_j3_phi, HOTVRjets->at(i).phi());
-      evt.set(h_HOTVR_j3_E, HOTVRjets->at(i).energy());
-      evt.set(h_HOTVR_j3_mSD, HOTVRjets->at(i).v4().M());
-      evt.set(h_HOTVR_j3_tau21, HOTVRjets->at(i).tau2_groomed()/HOTVRjets->at(i).tau1_groomed());
-      evt.set(h_HOTVR_j3_tau32, HOTVRjets->at(i).tau3_groomed()/HOTVRjets->at(i).tau2_groomed());
+        evt.set(h_HOTVR_j3_pt, HOTVRjets->at(i).pt());
+        evt.set(h_HOTVR_j3_eta, HOTVRjets->at(i).eta());
+        evt.set(h_HOTVR_j3_phi, HOTVRjets->at(i).phi());
+        evt.set(h_HOTVR_j3_E, HOTVRjets->at(i).energy());
+        evt.set(h_HOTVR_j3_mSD, HOTVRjets->at(i).v4().M());
+        evt.set(h_HOTVR_j3_tau21, HOTVRjets->at(i).tau2_groomed()/HOTVRjets->at(i).tau1_groomed());
+        evt.set(h_HOTVR_j3_tau32, HOTVRjets->at(i).tau3_groomed()/HOTVRjets->at(i).tau2_groomed());
       }
-  }
+    }
   } // end hotvr mode
 
   // ttbar mass
@@ -1311,7 +1328,7 @@ bool Variables_NN::process(uhh2::Event& evt){
   if(is_zprime_reconstructed_chi2){
     ZprimeCandidate* BestZprimeCandidate = evt.get(h_BestZprimeCandidateChi2);
     float Mass_tt = BestZprimeCandidate->Zprime_v4().M();
-  evt.set(h_M_tt, Mass_tt);
+    evt.set(h_M_tt, Mass_tt);
   }
 
 
@@ -1346,17 +1363,17 @@ double ScaleFactorsFromHistos::Evaluator(std::string hname, double var) {
 
 NLOCorrections::NLOCorrections(uhh2::Context& ctx) {
 
- // Corrections for 2017 and 2018 are the same. 2016 is different
- is2016 = (ctx.get("dataset_version").find("UL16") != std::string::npos);
+  // Corrections for 2017 and 2018 are the same. 2016 is different
+  is2016 = (ctx.get("dataset_version").find("UL16") != std::string::npos);
 
- is_Wjets  = (ctx.get("dataset_version").find("WJets") != std::string::npos);
- is_Znn  = (ctx.get("dataset_version").find("DY_inv") != std::string::npos);
- is_DY  = (ctx.get("dataset_version").find("DY") != std::string::npos) && !is_Znn;
- is_Zjets  = is_DY || is_Znn;
+  is_Wjets  = (ctx.get("dataset_version").find("WJets") != std::string::npos);
+  is_Znn  = (ctx.get("dataset_version").find("DY_inv") != std::string::npos);
+  is_DY  = (ctx.get("dataset_version").find("DY") != std::string::npos) && !is_Znn;
+  is_Zjets  = is_DY || is_Znn;
 
 
- std::string folder_ = ctx.get("NLOCorrections");
- for (const std::string& proc: {"w","z"}) {
+  std::string folder_ = ctx.get("NLOCorrections");
+  for (const std::string& proc: {"w","z"}) {
     TFile* file_ = new TFile((folder_+"merged_kfactors_"+proc+"jets.root").c_str());
     for (const std::string& corr: {"ewk","qcd","qcd_ewk"}) LoadHisto(file_, proc+"_"+corr, "kfactor_monojet_"+corr);
     file_->Close();
@@ -1385,15 +1402,15 @@ double NLOCorrections::GetPartonObjectPt(uhh2::Event& event, ParticleID objID) {
 
 
 bool NLOCorrections::process(uhh2::Event& event){
- // Sample dependant corrections
- if ((!is_Wjets && !is_Zjets) || event.isRealData) return true;
- double objpt = uhh2::infinity, theory_weight = 1.0;
- std::string process = "";
+  // Sample dependant corrections
+  if ((!is_Wjets && !is_Zjets) || event.isRealData) return true;
+  double objpt = uhh2::infinity, theory_weight = 1.0;
+  std::string process = "";
 
- const bool do_EWK = true;
- const bool do_QCD_EWK = false;
- const bool do_QCD_NLO  = true;
- const bool do_QCD_NNLO = false;
+  const bool do_EWK = true;
+  const bool do_QCD_EWK = false;
+  const bool do_QCD_NLO  = true;
+  const bool do_QCD_NNLO = false;
 
 
   if (is_Zjets) objpt = GetPartonObjectPt(event,ParticleID::Z);
@@ -1429,209 +1446,209 @@ bool NLOCorrections::process(uhh2::Event& event){
 // Top pT Reweight extended - from Alex F.
 
 TopPtReweighting::TopPtReweighting(uhh2::Context& ctx,
-				   float a, float b,
-				   const std::string& syst_a,
-				   const std::string& syst_b,
-				   const std::string& ttgen_name):
+  float a, float b,
+  const std::string& syst_a,
+  const std::string& syst_b,
+  const std::string& ttgen_name):
   a_(a), b_(b),
   ttgen_name_(ttgen_name){
 
-  h_weight_toppt_nominal = ctx.declare_event_output<float> ("weight_toppt_nominal");
-  h_weight_toppt_a_up      = ctx.declare_event_output<float> ("weight_toppt_a_up");
-  h_weight_toppt_b_up      = ctx.declare_event_output<float> ("weight_toppt_b_up");
-  h_weight_toppt_a_down    = ctx.declare_event_output<float> ("weight_toppt_a_down");
-  h_weight_toppt_b_down    = ctx.declare_event_output<float> ("weight_toppt_b_down");
+    h_weight_toppt_nominal = ctx.declare_event_output<float> ("weight_toppt_nominal");
+    h_weight_toppt_a_up      = ctx.declare_event_output<float> ("weight_toppt_a_up");
+    h_weight_toppt_b_up      = ctx.declare_event_output<float> ("weight_toppt_b_up");
+    h_weight_toppt_a_down    = ctx.declare_event_output<float> ("weight_toppt_a_down");
+    h_weight_toppt_b_down    = ctx.declare_event_output<float> ("weight_toppt_b_down");
 
-  version_ = ctx.get("dataset_version", "");
-  boost::algorithm::to_lower(version_);
-  if(!ttgen_name_.empty()){
-    h_ttbargen_ = ctx.get_handle<TTbarGen>(ttgen_name);
-  }
+    version_ = ctx.get("dataset_version", "");
+    boost::algorithm::to_lower(version_);
+    if(!ttgen_name_.empty()){
+      h_ttbargen_ = ctx.get_handle<TTbarGen>(ttgen_name);
+    }
 
-  if (syst_a == "up")
+    if (syst_a == "up")
     a_ *= 1.5;
-  else if (syst_a == "down")
+    else if (syst_a == "down")
     a_ *= 0.5;
 
-  if (syst_b == "up")
+    if (syst_b == "up")
     b_ *= 1.5;
-  else if (syst_b == "down")
+    else if (syst_b == "down")
     b_ *= 0.5;
-}
+  }
 
-bool TopPtReweighting::process(uhh2::Event& event){
-  if (event.isRealData || (!boost::algorithm::contains(version_,"tttohadronic") && !boost::algorithm::contains(version_,"tttosemileptonic") && !boost::algorithm::starts_with(version_,"ttto2l2nu")) ) {
- 
-    event.set(h_weight_toppt_nominal, 1.0);
-    event.set(h_weight_toppt_a_up, 1.0);
-    event.set(h_weight_toppt_b_up, 1.0);
-    event.set(h_weight_toppt_a_down, 1.0);
-    event.set(h_weight_toppt_b_down, 1.0); 
+  bool TopPtReweighting::process(uhh2::Event& event){
+    if (event.isRealData || (!boost::algorithm::contains(version_,"tttohadronic") && !boost::algorithm::contains(version_,"tttosemileptonic") && !boost::algorithm::starts_with(version_,"ttto2l2nu")) ) {
+
+      event.set(h_weight_toppt_nominal, 1.0);
+      event.set(h_weight_toppt_a_up, 1.0);
+      event.set(h_weight_toppt_b_up, 1.0);
+      event.set(h_weight_toppt_a_down, 1.0);
+      event.set(h_weight_toppt_b_down, 1.0);
+
+      return true;
+
+    }
+    const TTbarGen& ttbargen = !ttgen_name_.empty() ? event.get(h_ttbargen_) : TTbarGen(*event.genparticles,false);
+    float wgt = 1.;
+    float wgt_a_up = 1.;
+    float wgt_a_down = 1.;
+    float wgt_b_up = 1.;
+    float wgt_b_down = 1.;
+    if (ttbargen.DecayChannel() != TTbarGen::e_notfound) {
+      float tpt1 = ttbargen.Top().v4().Pt();
+      float tpt2 = ttbargen.Antitop().v4().Pt();
+      wgt = sqrt(exp(a_+b_*tpt1)*exp(a_+b_*tpt2));
+      wgt_a_up = sqrt(exp((1.5*a_)+b_*tpt1)*exp((1.5*a_)+b_*tpt2));
+      wgt_a_down = sqrt(exp((0.5*a_)+b_*tpt1)*exp((0.5*a_)+b_*tpt2));
+      wgt_b_up = sqrt(exp(a_+(1.5*b_)*tpt1)*exp(a_+(1.5*b_)*tpt2));
+      wgt_b_down = sqrt(exp(a_+(0.5*b_)*tpt1)*exp(a_+(0.5*b_)*tpt2));
+    }
+
+    event.weight *= wgt;
+
+    event.set(h_weight_toppt_nominal, wgt);
+    event.set(h_weight_toppt_a_up, wgt_a_up);
+    event.set(h_weight_toppt_b_up, wgt_b_up);
+    event.set(h_weight_toppt_a_down, wgt_a_down);
+    event.set(h_weight_toppt_b_down, wgt_b_down);
+
 
     return true;
-    
-  }
-  const TTbarGen& ttbargen = !ttgen_name_.empty() ? event.get(h_ttbargen_) : TTbarGen(*event.genparticles,false);
-  float wgt = 1.;
-  float wgt_a_up = 1.;
-  float wgt_a_down = 1.;
-  float wgt_b_up = 1.;
-  float wgt_b_down = 1.;
-  if (ttbargen.DecayChannel() != TTbarGen::e_notfound) {
-    float tpt1 = ttbargen.Top().v4().Pt();
-    float tpt2 = ttbargen.Antitop().v4().Pt();
-    wgt = sqrt(exp(a_+b_*tpt1)*exp(a_+b_*tpt2));
-    wgt_a_up = sqrt(exp((1.5*a_)+b_*tpt1)*exp((1.5*a_)+b_*tpt2));
-    wgt_a_down = sqrt(exp((0.5*a_)+b_*tpt1)*exp((0.5*a_)+b_*tpt2));
-    wgt_b_up = sqrt(exp(a_+(1.5*b_)*tpt1)*exp(a_+(1.5*b_)*tpt2));
-    wgt_b_down = sqrt(exp(a_+(0.5*b_)*tpt1)*exp(a_+(0.5*b_)*tpt2));
   }
 
-  event.weight *= wgt;
 
-  event.set(h_weight_toppt_nominal, wgt);
-  event.set(h_weight_toppt_a_up, wgt_a_up);
-  event.set(h_weight_toppt_b_up, wgt_b_up);
-  event.set(h_weight_toppt_a_down, wgt_a_down);
-  event.set(h_weight_toppt_b_down, wgt_b_down);
+  ////
 
+  PuppiCHS_matching::PuppiCHS_matching(uhh2::Context& ctx){
 
-  return true;
-}
+    h_CHSjets = ctx.get_handle< std::vector<Jet> >("jetsAk4CHS");
+    h_CHS_matched_ = ctx.declare_event_output<vector<Jet>>("CHS_matched");
 
+  }
 
-////
+  bool PuppiCHS_matching::process(uhh2::Event& event){
 
-PuppiCHS_matching::PuppiCHS_matching(uhh2::Context& ctx){
+    vector<Jet> CHSjets = event.get(h_CHSjets);
+    std::vector<Jet> matched_jets;
+    std::vector<Jet> matched_jets_PUPPI;
 
-  h_CHSjets = ctx.get_handle< std::vector<Jet> >("jetsAk4CHS");
-  h_CHS_matched_ = ctx.declare_event_output<vector<Jet>>("CHS_matched");
+    for(const Jet & jet : *event.jets){ // PUPPI jets
+      double deltaR_min = 99;
 
-}
-
-bool PuppiCHS_matching::process(uhh2::Event& event){
-
-  vector<Jet> CHSjets = event.get(h_CHSjets);
-  std::vector<Jet> matched_jets;
-  std::vector<Jet> matched_jets_PUPPI;
-
-  for(const Jet & jet : *event.jets){ // PUPPI jets
-     double deltaR_min = 99;
-
-     for(const Jet & CHSjet : CHSjets){ // CHS jets
+      for(const Jet & CHSjet : CHSjets){ // CHS jets
         double deltaR_CHS = deltaR(jet,CHSjet);
         if(deltaR_CHS<deltaR_min) deltaR_min = deltaR_CHS;
-     } // end CHS loop
+      } // end CHS loop
 
-     if(deltaR_min>0.2) continue;
+      if(deltaR_min>0.2) continue;
 
-     for(const Jet & CHSjet : CHSjets){
-     if(deltaR(jet,CHSjet)!=deltaR_min) continue;
-     else{
-      matched_jets.emplace_back(CHSjet);
-      matched_jets_PUPPI.emplace_back(jet);
-     }
-     }
-
-  } // end PUPPI loop
-  std::swap(matched_jets_PUPPI, *event.jets);
-  event.set(h_CHS_matched_, matched_jets);
-  if(event.jets->size()==0) return false;
-  return true;
-}
-
-////
-
-MuonRecoSF::MuonRecoSF(uhh2::Context& ctx){
-  
-  year = extract_year(ctx);
-  is_mc = ctx.get("dataset_type") == "MC";
-  is_Muon = ctx.get("channel") == "muon";
-
-  h_muonrecSF_nominal = ctx.declare_event_output<float> ("muonrecSF_nominal");
-  h_muonrecSF_up      = ctx.declare_event_output<float> ("muonrecSF_up");
-  h_muonrecSF_down    = ctx.declare_event_output<float> ("muonrecSF_down");
-
-}
-
-bool MuonRecoSF::process(uhh2::Event& event){
-
-  event.set(h_muonrecSF_nominal, 1.0);
-  event.set(h_muonrecSF_up, 1.0);
-  event.set(h_muonrecSF_down, 1.0);
-
-  if(is_mc && is_Muon){ 
-  float Tot_P = event.muons->at(0).pt()*cosh(event.muons->at(0).eta());
-    if(year == Year::isUL16preVFP || year == Year::isUL16postVFP){
-        if( abs(event.muons->at(0).eta()) <= 1.6){ 
-            if( 50 < Tot_P && Tot_P <= 100)   { event.set(h_muonrecSF_nominal, 0.9914); event.set(h_muonrecSF_up, 0.9914+0.0008); event.set(h_muonrecSF_down, 0.9914-0.0008); event.weight *= 0.9914; }
-            if( 100 < Tot_P && Tot_P <= 150)  { event.set(h_muonrecSF_nominal, 0.9936); event.set(h_muonrecSF_up, 0.9936+0.0009); event.set(h_muonrecSF_down, 0.9936-0.0009); event.weight *= 0.9936; }
-            if( 150 < Tot_P && Tot_P <= 200)  { event.set(h_muonrecSF_nominal, 0.993); event.set(h_muonrecSF_up, 0.993+0.001); event.set(h_muonrecSF_down, 0.993-0.001); event.weight *= 0.993; }
-            if( 200 < Tot_P && Tot_P <= 300)  { event.set(h_muonrecSF_nominal, 0.993); event.set(h_muonrecSF_up, 0.993+0.002); event.set(h_muonrecSF_down, 0.993-0.002); event.weight *= 0.993; }
-            if( 300 < Tot_P && Tot_P <= 400)  { event.set(h_muonrecSF_nominal, 0.990); event.set(h_muonrecSF_up, 0.990+0.004); event.set(h_muonrecSF_down, 0.990-0.004); event.weight *= 0.990; }
-            if( 400 < Tot_P && Tot_P <= 600)  { event.set(h_muonrecSF_nominal, 0.990); event.set(h_muonrecSF_up, 0.990+0.003); event.set(h_muonrecSF_down, 0.990-0.003); event.weight *= 0.990; }
-            if( 600 < Tot_P && Tot_P <= 1500) { event.set(h_muonrecSF_nominal, 0.989); event.set(h_muonrecSF_up, 0.989+0.004); event.set(h_muonrecSF_down, 0.989-0.004); event.weight *= 0.989; }
-            if( 1500 < Tot_P && Tot_P <= 3500){ event.set(h_muonrecSF_nominal, 0.8); event.set(h_muonrecSF_up, 0.8+0.3); event.set(h_muonrecSF_down, 0.8-0.3); event.weight *= 0.8; }
+      for(const Jet & CHSjet : CHSjets){
+        if(deltaR(jet,CHSjet)!=deltaR_min) continue;
+        else{
+          matched_jets.emplace_back(CHSjet);
+          matched_jets_PUPPI.emplace_back(jet);
         }
-        if(abs(event.muons->at(0).eta()) > 1.6 && abs(event.muons->at(0).eta()) < 2.4){ 
-            if( 50 < Tot_P && Tot_P <= 100)   { event.set(h_muonrecSF_nominal, 1.0); event.set(h_muonrecSF_up, 1.0); event.set(h_muonrecSF_down, 1.0); event.weight *= 1.0; }
-            if( 100 < Tot_P && Tot_P <= 150)  { event.set(h_muonrecSF_nominal, 0.993); event.set(h_muonrecSF_up, 0.993+0.001); event.set(h_muonrecSF_down, 0.993-0.001); event.weight *= 0.993; }
-            if( 150 < Tot_P && Tot_P <= 200)  { event.set(h_muonrecSF_nominal, 0.991); event.set(h_muonrecSF_up, 0.991+0.001); event.set(h_muonrecSF_down, 0.991-0.001); event.weight *= 0.991; }
-            if( 200 < Tot_P && Tot_P <= 300)  { event.set(h_muonrecSF_nominal, 0.985); event.set(h_muonrecSF_up, 0.985+0.001); event.set(h_muonrecSF_down, 0.985-0.001); event.weight *= 0.985; }
-            if( 300 < Tot_P && Tot_P <= 400)  { event.set(h_muonrecSF_nominal, 0.981); event.set(h_muonrecSF_up, 0.981+0.002); event.set(h_muonrecSF_down, 0.981-0.002); event.weight *= 0.981; }
-            if( 400 < Tot_P && Tot_P <= 600)  { event.set(h_muonrecSF_nominal, 0.979); event.set(h_muonrecSF_up, 0.979+0.004); event.set(h_muonrecSF_down, 0.979-0.004); event.weight *= 0.979; }
-            if( 600 < Tot_P && Tot_P <= 1500) { event.set(h_muonrecSF_nominal, 0.978); event.set(h_muonrecSF_up, 0.978+0.005); event.set(h_muonrecSF_down, 0.978-0.005); event.weight *= 0.978; }
-            if( 1500 < Tot_P && Tot_P <= 3500){ event.set(h_muonrecSF_nominal, 0.9); event.set(h_muonrecSF_up, 0.9+0.2); event.set(h_muonrecSF_down, 0.9-0.2); event.weight *= 0.9; }
-        }
-    }
-    if(year == Year::isUL17){
-        if( abs(event.muons->at(0).eta()) <= 1.6){ 
-            if( 50 < Tot_P && Tot_P <= 100)   { event.set(h_muonrecSF_nominal, 0.9938); event.set(h_muonrecSF_up, 0.9938+0.0006); event.set(h_muonrecSF_down, 0.9938-0.0006); event.weight *= 0.9938; }
-            if( 100 < Tot_P && Tot_P <= 150)  { event.set(h_muonrecSF_nominal, 0.9950); event.set(h_muonrecSF_up, 0.9950+0.0007); event.set(h_muonrecSF_down, 0.9950-0.0007); event.weight *= 0.9950; }
-            if( 150 < Tot_P && Tot_P <= 200)  { event.set(h_muonrecSF_nominal, 0.996); event.set(h_muonrecSF_up, 0.996+0.001); event.set(h_muonrecSF_down, 0.996-0.001); event.weight *= 0.996; }
-            if( 200 < Tot_P && Tot_P <= 300)  { event.set(h_muonrecSF_nominal, 0.996); event.set(h_muonrecSF_up, 0.996+0.001); event.set(h_muonrecSF_down, 0.996-0.001); event.weight *= 0.996; }
-            if( 300 < Tot_P && Tot_P <= 400)  { event.set(h_muonrecSF_nominal, 0.994); event.set(h_muonrecSF_up, 0.994+0.001); event.set(h_muonrecSF_down, 0.994-0.001); event.weight *= 0.994; }
-            if( 400 < Tot_P && Tot_P <= 600)  { event.set(h_muonrecSF_nominal, 1.003); event.set(h_muonrecSF_up, 1.003+0.006); event.set(h_muonrecSF_down, 1.003-0.006); event.weight *= 1.003; }
-            if( 600 < Tot_P && Tot_P <= 1500) { event.set(h_muonrecSF_nominal, 0.987); event.set(h_muonrecSF_up, 0.987+0.003); event.set(h_muonrecSF_down, 0.987-0.003); event.weight *= 0.987; }
-            if( 1500 < Tot_P && Tot_P <= 3500){ event.set(h_muonrecSF_nominal, 0.9); event.set(h_muonrecSF_up, 0.9+0.1); event.set(h_muonrecSF_down, 0.9-0.1); event.weight *= 0.9; }
-        }
-        if(abs(event.muons->at(0).eta()) > 1.6 && abs(event.muons->at(0).eta()) < 2.4){ 
-            if( 50 < Tot_P && Tot_P <= 100)   { event.set(h_muonrecSF_nominal, 1.0); event.set(h_muonrecSF_up, 1.0); event.set(h_muonrecSF_down, 1.0); event.weight *= 1.0; }
-            if( 100 < Tot_P && Tot_P <= 150)  { event.set(h_muonrecSF_nominal, 0.993); event.set(h_muonrecSF_up, 0.993+0.001); event.set(h_muonrecSF_down, 0.993-0.001); event.weight *= 0.993; }
-            if( 150 < Tot_P && Tot_P <= 200)  { event.set(h_muonrecSF_nominal, 0.989); event.set(h_muonrecSF_up, 0.989+0.001); event.set(h_muonrecSF_down, 0.989-0.001); event.weight *= 0.989; }
-            if( 200 < Tot_P && Tot_P <= 300)  { event.set(h_muonrecSF_nominal, 0.986); event.set(h_muonrecSF_up, 0.986+0.001); event.set(h_muonrecSF_down, 0.986-0.001); event.weight *= 0.986; }
-            if( 300 < Tot_P && Tot_P <= 400)  { event.set(h_muonrecSF_nominal, 0.989); event.set(h_muonrecSF_up, 0.989+0.001); event.set(h_muonrecSF_down, 0.989-0.001); event.weight *= 0.989; }
-            if( 400 < Tot_P && Tot_P <= 600)  { event.set(h_muonrecSF_nominal, 0.983); event.set(h_muonrecSF_up, 0.983+0.003); event.set(h_muonrecSF_down, 0.983-0.003); event.weight *= 0.983; }
-            if( 600 < Tot_P && Tot_P <= 1500) { event.set(h_muonrecSF_nominal, 0.986); event.set(h_muonrecSF_up, 0.986+0.006); event.set(h_muonrecSF_down, 0.986-0.006); event.weight *= 0.986; }
-            if( 1500 < Tot_P && Tot_P <= 3500){ event.set(h_muonrecSF_nominal, 1.01); event.set(h_muonrecSF_up, 1.01+0.01); event.set(h_muonrecSF_down, 1.01-0.01); event.weight *= 1.01; }
-        }
-    }
-    if(year == Year::isUL18){
-        if( abs(event.muons->at(0).eta()) <= 1.6){ 
-            if( 50 < Tot_P && Tot_P <= 100)   { event.set(h_muonrecSF_nominal, 0.9943); event.set(h_muonrecSF_up, 0.9943+0.0007); event.set(h_muonrecSF_down, 0.9943-0.0007); event.weight *= 0.9943; }
-            if( 100 < Tot_P && Tot_P <= 150)  { event.set(h_muonrecSF_nominal, 0.9948); event.set(h_muonrecSF_up, 0.9948+0.0007); event.set(h_muonrecSF_down, 0.9948-0.0007); event.weight *= 0.9948; }
-            if( 150 < Tot_P && Tot_P <= 200)  { event.set(h_muonrecSF_nominal, 0.9950); event.set(h_muonrecSF_up, 0.9950+0.0009); event.set(h_muonrecSF_down, 0.9950-0.0009); event.weight *= 0.9950; }
-            if( 200 < Tot_P && Tot_P <= 300)  { event.set(h_muonrecSF_nominal, 0.994); event.set(h_muonrecSF_up, 0.994+0.001); event.set(h_muonrecSF_down, 0.994-0.001); event.weight *= 0.994; }
-            if( 300 < Tot_P && Tot_P <= 400)  { event.set(h_muonrecSF_nominal, 0.9914); event.set(h_muonrecSF_up, 0.9914+0.0009); event.set(h_muonrecSF_down, 0.9914-0.0009); event.weight *= 0.9914; }
-            if( 400 < Tot_P && Tot_P <= 600)  { event.set(h_muonrecSF_nominal, 0.993); event.set(h_muonrecSF_up, 0.993+0.002); event.set(h_muonrecSF_down, 0.993-0.002); event.weight *= 0.993; }
-            if( 600 < Tot_P && Tot_P <= 1500) { event.set(h_muonrecSF_nominal, 0.991); event.set(h_muonrecSF_up, 0.991+0.004); event.set(h_muonrecSF_down, 0.991-0.004); event.weight *= 0.991; }
-            if( 1500 < Tot_P && Tot_P <= 3500){ event.set(h_muonrecSF_nominal, 1.0); event.set(h_muonrecSF_up, 1.0+0.1); event.set(h_muonrecSF_down, 1.0-0.1); event.weight *= 1.0; }
-        }
-        if(abs(event.muons->at(0).eta()) > 1.6 && abs(event.muons->at(0).eta()) < 2.4){ 
-            if( 50 < Tot_P && Tot_P <= 100)   { event.set(h_muonrecSF_nominal, 1.0); event.set(h_muonrecSF_up, 1.0); event.set(h_muonrecSF_down, 1.0); event.weight *= 1.0; }
-            if( 100 < Tot_P && Tot_P <= 150)  { event.set(h_muonrecSF_nominal, 0.993); event.set(h_muonrecSF_up, 0.993+0.001); event.set(h_muonrecSF_down, 0.993-0.001); event.weight *= 0.993; }
-            if( 150 < Tot_P && Tot_P <= 200)  { event.set(h_muonrecSF_nominal, 0.990); event.set(h_muonrecSF_up, 0.990+0.001); event.set(h_muonrecSF_down, 0.990-0.001); event.weight *= 0.990; }
-            if( 200 < Tot_P && Tot_P <= 300)  { event.set(h_muonrecSF_nominal, 0.988); event.set(h_muonrecSF_up, 0.988+0.001); event.set(h_muonrecSF_down, 0.988-0.001); event.weight *= 0.988; }
-            if( 300 < Tot_P && Tot_P <= 400)  { event.set(h_muonrecSF_nominal, 0.981); event.set(h_muonrecSF_up, 0.981+0.002); event.set(h_muonrecSF_down, 0.981-0.002); event.weight *= 0.981; }
-            if( 400 < Tot_P && Tot_P <= 600)  { event.set(h_muonrecSF_nominal, 0.983); event.set(h_muonrecSF_up, 0.983+0.003); event.set(h_muonrecSF_down, 0.983-0.003); event.weight *= 0.983; }
-            if( 600 < Tot_P && Tot_P <= 1500) { event.set(h_muonrecSF_nominal, 0.978); event.set(h_muonrecSF_up, 0.978+0.006); event.set(h_muonrecSF_down, 0.978-0.006); event.weight *= 0.978; }
-            if( 1500 < Tot_P && Tot_P <= 3500){ event.set(h_muonrecSF_nominal, 0.98); event.set(h_muonrecSF_up, 0.98+0.03); event.set(h_muonrecSF_down, 0.98-0.03); event.weight *= 0.98; }
-        }
-    }
+      }
+
+    } // end PUPPI loop
+    std::swap(matched_jets_PUPPI, *event.jets);
+    event.set(h_CHS_matched_, matched_jets);
+    if(event.jets->size()==0) return false;
+    return true;
   }
 
+  ////
 
-  return true;
-}
+  MuonRecoSF::MuonRecoSF(uhh2::Context& ctx){
 
-////
+    year = extract_year(ctx);
+    is_mc = ctx.get("dataset_type") == "MC";
+    is_Muon = ctx.get("channel") == "muon";
+
+    h_muonrecSF_nominal = ctx.declare_event_output<float> ("muonrecSF_nominal");
+    h_muonrecSF_up      = ctx.declare_event_output<float> ("muonrecSF_up");
+    h_muonrecSF_down    = ctx.declare_event_output<float> ("muonrecSF_down");
+
+  }
+
+  bool MuonRecoSF::process(uhh2::Event& event){
+
+    event.set(h_muonrecSF_nominal, 1.0);
+    event.set(h_muonrecSF_up, 1.0);
+    event.set(h_muonrecSF_down, 1.0);
+
+    if(is_mc && is_Muon){
+      float Tot_P = event.muons->at(0).pt()*cosh(event.muons->at(0).eta());
+      if(year == Year::isUL16preVFP || year == Year::isUL16postVFP){
+        if( abs(event.muons->at(0).eta()) <= 1.6){
+          if( 50 < Tot_P && Tot_P <= 100)   { event.set(h_muonrecSF_nominal, 0.9914); event.set(h_muonrecSF_up, 0.9914+0.0008); event.set(h_muonrecSF_down, 0.9914-0.0008); event.weight *= 0.9914; }
+          if( 100 < Tot_P && Tot_P <= 150)  { event.set(h_muonrecSF_nominal, 0.9936); event.set(h_muonrecSF_up, 0.9936+0.0009); event.set(h_muonrecSF_down, 0.9936-0.0009); event.weight *= 0.9936; }
+          if( 150 < Tot_P && Tot_P <= 200)  { event.set(h_muonrecSF_nominal, 0.993); event.set(h_muonrecSF_up, 0.993+0.001); event.set(h_muonrecSF_down, 0.993-0.001); event.weight *= 0.993; }
+          if( 200 < Tot_P && Tot_P <= 300)  { event.set(h_muonrecSF_nominal, 0.993); event.set(h_muonrecSF_up, 0.993+0.002); event.set(h_muonrecSF_down, 0.993-0.002); event.weight *= 0.993; }
+          if( 300 < Tot_P && Tot_P <= 400)  { event.set(h_muonrecSF_nominal, 0.990); event.set(h_muonrecSF_up, 0.990+0.004); event.set(h_muonrecSF_down, 0.990-0.004); event.weight *= 0.990; }
+          if( 400 < Tot_P && Tot_P <= 600)  { event.set(h_muonrecSF_nominal, 0.990); event.set(h_muonrecSF_up, 0.990+0.003); event.set(h_muonrecSF_down, 0.990-0.003); event.weight *= 0.990; }
+          if( 600 < Tot_P && Tot_P <= 1500) { event.set(h_muonrecSF_nominal, 0.989); event.set(h_muonrecSF_up, 0.989+0.004); event.set(h_muonrecSF_down, 0.989-0.004); event.weight *= 0.989; }
+          if( 1500 < Tot_P && Tot_P <= 3500){ event.set(h_muonrecSF_nominal, 0.8); event.set(h_muonrecSF_up, 0.8+0.3); event.set(h_muonrecSF_down, 0.8-0.3); event.weight *= 0.8; }
+        }
+        if(abs(event.muons->at(0).eta()) > 1.6 && abs(event.muons->at(0).eta()) < 2.4){
+          if( 50 < Tot_P && Tot_P <= 100)   { event.set(h_muonrecSF_nominal, 1.0); event.set(h_muonrecSF_up, 1.0); event.set(h_muonrecSF_down, 1.0); event.weight *= 1.0; }
+          if( 100 < Tot_P && Tot_P <= 150)  { event.set(h_muonrecSF_nominal, 0.993); event.set(h_muonrecSF_up, 0.993+0.001); event.set(h_muonrecSF_down, 0.993-0.001); event.weight *= 0.993; }
+          if( 150 < Tot_P && Tot_P <= 200)  { event.set(h_muonrecSF_nominal, 0.991); event.set(h_muonrecSF_up, 0.991+0.001); event.set(h_muonrecSF_down, 0.991-0.001); event.weight *= 0.991; }
+          if( 200 < Tot_P && Tot_P <= 300)  { event.set(h_muonrecSF_nominal, 0.985); event.set(h_muonrecSF_up, 0.985+0.001); event.set(h_muonrecSF_down, 0.985-0.001); event.weight *= 0.985; }
+          if( 300 < Tot_P && Tot_P <= 400)  { event.set(h_muonrecSF_nominal, 0.981); event.set(h_muonrecSF_up, 0.981+0.002); event.set(h_muonrecSF_down, 0.981-0.002); event.weight *= 0.981; }
+          if( 400 < Tot_P && Tot_P <= 600)  { event.set(h_muonrecSF_nominal, 0.979); event.set(h_muonrecSF_up, 0.979+0.004); event.set(h_muonrecSF_down, 0.979-0.004); event.weight *= 0.979; }
+          if( 600 < Tot_P && Tot_P <= 1500) { event.set(h_muonrecSF_nominal, 0.978); event.set(h_muonrecSF_up, 0.978+0.005); event.set(h_muonrecSF_down, 0.978-0.005); event.weight *= 0.978; }
+          if( 1500 < Tot_P && Tot_P <= 3500){ event.set(h_muonrecSF_nominal, 0.9); event.set(h_muonrecSF_up, 0.9+0.2); event.set(h_muonrecSF_down, 0.9-0.2); event.weight *= 0.9; }
+        }
+      }
+      if(year == Year::isUL17){
+        if( abs(event.muons->at(0).eta()) <= 1.6){
+          if( 50 < Tot_P && Tot_P <= 100)   { event.set(h_muonrecSF_nominal, 0.9938); event.set(h_muonrecSF_up, 0.9938+0.0006); event.set(h_muonrecSF_down, 0.9938-0.0006); event.weight *= 0.9938; }
+          if( 100 < Tot_P && Tot_P <= 150)  { event.set(h_muonrecSF_nominal, 0.9950); event.set(h_muonrecSF_up, 0.9950+0.0007); event.set(h_muonrecSF_down, 0.9950-0.0007); event.weight *= 0.9950; }
+          if( 150 < Tot_P && Tot_P <= 200)  { event.set(h_muonrecSF_nominal, 0.996); event.set(h_muonrecSF_up, 0.996+0.001); event.set(h_muonrecSF_down, 0.996-0.001); event.weight *= 0.996; }
+          if( 200 < Tot_P && Tot_P <= 300)  { event.set(h_muonrecSF_nominal, 0.996); event.set(h_muonrecSF_up, 0.996+0.001); event.set(h_muonrecSF_down, 0.996-0.001); event.weight *= 0.996; }
+          if( 300 < Tot_P && Tot_P <= 400)  { event.set(h_muonrecSF_nominal, 0.994); event.set(h_muonrecSF_up, 0.994+0.001); event.set(h_muonrecSF_down, 0.994-0.001); event.weight *= 0.994; }
+          if( 400 < Tot_P && Tot_P <= 600)  { event.set(h_muonrecSF_nominal, 1.003); event.set(h_muonrecSF_up, 1.003+0.006); event.set(h_muonrecSF_down, 1.003-0.006); event.weight *= 1.003; }
+          if( 600 < Tot_P && Tot_P <= 1500) { event.set(h_muonrecSF_nominal, 0.987); event.set(h_muonrecSF_up, 0.987+0.003); event.set(h_muonrecSF_down, 0.987-0.003); event.weight *= 0.987; }
+          if( 1500 < Tot_P && Tot_P <= 3500){ event.set(h_muonrecSF_nominal, 0.9); event.set(h_muonrecSF_up, 0.9+0.1); event.set(h_muonrecSF_down, 0.9-0.1); event.weight *= 0.9; }
+        }
+        if(abs(event.muons->at(0).eta()) > 1.6 && abs(event.muons->at(0).eta()) < 2.4){
+          if( 50 < Tot_P && Tot_P <= 100)   { event.set(h_muonrecSF_nominal, 1.0); event.set(h_muonrecSF_up, 1.0); event.set(h_muonrecSF_down, 1.0); event.weight *= 1.0; }
+          if( 100 < Tot_P && Tot_P <= 150)  { event.set(h_muonrecSF_nominal, 0.993); event.set(h_muonrecSF_up, 0.993+0.001); event.set(h_muonrecSF_down, 0.993-0.001); event.weight *= 0.993; }
+          if( 150 < Tot_P && Tot_P <= 200)  { event.set(h_muonrecSF_nominal, 0.989); event.set(h_muonrecSF_up, 0.989+0.001); event.set(h_muonrecSF_down, 0.989-0.001); event.weight *= 0.989; }
+          if( 200 < Tot_P && Tot_P <= 300)  { event.set(h_muonrecSF_nominal, 0.986); event.set(h_muonrecSF_up, 0.986+0.001); event.set(h_muonrecSF_down, 0.986-0.001); event.weight *= 0.986; }
+          if( 300 < Tot_P && Tot_P <= 400)  { event.set(h_muonrecSF_nominal, 0.989); event.set(h_muonrecSF_up, 0.989+0.001); event.set(h_muonrecSF_down, 0.989-0.001); event.weight *= 0.989; }
+          if( 400 < Tot_P && Tot_P <= 600)  { event.set(h_muonrecSF_nominal, 0.983); event.set(h_muonrecSF_up, 0.983+0.003); event.set(h_muonrecSF_down, 0.983-0.003); event.weight *= 0.983; }
+          if( 600 < Tot_P && Tot_P <= 1500) { event.set(h_muonrecSF_nominal, 0.986); event.set(h_muonrecSF_up, 0.986+0.006); event.set(h_muonrecSF_down, 0.986-0.006); event.weight *= 0.986; }
+          if( 1500 < Tot_P && Tot_P <= 3500){ event.set(h_muonrecSF_nominal, 1.01); event.set(h_muonrecSF_up, 1.01+0.01); event.set(h_muonrecSF_down, 1.01-0.01); event.weight *= 1.01; }
+        }
+      }
+      if(year == Year::isUL18){
+        if( abs(event.muons->at(0).eta()) <= 1.6){
+          if( 50 < Tot_P && Tot_P <= 100)   { event.set(h_muonrecSF_nominal, 0.9943); event.set(h_muonrecSF_up, 0.9943+0.0007); event.set(h_muonrecSF_down, 0.9943-0.0007); event.weight *= 0.9943; }
+          if( 100 < Tot_P && Tot_P <= 150)  { event.set(h_muonrecSF_nominal, 0.9948); event.set(h_muonrecSF_up, 0.9948+0.0007); event.set(h_muonrecSF_down, 0.9948-0.0007); event.weight *= 0.9948; }
+          if( 150 < Tot_P && Tot_P <= 200)  { event.set(h_muonrecSF_nominal, 0.9950); event.set(h_muonrecSF_up, 0.9950+0.0009); event.set(h_muonrecSF_down, 0.9950-0.0009); event.weight *= 0.9950; }
+          if( 200 < Tot_P && Tot_P <= 300)  { event.set(h_muonrecSF_nominal, 0.994); event.set(h_muonrecSF_up, 0.994+0.001); event.set(h_muonrecSF_down, 0.994-0.001); event.weight *= 0.994; }
+          if( 300 < Tot_P && Tot_P <= 400)  { event.set(h_muonrecSF_nominal, 0.9914); event.set(h_muonrecSF_up, 0.9914+0.0009); event.set(h_muonrecSF_down, 0.9914-0.0009); event.weight *= 0.9914; }
+          if( 400 < Tot_P && Tot_P <= 600)  { event.set(h_muonrecSF_nominal, 0.993); event.set(h_muonrecSF_up, 0.993+0.002); event.set(h_muonrecSF_down, 0.993-0.002); event.weight *= 0.993; }
+          if( 600 < Tot_P && Tot_P <= 1500) { event.set(h_muonrecSF_nominal, 0.991); event.set(h_muonrecSF_up, 0.991+0.004); event.set(h_muonrecSF_down, 0.991-0.004); event.weight *= 0.991; }
+          if( 1500 < Tot_P && Tot_P <= 3500){ event.set(h_muonrecSF_nominal, 1.0); event.set(h_muonrecSF_up, 1.0+0.1); event.set(h_muonrecSF_down, 1.0-0.1); event.weight *= 1.0; }
+        }
+        if(abs(event.muons->at(0).eta()) > 1.6 && abs(event.muons->at(0).eta()) < 2.4){
+          if( 50 < Tot_P && Tot_P <= 100)   { event.set(h_muonrecSF_nominal, 1.0); event.set(h_muonrecSF_up, 1.0); event.set(h_muonrecSF_down, 1.0); event.weight *= 1.0; }
+          if( 100 < Tot_P && Tot_P <= 150)  { event.set(h_muonrecSF_nominal, 0.993); event.set(h_muonrecSF_up, 0.993+0.001); event.set(h_muonrecSF_down, 0.993-0.001); event.weight *= 0.993; }
+          if( 150 < Tot_P && Tot_P <= 200)  { event.set(h_muonrecSF_nominal, 0.990); event.set(h_muonrecSF_up, 0.990+0.001); event.set(h_muonrecSF_down, 0.990-0.001); event.weight *= 0.990; }
+          if( 200 < Tot_P && Tot_P <= 300)  { event.set(h_muonrecSF_nominal, 0.988); event.set(h_muonrecSF_up, 0.988+0.001); event.set(h_muonrecSF_down, 0.988-0.001); event.weight *= 0.988; }
+          if( 300 < Tot_P && Tot_P <= 400)  { event.set(h_muonrecSF_nominal, 0.981); event.set(h_muonrecSF_up, 0.981+0.002); event.set(h_muonrecSF_down, 0.981-0.002); event.weight *= 0.981; }
+          if( 400 < Tot_P && Tot_P <= 600)  { event.set(h_muonrecSF_nominal, 0.983); event.set(h_muonrecSF_up, 0.983+0.003); event.set(h_muonrecSF_down, 0.983-0.003); event.weight *= 0.983; }
+          if( 600 < Tot_P && Tot_P <= 1500) { event.set(h_muonrecSF_nominal, 0.978); event.set(h_muonrecSF_up, 0.978+0.006); event.set(h_muonrecSF_down, 0.978-0.006); event.weight *= 0.978; }
+          if( 1500 < Tot_P && Tot_P <= 3500){ event.set(h_muonrecSF_nominal, 0.98); event.set(h_muonrecSF_up, 0.98+0.03); event.set(h_muonrecSF_down, 0.98-0.03); event.weight *= 0.98; }
+        }
+      }
+    }
+
+
+    return true;
+  }
+
+  ////

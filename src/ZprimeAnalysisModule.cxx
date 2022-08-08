@@ -211,7 +211,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   double muon_pt_low(30.);
   double electron_pt_high(120.);
   double muon_pt_high(55.);
- 
+
   const MuonId muonID_low(AndId<Muon>(PtEtaCut(muon_pt_low, 2.4), muID_low));
   const ElectronId electronID_low(AndId<Electron>(PtEtaSCCut(electron_pt_low, 2.5), eleID_low));
   const MuonId muonID_high(AndId<Muon>(PtEtaCut(muon_pt_high, 2.4), muID_high));
@@ -294,6 +294,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   double a_toppt = 0.0615; // par a TopPt Reweighting
   double b_toppt = -0.0005; // par b TopPt Reweighting
 
+
   // Modules
   LumiWeight_module.reset(new MCLumiWeight(ctx));
   PUWeight_module.reset(new MCPileupReweight(ctx, Sys_PU));
@@ -312,7 +313,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   sf_muon_id_high.reset(new uhh2::MuonIdScaleFactors(ctx, Muon::Selector::CutBasedIdGlobalHighPt, true));
   sf_muon_trigger_low.reset(new uhh2::MuonTriggerScaleFactors(ctx, false, true));
   sf_muon_trigger_high.reset(new uhh2::MuonTriggerScaleFactors(ctx, true, false));
-  sf_muon_reco.reset(new MuonRecoSF(ctx)); 
+  sf_muon_reco.reset(new MuonRecoSF(ctx));
   sf_ele_id_low.reset(new uhh2::ElectronIdScaleFactors(ctx, Electron::tag::mvaEleID_Fall17_iso_V2_wp80, true));
   sf_ele_id_high.reset(new uhh2::ElectronIdScaleFactors(ctx, Electron::tag::mvaEleID_Fall17_noIso_V2_wp80, true));
   sf_ele_reco.reset(new uhh2::ElectronRecoScaleFactors(ctx, false, true));
@@ -352,7 +353,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
 
   Variables_module.reset(new Variables_NN(ctx, mode)); // variables for NN
 
-  // Taggers
+  // Top Taggers
   TopTaggerHOTVR.reset(new HOTVRTopTagger(ctx));
   TopTaggerDeepAK8.reset(new DeepAK8TopTagger(ctx));
 
@@ -539,7 +540,7 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   if(isElectron){
     vector<Electron>* electrons = event.electrons;
     for(unsigned int i=0; i<electrons->size(); i++){
-      if( abs(event.electrons->at(i).eta()) > 1.44 && abs(event.electrons->at(i).eta()) < 1.57) return false; // remove gap electrons in transition region between the barrel and endcaps of ECAL 
+      if( abs(event.electrons->at(i).eta()) > 1.44 && abs(event.electrons->at(i).eta()) < 1.57) return false; // remove gap electrons in transition region between the barrel and endcaps of ECAL
       if(event.electrons->at(i).pt()<=electron_pt_high){
         ele_is_low = true;
       }else{
@@ -620,7 +621,7 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
     fill_histograms(event, "RecoEle_SF");
   }
 
-  // apply muon reco scale factors 
+  // apply muon reco scale factors
   sf_muon_reco->process(event);
   fill_histograms(event, "MuonReco_SF");
 
@@ -651,8 +652,8 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
           }else{  // 2016 MC above RunB
             if(!(Trigger_mu_C_selection->passes(event) || Trigger_mu_D_selection->passes(event))) return false;
           }
-        } 
-      } 
+        }
+      }
       if(isUL17 && !isMC){ //2017 DATA
         if(event.run <= 299329){ //RunB
           if(!Trigger_mu_C_selection->passes(event)) return false;
@@ -662,7 +663,7 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
       }
       if(isUL17 && isMC){ // 2017 MC
         float runB_mu = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-        if(runB_mu <= 0.1158){ 
+        if(runB_mu <= 0.1158){
           if(!Trigger_mu_C_selection->passes(event)) return false;
         }else{
           if(!(Trigger_mu_C_selection->passes(event) || Trigger_mu_E_selection->passes(event) || Trigger_mu_F_selection->passes(event))) return false;
@@ -690,12 +691,12 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
       }
       if(isMC && isUL17){
         float runB_ele = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-        if(runB_ele <= 0.1158){ // in RunB (below runnumb 299329) Ele115 does not exist, use Ele35 instead. To apply randomly in MC if random numb < RunB percetage (11.58%, calculated by Christopher Matthies) 
+        if(runB_ele <= 0.1158){ // in RunB (below runnumb 299329) Ele115 does not exist, use Ele35 instead. To apply randomly in MC if random numb < RunB percetage (11.58%, calculated by Christopher Matthies)
            if(!(Trigger_ele_A_selection->passes(event) || Trigger_ph_A_selection->passes(event))) return false;
         }else{
            if(!(Trigger_ele_B_selection->passes(event) || Trigger_ph_A_selection->passes(event))) return false;
-        }   
-      }     
+        }
+      }
       if(!isMC){
         //DATA
         // 2016

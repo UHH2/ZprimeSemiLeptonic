@@ -306,7 +306,7 @@ protected:
   std::unique_ptr<MuonCleaner>     muon_cleaner_low, muon_cleaner_high;
   std::unique_ptr<ElectronCleaner> electron_cleaner_low, electron_cleaner_high;
 
-  // scale factors 
+  // scale factors
   unique_ptr<AnalysisModule> sf_muon_iso_low, sf_muon_id_low, sf_muon_id_high, sf_muon_trigger_low, sf_muon_trigger_high;
   unique_ptr<AnalysisModule> sf_muon_iso_low_dummy, sf_muon_id_dummy, sf_muon_trigger_dummy;
   unique_ptr<AnalysisModule> sf_ele_id_low, sf_ele_id_high, sf_ele_reco;
@@ -693,7 +693,7 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   double theta_bin3(0.9);
   ThetaStar_selection_bin3.reset(new ThetaStarSelection(ctx, theta_bin3));
 
-  // Taggers
+  // Top Taggers
   TopTaggerHOTVR.reset(new HOTVRTopTagger(ctx));
   TopTaggerDeepAK8.reset(new DeepAK8TopTagger(ctx));
 
@@ -1031,7 +1031,7 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
   if(isElectron){
     sf_muon_iso_low_dummy->process(event);
   }
-  // apply muon id scale factors 
+  // apply muon id scale factors
   if(isMuon){
     if(muon_is_low){
       sf_muon_id_low->process(event);
@@ -1054,7 +1054,7 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
     fill_histograms(event, "RecoEle_SF");
   }
 
-  // apply muon reco scale factors 
+  // apply muon reco scale factors
   sf_muon_reco->process(event);
   fill_histograms(event, "MuonReco_SF");
 
