@@ -105,14 +105,11 @@ private:
 class DeepAK8TopTagger : public uhh2::AnalysisModule {
 
 public:
-  explicit DeepAK8TopTagger(uhh2::Context&, float min_mSD = 105., float max_mSD = 210., float max_score = 0.685, float pt_min = 400); // WP from https://indico.cern.ch/event/877167/contributions/3744193/attachments/1989744/3379280/DeepAK8_Top_W_SFs_V2.pdf
+  explicit DeepAK8TopTagger(uhh2::Context&);
   virtual bool process(uhh2::Event&) override;
 
 private:
-  float min_mSD_;
-  float max_mSD_;
-  float max_score_;
-  float pt_min_;
+  Year year;
   uhh2::Event::Handle< std::vector<TopJet> > h_DeepAK8TopTags_;
   uhh2::Event::Handle< std::vector<const TopJet*> > h_DeepAK8TopTagsPtr_;
 };
