@@ -139,6 +139,7 @@ protected:
   bool isUL16preVFP, isUL16postVFP, isUL17, isUL18;
   bool isMuon, isElectron;
   bool isPhoton;
+  bool isEleTriggerMeasurement;
   TString year;
 
   TH2F *ratio_hist_muon;
@@ -194,6 +195,8 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   if(isUL18) year = "UL18";
 
   isPhoton = (ctx.get("dataset_version").find("SinglePhoton") != std::string::npos);
+
+  isEleTriggerMeasurement = (ctx.get("is_EleTriggerMeasurement") == "true");
 
   // Lepton IDs
   ElectronId eleID_low  = ElectronTagID(Electron::mvaEleID_Fall17_iso_V2_wp80);
@@ -514,7 +517,9 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
 
   // Select exactly 1 muon and 0 electrons
   if(isMuon){
-    if(!EleVeto_selection->passes(event)) return false;
+    if(!isEleTriggerMeasurement){ // For ele trigger SF do not veto additional electrons in muon channel
+       if(!EleVeto_selection->passes(event)) return false;
+    }
     if(muon_is_low){
        if(!NMuon1_selection->passes(event)) return false;
        muon_cleaner_low->process(event);
@@ -536,7 +541,7 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   bool ele_is_low = false;
   bool ele_is_high = false;
 
-  if(isElectron){
+  if(isElectron || ( isMuon && isEleTriggerMeasurement)){
     vector<Electron>* electrons = event.electrons;
     for(unsigned int i=0; i<electrons->size(); i++){
       if( abs(event.electrons->at(i).eta()) > 1.44 && abs(event.electrons->at(i).eta()) < 1.57) return false; // remove gap electrons in transition region between the barrel and endcaps of ECAL 
@@ -548,6 +553,24 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
     }
   }
   sort_by_pt<Electron>(*event.electrons);
+
+  // For ele trigger SF measurement
+  if(isMuon && isEleTriggerMeasurement){
+    if(ele_is_low){
+       if(!NEle1_selection->passes(event)) return false;
+       electron_cleaner_low->process(event);
+       if(!NEle1_selection->passes(event)) return false;
+       fill_histograms(event, "MuEle1_LowPt");
+    }  
+    if(ele_is_high){
+       if(!NEle1_selection->passes(event)) return false;
+       electron_cleaner_high->process(event);
+       if(!NEle1_selection->passes(event)) return false;
+       fill_histograms(event, "MuEle1_HighPt");
+    }  
+    if( !(ele_is_high || ele_is_low) ) return false;
+    fill_histograms(event, "MuEle1_Tot");
+  }
 
   // Select exactly 1 electron and 0 muons
   if(isElectron){
@@ -570,8 +593,16 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
 
 
   // apply electron id scale factors
-  if(isMuon){
+  if(isMuon && !isEleTriggerMeasurement){
     sf_ele_id_dummy->process(event);
+  }
+  if(isMuon && isEleTriggerMeasurement){
+    if(ele_is_low){
+      sf_ele_id_low->process(event);
+    }
+    else if(ele_is_high){
+      sf_ele_id_high->process(event);
+    }
   }
   if(isElectron){
     if(ele_is_low){
@@ -612,8 +643,11 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   }
 
   // apply electron reco scale factors
-  if(isMuon){
+  if(isMuon && !isEleTriggerMeasurement){
     sf_ele_reco_dummy->process(event);
+  }
+  if(isMuon && isEleTriggerMeasurement){
+    sf_ele_reco->process(event);
   }
   if(isElectron){
     sf_ele_reco->process(event);
@@ -752,11 +786,14 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   }
 
 
-  if((event.muons->size()+event.electrons->size()) != 1) return false; //veto events without leptons or with too many
+  if(!isEleTriggerMeasurement){
+      if((event.muons->size()+event.electrons->size()) != 1) return false; //veto events without leptons or with too many
+  }else{
+      if( event.muons->size() != 1 && event.electrons->size() != 1) return false; //for ele trigger SF measurement: 1 ele and 1 mu 
+  }
   if(debug) cout<<"N leptons ok: Nelectrons="<<event.electrons->size()<<" Nmuons="<<event.muons->size()<<endl;
 
-
-  if(isMuon && muon_is_high){
+  if(isMuon && !isEleTriggerMeasurement && muon_is_high){
     if(!TwoDCut_selection->passes(event)) return false;
   }
   fill_histograms(event, "TwoDCut_Muon");
@@ -766,6 +803,10 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   }
   fill_histograms(event, "TwoDCut_Ele");
   lumihists_TwoDCut_Ele->fill(event);
+
+  if(isMuon && isEleTriggerMeasurement && (muon_is_high || ele_is_high)){
+     if(!TwoDCut_selection->passes(event)) return false;
+  }
 
   // match AK4 PUPPI to CHS
   AK4PuppiCHS_matching->process(event);
