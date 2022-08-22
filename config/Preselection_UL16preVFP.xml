@@ -71,7 +71,7 @@
 <!ENTITY ALP_ttbar_signal_UL16preVFP       SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/BSM/UL16preVFP/ALP_ttbar_signal_CP5_madgraph-pythia8_Summer20UL16APV_v2.xml">
 <!ENTITY ALP_ttbar_interference_UL16preVFP SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/BSM/UL16preVFP/ALP_ttbar_interference_CP5_madgraph-pythia8_Summer20UL16APV_v2.xml">
 <!-- Scalar H 10% -->
-<!-- <!ENTITY HscalarToTTTo1L1Nu2J_m365_w36p5_res_UL16preVFP    SYSTEM   "../../common/UHH2-datasets/RunII_106X_v2/BSM/UL16preVFP/HscalarToTTTo1L1Nu2J_m365_w36p5_res_CP5_madgraph_pythia8_Summer20UL16APV_v2.xml"> -->
+<!ENTITY HscalarToTTTo1L1Nu2J_m365_w36p5_res_UL16preVFP    SYSTEM   "../../common/UHH2-datasets/RunII_106X_v2/BSM/UL16preVFP/HscalarToTTTo1L1Nu2J_m365_w36p5_res_CP5_madgraph_pythia8_Summer20UL16APV_v2.xml">
 <!ENTITY HscalarToTTTo1L1Nu2J_m400_w40p0_res_UL16preVFP   SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/BSM/UL16preVFP/HscalarToTTTo1L1Nu2J_m400_w40p0_res_CP5_madgraph_pythia8_Summer20UL16APV_v2.xml">
 <!ENTITY HscalarToTTTo1L1Nu2J_m500_w50p0_res_UL16preVFP   SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/BSM/UL16preVFP/HscalarToTTTo1L1Nu2J_m500_w50p0_res_CP5_madgraph_pythia8_Summer20UL16APV_v2.xml">
 <!ENTITY HscalarToTTTo1L1Nu2J_m600_w60p0_res_UL16preVFP   SYSTEM  "../../common/UHH2-datasets/RunII_106X_v2/BSM/UL16preVFP/HscalarToTTTo1L1Nu2J_m600_w60p0_res_CP5_madgraph_pythia8_Summer20UL16APV_v2.xml">
@@ -519,11 +519,11 @@
 			<OutputTree Name="AnalysisTree"/>
 		</InputData>
 		<!-- Scalar H 10% -->
-		<!-- <InputData Lumi="" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m365_w36p5_res_UL16preVFP" Cacheable="&b_Cacheable;">
+		<InputData Lumi="93890.1177054" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m365_w36p5_res_UL16preVFP" Cacheable="&b_Cacheable;">
 			&HscalarToTTTo1L1Nu2J_m365_w36p5_res_UL16preVFP;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
-		</InputData> -->
+		</InputData>
 		<InputData Lumi="98473.4559465" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m400_w40p0_res_UL16preVFP" Cacheable="&b_Cacheable;">
 			&HscalarToTTTo1L1Nu2J_m400_w40p0_res_UL16preVFP;
 			<InputTree Name="AnalysisTree" />
