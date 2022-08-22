@@ -29,6 +29,8 @@ protected:
 
   TH1F *N_ele, *pt_ele, *pt_ele1, *pt_ele2, *eta_ele, *eta_ele1, *eta_ele2, *phi_ele, *phi_ele1, *phi_ele2, *reliso_ele, *reliso_ele1, *reliso_ele2, *reliso_ele_rebin, *reliso_ele1_rebin, *reliso_ele2_rebin;
 
+  TH1F *pt_ele_lowpt, *pt_ele_midpt, *pt_ele_highpt, *eta_ele_lowpt, *eta_ele_midpt, *eta_ele_highpt, *phi_ele_lowpt, *phi_ele_midpt, *phi_ele_highpt;
+
   TH1F *dR_ele_nearjet, *pt_ele_nearjet;
 
   TH1F *M_mumu, *M_ee, *dRmin_mu_jet, *dRmin_mu_jet_scaled, *dRmin_ele_jet, *dRmin_ele_jet_scaled, *ptrel_mu_jet, *ptrel_ele_jet, *dRmin_mu1_jet, *dRmin_mu1_jet_scaled, *dRmin_ele1_jet, *dRmin_ele1_jet_scaled, *ptrel_mu1_jet, *ptrel_ele1_jet;

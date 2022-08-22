@@ -101,6 +101,15 @@ void ZprimeSemiLeptonicHists::init(){
   reliso_ele_rebin  = book<TH1F>("reliso_ele_rebin", "e rel. Iso", 400, 0, 5);
   reliso_ele1_rebin = book<TH1F>("reliso_ele1_rebin", "e 1 rel. Iso", 400, 0, 5);
   reliso_ele2_rebin = book<TH1F>("reliso_ele2_rebin", "e 2 rel. Iso", 400, 0, 5);
+  pt_ele_lowpt      = book<TH1F>("pt_ele_lowpt", "p_{T}^{e} [GeV] p_{T}<120 GeV", 180, 0, 900);
+  pt_ele_midpt      = book<TH1F>("pt_ele_midpt", "p_{T}^{e} [GeV] 120<p_{T}<200 GeV", 180, 0, 900);
+  pt_ele_highpt     = book<TH1F>("pt_ele_highpt", "p_{T}^{e} [GeV] p_{T}>200 GeV", 180, 0, 900);
+  eta_ele_lowpt     = book<TH1F>("eta_ele_lowpt", "#eta^{e} p_{T}<120 GeV", 50, -2.5, 2.5);
+  eta_ele_midpt     = book<TH1F>("eta_ele_midpt", "#eta^{e} 120<p_{T}<200 GeV", 50, -2.5, 2.5);
+  eta_ele_highpt    = book<TH1F>("eta_ele_highpt", "#eta^{e} p_{T}>200 GeV", 50, -2.5, 2.5);
+  phi_ele_lowpt     = book<TH1F>("phi_ele_lowpt", "#phi^{e} p_{T}<120 GeV", 35, -3.5, 3.5);
+  phi_ele_midpt     = book<TH1F>("phi_ele_midpt", "#phi^{e} 120<p_{T}<200 GeV", 35, -3.5, 3.5);
+  phi_ele_highpt    = book<TH1F>("phi_ele_highpt", "#phi^{e} p_{T}>200 GeV", 35, -3.5, 3.5);
   M_mumu            = book<TH1F>("M_mumu", "M_{#mu#mu} [GeV]",75 , 0, 500);
   M_ee              = book<TH1F>("M_ee", "M_{ee} [GeV]",75 , 0, 500);
 
@@ -1191,6 +1200,21 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
     dRmin_ele_jet_scaled->Fill(electrons->at(i).get_tag(Electron::twodcut_dRmin)*event.jets->at(0).pt(), weight);
     ptrel_ele_jet->Fill(electrons->at(i).get_tag(Electron::twodcut_pTrel), weight);
     dRmin_ptrel_ele->Fill(electrons->at(i).get_tag(Electron::twodcut_dRmin), electrons->at(i).get_tag(Electron::twodcut_pTrel), weight);
+    if(electrons->at(i).pt()<120){
+      pt_ele_lowpt->Fill(electrons->at(i).pt(),weight);
+      eta_ele_lowpt->Fill(electrons->at(i).eta(),weight);
+      phi_ele_lowpt->Fill(electrons->at(i).phi(),weight);
+    }
+    if(electrons->at(i).pt()>=120 && electrons->at(i).pt()<200){
+      pt_ele_midpt->Fill(electrons->at(i).pt(),weight);
+      eta_ele_midpt->Fill(electrons->at(i).eta(),weight);
+      phi_ele_midpt->Fill(electrons->at(i).phi(),weight);
+    }
+    if(electrons->at(i).pt()>=200){
+      pt_ele_highpt->Fill(electrons->at(i).pt(),weight);
+      eta_ele_highpt->Fill(electrons->at(i).eta(),weight);
+      phi_ele_highpt->Fill(electrons->at(i).phi(),weight);      
+    }
     if(i==0){
       pt_ele1->Fill(electrons->at(i).pt(),weight);
       eta_ele1->Fill(electrons->at(i).eta(),weight);
