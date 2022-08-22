@@ -460,11 +460,11 @@
 			<OutputTree Name="AnalysisTree"/>
 		</InputData>
 		<!-- Scalar H 10% -->
-		<!-- <InputData Lumi="" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m365_w36p5_res_UL16preVFP" Cacheable="&b_Cacheable;">
+		<InputData Lumi="93890.1177054" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m365_w36p5_res_UL16preVFP" Cacheable="&b_Cacheable;">
 			&HscalarToTTTo1L1Nu2J_m365_w36p5_res_UL16preVFP;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
-		</InputData> -->
+		</InputData>
 		<InputData Lumi="98473.4559465" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m400_w40p0_res_UL16preVFP" Cacheable="&b_Cacheable;">
 			&HscalarToTTTo1L1Nu2J_m400_w40p0_res_UL16preVFP;
 			<InputTree Name="AnalysisTree" />

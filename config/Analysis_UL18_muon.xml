@@ -9,6 +9,7 @@
 <!ENTITY IS_HOTVR            "false">
 <!ENTITY IS_DEEPAK8          "true">
 <!ENTITY IS_LOOSER_SELECTION "false">
+<!ENTITY IS_ELE_TRIGGER      "false">
 <!ENTITY CHANNEL             "muon">
 <!ENTITY OUTPUTdir           "/nfs/dust/cms/group/zprime-uhh/Analysis_UL18/&CHANNEL;/">
 
@@ -1244,6 +1245,7 @@
 			<Item Name="is_hotvr" Value="&IS_HOTVR;"/>
 			<Item Name="is_deepAK8" Value="&IS_DEEPAK8;"/>
 			<Item Name="is_looser_selection" Value="&IS_LOOSER_SELECTION;"/>
+                        <Item Name="is_EleTriggerMeasurement" Value="&IS_ELE_TRIGGER;"/>
 
 			<Item Name="use_sframe_weight"           Value="false"/>
 			<Item Name="jersmear_direction"          Value="nominal"/>

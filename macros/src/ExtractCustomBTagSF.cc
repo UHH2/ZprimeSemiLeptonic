@@ -36,7 +36,6 @@ void ExtractCustomBTagSF(){
 for(unsigned int k=0; k<year.size(); k++){
   for(unsigned int j=0; j<channel.size(); j++){
     for(unsigned int i=0; i<sample_names.size(); i++){
-      if(year.at(k)=="UL16preVFP" && sample_names.at(i)=="HscalarToTTTo1L1Nu2J_m365_w36p5_res") continue;
       TString filename;
       filename = file_dir + "Analysis_" + year.at(k) +"_2DSF/" + channel.at(j) + "/uhh2.AnalysisModuleRunner.MC." + sample_names.at(i) + ".root";
 
