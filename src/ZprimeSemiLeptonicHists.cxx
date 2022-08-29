@@ -528,6 +528,12 @@ void ZprimeSemiLeptonicHists::init(){
   leptop_thetastar     = book<TH1F>("leptop_thetastar", "leptop #theta^*", 70, -3.5, 3.5);
   cos_leptop_thetastar = book<TH1F>("cos_leptop_thetastar", "cos(leptop #theta^*)", 100, -1.0, 1.0);
 
+  // mttbar histograms from TOP-20-001: https://www.hepdata.net/record/ins1901295
+  vector<float> bins_ditopmass_Fig19 = {250,400,480,560,640,720,800,900,1000,1150,1300,1500,1700,2000,2300,3500};
+  vector<float> bins_ditopmass_Fig25 = {250,420,520,620,800,1000,3500};
+  TOP_20_001_ditopmass_Fig19 = book<TH1F>("TOP_20_001_ditopmass_Fig19","m_{t#bar{t} [GeV]}",bins_ditopmass_Fig19.size()-1,&bins_ditopmass_Fig19[0]);
+  TOP_20_001_ditopmass_Fig25 = book<TH1F>("TOP_20_001_ditopmass_Fig25","m_{t#bar{t} [GeV]}",bins_ditopmass_Fig25.size()-1,&bins_ditopmass_Fig25[0]);
+
   // 2D sitributoin NJets/HT to extract custom btag SF
   N_Jets_vs_HT  = book<TH2F>("N_Jets_vs_HT", "N_Jets_vs_HT", 21, 0., 21., 50, 0., 7000.);
 
@@ -1213,7 +1219,7 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
     if(electrons->at(i).pt()>=200){
       pt_ele_highpt->Fill(electrons->at(i).pt(),weight);
       eta_ele_highpt->Fill(electrons->at(i).eta(),weight);
-      phi_ele_highpt->Fill(electrons->at(i).phi(),weight);      
+      phi_ele_highpt->Fill(electrons->at(i).phi(),weight);
     }
     if(i==0){
       pt_ele1->Fill(electrons->at(i).pt(),weight);
@@ -1333,6 +1339,9 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
     chi2_Zprime->Fill(chi2, weight);
     chi2_Zprime_rebin->Fill(chi2, weight);
     chi2_Zprime_rebin2->Fill(chi2, weight);
+
+    TOP_20_001_ditopmass_Fig19->Fill(Mreco, weight);
+    TOP_20_001_ditopmass_Fig25->Fill(Mreco, weight);
 
     if(BestZprimeCandidate->is_toptag_reconstruction()){
       M_tophad->Fill(BestZprimeCandidate->tophad_topjet_ptr()->v4().M(), weight);
