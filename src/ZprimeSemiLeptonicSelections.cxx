@@ -46,26 +46,26 @@ bool ZprimeTopTagSelection::passes(const Event & event){
 
 }
 
-ZprimeBTagFatSubJetSelection::ZprimeBTagFatSubJetSelection(Context& ctx){
-
-  DeepJetBTag::wp btag_wp = DeepJetBTag::WP_TIGHT; // b-tag workingpoint
-  JetId id_btag = DeepJetBTag(btag_wp);
-
-  sel_1btag.reset(new NJetSelection(1, 1, id_btag));
-  //  cout<<" init ZprimeBTagFatSubJetSelection"<<endl;
-}
-bool ZprimeBTagFatSubJetSelection::passes(const Event & event){
-  int btag_subjet=0;
-  for(auto & topjet : *event.topjets){
-    auto subjets = topjet.subjets();
-    for (auto & subjet : subjets) {
-      if(sel_1btag->passes(event)) btag_subjet++;
-    }
-  }
-  //  cout<<"btag_subjet = "<<btag_subjet<<endl;
-  if(btag_subjet>0)  return true;
-  return false;
-}
+// ZprimeBTagFatSubJetSelection::ZprimeBTagFatSubJetSelection(Context& ctx){
+//
+//   DeepJetBTag::wp btag_wp = DeepJetBTag::WP_TIGHT; // b-tag workingpoint
+//   JetId id_btag = DeepJetBTag(btag_wp);
+//
+//   sel_1btag.reset(new NJetSelection(1, 1, id_btag));
+//   //  cout<<" init ZprimeBTagFatSubJetSelection"<<endl;
+// }
+// bool ZprimeBTagFatSubJetSelection::passes(const Event & event){
+//   int btag_subjet=0;
+//   for(auto & topjet : *event.topjets){
+//     auto subjets = topjet.subjets();
+//     for (auto & subjet : subjets) {
+//       if(sel_1btag->passes(event)) btag_subjet++;
+//     }
+//   }
+//   //  cout<<"btag_subjet = "<<btag_subjet<<endl;
+//   if(btag_subjet>0)  return true;
+//   return false;
+// }
 
 TopTag_VetoSelection::TopTag_VetoSelection(Context& ctx, TString mode) : mode_(mode){
 
@@ -326,7 +326,7 @@ std::pair<bool,double> TTbarSemiLepMatchableSelection::check_reco(const Reconstr
   //Leptonic top
   bool toplep_match = false;
   double dR_lep = deltaR(lepton.v4(),hyp.lepton().v4());
-  double dR_neutrino = deltaR(neutrino.v4(),hyp.neutrino_v4());
+  // double dR_neutrino = deltaR(neutrino.v4(),hyp.neutrino_v4());
   double dPhi_neutrino = deltaPhi(neutrino.v4(),hyp.neutrino_v4());
   double dR_blep_min = 1e6;
   for (uint i = 0; i < hyp.toplep_jets().size(); i++){
@@ -336,8 +336,8 @@ std::pair<bool,double> TTbarSemiLepMatchableSelection::check_reco(const Reconstr
 
   if(dR_blep_min<0.4 && dR_lep<0.1 && dPhi_neutrino<0.3) toplep_match = true;
 
-  double deltaM_lep = fabs(hyp.toplep_v4().M()-tlep.v4().M())/tlep.v4().M();
-  double deltaM_had = fabs(hyp.tophad_v4().M()-thad.v4().M())/thad.v4().M();
+  // double deltaM_lep = fabs(hyp.toplep_v4().M()-tlep.v4().M())/tlep.v4().M();
+  // double deltaM_had = fabs(hyp.tophad_v4().M()-thad.v4().M())/thad.v4().M();
   // cout<<"GEN: tlep.v4().M() = "<<tlep.v4().M()<<" thad.v4().M() = "<<thad.v4().M()<<endl;
   // cout<<"RECO: hyp.toplep_v4().M() = "<<hyp.toplep_v4().M()<<" hyp.tophad_v4().M() = "<<hyp.tophad_v4().M()<<endl;
   // cout<<"DELTA: "<<deltaM_lep<<" "<<deltaM_had<<endl;
