@@ -29,7 +29,7 @@ namespace uhh2 {
     TH1F *h_sf_lo, *h_sf_me, *h_sf_hi;
     TH1F *h_sf_lo_up, *h_sf_me_up, *h_sf_hi_up;
     TH1F *h_sf_lo_down, *h_sf_me_down, *h_sf_hi_down;
-    bool isMC, is_Muon;
+    bool isMC, is_Muon, is_TTbar;
     TString pteta, var;
     uhh2::Event::Handle<float> h_ele_weight, h_ele_weight_up, h_ele_weight_down;
 
