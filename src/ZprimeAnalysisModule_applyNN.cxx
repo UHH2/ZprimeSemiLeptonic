@@ -42,6 +42,7 @@
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicGeneratorHists.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicCHSMatchHists.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeCandidate.h>
+#include <UHH2/ZprimeSemiLeptonic/include/ElecTriggerSF.h>
 
 #include <UHH2/common/include/TTbarGen.h>
 #include <UHH2/common/include/TTbarReconstruction.h>
@@ -313,6 +314,7 @@ protected:
   unique_ptr<AnalysisModule> sf_ele_id_low, sf_ele_id_high, sf_ele_reco;
   unique_ptr<AnalysisModule> sf_ele_id_dummy, sf_ele_reco_dummy;
   unique_ptr<MuonRecoSF> sf_muon_reco;
+  unique_ptr<AnalysisModule> sf_ele_trigger;
   unique_ptr<AnalysisModule> sf_btagging;
 
   // AnalysisModules
@@ -671,6 +673,8 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   sf_ele_id_low.reset(new uhh2::ElectronIdScaleFactors(ctx, Electron::tag::mvaEleID_Fall17_iso_V2_wp80, true));
   sf_ele_id_high.reset(new uhh2::ElectronIdScaleFactors(ctx, Electron::tag::mvaEleID_Fall17_noIso_V2_wp80, true));
   sf_ele_reco.reset(new uhh2::ElectronRecoScaleFactors(ctx, false, true));
+
+  sf_ele_trigger.reset( new uhh2::ElecTriggerSF(ctx, "central", "eta_ptbins", year) );
 
   // dummies (needed to aviod set value errors)
   sf_muon_iso_low_dummy.reset(new uhh2::MuonIsoScaleFactors(ctx, boost::none, boost::none, boost::none, boost::none, boost::none, true));
@@ -1081,8 +1085,6 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
     fill_histograms(event, "TriggerMuon_SF");
   }
   if(isElectron){
-    // TODO: implement electron trigger SFs (low + high pt)
-    // fill_histograms(event, "TriggerEle");
     sf_muon_trigger_dummy->process(event);
   }
 
@@ -1118,6 +1120,10 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
     event.weight *= custom_sf;
   }
   fill_histograms(event, "AfterCustomBtagSF");
+  
+  //apply ele trigger sf
+  sf_ele_trigger->process(event);
+  fill_histograms(event, "TriggerEle_SF");
 
   CandidateBuilder->process(event);
   if(debug) cout << "CandidateBuilder: ok" << endl;

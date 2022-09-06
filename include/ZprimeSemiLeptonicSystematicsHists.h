@@ -26,6 +26,9 @@ protected:
   uhh2::Event::Handle<float> h_ele_id;
   uhh2::Event::Handle<float> h_ele_id_up;
   uhh2::Event::Handle<float> h_ele_id_down;
+  uhh2::Event::Handle<float> h_ele_trigger;
+  uhh2::Event::Handle<float> h_ele_trigger_up;
+  uhh2::Event::Handle<float> h_ele_trigger_down;
   uhh2::Event::Handle<float> h_mu_reco;
   uhh2::Event::Handle<float> h_mu_reco_up;
   uhh2::Event::Handle<float> h_mu_reco_down;
@@ -92,6 +95,8 @@ protected:
   TH1F *M_Zprime_mu_trigger_down;
   TH1F *M_Zprime_ele_id_up;
   TH1F *M_Zprime_ele_id_down;
+  TH1F *M_Zprime_ele_trigger_up;
+  TH1F *M_Zprime_ele_trigger_down;
   TH1F *M_Zprime_ele_reco_up;
   TH1F *M_Zprime_ele_reco_down;
   TH1F *M_Zprime_toppt_a_up;

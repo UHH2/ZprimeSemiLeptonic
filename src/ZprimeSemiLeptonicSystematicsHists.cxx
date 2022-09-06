@@ -32,6 +32,9 @@ Hists(ctx, dirname) {
   h_ele_id             = ctx.get_handle<float>("weight_sfelec_id");
   h_ele_id_up          = ctx.get_handle<float>("weight_sfelec_id_up");
   h_ele_id_down        = ctx.get_handle<float>("weight_sfelec_id_down");
+  h_ele_trigger        = ctx.get_handle<float>("weight_sfelec_trigger");
+  h_ele_trigger_up     = ctx.get_handle<float>("weight_sfelec_trigger_up");
+  h_ele_trigger_down   = ctx.get_handle<float>("weight_sfelec_trigger_down");
   h_mu_reco            = ctx.get_handle<float>("muonrecSF_nominal");
   h_mu_reco_up         = ctx.get_handle<float>("muonrecSF_up");
   h_mu_reco_down       = ctx.get_handle<float>("muonrecSF_down");
@@ -109,6 +112,8 @@ void ZprimeSemiLeptonicSystematicsHists::init(){
   M_Zprime_mu_trigger_down    = book<TH1F>("M_Zprime_mu_trigger_down", "M_{t#bar{t}} [GeV] mu_trigger_down",  bins_Zprime.size()-1, &bins_Zprime[0]);
   M_Zprime_ele_id_up          = book<TH1F>("M_Zprime_ele_id_up",   "M_{t#bar{t}} [GeV] ele_id_up",  bins_Zprime.size()-1, &bins_Zprime[0]);
   M_Zprime_ele_id_down        = book<TH1F>("M_Zprime_ele_id_down", "M_{t#bar{t}} [GeV] ele_id_down",  bins_Zprime.size()-1, &bins_Zprime[0]);
+  M_Zprime_ele_trigger_up     = book<TH1F>("M_Zprime_ele_trigger_up",   "M_{t#bar{t}} [GeV] ele_trigger_up",  bins_Zprime.size()-1, &bins_Zprime[0]);
+  M_Zprime_ele_trigger_down   = book<TH1F>("M_Zprime_ele_trigger_down", "M_{t#bar{t}} [GeV] ele_trigger_down",  bins_Zprime.size()-1, &bins_Zprime[0]);
   M_Zprime_ele_reco_up        = book<TH1F>("M_Zprime_ele_reco_up",   "M_{t#bar{t}} [GeV] ele_reco_up",  bins_Zprime.size()-1, &bins_Zprime[0]);
   M_Zprime_ele_reco_down      = book<TH1F>("M_Zprime_ele_reco_down", "M_{t#bar{t}} [GeV] ele_reco_down",  bins_Zprime.size()-1, &bins_Zprime[0]);
   M_Zprime_toppt_a_up         = book<TH1F>("M_Zprime_toppt_a_up",   "M_{t#bar{t}} [GeV] toppt_a_up",  bins_Zprime.size()-1, &bins_Zprime[0]);
@@ -153,6 +158,9 @@ void ZprimeSemiLeptonicSystematicsHists::fill(const Event & event){
   float ele_id_nominal     = event.get(h_ele_id);
   float ele_id_up          = event.get(h_ele_id_up);
   float ele_id_down        = event.get(h_ele_id_down);
+  float ele_trigger_nominal= event.get(h_ele_trigger);
+  float ele_trigger_up     = event.get(h_ele_trigger_up);
+  float ele_trigger_down   = event.get(h_ele_trigger_down);
   float mu_reco_nominal    = event.get(h_mu_reco);
   float mu_reco_up         = event.get(h_mu_reco_up);
   float mu_reco_down       = event.get(h_mu_reco_down);
@@ -205,12 +213,12 @@ void ZprimeSemiLeptonicSystematicsHists::fill(const Event & event){
   float btag_lfstats2_down = event.get(h_btag_lfstats2_down);
 
   // only up/down variations
-  vector<string> names       = {"ele_reco", "ele_id", "mu_reco", "mu_iso", "mu_id", "mu_trigger", "pu", "prefiring", "toppt_a", "toppt_b"};
-  vector<float> syst_nominal = {ele_reco_nominal, ele_id_nominal, mu_reco_nominal, mu_iso_nominal, mu_id_nominal, mu_trigger_nominal, pu_nominal, prefiring_nominal, toppt_nominal, toppt_nominal};
-  vector<float> syst_up      = {ele_reco_up, ele_id_up, mu_reco_up, mu_iso_up, mu_id_up, mu_trigger_up, pu_up, prefiring_up, toppt_a_up, toppt_b_up};
-  vector<float> syst_down    = {ele_reco_down, ele_id_down, mu_reco_down, mu_iso_down, mu_id_down, mu_trigger_down, pu_down, prefiring_down, toppt_a_down, toppt_b_down};
-  vector<TH1F*> hists_up     = {M_Zprime_ele_reco_up, M_Zprime_ele_id_up, M_Zprime_mu_reco_up, M_Zprime_mu_iso_up, M_Zprime_mu_id_up, M_Zprime_mu_trigger_up, M_Zprime_pu_up, M_Zprime_prefiring_up, M_Zprime_toppt_a_up, M_Zprime_toppt_b_up};
-  vector<TH1F*> hists_down   = {M_Zprime_ele_reco_down, M_Zprime_ele_id_down, M_Zprime_mu_reco_down, M_Zprime_mu_iso_down, M_Zprime_mu_id_down, M_Zprime_mu_trigger_down, M_Zprime_pu_down, M_Zprime_prefiring_down, M_Zprime_toppt_a_down, M_Zprime_toppt_b_down};
+  vector<string> names       = {"ele_reco", "ele_id", "ele_trigger", "mu_reco", "mu_iso", "mu_id", "mu_trigger", "pu", "prefiring", "toppt_a", "toppt_b"};
+  vector<float> syst_nominal = {ele_reco_nominal, ele_id_nominal, ele_trigger_nominal, mu_reco_nominal, mu_iso_nominal, mu_id_nominal, mu_trigger_nominal, pu_nominal, prefiring_nominal, toppt_nominal, toppt_nominal};
+  vector<float> syst_up      = {ele_reco_up, ele_id_up, ele_trigger_up, mu_reco_up, mu_iso_up, mu_id_up, mu_trigger_up, pu_up, prefiring_up, toppt_a_up, toppt_b_up};
+  vector<float> syst_down    = {ele_reco_down, ele_id_down, ele_trigger_down, mu_reco_down, mu_iso_down, mu_id_down, mu_trigger_down, pu_down, prefiring_down, toppt_a_down, toppt_b_down};
+  vector<TH1F*> hists_up     = {M_Zprime_ele_reco_up, M_Zprime_ele_id_up, M_Zprime_ele_trigger_up, M_Zprime_mu_reco_up, M_Zprime_mu_iso_up, M_Zprime_mu_id_up, M_Zprime_mu_trigger_up, M_Zprime_pu_up, M_Zprime_prefiring_up, M_Zprime_toppt_a_up, M_Zprime_toppt_b_up};
+  vector<TH1F*> hists_down   = {M_Zprime_ele_reco_down, M_Zprime_ele_id_down, M_Zprime_ele_trigger_down, M_Zprime_mu_reco_down, M_Zprime_mu_iso_down, M_Zprime_mu_id_down, M_Zprime_mu_trigger_down, M_Zprime_pu_down, M_Zprime_prefiring_down, M_Zprime_toppt_a_down, M_Zprime_toppt_b_down};
 
   // scale variations need special treatment
   vector<float> syst_scale  = {murmuf_upup, murmuf_upnone, murmuf_noneup, murmuf_nonedown, murmuf_downnone, murmuf_downdown};

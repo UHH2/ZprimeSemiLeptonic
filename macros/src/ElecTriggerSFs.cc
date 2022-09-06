@@ -57,11 +57,16 @@ int argc = 2;
   }
   gErrorIgnoreLevel = kWarning;
 
-  year = "UL17";
-  //year = "UL18";
+  //year = "UL16preVFP";
+  //lumi_plot = 19.5;
+  //year = "UL16postVFP";
+  //lumi_plot = 16.8;
+  //year = "UL17";
+  //lumi_plot = 41.5;
+  year = "UL18";
+  lumi_plot = 59.8;
   TString fdir;
-  fdir = "/nfs/dust/cms/user/deleokse/RunII_106_v2/Analysis_" + year +"_dilepton_Trigger/";
-  lumi_plot = 41.5;
+  fdir = "/nfs/dust/cms/user/deleokse/RunII_106_v2/DiLepton_TriggerModule/Analysis_" + year +"_dilepton_Trigger/";
   //year = argv[1];
   //TString fdir;
   //if(year.EqualTo("2016")){year_v = "_2016v3"; lumi_plot = 35.9; fdir = "no";}
@@ -171,6 +176,8 @@ int argc = 2;
 
   // claculating MC trigger efficiency in ttbar MC
   TFile *f_tt=new TFile(fdir+"uhh2.AnalysisModuleRunner.MC.TTbar.root");
+  //TFile *f_tt=new TFile(fdir+"uhh2.AnalysisModuleRunner.MC.MC.root");
+  //TFile *f_tt=new TFile(fdir+"uhh2.AnalysisModuleRunner.MC.TTbar_2L2Nu.root");  
   fill_pteta((TTree *) f_tt->Get("AnalysisTree"), h_pt_mc, h_eta_mc);
   fill_control((TTree *) f_tt->Get("AnalysisTree"), h_pt_tt, h_eta_tt);
   fill_control((TTree *) f_tt->Get("AnalysisTree"), h_pt_mc_control, h_eta_mc_control);
@@ -659,7 +666,7 @@ void PlotSF(vector<TH1F*> h_SF, TString xaxis, TString histname){
   h_SF[0]->GetXaxis()->SetTitleOffset(1.3);
   h_SF[0]->GetXaxis()->SetNdivisions(505);
   h_SF[0]->GetYaxis()->SetNdivisions(505);
-  h_SF[0]->GetYaxis()->SetRangeUser(0.7, 1.05);
+  h_SF[0]->GetYaxis()->SetRangeUser(0.4, 1.6);
   //if(histname.Contains("mid")) h_SF[0]->GetYaxis()->SetRangeUser(0.7, 1.5);
   h_SF[0]->SetLineColor(kBlack);
   h_SF[0]->SetLineWidth(3);

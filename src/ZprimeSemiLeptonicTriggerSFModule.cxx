@@ -34,6 +34,7 @@
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicModules.h>
 #include <UHH2/ZprimeSemiLeptonic/include/TTbarLJHists.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicHists.h>
+#include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicEleHists.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicGeneratorHists.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicCHSMatchHists.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeCandidate.h>
@@ -72,6 +73,7 @@ protected:
   TH2F *ratio_hist_muon;
 
   std::unique_ptr<Hists> h_pass, h_all;
+  std::unique_ptr<Hists> h_EleHists_pass, h_EleHists_all;
 
   // scale factors
   std::unique_ptr<AnalysisModule> sf_muon_iso_low, sf_muon_id_low, sf_muon_id_high, sf_muon_trigger_low, sf_muon_trigger_high;
@@ -149,6 +151,8 @@ ZprimeSemiLeptonicTriggerSFModule::ZprimeSemiLeptonicTriggerSFModule(uhh2::Conte
 
   h_pass.reset(new ElectronHists(ctx, "pass_Elec"));
   h_all.reset(new ElectronHists(ctx, "all_Elec"));
+  h_EleHists_pass.reset(new ZprimeSemiLeptonicEleHists(ctx, "pass_EleHists"));
+  h_EleHists_all.reset(new ZprimeSemiLeptonicEleHists(ctx, "all_EleHists"));
 
   Sys_PU = ctx.get("Sys_PU");
   Prefiring_direction = ctx.get("Sys_prefiring");
@@ -300,6 +304,7 @@ bool ZprimeSemiLeptonicTriggerSFModule::process(uhh2::Event& event){
 
   // fill hists with all events
   h_all->fill(event);
+  h_EleHists_all->fill(event);
 
   // HERE FILL PT AND ETA HISTS FOR PASSING AND NOT PASSING ELEC TRIGGER
   if(debug) cout << "Start Fill ... " << endl;
@@ -356,6 +361,7 @@ bool ZprimeSemiLeptonicTriggerSFModule::process(uhh2::Event& event){
   if(passed_elec_trigger){
     // fill pass histograms
     h_pass->fill(event);
+    h_EleHists_pass->fill(event);
   }
 
   if(debug) cout << "Event done ... " << endl;
