@@ -387,7 +387,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   h_CHSMatchHists_afterBTagSF.reset(new ZprimeSemiLeptonicCHSMatchHists(ctx, "CHSMatch_afterBTagSF"));
 
   // Book histograms
-  vector<string> histogram_tags = {"Weights_Init", "Weights_HEM", "Weights_PU", "Weights_Lumi", "Weights_TopPt", "Weights_MCScale", "Weights_Prefiring", "Weights_TopTag_SF", "Weights_PS", "Corrections", "Muon1_LowPt", "Muon1_HighPt", "Muon1_Tot", "Ele1_LowPt", "Ele1_HighPt", "Ele1_Tot", "MuEle1_LowPt", "MuEle1_HighPt", "MuEle1_Tot", "IdMuon_SF", "IdEle_SF", "IsoMuon_SF", "RecoEle_SF", "MuonReco_SF", "TriggerMuon", "TriggerEle", "TriggerMuon_SF", "TwoDCut_Muon", "TwoDCut_Ele", "Jet1", "Jet2", "MET", "HTlep", "BeforeBtagSF", "AfterBtagSF", "AfterCustomBtagSF", "Btags1", "TriggerEle_SF", "NNInputsBeforeReweight", "MatchableBeforeChi2Cut", "NotMatchableBeforeChi2Cut", "CorrectMatchBeforeChi2Cut", "NotCorrectMatchBeforeChi2Cut", "Matchable", "NotMatchable", "CorrectMatch", "NotCorrectMatch"};
+  vector<string> histogram_tags = {"Weights_Init", "Weights_HEM", "Weights_PU", "Weights_Lumi", "Weights_TopPt", "Weights_MCScale", "Weights_Prefiring", "Weights_TopTag_SF", "Weights_PS", "Corrections", "Muon1_LowPt", "Muon1_HighPt", "Muon1_Tot", "Ele1_LowPt", "Ele1_HighPt", "Ele1_Tot", "MuEle1_LowPt", "MuEle1_HighPt", "MuEle1_Tot", "IdMuon_SF", "IdEle_SF", "IsoMuon_SF", "RecoEle_SF", "MuonReco_SF", "TriggerMuon", "TriggerEle", "TriggerMuon_SF", "TwoDCut_Muon", "TwoDCut_Ele", "Jet1", "Jet2", "MET", "HTlep", "BeforeBtagSF", "AfterBtagSF", "AfterCustomBtagSF", "Btags1", "TriggerEle_SF", "TTbarCandidate", "CorrectMatchDiscriminator", "Chi2Discriminator", "NNInputsBeforeReweight"};
   book_histograms(ctx, histogram_tags);
 
   lumihists_Weights_Init.reset(new LuminosityHists(ctx, "Lumi_Weights_Init"));
@@ -898,36 +898,25 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   if(!isEleTriggerMeasurement) sf_ele_trigger->process(event);
   fill_histograms(event, "TriggerEle_SF");
 
+
+  // build all possible ttbar candidates
   CandidateBuilder->process(event);
+  fill_histograms(event, "TTbarCandidate");
   if(debug) cout << "CandidateBuilder: ok" << endl;
-  Chi2DiscriminatorZprime->process(event);
-  if(debug) cout << "Chi2DiscriminatorZprime: ok" << endl;
+
+  // matching to gen-level ttbar - to extract chi2 parameters
   CorrectMatchDiscriminatorZprime->process(event);
+  fill_histograms(event, "CorrectMatchDiscriminator");
   if(debug) cout << "CorrectMatchDiscriminatorZprime: ok" << endl;
+
+  // select ttbar candidate with smallest chi2, fill Mtt hists 
+  //Chi2DiscriminatorZprime->process(event);
+  //fill_histograms(event, "Chi2Discriminator");
+  //if(debug) cout << "Chi2DiscriminatorZprime: ok" << endl;
 
   // Variables for NN
   Variables_module->process(event);
   fill_histograms(event, "NNInputsBeforeReweight");
-
-  //  if(TTbarMatchable_selection->passes(event)) fill_histograms(event, "MatchableBeforeChi2Cut");
-  //  else fill_histograms(event, "NotMatchableBeforeChi2Cut");
-  //  if(debug) cout<<"TTbarMatchable_selection is ok"<<endl;
-  //
-  //  if(Chi2CandidateMatched_selection->passes(event)) fill_histograms(event, "CorrectMatchBeforeChi2Cut");
-  //  else fill_histograms(event, "NotCorrectMatchBeforeChi2Cut");
-  //  if(debug) cout<<"Chi2CandidateMatched_selection is ok"<<endl;
-  //
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  //////// Extra checks
-  //
-  //
-  //  if(TTbarMatchable_selection->passes(event)) fill_histograms(event, "Matchable");
-  //  else fill_histograms(event, "NotMatchable");
-  //  if(debug) cout<<"TTbarMatchable_selection is ok"<<endl;
-  //
-  //  if(Chi2CandidateMatched_selection->passes(event)) fill_histograms(event, "CorrectMatch");
-  //  else fill_histograms(event, "NotCorrectMatch");
-  //  if(debug) cout<<"Chi2CandidateMatched_selection is ok"<<endl;
 
   return true;
 }
