@@ -275,45 +275,15 @@ ZprimeChi2Discriminator::ZprimeChi2Discriminator(uhh2::Context& ctx){
   h_is_zprime_reconstructed_ = ctx.get_handle< bool >("is_zprime_reconstructed_chi2");
   h_BestCandidate_ = ctx.get_handle<ZprimeCandidate*>("ZprimeCandidateBestChi2");
 
-  // mtophad_ = 175.;
-  // mtophad_ttag_ = 177.;
-  // sigmatophad_ = 20.;
-  // sigmatophad_ttag_ = 17.;
-  // mtoplep_ = 173.;
-  // mtoplep_ttag_ = 173.;
-  // sigmatoplep_ = 29.;
-  // sigmatoplep_ttag_ = 29.;
+  mtoplep_ = 175.0;
+  sigmatoplep_ = 23.3;
+  mtophad_ = 175.4;
+  sigmatophad_ = 20.7;
 
-  // values used in 102
-  //mtoplep_ = 175.;
-  //sigmatoplep_ = 19.;
-  //mtophad_ = 177.;
-  //sigmatophad_ = 16.;
-  //mtoplep_ttag_ = 175.;
-  //sigmatoplep_ttag_ = 19.;
-  //mtophad_ttag_ = 173.;
-  //sigmatophad_ttag_ = 15.;
-
-  // New fit 2017 MC
-  //mtoplep_ = 164.;
-  //sigmatoplep_ = 22.;
-  //mtophad_ = 166.;
-  //sigmatophad_ = 16.;
-
-  //mtoplep_ttag_ = 164.;
-  //sigmatoplep_ttag_ = 22.;
-  //mtophad_ttag_ = 166.;
-  //sigmatophad_ttag_ = 16.;
-
-  mtoplep_ = 173.;
-  sigmatoplep_ = 15.;
-  mtophad_ = 173.;
-  sigmatophad_ = 15.;
-
-  mtoplep_ttag_ = 173.;
-  sigmatoplep_ttag_ = 15.;
-  mtophad_ttag_ = 173.;
-  sigmatophad_ttag_ = 15.;
+  mtoplep_ttag_ = 172.2;
+  sigmatoplep_ttag_ = 21.7;
+  mtophad_ttag_ = 182.3;
+  sigmatophad_ttag_ = 16.1;
 
 }
 
@@ -375,7 +345,7 @@ float match_dr(const Particle & p, const std::vector<T> & jets, int& index){
   index = -1;
   for(unsigned int i=0; i<jets.size(); ++i){
     float dR = deltaR(p, jets.at(i));
-    if( dR <0.3 && dR<mindr) {
+    if( dR <0.4 && dR<mindr) {
       mindr=dR;
       index=i;
     }
@@ -435,18 +405,19 @@ bool ZprimeCorrectMatchDiscriminator::process(uhh2::Event& event){
       continue;
     }
 
-    if((!is_toptag_reconstruction && jets_had.size() > 3) || (is_toptag_reconstruction && jets_had.size() != 1)){
+    //if((!is_toptag_reconstruction && jets_had.size() > 3) || (is_toptag_reconstruction && jets_had.size() != 1)){
+    if(is_toptag_reconstruction && jets_had.size() != 1){
       candidates.at(i).set_discriminators("correct_match", 9999999);
       // cout << "Not right amount of hadronic jets" << endl;
       continue;
     }
-
     float correct_dr = 0.;
     int idx;
+    float dr;  
 
     // Match leptonic b-quark
-    float dr = match_dr(ttbargen.BLep(), jets_lep, idx);
-    if(dr > 0.3){
+    dr = match_dr(ttbargen.BLep(), jets_lep, idx);
+    if(dr > 0.4){
       candidates.at(i).set_discriminators("correct_match", 9999999);
       // cout << "Not leptonic b-quark matched" << endl;
       continue;
@@ -459,7 +430,7 @@ bool ZprimeCorrectMatchDiscriminator::process(uhh2::Event& event){
 
       // Match hadronic b-quark
       dr = match_dr(ttbargen.BHad(), jets_had, idx);
-      if(dr > 0.3){
+      if(dr > 0.4){
         candidates.at(i).set_discriminators("correct_match", 9999999);
         // cout << "Not hadronic b-quark matched (AK4)" << endl;
         continue;
@@ -470,7 +441,7 @@ bool ZprimeCorrectMatchDiscriminator::process(uhh2::Event& event){
       //match quarks from W decays to jets
       // First
       dr = match_dr(ttbargen.Q1(), jets_had, idx);
-      if(dr > 0.3){
+      if(dr > 0.4){
         candidates.at(i).set_discriminators("correct_match", 9999999);
         // cout << "Not had Q1 matched (AK4)" << endl;
         continue;
@@ -480,7 +451,7 @@ bool ZprimeCorrectMatchDiscriminator::process(uhh2::Event& event){
 
       // Second
       dr = match_dr(ttbargen.Q2(), jets_had, idx);
-      if(dr > 0.3){
+      if(dr > 0.4){
         candidates.at(i).set_discriminators("correct_match", 9999999);
         // cout << "Not had Q2 matched (AK4)" << endl;
         continue;
@@ -488,17 +459,17 @@ bool ZprimeCorrectMatchDiscriminator::process(uhh2::Event& event){
       correct_dr += dr;
       if(idx >= 0) n_matched++;
 
-      if(n_matched != jets_had.size()){
-        candidates.at(i).set_discriminators("correct_match", 9999999);
-        // cout << "Not number of jets and matched equal" << endl;
-        continue;
-      }
+      //if(n_matched != jets_had.size()){
+      //  candidates.at(i).set_discriminators("correct_match", 9999999);
+      //  // cout << "Not number of jets and matched equal" << endl;
+      //  continue;
+      //}
     }
     else{
       const TopJet* topjet = candidates.at(i).tophad_topjet_ptr();
 
       // Match b-quark
-      float dr = deltaR(ttbargen.BHad(), *topjet);
+      dr = deltaR(ttbargen.BHad(), *topjet);
       if(dr > 0.8){
         candidates.at(i).set_discriminators("correct_match", 9999999);
         // cout << "Not hadronic b-quark matched (TTAG)" << endl;
@@ -509,7 +480,7 @@ bool ZprimeCorrectMatchDiscriminator::process(uhh2::Event& event){
       //match quarks from W decays to jets
       // First
       dr = deltaR(ttbargen.Q1(), *topjet);
-      if(dr > 0.3){
+      if(dr > 0.8){
         candidates.at(i).set_discriminators("correct_match", 9999999);
         // cout << "Not hadronic Q1 matched (TTAG)" << endl;
         continue;
@@ -518,7 +489,7 @@ bool ZprimeCorrectMatchDiscriminator::process(uhh2::Event& event){
 
       // Second
       dr = deltaR(ttbargen.Q2(), *topjet);
-      if(dr > 0.3){
+      if(dr > 0.8){
         candidates.at(i).set_discriminators("correct_match", 9999999);
         // cout << "Not hadronic Q2 matched (TTAG)" << endl;
         continue;
@@ -526,13 +497,31 @@ bool ZprimeCorrectMatchDiscriminator::process(uhh2::Event& event){
       correct_dr += dr;
     }
 
-    correct_dr += deltaR(ttbargen.Neutrino(), candidates.at(i).neutrino_v4());
+    // Neutrino
+    //correct_dr += deltaR(ttbargen.Neutrino(), candidates.at(i).neutrino_v4());
+    dr = deltaPhi(ttbargen.Neutrino(), candidates.at(i).neutrino_v4());
+    if(dr > 0.3){
+      candidates.at(i).set_discriminators("correct_match", 9999999);
+      continue;
+    }
+    correct_dr += dr;
+
+    // Lepton
+    dr = deltaR(ttbargen.ChargedLepton(), candidates.at(i).lepton());
+    if(dr > 0.1){
+      candidates.at(i).set_discriminators("correct_match", 9999999);
+      continue;
+    }
+    correct_dr += dr;
+
+    //cout << "dr = " << correct_dr << endl;
     candidates.at(i).set_discriminators("correct_match", correct_dr);
 
     if(correct_dr < dr_best){
       dr_best = correct_dr;
       bestCand = &candidates.at(i);
     }
+    //cout << "best dr = " << dr_best << endl;
   }
 
   if(dr_best > 10.) return false;
