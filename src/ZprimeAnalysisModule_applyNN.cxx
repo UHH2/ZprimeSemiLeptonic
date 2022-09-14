@@ -1165,17 +1165,11 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
   // out0=TTbar, out1=ST, out2=WJets
   if( out0 == max_score ){
     fill_histograms(event, "DNN_output0_beforeChi2Cut");
-    h_Zprime_SystVariations_DNN_output0->fill(event);
-    h_Zprime_PDFVariations_DNN_output0->fill(event);
     if( ZprimeTopTag_selection->passes(event) ){
       fill_histograms(event, "DNN_output0_TopTag_beforeChi2Cut");
-      h_Zprime_SystVariations_DNN_output0_TopTag->fill(event);
-      h_Zprime_PDFVariations_DNN_output0_TopTag->fill(event);
     }
     else{
       fill_histograms(event, "DNN_output0_NoTopTag_beforeChi2Cut");
-      h_Zprime_SystVariations_DNN_output0_NoTopTag->fill(event);
-      h_Zprime_PDFVariations_DNN_output0_NoTopTag->fill(event);
     }
     if(Chi2_selection->passes(event)){  // cut on chi2<30 - only in SR == out0)
       fill_histograms(event, "DNN_output0");
