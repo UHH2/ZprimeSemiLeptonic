@@ -37,50 +37,41 @@
     TH1F *h_mu_trigger_up = (TH1F*) gDirectory->Get(hist_name + "_mu_trigger_up");
     TH1F *h_mu_trigger_down = (TH1F*) gDirectory->Get(hist_name + "_mu_trigger_down");
 
-    TH1F *h_ratio_mu_reco_up = (TH1F*) h_mu_reco_up->Clone();
-    TH1F *h_ratio_mu_reco_down = (TH1F*) h_mu_reco_down->Clone();
-    TH1F *h_ratio_mu_id_up = (TH1F*) h_mu_id_up->Clone();
-    TH1F *h_ratio_mu_id_down = (TH1F*) h_mu_id_down->Clone();
-    TH1F *h_ratio_mu_iso_up = (TH1F*) h_mu_iso_up->Clone();
-    TH1F *h_ratio_mu_iso_down = (TH1F*) h_mu_iso_down->Clone();
-    TH1F *h_ratio_mu_trigger_up = (TH1F*) h_mu_trigger_up->Clone();
-    TH1F *h_ratio_mu_trigger_down = (TH1F*) h_mu_trigger_down->Clone();
+    h_mu_reco_up->Divide(h_nominal);
+    h_mu_reco_down->Divide(h_nominal);
+    h_mu_id_up->Divide(h_nominal);
+    h_mu_id_down->Divide(h_nominal);
+    h_mu_iso_up->Divide(h_nominal);
+    h_mu_iso_down->Divide(h_nominal);
+    h_mu_trigger_up->Divide(h_nominal);
+    h_mu_trigger_down->Divide(h_nominal);
 
-    h_ratio_mu_reco_up->Divide(h_nominal);
-    h_ratio_mu_reco_down->Divide(h_nominal);
-    h_ratio_mu_id_up->Divide(h_nominal);
-    h_ratio_mu_id_down->Divide(h_nominal);
-    h_ratio_mu_iso_up->Divide(h_nominal);
-    h_ratio_mu_iso_down->Divide(h_nominal);
-    h_ratio_mu_trigger_up->Divide(h_nominal);
-    h_ratio_mu_trigger_down->Divide(h_nominal);
+    h_mu_reco_up->SetLineColor(kRed);
+    h_mu_reco_down->SetLineColor(kRed);
+    h_mu_id_up->SetLineColor(kBlue);
+    h_mu_id_down->SetLineColor(kBlue);
+    h_mu_iso_up->SetLineColor(kGreen);
+    h_mu_iso_down->SetLineColor(kGreen);
+    h_mu_trigger_up->SetLineColor(kCyan);
+    h_mu_trigger_down->SetLineColor(kCyan);
 
-    h_ratio_mu_reco_up->SetLineColor(kRed);
-    h_ratio_mu_reco_down->SetLineColor(kRed);
-    h_ratio_mu_id_up->SetLineColor(kBlue);
-    h_ratio_mu_id_down->SetLineColor(kBlue);
-    h_ratio_mu_iso_up->SetLineColor(kGreen);
-    h_ratio_mu_iso_down->SetLineColor(kGreen);
-    h_ratio_mu_trigger_up->SetLineColor(kCyan);
-    h_ratio_mu_trigger_down->SetLineColor(kCyan);
+    h_mu_reco_up->SetLineWidth(2);
+    h_mu_reco_down->SetLineWidth(2);
+    h_mu_id_up->SetLineWidth(2);
+    h_mu_id_down->SetLineWidth(2);
+    h_mu_iso_up->SetLineWidth(2);
+    h_mu_iso_down->SetLineWidth(2);
+    h_mu_trigger_up->SetLineWidth(2);
+    h_mu_trigger_down->SetLineWidth(2);
 
-    h_ratio_mu_reco_up->SetLineWidth(2);
-    h_ratio_mu_reco_down->SetLineWidth(2);
-    h_ratio_mu_id_up->SetLineWidth(2);
-    h_ratio_mu_id_down->SetLineWidth(2);
-    h_ratio_mu_iso_up->SetLineWidth(2);
-    h_ratio_mu_iso_down->SetLineWidth(2);
-    h_ratio_mu_trigger_up->SetLineWidth(2);
-    h_ratio_mu_trigger_down->SetLineWidth(2);
-
-    h_ratio_mu_reco_up->SetLineStyle(7);
-    h_ratio_mu_reco_down->SetLineStyle(3);
-    h_ratio_mu_id_up->SetLineStyle(7);
-    h_ratio_mu_id_down->SetLineStyle(3);
-    h_ratio_mu_iso_up->SetLineStyle(7);
-    h_ratio_mu_iso_down->SetLineStyle(3);
-    h_ratio_mu_trigger_up->SetLineStyle(7);
-    h_ratio_mu_trigger_down->SetLineStyle(3);
+    h_mu_reco_up->SetLineStyle(7);
+    h_mu_reco_down->SetLineStyle(3);
+    h_mu_id_up->SetLineStyle(7);
+    h_mu_id_down->SetLineStyle(3);
+    h_mu_iso_up->SetLineStyle(7);
+    h_mu_iso_down->SetLineStyle(3);
+    h_mu_trigger_up->SetLineStyle(7);
+    h_mu_trigger_down->SetLineStyle(3);
 
 
     // plotting
@@ -116,34 +107,34 @@
     legend->SetTextSize(0.025);
     legend->SetLineWidth(0);
     legend->SetNColumns(1);
-    legend->AddEntry(h_ratio_mu_reco_up,"reco_up","l");
-    legend->AddEntry(h_ratio_mu_reco_down,"reco_down","l");
-    legend->AddEntry(h_ratio_mu_id_up,"id_up","l");
-    legend->AddEntry(h_ratio_mu_id_down,"id_down","l");
-    legend->AddEntry(h_ratio_mu_iso_up,"iso_up","l");
-    legend->AddEntry(h_ratio_mu_iso_down,"iso_down","l");
-    legend->AddEntry(h_ratio_mu_trigger_up,"trigger_up","l");
-    legend->AddEntry(h_ratio_mu_trigger_down,"trigger_down","l");
+    legend->AddEntry(h_mu_reco_up,"reco_up","le");
+    legend->AddEntry(h_mu_reco_down,"reco_down","le");
+    legend->AddEntry(h_mu_id_up,"id_up","le");
+    legend->AddEntry(h_mu_id_down,"id_down","le");
+    legend->AddEntry(h_mu_iso_up,"iso_up","le");
+    legend->AddEntry(h_mu_iso_down,"iso_down","le");
+    legend->AddEntry(h_mu_trigger_up,"trigger_up","le");
+    legend->AddEntry(h_mu_trigger_down,"trigger_down","le");
 
     // draw
-    h_ratio_mu_reco_up->Draw("hist");
-    h_ratio_mu_reco_down->Draw("hist same");
-    h_ratio_mu_id_up->Draw("hist same");
-    h_ratio_mu_id_down->Draw("hist same");
-    h_ratio_mu_iso_up->Draw("hist same");
-    h_ratio_mu_iso_down->Draw("hist same");
-    h_ratio_mu_trigger_up->Draw("hist same");
-    h_ratio_mu_trigger_down->Draw("hist same");
+    h_mu_reco_up->Draw("hist e");
+    h_mu_reco_down->Draw("hist e same");
+    h_mu_id_up->Draw("hist e same");
+    h_mu_id_down->Draw("hist e same");
+    h_mu_iso_up->Draw("hist e same");
+    h_mu_iso_down->Draw("hist e same");
+    h_mu_trigger_up->Draw("hist e same");
+    h_mu_trigger_down->Draw("hist e same");
     legend->Draw();
 
     // x axis
-    h_ratio_mu_reco_up->GetXaxis()->SetTitle("m_{t#bar{t}} [GeV]");
-    h_ratio_mu_reco_up->GetXaxis()->SetTitleOffset(1.3);
-    h_ratio_mu_reco_up->GetXaxis()->SetRangeUser(100,6000);
+    h_mu_reco_up->GetXaxis()->SetTitle("m_{t#bar{t}} [GeV]");
+    h_mu_reco_up->GetXaxis()->SetTitleOffset(1.3);
+    h_mu_reco_up->GetXaxis()->SetRangeUser(100,6000);
     // y axis
-    h_ratio_mu_reco_up->GetYaxis()->SetTitle("variation/nominal");
-    h_ratio_mu_reco_up->GetYaxis()->SetTitleOffset(1.7);
-    h_ratio_mu_reco_up->GetYaxis()->SetRangeUser(0.95,1.05);
+    h_mu_reco_up->GetYaxis()->SetTitle("variation/nominal");
+    h_mu_reco_up->GetYaxis()->SetTitleOffset(1.7);
+    h_mu_reco_up->GetYaxis()->SetRangeUser(0.9,1.1);
 
     c1->Modified();
 

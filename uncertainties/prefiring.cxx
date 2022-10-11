@@ -32,21 +32,17 @@
     TH1F *h_up = (TH1F*) gDirectory->Get(hist_name + "_prefiring_up");
     TH1F *h_down = (TH1F*) gDirectory->Get(hist_name + "_prefiring_down");
 
-    TH1F *h_ratio_up = (TH1F*) h_up->Clone();
-    TH1F *h_ratio_down = (TH1F*) h_down->Clone();
+    h_up->Divide(h_nominal);
+    h_down->Divide(h_nominal);
 
-    h_ratio_up->Divide(h_nominal);
-    h_ratio_down->Divide(h_nominal);
+    h_up->SetLineColor(kRed);
+    h_down->SetLineColor(kRed);
 
-    h_ratio_up->SetLineColor(kRed);
-    h_ratio_down->SetLineColor(kRed);
+    h_up->SetLineWidth(2);
+    h_down->SetLineWidth(2);
 
-    h_ratio_up->SetLineWidth(2);
-    h_ratio_down->SetLineWidth(2);
-
-    h_ratio_up->SetLineStyle(7);
-    h_ratio_down->SetLineStyle(3);
-
+    h_up->SetLineStyle(7);
+    h_down->SetLineStyle(3);
 
     // plotting
     TCanvas *c1 = new TCanvas("c1","c1",0,0,800,800);
@@ -81,22 +77,23 @@
     legend->SetTextSize(0.025);
     legend->SetLineWidth(0);
     legend->SetNColumns(1);
-    legend->AddEntry(h_ratio_up,"prefiring_up","l");
-    legend->AddEntry(h_ratio_down,"prefiring_down","l");
+    legend->AddEntry(h_up,"prefiring_up","le");
+    legend->AddEntry(h_down,"prefiring_down","le");
 
     // draw
-    h_ratio_up->Draw("hist");
-    h_ratio_down->Draw("hist same");
+    h_up->Draw("hist e");
+    h_down->Draw("hist e same");
     legend->Draw();
 
     // x axis
-    h_ratio_up->GetXaxis()->SetTitle("m_{t#bar{t}} [GeV]");
-    h_ratio_up->GetXaxis()->SetTitleOffset(1.3);
-    h_ratio_up->GetXaxis()->SetRangeUser(0,6000);
+    h_up->GetXaxis()->SetTitle("m_{t#bar{t}} [GeV]");
+    h_up->GetXaxis()->SetTitleOffset(1.3);
+    h_up->GetXaxis()->SetRangeUser(0,6000);
     // y axis
-    h_ratio_up->GetYaxis()->SetTitle("variation/nominal");
-    h_ratio_up->GetYaxis()->SetTitleOffset(1.7);
-    h_ratio_up->GetYaxis()->SetRangeUser(0.99,1.01);
+    h_up->GetYaxis()->SetTitle("variation/nominal");
+    h_up->GetYaxis()->SetTitleOffset(1.7);
+    h_
+    up->GetYaxis()->SetRangeUser(0.9,1.1);
 
     c1->Modified();
 

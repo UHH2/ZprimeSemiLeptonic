@@ -85,16 +85,16 @@
     legend->SetTextSize(0.025);
     legend->SetLineWidth(0);
     legend->SetNColumns(1);
-    legend->AddEntry(h_isr_up,"isr_up","l");
-    legend->AddEntry(h_isr_down,"isr_down","l");
-    legend->AddEntry(h_fsr_up,"fsr_up","l");
-    legend->AddEntry(h_fsr_down,"fsr_down","l");
+    legend->AddEntry(h_isr_up,"isr_up","le");
+    legend->AddEntry(h_isr_down,"isr_down","le");
+    legend->AddEntry(h_fsr_up,"fsr_up","le");
+    legend->AddEntry(h_fsr_down,"fsr_down","le");
 
     // draw
-    h_isr_up->Draw("hist");
-    h_isr_down->Draw("hist same");
-    h_fsr_up->Draw("hist same");
-    h_fsr_down->Draw("hist same");
+    h_isr_up->Draw("hist e");
+    h_isr_down->Draw("hist e same");
+    h_fsr_up->Draw("hist e same");
+    h_fsr_down->Draw("hist e same");
     legend->Draw();
 
     // x axis
