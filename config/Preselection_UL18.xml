@@ -60,8 +60,9 @@
 <!ENTITY QCD_HT1500to2000_UL18 SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL18/QCD_HT1500to2000_CP5_PSWeights_madgraph-pythia8_Summer20UL18_v1.xml">
 <!ENTITY QCD_HT2000toInf_UL18  SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL18/QCD_HT2000toInf_CP5_PSWeights_madgraph-pythia8_Summer20UL18_v1.xml">
 <!-- ALP -->
-<!ENTITY ALP_ttbar_signal_UL18       SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/BSM/UL18/ALP_ttbar_signal_CP5_madgraph-pythia8_Summer20UL18_v2.xml">
-<!ENTITY ALP_ttbar_interference_UL18 SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/BSM/UL18/ALP_ttbar_interference_CP5_madgraph-pythia8_Summer20UL18_v2.xml">
+<!ENTITY ALP_ttbar_signal_UL18                       SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/BSM/UL18/ALP_ttbar_signal_CP5_madgraph-pythia8_Summer20UL18_v2.xml">
+<!ENTITY ALP_ttbar_interference_UL18                 SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/BSM/UL18/ALP_ttbar_interference_CP5_madgraph-pythia8_Summer20UL18_v2.xml">
+<!ENTITY ALP_ttbar_interference_colorflowSMlike_UL18 SYSTEM "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-datasets/RunII_106X_v2/BSM/UL18/ALP_ttbar_interference_private100k_colorflowSMlike_CP5_madgraph-pythia8_Summer20UL18_v2.xml">
 <!-- Scalar H 10% -->
 <!ENTITY HscalarToTTTo1L1Nu2J_m365_w36p5_res_UL18   SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/BSM/UL18/HscalarToTTTo1L1Nu2J_m365_w36p5_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
 <!ENTITY HscalarToTTTo1L1Nu2J_m400_w40p0_res_UL18   SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/BSM/UL18/HscalarToTTTo1L1Nu2J_m400_w40p0_res_CP5_madgraph_pythia8_Summer20UL18_v2.xml">
@@ -472,6 +473,11 @@
 		</InputData>
 		<InputData Lumi="-348341.936886" NEventsMax="&NEVT;" Type="MC" Version="ALP_ttbar_interference_UL18" Cacheable="&b_Cacheable;">
 			&ALP_ttbar_interference_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-3540.0711271091" NEventsMax="&NEVT;" Type="MC" Version="ALP_ttbar_interference_colorflowSMlike_UL18" Cacheable="&b_Cacheable;">
+			&ALP_ttbar_interference_colorflowSMlike_UL18;
 			<InputTree Name="AnalysisTree"/>
 			<OutputTree Name="AnalysisTree"/>
 		</InputData>
