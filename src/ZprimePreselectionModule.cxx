@@ -114,7 +114,7 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
 
   double electron_pt(25.);
   double muon_pt(25.);
-  double jet1_pt(50.);
+  double jet1_pt(20.);
   double jet2_pt(20.);
   double MET(20.);
 
@@ -139,7 +139,7 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
    
   jet_IDcleaner.reset(new JetCleaner(ctx, jetID_PUPPI));
   jet_cleaner1.reset(new JetCleaner(ctx, 15., 3.0));
-  jet_cleaner2.reset(new JetCleaner(ctx, 30., 2.5));
+  jet_cleaner2.reset(new JetCleaner(ctx, 20., 2.5));
   hotvrjet_cleaner.reset(new TopJetCleaner(ctx, PtEtaCut(200., 2.5)));
   topjet_puppi_IDcleaner.reset(new TopJetCleaner(ctx, jetID_PUPPI, "toppuppijets"));
   topjet_puppi_cleaner.reset(new TopJetCleaner(ctx, TopJetId(PtEtaCut(200., 2.5)), "toppuppijets"));
