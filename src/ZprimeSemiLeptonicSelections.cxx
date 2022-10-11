@@ -70,18 +70,18 @@ bool ZprimeTopTagSelection::passes(const Event & event){
 TopTag_VetoSelection::TopTag_VetoSelection(Context& ctx, TString mode) : mode_(mode){
 
   if(mode_ == "deepAK8"){
-  h_AK8TopTags = ctx.get_handle<std::vector<TopJet>>("DeepAK8TopTags");
+    h_AK8TopTags = ctx.get_handle<std::vector<TopJet>>("DeepAK8TopTags");
   }else if(mode_ == "hotvr"){
-  h_AK8TopTags = ctx.get_handle<std::vector<TopJet>>("HOTVRTopTags");
+    h_AK8TopTags = ctx.get_handle<std::vector<TopJet>>("HOTVRTopTags");
   }
 }
 
 bool TopTag_VetoSelection::passes(const Event & event){
 
-    vector<TopJet> TopTags = event.get(h_AK8TopTags);
+  vector<TopJet> TopTags = event.get(h_AK8TopTags);
 
-    if(TopTags.size() <= 1) return true;
-    return false;
+  if(TopTags.size() <= 1) return true;
+  return false;
 }
 
 Chi2CandidateMatchedSelection::Chi2CandidateMatchedSelection(Context& ctx){
@@ -230,7 +230,7 @@ bool TTbarSemiLepMatchableSelection::passes(const Event & event){
               // check if end of particle list is reached
               if(abs(idx+1) == event.genparticles->size()){
                 // cout << "reached end of particle list" << endl;
-               break;
+                break;
               }
 
               // if the first one is charged, the second one has to have pdgId of +1 wrt. this genpart
@@ -412,7 +412,7 @@ bool uhh2::STlepPlusMetCut::passes(const uhh2::Event& event){
 ////////////////////////////////////////////////////////
 
 uhh2::HTlepCut::HTlepCut(float min_htlep, float max_htlep):
-  min_htlep_(min_htlep), max_htlep_(max_htlep) {}
+min_htlep_(min_htlep), max_htlep_(max_htlep) {}
 
 
 bool uhh2::HTlepCut::passes(const uhh2::Event& event){
@@ -523,34 +523,34 @@ bool uhh2::GenFlavorSelection::passes(const uhh2::Event& event){
 ////////////////////////////////////////////////////////
 
 HEMSelection::HEMSelection(Context& ctx){
-year = extract_year(ctx);
+  year = extract_year(ctx);
 }
 bool HEMSelection::passes(const Event & event){
 
-if(year != Year::isUL18) return true;
-if( (event.isRealData && event.run >= min_runnum) || (!event.isRealData) ){
+  if(year != Year::isUL18) return true;
+  if( (event.isRealData && event.run >= min_runnum) || (!event.isRealData) ){
 
-   for(const Electron & ele : *event.electrons){
+    for(const Electron & ele : *event.electrons){
       if ( ele.eta() < eta_up && ele.eta() > eta_down && ele.phi() < phi_up && ele.phi() > phi_down) return false;
-   }
+    }
 
-   for(const Muon & muo : *event.muons){
+    for(const Muon & muo : *event.muons){
       if ( muo.eta() < eta_up && muo.eta() > eta_down && muo.phi() < phi_up && muo.phi() > phi_down) return false;
-   }
+    }
 
-   for(const auto & jet : *event.jets){
+    for(const auto & jet : *event.jets){
       if ( jet.eta() < eta_up && jet.eta() > eta_down && jet.phi() < phi_up && jet.phi() > phi_down) return false;
-   }
+    }
 
-   for(const auto & topjet : *event.topjets){
+    for(const auto & topjet : *event.topjets){
       if ( topjet.eta() < eta_up && topjet.eta() > eta_down && topjet.phi() < phi_up && topjet.phi() > phi_down) return false;
-   }
+    }
 
-   for(const auto & toppuppijet : *event.toppuppijets){
+    for(const auto & toppuppijet : *event.toppuppijets){
       if ( toppuppijet.eta() < eta_up && toppuppijet.eta() > eta_down && toppuppijet.phi() < phi_up && toppuppijet.phi() > phi_down) return false;
-   }
-}
-return true;
+    }
+  }
+  return true;
 }
 
 /////////////////////////////////////////////////////
@@ -561,32 +561,32 @@ ThetaStarSelection::ThetaStarSelection(Context& ctx, float theta_cut) : theta_cu
 }
 bool ThetaStarSelection::passes(const Event & event){
 
- bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2);
- ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
+  bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2);
+  ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
 
- if(!is_zprime_reconstructed_chi2) return false;
+  if(!is_zprime_reconstructed_chi2) return false;
 
- bool pass = false;
+  bool pass = false;
 
- float ang_leptop_thetastar;
- float cos_ang_leptop_thetastar;
+  float ang_leptop_thetastar;
+  float cos_ang_leptop_thetastar;
 
- LorentzVector had_top = BestZprimeCandidate->top_hadronic_v4();
- LorentzVector lep_top = BestZprimeCandidate->top_leptonic_v4();
+  LorentzVector had_top = BestZprimeCandidate->top_hadronic_v4();
+  LorentzVector lep_top = BestZprimeCandidate->top_leptonic_v4();
 
- TLorentzVector lep_top_frame(0,0,0,0);
- lep_top_frame.SetPtEtaPhiE(lep_top.pt(), lep_top.eta(), lep_top.phi(), lep_top.E());
- TLorentzVector ttbar(0,0,0,0);
- ttbar.SetPtEtaPhiE((had_top+lep_top).pt(), (had_top+lep_top).eta(), (had_top+lep_top).phi(), (had_top+lep_top).E());
+  TLorentzVector lep_top_frame(0,0,0,0);
+  lep_top_frame.SetPtEtaPhiE(lep_top.pt(), lep_top.eta(), lep_top.phi(), lep_top.E());
+  TLorentzVector ttbar(0,0,0,0);
+  ttbar.SetPtEtaPhiE((had_top+lep_top).pt(), (had_top+lep_top).eta(), (had_top+lep_top).phi(), (had_top+lep_top).E());
 
- lep_top_frame.Boost(-ttbar.BoostVector());
+  lep_top_frame.Boost(-ttbar.BoostVector());
 
- ang_leptop_thetastar = lep_top_frame.Theta();
- cos_ang_leptop_thetastar = TMath::Cos(ang_leptop_thetastar);
+  ang_leptop_thetastar = lep_top_frame.Theta();
+  cos_ang_leptop_thetastar = TMath::Cos(ang_leptop_thetastar);
 
- if( (cos_ang_leptop_thetastar > -theta_cut_) && (cos_ang_leptop_thetastar < theta_cut_) ) pass = true;
+  if( (cos_ang_leptop_thetastar > -theta_cut_) && (cos_ang_leptop_thetastar < theta_cut_) ) pass = true;
 
-return pass;
+  return pass;
 
 }
 
@@ -609,23 +609,23 @@ bool PuppiCHS_BTagging::passes(const Event & event){
 
   bool btagged = false;
   for(const Jet & jet : *event.jets){
-     double deltaR_min = 99;
-     for(const Jet & CHSjet : CHSjets){
-        double deltaR_CHS = deltaR(jet,CHSjet);
-        if(deltaR_CHS<deltaR_min) deltaR_min = deltaR_CHS;
-     }
-     if(deltaR_min>0.2) continue;
-     for(const Jet & CHSjet : CHSjets){
-     if(deltaR(jet,CHSjet)!=deltaR_min) continue;
-     else{
+    double deltaR_min = 99;
+    for(const Jet & CHSjet : CHSjets){
+      double deltaR_CHS = deltaR(jet,CHSjet);
+      if(deltaR_CHS<deltaR_min) deltaR_min = deltaR_CHS;
+    }
+    if(deltaR_min>0.2) continue;
+    for(const Jet & CHSjet : CHSjets){
+      if(deltaR(jet,CHSjet)!=deltaR_min) continue;
+      else{
         if(sel_1btag->passes(event)) {
-        btagged = true;
+          btagged = true;
         }
-     }
-     }
+      }
+    }
   }
   if(!(btagged)) return false;
 
 
-return true;
+  return true;
 }
