@@ -674,15 +674,17 @@ void ZprimeSemiLeptonicPreselectionHists::fill(const Event & event){
 
   sum_event_weights->Fill(1., weight);
 
-  if(event.genInfo->systweights().size()){
-    float orig_weight = event.genInfo->originalXWGTUP();
-    int MY_FIRST_INDEX = 9;
-    if ( is_dy || is_wjets || is_qcd_HTbinned || is_alps || is_azh || is_htott_scalar || is_htott_pseudo || is_zprimetott ) MY_FIRST_INDEX = 47;
-      for(int i=0; i<100; i++){
-        double pdf_weight = event.genInfo->systweights().at(i+MY_FIRST_INDEX);
-        const char* name = hist_names[i].c_str();
-        hist(name)->Fill(1.,weight * pdf_weight / orig_weight);
-     }
+  if(is_mc){
+    if(event.genInfo->systweights().size()){
+      float orig_weight = event.genInfo->originalXWGTUP();
+      int MY_FIRST_INDEX = 9;
+      if ( is_dy || is_wjets || is_qcd_HTbinned || is_alps || is_azh || is_htott_scalar || is_htott_pseudo || is_zprimetott ) MY_FIRST_INDEX = 47;
+        for(int i=0; i<100; i++){
+          double pdf_weight = event.genInfo->systweights().at(i+MY_FIRST_INDEX);
+          const char* name = hist_names[i].c_str();
+          hist(name)->Fill(1.,weight * pdf_weight / orig_weight);
+       }
+    }
   }
 
 
