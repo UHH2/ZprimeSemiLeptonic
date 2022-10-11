@@ -31,21 +31,17 @@
     TH1F *h_up = (TH1F*) gDirectory->Get(hist_name + "_pu_up");
     TH1F *h_down = (TH1F*) gDirectory->Get(hist_name + "_pu_down");
 
+    h_up->Divide(h_nominal);
+    h_down->Divide(h_nominal);
 
-    TH1F *h_ratio_up = (TH1F*) h_up->Clone();
-    TH1F *h_ratio_down = (TH1F*) h_down->Clone();
+    h_up->SetLineColor(kRed);
+    h_down->SetLineColor(kRed);
 
-    h_ratio_up->Divide(h_nominal);
-    h_ratio_down->Divide(h_nominal);
+    h_up->SetLineWidth(2);
+    h_down->SetLineWidth(2);
 
-    h_ratio_up->SetLineColor(kRed);
-    h_ratio_down->SetLineColor(kRed);
-
-    h_ratio_up->SetLineWidth(2);
-    h_ratio_down->SetLineWidth(2);
-
-    h_ratio_up->SetLineStyle(7);
-    h_ratio_down->SetLineStyle(3);
+    h_up->SetLineStyle(7);
+    h_down->SetLineStyle(3);
 
 
     // plotting
@@ -81,22 +77,22 @@
     legend->SetTextSize(0.025);
     legend->SetLineWidth(0);
     legend->SetNColumns(1);
-    legend->AddEntry(h_ratio_up,"pu_up","l");
-    legend->AddEntry(h_ratio_down,"pu_down","l");
+    legend->AddEntry(h_up,"pu_up","le");
+    legend->AddEntry(h_down,"pu_down","le");
 
     // draw
-    h_ratio_up->Draw("hist");
-    h_ratio_down->Draw("hist same");
+    h_up->Draw("hist e");
+    h_down->Draw("hist e same");
     legend->Draw();
 
     // x axis
-    h_ratio_up->GetXaxis()->SetTitle("m_{t#bar{t}} [GeV]");
-    h_ratio_up->GetXaxis()->SetTitleOffset(1.3);
-    h_ratio_up->GetXaxis()->SetRangeUser(100,6000);
+    h_up->GetXaxis()->SetTitle("m_{t#bar{t}} [GeV]");
+    h_up->GetXaxis()->SetTitleOffset(1.3);
+    h_up->GetXaxis()->SetRangeUser(100,6000);
     // y axis
-    h_ratio_up->GetYaxis()->SetTitle("variation/nominal");
-    h_ratio_up->GetYaxis()->SetTitleOffset(1.7);
-    h_ratio_up->GetYaxis()->SetRangeUser(0.7,1.3);
+    h_up->GetYaxis()->SetTitle("variation/nominal");
+    h_up->GetYaxis()->SetTitleOffset(1.7);
+    h_up->GetYaxis()->SetRangeUser(0.7,1.3);
 
     c1->Modified();
 
