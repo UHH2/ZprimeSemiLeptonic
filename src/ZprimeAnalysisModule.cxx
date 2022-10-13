@@ -448,8 +448,8 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
 
 bool ZprimeAnalysisModule::process(uhh2::Event& event){
 
-  if(debug)   cout << "++++++++++++ NEW EVENT ++++++++++++++" << endl;
-  if(debug)   cout<<" run.event: "<<event.run<<". "<<event.event<<endl;
+  if(debug) cout << "++++++++++++ NEW EVENT ++++++++++++++" << endl;
+  if(debug) cout << " run.event: " << event.run << ". " << event.event << endl;
   // Initialize reco flags with false
   event.set(h_is_zprime_reconstructed_chi2, false);
   event.set(h_is_zprime_reconstructed_correctmatch, false);
@@ -915,7 +915,7 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   fill_histograms(event, "CorrectMatchDiscriminator");
   if(debug) cout << "CorrectMatchDiscriminatorZprime: ok" << endl;
 
-  // select ttbar candidate with smallest chi2, fill Mtt hists 
+  // select ttbar candidate with smallest chi2, fill Mtt hists
   //Chi2DiscriminatorZprime->process(event);
   //fill_histograms(event, "Chi2Discriminator");
   //if(debug) cout << "Chi2DiscriminatorZprime: ok" << endl;
