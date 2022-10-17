@@ -13,10 +13,10 @@
 <!ENTITY OUTPUTdir           "/nfs/dust/cms/group/zprime-uhh/AnalysisDNN_UL18/&CHANNEL;/">
 
 <!-- EGamma -->
-<!ENTITY DATA_EGamma_RunA_UL18 SYSTEM "../data/Skimming_datasets_UL18_electron/DATA_DATA_EGamma_RunA_UL18.xml">
-<!ENTITY DATA_EGamma_RunB_UL18 SYSTEM "../data/Skimming_datasets_UL18_electron/DATA_DATA_EGamma_RunB_UL18.xml">
-<!ENTITY DATA_EGamma_RunC_UL18 SYSTEM "../data/Skimming_datasets_UL18_electron/DATA_DATA_EGamma_RunC_UL18.xml">
-<!ENTITY DATA_EGamma_RunD_UL18 SYSTEM "../data/Skimming_datasets_UL18_electron/DATA_DATA_EGamma_RunD_UL18.xml">
+<!ENTITY DATA_EGamma_RunA_UL18 SYSTEM "../data/Skimming_datasets_UL18_electron/DATA_EGamma_RunA_UL18.xml">
+<!ENTITY DATA_EGamma_RunB_UL18 SYSTEM "../data/Skimming_datasets_UL18_electron/DATA_EGamma_RunB_UL18.xml">
+<!ENTITY DATA_EGamma_RunC_UL18 SYSTEM "../data/Skimming_datasets_UL18_electron/DATA_EGamma_RunC_UL18.xml">
+<!ENTITY DATA_EGamma_RunD_UL18 SYSTEM "../data/Skimming_datasets_UL18_electron/DATA_EGamma_RunD_UL18.xml">
 <!-- TTbar -->
 <!ENTITY TTToSemiLeptonic_UL18 SYSTEM "../data/Skimming_datasets_UL18_electron/MC_TTToSemiLeptonic_UL18.xml">
 <!ENTITY TTToHadronic_UL18     SYSTEM "../data/Skimming_datasets_UL18_electron/MC_TTToHadronic_UL18.xml">
