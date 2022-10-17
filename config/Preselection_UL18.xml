@@ -11,7 +11,7 @@
 <!ENTITY DATA_EGamma_RunA_UL18 SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/data/UL18/EGamma_Run2018A-UL2018_MiniAODv2_GT36-v1.xml">
 <!ENTITY DATA_EGamma_RunB_UL18 SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/data/UL18/EGamma_Run2018B-UL2018_MiniAODv2-v1.xml">
 <!ENTITY DATA_EGamma_RunC_UL18 SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/data/UL18/EGamma_Run2018C-UL2018_MiniAODv2_GT36-v1.xml">
-<!--<!ENTITY DATA_EGamma_RunD_UL18 SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/data/UL18/EGamma_Run2018D-UL2018_MiniAODv2-v2.xml"> still missing -->
+<!ENTITY DATA_EGamma_RunD_UL18 SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/data/UL18/EGamma_Run2018D-UL2018_MiniAODv2-v2.xml">
 <!-- SingleMuon -->
 <!ENTITY DATA_SingleMuon_RunA_UL18 SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/data/UL18/SingleMuon_Run2018A-UL2018_MiniAODv2_GT36-v1.xml">
 <!ENTITY DATA_SingleMuon_RunB_UL18 SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/data/UL18/SingleMuon_Run2018B-UL2018_MiniAODv2_GT36-v1.xml">
@@ -252,12 +252,11 @@
 			<InputTree Name="AnalysisTree"/>
 			<OutputTree Name="AnalysisTree"/>
 		</InputData>
-<!--		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_RunD_UL18" Cacheable="&b_Cacheable;">
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_RunD_UL18" Cacheable="&b_Cacheable;">
 			&DATA_EGamma_RunD_UL18;
 			<InputTree Name="AnalysisTree"/>
 			<OutputTree Name="AnalysisTree"/>
 		</InputData>
--->
 		<!-- SingleMuon -->
 		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_RunA_UL18" Cacheable="&b_Cacheable;">
 			&DATA_SingleMuon_RunA_UL18;
@@ -476,11 +475,11 @@
 			<InputTree Name="AnalysisTree"/>
 			<OutputTree Name="AnalysisTree"/>
 		</InputData>
-		<InputData Lumi="-3540.0711271091" NEventsMax="&NEVT;" Type="MC" Version="ALP_ttbar_interference_colorflowSMlike_UL18" Cacheable="&b_Cacheable;">
+		<!-- <InputData Lumi="-3540.0711271091" NEventsMax="&NEVT;" Type="MC" Version="ALP_ttbar_interference_colorflowSMlike_UL18" Cacheable="&b_Cacheable;">
 			&ALP_ttbar_interference_colorflowSMlike_UL18;
 			<InputTree Name="AnalysisTree"/>
 			<OutputTree Name="AnalysisTree"/>
-		</InputData>
+		</InputData> -->
 		<!-- Scalar H 10% -->
 		<InputData Lumi="190853.468499" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m365_w36p5_res_UL18" Cacheable="&b_Cacheable;">
 			&HscalarToTTTo1L1Nu2J_m365_w36p5_res_UL18;
