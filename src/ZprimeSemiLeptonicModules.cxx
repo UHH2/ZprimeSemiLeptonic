@@ -405,8 +405,7 @@ bool ZprimeCorrectMatchDiscriminator::process(uhh2::Event& event){
       continue;
     }
 
-    //if((!is_toptag_reconstruction && jets_had.size() > 3) || (is_toptag_reconstruction && jets_had.size() != 1)){
-    if(is_toptag_reconstruction && jets_had.size() != 1){
+    if((!is_toptag_reconstruction && jets_had.size() > 3) || (is_toptag_reconstruction && jets_had.size() != 1)){
       candidates.at(i).set_discriminators("correct_match", 9999999);
       // cout << "Not right amount of hadronic jets" << endl;
       continue;
@@ -459,11 +458,11 @@ bool ZprimeCorrectMatchDiscriminator::process(uhh2::Event& event){
       correct_dr += dr;
       if(idx >= 0) n_matched++;
 
-      //if(n_matched != jets_had.size()){
-      //  candidates.at(i).set_discriminators("correct_match", 9999999);
-      //  // cout << "Not number of jets and matched equal" << endl;
-      //  continue;
-      //}
+      if(n_matched != jets_had.size()){
+        candidates.at(i).set_discriminators("correct_match", 9999999);
+        // cout << "Not number of jets and matched equal" << endl;
+        continue;
+      }
     }
     else{
       const TopJet* topjet = candidates.at(i).tophad_topjet_ptr();
