@@ -1010,6 +1010,9 @@ Variables_NN::Variables_NN(uhh2::Context& ctx, TString mode): mode_(mode){
   ///  M ttbar
   h_M_tt = ctx.declare_event_output<float> ("M_tt");
 
+  // random number for k-fold validation
+  h_uniform_random = ctx.declare_event_output<float> ("uniform_random");
+
 }
 
 bool Variables_NN::process(uhh2::Event& evt){
@@ -1319,7 +1322,10 @@ bool Variables_NN::process(uhh2::Event& evt){
     evt.set(h_M_tt, Mass_tt);
   }
 
-
+  // random generator with eta-dependend random seed for k-fold validation
+  double leading_jet_phi = Ak4jets->at(0).v4().phi();
+  std::srand((int)(1000 * leading_jet_phi));
+  evt.set(h_uniform_random, ((double) rand()) / RAND_MAX);
 
   return true;
 }
