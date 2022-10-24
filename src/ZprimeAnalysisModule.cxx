@@ -921,6 +921,7 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   //if(debug) cout << "Chi2DiscriminatorZprime: ok" << endl;
 
   // Variables for NN
+  sort_by_pt<Jet>(*event.jets);
   Variables_module->process(event);
   fill_histograms(event, "NNInputsBeforeReweight");
 
