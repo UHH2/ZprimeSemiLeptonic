@@ -231,48 +231,6 @@
 
 	<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTPUTdir;/" PostFix="" TargetLumi="&TargetLumi;">
 
-		<!-- SingleElectron -->
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleElectron_RunB_UL17" Cacheable="&b_Cacheable;">
-			&DATA_SingleElectron_RunB_UL17;
-			<InputTree Name="AnalysisTree" />
-		</InputData>
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleElectron_RunC_UL17" Cacheable="&b_Cacheable;">
-			&DATA_SingleElectron_RunC_UL17;
-			<InputTree Name="AnalysisTree" />
-		</InputData>
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleElectron_RunD_UL17" Cacheable="&b_Cacheable;">
-			&DATA_SingleElectron_RunD_UL17;
-			<InputTree Name="AnalysisTree" />
-		</InputData>
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleElectron_RunE_UL17" Cacheable="&b_Cacheable;">
-			&DATA_SingleElectron_RunE_UL17;
-			<InputTree Name="AnalysisTree" />
-		</InputData>
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleElectron_RunF_UL17" Cacheable="&b_Cacheable;">
-			&DATA_SingleElectron_RunF_UL17;
-			<InputTree Name="AnalysisTree" />
-		</InputData>
-		<!-- SinglePhoton -->
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SinglePhoton_RunB_UL17" Cacheable="&b_Cacheable;">
-			&DATA_SinglePhoton_RunB_UL17;
-			<InputTree Name="AnalysisTree" />
-		</InputData>
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SinglePhoton_RunC_UL17" Cacheable="&b_Cacheable;">
-			&DATA_SinglePhoton_RunC_UL17;
-			<InputTree Name="AnalysisTree" />
-		</InputData>
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SinglePhoton_RunD_UL17" Cacheable="&b_Cacheable;">
-			&DATA_SinglePhoton_RunD_UL17;
-			<InputTree Name="AnalysisTree" />
-		</InputData>
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SinglePhoton_RunE_UL17" Cacheable="&b_Cacheable;">
-			&DATA_SinglePhoton_RunE_UL17;
-			<InputTree Name="AnalysisTree" />
-		</InputData>
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SinglePhoton_RunF_UL17" Cacheable="&b_Cacheable;">
-			&DATA_SinglePhoton_RunF_UL17;
-			<InputTree Name="AnalysisTree" />
-		</InputData>
 		<!-- TTbar -->
 		<InputData Lumi="289610387.51" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_UL17" Cacheable="&b_Cacheable;">
 			&TTToSemiLeptonic_UL17;

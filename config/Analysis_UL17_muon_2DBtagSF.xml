@@ -231,27 +231,6 @@
 
 	<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTPUTdir;/" PostFix="" TargetLumi="&TargetLumi;">
 
-		<!-- SingleMuon -->
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_RunB_UL17" Cacheable="&b_Cacheable;">
-			&DATA_SingleMuon_RunB_UL17;
-			<InputTree Name="AnalysisTree" />
-		</InputData>
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_RunC_UL17" Cacheable="&b_Cacheable;">
-			&DATA_SingleMuon_RunC_UL17;
-			<InputTree Name="AnalysisTree" />
-		</InputData>
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_RunD_UL17" Cacheable="&b_Cacheable;">
-			&DATA_SingleMuon_RunD_UL17;
-			<InputTree Name="AnalysisTree" />
-		</InputData>
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_RunE_UL17" Cacheable="&b_Cacheable;">
-			&DATA_SingleMuon_RunE_UL17;
-			<InputTree Name="AnalysisTree" />
-		</InputData>
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_RunF_UL17" Cacheable="&b_Cacheable;">
-			&DATA_SingleMuon_RunF_UL17;
-			<InputTree Name="AnalysisTree" />
-		</InputData>
 		<!-- TTbar -->
 		<InputData Lumi="289610387.51" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_UL17" Cacheable="&b_Cacheable;">
 			&TTToSemiLeptonic_UL17;
