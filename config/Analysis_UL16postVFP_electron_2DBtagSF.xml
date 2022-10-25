@@ -222,7 +222,7 @@
 
 <!--
 <ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="5" AutoResubmit="0"/>
-<ConfigSGE RAM="2" DISK="2" Mail="ksenia.de.leo@desy.de" Notification="as" Workdir="workdir_Analysis_UL16postVFP_electron_2DBtagSF"/>
+<ConfigSGE RAM="2" DISK="2" Mail="henrik.jabusch@desy.de" Notification="as" Workdir="workdir_Analysis_UL16postVFP_electron_2DBtagSF"/>
 -->
 
 <JobConfiguration JobName="ZprimePreselectionJob" OutputLevel="INFO">
@@ -231,32 +231,6 @@
 
 	<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTPUTdir;/" PostFix="" TargetLumi="&TargetLumi;">
 
-		<!-- SingleElectron -->
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleElectron_RunF_UL16postVFP" Cacheable="&b_Cacheable;">
-			&DATA_SingleElectron_RunF_UL16postVFP;
-			<InputTree Name="AnalysisTree" />
-		</InputData>
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleElectron_RunG_UL16postVFP" Cacheable="&b_Cacheable;">
-			&DATA_SingleElectron_RunG_UL16postVFP;
-			<InputTree Name="AnalysisTree" />
-		</InputData>
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleElectron_RunH_UL16postVFP" Cacheable="&b_Cacheable;">
-			&DATA_SingleElectron_RunH_UL16postVFP;
-			<InputTree Name="AnalysisTree" />
-		</InputData>
-		<!-- SinglePhoton -->
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SinglePhoton_RunF_UL16postVFP" Cacheable="&b_Cacheable;">
-			&DATA_SinglePhoton_RunF_UL16postVFP;
-			<InputTree Name="AnalysisTree" />
-		</InputData>
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SinglePhoton_RunG_UL16postVFP" Cacheable="&b_Cacheable;">
-			&DATA_SinglePhoton_RunG_UL16postVFP;
-			<InputTree Name="AnalysisTree" />
-		</InputData>
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SinglePhoton_RunH_UL16postVFP" Cacheable="&b_Cacheable;">
-			&DATA_SinglePhoton_RunH_UL16postVFP;
-			<InputTree Name="AnalysisTree" />
-		</InputData>
 		<!-- TTbar -->
 		<InputData Lumi="118835658.204" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_UL16postVFP" Cacheable="&b_Cacheable;">
 			&TTToSemiLeptonic_UL16postVFP;
