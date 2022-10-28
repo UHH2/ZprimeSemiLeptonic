@@ -19,7 +19,7 @@
 #include <UHH2/common/include/TTbarGen.h>
 #include <UHH2/common/include/Utils.h>
 #include <UHH2/common/include/AdditionalSelections.h>
-#include "UHH2/common/include/LuminosityHists.h"
+#include <UHH2/common/include/LuminosityHists.h>
 #include <UHH2/common/include/MCWeight.h>
 #include <UHH2/common/include/MuonHists.h>
 #include <UHH2/common/include/ElectronHists.h>
@@ -28,6 +28,7 @@
 #include <UHH2/common/include/TopPtReweight.h>
 #include <UHH2/common/include/CommonModules.h>
 #include <UHH2/common/include/LeptonScaleFactors.h>
+#include <UHH2/common/include/PSWeights.h>
 
 #include <UHH2/ZprimeSemiLeptonic/include/ModuleBASE.h>
 #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicSelections.h>
@@ -85,7 +86,7 @@ protected:
 
   // AnalysisModules
   std::unique_ptr<AnalysisModule> LumiWeight_module, PUWeight_module, TopPtReweight_module, MCScale_module;
-  std::unique_ptr<AnalysisModule> Corrections_module;
+  std::unique_ptr<AnalysisModule> NLOCorrections_module;
 
   // Selections
   std::unique_ptr<Selection> Trigger_ele_A_selection, Trigger_ele_B_selection, Trigger_ph_A_selection;
@@ -165,9 +166,9 @@ ZprimeSemiLeptonicTriggerSFModule::ZprimeSemiLeptonicTriggerSFModule(uhh2::Conte
   // Modules
   LumiWeight_module.reset(new MCLumiWeight(ctx));
   PUWeight_module.reset(new MCPileupReweight(ctx, Sys_PU));
-  TopPtReweight_module.reset(new TopPtReweighting(ctx, a_toppt, b_toppt, Sys_TopPt_a, Sys_TopPt_b, ""));
+  //TopPtReweight_module.reset(new TopPtReweighting(ctx, a_toppt, b_toppt, Sys_TopPt_a, Sys_TopPt_b, ""));
   MCScale_module.reset(new MCScaleVariation(ctx));
-  Corrections_module.reset(new NLOCorrections(ctx));
+  NLOCorrections_module.reset(new NLOCorrections(ctx));
 
   // b-tagging SFs
   sf_btagging.reset(new MCBTagDiscriminantReweighting(ctx, BTag::algo::DEEPJET, "CHS_matched"));
@@ -222,14 +223,13 @@ bool ZprimeSemiLeptonicTriggerSFModule::process(uhh2::Event& event){
   }
   PUWeight_module->process(event);
   LumiWeight_module->process(event);
-  TopPtReweight_module->process(event);
+  //TopPtReweight_module->process(event);
   MCScale_module->process(event);
   if (isMC) {
      if (Prefiring_direction == "nominal") event.weight *= event.prefiringWeight;
      else if (Prefiring_direction == "up") event.weight *= event.prefiringWeightUp;
      else if (Prefiring_direction == "down") event.weight *= event.prefiringWeightDown;
   }
-  Corrections_module->process(event);
 
   double muon_pt_high(55.);
   bool muon_is_low = false;
@@ -301,6 +301,7 @@ bool ZprimeSemiLeptonicTriggerSFModule::process(uhh2::Event& event){
 
      event.weight *= custom_sf;
   }
+  NLOCorrections_module->process(event);
 
   // fill hists with all events
   h_all->fill(event);
