@@ -26,7 +26,7 @@ inputbasedir_mcscale = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/s
 
 process_prefix = "uhh2.AnalysisModuleRunner.MC."
 
-output_tag = "ALP_UL18_muon_withSyst"
+signal_name = "ALP"
 
 signals = [
 "ALP_ttbar_signal",
@@ -35,31 +35,31 @@ signals = [
 
 # bin edges of input histogram
 fas = [
-    # 400,
-    # 600,
-    # 800,
+    400,
+    600,
+    800,
     1000,
-    # 1200,
-    # 1400,
-    # 1600,
-    # 1800,
+    1200,
+    1400,
+    1600,
+    1800,
     2000,
-    # 2200,
-    # 2400,
-    # 2600,
-    # 2800,
+    2200,
+    2400,
+    2600,
+    2800,
     3000,
-    # 3200,
-    # 3400,
-    # 3600,
-    # 3800,
+    3200,
+    3400,
+    3600,
+    3800,
     4000,
-    # 4400,
-    # 4800,
-    # 5200,
-    # 5600,
+    4400,
+    4800,
+    5200,
+    5600,
     6000,
-    # 6100
+    6100
 ]
 
 backgrounds = [
@@ -106,7 +106,7 @@ shapes = OrderedDict()
 shapes["pdf"] = ["TTbar","ST","WJets","others","ALP_ttbar_signal","ALP_ttbar_interference"] # pdf uncertainty
 # shapes["mcscale"] = ["TTbar","ST","WJets","others","ALP_ttbar_signal","ALP_ttbar_interference"] # mcscale uncertainty: envelope of muR and muF up/down combinations
 # shapes["toppt_a"] = ["TTbar"] # top-pt reweighting parameter a: normalization only -> swallowed by mcscale
-shapes["toppt_b"] = ["TTbar"] # top-pt reweighting parameter b
+# shapes["toppt_b"] = ["TTbar"] # top-pt reweighting parameter b
 shapes["pu"] = ["TTbar","ST","WJets","others","ALP_ttbar_signal","ALP_ttbar_interference"] # pileup
 # TODO: add JEC + JER
 shapes["prefiring"] = ["TTbar","ST","WJets","others","ALP_ttbar_signal","ALP_ttbar_interference"] # prefiring
@@ -167,8 +167,8 @@ def createCombineInput():
 
         for fa in fas:
 
-            filename_out = year + "/" + channel + "/" + "inputHistograms_" + year + "_" + channel + "_fa" + str(fa) + ".root"
-            file_out = ROOT.TFile(filename_out, "RECREATE")
+            filename_out = "inputHistograms_" + signal_name + "_" + year + "_" + channel + "_fa" + str(fa) + ".root"
+            file_out = ROOT.TFile(signal_name + "/" + filename_out, "RECREATE")
 
             for region in regions:
                 for process in processes + data:
@@ -223,7 +223,7 @@ def createCombineInput():
                                 hist_syst_down_out.Write(region + "_" + process + "_" + shape + "Down")
                         file_in.Close()
 
-            datacard_name = year + "/" + channel + "/" + "datacard_" + year + "_" + channel + "_fa" + str(fa) + ".dat"
+            datacard_name = signal_name + "/" + "datacard_" + signal_name + "_" + year + "_" + channel + "_fa" + str(fa) + ".dat"
             with open(datacard_name, 'w') as datacard:
                 datacard.write("# PARAMETERS\n")
                 datacard.write("imax " + str(len(regions)) + " number of regions\n")

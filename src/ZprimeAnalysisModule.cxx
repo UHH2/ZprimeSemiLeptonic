@@ -300,8 +300,8 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   BTag::wp btag_wp = BTag::WP_MEDIUM;
   JetId id_btag = BTag(btag_algo, btag_wp);
 
-  double a_toppt = 0.0615; // par a TopPt Reweighting
-  double b_toppt = -0.0005; // par b TopPt Reweighting
+  // double a_toppt = 0.0615; // par a TopPt Reweighting
+  // double b_toppt = -0.0005; // par b TopPt Reweighting
 
   // Modules
   LumiWeight_module.reset(new MCLumiWeight(ctx));
@@ -916,9 +916,9 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   if(debug) cout << "CorrectMatchDiscriminatorZprime: ok" << endl;
 
   // select ttbar candidate with smallest chi2, fill Mtt hists
-  //Chi2DiscriminatorZprime->process(event);
-  //fill_histograms(event, "Chi2Discriminator");
-  //if(debug) cout << "Chi2DiscriminatorZprime: ok" << endl;
+  Chi2DiscriminatorZprime->process(event);
+  fill_histograms(event, "Chi2Discriminator");
+  if(debug) cout << "Chi2DiscriminatorZprime: ok" << endl;
 
   // Variables for NN
   sort_by_pt<Jet>(*event.jets);

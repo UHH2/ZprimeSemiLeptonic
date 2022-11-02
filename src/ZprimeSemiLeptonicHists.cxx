@@ -587,6 +587,7 @@ void ZprimeSemiLeptonicHists::init(){
   NN_Ak4_j6_btag      = book<TH1F>("NN_Ak4_j6_btag", "NN_Ak4_j6_btag", 50, 0, 1);
   NN_M_tt_weighted    = book<TH1F>("NN_M_tt_weighted", "NN_M_tt_weighted", 100, 0, 14000);
   NN_M_tt_notweighted = book<TH1F>("NN_M_tt_notweighted", "NN_M_tt_notweighted", 100, 0, 14000);
+  NN_chi2             = book<TH1F>("NN_chi2", "NN_chi2", 100, 0, 100);
   NN_N_HOTVR          = book<TH1F>("NN_N_HOTVR", "NN_N_HOTVR", 20, 0, 20);
   NN_HOTVR_j1_pt      = book<TH1F>("NN_HOTVR_j1_pt", "NN_HOTVR_j1_pt", 150, 0, 3000);
   NN_HOTVR_j1_eta     = book<TH1F>("NN_HOTVR_j1_eta", "NN_HOTVR_j1_eta", 50, -2.5, 2.5);
@@ -609,28 +610,31 @@ void ZprimeSemiLeptonicHists::init(){
   NN_HOTVR_j3_mSD     = book<TH1F>("NN_HOTVR_j3_mSD", "NN_HOTVR_j3_mSD", 50, 0, 500);
   NN_HOTVR_j3_tau21   = book<TH1F>("NN_HOTVR_j3_tau21", "NN_HOTVR_j3_tau21", 24, 0, 1.2);
   NN_HOTVR_j3_tau32   = book<TH1F>("NN_HOTVR_j3_tau32", "NN_HOTVR_j3_tau32", 24, 0, 1.2);
-  NN_N_Ak8         = book<TH1F>("NN_N_Ak8", "NN_N_Ak8", 20, 0, 20);
-  NN_Ak8_j1_pt     = book<TH1F>("NN_Ak8_j1_pt", "NN_Ak8_j1_pt", 150, 0, 3000);
-  NN_Ak8_j1_eta    = book<TH1F>("NN_Ak8_j1_eta", "NN_Ak8_j1_eta", 50, -2.5, 2.5);
-  NN_Ak8_j1_phi    = book<TH1F>("NN_Ak8_j1_phi", "NN_Ak8_j1_phi", 35, -3.5, 3.5);
-  NN_Ak8_j1_E      = book<TH1F>("NN_Ak8_j1_E", "NN_Ak8_j1_E", 100, 0, 5000);
-  NN_Ak8_j1_mSD    = book<TH1F>("NN_Ak8_j1_mSD", "NN_Ak8_j1_mSD", 50, 0, 500);
-  NN_Ak8_j1_tau21  = book<TH1F>("NN_Ak8_j1_tau21", "NN_Ak8_j1_tau21", 24, 0, 1.2);
-  NN_Ak8_j1_tau32  = book<TH1F>("NN_Ak8_j1_tau32", "NN_Ak8_j1_tau32", 24, 0, 1.2);
-  NN_Ak8_j2_pt     = book<TH1F>("NN_Ak8_j2_pt", "NN_Ak8_j2_pt", 150, 0, 3000);
-  NN_Ak8_j2_eta    = book<TH1F>("NN_Ak8_j2_eta", "NN_Ak8_j2_eta", 50, -2.5, 2.5);
-  NN_Ak8_j2_phi    = book<TH1F>("NN_Ak8_j2_phi", "NN_Ak8_j2_phi", 35, -3.5, 3.5);
-  NN_Ak8_j2_E      = book<TH1F>("NN_Ak8_j2_E", "NN_Ak8_j2_E", 100, 0, 5000);
-  NN_Ak8_j2_mSD    = book<TH1F>("NN_Ak8_j2_mSD", "NN_Ak8_j2_mSD", 50, 0, 500);
-  NN_Ak8_j2_tau21  = book<TH1F>("NN_Ak8_j2_tau21", "NN_Ak8_j2_tau21", 24, 0, 1.2);
-  NN_Ak8_j2_tau32  = book<TH1F>("NN_Ak8_j2_tau32", "NN_Ak8_j2_tau32", 24, 0, 1.2);
-  NN_Ak8_j3_pt     = book<TH1F>("NN_Ak8_j3_pt", "NN_Ak8_j3_pt", 150, 0, 3000);
-  NN_Ak8_j3_eta    = book<TH1F>("NN_Ak8_j3_eta", "NN_Ak8_j3_eta", 50, -2.5, 2.5);
-  NN_Ak8_j3_phi    = book<TH1F>("NN_Ak8_j3_phi", "NN_Ak8_j3_phi", 35, -3.5, 3.5);
-  NN_Ak8_j3_E      = book<TH1F>("NN_Ak8_j3_E", "NN_Ak8_j3_E", 100, 0, 5000);
-  NN_Ak8_j3_mSD    = book<TH1F>("NN_Ak8_j3_mSD", "NN_Ak8_j3_mSD", 50, 0, 500);
-  NN_Ak8_j3_tau21  = book<TH1F>("NN_Ak8_j3_tau21", "NN_Ak8_j3_tau21", 24, 0, 1.2);
-  NN_Ak8_j3_tau32  = book<TH1F>("NN_Ak8_j3_tau32", "NN_Ak8_j3_tau32", 24, 0, 1.2);
+  NN_N_Ak8            = book<TH1F>("NN_N_Ak8", "NN_N_Ak8", 20, 0, 20);
+  NN_Ak8_j1_pt        = book<TH1F>("NN_Ak8_j1_pt", "NN_Ak8_j1_pt", 150, 0, 3000);
+  NN_Ak8_j1_eta       = book<TH1F>("NN_Ak8_j1_eta", "NN_Ak8_j1_eta", 50, -2.5, 2.5);
+  NN_Ak8_j1_phi       = book<TH1F>("NN_Ak8_j1_phi", "NN_Ak8_j1_phi", 35, -3.5, 3.5);
+  NN_Ak8_j1_E         = book<TH1F>("NN_Ak8_j1_E", "NN_Ak8_j1_E", 100, 0, 5000);
+  NN_Ak8_j1_mSD       = book<TH1F>("NN_Ak8_j1_mSD", "NN_Ak8_j1_mSD", 50, 0, 500);
+  NN_Ak8_j1_tau21     = book<TH1F>("NN_Ak8_j1_tau21", "NN_Ak8_j1_tau21", 24, 0, 1.2);
+  NN_Ak8_j1_tau32     = book<TH1F>("NN_Ak8_j1_tau32", "NN_Ak8_j1_tau32", 24, 0, 1.2);
+  NN_Ak8_j1_ttag      = book<TH1F>("NN_Ak8_j1_ttag", "NN_Ak8_j1_ttag", 50, 0, 1);
+  NN_Ak8_j2_pt        = book<TH1F>("NN_Ak8_j2_pt", "NN_Ak8_j2_pt", 150, 0, 3000);
+  NN_Ak8_j2_eta       = book<TH1F>("NN_Ak8_j2_eta", "NN_Ak8_j2_eta", 50, -2.5, 2.5);
+  NN_Ak8_j2_phi       = book<TH1F>("NN_Ak8_j2_phi", "NN_Ak8_j2_phi", 35, -3.5, 3.5);
+  NN_Ak8_j2_E         = book<TH1F>("NN_Ak8_j2_E", "NN_Ak8_j2_E", 100, 0, 5000);
+  NN_Ak8_j2_mSD       = book<TH1F>("NN_Ak8_j2_mSD", "NN_Ak8_j2_mSD", 50, 0, 500);
+  NN_Ak8_j2_tau21     = book<TH1F>("NN_Ak8_j2_tau21", "NN_Ak8_j2_tau21", 24, 0, 1.2);
+  NN_Ak8_j2_tau32     = book<TH1F>("NN_Ak8_j2_tau32", "NN_Ak8_j2_tau32", 24, 0, 1.2);
+  NN_Ak8_j2_ttag      = book<TH1F>("NN_Ak8_j2_ttag", "NN_Ak8_j2_ttag", 50, 0, 1);
+  NN_Ak8_j3_pt        = book<TH1F>("NN_Ak8_j3_pt", "NN_Ak8_j3_pt", 150, 0, 3000);
+  NN_Ak8_j3_eta       = book<TH1F>("NN_Ak8_j3_eta", "NN_Ak8_j3_eta", 50, -2.5, 2.5);
+  NN_Ak8_j3_phi       = book<TH1F>("NN_Ak8_j3_phi", "NN_Ak8_j3_phi", 35, -3.5, 3.5);
+  NN_Ak8_j3_E         = book<TH1F>("NN_Ak8_j3_E", "NN_Ak8_j3_E", 100, 0, 5000);
+  NN_Ak8_j3_mSD       = book<TH1F>("NN_Ak8_j3_mSD", "NN_Ak8_j3_mSD", 50, 0, 500);
+  NN_Ak8_j3_tau21     = book<TH1F>("NN_Ak8_j3_tau21", "NN_Ak8_j3_tau21", 24, 0, 1.2);
+  NN_Ak8_j3_tau32     = book<TH1F>("NN_Ak8_j3_tau32", "NN_Ak8_j3_tau32", 24, 0, 1.2);
+  NN_Ak8_j3_ttag      = book<TH1F>("NN_Ak8_j3_ttag", "NN_Ak8_j3_ttag", 50, 0, 1);
 }
 
 
@@ -1608,6 +1612,7 @@ if(isdeepAK8){
       NN_Ak8_j1_mSD->Fill(Ak8jets->at(i).softdropmass(),weight);
       NN_Ak8_j1_tau21->Fill(Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1(),weight);
       NN_Ak8_j1_tau32->Fill(Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2(),weight);
+      NN_Ak8_j1_ttag->Fill(Ak8jets->at(i).btag_MassDecorrelatedDeepBoosted_TvsQCD());
     }
     if(i==1){
       NN_Ak8_j2_pt->Fill(Ak8jets->at(i).pt(),weight);
@@ -1617,6 +1622,7 @@ if(isdeepAK8){
       NN_Ak8_j2_mSD->Fill(Ak8jets->at(i).softdropmass(),weight);
       NN_Ak8_j2_tau21->Fill(Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1(),weight);
       NN_Ak8_j2_tau32->Fill(Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2(),weight);
+      NN_Ak8_j2_ttag->Fill(Ak8jets->at(i).btag_MassDecorrelatedDeepBoosted_TvsQCD());
     }
     if(i==2){
       NN_Ak8_j3_pt->Fill(Ak8jets->at(i).pt(),weight);
@@ -1626,6 +1632,7 @@ if(isdeepAK8){
       NN_Ak8_j3_mSD->Fill(Ak8jets->at(i).softdropmass(),weight);
       NN_Ak8_j3_tau21->Fill(Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1(),weight);
       NN_Ak8_j3_tau32->Fill(Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2(),weight);
+      NN_Ak8_j3_ttag->Fill(Ak8jets->at(i).btag_MassDecorrelatedDeepBoosted_TvsQCD());
     }
   }
 } // end deepAK8 mode
@@ -1633,8 +1640,10 @@ if(isdeepAK8){
 if(is_zprime_reconstructed_chi2){
   ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
   float Mass_tt = BestZprimeCandidate->Zprime_v4().M();
+  float chi2 = BestZprimeCandidate->discriminator("chi2_total");
   NN_M_tt_weighted->Fill(Mass_tt,weight);
   NN_M_tt_notweighted->Fill(Mass_tt);
+  NN_chi2->Fill(chi2);
 }
 
 
