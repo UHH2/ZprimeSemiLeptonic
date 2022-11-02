@@ -1,0 +1,18 @@
+# PARAMETERS
+imax 2 number of regions
+jmax 2 number of processes -1
+kmax *
+shapes * * inputHistograms_ALP_TOP20001_UL18_fa520.root $CHANNEL_$PROCESS $CHANNEL_$PROCESS_$SYSTEMATIC
+-----------------------------
+# regions
+bin          bin1  bin2  
+observation  -1    -1    
+-----------------------------
+# PROCESSES
+bin                            bin1                    bin1                    bin1                    bin2                    bin2                    bin2                    
+process                        ALP_ttbar_signal        ALP_ttbar_interference  TTToSemiLeptonic        ALP_ttbar_signal        ALP_ttbar_interference  TTToSemiLeptonic        
+process                        -1                      0                       1                       -1                      0                       1                       
+rate                           -1                      -1                      -1                      -1                      -1                      -1                      
+-----------------------------
+# SYSTEMATICS
+tttosemileptonic_rate  lnN     -                       -                       1.1                     -                       -                       1.1                     
