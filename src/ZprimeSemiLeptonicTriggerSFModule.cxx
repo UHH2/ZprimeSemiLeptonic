@@ -65,7 +65,7 @@ protected:
 
   // Configuration
   bool debug = false;
-  bool isMC, ishotvr, isdeepAK8; 
+  bool isMC, ishotvr, isdeepAK8;
   bool isUL16preVFP, isUL16postVFP, isUL17, isUL18;
   string Sys_PU, Prefiring_direction, Sys_TopPt_a, Sys_TopPt_b;
   TString year;
@@ -160,8 +160,8 @@ ZprimeSemiLeptonicTriggerSFModule::ZprimeSemiLeptonicTriggerSFModule(uhh2::Conte
   Sys_TopPt_a = ctx.get("Systematic_TopPt_a");
   Sys_TopPt_b = ctx.get("Systematic_TopPt_b");
 
-  double a_toppt = 0.0615; // par a TopPt Reweighting
-  double b_toppt = -0.0005; // par b TopPt Reweighting
+  // double a_toppt = 0.0615; // par a TopPt Reweighting
+  // double b_toppt = -0.0005; // par b TopPt Reweighting
 
   // Modules
   LumiWeight_module.reset(new MCLumiWeight(ctx));
@@ -267,7 +267,7 @@ bool ZprimeSemiLeptonicTriggerSFModule::process(uhh2::Event& event){
   }
 
   if(muon_is_high){
-    sf_muon_id_high->process(event); 
+    sf_muon_id_high->process(event);
   }
 
   if(ele_is_low){
@@ -320,7 +320,7 @@ bool ZprimeSemiLeptonicTriggerSFModule::process(uhh2::Event& event){
       }
       if(isMC && isUL17){
         float runB_ele = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-        if(runB_ele <= 0.1158){ // in RunB (below runnumb 299329) Ele115 does not exist, use Ele35 instead. To apply randomly in MC if random numb < RunB percetage (11.58%, calculated by Christopher Matthies) 
+        if(runB_ele <= 0.1158){ // in RunB (below runnumb 299329) Ele115 does not exist, use Ele35 instead. To apply randomly in MC if random numb < RunB percetage (11.58%, calculated by Christopher Matthies)
            passed_elec_trigger = (Trigger_ele_A_selection->passes(event) || Trigger_ph_A_selection->passes(event));
         }else{
            passed_elec_trigger = (Trigger_ele_B_selection->passes(event) || Trigger_ph_A_selection->passes(event));
@@ -332,7 +332,7 @@ bool ZprimeSemiLeptonicTriggerSFModule::process(uhh2::Event& event){
            if(event.run <= 299329){
                   passed_elec_trigger = (Trigger_ele_A_selection->passes(event)|| Trigger_ph_A_selection->passes(event));
              }else{
-                  passed_elec_trigger = (Trigger_ele_B_selection->passes(event)|| Trigger_ph_A_selection->passes(event));     
+                  passed_elec_trigger = (Trigger_ele_B_selection->passes(event)|| Trigger_ph_A_selection->passes(event));
             }
       }
 
