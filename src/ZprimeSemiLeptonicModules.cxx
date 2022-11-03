@@ -275,15 +275,15 @@ ZprimeChi2Discriminator::ZprimeChi2Discriminator(uhh2::Context& ctx){
   h_is_zprime_reconstructed_ = ctx.get_handle< bool >("is_zprime_reconstructed_chi2");
   h_BestCandidate_ = ctx.get_handle<ZprimeCandidate*>("ZprimeCandidateBestChi2");
 
-  mtoplep_ = 175.0;
-  sigmatoplep_ = 23.3;
-  mtophad_ = 175.4;
-  sigmatophad_ = 20.7;
+  mtoplep_ = 173.0;
+  sigmatoplep_ = 24.5;
+  mtophad_ = 171.5;
+  sigmatophad_ = 21.5;
 
-  mtoplep_ttag_ = 172.2;
-  sigmatoplep_ttag_ = 21.7;
-  mtophad_ttag_ = 182.3;
-  sigmatophad_ttag_ = 16.1;
+  mtoplep_ttag_ = 171.5;
+  sigmatoplep_ttag_ = 21.9;
+  mtophad_ttag_ = 180.3;
+  sigmatophad_ttag_ = 15.6;
 
 }
 
