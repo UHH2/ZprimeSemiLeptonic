@@ -1,0 +1,4 @@
+Mtop_hadronic_AK4 mean 176.219 width 21.761
+Mtop_leptonic_AK4 mean 171.894 width 23.6238
+Mtop_hadronic_TTag mean 182.22 width 16.759
+Mtop_leptonic_TTag mean 171.551 width 20.1671
