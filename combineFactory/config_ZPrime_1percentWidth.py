@@ -214,7 +214,7 @@ def createCombineInput():
                 datacard.write("# PROCESSES\n")
                 datacard.write(pad("bin", N1 + N2) + "".join([pad(region, N4) for region in regions for process in processes]) + "\n")
                 datacard.write(pad("process", N1 + N2) + "".join([pad(process, N4) for region in regions for process in processes]) + "\n")
-                datacard.write(pad("process", N1 + N2) + ("".join([pad(signal, N4) + [pad(str(b+1), N4) for b in range(len(backgrounds))])) * len(regions) + "\n")
+                datacard.write(pad("process", N1 + N2) + ("".join([pad("-1", N4) + [pad(str(b+1), N4) for b in range(len(backgrounds))])) * len(regions) + "\n")
                 datacard.write(pad("rate", N1 + N2) + "".join([pad("-1", N4)  for region in regions for process in processes]) + "\n")
                 datacard.write((N1 + N2 - 2) * "-" + "\n")
                 datacard.write("# SYSTEMATICS\n")
