@@ -739,14 +739,14 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
     if(ele_is_high){
       // MC except UL17 that needs special treatment
       if(isMC && (isUL16preVFP || isUL16postVFP || isUL18) ){
-        if(!(Trigger_ele_B_selection->passes(event) || Trigger_ph_A_selection->passes(event))) return false;
+        if(!(Trigger_ele_A_selection->passes(event) || Trigger_ele_B_selection->passes(event) || Trigger_ph_A_selection->passes(event))) return false;
       }
       if(isMC && isUL17){
         float runB_ele = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
         if(runB_ele <= 0.1158){ // in RunB (below runnumb 299329) Ele115 does not exist, use Ele35 instead. To apply randomly in MC if random numb < RunB percetage (11.58%, calculated by Christopher Matthies)
           if(!(Trigger_ele_A_selection->passes(event) || Trigger_ph_A_selection->passes(event))) return false;
         }else{
-          if(!(Trigger_ele_B_selection->passes(event) || Trigger_ph_A_selection->passes(event))) return false;
+          if(!(Trigger_ele_A_selection->passes(event) || Trigger_ele_B_selection->passes(event) || Trigger_ph_A_selection->passes(event))) return false;
         }
       }
       if(!isMC){
@@ -754,10 +754,10 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
         // 2016
         if(isUL16preVFP || isUL16postVFP){
           if(isPhoton){ // photon stream
-            if(Trigger_ele_B_selection->passes(event)) return false;
+            if(Trigger_ele_A_selection->passes(event) || Trigger_ele_B_selection->passes(event)) return false;
             if(!Trigger_ph_A_selection->passes(event)) return false;
           }else{ // electron stream
-            if(!Trigger_ele_B_selection->passes(event)) return false;
+            if(!(Trigger_ele_A_selection->passes(event) ||  Trigger_ele_B_selection->passes(event) )) return false;
           }
         }
         // 2017
@@ -772,16 +772,16 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
             }
           }else{ // above runnumb with Ele115
             if(isPhoton){ // photon stream
-              if(Trigger_ele_B_selection->passes(event)) return false;
+              if(Trigger_ele_A_selection->passes(event) || Trigger_ele_B_selection->passes(event)) return false;
               if(!Trigger_ph_A_selection->passes(event)) return false;
             }else{ // electron stream
-              if(!Trigger_ele_B_selection->passes(event)) return false;
+              if(! (Trigger_ele_A_selection->passes(event) || Trigger_ele_B_selection->passes(event))) return false;
             }
           }
         }
         // 2018 photon & electron together: EGamma DATA
         if(isUL18){
-          if(!(Trigger_ele_B_selection->passes(event)|| Trigger_ph_A_selection->passes(event))) return false;
+          if(!(Trigger_ele_A_selection->passes(event) || Trigger_ele_B_selection->passes(event)|| Trigger_ph_A_selection->passes(event))) return false;
         }
 
       }

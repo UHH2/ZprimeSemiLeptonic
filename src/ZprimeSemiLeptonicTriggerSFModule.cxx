@@ -316,23 +316,23 @@ bool ZprimeSemiLeptonicTriggerSFModule::process(uhh2::Event& event){
   }
   if(ele_is_high){
       if(isMC && (isUL16preVFP || isUL16postVFP || isUL18) ){
-        passed_elec_trigger = (Trigger_ele_B_selection->passes(event) || Trigger_ph_A_selection->passes(event));
+        passed_elec_trigger = (Trigger_ele_A_selection->passes(event) || Trigger_ele_B_selection->passes(event) || Trigger_ph_A_selection->passes(event));
       }
       if(isMC && isUL17){
         float runB_ele = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
         if(runB_ele <= 0.1158){ // in RunB (below runnumb 299329) Ele115 does not exist, use Ele35 instead. To apply randomly in MC if random numb < RunB percetage (11.58%, calculated by Christopher Matthies)
            passed_elec_trigger = (Trigger_ele_A_selection->passes(event) || Trigger_ph_A_selection->passes(event));
         }else{
-           passed_elec_trigger = (Trigger_ele_B_selection->passes(event) || Trigger_ph_A_selection->passes(event));
+           passed_elec_trigger = (Trigger_ele_A_selection->passes(event) || Trigger_ele_B_selection->passes(event) || Trigger_ph_A_selection->passes(event));
         }
       }
       if(!isMC && (isUL16preVFP || isUL16postVFP || isUL18) ){
-           passed_elec_trigger = (Trigger_ele_B_selection->passes(event)|| Trigger_ph_A_selection->passes(event));
+           passed_elec_trigger = (Trigger_ele_A_selection->passes(event) || Trigger_ele_B_selection->passes(event)|| Trigger_ph_A_selection->passes(event));
       }else if(!isMC && isUL17){
            if(event.run <= 299329){
-                  passed_elec_trigger = (Trigger_ele_A_selection->passes(event)|| Trigger_ph_A_selection->passes(event));
+                  passed_elec_trigger = (Trigger_ele_A_selection->passes(event) || Trigger_ph_A_selection->passes(event));
              }else{
-                  passed_elec_trigger = (Trigger_ele_B_selection->passes(event)|| Trigger_ph_A_selection->passes(event));
+                  passed_elec_trigger = (Trigger_ele_A_selection->passes(event) || Trigger_ele_B_selection->passes(event)|| Trigger_ph_A_selection->passes(event));
             }
       }
 
