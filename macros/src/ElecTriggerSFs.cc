@@ -18,7 +18,7 @@ Int_t run;
 Int_t lumin;
 Int_t eventnr;
 bool passed, passed_elec, passed_photon;
-bool debug = false;
+bool debug = true;
 TString weighttag;
 TString year, year_v;
 
@@ -183,6 +183,10 @@ int argc = 2;
   fill_control((TTree *) f_tt->Get("AnalysisTree"), h_pt_mc_control, h_eta_mc_control);
 
   AdjustBinContent(h_pt_mc[1], h_pt_mc[0], "pt - ");
+  AdjustBinContent(h_eta_mc[1], h_eta_mc[0], "eta - ");
+  AdjustBinContent(h_eta_mc[3], h_eta_mc[2], "eta - ");
+  AdjustBinContent(h_eta_mc[5], h_eta_mc[4], "eta - ");
+  AdjustBinContent(h_eta_mc[7], h_eta_mc[6], "eta - ");
 
   if(debug) cout << "Plots Hists ... " << endl;
   if(debug) cout << "\n\t ... data" << endl;
