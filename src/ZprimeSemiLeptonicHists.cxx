@@ -1612,7 +1612,7 @@ if(isdeepAK8){
       NN_Ak8_j1_mSD->Fill(Ak8jets->at(i).softdropmass(),weight);
       NN_Ak8_j1_tau21->Fill(Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1(),weight);
       NN_Ak8_j1_tau32->Fill(Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2(),weight);
-      NN_Ak8_j1_ttag->Fill(Ak8jets->at(i).btag_MassDecorrelatedDeepBoosted_TvsQCD());
+      NN_Ak8_j1_ttag->Fill(Ak8jets->at(i).btag_MassDecorrelatedDeepBoosted_TvsQCD(),weight);
     }
     if(i==1){
       NN_Ak8_j2_pt->Fill(Ak8jets->at(i).pt(),weight);
@@ -1622,7 +1622,7 @@ if(isdeepAK8){
       NN_Ak8_j2_mSD->Fill(Ak8jets->at(i).softdropmass(),weight);
       NN_Ak8_j2_tau21->Fill(Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1(),weight);
       NN_Ak8_j2_tau32->Fill(Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2(),weight);
-      NN_Ak8_j2_ttag->Fill(Ak8jets->at(i).btag_MassDecorrelatedDeepBoosted_TvsQCD());
+      NN_Ak8_j2_ttag->Fill(Ak8jets->at(i).btag_MassDecorrelatedDeepBoosted_TvsQCD(),weight);
     }
     if(i==2){
       NN_Ak8_j3_pt->Fill(Ak8jets->at(i).pt(),weight);
@@ -1632,7 +1632,7 @@ if(isdeepAK8){
       NN_Ak8_j3_mSD->Fill(Ak8jets->at(i).softdropmass(),weight);
       NN_Ak8_j3_tau21->Fill(Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1(),weight);
       NN_Ak8_j3_tau32->Fill(Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2(),weight);
-      NN_Ak8_j3_ttag->Fill(Ak8jets->at(i).btag_MassDecorrelatedDeepBoosted_TvsQCD());
+      NN_Ak8_j3_ttag->Fill(Ak8jets->at(i).btag_MassDecorrelatedDeepBoosted_TvsQCD(),weight);
     }
   }
 } // end deepAK8 mode
@@ -1641,9 +1641,9 @@ if(is_zprime_reconstructed_chi2){
   ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
   float Mass_tt = BestZprimeCandidate->Zprime_v4().M();
   float chi2 = BestZprimeCandidate->discriminator("chi2_total");
-  NN_M_tt_weighted->Fill(Mass_tt,weight);
-  NN_M_tt_notweighted->Fill(Mass_tt);
-  NN_chi2->Fill(chi2);
+  if(is_mc) NN_M_tt_weighted->Fill(Mass_tt,weight);
+  if(is_mc) NN_M_tt_notweighted->Fill(Mass_tt);
+  NN_chi2->Fill(chi2,weight);
 }
 
 
