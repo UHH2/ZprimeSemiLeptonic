@@ -516,8 +516,8 @@ void ZprimeAnalysisModule_applyNN::fill_histograms(uhh2::Event& event, string ta
 */
 
 ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
-   debug = true;
-  //debug = false;
+  // debug = true;
+  debug = false;
   for(auto & kv : ctx.get_all()){
     cout << " " << kv.first << " = " << kv.second << endl;
   }
@@ -1112,12 +1112,10 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
   // Variables for NN
   Variables_module->process(event);
   fill_histograms(event, "NNInputsBeforeReweight");
-  if(debug) cout << "NNInput Variables : ok" << endl;
 
   // NN module
   NNModule->process(event);
   std::vector<tensorflow::Tensor> NNoutputs = NNModule->GetOutputs();
-  if(debug) cout << "NNModule: ok" << endl;
 
   event.set(h_NNoutput0, (double)(NNoutputs[0].tensor<float, 2>()(0,0)));
   event.set(h_NNoutput1, (double)(NNoutputs[0].tensor<float, 2>()(0,1)));
@@ -1128,7 +1126,6 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
   double out1 = (double)(NNoutputs[0].tensor<float, 2>()(0,1));
   double out2 = (double)(NNoutputs[0].tensor<float, 2>()(0,2));
   vector<double> out_event = {out0, out1, out2};
-  if(debug) cout << "outputs: ok" << endl;
 
   h_MulticlassNN_output->fill(event);
 
@@ -1141,7 +1138,6 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
   // Veto events with >= 2 TopTagged large-R jets
   if(!TopTagVetoSelection->passes(event)) return false;
   fill_histograms(event, "TopTagVeto");
-  if(debug) cout << "top tag veto: ok" << endl;
 
   // out0=TTbar, out1=ST, out2=WJets
   if( out0 == max_score ){
