@@ -47,11 +47,6 @@ protected:
   uhh2::Event::Handle<float> h_prefiring;
   uhh2::Event::Handle<float> h_prefiring_up;
   uhh2::Event::Handle<float> h_prefiring_down;
-  uhh2::Event::Handle<float> h_toppt;
-  uhh2::Event::Handle<float> h_toppt_a_up;
-  uhh2::Event::Handle<float> h_toppt_a_down;
-  uhh2::Event::Handle<float> h_toppt_b_up;
-  uhh2::Event::Handle<float> h_toppt_b_down;
   uhh2::Event::Handle<float> h_murmuf_upup;
   uhh2::Event::Handle<float> h_murmuf_upnone;
   uhh2::Event::Handle<float> h_murmuf_noneup;
@@ -99,10 +94,6 @@ protected:
   TH1F *M_Zprime_ele_trigger_down;
   TH1F *M_Zprime_ele_reco_up;
   TH1F *M_Zprime_ele_reco_down;
-  TH1F *M_Zprime_toppt_a_up;
-  TH1F *M_Zprime_toppt_a_down;
-  TH1F *M_Zprime_toppt_b_up;
-  TH1F *M_Zprime_toppt_b_down;
   TH1F *M_Zprime_murmuf_upup;
   TH1F *M_Zprime_murmuf_upnone;
   TH1F *M_Zprime_murmuf_noneup;
