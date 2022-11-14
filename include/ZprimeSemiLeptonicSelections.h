@@ -334,6 +334,17 @@ namespace uhh2 {
   private:
   uhh2::Event::Handle< std::vector<Jet> > h_CHSjets_matched;
   std::unique_ptr<Selection> sel_1btag;
-};
+  };
+  ////
+
+  class SignSelection: public Selection {
+
+  public:
+    explicit SignSelection(const std::string&);
+    virtual bool passes(const Event&) override;
+
+  private:
+    std::string weight_sign_;
+  };
 
 }
