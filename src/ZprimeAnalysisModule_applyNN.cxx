@@ -107,14 +107,6 @@ protected:
   uhh2::Event::Handle<float> h_Ak4_j5_pt;
   uhh2::Event::Handle<float> h_Ak4_j5_deepjetbscore;
 
-  uhh2::Event::Handle<float> h_Ak4_j6_E;
-  uhh2::Event::Handle<float> h_Ak4_j6_eta;
-  uhh2::Event::Handle<float> h_Ak4_j6_m;
-  uhh2::Event::Handle<float> h_Ak4_j6_phi;
-  uhh2::Event::Handle<float> h_Ak4_j6_pt;
-  uhh2::Event::Handle<float> h_Ak4_j6_deepjetbscore;
-
-  //Only Ele or Mu variables!!
   uhh2::Event::Handle<float> h_Ele_E;
   uhh2::Event::Handle<float> h_Ele_eta;
   uhh2::Event::Handle<float> h_Ele_phi;
@@ -123,7 +115,6 @@ protected:
   uhh2::Event::Handle<float> h_MET_phi;
   uhh2::Event::Handle<float> h_MET_pt;
 
-  //Only Ele or Mu variables!!
   uhh2::Event::Handle<float> h_Mu_E;
   uhh2::Event::Handle<float> h_Mu_eta;
   uhh2::Event::Handle<float> h_Mu_phi;
@@ -198,14 +189,6 @@ NeuralNetworkModule::NeuralNetworkModule(Context& ctx, const std::string & Model
   h_Ak4_j5_pt  = ctx.get_handle<float>("Ak4_j5_pt");
   h_Ak4_j5_deepjetbscore  = ctx.get_handle<float>("Ak4_j5_deepjetbscore");
 
-  h_Ak4_j6_E   = ctx.get_handle<float>("Ak4_j6_E");
-  h_Ak4_j6_eta = ctx.get_handle<float>("Ak4_j6_eta");
-  h_Ak4_j6_m   = ctx.get_handle<float>("Ak4_j6_m");
-  h_Ak4_j6_phi = ctx.get_handle<float>("Ak4_j6_phi");
-  h_Ak4_j6_pt  = ctx.get_handle<float>("Ak4_j6_pt");
-  h_Ak4_j6_deepjetbscore  = ctx.get_handle<float>("Ak4_j6_deepjetbscore");
-
-  //Only Ele or Mu variables!!
   h_Ele_E    = ctx.get_handle<float>("Ele_E");
   h_Ele_eta  = ctx.get_handle<float>("Ele_eta");
   h_Ele_phi  = ctx.get_handle<float>("Ele_phi");
@@ -214,7 +197,6 @@ NeuralNetworkModule::NeuralNetworkModule(Context& ctx, const std::string & Model
   h_MET_phi = ctx.get_handle<float>("MET_phi");
   h_MET_pt = ctx.get_handle<float>("MET_pt");
 
-  //Only Ele or Mu variables!!
   h_Mu_E    = ctx.get_handle<float>("Mu_E");
   h_Mu_eta  = ctx.get_handle<float>("Mu_eta");
   h_Mu_phi  = ctx.get_handle<float>("Mu_phi");
@@ -261,7 +243,7 @@ void NeuralNetworkModule::CreateInputs(Event & event){
   double mean_val[65];
   double std_val[65];
   //Only Ele or Mu variables!!
-  ifstream normfile ("/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_DeepAK8_UL18_muon/NormInfo.txt", ios::in);
+  ifstream normfile ("/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_DeepAK8_UL17_muon/NormInfo.txt", ios::in);
   //ifstream normfile ("/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_DeepAK8_UL18_ele/NormInfo.txt", ios::in);
   if(!normfile.good()) throw runtime_error("NeuralNetworkModule: The specified norm file does not exist.");
   if (normfile.is_open()){
@@ -280,8 +262,8 @@ void NeuralNetworkModule::CreateInputs(Event & event){
 
   //Only Ele or Mu variables!!
 
-  vector<uhh2::Event::Handle<float>> inputs = { h_Ak4_j1_E, h_Ak4_j1_deepjetbscore, h_Ak4_j1_eta, h_Ak4_j1_m, h_Ak4_j1_phi, h_Ak4_j1_pt,h_Ak4_j2_E,h_Ak4_j2_deepjetbscore,h_Ak4_j2_eta,h_Ak4_j2_m,h_Ak4_j2_phi,h_Ak4_j2_pt,h_Ak4_j3_E,h_Ak4_j3_deepjetbscore,h_Ak4_j3_eta,h_Ak4_j3_m,h_Ak4_j3_phi, h_Ak4_j3_pt,  h_Ak4_j4_E, h_Ak4_j4_deepjetbscore,  h_Ak4_j4_eta, h_Ak4_j4_m,   h_Ak4_j4_phi, h_Ak4_j4_pt,  h_Ak4_j5_E, h_Ak4_j5_deepjetbscore,  h_Ak4_j5_eta, h_Ak4_j5_m,   h_Ak4_j5_phi, h_Ak4_j5_pt,  h_Ak4_j6_E, h_Ak4_j6_deepjetbscore,  h_Ak4_j6_eta, h_Ak4_j6_m,   h_Ak4_j6_phi, h_Ak4_j6_pt,  h_Ak8_j1_E,     h_Ak8_j1_eta,   h_Ak8_j1_mSD,   h_Ak8_j1_phi,   h_Ak8_j1_pt,    h_Ak8_j1_tau21, h_Ak8_j1_tau32, h_Ak8_j2_E,     h_Ak8_j2_eta,   h_Ak8_j2_mSD,   h_Ak8_j2_phi,   h_Ak8_j2_pt,    h_Ak8_j2_tau21, h_Ak8_j2_tau32, h_Ak8_j3_E,     h_Ak8_j3_eta,   h_Ak8_j3_mSD,   h_Ak8_j3_phi,h_Ak8_j3_pt,h_Ak8_j3_tau21,h_Ak8_j3_tau32,h_MET_phi,h_MET_pt,h_Mu_E,  h_Mu_eta,h_Mu_phi,h_Mu_pt, h_N_Ak4,h_N_Ak8 };
-  //vector<uhh2::Event::Handle<float>> inputs = { h_Ak4_j1_E, h_Ak4_j1_deepjetbscore, h_Ak4_j1_eta, h_Ak4_j1_m, h_Ak4_j1_phi, h_Ak4_j1_pt,h_Ak4_j2_E,h_Ak4_j2_deepjetbscore,h_Ak4_j2_eta,h_Ak4_j2_m,h_Ak4_j2_phi,h_Ak4_j2_pt,h_Ak4_j3_E,h_Ak4_j3_deepjetbscore,h_Ak4_j3_eta,h_Ak4_j3_m,h_Ak4_j3_phi, h_Ak4_j3_pt,  h_Ak4_j4_E, h_Ak4_j4_deepjetbscore,  h_Ak4_j4_eta, h_Ak4_j4_m,   h_Ak4_j4_phi, h_Ak4_j4_pt,  h_Ak4_j5_E, h_Ak4_j5_deepjetbscore,  h_Ak4_j5_eta, h_Ak4_j5_m,   h_Ak4_j5_phi, h_Ak4_j5_pt,  h_Ak4_j6_E, h_Ak4_j6_deepjetbscore,  h_Ak4_j6_eta, h_Ak4_j6_m,   h_Ak4_j6_phi, h_Ak4_j6_pt,  h_Ak8_j1_E,     h_Ak8_j1_eta,   h_Ak8_j1_mSD,   h_Ak8_j1_phi,   h_Ak8_j1_pt,    h_Ak8_j1_tau21, h_Ak8_j1_tau32, h_Ak8_j2_E,     h_Ak8_j2_eta,   h_Ak8_j2_mSD,   h_Ak8_j2_phi,   h_Ak8_j2_pt,    h_Ak8_j2_tau21, h_Ak8_j2_tau32, h_Ak8_j3_E,     h_Ak8_j3_eta,   h_Ak8_j3_mSD,   h_Ak8_j3_phi,h_Ak8_j3_pt,h_Ak8_j3_tau21,h_Ak8_j3_tau32,h_Ele_E, h_Ele_eta, h_Ele_phi, h_Ele_pt, h_MET_phi,h_MET_pt,h_N_Ak4,h_N_Ak8 };
+  vector<uhh2::Event::Handle<float>> inputs = { h_Ak4_j1_E, h_Ak4_j1_deepjetbscore, h_Ak4_j1_eta, h_Ak4_j1_m, h_Ak4_j1_phi, h_Ak4_j1_pt,h_Ak4_j2_E,h_Ak4_j2_deepjetbscore,h_Ak4_j2_eta,h_Ak4_j2_m,h_Ak4_j2_phi,h_Ak4_j2_pt,h_Ak4_j3_E,h_Ak4_j3_deepjetbscore,h_Ak4_j3_eta,h_Ak4_j3_m,h_Ak4_j3_phi, h_Ak4_j3_pt,  h_Ak4_j4_E, h_Ak4_j4_deepjetbscore,  h_Ak4_j4_eta, h_Ak4_j4_m,   h_Ak4_j4_phi, h_Ak4_j4_pt,  h_Ak4_j5_E, h_Ak4_j5_deepjetbscore,  h_Ak4_j5_eta, h_Ak4_j5_m,   h_Ak4_j5_phi, h_Ak4_j5_pt,  h_Ak8_j1_E,     h_Ak8_j1_eta,   h_Ak8_j1_mSD,   h_Ak8_j1_phi,   h_Ak8_j1_pt,    h_Ak8_j1_tau21, h_Ak8_j1_tau32, h_Ak8_j2_E,     h_Ak8_j2_eta,   h_Ak8_j2_mSD,   h_Ak8_j2_phi,   h_Ak8_j2_pt,    h_Ak8_j2_tau21, h_Ak8_j2_tau32, h_Ak8_j3_E,     h_Ak8_j3_eta,   h_Ak8_j3_mSD,   h_Ak8_j3_phi,h_Ak8_j3_pt,h_Ak8_j3_tau21,h_Ak8_j3_tau32,h_MET_phi,h_MET_pt,h_Mu_E,  h_Mu_eta,h_Mu_phi,h_Mu_pt, h_N_Ak4,h_N_Ak8 };
+  //vector<uhh2::Event::Handle<float>> inputs = { h_Ak4_j1_E, h_Ak4_j1_deepjetbscore, h_Ak4_j1_eta, h_Ak4_j1_m, h_Ak4_j1_phi, h_Ak4_j1_pt,h_Ak4_j2_E,h_Ak4_j2_deepjetbscore,h_Ak4_j2_eta,h_Ak4_j2_m,h_Ak4_j2_phi,h_Ak4_j2_pt,h_Ak4_j3_E,h_Ak4_j3_deepjetbscore,h_Ak4_j3_eta,h_Ak4_j3_m,h_Ak4_j3_phi, h_Ak4_j3_pt,  h_Ak4_j4_E, h_Ak4_j4_deepjetbscore,  h_Ak4_j4_eta, h_Ak4_j4_m,   h_Ak4_j4_phi, h_Ak4_j4_pt,  h_Ak4_j5_E, h_Ak4_j5_deepjetbscore,  h_Ak4_j5_eta, h_Ak4_j5_m,   h_Ak4_j5_phi, h_Ak4_j5_pt,  h_Ak8_j1_E,     h_Ak8_j1_eta,   h_Ak8_j1_mSD,   h_Ak8_j1_phi,   h_Ak8_j1_pt,    h_Ak8_j1_tau21, h_Ak8_j1_tau32, h_Ak8_j2_E,     h_Ak8_j2_eta,   h_Ak8_j2_mSD,   h_Ak8_j2_phi,   h_Ak8_j2_pt,    h_Ak8_j2_tau21, h_Ak8_j2_tau32, h_Ak8_j3_E,     h_Ak8_j3_eta,   h_Ak8_j3_mSD,   h_Ak8_j3_phi,h_Ak8_j3_pt,h_Ak8_j3_tau21,h_Ak8_j3_tau32,h_Ele_E, h_Ele_eta, h_Ele_phi, h_Ele_pt, h_MET_phi,h_MET_pt,h_N_Ak4,h_N_Ak8 };
 
   for(int i = 0; i < 65; ++i){
     NNInputs.at(0).tensor<float, 2>()(0,i)  = (event.get(inputs.at(i))   - mean_val[i]) / (std_val[i]);
@@ -460,14 +442,6 @@ protected:
   Event::Handle<float> h_Ak4_j5_pt;
   Event::Handle<float> h_Ak4_j5_deepjetbscore;
 
-  Event::Handle<float> h_Ak4_j6_E;
-  Event::Handle<float> h_Ak4_j6_eta;
-  Event::Handle<float> h_Ak4_j6_m;
-  Event::Handle<float> h_Ak4_j6_phi;
-  Event::Handle<float> h_Ak4_j6_pt;
-  Event::Handle<float> h_Ak4_j6_deepjetbscore;
-
-  //Only Ele or Mu variables!!
   Event::Handle<float> h_Ele_E;
   Event::Handle<float> h_Ele_eta;
   Event::Handle<float> h_Ele_phi;
@@ -476,7 +450,6 @@ protected:
   Event::Handle<float> h_MET_phi;
   Event::Handle<float> h_MET_pt;
 
-  //Only Ele or Mu variables!!
   Event::Handle<float> h_Mu_E;
   Event::Handle<float> h_Mu_eta;
   Event::Handle<float> h_Mu_phi;
@@ -841,14 +814,6 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   h_Ak4_j5_pt  = ctx.get_handle<float>("Ak4_j5_pt");
   h_Ak4_j5_deepjetbscore  = ctx.get_handle<float>("Ak4_j5_deepjetbscore");
 
-  h_Ak4_j6_E   = ctx.get_handle<float>("Ak4_j6_E");
-  h_Ak4_j6_eta = ctx.get_handle<float>("Ak4_j6_eta");
-  h_Ak4_j6_m   = ctx.get_handle<float>("Ak4_j6_m");
-  h_Ak4_j6_phi = ctx.get_handle<float>("Ak4_j6_phi");
-  h_Ak4_j6_pt  = ctx.get_handle<float>("Ak4_j6_pt");
-  h_Ak4_j6_deepjetbscore  = ctx.get_handle<float>("Ak4_j6_deepjetbscore");
-
-  //Only Ele or Mu variables!!
   h_Ele_E    = ctx.get_handle<float>("Ele_E");
   h_Ele_eta  = ctx.get_handle<float>("Ele_eta");
   h_Ele_phi  = ctx.get_handle<float>("Ele_phi");
@@ -857,7 +822,6 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   h_MET_phi = ctx.get_handle<float>("MET_phi");
   h_MET_pt = ctx.get_handle<float>("MET_pt");
 
-  //Only Ele or Mu variables!!
   h_Mu_E    = ctx.get_handle<float>("Mu_E");
   h_Mu_eta  = ctx.get_handle<float>("Mu_eta");
   h_Mu_phi  = ctx.get_handle<float>("Mu_phi");
@@ -896,7 +860,7 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   h_NNoutput1 = ctx.declare_event_output<double>("NNoutput1");
   h_NNoutput2 = ctx.declare_event_output<double>("NNoutput2");
   ////Only Ele or Mu variables!!
-  NNModule.reset( new NeuralNetworkModule(ctx, "/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_DeepAK8_UL18_muon/model.pb", "/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_DeepAK8_UL18_muon/model.config.pbtxt"));
+  NNModule.reset( new NeuralNetworkModule(ctx, "/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_DeepAK8_UL17_muon/model.pb", "/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_DeepAK8_UL17_muon/model.config.pbtxt"));
   //NNModule.reset( new NeuralNetworkModule(ctx, "/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_DeepAK8_UL18_ele/model.pb", "/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/KerasNN/NN_DeepAK8_UL18_ele/model.config.pbtxt"));
 
 }
