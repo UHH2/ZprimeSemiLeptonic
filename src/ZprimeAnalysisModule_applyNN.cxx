@@ -327,7 +327,7 @@ protected:
   std::unique_ptr<Selection> sel_1btag, sel_2btag;
   std::unique_ptr<Selection> HEM_selection;
   unique_ptr<Selection> ThetaStar_selection_bin1, ThetaStar_selection_bin2, ThetaStar_selection_bin3;
-  //unique_ptr<Selection> SignSplit; 
+  unique_ptr<Selection> SignSplit; 
 
   // NN variables handles
   unique_ptr<Variables_NN> Variables_module;
@@ -676,12 +676,12 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
   ThetaStar_selection_bin3.reset(new ThetaStarSelection(ctx, theta_bin3));
 
   // Split interference signal samples by sign
-  //if(ctx.get("dataset_version").find("_int") != std::string::npos){
-  //  if     (ctx.get("dataset_version").find("_pos") != std::string::npos) SignSplit.reset(new SignSelection("pos"));
-  //  else if(ctx.get("dataset_version").find("_neg") != std::string::npos) SignSplit.reset(new SignSelection("neg"));
-  //  else SignSplit.reset(new uhh2::AndSelection(ctx));
-  //}
-  //else SignSplit.reset(new uhh2::AndSelection(ctx));
+  if(ctx.get("dataset_version").find("_int") != std::string::npos){
+    if     (ctx.get("dataset_version").find("_pos") != std::string::npos) SignSplit.reset(new SignSelection("pos"));
+    else if(ctx.get("dataset_version").find("_neg") != std::string::npos) SignSplit.reset(new SignSelection("neg"));
+    else SignSplit.reset(new uhh2::AndSelection(ctx));
+  }
+  else SignSplit.reset(new uhh2::AndSelection(ctx));
 
   // Top Taggers
   TopTaggerHOTVR.reset(new HOTVRTopTagger(ctx));
@@ -897,9 +897,9 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
   event.set(h_NNoutput2, 0);
 
   // Split interference signals by sign
-  //if(!event.isRealData){
-  //  if(!SignSplit->passes(event)) return false;
-  //} 
+  if(!event.isRealData){
+    if(!SignSplit->passes(event)) return false;
+  } 
 
   // Run top-tagging
   if(ishotvr){
