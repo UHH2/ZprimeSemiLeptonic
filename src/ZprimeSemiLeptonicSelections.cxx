@@ -629,3 +629,23 @@ bool PuppiCHS_BTagging::passes(const Event & event){
 
   return true;
 }
+
+/////////////////////////////////////////////////////
+
+uhh2::SignSelection::SignSelection(const std::string& weight_sign){
+
+  weight_sign_ = weight_sign;
+}
+
+bool uhh2::SignSelection::passes(const uhh2::Event& event){
+
+  bool pass(false);
+
+  double weight = event.weight;
+
+  if     (weight_sign_ == "pos") pass = (weight > 0.);
+  else if(weight_sign_ == "neg") pass = (weight < 0.);
+
+  return pass;
+
+}
