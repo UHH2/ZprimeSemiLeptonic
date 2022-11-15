@@ -62,10 +62,10 @@ void ZprimeSemiLeptonicPDFHists::fill(const Event & event){
     ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
     float Mreco = BestZprimeCandidate->Zprime_v4().M();
 
-    if(event.genInfo->systweights().size()){
-    float orig_weight = event.genInfo->originalXWGTUP();
     int MY_FIRST_INDEX = 9;
     if ( is_dy || is_wjets || is_qcd_HTbinned || is_alps || is_azh || is_htott_scalar || is_htott_pseudo || is_zprimetott ) MY_FIRST_INDEX = 47;
+    if(event.genInfo->systweights().size() > (unsigned int) 100 + MY_FIRST_INDEX){
+      float orig_weight = event.genInfo->originalXWGTUP();
       for(int i=0; i<100; i++){
         double pdf_weight = event.genInfo->systweights().at(i+MY_FIRST_INDEX);
         const char* name = hist_names[i].c_str();
