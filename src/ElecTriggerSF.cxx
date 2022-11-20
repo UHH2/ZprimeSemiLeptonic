@@ -99,14 +99,12 @@ bool uhh2::ElecTriggerSF::process(uhh2::Event & event){
 
   // do not set SF if electron out of range
   // this can happen if recsel is not passed
-  /**
-  if(fabs(eta) > 2.4 || pt < 55){
+  if(fabs(eta) > 2.5 || pt < 35){
     event.set(h_ele_weight, 1.);
     event.set(h_ele_weight_up, 1.);
     event.set(h_ele_weight_down, 1.);
     return true;
   }
-  **/
 
   int bin = 0;
   double sf = 1.0; double sf_up = 0.0; double sf_down = 0.0;

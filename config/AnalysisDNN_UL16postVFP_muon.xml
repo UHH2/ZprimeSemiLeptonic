@@ -1032,7 +1032,8 @@
                 <!-- RS gluon -->
                 <InputData Lumi="226000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluonToTT_M-500_UL16postVFP" Cacheable="&b_Cacheable;">
                         &RSGluonToTT_M-500_UL16postVFP;
-                        
+                        <InputTree Name="AnalysisTree" />
+                        <OutputTree Name="AnalysisTree" />
                 </InputData>
                 <InputData Lumi="250000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluonToTT_M-1000_UL16postVFP" Cacheable="&b_Cacheable;">
                         &RSGluonToTT_M-1000_UL16postVFP;
