@@ -288,12 +288,11 @@
                         <InputTree Name="AnalysisTree"/>
                         <OutputTree Name="AnalysisTree"/>
                 </InputData>
-<!--            <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_RunD_UL18" Cacheable="&b_Cacheable;">
+            <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_RunD_UL18" Cacheable="&b_Cacheable;">
                         &DATA_EGamma_RunD_UL18;
                         <InputTree Name="AnalysisTree"/>
                         <OutputTree Name="AnalysisTree"/>
                 </InputData>
--->
                 <!-- TTbar -->
                 <InputData Lumi="390319077.042" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_UL18" Cacheable="&b_Cacheable;">
                         &TTToSemiLeptonic_UL18;
@@ -1268,7 +1267,7 @@
                 <InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1800_W540_UL18" Cacheable="&b_Cacheable;">
                         &ZPrimeToTT_M1800_W540_UL18;
                         <InputTree Name="AnalysisTree"/>
-
+                </InputData>
                 <InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M2000_W600_UL18" Cacheable="&b_Cacheable;">
                         &ZPrimeToTT_M2000_W600_UL18;
                         <InputTree Name="AnalysisTree"/>

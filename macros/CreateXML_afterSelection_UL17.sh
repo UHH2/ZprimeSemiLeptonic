@@ -3,13 +3,13 @@
 #where UHH2 code installed
 pathGL_code=/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/
 #where (NOT MERGED) trees after preselection stored
-path_data=/nfs/dust/cms/group/zprime-uhh/Analysis_UL17/muon/workdir_Analysis_UL17_muon/uhh2.AnalysisModuleRunner.
-#path_data=/nfs/dust/cms/group/zprime-uhh/Analysis_UL17/electron/workdir_Analysis_UL17_electron/uhh2.AnalysisModuleRunner.
+#path_data=/nfs/dust/cms/group/zprime-uhh/Analysis_UL17/muon/workdir_Analysis_UL17_muon/uhh2.AnalysisModuleRunner.
+path_data=/nfs/dust/cms/group/zprime-uhh/Analysis_UL17/electron/workdir_Analysis_UL17_electron/uhh2.AnalysisModuleRunner.
 
-mkdir $pathGL_code/ZprimeSemiLeptonic/data/Skimming_datasets_UL17_muon
-cd $pathGL_code/ZprimeSemiLeptonic/data/Skimming_datasets_UL17_muon
-#mkdir $pathGL_code/ZprimeSemiLeptonic/data/Skimming_datasets_UL17_electron
-#cd $pathGL_code/ZprimeSemiLeptonic/data/Skimming_datasets_UL17_electron
+#mkdir $pathGL_code/ZprimeSemiLeptonic/data/Skimming_datasets_UL17_muon
+#cd $pathGL_code/ZprimeSemiLeptonic/data/Skimming_datasets_UL17_muon
+mkdir $pathGL_code/ZprimeSemiLeptonic/data/Skimming_datasets_UL17_electron
+cd $pathGL_code/ZprimeSemiLeptonic/data/Skimming_datasets_UL17_electron
 
 
 # MC
@@ -21,14 +21,14 @@ do
     python $pathGL_code/scripts/crab/readaMCatNloEntries.py 10 MC_$sample_name.xml True
 done
 
-## DATA
-#for sample_name in DATA_SingleElectron_RunB_UL17 DATA_SingleElectron_RunC_UL17 DATA_SingleElectron_RunD_UL17 DATA_SingleElectron_RunE_UL17 DATA_SingleElectron_RunF_UL17 DATA_SinglePhoton_RunB_UL17 DATA_SinglePhoton_RunC_UL17 DATA_SinglePhoton_RunD_UL17 DATA_SinglePhoton_RunE_UL17 DATA_SinglePhoton_RunF_UL17
-##for sample_name in DATA_SingleMuon_RunB_UL17 DATA_SingleMuon_RunC_UL17 DATA_SingleMuon_RunD_UL17 DATA_SingleMuon_RunE_UL17 DATA_SingleMuon_RunF_UL17
-#do
-#    echo $sample_name
-#    $pathGL_code/scripts/create-dataset-xmlfile ${path_data}"DATA."${sample_name}"*.root" $sample_name.xml
-#    python $pathGL_code/scripts/crab/readaMCatNloEntries.py 10 $sample_name.xml True
-#done
+# DATA
+for sample_name in DATA_SingleElectron_RunB_UL17 DATA_SingleElectron_RunC_UL17 DATA_SingleElectron_RunD_UL17 DATA_SingleElectron_RunE_UL17 DATA_SingleElectron_RunF_UL17 DATA_SinglePhoton_RunB_UL17 DATA_SinglePhoton_RunC_UL17 DATA_SinglePhoton_RunD_UL17 DATA_SinglePhoton_RunE_UL17 DATA_SinglePhoton_RunF_UL17
+#for sample_name in DATA_SingleMuon_RunB_UL17 DATA_SingleMuon_RunC_UL17 DATA_SingleMuon_RunD_UL17 DATA_SingleMuon_RunE_UL17 DATA_SingleMuon_RunF_UL17
+do
+    echo $sample_name
+    $pathGL_code/scripts/create-dataset-xmlfile ${path_data}"DATA."${sample_name}"*.root" $sample_name.xml
+    python $pathGL_code/scripts/crab/readaMCatNloEntries.py 10 $sample_name.xml True
+done
 
 pwd
 cd $pathGL_code/ZprimeSemiLeptonic/macros
