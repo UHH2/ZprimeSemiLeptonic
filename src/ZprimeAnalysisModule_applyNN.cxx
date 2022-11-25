@@ -1079,11 +1079,11 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
     event.weight *= custom_sf;
   }
   fill_histograms(event, "AfterCustomBtagSF");
- 
+
   // Higher order corrections - EWK & QCD NLO
   NLOCorrections_module->process(event);
   fill_histograms(event, "NLOCorrections");
- 
+
   //apply ele trigger sf
   sf_ele_trigger->process(event);
   fill_histograms(event, "TriggerEle_SF");

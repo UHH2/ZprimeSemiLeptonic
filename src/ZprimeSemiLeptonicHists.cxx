@@ -523,9 +523,9 @@ void ZprimeSemiLeptonicHists::init(){
   sum_event_weights = book<TH1F>("sum_event_weights", "counting experiment", 1, 0.5, 1.5);
 
   // define theta star angles wrt ttbar rest frame
-  hadtop_thetastar     = book<TH1F>("hadtop_thetastar", "hadtop #theta^*", 70, -3.5, 3.5);
+  // hadtop_thetastar     = book<TH1F>("hadtop_thetastar", "hadtop #theta^*", 70, -3.5, 3.5);
   cos_hadtop_thetastar = book<TH1F>("cos_hadtop_thetastar", "cos(hadtop #theta^*)", 100, -1.0, 1.0);
-  leptop_thetastar     = book<TH1F>("leptop_thetastar", "leptop #theta^*", 70, -3.5, 3.5);
+  // leptop_thetastar     = book<TH1F>("leptop_thetastar", "leptop #theta^*", 70, -3.5, 3.5);
   cos_leptop_thetastar = book<TH1F>("cos_leptop_thetastar", "cos(leptop #theta^*)", 100, -1.0, 1.0);
 
   // mttbar histograms from TOP-20-001: https://www.hepdata.net/record/ins1901295
@@ -1449,202 +1449,196 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
   sum_event_weights->Fill(1., weight);
 
   // theta star angle
-  if(is_zprime_reconstructed_chi2 & is_mc){ // added "is_mc" to blind data in theta star hists
-  float ang_hadtop_thetastar;
-  float ang_leptop_thetastar;
-  ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
+  // added "is_mc" to blind data in theta star hists
+  if(is_zprime_reconstructed_chi2 & is_mc){
+    ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
 
-  LorentzVector had_top = BestZprimeCandidate->top_hadronic_v4();
-  LorentzVector lep_top = BestZprimeCandidate->top_leptonic_v4();
+    LorentzVector had_top = BestZprimeCandidate->top_hadronic_v4();
+    LorentzVector lep_top = BestZprimeCandidate->top_leptonic_v4();
 
-  TLorentzVector had_top_frame(0,0,0,0);
-  had_top_frame.SetPtEtaPhiE(had_top.pt(), had_top.eta(), had_top.phi(), had_top.E());
-  TLorentzVector lep_top_frame(0,0,0,0);
-  lep_top_frame.SetPtEtaPhiE(lep_top.pt(), lep_top.eta(), lep_top.phi(), lep_top.E());
-  TLorentzVector ttbar(0,0,0,0);
-  ttbar.SetPtEtaPhiE((had_top+lep_top).pt(), (had_top+lep_top).eta(), (had_top+lep_top).phi(), (had_top+lep_top).E());
+    TLorentzVector had_top_frame(0,0,0,0);
+    had_top_frame.SetPtEtaPhiE(had_top.pt(), had_top.eta(), had_top.phi(), had_top.E());
+    TLorentzVector lep_top_frame(0,0,0,0);
+    lep_top_frame.SetPtEtaPhiE(lep_top.pt(), lep_top.eta(), lep_top.phi(), lep_top.E());
+    TLorentzVector ttbar(0,0,0,0);
+    ttbar.SetPtEtaPhiE((had_top+lep_top).pt(), (had_top+lep_top).eta(), (had_top+lep_top).phi(), (had_top+lep_top).E());
 
-  had_top_frame.Boost(-ttbar.BoostVector());
-  lep_top_frame.Boost(-ttbar.BoostVector());
+    had_top_frame.Boost(-ttbar.BoostVector());
+    lep_top_frame.Boost(-ttbar.BoostVector());
 
-  ang_hadtop_thetastar = had_top_frame.Theta();
-  ang_leptop_thetastar = lep_top_frame.Theta();
-
-  hadtop_thetastar->Fill(ang_hadtop_thetastar, weight);
-  cos_hadtop_thetastar->Fill(TMath::Cos(ang_hadtop_thetastar), weight);
-  leptop_thetastar->Fill(ang_leptop_thetastar, weight);
-  cos_leptop_thetastar->Fill(TMath::Cos(ang_leptop_thetastar), weight);
-}
-
-
-N_Jets_vs_HT->Fill(Njets, st_jets, weight);
-
-/*
-███    ██ ███    ██
-████   ██ ████   ██
-██ ██  ██ ██ ██  ██
-██  ██ ██ ██  ██ ██
-██   ████ ██   ████
-*/
-
-
-for(int i=0; i<Nmuons; i++){
-  NN_Mu_pt->Fill(muons->at(i).pt(),weight);
-  NN_Mu_eta->Fill(muons->at(i).eta(),weight);
-  NN_Mu_phi->Fill(muons->at(i).phi(),weight);
-  NN_Mu_E->Fill(muons->at(i).energy(),weight);
-}
-
-
-
-for(int i=0; i<Nelectrons; i++){
-  NN_Ele_pt->Fill(electrons->at(i).pt(),weight);
-  NN_Ele_eta->Fill(electrons->at(i).eta(),weight);
-  NN_Ele_phi->Fill(electrons->at(i).phi(),weight);
-  NN_Ele_E->Fill(electrons->at(i).energy(),weight);
-}
-
-NN_MET_pt->Fill(event.met->pt(),weight);
-NN_MET_phi->Fill(event.met->phi(),weight);
-
-vector<Jet>* Ak4jets = event.jets;
-int NAk4jets = Ak4jets->size();
-NN_N_Ak4->Fill(NAk4jets,weight);
-
-for(int i=0; i<NAk4jets; i++){
-  if(i==0){
-    NN_Ak4_j1_pt->Fill(Ak4jets->at(i).pt(),weight);
-    NN_Ak4_j1_eta->Fill(Ak4jets->at(i).eta(),weight);
-    NN_Ak4_j1_phi->Fill(Ak4jets->at(i).phi(),weight);
-    NN_Ak4_j1_E->Fill(Ak4jets->at(i).energy(),weight);
-    NN_Ak4_j1_m->Fill(Ak4jets->at(i).v4().M(),weight);
-    NN_Ak4_j1_btag->Fill(Ak4jets->at(i).btag_DeepJet(),weight);
+    cos_hadtop_thetastar->Fill(ttbar.Vect().Dot(had_top_frame.Vect())/ttbar.P()/had_top_frame.P(), weight);
+    cos_leptop_thetastar->Fill(ttbar.Vect().Dot(lep_top_frame.Vect())/ttbar.P()/lep_top_frame.P(), weight);
   }
-  if(i==1){
-    NN_Ak4_j2_pt->Fill(Ak4jets->at(i).pt(),weight);
-    NN_Ak4_j2_eta->Fill(Ak4jets->at(i).eta(),weight);
-    NN_Ak4_j2_phi->Fill(Ak4jets->at(i).phi(),weight);
-    NN_Ak4_j2_E->Fill(Ak4jets->at(i).energy(),weight);
-    NN_Ak4_j2_m->Fill(Ak4jets->at(i).v4().M(),weight);
-    NN_Ak4_j2_btag->Fill(Ak4jets->at(i).btag_DeepJet(),weight);
-  }
-  if(i==2){
-    NN_Ak4_j3_pt->Fill(Ak4jets->at(i).pt(),weight);
-    NN_Ak4_j3_eta->Fill(Ak4jets->at(i).eta(),weight);
-    NN_Ak4_j3_phi->Fill(Ak4jets->at(i).phi(),weight);
-    NN_Ak4_j3_E->Fill(Ak4jets->at(i).energy(),weight);
-    NN_Ak4_j3_m->Fill(Ak4jets->at(i).v4().M(),weight);
-    NN_Ak4_j3_btag->Fill(Ak4jets->at(i).btag_DeepJet(),weight);
-  }
-  if(i==3){
-    NN_Ak4_j4_pt->Fill(Ak4jets->at(i).pt(),weight);
-    NN_Ak4_j4_eta->Fill(Ak4jets->at(i).eta(),weight);
-    NN_Ak4_j4_phi->Fill(Ak4jets->at(i).phi(),weight);
-    NN_Ak4_j4_E->Fill(Ak4jets->at(i).energy(),weight);
-    NN_Ak4_j4_m->Fill(Ak4jets->at(i).v4().M(),weight);
-    NN_Ak4_j4_btag->Fill(Ak4jets->at(i).btag_DeepJet(),weight);
-  }
-  if(i==4){
-    NN_Ak4_j5_pt->Fill(Ak4jets->at(i).pt(),weight);
-    NN_Ak4_j5_eta->Fill(Ak4jets->at(i).eta(),weight);
-    NN_Ak4_j5_phi->Fill(Ak4jets->at(i).phi(),weight);
-    NN_Ak4_j5_E->Fill(Ak4jets->at(i).energy(),weight);
-    NN_Ak4_j5_m->Fill(Ak4jets->at(i).v4().M(),weight);
-    NN_Ak4_j5_btag->Fill(Ak4jets->at(i).btag_DeepJet(),weight);
-  }
-  if(i==5){
-    NN_Ak4_j6_pt->Fill(Ak4jets->at(i).pt(),weight);
-    NN_Ak4_j6_eta->Fill(Ak4jets->at(i).eta(),weight);
-    NN_Ak4_j6_phi->Fill(Ak4jets->at(i).phi(),weight);
-    NN_Ak4_j6_E->Fill(Ak4jets->at(i).energy(),weight);
-    NN_Ak4_j6_m->Fill(Ak4jets->at(i).v4().M(),weight);
-    NN_Ak4_j6_btag->Fill(Ak4jets->at(i).btag_DeepJet(),weight);
-  }
-}
 
-if(ishotvr){
-  vector<TopJet>* HOTVRjets = event.topjets;
-  int N_HOTVRjets = HOTVRjets->size();
-  NN_N_HOTVR->Fill(N_HOTVRjets,weight);
 
-  for(int i=0; i<N_HOTVRjets; i++){
+  N_Jets_vs_HT->Fill(Njets, st_jets, weight);
+
+  /*
+  ███    ██ ███    ██
+  ████   ██ ████   ██
+  ██ ██  ██ ██ ██  ██
+  ██  ██ ██ ██  ██ ██
+  ██   ████ ██   ████
+  */
+
+
+  for(int i=0; i<Nmuons; i++){
+    NN_Mu_pt->Fill(muons->at(i).pt(),weight);
+    NN_Mu_eta->Fill(muons->at(i).eta(),weight);
+    NN_Mu_phi->Fill(muons->at(i).phi(),weight);
+    NN_Mu_E->Fill(muons->at(i).energy(),weight);
+  }
+
+
+
+  for(int i=0; i<Nelectrons; i++){
+    NN_Ele_pt->Fill(electrons->at(i).pt(),weight);
+    NN_Ele_eta->Fill(electrons->at(i).eta(),weight);
+    NN_Ele_phi->Fill(electrons->at(i).phi(),weight);
+    NN_Ele_E->Fill(electrons->at(i).energy(),weight);
+  }
+
+  NN_MET_pt->Fill(event.met->pt(),weight);
+  NN_MET_phi->Fill(event.met->phi(),weight);
+
+  vector<Jet>* Ak4jets = event.jets;
+  int NAk4jets = Ak4jets->size();
+  NN_N_Ak4->Fill(NAk4jets,weight);
+
+  for(int i=0; i<NAk4jets; i++){
     if(i==0){
-      NN_HOTVR_j1_pt->Fill(HOTVRjets->at(i).pt(),weight);
-      NN_HOTVR_j1_eta->Fill(HOTVRjets->at(i).eta(),weight);
-      NN_HOTVR_j1_phi->Fill(HOTVRjets->at(i).phi(),weight);
-      NN_HOTVR_j1_E->Fill(HOTVRjets->at(i).energy(),weight);
-      NN_HOTVR_j1_mSD->Fill(HOTVRjets->at(i).v4().M(),weight);
-      NN_HOTVR_j1_tau21->Fill(HOTVRjets->at(i).tau2_groomed()/HOTVRjets->at(i).tau1_groomed(),weight);
-      NN_HOTVR_j1_tau32->Fill(HOTVRjets->at(i).tau3_groomed()/HOTVRjets->at(i).tau2_groomed(),weight);
+      NN_Ak4_j1_pt->Fill(Ak4jets->at(i).pt(),weight);
+      NN_Ak4_j1_eta->Fill(Ak4jets->at(i).eta(),weight);
+      NN_Ak4_j1_phi->Fill(Ak4jets->at(i).phi(),weight);
+      NN_Ak4_j1_E->Fill(Ak4jets->at(i).energy(),weight);
+      NN_Ak4_j1_m->Fill(Ak4jets->at(i).v4().M(),weight);
+      NN_Ak4_j1_btag->Fill(Ak4jets->at(i).btag_DeepJet(),weight);
     }
     if(i==1){
-      NN_HOTVR_j2_pt->Fill(HOTVRjets->at(i).pt(),weight);
-      NN_HOTVR_j2_eta->Fill(HOTVRjets->at(i).eta(),weight);
-      NN_HOTVR_j2_phi->Fill(HOTVRjets->at(i).phi(),weight);
-      NN_HOTVR_j2_E->Fill(HOTVRjets->at(i).energy(),weight);
-      NN_HOTVR_j2_mSD->Fill(HOTVRjets->at(i).v4().M(),weight);
-      NN_HOTVR_j2_tau21->Fill(HOTVRjets->at(i).tau2_groomed()/HOTVRjets->at(i).tau1_groomed(),weight);
-      NN_HOTVR_j2_tau32->Fill(HOTVRjets->at(i).tau3_groomed()/HOTVRjets->at(i).tau2_groomed(),weight);
+      NN_Ak4_j2_pt->Fill(Ak4jets->at(i).pt(),weight);
+      NN_Ak4_j2_eta->Fill(Ak4jets->at(i).eta(),weight);
+      NN_Ak4_j2_phi->Fill(Ak4jets->at(i).phi(),weight);
+      NN_Ak4_j2_E->Fill(Ak4jets->at(i).energy(),weight);
+      NN_Ak4_j2_m->Fill(Ak4jets->at(i).v4().M(),weight);
+      NN_Ak4_j2_btag->Fill(Ak4jets->at(i).btag_DeepJet(),weight);
     }
     if(i==2){
-      NN_HOTVR_j3_pt->Fill(HOTVRjets->at(i).pt(),weight);
-      NN_HOTVR_j3_eta->Fill(HOTVRjets->at(i).eta(),weight);
-      NN_HOTVR_j3_phi->Fill(HOTVRjets->at(i).phi(),weight);
-      NN_HOTVR_j3_E->Fill(HOTVRjets->at(i).energy(),weight);
-      NN_HOTVR_j3_mSD->Fill(HOTVRjets->at(i).v4().M(),weight);
-      NN_HOTVR_j3_tau21->Fill(HOTVRjets->at(i).tau2_groomed()/HOTVRjets->at(i).tau1_groomed(),weight);
-      NN_HOTVR_j3_tau32->Fill(HOTVRjets->at(i).tau3_groomed()/HOTVRjets->at(i).tau2_groomed(),weight);
+      NN_Ak4_j3_pt->Fill(Ak4jets->at(i).pt(),weight);
+      NN_Ak4_j3_eta->Fill(Ak4jets->at(i).eta(),weight);
+      NN_Ak4_j3_phi->Fill(Ak4jets->at(i).phi(),weight);
+      NN_Ak4_j3_E->Fill(Ak4jets->at(i).energy(),weight);
+      NN_Ak4_j3_m->Fill(Ak4jets->at(i).v4().M(),weight);
+      NN_Ak4_j3_btag->Fill(Ak4jets->at(i).btag_DeepJet(),weight);
+    }
+    if(i==3){
+      NN_Ak4_j4_pt->Fill(Ak4jets->at(i).pt(),weight);
+      NN_Ak4_j4_eta->Fill(Ak4jets->at(i).eta(),weight);
+      NN_Ak4_j4_phi->Fill(Ak4jets->at(i).phi(),weight);
+      NN_Ak4_j4_E->Fill(Ak4jets->at(i).energy(),weight);
+      NN_Ak4_j4_m->Fill(Ak4jets->at(i).v4().M(),weight);
+      NN_Ak4_j4_btag->Fill(Ak4jets->at(i).btag_DeepJet(),weight);
+    }
+    if(i==4){
+      NN_Ak4_j5_pt->Fill(Ak4jets->at(i).pt(),weight);
+      NN_Ak4_j5_eta->Fill(Ak4jets->at(i).eta(),weight);
+      NN_Ak4_j5_phi->Fill(Ak4jets->at(i).phi(),weight);
+      NN_Ak4_j5_E->Fill(Ak4jets->at(i).energy(),weight);
+      NN_Ak4_j5_m->Fill(Ak4jets->at(i).v4().M(),weight);
+      NN_Ak4_j5_btag->Fill(Ak4jets->at(i).btag_DeepJet(),weight);
+    }
+    if(i==5){
+      NN_Ak4_j6_pt->Fill(Ak4jets->at(i).pt(),weight);
+      NN_Ak4_j6_eta->Fill(Ak4jets->at(i).eta(),weight);
+      NN_Ak4_j6_phi->Fill(Ak4jets->at(i).phi(),weight);
+      NN_Ak4_j6_E->Fill(Ak4jets->at(i).energy(),weight);
+      NN_Ak4_j6_m->Fill(Ak4jets->at(i).v4().M(),weight);
+      NN_Ak4_j6_btag->Fill(Ak4jets->at(i).btag_DeepJet(),weight);
     }
   }
-} // end hotvr mode
 
-if(isdeepAK8){
-  vector<TopJet>* Ak8jets = event.toppuppijets;
-  int NAk8jets = Ak8jets->size();
-  NN_N_Ak8->Fill(NAk8jets,weight);
+  if(ishotvr){
+    vector<TopJet>* HOTVRjets = event.topjets;
+    int N_HOTVRjets = HOTVRjets->size();
+    NN_N_HOTVR->Fill(N_HOTVRjets,weight);
 
-  for(int i=0; i<NAk8jets; i++){
-    if(i==0){
-      NN_Ak8_j1_pt->Fill(Ak8jets->at(i).pt(),weight);
-      NN_Ak8_j1_eta->Fill(Ak8jets->at(i).eta(),weight);
-      NN_Ak8_j1_phi->Fill(Ak8jets->at(i).phi(),weight);
-      NN_Ak8_j1_E->Fill(Ak8jets->at(i).energy(),weight);
-      NN_Ak8_j1_mSD->Fill(Ak8jets->at(i).softdropmass(),weight);
-      NN_Ak8_j1_tau21->Fill(Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1(),weight);
-      NN_Ak8_j1_tau32->Fill(Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2(),weight);
-      NN_Ak8_j1_ttag->Fill(Ak8jets->at(i).btag_MassDecorrelatedDeepBoosted_TvsQCD(),weight);
+    for(int i=0; i<N_HOTVRjets; i++){
+      if(i==0){
+        NN_HOTVR_j1_pt->Fill(HOTVRjets->at(i).pt(),weight);
+        NN_HOTVR_j1_eta->Fill(HOTVRjets->at(i).eta(),weight);
+        NN_HOTVR_j1_phi->Fill(HOTVRjets->at(i).phi(),weight);
+        NN_HOTVR_j1_E->Fill(HOTVRjets->at(i).energy(),weight);
+        NN_HOTVR_j1_mSD->Fill(HOTVRjets->at(i).v4().M(),weight);
+        NN_HOTVR_j1_tau21->Fill(HOTVRjets->at(i).tau2_groomed()/HOTVRjets->at(i).tau1_groomed(),weight);
+        NN_HOTVR_j1_tau32->Fill(HOTVRjets->at(i).tau3_groomed()/HOTVRjets->at(i).tau2_groomed(),weight);
+      }
+      if(i==1){
+        NN_HOTVR_j2_pt->Fill(HOTVRjets->at(i).pt(),weight);
+        NN_HOTVR_j2_eta->Fill(HOTVRjets->at(i).eta(),weight);
+        NN_HOTVR_j2_phi->Fill(HOTVRjets->at(i).phi(),weight);
+        NN_HOTVR_j2_E->Fill(HOTVRjets->at(i).energy(),weight);
+        NN_HOTVR_j2_mSD->Fill(HOTVRjets->at(i).v4().M(),weight);
+        NN_HOTVR_j2_tau21->Fill(HOTVRjets->at(i).tau2_groomed()/HOTVRjets->at(i).tau1_groomed(),weight);
+        NN_HOTVR_j2_tau32->Fill(HOTVRjets->at(i).tau3_groomed()/HOTVRjets->at(i).tau2_groomed(),weight);
+      }
+      if(i==2){
+        NN_HOTVR_j3_pt->Fill(HOTVRjets->at(i).pt(),weight);
+        NN_HOTVR_j3_eta->Fill(HOTVRjets->at(i).eta(),weight);
+        NN_HOTVR_j3_phi->Fill(HOTVRjets->at(i).phi(),weight);
+        NN_HOTVR_j3_E->Fill(HOTVRjets->at(i).energy(),weight);
+        NN_HOTVR_j3_mSD->Fill(HOTVRjets->at(i).v4().M(),weight);
+        NN_HOTVR_j3_tau21->Fill(HOTVRjets->at(i).tau2_groomed()/HOTVRjets->at(i).tau1_groomed(),weight);
+        NN_HOTVR_j3_tau32->Fill(HOTVRjets->at(i).tau3_groomed()/HOTVRjets->at(i).tau2_groomed(),weight);
+      }
     }
-    if(i==1){
-      NN_Ak8_j2_pt->Fill(Ak8jets->at(i).pt(),weight);
-      NN_Ak8_j2_eta->Fill(Ak8jets->at(i).eta(),weight);
-      NN_Ak8_j2_phi->Fill(Ak8jets->at(i).phi(),weight);
-      NN_Ak8_j2_E->Fill(Ak8jets->at(i).energy(),weight);
-      NN_Ak8_j2_mSD->Fill(Ak8jets->at(i).softdropmass(),weight);
-      NN_Ak8_j2_tau21->Fill(Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1(),weight);
-      NN_Ak8_j2_tau32->Fill(Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2(),weight);
-      NN_Ak8_j2_ttag->Fill(Ak8jets->at(i).btag_MassDecorrelatedDeepBoosted_TvsQCD(),weight);
+  } // end hotvr mode
+
+  if(isdeepAK8){
+    vector<TopJet>* Ak8jets = event.toppuppijets;
+    int NAk8jets = Ak8jets->size();
+    NN_N_Ak8->Fill(NAk8jets,weight);
+
+    for(int i=0; i<NAk8jets; i++){
+      if(i==0){
+        NN_Ak8_j1_pt->Fill(Ak8jets->at(i).pt(),weight);
+        NN_Ak8_j1_eta->Fill(Ak8jets->at(i).eta(),weight);
+        NN_Ak8_j1_phi->Fill(Ak8jets->at(i).phi(),weight);
+        NN_Ak8_j1_E->Fill(Ak8jets->at(i).energy(),weight);
+        NN_Ak8_j1_mSD->Fill(Ak8jets->at(i).softdropmass(),weight);
+        NN_Ak8_j1_tau21->Fill(Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1(),weight);
+        NN_Ak8_j1_tau32->Fill(Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2(),weight);
+        NN_Ak8_j1_ttag->Fill(Ak8jets->at(i).btag_MassDecorrelatedDeepBoosted_TvsQCD(),weight);
+      }
+      if(i==1){
+        NN_Ak8_j2_pt->Fill(Ak8jets->at(i).pt(),weight);
+        NN_Ak8_j2_eta->Fill(Ak8jets->at(i).eta(),weight);
+        NN_Ak8_j2_phi->Fill(Ak8jets->at(i).phi(),weight);
+        NN_Ak8_j2_E->Fill(Ak8jets->at(i).energy(),weight);
+        NN_Ak8_j2_mSD->Fill(Ak8jets->at(i).softdropmass(),weight);
+        NN_Ak8_j2_tau21->Fill(Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1(),weight);
+        NN_Ak8_j2_tau32->Fill(Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2(),weight);
+        NN_Ak8_j2_ttag->Fill(Ak8jets->at(i).btag_MassDecorrelatedDeepBoosted_TvsQCD(),weight);
+      }
+      if(i==2){
+        NN_Ak8_j3_pt->Fill(Ak8jets->at(i).pt(),weight);
+        NN_Ak8_j3_eta->Fill(Ak8jets->at(i).eta(),weight);
+        NN_Ak8_j3_phi->Fill(Ak8jets->at(i).phi(),weight);
+        NN_Ak8_j3_E->Fill(Ak8jets->at(i).energy(),weight);
+        NN_Ak8_j3_mSD->Fill(Ak8jets->at(i).softdropmass(),weight);
+        NN_Ak8_j3_tau21->Fill(Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1(),weight);
+        NN_Ak8_j3_tau32->Fill(Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2(),weight);
+        NN_Ak8_j3_ttag->Fill(Ak8jets->at(i).btag_MassDecorrelatedDeepBoosted_TvsQCD(),weight);
+      }
     }
-    if(i==2){
-      NN_Ak8_j3_pt->Fill(Ak8jets->at(i).pt(),weight);
-      NN_Ak8_j3_eta->Fill(Ak8jets->at(i).eta(),weight);
-      NN_Ak8_j3_phi->Fill(Ak8jets->at(i).phi(),weight);
-      NN_Ak8_j3_E->Fill(Ak8jets->at(i).energy(),weight);
-      NN_Ak8_j3_mSD->Fill(Ak8jets->at(i).softdropmass(),weight);
-      NN_Ak8_j3_tau21->Fill(Ak8jets->at(i).tau2()/Ak8jets->at(i).tau1(),weight);
-      NN_Ak8_j3_tau32->Fill(Ak8jets->at(i).tau3()/Ak8jets->at(i).tau2(),weight);
-      NN_Ak8_j3_ttag->Fill(Ak8jets->at(i).btag_MassDecorrelatedDeepBoosted_TvsQCD(),weight);
-    }
+  } // end deepAK8 mode
+
+  if(is_zprime_reconstructed_chi2){
+    ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
+    float Mass_tt = BestZprimeCandidate->Zprime_v4().M();
+    float chi2 = BestZprimeCandidate->discriminator("chi2_total");
+    if(is_mc) NN_M_tt_weighted->Fill(Mass_tt,weight);
+    if(is_mc) NN_M_tt_notweighted->Fill(Mass_tt);
+    NN_chi2->Fill(chi2,weight);
   }
-} // end deepAK8 mode
-
-if(is_zprime_reconstructed_chi2){
-  ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
-  float Mass_tt = BestZprimeCandidate->Zprime_v4().M();
-  float chi2 = BestZprimeCandidate->discriminator("chi2_total");
-  if(is_mc) NN_M_tt_weighted->Fill(Mass_tt,weight);
-  if(is_mc) NN_M_tt_notweighted->Fill(Mass_tt);
-  NN_chi2->Fill(chi2,weight);
-}
 
 
 } //Method

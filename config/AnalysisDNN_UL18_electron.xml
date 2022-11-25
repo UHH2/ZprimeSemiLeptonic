@@ -272,1168 +272,1168 @@
 
 	<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTPUTdir;/" PostFix="" TargetLumi="&TargetLumi;">
 
-                <!-- EGamma -->
-                <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_RunA_UL18" Cacheable="&b_Cacheable;">
-                        &DATA_EGamma_RunA_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_RunB_UL18" Cacheable="&b_Cacheable;">
-                        &DATA_EGamma_RunB_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_RunC_UL18" Cacheable="&b_Cacheable;">
-                        &DATA_EGamma_RunC_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-            <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_RunD_UL18" Cacheable="&b_Cacheable;">
-                        &DATA_EGamma_RunD_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <!-- TTbar -->
-                <InputData Lumi="390319077.042" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_UL18" Cacheable="&b_Cacheable;">
-                        &TTToSemiLeptonic_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="279862626.557" NEventsMax="&NEVT;" Type="MC" Version="TTToHadronic_UL18" Cacheable="&b_Cacheable;">
-                        &TTToHadronic_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="119111968.007" NEventsMax="&NEVT;" Type="MC" Version="TTTo2L2Nu_UL18" Cacheable="&b_Cacheable;">
-                        &TTTo2L2Nu_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <!-- WJets -->
-                <InputData Lumi="51831.7623918" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-70To100_UL18" Cacheable="&b_Cacheable;">
-                        &WJetsToLNu_HT-70To100_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="40824.113328" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-100To200_UL18" Cacheable="&b_Cacheable;">
-                        &WJetsToLNu_HT-100To200_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="171761.021137" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-200To400_UL18" Cacheable="&b_Cacheable;">
-                        &WJetsToLNu_HT-200To400_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="163095.930104" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-400To600_UL18" Cacheable="&b_Cacheable;">
-                        &WJetsToLNu_HT-400To600_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="689429.754322" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-600To800_UL18" Cacheable="&b_Cacheable;">
-                        &WJetsToLNu_HT-600To800_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="1451563.20908" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-800To1200_UL18" Cacheable="&b_Cacheable;">
-                        &WJetsToLNu_HT-800To1200_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="5606849.48097" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-1200To2500_UL18" Cacheable="&b_Cacheable;">
-                        &WJetsToLNu_HT-1200To2500_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="79301029.3557" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-2500ToInf_UL18" Cacheable="&b_Cacheable;">
-                        &WJetsToLNu_HT-2500ToInf_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <!-- DY -->
-                <InputData Lumi="120695.553176" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-70to100_UL18" Cacheable="&b_Cacheable;">
-                        &DYJetsToLL_M-50_HT-70to100_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="185535.584879" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-100to200_UL18" Cacheable="&b_Cacheable;">
-                        &DYJetsToLL_M-50_HT-100to200_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="476086.174119" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-200to400_UL18" Cacheable="&b_Cacheable;">
-                        &DYJetsToLL_M-50_HT-200to400_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="1686110.09864" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-400to600_UL18" Cacheable="&b_Cacheable;">
-                        &DYJetsToLL_M-50_HT-400to600_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="5521349.95694" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-600to800_UL18" Cacheable="&b_Cacheable;">
-                        &DYJetsToLL_M-50_HT-600to800_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="11622008.6047" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-800to1200_UL18" Cacheable="&b_Cacheable;">
-                        &DYJetsToLL_M-50_HT-800to1200_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="45247214.8246" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-1200to2500_UL18" Cacheable="&b_Cacheable;">
-                        &DYJetsToLL_M-50_HT-1200to2500_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="664264378.433" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-2500toInf_UL18" Cacheable="&b_Cacheable;">
-                        &DYJetsToLL_M-50_HT-2500toInf_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <!-- Diboson -->
-                <InputData Lumi="203703.367886" NEventsMax="&NEVT;" Type="MC" Version="WW_UL18" Cacheable="&b_Cacheable;">
-                        &WW_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="285486.211901" NEventsMax="&NEVT;" Type="MC" Version="WZ_UL18" Cacheable="&b_Cacheable;">
-                        &WZ_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="288705.688376" NEventsMax="&NEVT;" Type="MC" Version="ZZ_UL18" Cacheable="&b_Cacheable;">
-                        &ZZ_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <!-- ST -->
-                <InputData Lumi="18197298.5626" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_NoFullyHadronicDecays_UL18" Cacheable="&b_Cacheable;">
-                        &ST_tW_antitop_5f_NoFullyHadronicDecays_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="18505332.7838" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_top_5f_NoFullyHadronicDecays_UL18" Cacheable="&b_Cacheable;">
-                        &ST_tW_top_5f_NoFullyHadronicDecays_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="75152872.8467" NEventsMax="&NEVT;" Type="MC" Version="ST_t-channel_antitop_4f_InclusiveDecays_UL18" Cacheable="&b_Cacheable;">
-                        &ST_t-channel_antitop_4f_InclusiveDecays_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="138470651.996" NEventsMax="&NEVT;" Type="MC" Version="ST_t-channel_top_4f_InclusiveDecays_UL18" Cacheable="&b_Cacheable;">
-                        &ST_t-channel_top_4f_InclusiveDecays_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="20237017.6408" NEventsMax="&NEVT;" Type="MC" Version="ST_s-channel_4f_leptonDecays_UL18" Cacheable="&b_Cacheable;">
-                        &ST_s-channel_4f_leptonDecays_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <!-- QCD -->
-                <InputData Lumi="0.206124454008" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT50to100_UL18" Cacheable="&b_Cacheable;">
-                        &QCD_HT50to100_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="3.54230004235" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT100to200_UL18" Cacheable="&b_Cacheable;">
-                        &QCD_HT100to200_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="36.3745996132" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT200to300_UL18" Cacheable="&b_Cacheable;">
-                        &QCD_HT200to300_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="188.292935553" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT300to500_UL18" Cacheable="&b_Cacheable;">
-                        &QCD_HT300to500_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="1608.63398154" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT500to700_UL18" Cacheable="&b_Cacheable;">
-                        &QCD_HT500to700_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="7467.44006211" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT700to1000_UL18" Cacheable="&b_Cacheable;">
-                        &QCD_HT700to1000_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="12804.2728086" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT1000to1500_UL18" Cacheable="&b_Cacheable;">
-                        &QCD_HT1000to1500_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="99773.9537037" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT1500to2000_UL18" Cacheable="&b_Cacheable;">
-                        &QCD_HT1500to2000_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="239949.090909" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT2000toInf_UL18" Cacheable="&b_Cacheable;">
-                        &QCD_HT2000toInf_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <!-- ALP -->
-                <InputData Lumi="1360527.80931" NEventsMax="&NEVT;" Type="MC" Version="ALP_ttbar_signal_UL18" Cacheable="&b_Cacheable;">
-                        &ALP_ttbar_signal_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-348341.936886" NEventsMax="&NEVT;" Type="MC" Version="ALP_ttbar_interference_UL18" Cacheable="&b_Cacheable;">
-                        &ALP_ttbar_interference_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-								<InputData Lumi="-3540.0711271091" NEventsMax="&NEVT;" Type="MC" Version="ALP_ttbar_interference_colorflowSMlike_UL18" Cacheable="&b_Cacheable;">
-												&ALP_ttbar_interference_colorflowSMlike_UL18;
-												<InputTree Name="AnalysisTree"/>
-												<OutputTree Name="AnalysisTree"/>
-								</InputData>
-                <!-- Scalar H 10% -->
-                <InputData Lumi="190853.468499" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m365_w36p5_res_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m365_w36p5_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="196141.886134" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m400_w40p0_res_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m400_w40p0_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="198132.643957" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m500_w50p0_res_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m500_w50p0_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="209067.559098" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m600_w60p0_res_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m600_w60p0_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="221454.718304" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m800_w80p0_res_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m800_w80p0_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="224129.52824" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m1000_w100p0_res_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m1000_w100p0_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
+		<!-- EGamma -->
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_RunA_UL18" Cacheable="&b_Cacheable;">
+			&DATA_EGamma_RunA_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_RunB_UL18" Cacheable="&b_Cacheable;">
+			&DATA_EGamma_RunB_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_RunC_UL18" Cacheable="&b_Cacheable;">
+			&DATA_EGamma_RunC_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_EGamma_RunD_UL18" Cacheable="&b_Cacheable;">
+			&DATA_EGamma_RunD_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<!-- TTbar -->
+		<InputData Lumi="390319077.042" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_UL18" Cacheable="&b_Cacheable;">
+			&TTToSemiLeptonic_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="279862626.557" NEventsMax="&NEVT;" Type="MC" Version="TTToHadronic_UL18" Cacheable="&b_Cacheable;">
+			&TTToHadronic_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="119111968.007" NEventsMax="&NEVT;" Type="MC" Version="TTTo2L2Nu_UL18" Cacheable="&b_Cacheable;">
+			&TTTo2L2Nu_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<!-- WJets -->
+		<InputData Lumi="51831.7623918" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-70To100_UL18" Cacheable="&b_Cacheable;">
+			&WJetsToLNu_HT-70To100_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="40824.113328" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-100To200_UL18" Cacheable="&b_Cacheable;">
+			&WJetsToLNu_HT-100To200_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="171761.021137" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-200To400_UL18" Cacheable="&b_Cacheable;">
+			&WJetsToLNu_HT-200To400_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="163095.930104" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-400To600_UL18" Cacheable="&b_Cacheable;">
+			&WJetsToLNu_HT-400To600_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="689429.754322" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-600To800_UL18" Cacheable="&b_Cacheable;">
+			&WJetsToLNu_HT-600To800_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="1451563.20908" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-800To1200_UL18" Cacheable="&b_Cacheable;">
+			&WJetsToLNu_HT-800To1200_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="5606849.48097" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-1200To2500_UL18" Cacheable="&b_Cacheable;">
+			&WJetsToLNu_HT-1200To2500_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="79301029.3557" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-2500ToInf_UL18" Cacheable="&b_Cacheable;">
+			&WJetsToLNu_HT-2500ToInf_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<!-- DY -->
+		<InputData Lumi="120695.553176" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-70to100_UL18" Cacheable="&b_Cacheable;">
+			&DYJetsToLL_M-50_HT-70to100_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="185535.584879" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-100to200_UL18" Cacheable="&b_Cacheable;">
+			&DYJetsToLL_M-50_HT-100to200_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="476086.174119" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-200to400_UL18" Cacheable="&b_Cacheable;">
+			&DYJetsToLL_M-50_HT-200to400_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="1686110.09864" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-400to600_UL18" Cacheable="&b_Cacheable;">
+			&DYJetsToLL_M-50_HT-400to600_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="5521349.95694" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-600to800_UL18" Cacheable="&b_Cacheable;">
+			&DYJetsToLL_M-50_HT-600to800_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="11622008.6047" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-800to1200_UL18" Cacheable="&b_Cacheable;">
+			&DYJetsToLL_M-50_HT-800to1200_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="45247214.8246" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-1200to2500_UL18" Cacheable="&b_Cacheable;">
+			&DYJetsToLL_M-50_HT-1200to2500_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="664264378.433" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-2500toInf_UL18" Cacheable="&b_Cacheable;">
+			&DYJetsToLL_M-50_HT-2500toInf_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<!-- Diboson -->
+		<InputData Lumi="203703.367886" NEventsMax="&NEVT;" Type="MC" Version="WW_UL18" Cacheable="&b_Cacheable;">
+			&WW_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="285486.211901" NEventsMax="&NEVT;" Type="MC" Version="WZ_UL18" Cacheable="&b_Cacheable;">
+			&WZ_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="288705.688376" NEventsMax="&NEVT;" Type="MC" Version="ZZ_UL18" Cacheable="&b_Cacheable;">
+			&ZZ_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<!-- ST -->
+		<InputData Lumi="18197298.5626" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_NoFullyHadronicDecays_UL18" Cacheable="&b_Cacheable;">
+			&ST_tW_antitop_5f_NoFullyHadronicDecays_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="18505332.7838" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_top_5f_NoFullyHadronicDecays_UL18" Cacheable="&b_Cacheable;">
+			&ST_tW_top_5f_NoFullyHadronicDecays_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="75152872.8467" NEventsMax="&NEVT;" Type="MC" Version="ST_t-channel_antitop_4f_InclusiveDecays_UL18" Cacheable="&b_Cacheable;">
+			&ST_t-channel_antitop_4f_InclusiveDecays_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="138470651.996" NEventsMax="&NEVT;" Type="MC" Version="ST_t-channel_top_4f_InclusiveDecays_UL18" Cacheable="&b_Cacheable;">
+			&ST_t-channel_top_4f_InclusiveDecays_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="20237017.6408" NEventsMax="&NEVT;" Type="MC" Version="ST_s-channel_4f_leptonDecays_UL18" Cacheable="&b_Cacheable;">
+			&ST_s-channel_4f_leptonDecays_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<!-- QCD -->
+		<InputData Lumi="0.206124454008" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT50to100_UL18" Cacheable="&b_Cacheable;">
+			&QCD_HT50to100_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="3.54230004235" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT100to200_UL18" Cacheable="&b_Cacheable;">
+			&QCD_HT100to200_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="36.3745996132" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT200to300_UL18" Cacheable="&b_Cacheable;">
+			&QCD_HT200to300_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="188.292935553" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT300to500_UL18" Cacheable="&b_Cacheable;">
+			&QCD_HT300to500_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="1608.63398154" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT500to700_UL18" Cacheable="&b_Cacheable;">
+			&QCD_HT500to700_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="7467.44006211" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT700to1000_UL18" Cacheable="&b_Cacheable;">
+			&QCD_HT700to1000_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="12804.2728086" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT1000to1500_UL18" Cacheable="&b_Cacheable;">
+			&QCD_HT1000to1500_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="99773.9537037" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT1500to2000_UL18" Cacheable="&b_Cacheable;">
+			&QCD_HT1500to2000_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="239949.090909" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT2000toInf_UL18" Cacheable="&b_Cacheable;">
+			&QCD_HT2000toInf_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<!-- ALP -->
+		<InputData Lumi="1360527.80931" NEventsMax="&NEVT;" Type="MC" Version="ALP_ttbar_signal_UL18" Cacheable="&b_Cacheable;">
+			&ALP_ttbar_signal_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-348341.936886" NEventsMax="&NEVT;" Type="MC" Version="ALP_ttbar_interference_UL18" Cacheable="&b_Cacheable;">
+			&ALP_ttbar_interference_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-3540.0711271091" NEventsMax="&NEVT;" Type="MC" Version="ALP_ttbar_interference_colorflowSMlike_UL18" Cacheable="&b_Cacheable;">
+			&ALP_ttbar_interference_colorflowSMlike_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<!-- Scalar H 10% -->
+		<InputData Lumi="190853.468499" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m365_w36p5_res_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m365_w36p5_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="196141.886134" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m400_w40p0_res_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m400_w40p0_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="198132.643957" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m500_w50p0_res_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m500_w50p0_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="209067.559098" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m600_w60p0_res_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m600_w60p0_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="221454.718304" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m800_w80p0_res_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m800_w80p0_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="224129.52824" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m1000_w100p0_res_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m1000_w100p0_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
 		<InputData Lumi="-238495.025207" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m365_w36p5_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m365_w36p5_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-240658.936937" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m400_w40p0_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m400_w40p0_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-244175.071945" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m500_w50p0_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m500_w50p0_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-263275.983406" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m600_w60p0_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m600_w60p0_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="237173.192783" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m800_w80p0_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m800_w80p0_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="256164.901801" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m1000_w100p0_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m1000_w100p0_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-238495.025207" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m365_w36p5_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m365_w36p5_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-240658.936937" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m400_w40p0_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m400_w40p0_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-244175.071945" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m500_w50p0_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m500_w50p0_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-263275.983406" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m600_w60p0_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m600_w60p0_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="237173.192783" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m800_w80p0_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m800_w80p0_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="256164.901801" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m1000_w100p0_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m1000_w100p0_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <!-- Pseudoscalar A 10% -->
-                <InputData Lumi="187908.217661" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m365_w36p5_res_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m365_w36p5_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="188742.909521" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m400_w40p0_res_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m400_w40p0_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="209963.130062" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m500_w50p0_res_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m500_w50p0_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="216791.891725" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m600_w60p0_res_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m600_w60p0_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="223697.053264" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m800_w80p0_res_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m800_w80p0_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="223561.915616" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m1000_w100p0_res_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m1000_w100p0_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-233893.923196" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m365_w36p5_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m365_w36p5_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-249709.380991" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m400_w40p0_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m400_w40p0_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-260237.608361" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m500_w50p0_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m500_w50p0_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-278279.371581" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m600_w60p0_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m600_w60p0_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="256156.236086" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m800_w80p0_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m800_w80p0_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="257868.967844" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m1000_w100p0_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m1000_w100p0_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-233893.923196" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m365_w36p5_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m365_w36p5_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-249709.380991" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m400_w40p0_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m400_w40p0_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-260237.608361" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m500_w50p0_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m500_w50p0_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-278279.371581" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m600_w60p0_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m600_w60p0_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="256156.236086" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m800_w80p0_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m800_w80p0_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="257868.967844" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m1000_w100p0_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m1000_w100p0_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <!-- Scalar H 25% -->
-                <InputData Lumi="191084.578074" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m365_w91p25_res_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m365_w91p25_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="188059.57648" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m400_w100p0_res_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m400_w100p0_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="198071.943153" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m500_w125p0_res_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m500_w125p0_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="214221.954507" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m600_w150p0_res_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m600_w150p0_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="221447.901372" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m800_w200p0_res_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m800_w200p0_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="225422.980694" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m1000_w250p0_res_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m1000_w250p0_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-239852.064355" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m365_w91p25_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m365_w91p25_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-244394.578619" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m400_w100p0_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m400_w100p0_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-251324.681264" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m500_w125p0_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m500_w125p0_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-257877.917041" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m600_w150p0_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m600_w150p0_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-275648.832548" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m800_w200p0_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m800_w200p0_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="240625.552828" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m1000_w250p0_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m1000_w250p0_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-239852.064355" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m365_w91p25_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m365_w91p25_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-244394.578619" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m400_w100p0_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m400_w100p0_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-251324.681264" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m500_w125p0_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m500_w125p0_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-257877.917041" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m600_w150p0_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m600_w150p0_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-275648.832548" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m800_w200p0_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m800_w200p0_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="240625.552828" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m1000_w250p0_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m1000_w250p0_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <!-- Pseudoscalar A 25% -->
-                <InputData Lumi="189057.382701" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m365_w91p25_res_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m365_w91p25_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="199399.520326" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m400_w100p0_res_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m400_w100p0_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="207800.374823" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m500_w125p0_res_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m500_w125p0_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="216379.696082" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m600_w150p0_res_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m600_w150p0_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="224972.336169" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m800_w200p0_res_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m800_w200p0_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="229043.328908" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m1000_w250p0_res_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m1000_w250p0_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-239818.86658" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m365_w91p25_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m365_w91p25_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-247674.758367" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m400_w100p0_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m400_w100p0_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-257349.970301" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m500_w125p0_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m500_w125p0_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-265133.841345" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m600_w150p0_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m600_w150p0_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="155055.182199" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m800_w200p0_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m800_w200p0_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="256479.743048" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m1000_w250p0_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m1000_w250p0_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-239818.86658" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m365_w91p25_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m365_w91p25_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-247674.758367" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m400_w100p0_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m400_w100p0_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-257349.970301" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m500_w125p0_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m500_w125p0_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-265133.841345" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m600_w150p0_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m600_w150p0_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="155055.182199" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m800_w200p0_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m800_w200p0_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="256479.743048" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m1000_w250p0_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m1000_w250p0_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <!-- Scalar H 2.5% -->
-                <InputData Lumi="186053.054455" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m365_w9p125_res_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m365_w9p125_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="186088.200552" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m400_w10p0_res_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m400_w10p0_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="208039.931507" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m500_w12p5_res_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m500_w12p5_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="192829.800554" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m600_w15p0_res_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m600_w15p0_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="221563.342996" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m800_w20p0_res_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m800_w20p0_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="225484.627618" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m1000_w25p0_res_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m1000_w25p0_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-238226.943707" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m365_w9p125_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m365_w9p125_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-215329.221749" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m400_w10p0_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m400_w10p0_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-246613.115914" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m500_w12p5_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m500_w12p5_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-257838.39759" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m600_w15p0_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m600_w15p0_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="233445.956402" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m800_w20p0_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m800_w20p0_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="252008.40747" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m1000_w25p0_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m1000_w25p0_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-238226.943707" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m365_w9p125_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m365_w9p125_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-215329.221749" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m400_w10p0_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m400_w10p0_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-246613.115914" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m500_w12p5_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m500_w12p5_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-257838.39759" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m600_w15p0_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m600_w15p0_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="233445.956402" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m800_w20p0_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m800_w20p0_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="252008.40747" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m1000_w25p0_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HscalarToTTTo1L1Nu2J_m1000_w25p0_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <!-- Pseudoscalar A 2.5% -->
-                <InputData Lumi="187269.015689" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m365_w9p125_res_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m365_w9p125_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="186595.206127" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m400_w10p0_res_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m400_w10p0_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="211855.260959" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m500_w12p5_res_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m500_w12p5_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="218085.554617" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m600_w15p0_res_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m600_w15p0_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="225212.995872" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m800_w20p0_res_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m800_w20p0_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="210014.340194" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m1000_w25p0_res_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m1000_w25p0_res_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-241655.017604" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m365_w9p125_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m365_w9p125_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-242711.25589" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m400_w10p0_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m400_w10p0_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-254698.914225" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m500_w12p5_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m500_w12p5_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-469486.222629" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m600_w15p0_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m600_w15p0_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="242676.627732" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m800_w20p0_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m800_w20p0_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="257936.615417" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m1000_w25p0_int_pos_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m1000_w25p0_int_pos_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-241655.017604" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m365_w9p125_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m365_w9p125_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-242711.25589" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m400_w10p0_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m400_w10p0_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-254698.914225" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m500_w12p5_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m500_w12p5_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="-469486.222629" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m600_w15p0_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m600_w15p0_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="242676.627732" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m800_w20p0_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m800_w20p0_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="257936.615417" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m1000_w25p0_int_neg_UL18" Cacheable="&b_Cacheable;">
-                        &HpseudoToTTTo1L1Nu2J_m1000_w25p0_int_neg_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <!-- RS gluon -->
-                <InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluonToTT_M-500_UL18" Cacheable="&b_Cacheable;">
-                        &RSGluonToTT_M-500_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="479000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluonToTT_M-1000_UL18" Cacheable="&b_Cacheable;">
-                        &RSGluonToTT_M-1000_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluonToTT_M-1500_UL18" Cacheable="&b_Cacheable;">
-                        &RSGluonToTT_M-1500_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="494000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluonToTT_M-2000_UL18" Cacheable="&b_Cacheable;">
-                        &RSGluonToTT_M-2000_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="488000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluonToTT_M-2500_UL18" Cacheable="&b_Cacheable;">
-                        &RSGluonToTT_M-2500_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluonToTT_M-3000_UL18" Cacheable="&b_Cacheable;">
-                        &RSGluonToTT_M-3000_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluonToTT_M-3500_UL18" Cacheable="&b_Cacheable;">
-                        &RSGluonToTT_M-3500_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="484000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluonToTT_M-4000_UL18" Cacheable="&b_Cacheable;">
-                        &RSGluonToTT_M-4000_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="482000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluonToTT_M-4500_UL18" Cacheable="&b_Cacheable;">
-                        &RSGluonToTT_M-4500_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="476000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluonToTT_M-5000_UL18" Cacheable="&b_Cacheable;">
-                        &RSGluonToTT_M-5000_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="479000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluonToTT_M-5500_UL18" Cacheable="&b_Cacheable;">
-                        &RSGluonToTT_M-5500_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="455000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluonToTT_M-6000_UL18" Cacheable="&b_Cacheable;">
-                        &RSGluonToTT_M-6000_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <!-- ZPrime 10% -->
-                <InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M400_W40_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M400_W40_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M500_W50_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M500_W50_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="491000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M600_W60_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M600_W60_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="464000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M700_W70_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M700_W70_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="482000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M800_W80_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M800_W80_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M900_W90_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M900_W90_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1000_W100_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M1000_W100_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="464000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1200_W120_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M1200_W120_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="482000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1400_W140_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M1400_W140_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1600_W160_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M1600_W160_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="482000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1800_W180_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M1800_W180_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M2000_W200_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M2000_W200_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M2500_W250_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M2500_W250_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M3000_W300_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M3000_W300_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="476000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M3500_W350_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M3500_W350_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M4000_W400_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M4000_W400_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="497000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M4500_W450_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M4500_W450_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="194000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M5000_W500_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M5000_W500_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="200000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M6000_W600_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M6000_W600_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="200000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M7000_W700_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M7000_W700_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="200000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M8000_W800_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M8000_W800_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="194000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M9000_W900_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M9000_W900_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <!-- ZPrime 30% -->
-                <InputData Lumi="482000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M400_W120_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M400_W120_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="485000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M500_W150_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M500_W150_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="497000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M600_W180_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M600_W180_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M700_W210_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M700_W210_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M800_W240_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M800_W240_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="473000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M900_W270_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M900_W270_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1000_W300_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M1000_W300_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="494000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1200_W360_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M1200_W360_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1400_W420_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M1400_W420_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1600_W480_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M1600_W480_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1800_W540_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M1800_W540_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M2000_W600_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M2000_W600_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="489000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M2500_W750_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M2500_W750_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M3000_W900_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M3000_W900_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M3500_W1050_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M3500_W1050_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M4000_W1200_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M4000_W1200_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M4500_W1350_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M4500_W1350_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="200000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M5000_W1500_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M5000_W1500_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="200000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M6000_W1800_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M6000_W1800_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="200000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M7000_W2100_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M7000_W2100_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="197000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M8000_W2400_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M8000_W2400_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="194000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M9000_W2700_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M9000_W2700_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <!-- ZPrime 1% -->
-                <InputData Lumi="200177.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M400_W4_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M400_W4_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="191959.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M500_W5_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M500_W5_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="190965.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M600_W6_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M600_W6_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="199814.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M700_W7_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M700_W7_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="191956.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M800_W8_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M800_W8_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="197077.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M900_W9_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M900_W9_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="201398.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1000_W10_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M1000_W10_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="198217.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1200_W12_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M1200_W12_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="217763.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1400_W14_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M1400_W14_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="207930.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1600_W16_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M1600_W16_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="203473.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1800_W18_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M1800_W18_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="196868.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M2000_W20_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M2000_W20_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="201970.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M2500_W25_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M2500_W25_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="194745.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M3000_W30_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M3000_W30_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="187591.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M3500_W35_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M3500_W35_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="184021.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M4000_W40_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M4000_W40_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="179341.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M4500_W45_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M4500_W45_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="193733.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M5000_W50_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M5000_W50_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="192170.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M6000_W60_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M6000_W60_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="197279.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M7000_W70_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M7000_W70_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="170678.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M8000_W80_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M8000_W80_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
-                <InputData Lumi="201986.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M9000_W90_UL18" Cacheable="&b_Cacheable;">
-                        &ZPrimeToTT_M9000_W90_UL18;
-                        <InputTree Name="AnalysisTree"/>
-                        <OutputTree Name="AnalysisTree"/>
-                </InputData>
+			&HscalarToTTTo1L1Nu2J_m365_w36p5_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-240658.936937" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m400_w40p0_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m400_w40p0_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-244175.071945" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m500_w50p0_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m500_w50p0_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-263275.983406" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m600_w60p0_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m600_w60p0_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="237173.192783" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m800_w80p0_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m800_w80p0_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="256164.901801" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m1000_w100p0_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m1000_w100p0_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-238495.025207" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m365_w36p5_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m365_w36p5_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-240658.936937" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m400_w40p0_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m400_w40p0_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-244175.071945" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m500_w50p0_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m500_w50p0_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-263275.983406" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m600_w60p0_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m600_w60p0_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="237173.192783" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m800_w80p0_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m800_w80p0_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="256164.901801" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m1000_w100p0_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m1000_w100p0_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<!-- Pseudoscalar A 10% -->
+		<InputData Lumi="187908.217661" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m365_w36p5_res_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m365_w36p5_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="188742.909521" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m400_w40p0_res_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m400_w40p0_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="209963.130062" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m500_w50p0_res_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m500_w50p0_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="216791.891725" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m600_w60p0_res_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m600_w60p0_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="223697.053264" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m800_w80p0_res_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m800_w80p0_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="223561.915616" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m1000_w100p0_res_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m1000_w100p0_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-233893.923196" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m365_w36p5_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m365_w36p5_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-249709.380991" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m400_w40p0_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m400_w40p0_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-260237.608361" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m500_w50p0_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m500_w50p0_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-278279.371581" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m600_w60p0_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m600_w60p0_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="256156.236086" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m800_w80p0_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m800_w80p0_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="257868.967844" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m1000_w100p0_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m1000_w100p0_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-233893.923196" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m365_w36p5_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m365_w36p5_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-249709.380991" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m400_w40p0_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m400_w40p0_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-260237.608361" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m500_w50p0_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m500_w50p0_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-278279.371581" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m600_w60p0_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m600_w60p0_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="256156.236086" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m800_w80p0_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m800_w80p0_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="257868.967844" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m1000_w100p0_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m1000_w100p0_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<!-- Scalar H 25% -->
+		<InputData Lumi="191084.578074" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m365_w91p25_res_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m365_w91p25_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="188059.57648" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m400_w100p0_res_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m400_w100p0_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="198071.943153" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m500_w125p0_res_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m500_w125p0_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="214221.954507" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m600_w150p0_res_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m600_w150p0_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="221447.901372" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m800_w200p0_res_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m800_w200p0_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="225422.980694" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m1000_w250p0_res_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m1000_w250p0_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-239852.064355" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m365_w91p25_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m365_w91p25_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-244394.578619" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m400_w100p0_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m400_w100p0_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-251324.681264" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m500_w125p0_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m500_w125p0_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-257877.917041" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m600_w150p0_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m600_w150p0_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-275648.832548" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m800_w200p0_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m800_w200p0_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="240625.552828" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m1000_w250p0_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m1000_w250p0_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-239852.064355" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m365_w91p25_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m365_w91p25_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-244394.578619" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m400_w100p0_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m400_w100p0_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-251324.681264" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m500_w125p0_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m500_w125p0_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-257877.917041" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m600_w150p0_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m600_w150p0_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-275648.832548" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m800_w200p0_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m800_w200p0_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="240625.552828" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m1000_w250p0_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m1000_w250p0_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<!-- Pseudoscalar A 25% -->
+		<InputData Lumi="189057.382701" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m365_w91p25_res_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m365_w91p25_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="199399.520326" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m400_w100p0_res_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m400_w100p0_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="207800.374823" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m500_w125p0_res_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m500_w125p0_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="216379.696082" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m600_w150p0_res_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m600_w150p0_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="224972.336169" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m800_w200p0_res_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m800_w200p0_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="229043.328908" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m1000_w250p0_res_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m1000_w250p0_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-239818.86658" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m365_w91p25_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m365_w91p25_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-247674.758367" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m400_w100p0_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m400_w100p0_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-257349.970301" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m500_w125p0_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m500_w125p0_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-265133.841345" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m600_w150p0_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m600_w150p0_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="155055.182199" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m800_w200p0_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m800_w200p0_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="256479.743048" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m1000_w250p0_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m1000_w250p0_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-239818.86658" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m365_w91p25_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m365_w91p25_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-247674.758367" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m400_w100p0_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m400_w100p0_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-257349.970301" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m500_w125p0_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m500_w125p0_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-265133.841345" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m600_w150p0_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m600_w150p0_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="155055.182199" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m800_w200p0_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m800_w200p0_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="256479.743048" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m1000_w250p0_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m1000_w250p0_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<!-- Scalar H 2.5% -->
+		<InputData Lumi="186053.054455" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m365_w9p125_res_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m365_w9p125_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="186088.200552" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m400_w10p0_res_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m400_w10p0_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="208039.931507" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m500_w12p5_res_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m500_w12p5_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="192829.800554" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m600_w15p0_res_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m600_w15p0_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="221563.342996" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m800_w20p0_res_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m800_w20p0_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="225484.627618" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m1000_w25p0_res_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m1000_w25p0_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-238226.943707" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m365_w9p125_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m365_w9p125_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-215329.221749" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m400_w10p0_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m400_w10p0_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-246613.115914" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m500_w12p5_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m500_w12p5_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-257838.39759" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m600_w15p0_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m600_w15p0_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="233445.956402" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m800_w20p0_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m800_w20p0_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="252008.40747" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m1000_w25p0_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m1000_w25p0_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-238226.943707" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m365_w9p125_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m365_w9p125_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-215329.221749" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m400_w10p0_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m400_w10p0_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-246613.115914" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m500_w12p5_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m500_w12p5_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-257838.39759" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m600_w15p0_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m600_w15p0_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="233445.956402" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m800_w20p0_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m800_w20p0_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="252008.40747" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m1000_w25p0_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HscalarToTTTo1L1Nu2J_m1000_w25p0_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<!-- Pseudoscalar A 2.5% -->
+		<InputData Lumi="187269.015689" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m365_w9p125_res_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m365_w9p125_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="186595.206127" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m400_w10p0_res_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m400_w10p0_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="211855.260959" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m500_w12p5_res_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m500_w12p5_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="218085.554617" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m600_w15p0_res_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m600_w15p0_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="225212.995872" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m800_w20p0_res_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m800_w20p0_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="210014.340194" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m1000_w25p0_res_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m1000_w25p0_res_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-241655.017604" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m365_w9p125_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m365_w9p125_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-242711.25589" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m400_w10p0_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m400_w10p0_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-254698.914225" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m500_w12p5_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m500_w12p5_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-469486.222629" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m600_w15p0_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m600_w15p0_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="242676.627732" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m800_w20p0_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m800_w20p0_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="257936.615417" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m1000_w25p0_int_pos_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m1000_w25p0_int_pos_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-241655.017604" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m365_w9p125_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m365_w9p125_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-242711.25589" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m400_w10p0_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m400_w10p0_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-254698.914225" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m500_w12p5_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m500_w12p5_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="-469486.222629" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m600_w15p0_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m600_w15p0_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="242676.627732" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m800_w20p0_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m800_w20p0_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="257936.615417" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m1000_w25p0_int_neg_UL18" Cacheable="&b_Cacheable;">
+			&HpseudoToTTTo1L1Nu2J_m1000_w25p0_int_neg_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<!-- RS gluon -->
+		<InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluonToTT_M-500_UL18" Cacheable="&b_Cacheable;">
+			&RSGluonToTT_M-500_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="479000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluonToTT_M-1000_UL18" Cacheable="&b_Cacheable;">
+			&RSGluonToTT_M-1000_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluonToTT_M-1500_UL18" Cacheable="&b_Cacheable;">
+			&RSGluonToTT_M-1500_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="494000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluonToTT_M-2000_UL18" Cacheable="&b_Cacheable;">
+			&RSGluonToTT_M-2000_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="488000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluonToTT_M-2500_UL18" Cacheable="&b_Cacheable;">
+			&RSGluonToTT_M-2500_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluonToTT_M-3000_UL18" Cacheable="&b_Cacheable;">
+			&RSGluonToTT_M-3000_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluonToTT_M-3500_UL18" Cacheable="&b_Cacheable;">
+			&RSGluonToTT_M-3500_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="484000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluonToTT_M-4000_UL18" Cacheable="&b_Cacheable;">
+			&RSGluonToTT_M-4000_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="482000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluonToTT_M-4500_UL18" Cacheable="&b_Cacheable;">
+			&RSGluonToTT_M-4500_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="476000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluonToTT_M-5000_UL18" Cacheable="&b_Cacheable;">
+			&RSGluonToTT_M-5000_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="479000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluonToTT_M-5500_UL18" Cacheable="&b_Cacheable;">
+			&RSGluonToTT_M-5500_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="455000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluonToTT_M-6000_UL18" Cacheable="&b_Cacheable;">
+			&RSGluonToTT_M-6000_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<!-- ZPrime 10% -->
+		<InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M400_W40_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M400_W40_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M500_W50_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M500_W50_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="491000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M600_W60_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M600_W60_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="464000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M700_W70_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M700_W70_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="482000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M800_W80_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M800_W80_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M900_W90_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M900_W90_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1000_W100_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M1000_W100_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="464000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1200_W120_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M1200_W120_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="482000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1400_W140_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M1400_W140_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1600_W160_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M1600_W160_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="482000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1800_W180_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M1800_W180_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M2000_W200_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M2000_W200_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M2500_W250_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M2500_W250_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M3000_W300_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M3000_W300_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="476000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M3500_W350_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M3500_W350_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M4000_W400_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M4000_W400_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="497000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M4500_W450_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M4500_W450_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="194000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M5000_W500_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M5000_W500_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="200000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M6000_W600_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M6000_W600_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="200000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M7000_W700_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M7000_W700_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="200000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M8000_W800_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M8000_W800_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="194000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M9000_W900_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M9000_W900_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<!-- ZPrime 30% -->
+		<InputData Lumi="482000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M400_W120_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M400_W120_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="485000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M500_W150_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M500_W150_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="497000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M600_W180_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M600_W180_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M700_W210_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M700_W210_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M800_W240_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M800_W240_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="473000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M900_W270_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M900_W270_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1000_W300_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M1000_W300_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="494000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1200_W360_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M1200_W360_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1400_W420_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M1400_W420_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1600_W480_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M1600_W480_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1800_W540_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M1800_W540_UL18;
+			<InputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M2000_W600_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M2000_W600_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="489000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M2500_W750_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M2500_W750_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M3000_W900_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M3000_W900_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M3500_W1050_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M3500_W1050_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M4000_W1200_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M4000_W1200_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="500000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M4500_W1350_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M4500_W1350_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="200000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M5000_W1500_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M5000_W1500_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="200000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M6000_W1800_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M6000_W1800_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="200000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M7000_W2100_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M7000_W2100_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="197000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M8000_W2400_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M8000_W2400_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="194000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M9000_W2700_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M9000_W2700_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<!-- ZPrime 1% -->
+		<InputData Lumi="200177.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M400_W4_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M400_W4_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="191959.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M500_W5_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M500_W5_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="190965.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M600_W6_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M600_W6_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="199814.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M700_W7_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M700_W7_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="191956.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M800_W8_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M800_W8_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="197077.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M900_W9_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M900_W9_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="201398.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1000_W10_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M1000_W10_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="198217.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1200_W12_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M1200_W12_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="217763.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1400_W14_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M1400_W14_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="207930.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1600_W16_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M1600_W16_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="203473.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M1800_W18_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M1800_W18_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="196868.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M2000_W20_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M2000_W20_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="201970.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M2500_W25_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M2500_W25_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="194745.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M3000_W30_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M3000_W30_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="187591.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M3500_W35_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M3500_W35_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="184021.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M4000_W40_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M4000_W40_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="179341.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M4500_W45_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M4500_W45_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="193733.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M5000_W50_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M5000_W50_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="192170.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M6000_W60_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M6000_W60_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="197279.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M7000_W70_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M7000_W70_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="170678.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M8000_W80_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M8000_W80_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="201986.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M9000_W90_UL18" Cacheable="&b_Cacheable;">
+			&ZPrimeToTT_M9000_W90_UL18;
+			<InputTree Name="AnalysisTree"/>
+			<OutputTree Name="AnalysisTree"/>
+		</InputData>
 
 		<UserConfig>
 			<Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices"/>

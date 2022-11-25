@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
+
+<!ENTITY TargetLumi  "1">
+<!ENTITY b_Cacheable "False">
+<!ENTITY NEVT        "-1">
+
+<!ENTITY OUTPUTdir   "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/UL18/ALPtoTTbar_interference_colorflowSM/output/">
+
+<!-- <!ENTITY ALP_ttbar_interference_colorflowSM_UL18 SYSTEM "../data/Skimming_datasets_UL18_veto/MC_ALP_ttbar_interference_UL18.xml"> -->
+
+
+]>
+
+
+
+<!-- OutputLevel controls which messages are printed; set to VERBOSE or DEBUG for more verbosity, to WARNING or ERROR for less -->
+<JobConfiguration JobName="ExampleCycleJob" OutputLevel="INFO">
+	<Library Name="libSUHH2examples"/>
+	<Package Name="SUHH2examples.par" />
+
+	<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTPUTdir;/" PostFix="" TargetLumi="&TargetLumi;" >
+
+		<!-- Verion attribute must have year in it, same as used in ntuple config, e.g. 2018, 2016v3, etc -->
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="ALP_ttbar_interference_colorflowSM_UL18" Cacheable="&b_Cacheable;">
+			<In FileName="/pnfs/desy.de/cms/tier2/store/user/hjabusch/uhh2ntuples/RunII_106X_v2/UL18/ALP_ttbar_interference_private100k_colorflowSMlike_TuneCP5_13TeV-madgraph-pythia8/Ntuple.root" Lumi="0.0"/>
+			<InputTree Name="AnalysisTree" />
+		</InputData>
+
+		<UserConfig>
+			<!-- define which collections to read from the input. Only specify what you need to save I/O time -->
+			<Item Name="GenJetCollection"      Value="slimmedGenJets" />
+			<Item Name="GenParticleCollection" Value="GenParticles"/>
+
+			<!-- the class name of the AnalysisModule subclasses to run: -->
+			<Item Name="AnalysisModule" Value="ExampleModuleGenOnly2" />
+
+			<!-- Important, stops it from reading trigger bits etc (see AnalysisModuleRunnerImpl::begin_input_data()) -->
+			<Item Name="readTrigger" Value="false" />
+
+			<!-- tell AnalysisModuleRunner NOT to use the MC event weight from SFrame; rather let
+			MCLumiWeight (called via CommonModules) calculate the MC event weight. The MC
+			event weight assigned by MCLumiWeight is InputData.Lumi / Cycle.TargetLumi. -->
+			<Item Name="use_sframe_weight" Value="false" />
+
+		</UserConfig>
+	</Cycle>
+</JobConfiguration>

@@ -17,5 +17,12 @@
 obj/*
 config/workdir_*
 config/jobTempOutput_*
-plotting/*
 !/macros/src/Plots_BTagSF/*/*.pdf
+
+# stuff to ignore in Henrik's work dir
+plotting/*
+combine_factory/*
+genLevelStudy/*
+config/constants.py
+config/sample_db.py
+config/xmlFileCreator.py

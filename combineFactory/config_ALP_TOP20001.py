@@ -8,8 +8,8 @@ import itertools
 from collections import OrderedDict
 
 inputdirs = {
-    # "UL16":
-    # "UL17":
+    "UL16": "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/UL16/DiffXsecMeasurement/forCombine/",
+    "UL17": "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/UL17/DiffXsecMeasurement/forCombine/",
     "UL18": "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/UL18/DiffXsecMeasurement/forCombine/"
 }
 
@@ -53,11 +53,13 @@ fas = [
 # normalization systematics
 rates = OrderedDict()
 rates["tttosemileptonic_rate"] = 1.1
-# rates["lumi_13TeV_uncorrelated_UL16"] = 1.010
-# rates["lumi_13TeV_uncorrelated_UL17"] = 1.020
-# rates["lumi_13TeV_uncorrelated_UL18"] = 1.015
-# rates["lumi_13TeV_correlated_UL16_UL17_UL18"] = {"UL16": 1.006, "UL17": 1.009, "UL18": 1.02}
-# rates["lumi_13TeV_correlated_UL17_UL18"] = {"UL16": '-', "UL17": 1.006, "UL18": 1.002}
+rates["alp_ttbar_signal_rate"] = 1.1
+rates["alp_ttbar_interference_rate"] = 1.1
+rates["lumi_13TeV_uncorrelated_UL16"] = 1.010
+rates["lumi_13TeV_uncorrelated_UL17"] = 1.020
+rates["lumi_13TeV_uncorrelated_UL18"] = 1.015
+rates["lumi_13TeV_correlated_UL16_UL17_UL18"] = {"UL16": 1.006, "UL17": 1.009, "UL18": 1.02}
+rates["lumi_13TeV_correlated_UL17_UL18"] = {"UL16": '-', "UL17": 1.006, "UL18": 1.002}
 
 # shape systematics: up/down variations
 # shapes = OrderedDict()
