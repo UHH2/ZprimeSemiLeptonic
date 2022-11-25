@@ -1,10 +1,11 @@
 {
-  TString input_directory = "/nfs/dust/cms/user/deleokse/RunII_106_v2/DNN_UL18_muon/";
+  TString input_directory = "/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/macros/src/PDF_hists/UL18/muon/";
+  TString input_directory_nominal = "/nfs/dust/cms/user/deleokse/RunII_106_v2/DNN_UL18_muon/";
   TString root_directory = "Zprime_SystVariations_DNN_output0"; // SR (TTbar node of DNN)
   TString save_directory = "/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/uncertainties/plots_new/";
   TString hist_name = "M_Zprime";
-  TString systematic = "prefiring";
 
+  TString systematic = "pdf";
   vector<TString> v_samples = {
     "TTbar",
     "ST",
@@ -40,24 +41,27 @@
     // nominal
     TFile *file = TFile::Open(input_directory + "uhh2.AnalysisModuleRunner.MC." + sample + ".root");
     file->cd(root_directory);
+    TH1F *h_pdf_up = (TH1F*) gDirectory->Get(hist_name + "_pdf_up");
+    TH1F *h_pdf_down = (TH1F*) gDirectory->Get(hist_name + "_pdf_down");
+
+    TFile *file_nominal = TFile::Open(input_directory_nominal + "uhh2.AnalysisModuleRunner.MC." + sample + ".root");
+    file_nominal->cd(root_directory);
     TH1F *h_nominal = (TH1F*) gDirectory->Get(hist_name);
     h_nominal->SetLineColor(kBlack);
     h_nominal->SetLineWidth(2);
 
-    TH1F *h_up = (TH1F*) gDirectory->Get(hist_name + "_prefiring_up");
-    TH1F *h_down = (TH1F*) gDirectory->Get(hist_name + "_prefiring_down");
+    h_pdf_up->Divide(h_nominal);
+    h_pdf_down->Divide(h_nominal);
 
-    h_up->Divide(h_nominal);
-    h_down->Divide(h_nominal);
+    h_pdf_up->SetLineColor(kRed);
+    h_pdf_down->SetLineColor(kRed);
 
-    h_up->SetLineColor(kRed);
-    h_down->SetLineColor(kRed);
+    h_pdf_up->SetLineWidth(2);
+    h_pdf_down->SetLineWidth(2);
 
-    h_up->SetLineWidth(2);
-    h_down->SetLineWidth(2);
+    h_pdf_up->SetLineStyle(7);
+    h_pdf_down->SetLineStyle(3);
 
-    h_up->SetLineStyle(7);
-    h_down->SetLineStyle(3);
 
     // plotting
     TCanvas *c1 = new TCanvas("c1","c1",0,0,800,800);
@@ -84,30 +88,31 @@
 
     // legend
     double x_pos  = 0.17;
-    double y_pos  = 0.8;
+    double y_pos  = 0.7;
     double x_width = 0.2;
-    double y_width = 0.1;
+    double y_width = 0.2;
     TLegend *legend;
     legend = new TLegend(x_pos,y_pos,x_pos+x_width,y_pos+y_width);
     legend->SetTextSize(0.025);
     legend->SetLineWidth(0);
     legend->SetNColumns(1);
-    legend->AddEntry(h_up,"prefiring_up","le");
-    legend->AddEntry(h_down,"prefiring_down","le");
+    legend->AddEntry(h_pdf_up,"pdf_up","le");
+    legend->AddEntry(h_pdf_down,"pdf_down","le");
 
     // draw
-    h_up->Draw("hist");
-    h_down->Draw("hist same");
+    h_pdf_up->Draw("hist");
+    h_pdf_down->Draw("hist same");
     legend->Draw();
 
     // x axis
-    h_up->GetXaxis()->SetTitle("m_{t#bar{t}} [GeV]");
-    h_up->GetXaxis()->SetTitleOffset(1.3);
-    h_up->GetXaxis()->SetRangeUser(0,6000);
+    h_pdf_up->GetXaxis()->SetTitle("m_{t#bar{t}} [GeV]");
+    h_pdf_up->GetXaxis()->SetTitleOffset(1.3);
+    h_pdf_up->GetXaxis()->SetRangeUser(100,6000);
     // y axis
-    h_up->GetYaxis()->SetTitle("variation/nominal");
-    h_up->GetYaxis()->SetTitleOffset(1.7);
-    h_up->GetYaxis()->SetRangeUser(0.98,1.03);
+    h_pdf_up->GetYaxis()->SetTitle("variation/nominal");
+    h_pdf_up->GetYaxis()->SetTitleOffset(1.7);
+    if(i==1) h_pdf_up->GetYaxis()->SetRangeUser(0.,2.);
+    else h_pdf_up->GetYaxis()->SetRangeUser(0.9,1.1);
 
     c1->Modified();
 
