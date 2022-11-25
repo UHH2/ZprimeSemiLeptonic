@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
+
+<!ENTITY TargetLumi  "1">
+<!ENTITY b_Cacheable "False">
+<!ENTITY NEVT        "-1">
+
+<!ENTITY OUTPUTdir   "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/UL18/ALPtoTTbar_linear_GenStudy/">
+
+
+<!ENTITY TTToSemiLeptonic_UL18 SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL18/TTToSemiLeptonic_CP5_powheg-pythia8_Summer20UL18_v2.xml">
+<!ENTITY TTToHadronic_UL18     SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL18/TTToHadronic_CP5_powheg-pythia8_Summer20UL18_v1.xml">
+<!ENTITY TTTo2L2Nu_UL18        SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL18/TTTo2L2Nu_CP5_powheg-pythia8_Summer20UL18_v1.xml">
+
+<!ENTITY ALP_ttbar_signal_UL18       SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/BSM/UL18/ALP_ttbar_signal_CP5_madgraph-pythia8_Summer20UL18_v2.xml">
+<!ENTITY ALP_ttbar_interference_UL18 SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/BSM/UL18/ALP_ttbar_interference_CP5_madgraph-pythia8_Summer20UL18_v2.xml">
+]>
+
+<!--
+<ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="100" AutoResubmit="0"/>
+<ConfigSGE RAM="2" DISK="2" Mail="henrik.jabusch@desy.de" Notification="as" Workdir="workdir_GENStudy_linearALP"/>
+-->
+
+<JobConfiguration JobName="ExampleCycleJob" OutputLevel="INFO">
+	<Library Name="libSUHH2examples"/>
+	<Package Name="SUHH2examples.par" />
+
+	<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTPUTdir;/" PostFix="" TargetLumi="&TargetLumi;" >
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_UL18" Cacheable="&b_Cacheable;">
+			&TTToSemiLeptonic_UL18;
+			<InputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="TTToHadronic_UL18" Cacheable="&b_Cacheable;">
+			&TTToHadronic_UL18;
+			<InputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="TTTo2L2Nu_UL18" Cacheable="&b_Cacheable;">
+			&TTTo2L2Nu_UL18;
+			<InputTree Name="AnalysisTree"/>
+		</InputData>
+
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="ALP_ttbar_signal_UL18" Cacheable="&b_Cacheable;">
+			&ALP_ttbar_signal_UL18;
+			<InputTree Name="AnalysisTree"/>
+		</InputData>
+		<InputData Lumi="1" NEventsMax="&NEVT;" Type="MC" Version="ALP_ttbar_interference_UL18" Cacheable="&b_Cacheable;">
+			&ALP_ttbar_interference_UL18;
+			<InputTree Name="AnalysisTree"/>
+		</InputData>
+
+		<UserConfig>
+			<Item Name="GenParticleCollection" Value="GenParticles"/>
+			<Item Name="AnalysisModule" Value="ExampleModuleGenOnly2" />
+			<Item Name="readTrigger" Value="false" />
+		</UserConfig>
+	</Cycle>
+</JobConfiguration>
