@@ -1,7 +1,7 @@
 {
-  TString input_directory = "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/UL18/electron/AnalysisDNN_withSyst/";
+  TString input_directory = "/nfs/dust/cms/user/deleokse/RunII_106_v2/DNN_UL18_electron/";
   TString root_directory = "Zprime_SystVariations_DNN_output0"; // SR (TTbar node of DNN)
-  TString save_directory = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/uncertainties/plots/";
+  TString save_directory = "/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/uncertainties/plots_new/";
   TString hist_name = "M_Zprime";
 
   TString systematic = "electronSFs";
@@ -11,8 +11,24 @@
     "WJets",
     "others", // DY + Diboson + QCD
     "DY",
-    "Diboson",
     "QCD",
+    "ZPrimeToTT_M500_W50",
+    "ZPrimeToTT_M1000_W100",
+    "ZPrimeToTT_M1400_W140",
+    "ZPrimeToTT_M2000_W200",
+    "ZPrimeToTT_M2500_W250",
+    "ZPrimeToTT_M3000_W300",
+    "ZPrimeToTT_M3500_W350",
+    "ZPrimeToTT_M4000_W400",
+    "ZPrimeToTT_M4500_W450",
+    "ZPrimeToTT_M5000_W500",
+    "ZPrimeToTT_M6000_W600",
+    "HscalarToTTTo1L1Nu2J_m400_w10p0_res",
+    "HscalarToTTTo1L1Nu2J_m400_w10p0_int_pos",
+    "HscalarToTTTo1L1Nu2J_m400_w10p0_int_neg",
+    "HpseudoToTTTo1L1Nu2J_m1000_w250p0_res",
+    "HpseudoToTTTo1L1Nu2J_m1000_w250p0_int_pos",
+    "HpseudoToTTTo1L1Nu2J_m1000_w250p0_int_neg",
     "ALP_ttbar_signal",
     "ALP_ttbar_interference"
   };
@@ -28,30 +44,40 @@
     h_nominal->SetLineColor(kBlack);
     h_nominal->SetLineWidth(2);
 
-    TH1F *h_el_reco_up = (TH1F*) gDirectory->Get(hist_name + "_el_reco_up");
-    TH1F *h_el_reco_down = (TH1F*) gDirectory->Get(hist_name + "_el_reco_down");
-    TH1F *h_el_id_up = (TH1F*) gDirectory->Get(hist_name + "_el_id_up");
-    TH1F *h_el_id_down = (TH1F*) gDirectory->Get(hist_name + "_el_id_down");
+    TH1F *h_ele_reco_up = (TH1F*) gDirectory->Get(hist_name + "_ele_reco_up");
+    TH1F *h_ele_reco_down = (TH1F*) gDirectory->Get(hist_name + "_ele_reco_down");
+    TH1F *h_ele_id_up = (TH1F*) gDirectory->Get(hist_name + "_ele_id_up");
+    TH1F *h_ele_id_down = (TH1F*) gDirectory->Get(hist_name + "_ele_id_down");
+    TH1F *h_ele_trigger_up = (TH1F*) gDirectory->Get(hist_name + "_ele_trigger_up");
+    TH1F *h_ele_trigger_down = (TH1F*) gDirectory->Get(hist_name + "_ele_trigger_down");
 
-    h_el_reco_up->Divide(h_nominal);
-    h_el_reco_down->Divide(h_nominal);
-    h_el_id_up->Divide(h_nominal);
-    h_el_id_down->Divide(h_nominal);
+    h_ele_reco_up->Divide(h_nominal);
+    h_ele_reco_down->Divide(h_nominal);
+    h_ele_id_up->Divide(h_nominal);
+    h_ele_id_down->Divide(h_nominal);
+    h_ele_trigger_up->Divide(h_nominal);
+    h_ele_trigger_down->Divide(h_nominal);
 
-    h_el_reco_up->SetLineColor(kRed);
-    h_el_reco_down->SetLineColor(kRed);
-    h_el_id_up->SetLineColor(kBlue);
-    h_el_id_down->SetLineColor(kBlue);
+    h_ele_reco_up->SetLineColor(kRed);
+    h_ele_reco_down->SetLineColor(kRed);
+    h_ele_id_up->SetLineColor(kBlue);
+    h_ele_id_down->SetLineColor(kBlue);
+    h_ele_trigger_up->SetLineColor(kBlack);
+    h_ele_trigger_down->SetLineColor(kBlack);
 
-    h_el_reco_up->SetLineWidth(2);
-    h_el_reco_down->SetLineWidth(2);
-    h_el_id_up->SetLineWidth(2);
-    h_el_id_down->SetLineWidth(2);
+    h_ele_reco_up->SetLineWidth(2);
+    h_ele_reco_down->SetLineWidth(2);
+    h_ele_id_up->SetLineWidth(2);
+    h_ele_id_down->SetLineWidth(2);
+    h_ele_trigger_up->SetLineWidth(2);
+    h_ele_trigger_down->SetLineWidth(2);
 
-    h_el_reco_up->SetLineStyle(7);
-    h_el_reco_down->SetLineStyle(3);
-    h_el_id_up->SetLineStyle(7);
-    h_el_id_down->SetLineStyle(3);
+    h_ele_reco_up->SetLineStyle(7);
+    h_ele_reco_down->SetLineStyle(3);
+    h_ele_id_up->SetLineStyle(7);
+    h_ele_id_down->SetLineStyle(3);
+    h_ele_trigger_up->SetLineStyle(7);
+    h_ele_trigger_down->SetLineStyle(3);
 
     // plotting
     TCanvas *c1 = new TCanvas("c1","c1",0,0,800,800);
@@ -86,26 +112,31 @@
     legend->SetTextSize(0.025);
     legend->SetLineWidth(0);
     legend->SetNColumns(1);
-    legend->AddEntry(h_el_reco_up,"ele_reco_up","l");
-    legend->AddEntry(h_el_reco_down,"ele_reco_down","l");
-    legend->AddEntry(h_el_id_up,"ele_id_up","l");
-    legend->AddEntry(h_el_id_down,"ele_id_down","l");
+    legend->AddEntry(h_ele_reco_up,"ele_reco_up","l");
+    legend->AddEntry(h_ele_reco_down,"ele_reco_down","l");
+    legend->AddEntry(h_ele_id_up,"ele_id_up","l");
+    legend->AddEntry(h_ele_id_down,"ele_id_down","l");
+    legend->AddEntry(h_ele_trigger_up,"ele_trigger_up","l");
+    legend->AddEntry(h_ele_trigger_down,"ele_trigger_down","l");
 
     // draw
-    h_el_reco_up->Draw("hist");
-    h_el_reco_down->Draw("hist same");
-    h_el_id_up->Draw("hist same");
-    h_el_id_down->Draw("hist same");
+    h_ele_reco_up->Draw("hist");
+    h_ele_reco_down->Draw("hist same");
+    h_ele_id_up->Draw("hist same");
+    h_ele_id_down->Draw("hist same");
+    h_ele_trigger_up->Draw("hist same");
+    h_ele_trigger_down->Draw("hist same");
     legend->Draw();
 
     // x axis
-    h_el_reco_up->GetXaxis()->SetTitle("m_{t#bar{t}} [GeV]");
-    h_el_reco_up->GetXaxis()->SetTitleOffset(1.3);
-    h_el_reco_up->GetXaxis()->SetRangeUser(100,6000);
+    h_ele_reco_up->GetXaxis()->SetTitle("m_{t#bar{t}} [GeV]");
+    h_ele_reco_up->GetXaxis()->SetTitleOffset(1.3);
+    h_ele_reco_up->GetXaxis()->SetRangeUser(100,6000);
     // y axis
-    h_el_reco_up->GetYaxis()->SetTitle("variation/nominal");
-    h_el_reco_up->GetYaxis()->SetTitleOffset(1.7);
-    h_el_reco_up->GetYaxis()->SetRangeUser(0.95,1.05);
+    h_ele_reco_up->GetYaxis()->SetTitle("variation/nominal");
+    h_ele_reco_up->GetYaxis()->SetTitleOffset(1.7);
+    //h_ele_reco_up->GetYaxis()->SetRangeUser(0.95,1.05);
+    h_ele_reco_up->GetYaxis()->SetRangeUser(0.9,1.1);
 
     c1->Modified();
 
