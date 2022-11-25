@@ -568,7 +568,6 @@ bool ThetaStarSelection::passes(const Event & event){
 
   bool pass = false;
 
-  float ang_leptop_thetastar;
   float cos_ang_leptop_thetastar;
 
   LorentzVector had_top = BestZprimeCandidate->top_hadronic_v4();
@@ -580,14 +579,10 @@ bool ThetaStarSelection::passes(const Event & event){
   ttbar.SetPtEtaPhiE((had_top+lep_top).pt(), (had_top+lep_top).eta(), (had_top+lep_top).phi(), (had_top+lep_top).E());
 
   lep_top_frame.Boost(-ttbar.BoostVector());
-
-  ang_leptop_thetastar = lep_top_frame.Theta();
-  cos_ang_leptop_thetastar = TMath::Cos(ang_leptop_thetastar);
-
+  cos_ang_leptop_thetastar = ttbar.Vect().Dot(lep_top_frame.Vect())/ttbar.P()/lep_top_frame.P();
   if( (cos_ang_leptop_thetastar > -theta_cut_) && (cos_ang_leptop_thetastar < theta_cut_) ) pass = true;
 
   return pass;
-
 }
 
 /////////////////////////////////////////////////////
