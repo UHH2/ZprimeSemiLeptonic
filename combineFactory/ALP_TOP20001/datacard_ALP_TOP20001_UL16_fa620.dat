@@ -1,0 +1,25 @@
+# PARAMETERS
+imax 3 number of regions
+jmax 2 number of processes -1
+kmax *
+shapes * * inputHistograms_ALP_TOP20001_UL16_fa620.root $CHANNEL_$PROCESS $CHANNEL_$PROCESS_$SYSTEMATIC
+--------------------------------------------
+# regions
+bin          bin1  bin2  bin3  
+observation  -1    -1    -1    
+--------------------------------------------
+# PROCESSES
+bin                                           bin1                    bin1                    bin1                    bin2                    bin2                    bin2                    bin3                    bin3                    bin3                    
+process                                       ALP_ttbar_signal        ALP_ttbar_interference  TTToSemiLeptonic        ALP_ttbar_signal        ALP_ttbar_interference  TTToSemiLeptonic        ALP_ttbar_signal        ALP_ttbar_interference  TTToSemiLeptonic        
+process                                       -1                      0                       1                       -1                      0                       1                       -1                      0                       1                       
+rate                                          -1                      -1                      -1                      -1                      -1                      -1                      -1                      -1                      -1                      
+--------------------------------------------
+# SYSTEMATICS
+tttosemileptonic_rate                 lnN     -                       -                       1.1                     -                       -                       1.1                     -                       -                       1.1                     
+alp_ttbar_signal_rate                 lnN     1.1                     -                       -                       1.1                     -                       -                       1.1                     -                       -                       
+alp_ttbar_interference_rate           lnN     -                       1.1                     -                       -                       1.1                     -                       -                       1.1                     -                       
+lumi_13TeV_uncorrelated_UL16          lnN     1.01                    1.01                    1.01                    1.01                    1.01                    1.01                    1.01                    1.01                    1.01                    
+lumi_13TeV_uncorrelated_UL17          lnN     -                       -                       -                       -                       -                       -                       -                       -                       -                       
+lumi_13TeV_uncorrelated_UL18          lnN     -                       -                       -                       -                       -                       -                       -                       -                       -                       
+lumi_13TeV_correlated_UL16_UL17_UL18  lnN     1.006                   1.006                   1.006                   1.006                   1.006                   1.006                   1.006                   1.006                   1.006                   
+lumi_13TeV_correlated_UL17_UL18       lnN     -                       -                       -                       -                       -                       -                       -                       -                       -                       
