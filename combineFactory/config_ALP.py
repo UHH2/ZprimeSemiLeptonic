@@ -90,6 +90,7 @@ vars = {
 }
 
 # normalization systematics
+# for now we decided to not use any rate uncertainties
 rates = OrderedDict()
 # rates["ttbar_rate"] = 1.2
 # rates["st_rate"] = 1.3
@@ -114,14 +115,14 @@ shapes["mu_trigger"]    = ["TTbar","ST","WJets","others","ALP_ttbar_signal","ALP
 shapes["ele_id"]        = ["TTbar","ST","WJets","others","ALP_ttbar_signal","ALP_ttbar_interference"] # electron id
 shapes["ele_reco"]      = ["TTbar","ST","WJets","others","ALP_ttbar_signal","ALP_ttbar_interference"] # electron reconstruction
 shapes["ele_trigger"]   = ["TTbar","ST","WJets","others","ALP_ttbar_signal","ALP_ttbar_interference"] # electron trigger
-shapes["btag_cferr1"]   = ["TTbar","ST","WJets","others","ALP_ttbar_signal","ALP_ttbar_interference"] # charm jet uncertainty 1
-shapes["btag_cferr2"]   = ["TTbar","ST","WJets","others","ALP_ttbar_signal","ALP_ttbar_interference"] # charm jet uncertainty 1
-shapes["btag_hf"]       = ["TTbar","ST","WJets","others","ALP_ttbar_signal","ALP_ttbar_interference"] # heavy flavor purity uncertainty
-shapes["btag_hfstats1"] = ["TTbar","ST","WJets","others","ALP_ttbar_signal","ALP_ttbar_interference"] # heavy flavor statistical uncertainty
-shapes["btag_hfstats2"] = ["TTbar","ST","WJets","others","ALP_ttbar_signal","ALP_ttbar_interference"] # heavy flavor statistical uncertainty
-shapes["btag_lf"]       = ["TTbar","ST","WJets","others","ALP_ttbar_signal","ALP_ttbar_interference"] # light flavor purity uncertainty
-shapes["btag_lfstats1"] = ["TTbar","ST","WJets","others","ALP_ttbar_signal","ALP_ttbar_interference"] # light flavor statistical uncertainty
-shapes["btag_lfstats2"] = ["TTbar","ST","WJets","others","ALP_ttbar_signal","ALP_ttbar_interference"] # light flavor statistical uncertainty
+shapes["btag_cferr1"]   = ["TTbar","ST","WJets","others","ALP_ttbar_signal","ALP_ttbar_interference"] # charm jet uncertainty 1 (correlated)
+shapes["btag_cferr2"]   = ["TTbar","ST","WJets","others","ALP_ttbar_signal","ALP_ttbar_interference"] # charm jet uncertainty 1 (correlated)
+shapes["btag_hf"]       = ["TTbar","ST","WJets","others","ALP_ttbar_signal","ALP_ttbar_interference"] # heavy flavor purity uncertainty (correlated)
+shapes["btag_hfstats1"] = ["TTbar","ST","WJets","others","ALP_ttbar_signal","ALP_ttbar_interference"] # heavy flavor statistical uncertainty (uncorrelated)
+shapes["btag_hfstats2"] = ["TTbar","ST","WJets","others","ALP_ttbar_signal","ALP_ttbar_interference"] # heavy flavor statistical uncertainty (uncorrelated)
+shapes["btag_lf"]       = ["TTbar","ST","WJets","others","ALP_ttbar_signal","ALP_ttbar_interference"] # light flavor purity uncertainty (correlated)
+shapes["btag_lfstats1"] = ["TTbar","ST","WJets","others","ALP_ttbar_signal","ALP_ttbar_interference"] # light flavor statistical uncertainty (uncorrelated)
+shapes["btag_lfstats2"] = ["TTbar","ST","WJets","others","ALP_ttbar_signal","ALP_ttbar_interference"] # light flavor statistical uncertainty (uncorrelated)
 # shapes["isr"] = ["TTbar","ST","WJets","others","ALP_ttbar_signal","ALP_ttbar_interference"] # initial state radiation
 # shapes["fsr"] = ["TTbar","ST","WJets","others","ALP_ttbar_signal","ALP_ttbar_interference"] # final state radiation
 # TODO: add JEC + JER
@@ -227,8 +228,12 @@ def createCombineInput():
                                             hist_syst_down_out.SetBinContent(bin, 0.)
                                             hist_syst_down_out.SetBinError(bin, 0.) # needed for combine to ignore this bin
 
-                                hist_syst_up_out.Write(region + "_" + process + "_" + shape + "Up")
-                                hist_syst_down_out.Write(region + "_" + process + "_" + shape + "Down")
+                                if shape == "btag_hfstats1" or shape == "btag_hfstats2" or shape == "btag_lfstats1" or shape == "btag_lfstats2": # these are uncorrelated
+                                    hist_syst_up_out.Write(region + "_" + process + "_" + shape + "_" + year + "Up")
+                                    hist_syst_down_out.Write(region + "_" + process + "_" + shape + "_" + year + "Down")
+                                else:
+                                    hist_syst_up_out.Write(region + "_" + process + "_" + shape + "Up")
+                                    hist_syst_down_out.Write(region + "_" + process + "_" + shape + "Down")
                         file_in.Close()
 
             datacard_name = signal_name + "/" + "datacard_" + signal_name + "_" + year + "_" + channel + "_fa" + str(fa) + ".dat"
@@ -270,7 +275,10 @@ def createCombineInput():
                 for shape in shapes:
                     if str(channel) == "muon" and shape.startswith("ele_"): continue
                     if str(channel) == "electron" and shape.startswith("mu_"): continue
-                    datacard.write(pad(shape, N1) + pad("shape", N2))
+                    if shape == "btag_hfstats1" or shape == "btag_hfstats2" or shape == "btag_lfstats1" or shape == "btag_lfstats2": # these are uncorrelated
+                        datacard.write(pad(shape + "_" + year, N1) + pad("shape", N2))
+                    else:
+                        datacard.write(pad(shape, N1) + pad("shape", N2))
                     for region in regions:
                         for process in processes:
                             if process in shapes[shape]:
