@@ -22,6 +22,7 @@ config/jobTempOutput_*
 # stuff to ignore in Henrik's work dir
 plotting/*
 combine_factory/*
+genLevelStudy/*
 config/constants.py
 config/sample_db.py
 config/xmlFileCreator.py
