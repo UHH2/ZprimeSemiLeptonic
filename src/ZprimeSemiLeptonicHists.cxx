@@ -512,6 +512,10 @@ void ZprimeSemiLeptonicHists::init(){
   M_Zprime_dr_rebin2       = book<TH1F>("M_Zprime_dr_rebin2", "M_{t#bar{t}} (correctly matched) [GeV]", 70, 0, 7000);
   M_Zprime_dr_rebin3       = book<TH1F>("M_Zprime_dr_rebin3", "M_{t#bar{t}} (correctly matched) [GeV]", 35, 0, 7000);
 
+  // 2D histogram of mttbar x cos(theta*) to optimize binning
+  mttbar_vs_costhetastar = book<TH2F>("mttbar_vs_costhetastar", "m_{t#bar{t}} vs cos(#theta*)", 20, -1, 1, 1000, 0, 10000);
+  costhetastar_vs_mttbar = book<TH2F>("costhetastar_vs_mttbar", "cos(#theta*) vs m_{t#bar{t}}", 1000, 0, 10000, 20, -1, 1);
+
   // Sphericity tensor
   S11 = book<TH1F>("S11", "S_{11}", 50, 0, 1);
   S12 = book<TH1F>("S12", "S_{12}", 50, 0, 1);
@@ -534,7 +538,7 @@ void ZprimeSemiLeptonicHists::init(){
   TOP_20_001_ditopmass_Fig19 = book<TH1F>("TOP_20_001_ditopmass_Fig19","m_{t#bar{t} [GeV]}",bins_ditopmass_Fig19.size()-1,&bins_ditopmass_Fig19[0]);
   TOP_20_001_ditopmass_Fig25 = book<TH1F>("TOP_20_001_ditopmass_Fig25","m_{t#bar{t} [GeV]}",bins_ditopmass_Fig25.size()-1,&bins_ditopmass_Fig25[0]);
 
-  // 2D sitributoin NJets/HT to extract custom btag SF
+  // 2D ditribution NJets/HT to extract custom btag SF
   N_Jets_vs_HT  = book<TH2F>("N_Jets_vs_HT", "N_Jets_vs_HT", 21, 0., 21., 50, 0., 7000.);
 
   // NN Hists
@@ -1347,6 +1351,27 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
     TOP_20_001_ditopmass_Fig19->Fill(Mreco, weight);
     TOP_20_001_ditopmass_Fig25->Fill(Mreco, weight);
 
+    LorentzVector had_top = BestZprimeCandidate->top_hadronic_v4();
+    LorentzVector lep_top = BestZprimeCandidate->top_leptonic_v4();
+
+    TLorentzVector had_top_frame(0,0,0,0);
+    had_top_frame.SetPtEtaPhiE(had_top.pt(), had_top.eta(), had_top.phi(), had_top.E());
+    TLorentzVector lep_top_frame(0,0,0,0);
+    lep_top_frame.SetPtEtaPhiE(lep_top.pt(), lep_top.eta(), lep_top.phi(), lep_top.E());
+    TLorentzVector ttbar(0,0,0,0);
+    ttbar.SetPtEtaPhiE((had_top+lep_top).pt(), (had_top+lep_top).eta(), (had_top+lep_top).phi(), (had_top+lep_top).E());
+
+    had_top_frame.Boost(-ttbar.BoostVector());
+    lep_top_frame.Boost(-ttbar.BoostVector());
+    float costhetastar_had = ttbar.Vect().Dot(had_top_frame.Vect())/ttbar.P()/had_top_frame.P();
+    float costhetastar_lep = ttbar.Vect().Dot(lep_top_frame.Vect())/ttbar.P()/lep_top_frame.P();
+
+    cos_hadtop_thetastar->Fill(costhetastar_had, weight);
+    cos_leptop_thetastar->Fill(costhetastar_lep, weight);
+
+    mttbar_vs_costhetastar->Fill(costhetastar_lep, Mreco, weight);
+    costhetastar_vs_mttbar->Fill(Mreco, costhetastar_lep, weight);
+
     if(BestZprimeCandidate->is_toptag_reconstruction()){
       M_tophad->Fill(BestZprimeCandidate->tophad_topjet_ptr()->v4().M(), weight);
       M_toplep->Fill(inv_mass(BestZprimeCandidate->top_leptonic_v4()), weight);
@@ -1447,29 +1472,6 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
   S33->Fill(s33, weight);
 
   sum_event_weights->Fill(1., weight);
-
-  // theta star angle
-  // added "is_mc" to blind data in theta star hists
-  if(is_zprime_reconstructed_chi2 & is_mc){
-    ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
-
-    LorentzVector had_top = BestZprimeCandidate->top_hadronic_v4();
-    LorentzVector lep_top = BestZprimeCandidate->top_leptonic_v4();
-
-    TLorentzVector had_top_frame(0,0,0,0);
-    had_top_frame.SetPtEtaPhiE(had_top.pt(), had_top.eta(), had_top.phi(), had_top.E());
-    TLorentzVector lep_top_frame(0,0,0,0);
-    lep_top_frame.SetPtEtaPhiE(lep_top.pt(), lep_top.eta(), lep_top.phi(), lep_top.E());
-    TLorentzVector ttbar(0,0,0,0);
-    ttbar.SetPtEtaPhiE((had_top+lep_top).pt(), (had_top+lep_top).eta(), (had_top+lep_top).phi(), (had_top+lep_top).E());
-
-    had_top_frame.Boost(-ttbar.BoostVector());
-    lep_top_frame.Boost(-ttbar.BoostVector());
-
-    cos_hadtop_thetastar->Fill(ttbar.Vect().Dot(had_top_frame.Vect())/ttbar.P()/had_top_frame.P(), weight);
-    cos_leptop_thetastar->Fill(ttbar.Vect().Dot(lep_top_frame.Vect())/ttbar.P()/lep_top_frame.P(), weight);
-  }
-
 
   N_Jets_vs_HT->Fill(Njets, st_jets, weight);
 
