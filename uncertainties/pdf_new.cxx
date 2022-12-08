@@ -13,17 +13,20 @@
     //"others", // DY + Diboson + QCD
     //"DY",
     //"QCD",
-    "ZPrimeToTT_M500_W50",
-    "ZPrimeToTT_M1000_W100",
-    "ZPrimeToTT_M1400_W140",
-    "ZPrimeToTT_M2000_W200",
-    "ZPrimeToTT_M2500_W250",
-    "ZPrimeToTT_M3000_W300",
-    "ZPrimeToTT_M3500_W350",
-    "ZPrimeToTT_M4000_W400",
-    "ZPrimeToTT_M4500_W450",
+    //"ZPrimeToTT_M500_W50",
+    //"ZPrimeToTT_M1000_W100",
+    //"ZPrimeToTT_M1400_W140",
+    //"ZPrimeToTT_M2000_W200",
+    //"ZPrimeToTT_M2500_W250",
+    //"ZPrimeToTT_M3000_W300",
+    //"ZPrimeToTT_M3500_W350",
+    //"ZPrimeToTT_M4000_W400",
+    //"ZPrimeToTT_M4500_W450",
     "ZPrimeToTT_M5000_W500",
     "ZPrimeToTT_M6000_W600",
+    "ZPrimeToTT_M7000_W700",
+    "ZPrimeToTT_M8000_W800",
+    "ZPrimeToTT_M9000_W900",
     //"HscalarToTTTo1L1Nu2J_m400_w10p0_res",
     //"HscalarToTTTo1L1Nu2J_m400_w10p0_int_pos",
     //"HscalarToTTTo1L1Nu2J_m400_w10p0_int_neg",
@@ -32,19 +35,26 @@
     //"HpseudoToTTTo1L1Nu2J_m1000_w250p0_int_neg",
     //"ALP_ttbar_signal",
     //"ALP_ttbar_interference",
-    "Diboson",
-    "RSGluonToTT_M-500",
-    "RSGluonToTT_M-1000",
-    "RSGluonToTT_M-1500",
-    "RSGluonToTT_M-2000",
-    "RSGluonToTT_M-2500",
-    "RSGluonToTT_M-3000",
-    "RSGluonToTT_M-3500",
-    "RSGluonToTT_M-4000",
-    "RSGluonToTT_M-4500",
-    "RSGluonToTT_M-5000",
-    "RSGluonToTT_M-5500",
-    "RSGluonToTT_M-6000"
+    //"Diboson",
+    //"RSGluonToTT_M-500",
+    //"RSGluonToTT_M-1000",
+    //"RSGluonToTT_M-1500",
+    //"RSGluonToTT_M-2000",
+    //"RSGluonToTT_M-2500",
+    //"RSGluonToTT_M-3000",
+    //"RSGluonToTT_M-3500",
+    //"RSGluonToTT_M-4000",
+    //"RSGluonToTT_M-4500",
+    //"RSGluonToTT_M-5000",
+    //"RSGluonToTT_M-5500",
+    //"RSGluonToTT_M-6000"
+    "ZPrimeToTT_M3000_W30",
+    "ZPrimeToTT_M4000_W40",
+    "ZPrimeToTT_M5000_W50",
+    "ZPrimeToTT_M6000_W60",
+    "ZPrimeToTT_M7000_W70",
+    "ZPrimeToTT_M8000_W80",
+    "ZPrimeToTT_M9000_W90",
   };
 
   for(int i=0; i<v_samples.size(); i++){
@@ -124,8 +134,7 @@
     // y axis
     h_pdf_up->GetYaxis()->SetTitle("variation/nominal");
     h_pdf_up->GetYaxis()->SetTitleOffset(1.7);
-    if(i==1) h_pdf_up->GetYaxis()->SetRangeUser(0.,2.);
-    else h_pdf_up->GetYaxis()->SetRangeUser(0.5,1.5);
+    h_pdf_up->GetYaxis()->SetRangeUser(-2.,3.);
 
     c1->Modified();
 
