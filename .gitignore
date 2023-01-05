@@ -26,3 +26,6 @@ genLevelStudy/*
 config/constants.py
 config/sample_db.py
 config/xmlFileCreator.py
+TOP-20-001/.ipynb_checkpoints/*
+TOP-20-001/codeFromOtto/*
+TOP-20-001/test.ipynb
