@@ -22,7 +22,7 @@ TOP20001_TTbarGenHists::TOP20001_TTbarGenHists(uhh2::Context & ctx, const std::s
   vector<float> bins_pt_ttbar = {0.0,50.0,100.0,150.0,200.0,300.0,400.0,500.0,600.0,800.0,1200.0};
   vector<float> bins_absy_ttbar = {0.0,0.2,0.4,0.6,0.8,1.0,1.2,1.4,1.6,1.8,2.4};
   vector<float> bins_phi_ttbar = {0.0,40.0,80.0,120.0,140.0,150.0,160.0,170.0,180.0};
-  vector<float> bins_cts = {-1,-0.8,-0.6,-0.4,-0.2,-0.0,0.2,0.4,0.6,0.8,1.0};
+  vector<float> bins_cts = {-1,-0.8,-0.6,-0.4,-0.2,0.0,0.2,0.4,0.6,0.8,1.0};
   vector<float> bins_cts_mtt = {-1,-0.65,-0.3,0.0,0.3,0.65,1.0};
 
   pt_thad = book<TH1F>("pt_thad","p_{T}(t_{h}) [GeV]",bins_pt_thad.size()-1,&bins_pt_thad[0]);
