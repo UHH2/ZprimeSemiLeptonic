@@ -21,12 +21,12 @@ TOP20001_PDFHists::TOP20001_PDFHists(uhh2::Context & ctx, const std::string& dir
   for(int i=0; i<100; i++){
     std::stringstream ss_mtt_name, ss_cts_bin1_name, ss_cts_bin2_name, ss_cts_bin3_name, ss_cts_bin4_name, ss_cts_bin5_name, ss_cts_bin6_name;
     ss_mtt_name << "mtt_PDF_" << i+1;
-    ss_cts_bin1_name << "cts_mtt250To420_PDF" << i+1;
-    ss_cts_bin2_name << "cts_mtt420To520_PDF" << i+1;
-    ss_cts_bin3_name << "cts_mtt520To620_PDF" << i+1;
-    ss_cts_bin4_name << "cts_mtt620To800_PDF" << i+1;
-    ss_cts_bin5_name << "cts_mtt800To1000_PDF" << i+1;
-    ss_cts_bin6_name << "cts_mtt1000To3500_PDF" << i+1;
+    ss_cts_bin1_name << "cts_mtt250To420_PDF_" << i+1;
+    ss_cts_bin2_name << "cts_mtt420To520_PDF_" << i+1;
+    ss_cts_bin3_name << "cts_mtt520To620_PDF_" << i+1;
+    ss_cts_bin4_name << "cts_mtt620To800_PDF_" << i+1;
+    ss_cts_bin5_name << "cts_mtt800To1000_PDF_" << i+1;
+    ss_cts_bin6_name << "cts_mtt1000To3500_PDF_" << i+1;
 
     stringstream ss_mtt_title, ss_cts_bin1_title, ss_cts_bin2_title, ss_cts_bin3_title, ss_cts_bin4_title, ss_cts_bin5_title, ss_cts_bin6_title;
     ss_mtt_title << "m(t#bar{t}) [GeV] for PDF #"  << i+1 << "/100";
