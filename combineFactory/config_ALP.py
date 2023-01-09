@@ -128,6 +128,8 @@ shapes["btag_lfstats2"] = ["TTbar","ST","WJets","others","ALP_ttbar_signal","ALP
 # TODO: add JEC + JER
 # TODO: add top tagging
 
+uncorrelated_shapes = ["btag_hfstats1","btag_hfstats2","btag_lfstats1","btag_lfstats2"]
+
 
 # characters per column
 N1 = max([len(rate) for rate in rates] + [len(shape) for shape in shapes] + [1]) + 2
@@ -228,7 +230,7 @@ def createCombineInput():
                                             hist_syst_down_out.SetBinContent(bin, 0.)
                                             hist_syst_down_out.SetBinError(bin, 0.) # needed for combine to ignore this bin
 
-                                if shape == "btag_hfstats1" or shape == "btag_hfstats2" or shape == "btag_lfstats1" or shape == "btag_lfstats2": # these are uncorrelated
+                                if shape in uncorrelated_shapes:
                                     hist_syst_up_out.Write(region + "_" + process + "_" + shape + "_" + year + "Up")
                                     hist_syst_down_out.Write(region + "_" + process + "_" + shape + "_" + year + "Down")
                                 else:
@@ -275,7 +277,7 @@ def createCombineInput():
                 for shape in shapes:
                     if str(channel) == "muon" and shape.startswith("ele_"): continue
                     if str(channel) == "electron" and shape.startswith("mu_"): continue
-                    if shape == "btag_hfstats1" or shape == "btag_hfstats2" or shape == "btag_lfstats1" or shape == "btag_lfstats2": # these are uncorrelated
+                    if shape in uncorrelated_shapes:
                         datacard.write(pad(shape + "_" + year, N1) + pad("shape", N2))
                     else:
                         datacard.write(pad(shape, N1) + pad("shape", N2))
