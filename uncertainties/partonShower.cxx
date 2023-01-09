@@ -1,5 +1,5 @@
 {
-  TString input_directory = "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/UL18/muon/AnalysisDNN_withSyst/";
+  TString input_directory = "/nfs/dust/cms/user/deleokse/RunII_106_v2/DNN_UL18_muon/";
   TString root_directory = "Zprime_SystVariations_DNN_output0"; // SR (TTbar node of DNN)
   TString save_directory = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/uncertainties/plots/";
   TString hist_name = "M_Zprime";
@@ -26,10 +26,10 @@
     file->cd(root_directory);
     TH1F *h_nominal = (TH1F*) gDirectory->Get(hist_name);
 
-    TH1F *h_isr_up = (TH1F*) gDirectory->Get(hist_name + "_btag_cferr1_up");
-    TH1F *h_isr_down = (TH1F*) gDirectory->Get(hist_name + "_btag_cferr1_down");
-    TH1F *h_fsr_up = (TH1F*) gDirectory->Get(hist_name + "_btag_cferr2_up");
-    TH1F *h_fsr_down = (TH1F*) gDirectory->Get(hist_name + "_btag_cferr2_down");
+    TH1F *h_isr_up = (TH1F*) gDirectory->Get(hist_name + "_isr_2_up");
+    TH1F *h_isr_down = (TH1F*) gDirectory->Get(hist_name + "_isr_2_down");
+    TH1F *h_fsr_up = (TH1F*) gDirectory->Get(hist_name + "_fsr_2_up");
+    TH1F *h_fsr_down = (TH1F*) gDirectory->Get(hist_name + "_fsr_2_down");
 
     h_isr_up->Divide(h_nominal);
     h_isr_down->Divide(h_nominal);
