@@ -117,10 +117,10 @@ void ZprimeSemiLeptonicSystematicsHists::init(){
   M_Zprime_murmuf_nonedown    = book<TH1F>("M_Zprime_murmuf_nonedown", "M_{t#bar{t}} [GeV] murmuf_nonedown",  bins_Zprime.size()-1, &bins_Zprime[0]);
   M_Zprime_murmuf_downnone    = book<TH1F>("M_Zprime_murmuf_downnone", "M_{t#bar{t}} [GeV] murmuf_downnone",  bins_Zprime.size()-1, &bins_Zprime[0]);
   M_Zprime_murmuf_downdown    = book<TH1F>("M_Zprime_murmuf_downdown", "M_{t#bar{t}} [GeV] murmuf_downdown",  bins_Zprime.size()-1, &bins_Zprime[0]);
-  //M_Zprime_isr_up             = book<TH1F>("M_Zprime_isr_up", "M_{t#bar{t}} [GeV] isr_up", bins_Zprime.size()-1, &bins_Zprime[0]);
-  //M_Zprime_isr_down           = book<TH1F>("M_Zprime_isr_down", "M_{t#bar{t}} [GeV] isr_down", bins_Zprime.size()-1, &bins_Zprime[0]);
-  //M_Zprime_fsr_up             = book<TH1F>("M_Zprime_fsr_up", "M_{t#bar{t}} [GeV] fsr_up", bins_Zprime.size()-1, &bins_Zprime[0]);
-  //M_Zprime_fsr_down           = book<TH1F>("M_Zprime_fsr_down", "M_{t#bar{t}} [GeV] fsr_down", bins_Zprime.size()-1, &bins_Zprime[0]);
+  M_Zprime_isr_up             = book<TH1F>("M_Zprime_isr_up", "M_{t#bar{t}} [GeV] isr_up", bins_Zprime.size()-1, &bins_Zprime[0]);
+  M_Zprime_isr_down           = book<TH1F>("M_Zprime_isr_down", "M_{t#bar{t}} [GeV] isr_down", bins_Zprime.size()-1, &bins_Zprime[0]);
+  M_Zprime_fsr_up             = book<TH1F>("M_Zprime_fsr_up", "M_{t#bar{t}} [GeV] fsr_up", bins_Zprime.size()-1, &bins_Zprime[0]);
+  M_Zprime_fsr_down           = book<TH1F>("M_Zprime_fsr_down", "M_{t#bar{t}} [GeV] fsr_down", bins_Zprime.size()-1, &bins_Zprime[0]);
   M_Zprime_btag_cferr1_up     = book<TH1F>("M_Zprime_btag_cferr1_up", "M_{t#bar{t}} [GeV] btag_cferr1_up",  bins_Zprime.size()-1, &bins_Zprime[0]);
   M_Zprime_btag_cferr1_down   = book<TH1F>("M_Zprime_btag_cferr1_down", "M_{t#bar{t}} [GeV] btag_cferr1_down",  bins_Zprime.size()-1, &bins_Zprime[0]);
   M_Zprime_btag_cferr2_up     = book<TH1F>("M_Zprime_btag_cferr2_up", "M_{t#bar{t}} [GeV] btag_cferr2_up",  bins_Zprime.size()-1, &bins_Zprime[0]);
