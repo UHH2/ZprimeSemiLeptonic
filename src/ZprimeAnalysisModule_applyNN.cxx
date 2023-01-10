@@ -262,7 +262,7 @@ void NeuralNetworkModule::CreateInputs(Event & event){
 
   //Only Ele or Mu variables!!
 
- // vector<uhh2::Event::Handle<float>> inputs = { h_Ak4_j1_E, h_Ak4_j1_deepjetbscore, h_Ak4_j1_eta, h_Ak4_j1_m, h_Ak4_j1_phi, h_Ak4_j1_pt,h_Ak4_j2_E,h_Ak4_j2_deepjetbscore,h_Ak4_j2_eta,h_Ak4_j2_m,h_Ak4_j2_phi,h_Ak4_j2_pt,h_Ak4_j3_E,h_Ak4_j3_deepjetbscore,h_Ak4_j3_eta,h_Ak4_j3_m,h_Ak4_j3_phi, h_Ak4_j3_pt,  h_Ak4_j4_E, h_Ak4_j4_deepjetbscore,  h_Ak4_j4_eta, h_Ak4_j4_m,   h_Ak4_j4_phi, h_Ak4_j4_pt,  h_Ak4_j5_E, h_Ak4_j5_deepjetbscore,  h_Ak4_j5_eta, h_Ak4_j5_m,   h_Ak4_j5_phi, h_Ak4_j5_pt,  h_Ak8_j1_E,     h_Ak8_j1_eta,   h_Ak8_j1_mSD,   h_Ak8_j1_phi,   h_Ak8_j1_pt,    h_Ak8_j1_tau21, h_Ak8_j1_tau32, h_Ak8_j2_E,     h_Ak8_j2_eta,   h_Ak8_j2_mSD,   h_Ak8_j2_phi,   h_Ak8_j2_pt,    h_Ak8_j2_tau21, h_Ak8_j2_tau32, h_Ak8_j3_E,     h_Ak8_j3_eta,   h_Ak8_j3_mSD,   h_Ak8_j3_phi,h_Ak8_j3_pt,h_Ak8_j3_tau21,h_Ak8_j3_tau32,h_MET_phi,h_MET_pt,h_Mu_E,  h_Mu_eta,h_Mu_phi,h_Mu_pt, h_N_Ak4,h_N_Ak8 };
+  // vector<uhh2::Event::Handle<float>> inputs = { h_Ak4_j1_E, h_Ak4_j1_deepjetbscore, h_Ak4_j1_eta, h_Ak4_j1_m, h_Ak4_j1_phi, h_Ak4_j1_pt,h_Ak4_j2_E,h_Ak4_j2_deepjetbscore,h_Ak4_j2_eta,h_Ak4_j2_m,h_Ak4_j2_phi,h_Ak4_j2_pt,h_Ak4_j3_E,h_Ak4_j3_deepjetbscore,h_Ak4_j3_eta,h_Ak4_j3_m,h_Ak4_j3_phi, h_Ak4_j3_pt,  h_Ak4_j4_E, h_Ak4_j4_deepjetbscore,  h_Ak4_j4_eta, h_Ak4_j4_m,   h_Ak4_j4_phi, h_Ak4_j4_pt,  h_Ak4_j5_E, h_Ak4_j5_deepjetbscore,  h_Ak4_j5_eta, h_Ak4_j5_m,   h_Ak4_j5_phi, h_Ak4_j5_pt,  h_Ak8_j1_E,     h_Ak8_j1_eta,   h_Ak8_j1_mSD,   h_Ak8_j1_phi,   h_Ak8_j1_pt,    h_Ak8_j1_tau21, h_Ak8_j1_tau32, h_Ak8_j2_E,     h_Ak8_j2_eta,   h_Ak8_j2_mSD,   h_Ak8_j2_phi,   h_Ak8_j2_pt,    h_Ak8_j2_tau21, h_Ak8_j2_tau32, h_Ak8_j3_E,     h_Ak8_j3_eta,   h_Ak8_j3_mSD,   h_Ak8_j3_phi,h_Ak8_j3_pt,h_Ak8_j3_tau21,h_Ak8_j3_tau32,h_MET_phi,h_MET_pt,h_Mu_E,  h_Mu_eta,h_Mu_phi,h_Mu_pt, h_N_Ak4,h_N_Ak8 };
   vector<uhh2::Event::Handle<float>> inputs = { h_Ak4_j1_E, h_Ak4_j1_deepjetbscore, h_Ak4_j1_eta, h_Ak4_j1_m, h_Ak4_j1_phi, h_Ak4_j1_pt,h_Ak4_j2_E,h_Ak4_j2_deepjetbscore,h_Ak4_j2_eta,h_Ak4_j2_m,h_Ak4_j2_phi,h_Ak4_j2_pt,h_Ak4_j3_E,h_Ak4_j3_deepjetbscore,h_Ak4_j3_eta,h_Ak4_j3_m,h_Ak4_j3_phi, h_Ak4_j3_pt,  h_Ak4_j4_E, h_Ak4_j4_deepjetbscore,  h_Ak4_j4_eta, h_Ak4_j4_m,   h_Ak4_j4_phi, h_Ak4_j4_pt,  h_Ak4_j5_E, h_Ak4_j5_deepjetbscore,  h_Ak4_j5_eta, h_Ak4_j5_m,   h_Ak4_j5_phi, h_Ak4_j5_pt,  h_Ak8_j1_E,     h_Ak8_j1_eta,   h_Ak8_j1_mSD,   h_Ak8_j1_phi,   h_Ak8_j1_pt,    h_Ak8_j1_tau21, h_Ak8_j1_tau32, h_Ak8_j2_E,     h_Ak8_j2_eta,   h_Ak8_j2_mSD,   h_Ak8_j2_phi,   h_Ak8_j2_pt,    h_Ak8_j2_tau21, h_Ak8_j2_tau32, h_Ak8_j3_E,     h_Ak8_j3_eta,   h_Ak8_j3_mSD,   h_Ak8_j3_phi,h_Ak8_j3_pt,h_Ak8_j3_tau21,h_Ak8_j3_tau32,h_Ele_E, h_Ele_eta, h_Ele_phi, h_Ele_pt, h_MET_phi,h_MET_pt,h_N_Ak4,h_N_Ak8 };
 
   for(int i = 0; i < 59; ++i){
@@ -875,8 +875,8 @@ ZprimeAnalysisModule_applyNN::ZprimeAnalysisModule_applyNN(uhh2::Context& ctx){
 
 bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
 
-  if(debug)   cout << "++++++++++++ NEW EVENT ++++++++++++++" << endl;
-  if(debug)   cout<<" run.event: "<<event.run<<". "<<event.event<<endl;
+  if(debug) cout << "++++++++++++ NEW EVENT ++++++++++++++" << endl;
+  if(debug) cout << " run.event: " << event.run << ". " << event.event << endl;
   // Initialize reco flags with false
   event.set(h_is_zprime_reconstructed_chi2, false);
   event.set(h_is_zprime_reconstructed_correctmatch, false);
@@ -1098,6 +1098,7 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
   // Variables for NN
   Variables_module->process(event);
   fill_histograms(event, "NNInputsBeforeReweight");
+  if(debug) cout << "Variables_module: ok" << endl;
 
   // NN module
   NNModule->process(event);
@@ -1180,6 +1181,7 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
       h_Zprime_PDFVariations_DNN_output2_NoTopTag->fill(event);
     }
   }
+
   //Define categories on theta star to reduce ttbar background - only in SR == out0
   if( out0 == max_score ){
     if(Chi2_selection->passes(event)){  // cut on chi2<30 - only in SR == out0
@@ -1239,8 +1241,6 @@ bool ZprimeAnalysisModule_applyNN::process(uhh2::Event& event){
       }
     } // end chi2 cut
   }//end out0
-
-
   return true;
 }
 

@@ -376,7 +376,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   HEM_selection.reset(new HEMSelection(ctx)); // HEM issue in 2018, veto on leptons and jets
 
   Variables_module.reset(new Variables_NN(ctx, mode)); // variables for NN
- 
+
   // Split interference signal samples by sign
   if(ctx.get("dataset_version").find("_int") != std::string::npos){
     if     (ctx.get("dataset_version").find("_pos") != std::string::npos) SignSplit.reset(new SignSelection("pos"));
@@ -477,7 +477,7 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
 
   if(!event.isRealData){
     if(!SignSplit->passes(event)) return false;
-  } 
+  }
 
   // Run top-tagging
   if(ishotvr){
@@ -552,7 +552,7 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
 
   // Write PSWeights from genInfo to own branch in output tree
   ps_weights->process(event);
-  if(debug) cout << "MCScale: ok" << endl;
+  if(debug) cout << "Weights_PS: ok" << endl;
   fill_histograms(event, "Weights_PS");
   lumihists_Weights_PS->fill(event);
 
