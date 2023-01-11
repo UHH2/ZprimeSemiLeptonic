@@ -52,8 +52,17 @@
     "parton_abs_ttm+cts_4",
     "parton_abs_ttm+cts_5",
     "parton_abs_ttm+cts_6",
-    // "parton_abs_thadpth",
-    // "parton_abs_cts",
+    "parton_abs_cts",
+    "parton_abs_thadpth",
+    "parton_abs_tleppt",
+    "parton_abs_st",
+    "parton_abs_thady",
+    "parton_abs_tlepy",
+    "parton_abs_dy",
+    "parton_abs_ady",
+    "parton_abs_ttpt",
+    "parton_abs_tty",
+    "parton_abs_ttphi",
   };
   vector<TString> v_inputnames = {
     "m_ttbar",
@@ -63,8 +72,17 @@
     "cts_mtt620To800",
     "cts_mtt800To1000",
     "cts_mtt1000To3500",
-    // "pt_thad",
-    // "cts",
+    "cts",
+    "pt_thad",
+    "pt_tlep",
+    "ST",
+    "absy_thad",
+    "absy_tlep",
+    "deltaabsy_ttbar",
+    "absdeltay_ttbar",
+    "pt_ttbar",
+    "absy_ttbar",
+    "phi_ttbar",
   };
   vector<TString> v_outputnames = {
     "mtt",
@@ -74,14 +92,22 @@
     "cts_mtt620To800",
     "cts_mtt800To1000",
     "cts_mtt1000To3500",
-    // "pt_thad",
-    // "cts",
+    "cts",
+    "pt_thad",
+    "pt_tlep",
+    "ST",
+    "absy_thad",
+    "absy_tlep",
+    "deltaabsy_ttbar",
+    "absdeltay_ttbar",
+    "pt_ttbar",
+    "absy_ttbar",
+    "phi_ttbar",
   };
 
 
   for(int a=0; a<v_HEPDatanames.size(); ++a){
-    cout << endl;
-    cout << "histogram: "<< v_HEPDatanames.at(a) << endl;
+    cout << "----- " << v_HEPDatanames.at(a) << " -----" << endl;
     TFile *outputfile;
 
     // DATA
@@ -93,9 +119,9 @@
     inputfile_data->cd(v_HEPDatanames.at(a));
     for(int i=0; i<v_histnames_data.size(); ++i){
       TH1D *datahist = (TH1D*) gDirectory->Get(v_histnames_data.at(i));
-      if(v_histnames_data.at(i).Contains("e1")) datahist->SetName(v_outputnames.at(a) + "_errStat");
-      else if(v_histnames_data.at(i).Contains("e2")) datahist->SetName(v_outputnames.at(a) + "_errSyst");
-      else datahist->SetName(v_outputnames.at(a));
+      if(v_histnames_data.at(i).Contains("e1")) datahist->SetName(v_outputnames.at(a) + "_errStat"); // stat. error
+      else if(v_histnames_data.at(i).Contains("e2")) datahist->SetName(v_outputnames.at(a) + "_errSyst"); // syst. error
+      else datahist->SetName(v_outputnames.at(a)); // nominal
       v_datahists.push_back(datahist);
     }
     if(a == 0) outputfile = new TFile(outputdir_diffxsec + "uhh2.AnalysisModuleRunner.DATA.data_obs.root", "RECREATE");
@@ -129,16 +155,15 @@
     TH1D *datahist_combine = (TH1D*) v_datahists_Nevents.at(0)->Clone();
     for(int i=0; i<datahist_combine->GetNbinsX(); ++i){
       double statError = v_datahists_Nevents.at(1)->GetBinContent(i+1);
-      double systError = v_datahists_Nevents.at(2)->GetBinContent(i+1);
-      double totalError = sqrt(pow(statError, 2) + pow(systError, 2));
-      datahist_combine->SetBinError(i+1, totalError);
+      // double systError = v_datahists_Nevents.at(2)->GetBinContent(i+1);
+      // double totalError = sqrt(pow(statError, 2) + pow(systError, 2));
+      datahist_combine->SetBinError(i+1, statError);
     }
     if(a == 0) outputfile = new TFile(outputdir_combine + "uhh2.AnalysisModuleRunner.DATA.data_obs.root", "RECREATE");
     else outputfile = TFile::Open(outputdir_combine + "uhh2.AnalysisModuleRunner.DATA.data_obs.root", "UPDATE");
     outputfile->cd();
     datahist_combine->Write();
     outputfile->Close();
-
 
 
     // MC
@@ -168,8 +193,8 @@
         hist_dataSystUp->SetName(v_outputnames.at(a) + "_datasyst_up");
         hist_dataSystDown->SetName(v_outputnames.at(a) + "_datasyst_down");
         for(int i=0; i<Nbins; ++i){
-          hist_dataSystUp->SetBinContent(i+1, hist_dataSystUp->GetBinContent(i+1) + v_datahists.at(1)->GetBinContent(i+1));
-          hist_dataSystDown->SetBinContent(i+1, hist_dataSystDown->GetBinContent(i+1) - v_datahists.at(1)->GetBinContent(i+1));
+          hist_dataSystUp->SetBinContent(i+1, hist_dataSystUp->GetBinContent(i+1) + v_datahists.at(2)->GetBinContent(i+1));
+          hist_dataSystDown->SetBinContent(i+1, hist_dataSystDown->GetBinContent(i+1) - v_datahists.at(2)->GetBinContent(i+1));
         }
         v_hists.push_back(hist);
         v_hists.push_back(hist_dataSystUp);
@@ -180,31 +205,32 @@
       }
 
       // systematics
-
-
-      for(int i=0; i<v_systnames.size(); ++i){
-        TH1D *syst = (TH1D*) gDirectory->Get(rootdir_syst + v_outputnames.at(a) + "_" + v_systnames.at(i));
-        syst->Scale(v_scales.at(j), "width");
-        if(v_HEPDatanames.at(a) == "parton_abs_ttm+cts_1") syst->Scale(1. / binwidth_mtt250To420);
-        else if(v_HEPDatanames.at(a) == "parton_abs_ttm+cts_2") syst->Scale(1. / binwidth_mtt420To520);
-        else if(v_HEPDatanames.at(a) == "parton_abs_ttm+cts_3") syst->Scale(1. / binwidth_mtt520To620);
-        else if(v_HEPDatanames.at(a) == "parton_abs_ttm+cts_4") syst->Scale(1. / binwidth_mtt620To800);
-        else if(v_HEPDatanames.at(a) == "parton_abs_ttm+cts_5") syst->Scale(1. / binwidth_mtt800To1000);
-        else if(v_HEPDatanames.at(a) == "parton_abs_ttm+cts_6") syst->Scale(1. / binwidth_mtt1000To3500);
-        v_hists.push_back(syst);
+      if(v_HEPDatanames.at(a).Contains("ttm")){
+        for(int i=0; i<v_systnames.size(); ++i){
+          TH1D *syst = (TH1D*) gDirectory->Get(rootdir_syst + v_outputnames.at(a) + "_" + v_systnames.at(i));
+          syst->Scale(v_scales.at(j), "width");
+          if(v_HEPDatanames.at(a) == "parton_abs_ttm+cts_1") syst->Scale(1. / binwidth_mtt250To420);
+          else if(v_HEPDatanames.at(a) == "parton_abs_ttm+cts_2") syst->Scale(1. / binwidth_mtt420To520);
+          else if(v_HEPDatanames.at(a) == "parton_abs_ttm+cts_3") syst->Scale(1. / binwidth_mtt520To620);
+          else if(v_HEPDatanames.at(a) == "parton_abs_ttm+cts_4") syst->Scale(1. / binwidth_mtt620To800);
+          else if(v_HEPDatanames.at(a) == "parton_abs_ttm+cts_5") syst->Scale(1. / binwidth_mtt800To1000);
+          else if(v_HEPDatanames.at(a) == "parton_abs_ttm+cts_6") syst->Scale(1. / binwidth_mtt1000To3500);
+          v_hists.push_back(syst);
+        }
+        // PDFs
+        for(int i=1; i<101; ++i){
+          TH1D *pdf = (TH1D*) gDirectory->Get(rootdir_pdf + v_outputnames.at(a) + "_PDF_" + i);
+          pdf->Scale(v_scales.at(j), "width");
+          if(v_HEPDatanames.at(a) == "parton_abs_ttm+cts_1") pdf->Scale(1. / binwidth_mtt250To420);
+          else if(v_HEPDatanames.at(a) == "parton_abs_ttm+cts_2") pdf->Scale(1. / binwidth_mtt420To520);
+          else if(v_HEPDatanames.at(a) == "parton_abs_ttm+cts_3") pdf->Scale(1. / binwidth_mtt520To620);
+          else if(v_HEPDatanames.at(a) == "parton_abs_ttm+cts_4") pdf->Scale(1. / binwidth_mtt620To800);
+          else if(v_HEPDatanames.at(a) == "parton_abs_ttm+cts_5") pdf->Scale(1. / binwidth_mtt800To1000);
+          else if(v_HEPDatanames.at(a) == "parton_abs_ttm+cts_6") pdf->Scale(1. / binwidth_mtt1000To3500);
+          v_hists.push_back(pdf);
+        }
       }
-      // PDFs
-      for(int i=1; i<101; ++i){
-        TH1D *pdf = (TH1D*) gDirectory->Get(rootdir_pdf + v_outputnames.at(a) + "_PDF_" + i);
-        pdf->Scale(v_scales.at(j), "width");
-        if(v_HEPDatanames.at(a) == "parton_abs_ttm+cts_1") pdf->Scale(1. / binwidth_mtt250To420);
-        else if(v_HEPDatanames.at(a) == "parton_abs_ttm+cts_2") pdf->Scale(1. / binwidth_mtt420To520);
-        else if(v_HEPDatanames.at(a) == "parton_abs_ttm+cts_3") pdf->Scale(1. / binwidth_mtt520To620);
-        else if(v_HEPDatanames.at(a) == "parton_abs_ttm+cts_4") pdf->Scale(1. / binwidth_mtt620To800);
-        else if(v_HEPDatanames.at(a) == "parton_abs_ttm+cts_5") pdf->Scale(1. / binwidth_mtt800To1000);
-        else if(v_HEPDatanames.at(a) == "parton_abs_ttm+cts_6") pdf->Scale(1. / binwidth_mtt1000To3500);
-        v_hists.push_back(pdf);
-      }
+
       if(a == 0) outputfile = new TFile(outputdir_diffxsec + "uhh2.AnalysisModuleRunner.MC." + v_samplenames.at(j) + ".root", "RECREATE");
       else outputfile = TFile::Open(outputdir_diffxsec + "uhh2.AnalysisModuleRunner.MC." + v_samplenames.at(j) + ".root", "UPDATE");
       outputfile->cd();
@@ -226,7 +252,6 @@
           hist_Nevents->SetBinContent(h+1, hist_Nevents->GetBinContent(h+1) * hist_Nevents->GetXaxis()->GetBinWidth(h+1));
           hist_Nevents->SetBinError(h+1, hist_Nevents->GetBinError(h+1) * hist_Nevents->GetXaxis()->GetBinWidth(h+1));
         }
-
         v_hists_Nevents.push_back(hist_Nevents);
       }
       if(a == 0) outputfile = new TFile(outputdir_Nevents + "uhh2.AnalysisModuleRunner.MC." + v_samplenames.at(j) + ".root", "RECREATE");
@@ -244,43 +269,45 @@
         else if(histname.Contains("_murmuf_")) v_hists_murmuf_combine.push_back(hist_combine);
         else if(histname.Contains("_PDF_")) v_hists_pdf_combine.push_back(hist_combine);
       }
-      // handle mur, muf: take envelope = min/max per bin
-      TH1D *hist_mcscale_up = (TH1D*) v_hists_combine.at(0)->Clone();
-      TH1D *hist_mcscale_down = (TH1D*) v_hists_combine.at(0)->Clone();
-      hist_mcscale_up->SetName(v_outputnames.at(a) + "_mcscale_up");
-      hist_mcscale_down->SetName(v_outputnames.at(a) + "_mcscale_down");
-      for(int h=0; h<Nbins; ++h){
-        double max = 0;
-        double min = 9999999999;
-        for(int g=0; g<v_hists_murmuf_combine.size(); ++g){
-          double bincontent = v_hists_murmuf_combine.at(g)->GetBinContent(h+1);
-          if(bincontent > max) max = bincontent;
-          if(bincontent < min) min = bincontent;
+      if(v_HEPDatanames.at(a).Contains("ttm")){ // only for m(tt) and cos(theta*) in m(tt) bins for now
+        // handle mur, muf: take envelope = min/max per bin
+        TH1D *hist_mcscale_up = (TH1D*) v_hists_combine.at(0)->Clone();
+        TH1D *hist_mcscale_down = (TH1D*) v_hists_combine.at(0)->Clone();
+        hist_mcscale_up->SetName(v_outputnames.at(a) + "_mcscale_up");
+        hist_mcscale_down->SetName(v_outputnames.at(a) + "_mcscale_down");
+        for(int h=0; h<Nbins; ++h){
+          double max = 0;
+          double min = 9999999999;
+          for(int g=0; g<v_hists_murmuf_combine.size(); ++g){
+            double bincontent = v_hists_murmuf_combine.at(g)->GetBinContent(h+1);
+            if(bincontent > max) max = bincontent;
+            if(bincontent < min) min = bincontent;
+          }
+          hist_mcscale_up->SetBinContent(h+1, max);
+          hist_mcscale_down->SetBinContent(h+1, min);
         }
-        hist_mcscale_up->SetBinContent(h+1, max);
-        hist_mcscale_down->SetBinContent(h+1, min);
-      }
-      v_hists_combine.push_back(hist_mcscale_up);
-      v_hists_combine.push_back(hist_mcscale_down);
-      // handle pdfs: take rms per bin
-      TH1D *hist_pdf_nominal = (TH1D*) v_hists_combine.at(0)->Clone();
-      TH1D *hist_pdf_up = (TH1D*) hist_pdf_nominal->Clone();
-      TH1D *hist_pdf_down = (TH1D*) hist_pdf_nominal->Clone();
-      hist_pdf_up->SetName(v_outputnames.at(a) + "_pdf_up");
-      hist_pdf_down->SetName(v_outputnames.at(a) + "_pdf_down");
-      for(int h=0; h<Nbins; ++h){
-        double nominal = hist_pdf_nominal->GetBinContent(h+1);
-        double bin_sum = 0;
-        for(int g=0; g<v_hists_pdf_combine.size(); ++g){
-          double bincontent = v_hists_pdf_combine.at(g)->GetBinContent(h+1);
-          bin_sum += pow(nominal - bincontent, 2);
+        v_hists_combine.push_back(hist_mcscale_up);
+        v_hists_combine.push_back(hist_mcscale_down);
+        // handle pdfs: take rms per bin
+        TH1D *hist_pdf_nominal = (TH1D*) v_hists_combine.at(0)->Clone();
+        TH1D *hist_pdf_up = (TH1D*) hist_pdf_nominal->Clone();
+        TH1D *hist_pdf_down = (TH1D*) hist_pdf_nominal->Clone();
+        hist_pdf_up->SetName(v_outputnames.at(a) + "_pdf_up");
+        hist_pdf_down->SetName(v_outputnames.at(a) + "_pdf_down");
+        for(int h=0; h<Nbins; ++h){
+          double nominal = hist_pdf_nominal->GetBinContent(h+1);
+          double bin_sum = 0;
+          for(int g=0; g<v_hists_pdf_combine.size(); ++g){
+            double bincontent = v_hists_pdf_combine.at(g)->GetBinContent(h+1);
+            bin_sum += pow(nominal - bincontent, 2);
+          }
+          double rms = sqrt(bin_sum/v_hists_pdf_combine.size());
+          hist_pdf_up->SetBinContent(h+1, nominal + rms);
+          hist_pdf_down->SetBinContent(h+1, max(0., nominal - rms));
         }
-        double rms = sqrt(bin_sum/v_hists_pdf_combine.size());
-        hist_pdf_up->SetBinContent(h+1, nominal + rms);
-        hist_pdf_down->SetBinContent(h+1, max(0., nominal - rms));
+        v_hists_combine.push_back(hist_pdf_up);
+        v_hists_combine.push_back(hist_pdf_down);
       }
-      v_hists_combine.push_back(hist_pdf_up);
-      v_hists_combine.push_back(hist_pdf_down);
 
       if(a == 0) outputfile = new TFile(outputdir_combine + "uhh2.AnalysisModuleRunner.MC." + v_samplenames.at(j) + ".root", "RECREATE");
       else outputfile = TFile::Open(outputdir_combine + "uhh2.AnalysisModuleRunner.MC." + v_samplenames.at(j) + ".root", "UPDATE");
@@ -290,6 +317,5 @@
 
     }
   }
-  cout << endl;
   cout << "done!" << endl;
 }
