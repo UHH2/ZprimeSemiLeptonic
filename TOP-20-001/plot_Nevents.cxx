@@ -313,7 +313,6 @@
     hist_ratio_errTot->SetFillColor(kGray+2);
     hist_ratio_errTot->SetFillStyle(1001);
     hist_ratio_errTot->Draw("e2 same");
-    hist_ratio_errTot->DrawCopy("l same");
 
     hist_ratio_errStat->DrawCopy("hist same");
     hist_ratio_errStat->SetFillColor(kGray);
