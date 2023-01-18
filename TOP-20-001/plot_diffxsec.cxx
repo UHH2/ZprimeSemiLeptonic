@@ -137,10 +137,6 @@
     TFile *file_data = TFile::Open(input_dir + "uhh2.AnalysisModuleRunner.DATA.data_obs.root");
     TH1F *h_data = (TH1F*) gDirectory->Get(v_hists.at(i));
     for(int i=0; i<h_data->GetNbinsX(); ++i){
-      // double statError = h_data_errStat->GetBinContent(i+1);
-      // double systError = h_data_errSyst->GetBinContent(i+1);
-      // double totalError = sqrt(pow(statError, 2) + pow(systError, 2));
-      // h_data->SetBinError(i+1, totalError);
       h_data->SetBinError(i+1, 0.);
     }
     TH1F *h_data_errStat = (TH1F*) gDirectory->Get(v_hists.at(i) + "_errStat");
@@ -181,7 +177,7 @@
     h_ttbar->SetLineColor(kBlue);
     h_ttbar->SetLineWidth(2);
     h_ttbar->SetMarkerColor(kBlue);
-    h_ttbar->SetMarkerStyle(24);
+    h_ttbar->SetMarkerStyle(1); // 24
     h_signal->SetLineColor(kBlack);
     h_signal->SetLineWidth(2);
     h_signal->SetLineStyle(7);
@@ -318,8 +314,6 @@
     hist_ratio_errTot->GetXaxis()->SetTitleSize(upperpad_titlesize * 10/3);
     hist_ratio_errTot->GetXaxis()->SetTitleOffset(1.2);
     hist_ratio_errTot->GetXaxis()->SetLabelSize(upperpad_titlesize * 10/3);
-    // hist_ratio_errTot->GetXaxis()->SetRangeUser(250,3500);
-    // hist_ratio_errTot->GetXaxis()->SetNdivisions(50205);
     hist_ratio_errTot->GetXaxis()->SetTickLength(0.1);
     // y-axis
     hist_ratio_errTot->GetYaxis()->SetTitle("#frac{Pred.}{Data}");
@@ -335,8 +329,7 @@
     hist_ratio_errTot->DrawCopy();
     hist_ratio_errTot->SetFillColor(kGray+2);
     hist_ratio_errTot->SetFillStyle(1001);
-    hist_ratio_errTot->Draw("e2 same");
-    hist_ratio_errTot->DrawCopy("l same");
+    hist_ratio_errTot->Draw("E2 same");
 
     hist_ratio_errStat->DrawCopy("hist same");
     hist_ratio_errStat->SetFillColor(kGray);
