@@ -35,9 +35,9 @@ Hists(ctx, dirname) {
   h_ele_trigger        = ctx.get_handle<float>("weight_sfelec_trigger");
   h_ele_trigger_up     = ctx.get_handle<float>("weight_sfelec_trigger_up");
   h_ele_trigger_down   = ctx.get_handle<float>("weight_sfelec_trigger_down");
-  h_mu_reco            = ctx.get_handle<float>("muonrecSF_nominal");
-  h_mu_reco_up         = ctx.get_handle<float>("muonrecSF_up");
-  h_mu_reco_down       = ctx.get_handle<float>("muonrecSF_down");
+  h_mu_reco            = ctx.get_handle<float>("weight_sfmu_reco");
+  h_mu_reco_up         = ctx.get_handle<float>("weight_sfmu_reco_up");
+  h_mu_reco_down       = ctx.get_handle<float>("weight_sfmu_reco_down");
   h_mu_iso             = ctx.get_handle<float>("weight_sfmu_iso");
   h_mu_iso_up          = ctx.get_handle<float>("weight_sfmu_iso_up");
   h_mu_iso_down        = ctx.get_handle<float>("weight_sfmu_iso_down");
@@ -84,7 +84,6 @@ Hists(ctx, dirname) {
   h_BestZprimeCandidateChi2 = ctx.get_handle<ZprimeCandidate*>("ZprimeCandidateBestChi2");
   h_is_zprime_reconstructed_chi2 = ctx.get_handle<bool>("is_zprime_reconstructed_chi2");
   init();
-
 }
 
 void ZprimeSemiLeptonicSystematicsHists::init(){

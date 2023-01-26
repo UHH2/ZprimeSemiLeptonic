@@ -1573,9 +1573,9 @@ TopPtReweighting::TopPtReweighting(uhh2::Context& ctx,
     is_mc = ctx.get("dataset_type") == "MC";
     is_Muon = ctx.get("channel") == "muon";
 
-    h_muonrecSF_nominal = ctx.declare_event_output<float> ("muonrecSF_nominal");
-    h_muonrecSF_up      = ctx.declare_event_output<float> ("muonrecSF_up");
-    h_muonrecSF_down    = ctx.declare_event_output<float> ("muonrecSF_down");
+    h_muonrecSF_nominal = ctx.declare_event_output<float> ("weight_sfmu_reco");
+    h_muonrecSF_up      = ctx.declare_event_output<float> ("weight_sfmu_reco_up");
+    h_muonrecSF_down    = ctx.declare_event_output<float> ("weight_sfmu_reco_down");
 
   }
 
