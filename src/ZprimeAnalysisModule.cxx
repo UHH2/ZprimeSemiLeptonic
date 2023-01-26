@@ -41,6 +41,8 @@
 #include <UHH2/ZprimeSemiLeptonic/include/ElecTriggerSF.h>
 #include <UHH2/ZprimeSemiLeptonic/include/AK4JetCorrections.h>
 #include <UHH2/ZprimeSemiLeptonic/include/TopPuppiJetCorrections.h>
+#include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicSystematicsModule.h>
+
 
 #include <UHH2/common/include/TTbarGen.h>
 #include <UHH2/common/include/TTbarReconstruction.h>
@@ -122,6 +124,9 @@ protected:
 
   // NN variables handles
   unique_ptr<Variables_NN> Variables_module;
+
+  // systematics handles
+  unique_ptr<ZprimeSemiLeptonicSystematicsModule> SystematicsModule;
 
   //Handles
   Event::Handle<bool> h_is_zprime_reconstructed_chi2, h_is_zprime_reconstructed_correctmatch;
@@ -376,6 +381,9 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   HEM_selection.reset(new HEMSelection(ctx)); // HEM issue in 2018, veto on leptons and jets
 
   Variables_module.reset(new Variables_NN(ctx, mode)); // variables for NN
+
+  SystematicsModule.reset(new ZprimeSemiLeptonicSystematicsModule(ctx));
+
 
   // Split interference signal samples by sign
   if(ctx.get("dataset_version").find("_int") != std::string::npos){
@@ -970,6 +978,9 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   sort_by_pt<Jet>(*event.jets);
   Variables_module->process(event);
   fill_histograms(event, "NNInputsBeforeReweight");
+
+  // histograms for systematics
+  SystematicsModule->process(event);
 
   return true;
 }
