@@ -152,7 +152,7 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   // common modules
   common.reset(new CommonModules());
   common->switch_jetlepcleaner(true);
-  common->disable_pvfilter();
+  // common->disable_pvfilter();
   common->disable_jetpfidfilter();
   common->switch_jetPtSorter(true);
   common->switch_metcorrection(true);
