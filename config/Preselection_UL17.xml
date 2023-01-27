@@ -666,7 +666,7 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-		<InputData Lumi="-214603.201515" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m1000_w250p0_res_UL17" Cacheable="&b_Cacheable;">
+		<InputData Lumi="214603.201515" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m1000_w250p0_res_UL17" Cacheable="&b_Cacheable;">
 			&HscalarToTTTo1L1Nu2J_m1000_w250p0_res_UL17;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
