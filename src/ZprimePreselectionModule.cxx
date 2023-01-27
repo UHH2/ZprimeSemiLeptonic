@@ -119,8 +119,8 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
 
   double electron_pt(25.);
   double muon_pt(25.);
-  double jet1_pt(20.);
-  double jet2_pt(20.);
+  double jet1_pt(30.);
+  double jet2_pt(30.);
   double MET(20.);
 
 
