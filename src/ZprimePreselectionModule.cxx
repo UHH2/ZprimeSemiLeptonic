@@ -204,8 +204,8 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
 
   if(isHOTVR){
     hotvrjetCorr->process(event);
+    fill_histograms(event, "HOTVRCorrections");
   }
-  fill_histograms(event, "HOTVRCorrections");
 
   toppuppijetCorr->process(event);
   if(debug) cout << "TopPuppiJetCorrections: ok" << endl;
