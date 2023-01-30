@@ -96,7 +96,7 @@ void ZprimePreselectionModule::fill_histograms(uhh2::Event& event, string tag){
 
 ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
 
-  debug = false;
+  debug = false; // true/false
 
   for(auto & kv : ctx.get_all()){
     cout << " " << kv.first << " = " << kv.second << endl;

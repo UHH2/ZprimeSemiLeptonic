@@ -676,23 +676,24 @@ void ZprimeSemiLeptonicPreselectionHists::fill(const Event & event){
   S33->Fill(s33, weight);
 
   sum_event_weights->Fill(1., weight);
-  if(is_mc){
-    // mcscale
-    if(is_dy || is_wjets || is_qcd_HTbinned || is_alps || is_azh || is_htott_scalar || is_htott_pseudo || is_zprimetott){
-      sum_event_weights_mcscale_upup->Fill(1., weight * event.genInfo->systweights().at(20) / event.genInfo->originalXWGTUP());
-      sum_event_weights_mcscale_upnone->Fill(1., weight * event.genInfo->systweights().at(5) / event.genInfo->originalXWGTUP());
-      sum_event_weights_mcscale_noneup->Fill(1., weight * event.genInfo->systweights().at(15) / event.genInfo->originalXWGTUP());
-      sum_event_weights_mcscale_nonedown->Fill(1., weight * event.genInfo->systweights().at(30) / event.genInfo->originalXWGTUP());
-      sum_event_weights_mcscale_downnone->Fill(1., weight * event.genInfo->systweights().at(10) / event.genInfo->originalXWGTUP());
-      sum_event_weights_mcscale_downdown->Fill(1., weight * event.genInfo->systweights().at(40) / event.genInfo->originalXWGTUP());
-    }
-    else{
-      sum_event_weights_mcscale_upup->Fill(1., weight * event.genInfo->systweights().at(4) / event.genInfo->originalXWGTUP());
-      sum_event_weights_mcscale_upnone->Fill(1., weight * event.genInfo->systweights().at(1) / event.genInfo->originalXWGTUP());
-      sum_event_weights_mcscale_noneup->Fill(1., weight * event.genInfo->systweights().at(3) / event.genInfo->originalXWGTUP());
-      sum_event_weights_mcscale_nonedown->Fill(1., weight * event.genInfo->systweights().at(6) / event.genInfo->originalXWGTUP());
-      sum_event_weights_mcscale_downnone->Fill(1., weight * event.genInfo->systweights().at(2) / event.genInfo->originalXWGTUP());
-      sum_event_weights_mcscale_downdown->Fill(1., weight * event.genInfo->systweights().at(8) / event.genInfo->originalXWGTUP());
+  if(event.genInfo->systweights().size() > 0){ // for some samples (e.g. Diboson, RSGluon) these weights don't exist
+    if(is_mc){ // mcscale
+      if(is_dy || is_wjets || is_qcd_HTbinned || is_alps || is_azh || is_htott_scalar || is_htott_pseudo || is_zprimetott){
+        sum_event_weights_mcscale_upup->Fill(1., weight * event.genInfo->systweights().at(20) / event.genInfo->originalXWGTUP());
+        sum_event_weights_mcscale_upnone->Fill(1., weight * event.genInfo->systweights().at(5) / event.genInfo->originalXWGTUP());
+        sum_event_weights_mcscale_noneup->Fill(1., weight * event.genInfo->systweights().at(15) / event.genInfo->originalXWGTUP());
+        sum_event_weights_mcscale_nonedown->Fill(1., weight * event.genInfo->systweights().at(30) / event.genInfo->originalXWGTUP());
+        sum_event_weights_mcscale_downnone->Fill(1., weight * event.genInfo->systweights().at(10) / event.genInfo->originalXWGTUP());
+        sum_event_weights_mcscale_downdown->Fill(1., weight * event.genInfo->systweights().at(40) / event.genInfo->originalXWGTUP());
+      }
+      else{
+        sum_event_weights_mcscale_upup->Fill(1., weight * event.genInfo->systweights().at(4) / event.genInfo->originalXWGTUP());
+        sum_event_weights_mcscale_upnone->Fill(1., weight * event.genInfo->systweights().at(1) / event.genInfo->originalXWGTUP());
+        sum_event_weights_mcscale_noneup->Fill(1., weight * event.genInfo->systweights().at(3) / event.genInfo->originalXWGTUP());
+        sum_event_weights_mcscale_nonedown->Fill(1., weight * event.genInfo->systweights().at(6) / event.genInfo->originalXWGTUP());
+        sum_event_weights_mcscale_downnone->Fill(1., weight * event.genInfo->systweights().at(2) / event.genInfo->originalXWGTUP());
+        sum_event_weights_mcscale_downdown->Fill(1., weight * event.genInfo->systweights().at(8) / event.genInfo->originalXWGTUP());
+      }
     }
     // isr, fsr
     sum_event_weights_isr_up->Fill(1., weight * event.genInfo->weights().at(27) / event.genInfo->weights().at(0));
