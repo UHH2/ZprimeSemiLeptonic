@@ -76,10 +76,6 @@ protected:
 
   bool debug;
 
-  // Jet Corrections
-  std::unique_ptr<AK4JetCorrections> AK4jetCorr;
-  std::unique_ptr<TopPuppiJetCorrections> TopPuppijetCorr;
-
   // Cleaners
   std::unique_ptr<MuonCleaner> muon_cleaner_low, muon_cleaner_high;
   std::unique_ptr<ElectronCleaner> electron_cleaner_low, electron_cleaner_high;
@@ -315,12 +311,6 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   // double a_toppt = 0.0615; // par a TopPt Reweighting
   // double b_toppt = -0.0005; // par b TopPt Reweighting
 
-  // Jet Corrections
-  AK4jetCorr.reset(new AK4JetCorrections());
-  AK4jetCorr->init(ctx);
-  TopPuppijetCorr.reset(new TopPuppiJetCorrections());
-  TopPuppijetCorr->init(ctx);
-
   // Modules
   LumiWeight_module.reset(new MCLumiWeight(ctx));
   PUWeight_module.reset(new MCPileupReweight(ctx, Sys_PU));
@@ -420,7 +410,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   h_CHSMatchHists_afterBTag.reset(new ZprimeSemiLeptonicCHSMatchHists(ctx, "CHSMatch_afterBTag"));
 
   // Book histograms
-  vector<string> histogram_tags = {"Weights_Init", "Uncorrected_jets", "Corrected_jets", "Weights_HEM", "Weights_PU", "Weights_Lumi", "Weights_TopPt", "Weights_MCScale", "Weights_Prefiring", "Weights_TopTag_SF", "Weights_PS", "Muon1_LowPt", "Muon1_HighPt", "Muon1_Tot", "Ele1_LowPt", "Ele1_HighPt", "Ele1_Tot", "1Mu1Ele_LowPt", "1Mu1Ele_HighPt", "1Mu1Ele_Tot", "IdMuon_SF", "IdEle_SF", "IsoMuon_SF", "RecoEle_SF", "MuonReco_SF", "TriggerMuon", "TriggerEle", "TriggerMuon_SF", "TwoDCut_Muon", "TwoDCut_Ele", "Jet1", "Jet2", "MET", "HTlep", "BeforeBtagSF", "AfterBtagSF", "AfterCustomBtagSF", "Btags1", "NLOCorrections", "TriggerEle_SF", "TTbarCandidate", "CorrectMatchDiscriminator", "Chi2Discriminator", "NNInputsBeforeReweight"};
+  vector<string> histogram_tags = {"Weights_Init", "Weights_HEM", "Weights_PU", "Weights_Lumi", "Weights_TopPt", "Weights_MCScale", "Weights_Prefiring", "Weights_TopTag_SF", "Weights_PS", "Muon1_LowPt", "Muon1_HighPt", "Muon1_Tot", "Ele1_LowPt", "Ele1_HighPt", "Ele1_Tot", "1Mu1Ele_LowPt", "1Mu1Ele_HighPt", "1Mu1Ele_Tot", "IdMuon_SF", "IdEle_SF", "IsoMuon_SF", "RecoEle_SF", "MuonReco_SF", "TriggerMuon", "TriggerEle", "TriggerMuon_SF", "TwoDCut_Muon", "TwoDCut_Ele", "Jet1", "Jet2", "MET", "HTlep", "BeforeBtagSF", "AfterBtagSF", "AfterCustomBtagSF", "Btags1", "NLOCorrections", "TriggerEle_SF", "TTbarCandidate", "CorrectMatchDiscriminator", "Chi2Discriminator", "NNInputsBeforeReweight"};
   book_histograms(ctx, histogram_tags);
 
   lumihists_Weights_Init.reset(new LuminosityHists(ctx, "Lumi_Weights_Init"));
@@ -498,27 +488,6 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
 
   fill_histograms(event, "Weights_Init");
   lumihists_Weights_Init->fill(event);
-
-  // remove JEC/JER from AK4 jets, AK8 jets and MET-> needed to re-apply JEC/JER with up/down variations
-  for (auto & jet:*event.jets){
-    jet.set_v4(jet.v4() * jet.JEC_factor_raw() );
-    jet.set_JEC_factor_raw(1);
-  }
-  for (auto & toppuppijet:*event.toppuppijets){
-    toppuppijet.set_v4(toppuppijet.v4() * toppuppijet.JEC_factor_raw() );
-    toppuppijet.set_JEC_factor_raw(1);
-  }
-
-  LorentzVector metv4= event.met->uncorr_v4();
-  event.met->set_pt(metv4.Pt());
-  event.met->set_phi(metv4.Phi());
-
-  fill_histograms(event, "Uncorrected_jets");
-
-  // Correct jets + MET
-  AK4jetCorr->process(event);
-  TopPuppijetCorr->process(event);
-  fill_histograms(event, "Corrected_jets");
 
   if(!HEM_selection->passes(event)){
     if(!isMC) return false;
