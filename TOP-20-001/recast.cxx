@@ -314,7 +314,6 @@
       outputfile->cd();
       for(int i=0; i<v_hists_combine.size(); ++i) v_hists_combine.at(i)->Write();
       outputfile->Close();
-
     }
   }
   cout << "done!" << endl;
