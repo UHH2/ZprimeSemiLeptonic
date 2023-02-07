@@ -57,7 +57,7 @@ _YEARS = OrderedDict([
         'lumi_unc': 0.025,
         'lumi_fb_display': '59.8',
     }),
-    ('run2', {
+    ('Run2', {
         'short_name': 'ULRunII',
         'year': '2016 + 2017 + 2018',
         'long_name': 'Run II Ultra Legacy',
