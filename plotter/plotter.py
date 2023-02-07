@@ -86,7 +86,7 @@ class NiceStackWithRatio():
         infile_directory = '', # the directory within the ROOT file
         # inhist_name = '',
         x_axis_title = '',
-        x_axis_unit = 'unit',
+        x_axis_unit = None,
         prepostfit = 'prefitRaw',
         processes = [],
         signals = [],
@@ -288,14 +288,13 @@ class NiceStackWithRatio():
             self.signal_hists.append(hist)
         return self.signal_hists
 
-
     def create_data(self):
         self.data_hist = self.infile.Get(os.path.join(self.infile_directory, self.data_name))
         self.data_hist.SetLineWidth(1)
         self.data_hist.SetLineColor(root.kBlack)
         self.data_hist.SetMarkerStyle(8)
         self.preprocess_hist(self.data_hist, disable_bin_width_division=True)
-        self.data = transform_TH1_to_TGraphAsymmErrors(self.data_hist, poisson_errors=True, bin_width=self.show_bin_width_on_data)
+        self.data = transform_TH1_to_TGraphAsymmErrors(self.data_hist, poisson_errors=False, bin_width=self.show_bin_width_on_data)
         self.preprocess_hist(self.data, th1_for_bin_widths=self.data_hist)
         self.data.SetLineWidth(1)
         self.data.SetLineColor(root.kBlack)
@@ -409,23 +408,26 @@ class NiceStackWithRatio():
         maximum = maximum_stack
         minimum = minimum_stack
 
+
         if not self.blind_data:
             maximum_data = max(self.data.GetY())
             maximum = max(maximum_data, maximum_stack)
             minimum_data = min(self.data.GetY())
             minimum = min(minimum_data, minimum_stack)
 
+        if maximum == 0.0: # set default when there is no MC and data (e.g. due to electron/muon channel)
+            maximum = 100
+
         if self.logy:
-            new_minimum = 0.001 # could also be one order of magnitude or so below the minimum bin value of the process that is lowest in the stack
-            # new_minimum = max(new_minimum, minimum * 0.01) # how it should be, but y axis range is somehow not correctly set to this value
-            new_minimum = max(new_minimum, minimum * 0.1)
+            new_minimum = 1 # could also be one order of magnitude or so below the minimum bin value of the process that is lowest in the stack
+            new_minimum = max(new_minimum, minimum * 0.1) # how it should be, but y axis range is somehow not correctly set to this value
             print('new_minimum:', new_minimum)
-            new_maximum = math.pow(10, 1. * (math.log(maximum, 10) - math.log(new_minimum, 10))) # how it should be, but y axis range is somehow not correctly set to this value
-            # new_maximum = math.pow(10, 2.71828182846 * (math.log(maximum, 10) - math.log(new_minimum, 10)))
+            # new_maximum = math.pow(10, 2.5 * (math.log(maximum, 10) - math.log(new_minimum, 10)))
+            new_maximum = math.pow(10, 3.0 * (math.log(maximum, 10) - math.log(new_minimum, 10))) # how it should be, but y axis range is somehow not correctly set to this value
             print('new_maximum:', new_maximum)
         else:
             new_minimum = 0.
-            new_maximum = 1.5 * maximum
+            new_maximum = 2.0 * maximum
         last.SetMaximum(new_maximum) # this updates the axis maximum
         hist.SetMaximum(new_maximum)
         last.SetMinimum(new_minimum)
@@ -562,6 +564,14 @@ class NiceStackWithRatio():
                 self.ratio_data.SetPoint(i_point, point_x, point_y / prediction)
                 self.ratio_data.SetPointError(i_point, self.data.GetErrorXlow(i_point), self.data.GetErrorXhigh(i_point), self.data.GetErrorYlow(i_point) / prediction, self.data.GetErrorYhigh(i_point) / prediction)
         return self.ratio_data
+
+    def create_ratio_signal(self):
+        self.signal_ratiohists = []
+        for signal_hist in self.get_signals():
+            signal_hist.Divide(self.totalprocs)
+            self.signal_ratiohists.append(signal_hist)
+        return self.signal_ratiohists
+
 
     def cosmetics_ratio(self):
         self.pad_ratio.cd()
@@ -708,6 +718,8 @@ class NiceStackWithRatio():
         if self.draw_ratio_mc_stat:
             self.create_ratio_mc_stat().Draw('same e2')
         self.create_ratio_unc().Draw('same 2')
+        for signal_ratio in self.create_ratio_signal():
+            signal_ratio.Draw('same hist')
         # self.create_ratio_data().Draw('same e x0') # if ratio data would be a TH1
         if not self.blind_data: self.create_ratio_data().Draw('pz0')
         self.cosmetics_main()
