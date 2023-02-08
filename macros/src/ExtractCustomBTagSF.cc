@@ -29,8 +29,8 @@ void ExtractCustomBTagSF(){
   TString file_dir = "/nfs/dust/cms/group/zprime-uhh/";
 
   vector<TString> channel = {
-    // "electron",
-    "muon",
+    "electron",
+    // "muon",
   };
 
   vector<TString> year = {
