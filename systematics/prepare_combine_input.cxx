@@ -33,7 +33,6 @@ vector<TString> v_samples = {
   "QCD",
   "ALP_ttbar_signal",
   "ALP_ttbar_interference",
-
 };
 
 // systematics
@@ -107,9 +106,6 @@ void prepare_combine_input(){
             while((hist_key = (TKey *) next_hist())){ // hist loop
               hist = (TH1F*) gDirectory->Get(hist_key->GetName());
               TString hist_name = hist->GetName();
-              cout << hist_name << endl;
-              cout << hist->GetBinContent(4) << endl;
-              return;
               hist->SetName(hist_name + "_" + sample);
               v_nominal.push_back(hist);
               v_hists.push_back(hist);

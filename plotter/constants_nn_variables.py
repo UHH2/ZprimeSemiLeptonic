@@ -284,8 +284,8 @@ _VARIABLES = OrderedDict([
         'x_axis_unit': None
     }),
     ('NN_Ak8_j2_pt', {
-        'name': 'NN_Ak8_j1_pt',
-        'x_axis_title': 'p_{T}^{AK8 jet 1}',
+        'name': 'NN_Ak8_j2_pt',
+        'x_axis_title': 'p_{T}^{AK8 jet 2}',
         'x_axis_unit': 'GeV'
     }),
     ('NN_Ak8_j2_eta', {
@@ -324,8 +324,8 @@ _VARIABLES = OrderedDict([
         'x_axis_unit': None
     }),
     ('NN_Ak8_j3_pt', {
-        'name': 'NN_Ak8_j1_pt',
-        'x_axis_title': 'p_{T}^{AK8 jet 1}',
+        'name': 'NN_Ak8_j3_pt',
+        'x_axis_title': 'p_{T}^{AK8 jet 3}',
         'x_axis_unit': 'GeV'
     }),
     ('NN_Ak8_j3_eta', {
