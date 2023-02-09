@@ -29,8 +29,8 @@ void ExtractCustomBTagSF(){
   TString file_dir = "/nfs/dust/cms/group/zprime-uhh/";
 
   vector<TString> channel = {
-    //"electron",
-    "muon",
+    "electron",
+    // "muon",
   };
 
   vector<TString> year = {
@@ -59,12 +59,14 @@ void ExtractCustomBTagSF(){
         h_ratio->Divide(h_NJets_HT_afterSF);
         h_ratio->SetName("N_Jets_vs_HT_" + sample_names.at(i));
 
-        TFile* f = new TFile("files_BTagSF/customBtagSF_" + channel.at(j) + "_" + year.at(k) + ".root", "UPDATE");
+        TFile* f;
+        if(i == 0) f = new TFile("files_BTagSF/customBtagSF_" + channel.at(j) + "_" + year.at(k) + ".root", "RECREATE");
+        else f = new TFile("files_BTagSF/customBtagSF_" + channel.at(j) + "_" + year.at(k) + ".root", "UPDATE");
         h_ratio->Write();
         delete f;
 
         // Save plot with SF
-        //if(year.at(k)=="UL18" && channel.at(j)=="muon" && sample_names.at(i)=="TTbar"){
+        // if(year.at(k)=="UL18" && channel.at(j)=="muon" && sample_names.at(i)=="TTbar"){
         TCanvas* c = new TCanvas("c", "c", 1200, 800);
         c->Divide(1,1);
         c->cd(1);
