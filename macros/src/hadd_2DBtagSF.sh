@@ -1,7 +1,7 @@
 #!/bin/bash
 
 year="UL17" # UL16preVFP UL16postVFP UL17 UL18
-channel="electron" # electron muon
+channel="muon" # electron muon
 input_dir="/nfs/dust/cms/group/zprime-uhh/Analysis_${year}_2DBtagSF/${channel}/workdir_Analysis_${year}_${channel}_2DBtagSF/"
 output_dir="/nfs/dust/cms/group/zprime-uhh/Analysis_${year}_2DBtagSF/${channel}/"
 
