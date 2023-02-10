@@ -135,7 +135,7 @@
     for(int i=0; i<v_datahists.size(); ++i){
       TH1D *datahist_Nevents = (TH1D*) v_datahists.at(i)->Clone();
       datahist_Nevents->Scale(target_lumi);
-      for(int i=0; i<datahist_Nevents->GetNbinsX(); ++i) datahist_Nevents->SetBinContent(i+1, datahist_Nevents->GetBinContent(i+1) * datahist_Nevents->GetXaxis()->GetBinWidth(i+1));
+      for(int i=0; i<datahist_Nevents->GetNbinsX(); ++i) datahist_Nevents->SetBinContent(i+1, (int) (datahist_Nevents->GetBinContent(i+1) * datahist_Nevents->GetXaxis()->GetBinWidth(i+1)));
       if(v_HEPDatanames.at(a) == "parton_abs_ttm+cts_1") datahist_Nevents->Scale(binwidth_mtt250To420);
       else if(v_HEPDatanames.at(a) == "parton_abs_ttm+cts_2") datahist_Nevents->Scale(binwidth_mtt420To520);
       else if(v_HEPDatanames.at(a) == "parton_abs_ttm+cts_3") datahist_Nevents->Scale(binwidth_mtt520To620);
