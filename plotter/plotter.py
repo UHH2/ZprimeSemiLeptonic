@@ -422,8 +422,7 @@ class NiceStackWithRatio():
             new_minimum = 1 # could also be one order of magnitude or so below the minimum bin value of the process that is lowest in the stack
             new_minimum = max(new_minimum, minimum * 0.1) # how it should be, but y axis range is somehow not correctly set to this value
             print('new_minimum:', new_minimum)
-            # new_maximum = math.pow(10, 2.5 * (math.log(maximum, 10) - math.log(new_minimum, 10)))
-            new_maximum = math.pow(10, 3.0 * (math.log(maximum, 10) - math.log(new_minimum, 10))) # how it should be, but y axis range is somehow not correctly set to this value
+            new_maximum = math.pow(10, 2.5 * (math.log(maximum, 10) - math.log(new_minimum, 10))) # how it should be, but y axis range is somehow not correctly set to this value
             print('new_maximum:', new_maximum)
         else:
             new_minimum = 0.
