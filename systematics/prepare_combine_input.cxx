@@ -2,11 +2,8 @@
 using namespace std;
 
 // input base dir
-// the folder structure is exected like this: */year/channel/
-TString input_base_dir = "/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/";
-
-// output dir
-
+// the folder structure is exected like this: *_year/channel/
+TString input_base_dir = "/nfs/dust/cms/group/zprime-uhh/Analysis_";
 
 // years
 vector<TString> v_years = {
@@ -60,7 +57,7 @@ void prepare_combine_input(){
         if(sample == "DATA") file_prefix += "DATA.";
         else file_prefix += "MC.";
 
-        TFile *input_file = TFile::Open(input_base_dir + "/" + year + "/" + channel + "/" + file_prefix + sample + ".root");
+        TFile *input_file = TFile::Open(input_base_dir + year + "/" + channel + "/" + file_prefix + sample + ".root");
 
         vector<TH1F*> v_nominal;
         vector<TH1F*> v_murmuf_upup, v_murmuf_upnone, v_murmuf_noneup, v_murmuf_nonedown, v_murmuf_downnone, v_murmuf_downdown;
