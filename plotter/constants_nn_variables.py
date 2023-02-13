@@ -60,7 +60,7 @@ _VARIABLES = OrderedDict([
     }),
     ('NN_Ak4_j1_pt', {
         'name': 'NN_Ak4_j1_pt',
-        'x_axis_title': 'p_{t}^{AK4 jet 1}',
+        'x_axis_title': 'p_{T}^{AK4 jet 1}',
         'x_axis_unit': 'GeV'
     }),
     ('NN_Ak4_j1_eta', {
@@ -90,7 +90,7 @@ _VARIABLES = OrderedDict([
     }),
     ('NN_Ak4_j2_pt', {
         'name': 'NN_Ak4_j2_pt',
-        'x_axis_title': 'p_{t}^{AK4 jet 2}',
+        'x_axis_title': 'p_{T}^{AK4 jet 2}',
         'x_axis_unit': 'GeV'
     }),
     ('NN_Ak4_j2_eta', {
@@ -120,7 +120,7 @@ _VARIABLES = OrderedDict([
     }),
     ('NN_Ak4_j3_pt', {
         'name': 'NN_Ak4_j3_pt',
-        'x_axis_title': 'p_{t}^{AK4 jet 3}',
+        'x_axis_title': 'p_{T}^{AK4 jet 3}',
         'x_axis_unit': 'GeV'
     }),
     ('NN_Ak4_j3_eta', {
@@ -150,7 +150,7 @@ _VARIABLES = OrderedDict([
     }),
     ('NN_Ak4_j4_pt', {
         'name': 'NN_Ak4_j4_pt',
-        'x_axis_title': 'p_{t}^{AK4 jet 4}',
+        'x_axis_title': 'p_{T}^{AK4 jet 4}',
         'x_axis_unit': 'GeV'
     }),
     ('NN_Ak4_j4_eta', {
@@ -180,7 +180,7 @@ _VARIABLES = OrderedDict([
     }),
     ('NN_Ak4_j5_pt', {
         'name': 'NN_Ak4_j5_pt',
-        'x_axis_title': 'p_{t}^{AK4 jet 5}',
+        'x_axis_title': 'p_{T}^{AK4 jet 5}',
         'x_axis_unit': 'GeV'
     }),
     ('NN_Ak4_j5_eta', {
@@ -210,7 +210,7 @@ _VARIABLES = OrderedDict([
     }),
     ('NN_Ak4_j6_pt', {
         'name': 'NN_Ak4_j6_pt',
-        'x_axis_title': 'p_{t}^{AK4 jet 6}',
+        'x_axis_title': 'p_{T}^{AK4 jet 6}',
         'x_axis_unit': 'GeV'
     }),
     ('NN_Ak4_j6_eta', {
