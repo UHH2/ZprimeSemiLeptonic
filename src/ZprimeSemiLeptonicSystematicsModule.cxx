@@ -42,72 +42,71 @@ ZprimeSemiLeptonicSystematicsModule::ZprimeSemiLeptonicSystematicsModule(Context
   v_nominal_dirtags = {"nominal"};
   book_histograms(ctx, v_nominal_dirtags);
 
-  if(is_MC){ // only for MC, not data
-    // simple up/down variations
-    v_syst_dirtags = {};
-    if(v_systs.size() != v_syst_handlenames.size()) throw runtime_error("In ZprimeSemiLeptonicSystematicsModule.cxx: Length of v_systs and v_syst_handlenames is not equal.");
-    for(unsigned int i=0; i<v_systs.size(); ++i){
-      for(unsigned int j=0; j<v_variations.size(); ++j){
-        TString handlename_nominal = v_syst_handlenames[i];
-        TString handlename_shift = v_syst_handlenames[i] + "_" + v_variations[j];
+  // simple up/down variations
+  v_syst_dirtags = {};
+  if(v_systs.size() != v_syst_handlenames.size()) throw runtime_error("In ZprimeSemiLeptonicSystematicsModule.cxx: Length of v_systs and v_syst_handlenames is not equal.");
+  for(unsigned int i=0; i<v_systs.size(); ++i){
+    for(unsigned int j=0; j<v_variations.size(); ++j){
+      TString handlename_nominal = v_syst_handlenames[i];
+      TString handlename_shift = v_syst_handlenames[i] + "_" + v_variations[j];
 
-        if(v_systs[i] == "prefiring"){ // prefiringWeight has different syntax
-          handlename_shift = v_syst_handlenames[i];
-          if(v_variations[j] == "up") handlename_shift = handlename_shift + "Up";
-          else if(v_variations[j] == "down") handlename_shift = handlename_shift + "Down";
-          else throw runtime_error("In ZprimeSemiLeptonicSystematicsModule.cxx: Variation is neither up nor down.");
-        }
-        else if(v_systs[i].Contains("btag")){ // all btag variations have the same nominal
-          handlename_nominal = "weight_btagdisc_central";
-        }
-
-        uhh2::Event::Handle<float> handle_nominal = ctx.declare_event_output<float>((string) handlename_nominal);
-        uhh2::Event::Handle<float> handle_shift = ctx.declare_event_output<float>((string) handlename_shift);
-
-        v_systhandles_nominal.emplace_back(handle_nominal);
-        v_systhandles_var.emplace_back(handle_shift);
-
-        TString dirname = v_systs[i] + "_" + v_variations[j];
-        v_syst_dirtags.emplace_back(dirname);
+      if(v_systs[i] == "prefiring"){ // prefiringWeight has different syntax
+        handlename_shift = v_syst_handlenames[i];
+        if(v_variations[j] == "up") handlename_shift = handlename_shift + "Up";
+        else if(v_variations[j] == "down") handlename_shift = handlename_shift + "Down";
+        else throw runtime_error("In ZprimeSemiLeptonicSystematicsModule.cxx: Variation is neither up nor down.");
       }
-    }
-    book_histograms(ctx, v_syst_dirtags);
-
-    // ps scale: isr + fsr
-    if(v_psscales.size() != v_psscale_handlenames.size()) throw runtime_error("In ZprimeSemiLeptonicSystematicsModule.cxx: Length of v_psscales and v_psscale_handlenames is not equal.");
-    for(unsigned int i=0; i<v_psscales.size(); ++i){
-      for(unsigned int j=0; j<v_variations.size(); ++j){
-        TString handlename_shift = v_psscale_handlenames[i] + "_" + v_variations[j];
-        uhh2::Event::Handle<float> handle_shift = ctx.declare_event_output<float>((string) handlename_shift);
-        v_psscalehandles.emplace_back(handle_shift);
-        TString dirname = v_psscales[i] + "_" + v_variations[j];
-        v_psscale_dirtags.emplace_back(dirname);
+      else if(v_systs[i].Contains("btag")){ // all btag variations have the same nominal
+        handlename_nominal = "weight_btagdisc_central";
       }
-    }
-    book_histograms(ctx, v_psscale_dirtags);
 
-    // mc scale
-    for(unsigned int i=0; i<v_mcscale_vars.size(); ++i){
-      TString handlename_shift = "weight_murmuf_" + v_mcscale_vars[i];
+      uhh2::Event::Handle<float> handle_nominal = ctx.declare_event_output<float>((string) handlename_nominal);
       uhh2::Event::Handle<float> handle_shift = ctx.declare_event_output<float>((string) handlename_shift);
-      v_mcscalehandles.emplace_back(handle_shift);
-      TString dirname = "murmuf_" + v_mcscale_vars[i];
-      v_mcscale_dirtags.emplace_back(dirname);
-    }
-    book_histograms(ctx, v_mcscale_dirtags);
 
-    // pdf
-    for(unsigned int i=0; i<100; ++i){
-      stringstream ss_i;
-      ss_i << i;
-      TString dirname = "pdf" + ss_i.str();
-      v_pdf_dirtags.emplace_back(dirname);
+      v_systhandles_nominal.emplace_back(handle_nominal);
+      v_systhandles_var.emplace_back(handle_shift);
+
+      TString dirname = v_systs[i] + "_" + v_variations[j];
+      v_syst_dirtags.emplace_back(dirname);
     }
-    book_histograms(ctx, v_pdf_dirtags);
   }
+  book_histograms(ctx, v_syst_dirtags);
+
+  // ps scale: isr + fsr
+  if(v_psscales.size() != v_psscale_handlenames.size()) throw runtime_error("In ZprimeSemiLeptonicSystematicsModule.cxx: Length of v_psscales and v_psscale_handlenames is not equal.");
+  for(unsigned int i=0; i<v_psscales.size(); ++i){
+    for(unsigned int j=0; j<v_variations.size(); ++j){
+      TString handlename_shift = v_psscale_handlenames[i] + "_" + v_variations[j];
+      uhh2::Event::Handle<float> handle_shift = ctx.declare_event_output<float>((string) handlename_shift);
+      v_psscalehandles.emplace_back(handle_shift);
+      TString dirname = v_psscales[i] + "_" + v_variations[j];
+      v_psscale_dirtags.emplace_back(dirname);
+    }
+  }
+  book_histograms(ctx, v_psscale_dirtags);
+
+  // mc scale
+  for(unsigned int i=0; i<v_mcscale_vars.size(); ++i){
+    TString handlename_shift = "weight_murmuf_" + v_mcscale_vars[i];
+    uhh2::Event::Handle<float> handle_shift = ctx.declare_event_output<float>((string) handlename_shift);
+    v_mcscalehandles.emplace_back(handle_shift);
+    TString dirname = "murmuf_" + v_mcscale_vars[i];
+    v_mcscale_dirtags.emplace_back(dirname);
+  }
+  book_histograms(ctx, v_mcscale_dirtags);
+
+  // pdf
+  for(unsigned int i=0; i<100; ++i){
+    stringstream ss_i;
+    ss_i << i;
+    TString dirname = "pdf" + ss_i.str();
+    v_pdf_dirtags.emplace_back(dirname);
+  }
+  book_histograms(ctx, v_pdf_dirtags);
 }
 
 bool ZprimeSemiLeptonicSystematicsModule::process(Event& event){
+
   bool ttIsReconstructed = event.get(h_ttIsReconstructed);
   if(!ttIsReconstructed) throw runtime_error("In ZprimeSemiLeptonicSystematicsModule.cxx: TTbar not reconstructed!");
 
@@ -117,7 +116,7 @@ bool ZprimeSemiLeptonicSystematicsModule::process(Event& event){
   // nominal
   fill_histograms(event, "nominal");
 
-  if(is_MC){ // only for MC, not data
+  if(is_MC){ // fill systematic hists for MC only
     // simple up/down variations
     for(unsigned int i=0; i<v_systs.size(); ++i){
       for(unsigned int j=0; j<v_variations.size(); ++j){
