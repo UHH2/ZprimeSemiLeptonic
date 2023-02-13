@@ -1,7 +1,7 @@
 #!/bin/bash
 
 year="UL17" # UL16preVFP / UL16postVFP / UL17 / UL18
-channel="electron" # electron / muon
+channel="muon" # electron / muon
 input_dir="/nfs/dust/cms/group/zprime-uhh/Analysis_${year}/${channel}/workdir_Analysis_${year}_${channel}/"
 output_dir="/nfs/dust/cms/group/zprime-uhh/Analysis_${year}/${channel}/"
 
@@ -10,14 +10,12 @@ echo "hadding: year=${year}, channel=${channel}"
 # DATA
 if [ ${channel} = "electron" ]; then
   if [ ${year} = "UL18" ]; then
-    hadd -T ${output_dir}uhh2.AnalysisModuleRunner.DATA.DATA_EGamma.root ${input_dir}uhh2.AnalysisModuleRunner.DATA.DATA_EGamma_Run*.root
+    hadd -T ${output_dir}uhh2.AnalysisModuleRunner.DATA.DATA.root ${input_dir}uhh2.AnalysisModuleRunner.DATA.DATA_EGamma_Run*.root
   else
-    hadd -T ${output_dir}uhh2.AnalysisModuleRunner.DATA.DATA_SinglePhoton.root ${input_dir}uhh2.AnalysisModuleRunner.DATA.DATA_SinglePhoton_Run*.root
-    hadd -T ${output_dir}uhh2.AnalysisModuleRunner.DATA.DATA_SingleElectron.root ${input_dir}uhh2.AnalysisModuleRunner.DATA.DATA_SingleElectron_Run*.root
     hadd -T ${output_dir}uhh2.AnalysisModuleRunner.DATA.DATA.root ${input_dir}uhh2.AnalysisModuleRunner.DATA.DATA_SingleElectron_Run*.root ${input_dir}uhh2.AnalysisModuleRunner.DATA.DATA_SinglePhoton_Run*.root
   fi
 elif [ ${channel} = "muon" ]; then
-  hadd -T ${output_dir}uhh2.AnalysisModuleRunner.DATA.DATA_SingleMuon.root ${input_dir}uhh2.AnalysisModuleRunner.DATA.DATA_SingleMuon_Run*.root
+  hadd -T ${output_dir}uhh2.AnalysisModuleRunner.DATA.DATA.root ${input_dir}uhh2.AnalysisModuleRunner.DATA.DATA_SingleMuon_Run*.root
 else
   echo "neither electron or muon channel? does not make sense!"
 fi
