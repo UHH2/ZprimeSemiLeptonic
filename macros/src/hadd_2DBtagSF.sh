@@ -5,6 +5,9 @@ channel="muon" # electron muon
 input_dir="/nfs/dust/cms/group/zprime-uhh/Analysis_${year}_2DBtagSF/${channel}/workdir_Analysis_${year}_${channel}_2DBtagSF/"
 output_dir="/nfs/dust/cms/group/zprime-uhh/Analysis_${year}_2DBtagSF/${channel}/"
 
+echo "year: ${year}"
+echo "channel: ${channel}"
+
 hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.TTbar.root ${input_dir}uhh2.AnalysisModuleRunner.MC.TTTo*.root
 hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.ST.root ${input_dir}uhh2.AnalysisModuleRunner.MC.ST_*.root
 hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.WJets.root ${input_dir}uhh2.AnalysisModuleRunner.MC.WJetsToLNu_HT-*.root
