@@ -611,17 +611,16 @@ DeepAK8TopTagger::DeepAK8TopTagger(uhh2::Context& ctx){
 bool DeepAK8TopTagger::process(uhh2::Event& event){
 
 
-  // values from EOY
-  // twiki: https://twiki.cern.ch/twiki/bin/viewauth/CMS/DeepAK8Tagging2018WPsSFs
-  // slides: https://indico.cern.ch/event/877167/contributions/3744193/attachments/1989744/3379280/DeepAK8_Top_W_SFs_V2.pdf
+  // values for UL: currently Christopher's private work
   double min_mSD = 105.;
   double max_mSD = 210.;
   double pt_min = 400.;
   double max_score;
 
-  if(year == Year::isUL16preVFP || year == Year::isUL16postVFP) max_score = 0.435;
-  else if(year == Year::isUL17) max_score = 0.344;
-  else if(year == Year::isUL18) max_score = 0.470;
+  if(year == Year::isUL16preVFP) max_score = 0.485;
+  else if(year == Year::isUL16postVFP) max_score = 0.475;
+  else if(year == Year::isUL17) max_score = 0.487;
+  else if(year == Year::isUL18) max_score = 0.477;
   else throw runtime_error("DeepAK8TopTagger: no valid year selected.");
 
   std::vector<TopJet> toptags;
