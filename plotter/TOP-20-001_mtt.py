@@ -34,10 +34,12 @@ for index, s in enumerate(signals_Plotter):
 
 # systematics
 systematics = [
-    'pdf',
-    'mcscale',
-    'pu',
     'datasyst',
+    'mcscale',
+    # 'pdf',
+    # 'pu',
+    # 'isr',
+    # 'fsr'
 ]
 
 nice = NiceStackWithRatio(
