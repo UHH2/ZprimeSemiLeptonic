@@ -46,10 +46,12 @@ for binnumber in range(1, 7):
 
     # systematics
     systematics = [
-        'pdf',
-        'mcscale',
-        'pu',
         'datasyst',
+        'mcscale',
+        # 'pdf',
+        # 'pu',
+        # 'isr',
+        # 'fsr'
     ]
 
     nice = NiceStackWithRatio(
