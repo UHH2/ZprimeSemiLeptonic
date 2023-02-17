@@ -17,10 +17,11 @@ import numpy as np
 
 class Process():
 
-    def __init__(self, name, legend=None, tcolor=None):
+    def __init__(self, name, legend=None, tcolor=None, scale=1.):
         self.name = name
         self.legend = legend or name
         self.tcolor = tcolor or root.kBlack
+        self.scale = scale or 1.
 
 
 def transform_TH1_to_TGraphAsymmErrors(th1, poisson_errors=False, n_sigma=1., bin_width=False):
@@ -161,7 +162,7 @@ class NiceStackWithRatio():
 
         self.data_name = data_name
         self.totalprocs_name = totalprocs_name
-        self.totalprocs_tcolor = root.kBlue
+        self.totalprocs_tcolor = root.kBlack
 
         self.binning = None
 
@@ -255,6 +256,7 @@ class NiceStackWithRatio():
                     err2 += hist.GetBinError(i_bin)**2
                 self.totalprocs.SetBinContent(i_bin, binc)
                 self.totalprocs.SetBinError(i_bin, math.sqrt(err2))
+
             self.totalprocs.SetLineColor(self.totalprocs_tcolor)
             self.totalprocs.SetLineWidth(1)
             self.totalprocs.SetMarkerSize(0)
@@ -277,7 +279,7 @@ class NiceStackWithRatio():
             self.get_binning(self.totalprocs)
         return self.stack
 
-    def get_signals(self):
+    def create_signals(self):
         self.signal_hists = []
         for i_signal, signal in enumerate(self.signals):
             hist = self.infile.Get(os.path.join(self.infile_directory, signal.name))
@@ -285,6 +287,8 @@ class NiceStackWithRatio():
             hist.SetLineColor(signal.tcolor)
             hist.SetLineWidth(2)
             hist.SetLineStyle(7)
+            print(signal.name + " scaled with factor " + str(signal.scale))
+            hist.Scale(signal.scale)
             self.signal_hists.append(hist)
         return self.signal_hists
 
@@ -566,7 +570,8 @@ class NiceStackWithRatio():
 
     def create_ratio_signal(self):
         self.signal_ratiohists = []
-        for signal_hist in self.get_signals():
+        for signal in self.signal_hists:
+            signal_hist = signal.Clone()
             signal_hist.Divide(self.totalprocs)
             self.signal_ratiohists.append(signal_hist)
         return self.signal_ratiohists
@@ -707,8 +712,9 @@ class NiceStackWithRatio():
             self.create_stack().Draw('hist')
         self.create_stack_unc().Draw('2')
 
-        for signal in self.get_signals():
-            signal.Draw('same hist')
+        self.create_signals()
+        for signal_hist in self.signal_hists:
+            signal_hist.Draw('hist same')
 
         # self.create_data().Draw('same e x0') # if self.data would be a TH1
         if not self.blind_data: self.create_data().Draw('pz0')
@@ -717,8 +723,11 @@ class NiceStackWithRatio():
         if self.draw_ratio_mc_stat:
             self.create_ratio_mc_stat().Draw('same e2')
         self.create_ratio_unc().Draw('same 2')
-        for signal_ratio in self.create_ratio_signal():
+
+        self.create_ratio_signal()
+        for signal_ratio in self.signal_ratiohists:
             signal_ratio.Draw('same hist')
+
         # self.create_ratio_data().Draw('same e x0') # if ratio data would be a TH1
         if not self.blind_data: self.create_ratio_data().Draw('pz0')
         self.cosmetics_main()
