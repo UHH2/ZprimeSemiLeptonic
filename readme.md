@@ -17,7 +17,9 @@ The main changes with respect to the previous CMS result (2016 data, B2G-17-017)
 - run AnalysisModule
 - calculate chi^2 parameters
 - run AnalysisModule to save the variables for the DNN
-- (retrain the DNN if needed)
+- DNN:
+  - convert data from UHH2 e.g. to numpy: see e.g. https://github.com/jabuschh/MLCorner
+  - training: see e.g. https://github.com/jabuschh/ZprimeClassifier
 - run AnalysisModule_applyNN
 
 ## Some Links
