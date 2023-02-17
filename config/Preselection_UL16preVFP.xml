@@ -15,7 +15,7 @@
 <!ENTITY DATA_SingleElectron_RunF_UL16preVFP SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/data/UL16preVFP/SingleElectron_Run2016F-HIPM_UL2016_MiniAODv2-v2.xml">
 <!-- SinglePhoton -->
 <!ENTITY DATA_SinglePhoton_RunB_UL16preVFP SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/data/UL16preVFP/SinglePhoton_Run2016B-HIPM_UL2016_MiniAODv2-v2.xml">
-<!ENTITY DATA_SinglePhoton_RunC_UL16preVFP SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/data/UL16preVFP/SinglePhoton_Run2016C-HIPM_UL2016_MiniAODv2-v2.xml">
+<!ENTITY DATA_SinglePhoton_RunC_UL16preVFP SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/data/UL16preVFP/SinglePhoton_Run2016C-HIPM_UL2016_MiniAODv2-v4.xml">
 <!ENTITY DATA_SinglePhoton_RunD_UL16preVFP SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/data/UL16preVFP/SinglePhoton_Run2016D-HIPM_UL2016_MiniAODv2-v2.xml">
 <!ENTITY DATA_SinglePhoton_RunE_UL16preVFP SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/data/UL16preVFP/SinglePhoton_Run2016E-HIPM_UL2016_MiniAODv2-v2.xml">
 <!ENTITY DATA_SinglePhoton_RunF_UL16preVFP SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/data/UL16preVFP/SinglePhoton_Run2016F-HIPM_UL2016_MiniAODv2-v2.xml">
