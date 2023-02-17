@@ -2,23 +2,11 @@
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
 
 <!ENTITY TargetLumi  "16810"> <!-- from https://twiki.cern.ch/twiki/bin/view/CMS/TWikiLUM#SummaryTable, https://twiki.cern.ch/twiki/bin/viewauth/CMS/TopSystematics#Luminosity -->
-<!ENTITY PRESELdir   "/nfs/dust/cms/group/zprime-uhh/Presel_UL16postVFP/">
+<!ENTITY PRESELdir   "/nfs/dust/cms/group/zprime-uhh/Presel_UL16postVFP_JEC_up/">
 <!ENTITY b_Cacheable "False">
 <!ENTITY NEVT        "-1">
 <!ENTITY IS_HOTVR    "false">
 
-<!-- SingleElectron -->
-<!ENTITY DATA_SingleElectron_RunF_UL16postVFP SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/data/UL16postVFP/SingleElectron_Run2016F-UL2016_MiniAODv2-v2.xml">
-<!ENTITY DATA_SingleElectron_RunG_UL16postVFP SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/data/UL16postVFP/SingleElectron_Run2016G-UL2016_MiniAODv2-v2.xml">
-<!ENTITY DATA_SingleElectron_RunH_UL16postVFP SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/data/UL16postVFP/SingleElectron_Run2016H-UL2016_MiniAODv2-v2.xml">
-<!-- SinglePhoton -->
-<!ENTITY DATA_SinglePhoton_RunF_UL16postVFP SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/data/UL16postVFP/SinglePhoton_Run2016F-UL2016_MiniAODv2-v2.xml">
-<!ENTITY DATA_SinglePhoton_RunG_UL16postVFP SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/data/UL16postVFP/SinglePhoton_Run2016G-UL2016_MiniAODv2-v3.xml">
-<!ENTITY DATA_SinglePhoton_RunH_UL16postVFP SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/data/UL16postVFP/SinglePhoton_Run2016H-UL2016_MiniAODv2-v2.xml">
-<!-- SingleMuon -->
-<!ENTITY DATA_SingleMuon_RunF_UL16postVFP SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/data/UL16postVFP/SingleMuon_Run2016F-UL2016_MiniAODv2-v2.xml">
-<!ENTITY DATA_SingleMuon_RunG_UL16postVFP SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/data/UL16postVFP/SingleMuon_Run2016G-UL2016_MiniAODv2-v2.xml">
-<!ENTITY DATA_SingleMuon_RunH_UL16postVFP SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/data/UL16postVFP/SingleMuon_Run2016H-UL2016_MiniAODv2-v2.xml">
 <!-- TTbar -->
 <!ENTITY TTToSemiLeptonic_UL16postVFP SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16postVFP/TTToSemiLeptonic_CP5_powheg-pythia8_Summer20UL16_v1.xml">
 <!ENTITY TTToHadronic_UL16postVFP     SYSTEM "../../common/UHH2-datasets/RunII_106X_v2/SM/UL16postVFP/TTToHadronic_CP5_powheg-pythia8_Summer20UL16_v1.xml">
@@ -228,7 +216,7 @@
 
 <!--
 <ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="50" AutoResubmit="0"/>
-<ConfigSGE RAM="2" DISK="2" Mail="henrik.jabusch@desy.de" Notification="as" Workdir="workdir_Preselection_UL16postVFP"/>
+<ConfigSGE RAM="2" DISK="2" Mail="henrik.jabusch@desy.de" Notification="as" Workdir="workdir_Preselection_UL16postVFP_JEC_up"/>
 -->
 
 <JobConfiguration JobName="ZprimePreselectionJob" OutputLevel="INFO">
@@ -237,54 +225,6 @@
 
 	<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="&TargetLumi;">
 
-		<!-- SingleElectron -->
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleElectron_RunF_UL16postVFP" Cacheable="&b_Cacheable;">
-			&DATA_SingleElectron_RunF_UL16postVFP;
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData>
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleElectron_RunG_UL16postVFP" Cacheable="&b_Cacheable;">
-			&DATA_SingleElectron_RunG_UL16postVFP;
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData>
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleElectron_RunH_UL16postVFP" Cacheable="&b_Cacheable;">
-			&DATA_SingleElectron_RunH_UL16postVFP;
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData>
-		<!-- SinglePhoton -->
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SinglePhoton_RunF_UL16postVFP" Cacheable="&b_Cacheable;">
-			&DATA_SinglePhoton_RunF_UL16postVFP;
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData>
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SinglePhoton_RunG_UL16postVFP" Cacheable="&b_Cacheable;">
-			&DATA_SinglePhoton_RunG_UL16postVFP;
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData>
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SinglePhoton_RunH_UL16postVFP" Cacheable="&b_Cacheable;">
-			&DATA_SinglePhoton_RunH_UL16postVFP;
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData>
-		<!-- SingleMuon -->
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_RunF_UL16postVFP" Cacheable="&b_Cacheable;">
-			&DATA_SingleMuon_RunF_UL16postVFP;
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData>
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_RunG_UL16postVFP" Cacheable="&b_Cacheable;">
-			&DATA_SingleMuon_RunG_UL16postVFP;
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData>
-		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_RunH_UL16postVFP" Cacheable="&b_Cacheable;">
-			&DATA_SingleMuon_RunH_UL16postVFP;
-			<InputTree Name="AnalysisTree" />
-			<OutputTree Name="AnalysisTree" />
-		</InputData>
 		<!-- TTbar -->
 		<InputData Lumi="117575358.677" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_UL16postVFP" Cacheable="&b_Cacheable;">
 			&TTToSemiLeptonic_UL16postVFP;
@@ -1270,7 +1210,7 @@
 
 			<Item Name="use_sframe_weight"  Value="false"/>
 			<Item Name="jersmear_direction" Value="nominal"/>
-			<Item Name="jecsmear_direction" Value="nominal"/>
+			<Item Name="jecsmear_direction" Value="up"/>
 
 			<Item Name="AnalysisModule" Value="ZprimePreselectionModule"/>
 		</UserConfig>
