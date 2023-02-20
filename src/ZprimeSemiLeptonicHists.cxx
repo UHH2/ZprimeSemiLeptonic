@@ -469,6 +469,7 @@ void ZprimeSemiLeptonicHists::init(){
   M_Zprime_rebin5          = book<TH1F>("M_Zprime_rebin5", "M_{t#bar{t}} [GeV]", bins_Zprime5.size()-1, &bins_Zprime5[0]);
   M_Zprime_rebin6          = book<TH1F>("M_Zprime_rebin6", "M_{t#bar{t}} [GeV]", bins_Zprime6.size()-1, &bins_Zprime6[0]);
   M_Zprime_rebin7          = book<TH1F>("M_Zprime_rebin7", "M_{t#bar{t}} [GeV]", bins_Zprime7.size()-1, &bins_Zprime7[0]);
+  M_Zprime_rebin8          = book<TH1F>("M_Zprime_rebin8", "M_{t#bar{t}} [GeV]", 400, 0, 10000);
   M_tophad                 = book<TH1F>("M_tophad", "M_{t}^{had} [GeV]", 70, 0, 700);
   M_toplep                 = book<TH1F>("M_toplep", "M_{t}^{lep} [GeV]", 70, 0, 700);
   chi2_Zprime              = book<TH1F>("chi2_Zprime", "#chi^{2}", 300, 0, 600);
@@ -531,6 +532,7 @@ void ZprimeSemiLeptonicHists::init(){
   cos_hadtop_thetastar = book<TH1F>("cos_hadtop_thetastar", "cos(hadtop #theta^*)", 100, -1.0, 1.0);
   // leptop_thetastar     = book<TH1F>("leptop_thetastar", "leptop #theta^*", 70, -3.5, 3.5);
   cos_leptop_thetastar = book<TH1F>("cos_leptop_thetastar", "cos(leptop #theta^*)", 100, -1.0, 1.0);
+  abs_cos_leptop_thetastar = book<TH1F>("abs_cos_leptop_thetastar", "|cos(leptop #theta^*)|", 50, 0., 1.0);
 
   // mttbar histograms from TOP-20-001: https://www.hepdata.net/record/ins1901295
   vector<float> bins_ditopmass_Fig19 = {250,400,480,560,640,720,800,900,1000,1150,1300,1500,1700,2000,2300,3500};
@@ -1344,6 +1346,7 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
     else M_Zprime_rebin5->Fill(5050., weight);
     M_Zprime_rebin6->Fill(Mreco, weight);
     M_Zprime_rebin7->Fill(Mreco, weight);
+    M_Zprime_rebin8->Fill(Mreco, weight);
     chi2_Zprime->Fill(chi2, weight);
     chi2_Zprime_rebin->Fill(chi2, weight);
     chi2_Zprime_rebin2->Fill(chi2, weight);
@@ -1368,6 +1371,7 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
 
     cos_hadtop_thetastar->Fill(costhetastar_had, weight);
     cos_leptop_thetastar->Fill(costhetastar_lep, weight);
+    abs_cos_leptop_thetastar->Fill(fabs(costhetastar_lep), weight);
 
     mttbar_vs_costhetastar->Fill(costhetastar_lep, Mreco, weight);
     costhetastar_vs_mttbar->Fill(Mreco, costhetastar_lep, weight);
