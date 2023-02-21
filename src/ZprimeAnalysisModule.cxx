@@ -154,7 +154,7 @@ protected:
   bool isMuon, isElectron;
   bool isPhoton;
   bool isEleTriggerMeasurement;
-  TString year;
+  TString year, channel;
 
   TH2F *ratio_hist_muon;
   TH2F *ratio_hist_ele;
@@ -253,8 +253,9 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   string trigger_ph_A;
   double MET_cut, HT_lep_cut;
   isMuon = false; isElectron = false;
-  if(ctx.get("channel") == "muon") isMuon = true;
-  if(ctx.get("channel") == "electron") isElectron = true;
+  channel = ctx.get("channel");
+  if(channel == "muon") isMuon = true;
+  if(channel == "electron") isElectron = true;
 
 
   if(isMuon){ // semileptonic muon channel
@@ -443,18 +444,10 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
     if( (ctx.get("dataset_version").find("TTToHadronic") != std::string::npos) || (ctx.get("dataset_version").find("TTToSemiLeptonic") != std::string::npos) || (ctx.get("dataset_version").find("TTTo2L2Nu") != std::string::npos) ) sample_name = "TTbar";
     if( (ctx.get("dataset_version").find("WW") != std::string::npos) || (ctx.get("dataset_version").find("ZZ") != std::string::npos) || (ctx.get("dataset_version").find("WZ") != std::string::npos) ) sample_name = "Diboson";
 
-    if(isMuon){
-      TFile* f_btag2Dsf_muon = new TFile("/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/data/customBtagSF_muon_"+year+".root");
-      ratio_hist_muon = (TH2F*)f_btag2Dsf_muon->Get("N_Jets_vs_HT_" + sample_name);
-      ratio_hist_muon->SetDirectory(0);
-    }
-    else if(!isMuon){
-      TFile* f_btag2Dsf_ele = new TFile("/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/data/customBtagSF_electron_"+year+".root");
-      ratio_hist_ele = (TH2F*)f_btag2Dsf_ele->Get("N_Jets_vs_HT_" + sample_name);
-      ratio_hist_ele->SetDirectory(0);
-    }
+    TFile* f_btag2Dsf = new TFile("../macros/src/files_BTagSF/customBtagSF_" + ctx.get("channel") + "_" + year + ".root");
+    ratio_hist_muon = (TH2F*)f_btag2Dsf->Get("N_Jets_vs_HT_" + sample_name);
+    ratio_hist_muon->SetDirectory(0);
   }
-
 }
 
 /*
