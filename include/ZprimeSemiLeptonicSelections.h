@@ -317,13 +317,12 @@ namespace uhh2 {
 
   class ThetaStarSelection : public Selection{
   public:
-    explicit ThetaStarSelection(uhh2::Context&, float theta_cut_low, float theta_cut_high);
+    explicit ThetaStarSelection(uhh2::Context&, float theta_cut);
     virtual bool passes(const Event&) override;
   private:
     uhh2::Event::Handle<ZprimeCandidate*> h_BestZprimeCandidateChi2;
     uhh2::Event::Handle<bool> h_is_zprime_reconstructed_chi2;
-    float theta_cut_low_;
-    float theta_cut_high_;
+    float theta_cut_;
   };
   ////
 

@@ -555,7 +555,7 @@ bool HEMSelection::passes(const Event & event){
 
 /////////////////////////////////////////////////////
 
-ThetaStarSelection::ThetaStarSelection(Context& ctx, float theta_cut_low, float theta_cut_high) : theta_cut_low_(theta_cut_low), theta_cut_high_(theta_cut_high) {
+ThetaStarSelection::ThetaStarSelection(Context& ctx, float theta_cut) : theta_cut_(theta_cut){
   h_BestZprimeCandidateChi2 = ctx.get_handle<ZprimeCandidate*>("ZprimeCandidateBestChi2");
   h_is_zprime_reconstructed_chi2 = ctx.get_handle<bool>("is_zprime_reconstructed_chi2");
 }
@@ -580,7 +580,7 @@ bool ThetaStarSelection::passes(const Event & event){
 
   lep_top_frame.Boost(-ttbar.BoostVector());
   cos_ang_leptop_thetastar = ttbar.Vect().Dot(lep_top_frame.Vect())/ttbar.P()/lep_top_frame.P();
-  if( cos_ang_leptop_thetastar >= theta_cut_low_ && cos_ang_leptop_thetastar < theta_cut_high_ ) pass = true;
+  if( (cos_ang_leptop_thetastar >= -theta_cut_) && (cos_ang_leptop_thetastar < theta_cut_) ) pass = true;
 
   return pass;
 }
