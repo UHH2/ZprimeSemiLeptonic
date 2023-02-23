@@ -21,7 +21,8 @@ else
 fi
 
 # MC
-hadd -f ${output_dir}uhh2.AnalysisModuleRunner.MC.TTbar.root ${input_dir}uhh2.AnalysisModuleRunner.MC.TTTo*.root
+# TTbar often larger than 100 GB (default max size of root tree) -> handle separately via "hadd_large_files.sh"
+# hadd -f ${output_dir}uhh2.AnalysisModuleRunner.MC.TTbar.root ${input_dir}uhh2.AnalysisModuleRunner.MC.TTTo2L2Nu_UL17_*.root ${input_dir}uhh2.AnalysisModuleRunner.MC.TTToHadronic_UL17_*.root ${input_dir}uhh2.AnalysisModuleRunner.MC.TTToSemiLeptonic_UL17_*.root
 hadd -f ${output_dir}uhh2.AnalysisModuleRunner.MC.ST.root ${input_dir}uhh2.AnalysisModuleRunner.MC.ST_*.root
 hadd -f ${output_dir}uhh2.AnalysisModuleRunner.MC.WJets.root ${input_dir}uhh2.AnalysisModuleRunner.MC.WJetsToLNu_HT-*.root
 hadd -f ${output_dir}uhh2.AnalysisModuleRunner.MC.DY.root ${input_dir}uhh2.AnalysisModuleRunner.MC.DYJetsToLL_M-50_HT-*.root
