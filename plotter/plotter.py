@@ -593,9 +593,12 @@ class NiceStackWithRatio():
         self.ratio_null_hist.GetYaxis().SetTitleSize(self.text_size / self.border_y)
         self.ratio_null_hist.GetYaxis().SetTitleOffset(0.45)
         self.ratio_null_hist.GetYaxis().CenterTitle()
-        self.ratio_null_hist.SetMinimum(0.7)
-        self.ratio_null_hist.SetMaximum(1.3)
-        self.ratio_null_hist.GetYaxis().SetNdivisions(403)
+        # self.ratio_null_hist.SetMinimum(0.7)
+        # self.ratio_null_hist.SetMaximum(1.3)
+        # self.ratio_null_hist.GetYaxis().SetNdivisions(403)
+        self.ratio_null_hist.SetMinimum(0.3)
+        self.ratio_null_hist.SetMaximum(1.7)
+        self.ratio_null_hist.GetYaxis().SetNdivisions(503)
 
         # Fix inconsistent tick lengths:
         # https://root-forum.cern.ch/t/inconsistent-tick-length/18563/8
@@ -611,27 +614,27 @@ class NiceStackWithRatio():
 
         if not self.blind_data:
             # Minimize the "outlier" data points in ratio plot by adjusting the y axis range
-            n_ratio_data_outliers = 0
             n_points = self.ratio_data.GetN()
-            for i_point in range(0, n_points):
-                point_y = self.ratio_data.GetY()[i_point]
-                if point_y <= 0.: continue # ignore data points which are zero for this algorithm
-                if point_y < self.ratio_null_hist.GetMinimum() or point_y > self.ratio_null_hist.GetMaximum():
-                    n_ratio_data_outliers += 1
-            if n_ratio_data_outliers > self.max_ratio_data_outliers:
-                self.ratio_null_hist.SetMinimum(0.3)
-                self.ratio_null_hist.SetMaximum(1.7)
-                self.ratio_null_hist.GetYaxis().SetNdivisions(503)
-            n_ratio_data_outliers = 0
-            for i_point in range(0, n_points):
-                point_y = self.ratio_data.GetY()[i_point]
-                if point_y <= 0.: continue # ignore data points which are zero for this algorithm
-                if point_y < self.ratio_null_hist.GetMinimum() or point_y > self.ratio_null_hist.GetMaximum():
-                    n_ratio_data_outliers += 1
-            if n_ratio_data_outliers > self.max_ratio_data_outliers:
-                self.ratio_null_hist.SetMinimum(0.0)
-                self.ratio_null_hist.SetMaximum(2.0)
-                self.ratio_null_hist.GetYaxis().SetNdivisions(503)
+            # n_ratio_data_outliers = 0
+            # for i_point in range(0, n_points):
+            #     point_y = self.ratio_data.GetY()[i_point]
+            #     if point_y <= 0.: continue # ignore data points which are zero for this algorithm
+            #     if point_y < self.ratio_null_hist.GetMinimum() or point_y > self.ratio_null_hist.GetMaximum():
+            #         n_ratio_data_outliers += 1
+            # if n_ratio_data_outliers > self.max_ratio_data_outliers:
+            #     self.ratio_null_hist.SetMinimum(0.3)
+            #     self.ratio_null_hist.SetMaximum(1.7)
+            #     self.ratio_null_hist.GetYaxis().SetNdivisions(503)
+            # n_ratio_data_outliers = 0
+            # for i_point in range(0, n_points):
+            #     point_y = self.ratio_data.GetY()[i_point]
+            #     if point_y <= 0.: continue # ignore data points which are zero for this algorithm
+            #     if point_y < self.ratio_null_hist.GetMinimum() or point_y > self.ratio_null_hist.GetMaximum():
+            #         n_ratio_data_outliers += 1
+            # if n_ratio_data_outliers > self.max_ratio_data_outliers:
+            #     self.ratio_null_hist.SetMinimum(0.0)
+            #     self.ratio_null_hist.SetMaximum(2.0)
+            #     self.ratio_null_hist.GetYaxis().SetNdivisions(503)
 
             # Now set "arrow" markers for all remaining outliers at the upper/lower edge of ratio plot:
             for i_point in range(0, n_points):

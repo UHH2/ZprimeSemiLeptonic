@@ -18,7 +18,7 @@ vector<TString> v_years = {
 // channels
 vector<TString> v_channels = {
   "electron",
-  "muon"
+  // "muon"
 };
 
 // samples
@@ -34,10 +34,10 @@ vector<TString> v_samples = {
   "ALP_ttbar_interference",
   // "HpseudoToTTTo1L1Nu2J_m365_w91p25_res",
   // "HpseudoToTTTo1L1Nu2J_m400_w100p0_res",
-  "HpseudoToTTTo1L1Nu2J_m500_w125p0_res",
+  // "HpseudoToTTTo1L1Nu2J_m500_w125p0_res",
   // "HpseudoToTTTo1L1Nu2J_m600_w150p0_res",
   // "HpseudoToTTTo1L1Nu2J_m800_w200p0_res",
-  "HpseudoToTTTo1L1Nu2J_m1000_w250p0_res",
+  // "HpseudoToTTTo1L1Nu2J_m1000_w250p0_res",
   // "HpseudoToTTTo1L1Nu2J_m365_w36p5_res",
   // "HpseudoToTTTo1L1Nu2J_m400_w40p0_res",
   // "HpseudoToTTTo1L1Nu2J_m500_w50p0_res",
@@ -88,10 +88,10 @@ vector<TString> v_samples = {
   // "HpseudoToTTTo1L1Nu2J_m1000_w25p0_int_neg",
   // "HscalarToTTTo1L1Nu2J_m365_w91p25_res",
   // "HscalarToTTTo1L1Nu2J_m400_w100p0_res",
-  "HscalarToTTTo1L1Nu2J_m500_w125p0_res",
+  // "HscalarToTTTo1L1Nu2J_m500_w125p0_res",
   // "HscalarToTTTo1L1Nu2J_m600_w150p0_res",
   // "HscalarToTTTo1L1Nu2J_m800_w200p0_res",
-  "HscalarToTTTo1L1Nu2J_m1000_w250p0_res",
+  // "HscalarToTTTo1L1Nu2J_m1000_w250p0_res",
   // "HscalarToTTTo1L1Nu2J_m365_w36p5_res",
   // "HscalarToTTTo1L1Nu2J_m400_w40p0_res",
   // "HscalarToTTTo1L1Nu2J_m500_w50p0_res",
@@ -140,8 +140,8 @@ vector<TString> v_samples = {
   // "HscalarToTTTo1L1Nu2J_m600_w15p0_int_neg",
   // "HscalarToTTTo1L1Nu2J_m800_w20p0_int_neg",
   // "HscalarToTTTo1L1Nu2J_m1000_w25p0_int_neg",
-  "RSGluonToTT_M-500",
-  "RSGluonToTT_M-1000",
+  // "RSGluonToTT_M-500",
+  // "RSGluonToTT_M-1000",
   // "RSGluonToTT_M-1500",
   // "RSGluonToTT_M-2000",
   // "RSGluonToTT_M-2500",
@@ -153,12 +153,12 @@ vector<TString> v_samples = {
   // "RSGluonToTT_M-5500",
   // "RSGluonToTT_M-6000",
   // "ZPrimeToTT_M400_W40",
-  "ZPrimeToTT_M500_W50",
+  // "ZPrimeToTT_M500_W50",
   // "ZPrimeToTT_M600_W60",
   // "ZPrimeToTT_M700_W70",
   // "ZPrimeToTT_M800_W80",
   // "ZPrimeToTT_M900_W90",
-  "ZPrimeToTT_M1000_W100",
+  // "ZPrimeToTT_M1000_W100",
   // "ZPrimeToTT_M1200_W120",
   // "ZPrimeToTT_M1400_W140",
   // "ZPrimeToTT_M1600_W160",
@@ -245,8 +245,12 @@ void prepare_combine_input(){
         TString sample = v_samples.at(c);
         cout << sample << endl;
 
+        bool is_data = false;
         TString file_prefix = "uhh2.AnalysisModuleRunner.";
-        if(sample == "DATA") file_prefix += "DATA.";
+        if(sample == "DATA"){
+          is_data = true;
+          file_prefix += "DATA.";
+        }
         else file_prefix += "MC.";
 
         TFile *input_file = TFile::Open(input_base_dir + year + "/" + channel + "/" + file_prefix + sample + ".root");
@@ -261,6 +265,7 @@ void prepare_combine_input(){
         while((dir_key = (TKey *) next_dir())){ // root subdir loop
           dir = input_file->Get(dir_key->GetName());
           TString dir_name = dir->GetName();
+          // cout << dir_name << endl;
 
           bool is_nominal = false;
           bool is_multiclass_nn = false;
@@ -303,7 +308,7 @@ void prepare_combine_input(){
               v_hists.push_back(hist);
             }
           }
-          else if(is_up_variation){ // simple up variation
+          if(is_up_variation){ // simple up variation
             // cout << "up variations" << endl;
             while((hist_key = (TKey *) next_hist())){ // hist loop
               hist = (TH1F*) gDirectory->Get(hist_key->GetName());
@@ -426,10 +431,94 @@ void prepare_combine_input(){
           v_hists.push_back(hist_pdfDown);
         }
 
+        if(!is_data){ // JEC + JER files exist for MC only
+          // JEC
+          TFile *input_file_jec_up = TFile::Open(input_base_dir + year + "/JEC_up/" + channel + "/" + file_prefix + sample + ".root");
+          TObject *dir_jec_up;
+          TKey *dir_key_jec_up;
+          TIter next_dir_jec_up(input_file_jec_up->GetListOfKeys());
+          while((dir_key_jec_up = (TKey *) next_dir_jec_up())){ // root subdir loop
+            dir_jec_up = input_file->Get(dir_key_jec_up->GetName());
+            TString dir_name_jec_up = dir_jec_up->GetName();
+            if(dir_name_jec_up == "nominal"){
+              input_file_jec_up->cd(dir_name_jec_up);
+              TH1F *hist_jec_up;
+              TKey *hist_key_jec_up;
+              TIter next_hist_jec_up(gDirectory->GetListOfKeys());
+              while((hist_key_jec_up = (TKey *) next_hist_jec_up())){ // hist loop
+                hist_jec_up = (TH1F*) gDirectory->Get(hist_key_jec_up->GetName());
+                TString hist_name_jec_up = hist_jec_up->GetName();
+                hist_jec_up->SetName(hist_name_jec_up + "_" + sample + "_jecUp");
+                v_hists.push_back(hist_jec_up);
+              }
+            }
+          }
+          TFile *input_file_jec_down = TFile::Open(input_base_dir + year + "/JEC_down/" + channel + "/" + file_prefix + sample + ".root");
+          TObject *dir_jec_down;
+          TKey *dir_key_jec_down;
+          TIter next_dir_jec_down(input_file_jec_down->GetListOfKeys());
+          while((dir_key_jec_down = (TKey *) next_dir_jec_down())){ // root subdir loop
+            dir_jec_down = input_file->Get(dir_key_jec_down->GetName());
+            TString dir_name_jec_down = dir_jec_down->GetName();
+            if(dir_name_jec_down == "nominal"){
+              input_file_jec_down->cd(dir_name_jec_down);
+              TH1F *hist_jec_down;
+              TKey *hist_key_jec_down;
+              TIter next_hist_jec_down(gDirectory->GetListOfKeys());
+              while((hist_key_jec_down = (TKey *) next_hist_jec_down())){ // hist loop
+                hist_jec_down = (TH1F*) gDirectory->Get(hist_key_jec_down->GetName());
+                TString hist_name_jec_down = hist_jec_down->GetName();
+                hist_jec_down->SetName(hist_name_jec_down + "_" + sample + "_jecDown");
+                v_hists.push_back(hist_jec_down);
+              }
+            }
+          }
+          // JER
+          TFile *input_file_jer_up = TFile::Open(input_base_dir + year + "/JER_up/" + channel + "/" + file_prefix + sample + ".root");
+          TObject *dir_jer_up;
+          TKey *dir_key_jer_up;
+          TIter next_dir_jer_up(input_file_jer_up->GetListOfKeys());
+          while((dir_key_jer_up = (TKey *) next_dir_jer_up())){ // root subdir loop
+            dir_jer_up = input_file->Get(dir_key_jer_up->GetName());
+            TString dir_name_jer_up = dir_jer_up->GetName();
+            if(dir_name_jer_up == "nominal"){
+              input_file_jer_up->cd(dir_name_jer_up);
+              TH1F *hist_jer_up;
+              TKey *hist_key_jer_up;
+              TIter next_hist_jer_up(gDirectory->GetListOfKeys());
+              while((hist_key_jer_up = (TKey *) next_hist_jer_up())){ // hist loop
+                hist_jer_up = (TH1F*) gDirectory->Get(hist_key_jer_up->GetName());
+                TString hist_name_jer_up = hist_jer_up->GetName();
+                hist_jer_up->SetName(hist_name_jer_up + "_" + sample + "_jerUp");
+                v_hists.push_back(hist_jer_up);
+              }
+            }
+          }
+          TFile *input_file_jer_down = TFile::Open(input_base_dir + year + "/JER_down/" + channel + "/" + file_prefix + sample + ".root");
+          TObject *dir_jer_down;
+          TKey *dir_key_jer_down;
+          TIter next_dir_jer_down(input_file_jer_down->GetListOfKeys());
+          while((dir_key_jer_down = (TKey *) next_dir_jer_down())){ // root subdir loop
+            dir_jer_down = input_file->Get(dir_key_jer_down->GetName());
+            TString dir_name_jer_down = dir_jer_down->GetName();
+            if(dir_name_jer_down == "nominal"){
+              input_file_jer_down->cd(dir_name_jer_down);
+              TH1F *hist_jer_down;
+              TKey *hist_key_jer_down;
+              TIter next_hist_jer_down(gDirectory->GetListOfKeys());
+              while((hist_key_jer_down = (TKey *) next_hist_jer_down())){ // hist loop
+                hist_jer_down = (TH1F*) gDirectory->Get(hist_key_jer_down->GetName());
+                TString hist_name_jer_down = hist_jer_down->GetName();
+                hist_jer_down->SetName(hist_name_jer_down + "_" + sample + "_jerDown");
+                v_hists.push_back(hist_jer_down);
+              }
+            }
+          }
+        }
         output_file->cd();
         for(unsigned int i=0; i<v_hists.size(); ++i) v_hists.at(i)->Write();
       } // end sample loop
-      output_file->Close();
+      output_file->Close("R");
     } // end channel loop
   } // end year loop
   cout << "done!" << endl;
