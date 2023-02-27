@@ -69,7 +69,7 @@ for channel in channels:
             text_top_right = _YEARS.get(year).get('lumi_fb_display') + ' fb^{#minus1} (13 TeV)',
             nostack = False,
             logy = True,
-            blind_data = True,
+            blind_data = False,
         )
 
         nice.plot()
