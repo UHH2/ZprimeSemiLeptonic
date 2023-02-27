@@ -11,7 +11,10 @@ from constants_nn_variables import _VARIABLES
 
 
 year = 'UL17'
-channels = ['electron', 'muon']
+channels = [
+    'electron',
+    'muon'
+]
 
 systematics = [
     'pdf',
@@ -27,6 +30,8 @@ systematics = [
     'ele_trigger',
     'isr',
     'fsr',
+    'jec',
+    'jer',
     'btag_cferr1',
     'btag_cferr2',
     'btag_hf',
@@ -37,9 +42,9 @@ systematics = [
     'btag_lfstats2',
 ]
 
-print("year: ", year)
+print("year: " + year)
 for channel in channels:
-    print("channel: ", channel)
+    print("channel: " + channel)
     for key, var in _VARIABLES.items():
 
         # SM processes
@@ -70,7 +75,7 @@ for channel in channels:
 
 
         nice = NiceStackWithRatio(
-            infile_path = '/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/systematics/' + year + '/' + channel + '/input_histograms_combine.root',
+            infile_path = '/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/systematics/' + year + '/' + channel + '/combine_input_after_baseline_selection.root',
             # infile_directory = '', # the directory within the ROOT file
             x_axis_title = var.get('x_axis_title'),
             x_axis_unit = var.get('x_axis_unit'),
