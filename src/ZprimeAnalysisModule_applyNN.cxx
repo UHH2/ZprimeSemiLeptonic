@@ -214,7 +214,6 @@ NeuralNetworkModule::NeuralNetworkModule(Context& ctx, const std::string & Model
   h_Ak8_j1_pt    = ctx.get_handle<float>("Ak8_j1_pt");
   h_Ak8_j1_tau21 = ctx.get_handle<float>("Ak8_j1_tau21");
   h_Ak8_j1_tau32 = ctx.get_handle<float>("Ak8_j1_tau32");
-  h_Ak8_j1_tau32 = ctx.get_handle<float>("Ak8_j1_tau32");
   h_Ak8_j1_deepak8tscore = ctx.get_handle<float>("Ak8_j1_deepak8tscore");
 
   h_Ak8_j2_E     = ctx.get_handle<float>("Ak8_j2_E");
@@ -223,7 +222,6 @@ NeuralNetworkModule::NeuralNetworkModule(Context& ctx, const std::string & Model
   h_Ak8_j2_phi   = ctx.get_handle<float>("Ak8_j2_phi");
   h_Ak8_j2_pt    = ctx.get_handle<float>("Ak8_j2_pt");
   h_Ak8_j2_tau21 = ctx.get_handle<float>("Ak8_j2_tau21");
-  h_Ak8_j2_tau32 = ctx.get_handle<float>("Ak8_j2_tau32");
   h_Ak8_j2_tau32 = ctx.get_handle<float>("Ak8_j2_tau32");
   h_Ak8_j2_deepak8tscore = ctx.get_handle<float>("Ak8_j2_deepak8tscore");
 
