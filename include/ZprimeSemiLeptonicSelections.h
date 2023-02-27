@@ -317,14 +317,29 @@ namespace uhh2 {
 
   class ThetaStarSelection : public Selection{
   public:
-    explicit ThetaStarSelection(uhh2::Context&, float theta_cut);
+    explicit ThetaStarSelection(uhh2::Context&, float theta_cut_low, float theta_cut_high);
     virtual bool passes(const Event&) override;
   private:
     uhh2::Event::Handle<ZprimeCandidate*> h_BestZprimeCandidateChi2;
     uhh2::Event::Handle<bool> h_is_zprime_reconstructed_chi2;
-    float theta_cut_;
+    float theta_cut_low_;
+    float theta_cut_high_;
   };
   ////
+
+
+  class AbsThetaStarSelection : public Selection{
+  public:
+    explicit AbsThetaStarSelection(uhh2::Context&, float abs_theta_cut_low, float abs_theta_cut_high);
+    virtual bool passes(const Event&) override;
+  private:
+    uhh2::Event::Handle<ZprimeCandidate*> h_BestZprimeCandidateChi2;
+    uhh2::Event::Handle<bool> h_is_zprime_reconstructed_chi2;
+    float abs_theta_cut_low_;
+    float abs_theta_cut_high_;
+  };
+  ////
+
 
   class PuppiCHS_BTagging : public Selection{
   public:

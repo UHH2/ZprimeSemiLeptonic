@@ -555,7 +555,7 @@ bool HEMSelection::passes(const Event & event){
 
 /////////////////////////////////////////////////////
 
-ThetaStarSelection::ThetaStarSelection(Context& ctx, float theta_cut) : theta_cut_(theta_cut){
+ThetaStarSelection::ThetaStarSelection(Context& ctx, float theta_cut_low, float theta_cut_high) : theta_cut_low_(theta_cut_low), theta_cut_high_(theta_cut_high) {
   h_BestZprimeCandidateChi2 = ctx.get_handle<ZprimeCandidate*>("ZprimeCandidateBestChi2");
   h_is_zprime_reconstructed_chi2 = ctx.get_handle<bool>("is_zprime_reconstructed_chi2");
 }
@@ -580,12 +580,45 @@ bool ThetaStarSelection::passes(const Event & event){
 
   lep_top_frame.Boost(-ttbar.BoostVector());
   cos_ang_leptop_thetastar = ttbar.Vect().Dot(lep_top_frame.Vect())/ttbar.P()/lep_top_frame.P();
-  if( (cos_ang_leptop_thetastar >= -theta_cut_) && (cos_ang_leptop_thetastar < theta_cut_) ) pass = true;
+  if( cos_ang_leptop_thetastar >= theta_cut_low_ && cos_ang_leptop_thetastar < theta_cut_high_ ) pass = true;
 
   return pass;
 }
 
 /////////////////////////////////////////////////////
+
+AbsThetaStarSelection::AbsThetaStarSelection(Context& ctx, float abs_theta_cut_low, float abs_theta_cut_high) : abs_theta_cut_low_(abs_theta_cut_low), abs_theta_cut_high_(abs_theta_cut_high) {
+  h_BestZprimeCandidateChi2 = ctx.get_handle<ZprimeCandidate*>("ZprimeCandidateBestChi2");
+  h_is_zprime_reconstructed_chi2 = ctx.get_handle<bool>("is_zprime_reconstructed_chi2");
+}
+bool AbsThetaStarSelection::passes(const Event & event){
+
+  bool is_zprime_reconstructed_chi2 = event.get(h_is_zprime_reconstructed_chi2);
+  ZprimeCandidate* BestZprimeCandidate = event.get(h_BestZprimeCandidateChi2);
+
+  if(!is_zprime_reconstructed_chi2) return false;
+
+  bool pass = false;
+
+  float cos_ang_leptop_thetastar;
+
+  LorentzVector had_top = BestZprimeCandidate->top_hadronic_v4();
+  LorentzVector lep_top = BestZprimeCandidate->top_leptonic_v4();
+
+  TLorentzVector lep_top_frame(0,0,0,0);
+  lep_top_frame.SetPtEtaPhiE(lep_top.pt(), lep_top.eta(), lep_top.phi(), lep_top.E());
+  TLorentzVector ttbar(0,0,0,0);
+  ttbar.SetPtEtaPhiE((had_top+lep_top).pt(), (had_top+lep_top).eta(), (had_top+lep_top).phi(), (had_top+lep_top).E());
+
+  lep_top_frame.Boost(-ttbar.BoostVector());
+  cos_ang_leptop_thetastar = ttbar.Vect().Dot(lep_top_frame.Vect())/ttbar.P()/lep_top_frame.P();
+  if( fabs(cos_ang_leptop_thetastar) >= abs_theta_cut_low_ && fabs(cos_ang_leptop_thetastar) < abs_theta_cut_high_ ) pass = true;
+
+  return pass;
+}
+
+/////////////////////////////////////////////////////
+
 
 
 PuppiCHS_BTagging::PuppiCHS_BTagging(Context& ctx){
