@@ -46,9 +46,6 @@ Hists(ctx, dirname){
  
     hist_names[i] = s_name;
 
-    vector<float> bins_Zprime = {0,400,600,800,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200,3400,3600,3800,4000,4400,4800,5200,5600,6000,6100};
-
-    // book<TH1F>(char_name, char_title,  bins_Zprime.size()-1, &bins_Zprime[0]);
     book<TH1F>(char_name, char_title,  400, 0, 10000);
 
   }
