@@ -3,7 +3,7 @@ sys.path.insert(1, '/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/U
 
 from CrossSectionHelper import *
 
-year = "UL18" # choose: UL16preVFP, UL16postVFP, UL17, UL18
+year = "UL16preVFP" # choose: UL16preVFP, UL16postVFP, UL17, UL18
 print("---------- " + year + " ----------")
 
 samples = [
@@ -52,26 +52,26 @@ samples = [
     "ALP_ttbar_signal",
     "ALP_ttbar_interference",
 
-    "HscalarToTTTo1L1Nu2J_m365_36p5_res",
+    "HscalarToTTTo1L1Nu2J_m365_w36p5_res",
     "HscalarToTTTo1L1Nu2J_m400_w40p0_res",
     "HscalarToTTTo1L1Nu2J_m500_w50p0_res",
     "HscalarToTTTo1L1Nu2J_m600_w60p0_res",
     "HscalarToTTTo1L1Nu2J_m800_w80p0_res",
     "HscalarToTTTo1L1Nu2J_m1000_w100p0_res",
-    "HscalarToTTTo1L1Nu2J_m365_36p5_int",
+    "HscalarToTTTo1L1Nu2J_m365_w36p5_int",
     "HscalarToTTTo1L1Nu2J_m400_w40p0_int",
     "HscalarToTTTo1L1Nu2J_m500_w50p0_int",
     "HscalarToTTTo1L1Nu2J_m600_w60p0_int",
     "HscalarToTTTo1L1Nu2J_m800_w80p0_int",
     "HscalarToTTTo1L1Nu2J_m1000_w100p0_int",
 
-    "HpseudoToTTTo1L1Nu2J_m365_36p5_res",
+    "HpseudoToTTTo1L1Nu2J_m365_w36p5_res",
     "HpseudoToTTTo1L1Nu2J_m400_w40p0_res",
     "HpseudoToTTTo1L1Nu2J_m500_w50p0_res",
     "HpseudoToTTTo1L1Nu2J_m600_w60p0_res",
     "HpseudoToTTTo1L1Nu2J_m800_w80p0_res",
     "HpseudoToTTTo1L1Nu2J_m1000_w100p0_res",
-    "HpseudoToTTTo1L1Nu2J_m365_36p5_int",
+    "HpseudoToTTTo1L1Nu2J_m365_w36p5_int",
     "HpseudoToTTTo1L1Nu2J_m400_w40p0_int",
     "HpseudoToTTTo1L1Nu2J_m500_w50p0_int",
     "HpseudoToTTTo1L1Nu2J_m600_w60p0_int",
