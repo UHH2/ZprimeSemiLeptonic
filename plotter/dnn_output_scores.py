@@ -27,12 +27,12 @@ for channel in channels:
 
         # SM processes
         processes_Plotter = [
-            Process(var.get('name') + '_TTbar', 't#bar{t}', root.kPink-3),
-            Process(var.get('name') + '_WJets', 'W+jets', root.kSpring-3),
-            Process(var.get('name') + '_DY', 'Drell-Yan', root.kOrange),
-            Process(var.get('name') + '_ST', 'Single t', root.kBlue),
-            Process(var.get('name') + '_QCD', 'QCD', root.kAzure+10),
-            Process(var.get('name') + '_Diboson', 'Diboson', root.kMagenta),
+            Process(var.get('name') + '_QCD', 'QCD', root.kAzure+10, 1, 0.5),
+            Process(var.get('name') + '_Diboson', 'Diboson', root.kMagenta, 1, 0.5),
+            Process(var.get('name') + '_ST', 'Single t', root.kBlue, 1, 0.3),
+            Process(var.get('name') + '_DY', 'Drell-Yan', root.kOrange, 1, 0.5),
+            Process(var.get('name') + '_WJets', 'W+jets', root.kSpring-3, 1, 0.5),
+            Process(var.get('name') + '_TTbar', 't#bar{t}', root.kPink-3, 1, 0.2),
         ]
         processes_Plotter_temp = OrderedDict()
         for index, p in enumerate(processes_Plotter):
@@ -84,8 +84,8 @@ for channel in channels:
         legend.AddEntry(nice.stack.GetStack().At(processes_Plotter[var.get('name') + '_WJets'].index), processes_Plotter[var.get('name') + '_WJets'].legend, 'f')
         legend.AddEntry(nice.stack.GetStack().At(processes_Plotter[var.get('name') + '_DY'].index), processes_Plotter[var.get('name') + '_DY'].legend, 'f')
         legend.AddEntry(nice.stack.GetStack().At(processes_Plotter[var.get('name') + '_ST'].index), processes_Plotter[var.get('name') + '_ST'].legend, 'f')
-        legend.AddEntry(nice.stack.GetStack().At(processes_Plotter[var.get('name') + '_QCD'].index), processes_Plotter[var.get('name') + '_QCD'].legend, 'f')
         legend.AddEntry(nice.stack.GetStack().At(processes_Plotter[var.get('name') + '_Diboson'].index), processes_Plotter[var.get('name') + '_Diboson'].legend, 'f')
+        legend.AddEntry(nice.stack.GetStack().At(processes_Plotter[var.get('name') + '_QCD'].index), processes_Plotter[var.get('name') + '_QCD'].legend, 'f')
         legend.SetTextSize(0.025)
         legend.SetBorderSize(0)
         legend.SetFillStyle(0)

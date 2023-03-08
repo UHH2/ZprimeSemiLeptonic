@@ -17,11 +17,12 @@ import numpy as np
 
 class Process():
 
-    def __init__(self, name, legend=None, tcolor=None, scale=1.):
+    def __init__(self, name, legend=None, tcolor=None, scale=1., xsec_uncert=0.):
         self.name = name
         self.legend = legend or name
         self.tcolor = tcolor or root.kBlack
         self.scale = scale or 1.
+        self.xsec_uncert = xsec_uncert or 0.
 
 
 def transform_TH1_to_TGraphAsymmErrors(th1, poisson_errors=False, n_sigma=1., bin_width=False):
@@ -306,12 +307,13 @@ class NiceStackWithRatio():
         return self.data
 
     def get_syst_unc_for_bin(self, i_bin, direction):
-        if not len(self.syst_names):
-            return 0.
+        # if not len(self.syst_names):
+        #     return 0.
         err2 = 0.
         for process in self.processes:
             hist_nominal = self.infile.Get(os.path.join(self.infile_directory, process.name))
             nominal = hist_nominal.GetBinContent(i_bin)
+            err2 += (nominal * process.xsec_uncert)**2
             for syst in self.syst_names:
                 hist_syst_down = self.infile.Get(os.path.join(self.infile_directory, process.name+'_'+syst+'Down'))
                 hist_syst_up = self.infile.Get(os.path.join(self.infile_directory, process.name+'_'+syst+'Up'))
