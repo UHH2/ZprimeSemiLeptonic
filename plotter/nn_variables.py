@@ -28,8 +28,8 @@ systematics = [
     'ele_id',
     'ele_reco',
     'ele_trigger',
-    'isr',
-    'fsr',
+    # 'isr',
+    # 'fsr',
     'jec',
     'jer',
     'btag_cferr1',
@@ -49,12 +49,12 @@ for channel in channels:
 
         # SM processes
         processes_Plotter = [
-            Process(var.get('name') + '_TTbar', 't#bar{t}', root.kPink-3),
-            Process(var.get('name') + '_WJets', 'W+jets', root.kSpring-3),
-            Process(var.get('name') + '_DY', 'Drell-Yan', root.kOrange),
-            Process(var.get('name') + '_ST', 'Single t', root.kBlue),
-            Process(var.get('name') + '_QCD', 'QCD', root.kAzure+10),
-            Process(var.get('name') + '_Diboson', 'Diboson', root.kMagenta),
+            Process(var.get('name') + '_QCD', 'QCD', root.kAzure+10, 1., 0.5),
+            Process(var.get('name') + '_Diboson', 'Diboson', root.kMagenta, 1., 0.5),
+            Process(var.get('name') + '_DY', 'Drell-Yan', root.kOrange, 1., 0.5),
+            Process(var.get('name') + '_ST', 'Single t', root.kBlue, 1., 0.3),
+            Process(var.get('name') + '_WJets', 'W+jets', root.kSpring-3, 1., 0.5),
+            Process(var.get('name') + '_TTbar', 't#bar{t}', root.kPink-3, 1., 0.2),
         ]
         processes_Plotter_temp = OrderedDict()
         for index, p in enumerate(processes_Plotter):
@@ -62,20 +62,9 @@ for channel in channels:
             processes_Plotter_temp[p.name] = p
             processes_Plotter = processes_Plotter_temp
 
-        # signal
-        signals_Plotter = [
-            Process(var.get('name') + '_ALP_ttbar_signal', 'ALP signal', root.kBlack),
-            Process(var.get('name') + '_ALP_ttbar_interference', 'ALP-SM interference', root.kGray+2),
-        ]
-        signals_Plotter_temp = OrderedDict()
-        for index, s in enumerate(signals_Plotter):
-            s.index = index
-            signals_Plotter_temp[s.name] = s
-            signals_Plotter = signals_Plotter_temp
-
 
         nice = NiceStackWithRatio(
-            infile_path = '/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/systematics/' + year + '/' + channel + '/combine_input_after_baseline_selection.root',
+            infile_path = '/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/systematics/' + year + '_higher_cuts/' + channel + '/combine_input_after_baseline_selection.root',
             # infile_directory = '', # the directory within the ROOT file
             x_axis_title = var.get('x_axis_title'),
             x_axis_unit = var.get('x_axis_unit'),
@@ -104,16 +93,16 @@ for channel in channels:
         if not nice.blind_data: legend.AddEntry(nice.data_hist, 'Data', 'ep')
         legend.AddEntry(nice.stack.GetStack().At(processes_Plotter[var.get('name') + '_TTbar'].index), processes_Plotter[var.get('name') + '_TTbar'].legend, 'f')
         legend.AddEntry(nice.stack.GetStack().At(processes_Plotter[var.get('name') + '_WJets'].index), processes_Plotter[var.get('name') + '_WJets'].legend, 'f')
-        legend.AddEntry(nice.stack.GetStack().At(processes_Plotter[var.get('name') + '_DY'].index), processes_Plotter[var.get('name') + '_DY'].legend, 'f')
         legend.AddEntry(nice.stack.GetStack().At(processes_Plotter[var.get('name') + '_ST'].index), processes_Plotter[var.get('name') + '_ST'].legend, 'f')
-        legend.AddEntry(nice.stack.GetStack().At(processes_Plotter[var.get('name') + '_QCD'].index), processes_Plotter[var.get('name') + '_QCD'].legend, 'f')
+        legend.AddEntry(nice.stack.GetStack().At(processes_Plotter[var.get('name') + '_DY'].index), processes_Plotter[var.get('name') + '_DY'].legend, 'f')
         legend.AddEntry(nice.stack.GetStack().At(processes_Plotter[var.get('name') + '_Diboson'].index), processes_Plotter[var.get('name') + '_Diboson'].legend, 'f')
+        legend.AddEntry(nice.stack.GetStack().At(processes_Plotter[var.get('name') + '_QCD'].index), processes_Plotter[var.get('name') + '_QCD'].legend, 'f')
         legend.SetTextSize(0.025)
         legend.SetBorderSize(0)
         legend.SetFillStyle(0)
         legend.Draw()
 
-        nice.save_plot('02_baseline_selection/' + year + '/' + channel + '/' + var.get('name') + '.pdf')
+        nice.save_plot('02_baseline_selection/' + year + '_higher_cuts/' + channel + '/' + var.get('name') + '.pdf')
         nice.canvas.Close()
 
     # for webpage
@@ -139,7 +128,7 @@ for channel in channels:
     </html>
     """ % (year, channel, add_plots_to_html())
 
-        file = open("02_baseline_selection/" +  year + "/" + channel + "/index.html", "w")
+        file = open("02_baseline_selection/" +  year + "_higher_cuts/" + channel + "/index.html", "w")
         file.write(html)
         file.close()
 

@@ -600,17 +600,12 @@ bool HOTVRTopTagger::process(uhh2::Event& event){
 
 
 DeepAK8TopTagger::DeepAK8TopTagger(uhh2::Context& ctx){
-
   year = extract_year(ctx);
-
   h_DeepAK8TopTags_ = ctx.get_handle< std::vector<TopJet> >("DeepAK8TopTags");
   h_DeepAK8TopTagsPtr_ = ctx.get_handle< std::vector<const TopJet*> >("DeepAK8TopTagsPtr");
-
 }
 
 bool DeepAK8TopTagger::process(uhh2::Event& event){
-
-
   // values for UL: currently Christopher's private work
   double min_mSD = 105.;
   double max_mSD = 210.;
@@ -627,7 +622,6 @@ bool DeepAK8TopTagger::process(uhh2::Event& event){
   vector<const TopJet*> toptags_ptr;
 
   for(const TopJet & puppijet : *event.toppuppijets){
-
     // pT threshold
     if(!( puppijet.pt() > pt_min )) continue;
 
@@ -642,13 +636,11 @@ bool DeepAK8TopTagger::process(uhh2::Event& event){
 
     toptags.emplace_back(puppijet);
     toptags_ptr.emplace_back(&puppijet);
-
   }
 
   event.set(h_DeepAK8TopTags_, toptags);
   event.set(h_DeepAK8TopTagsPtr_, toptags_ptr);
   return (toptags.size() >= 1);
-
 }
 
 bool JetLeptonDeltaRCleaner::process(uhh2::Event& event){

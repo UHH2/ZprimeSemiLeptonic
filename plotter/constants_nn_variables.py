@@ -278,11 +278,6 @@ _VARIABLES = OrderedDict([
         'x_axis_title': '#tau_{32}^{AK8 jet 1}',
         'x_axis_unit': None
     }),
-    ('NN_Ak8_j1_ttag', {
-        'name': 'NN_Ak8_j1_ttag',
-        'x_axis_title': 'top-tag score^{AK8 jet 1}',
-        'x_axis_unit': None
-    }),
     ('NN_Ak8_j2_pt', {
         'name': 'NN_Ak8_j2_pt',
         'x_axis_title': 'p_{T}^{AK8 jet 2}',
@@ -318,11 +313,6 @@ _VARIABLES = OrderedDict([
         'x_axis_title': '#tau_{32}^{AK8 jet 2}',
         'x_axis_unit': None
     }),
-    ('NN_Ak8_j2_ttag', {
-        'name': 'NN_Ak8_j2_ttag',
-        'x_axis_title': 'top-tag score^{AK8 jet 2}',
-        'x_axis_unit': None
-    }),
     ('NN_Ak8_j3_pt', {
         'name': 'NN_Ak8_j3_pt',
         'x_axis_title': 'p_{T}^{AK8 jet 3}',
@@ -356,11 +346,6 @@ _VARIABLES = OrderedDict([
     ('NN_Ak8_j3_tau32', {
         'name': 'NN_Ak8_j3_tau32',
         'x_axis_title': '#tau_{32}^{AK8 jet 3}',
-        'x_axis_unit': None
-    }),
-    ('NN_Ak8_j3_ttag', {
-        'name': 'NN_Ak8_j3_ttag',
-        'x_axis_title': 'top-tag score^{AK8 jet 3}',
         'x_axis_unit': None
     }),
 ])
