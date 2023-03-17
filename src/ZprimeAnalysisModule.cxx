@@ -246,7 +246,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
 
   // Important selection values
   double jet1_pt(50.);
-  double jet2_pt(30.);
+  double jet2_pt;
   double chi2_max(30.);
   string trigger_mu_A, trigger_mu_B, trigger_mu_C, trigger_mu_D, trigger_mu_E, trigger_mu_F;
   string trigger_ele_A, trigger_ele_B;
@@ -271,7 +271,8 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
     trigger_mu_E = "HLT_OldMu100_v*";
     trigger_mu_F = "HLT_TkMu100_v*";
 
-    MET_cut = 50;
+    jet2_pt = 50;
+    MET_cut = 70;
     HT_lep_cut = 0;
   }
   if(isElectron){ // semileptonic electron channel
@@ -291,7 +292,8 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
     else{
       trigger_ph_A = "HLT_Photon200_v*";
     }
-    MET_cut = 50;
+    jet2_pt = 40;
+    MET_cut = 60;
     HT_lep_cut = 0;
   }
 
