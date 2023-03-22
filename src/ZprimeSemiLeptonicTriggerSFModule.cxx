@@ -90,6 +90,7 @@ protected:
 
   // Selections
   std::unique_ptr<Selection> Trigger_ele_A_selection, Trigger_ele_B_selection, Trigger_ph_A_selection;
+  std::unique_ptr<Selection> HEM_selection;
 
 };
 
@@ -190,6 +191,7 @@ ZprimeSemiLeptonicTriggerSFModule::ZprimeSemiLeptonicTriggerSFModule(uhh2::Conte
   sf_ele_id_dummy.reset(new uhh2::ElectronIdScaleFactors(ctx, boost::none, boost::none, boost::none, boost::none, true));
   sf_ele_reco_dummy.reset(new uhh2::ElectronRecoScaleFactors(ctx, boost::none, boost::none, boost::none, boost::none, true));
 
+  HEM_selection.reset(new HEMSelection(ctx));
 
   if(isMC){
     TString sample_name = "";
@@ -214,7 +216,10 @@ bool ZprimeSemiLeptonicTriggerSFModule::process(uhh2::Event& event){
   if(debug) cout << " ------------------------------------------- " << endl;
   if(debug) cout << event.event << endl;
 
-
+  if(!HEM_selection->passes(event)){
+    if(!isMC) return false;
+    else event.weight = event.weight*(1-0.64774715284); // calculated following instructions ar https://twiki.cern.ch/twiki/bin/view/CMS/PdmV2018Analysis
+  }
   PUWeight_module->process(event);
   LumiWeight_module->process(event);
   //TopPtReweight_module->process(event);
