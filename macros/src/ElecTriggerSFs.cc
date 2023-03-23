@@ -66,7 +66,8 @@ int argc = 2;
   //year = "UL18";
   //lumi_plot = 59.8;
   TString fdir;
-  fdir = "/nfs/dust/cms/user/deleokse/RunII_106_v2/DiLepton_TriggerModule/Analysis_" + year +"_dilepton_Trigger/";
+  fdir = "/nfs/dust/cms/group/zprime-uhh/Analysis_" + year + "/dilepton_TriggerModule/";
+  // fdir = "/nfs/dust/cms/user/deleokse/RunII_106_v2/DiLepton_TriggerModule/Analysis_" + year +"_dilepton_Trigger/";
   //year = argv[1];
   //TString fdir;
   //if(year.EqualTo("2016")){year_v = "_2016v3"; lumi_plot = 35.9; fdir = "no";}
@@ -177,7 +178,7 @@ int argc = 2;
   // claculating MC trigger efficiency in ttbar MC
   TFile *f_tt=new TFile(fdir+"uhh2.AnalysisModuleRunner.MC.TTbar.root");
   //TFile *f_tt=new TFile(fdir+"uhh2.AnalysisModuleRunner.MC.MC.root");
-  //TFile *f_tt=new TFile(fdir+"uhh2.AnalysisModuleRunner.MC.TTbar_2L2Nu.root");  
+  //TFile *f_tt=new TFile(fdir+"uhh2.AnalysisModuleRunner.MC.TTbar_2L2Nu.root");
   fill_pteta((TTree *) f_tt->Get("AnalysisTree"), h_pt_mc, h_eta_mc);
   fill_control((TTree *) f_tt->Get("AnalysisTree"), h_pt_tt, h_eta_tt);
   fill_control((TTree *) f_tt->Get("AnalysisTree"), h_pt_mc_control, h_eta_mc_control);
