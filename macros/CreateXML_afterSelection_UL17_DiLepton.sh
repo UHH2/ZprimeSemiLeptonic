@@ -1,9 +1,9 @@
 #!/bin/bash
 
 #where UHH2 code installed
-pathGL_code=/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/
+pathGL_code=/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/
 #where (NOT MERGED) trees after preselection stored
-path_data=/nfs/dust/cms/group/zprime-uhh/Analysis_UL17/dilepton/workdir_Analysis_UL17_muon/uhh2.AnalysisModuleRunner.
+path_data=/nfs/dust/cms/group/zprime-uhh/Analysis_UL17/dilepton/workdir_Analysis_UL17_muon_dilepton/uhh2.AnalysisModuleRunner.
 
 mkdir $pathGL_code/ZprimeSemiLeptonic/data/Skimming_datasets_UL17_dilepton/
 cd $pathGL_code/ZprimeSemiLeptonic/data/Skimming_datasets_UL17_dilepton/
