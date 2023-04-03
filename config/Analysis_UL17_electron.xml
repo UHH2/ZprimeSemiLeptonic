@@ -1483,7 +1483,7 @@
       <Item Name="genMETName"              Value="slimmedMETs_GenMET"/>
       <Item Name="additionalBranches"      Value="jetsAk4CHS hotvrGen" />
 
-      <Item Name="lumi_file"                                                  Value="/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL17/Cert_294927-306462_13TeV_UL2017_Collisions17_GoldenJSON_normtag.root"/>
+      <Item Name="lumi_file" Value="/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL17/Cert_294927-306462_13TeV_UL2017_Collisions17_GoldenJSON_normtag.root"/>
       <Item Name="lumihists_lumi_per_bin" Value="500.0"/>
 
       <Item Name="pileup_directory"            Value="/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL17/MyMCPileupHistogram_UL17.root" />
@@ -1492,7 +1492,6 @@
       <Item Name="pileup_directory_data_down"  Value="/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL17/MyDataPileupHistogram_UL17_66017.root" />
 
       <Item Name="BTagCalibration" Value = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/btagging_SFs_UL/UL17/reshaping_deepJet_v3.csv"/>
-      <!-- add DeepAK8 top tag SF -->
 
       <Item Name="NLOCorrections" Value = "/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/data/" />
 
