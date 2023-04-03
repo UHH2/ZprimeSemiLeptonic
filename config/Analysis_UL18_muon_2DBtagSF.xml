@@ -492,7 +492,7 @@
 			<Item Name="TopPuppiJetCollection" Value="jetsAk8PuppiSubstructure_SoftDropPuppi"/>
 			<Item Name="METName" Value="slimmedMETsPuppi"/>
 			<Item Name="genMETName" Value="slimmedMETs_GenMET"/>
-			<Item Name="additionalBranches" Value="jetsAk4CHS hotvrGen" />
+			<Item Name="additionalBranches" Value="jetsAk4CHS hotvrGen"/>
 
 			<Item Name="lumi_file" Value="/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL18/Cert_314472-325175_13TeV_Legacy2018_Collisions18_JSON_normtag.root"/>
 			<Item Name="lumihists_lumi_per_bin" Value="500.0"/>
@@ -502,7 +502,7 @@
 			<Item Name="pileup_directory_data_up" Value="/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL18/MyDataPileupHistogram_UL18_72383.root"/>
 			<Item Name="pileup_directory_data_down" Value="/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL18/MyDataPileupHistogram_UL18_66017.root"/>
 
-                        <Item Name="BTagCalibration" Value = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/btagging_SFs_UL/UL18/reshaping_deepJet_v3.csv"/>
+			<Item Name="BTagCalibration" Value = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/btagging_SFs_UL/UL18/reshaping_deepJet_v3.csv"/>
 			<Item Name="NLOCorrections" Value = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/data/"/>
 
 			<Item Name="is_hotvr" Value="&IS_HOTVR;"/>

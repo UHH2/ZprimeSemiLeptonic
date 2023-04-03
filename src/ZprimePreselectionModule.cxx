@@ -217,13 +217,17 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
   }
   if(debug) cout << "GenFlavorSelection: ok" << endl;
 
+  // cout << "event.muons->size(): " << event.muons->size() << endl;
+  // cout << "event.electrons->size(): " << event.electrons->size() << endl;
   const bool pass_lep1 = ((event.muons->size() >= 1) || (event.electrons->size() >= 1));
+  // cout << "pass_lep1: " << pass_lep1 << endl;
   if(!pass_lep1) return false;
-
+  if(debug) cout << "≥1 leptons: ok" << endl;
   fill_histograms(event, "Lepton1");
 
   jet_IDcleaner->process(event);
   fill_histograms(event, "JetID");
+  if(debug) cout << "JetCleaner ID: ok" << endl;
 
   jet_cleaner1->process(event);
   sort_by_pt<Jet>(*event.jets);

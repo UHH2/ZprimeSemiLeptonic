@@ -22,7 +22,7 @@ uhh2::ElecTriggerSF::ElecTriggerSF(uhh2::Context & ctx, std::string var_, TStrin
     return;
   }
 
-  TString dir = "/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/macros/src/files_EleTrigger/";
+  TString dir = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/macros/src/files_EleTrigger/";
   TString filename = dir + "ElecTriggerSF"+year+".root";
   TFile *file = new TFile(filename);
 

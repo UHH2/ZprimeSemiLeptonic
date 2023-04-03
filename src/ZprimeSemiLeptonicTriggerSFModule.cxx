@@ -67,7 +67,7 @@ protected:
   bool debug = false;
   bool isMC, ishotvr, isdeepAK8;
   bool isUL16preVFP, isUL16postVFP, isUL17, isUL18;
-  string Sys_PU, Prefiring_direction, Sys_TopPt_a, Sys_TopPt_b;
+  string Sys_PU, Prefiring_direction; // Sys_TopPt_a, Sys_TopPt_b;
   TString year;
   TString sample;
 
@@ -157,8 +157,8 @@ ZprimeSemiLeptonicTriggerSFModule::ZprimeSemiLeptonicTriggerSFModule(uhh2::Conte
 
   Sys_PU = ctx.get("Sys_PU");
   Prefiring_direction = ctx.get("Sys_prefiring");
-  Sys_TopPt_a = ctx.get("Systematic_TopPt_a");
-  Sys_TopPt_b = ctx.get("Systematic_TopPt_b");
+  // Sys_TopPt_a = ctx.get("Systematic_TopPt_a");
+  // Sys_TopPt_b = ctx.get("Systematic_TopPt_b");
 
   // double a_toppt = 0.0615; // par a TopPt Reweighting
   // double b_toppt = -0.0005; // par b TopPt Reweighting
