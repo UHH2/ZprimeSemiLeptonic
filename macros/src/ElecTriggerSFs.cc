@@ -57,14 +57,14 @@ int argc = 2;
   }
   gErrorIgnoreLevel = kWarning;
 
-  //year = "UL16preVFP";
-  //lumi_plot = 19.5;
+  year = "UL16preVFP";
+  lumi_plot = 19.5;
   //year = "UL16postVFP";
   //lumi_plot = 16.8;
   // year = "UL17";
   // lumi_plot = 41.5;
-  year = "UL18";
-  lumi_plot = 59.8;
+  //year = "UL18";
+  //lumi_plot = 59.8;
   TString fdir;
   fdir = "/nfs/dust/cms/group/zprime-uhh/Analysis_" + year + "/dilepton_TriggerModule/";
   // fdir = "/nfs/dust/cms/user/deleokse/RunII_106_v2/DiLepton_TriggerModule/Analysis_" + year +"_dilepton_Trigger/";
