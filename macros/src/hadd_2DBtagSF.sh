@@ -1,6 +1,6 @@
 #!/bin/bash
 
-year="UL17" # UL16preVFP UL16postVFP UL17 UL18
+year="UL16preVFP" # UL16preVFP UL16postVFP UL17 UL18
 channel="electron" # electron muon
 input_dir="/nfs/dust/cms/group/zprime-uhh/Analysis_${year}_2DBtagSF/${channel}/workdir_Analysis_${year}_${channel}_2DBtagSF/"
 output_dir="/nfs/dust/cms/group/zprime-uhh/Analysis_${year}_2DBtagSF/${channel}/"
@@ -8,8 +8,8 @@ output_dir="/nfs/dust/cms/group/zprime-uhh/Analysis_${year}_2DBtagSF/${channel}/
 echo "year: ${year}"
 echo "channel: ${channel}"
 
-# hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.TTbar.root ${input_dir}uhh2.AnalysisModuleRunner.MC.TTTo*.root
-hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.ST.root ${input_dir}uhh2.AnalysisModuleRunner.MC.ST_*.root
+ hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.TTbar.root ${input_dir}uhh2.AnalysisModuleRunner.MC.TTTo*.root
+#hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.ST.root ${input_dir}uhh2.AnalysisModuleRunner.MC.ST_*.root
 # hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.WJets.root ${input_dir}uhh2.AnalysisModuleRunner.MC.WJetsToLNu_HT-*.root
 # hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.DY.root ${input_dir}uhh2.AnalysisModuleRunner.MC.DYJetsToLL_M-50_HT-*.root
 # hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.QCD.root ${input_dir}uhh2.AnalysisModuleRunner.MC.QCD_HT*.root
