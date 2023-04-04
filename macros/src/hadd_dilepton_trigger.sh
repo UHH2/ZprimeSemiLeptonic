@@ -1,6 +1,6 @@
 #!/bin/bash
 
-year="UL16preVFP" # UL16preVFP / UL16postVFP / UL17 / UL18
+year="UL16postVFP" # UL16preVFP / UL16postVFP / UL17 / UL18
 #input_dir="/nfs/dust/cms/group/zprime-uhh/Analysis_${year}/dilepton_TriggerModule/workdir_Analysis_${year}_muon_dilepton_trigger/"
 input_dir="/nfs/dust/cms/group/zprime-uhh/Analysis_${year}/dilepton_TriggerModule/workdir_Analysis_${year}_muon/"
 output_dir="/nfs/dust/cms/group/zprime-uhh/Analysis_${year}/dilepton_TriggerModule/"

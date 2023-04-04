@@ -57,10 +57,10 @@ int argc = 2;
   }
   gErrorIgnoreLevel = kWarning;
 
-  year = "UL16preVFP";
-  lumi_plot = 19.5;
-  //year = "UL16postVFP";
-  //lumi_plot = 16.8;
+  //year = "UL16preVFP";
+  //lumi_plot = 19.5;
+  year = "UL16postVFP";
+  lumi_plot = 16.8;
   // year = "UL17";
   // lumi_plot = 41.5;
   //year = "UL18";
