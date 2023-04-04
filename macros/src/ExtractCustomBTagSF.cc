@@ -34,9 +34,9 @@ void ExtractCustomBTagSF(){
   };
 
   vector<TString> year = {
-    // "UL16preVFP",
+     "UL16preVFP",
     // "UL16postVFP",
-    "UL17",
+    //"UL17",
     // "UL18"
   };
 
