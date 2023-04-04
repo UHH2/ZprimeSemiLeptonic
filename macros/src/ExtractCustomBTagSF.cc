@@ -30,11 +30,11 @@ void ExtractCustomBTagSF(){
 
   vector<TString> channel = {
     "electron",
-    "muon",
+    //"muon",
   };
 
   vector<TString> year = {
-     "UL16preVFP",
+     "UL16postVFP",
     // "UL16postVFP",
     //"UL17",
     // "UL18"
