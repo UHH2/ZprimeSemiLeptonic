@@ -41,7 +41,7 @@
 #include <UHH2/ZprimeSemiLeptonic/include/ElecTriggerSF.h>
 #include <UHH2/ZprimeSemiLeptonic/include/AK4JetCorrections.h>
 #include <UHH2/ZprimeSemiLeptonic/include/TopPuppiJetCorrections.h>
-#include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicSystematicsModule.h>
+// #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicSystematicsModule.h>
 #include <UHH2/ZprimeSemiLeptonic/include/TopTagScaleFactor.h>
 
 #include <UHH2/common/include/TTbarGen.h>
@@ -122,7 +122,7 @@ protected:
   unique_ptr<Variables_NN> Variables_module;
 
   // systematics handles
-  unique_ptr<ZprimeSemiLeptonicSystematicsModule> SystematicsModule;
+  // unique_ptr<ZprimeSemiLeptonicSystematicsModule> SystematicsModule;
 
   //Handles
   Event::Handle<bool> h_is_zprime_reconstructed_chi2, h_is_zprime_reconstructed_correctmatch;
@@ -377,7 +377,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
 
   Variables_module.reset(new Variables_NN(ctx, mode)); // variables for NN
 
-  if(!isEleTriggerMeasurement) SystematicsModule.reset(new ZprimeSemiLeptonicSystematicsModule(ctx));
+  // if(!isEleTriggerMeasurement) SystematicsModule.reset(new ZprimeSemiLeptonicSystematicsModule(ctx));
 
 
   // Split interference signal samples by sign
@@ -956,7 +956,7 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   if(debug) cout << "NNInputsBeforeReweight: ok" << endl;
 
   // histograms for systematics
-  if(!isEleTriggerMeasurement) SystematicsModule->process(event);
+  // if(!isEleTriggerMeasurement) SystematicsModule->process(event);
 
   return true;
 }
