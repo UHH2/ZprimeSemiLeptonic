@@ -2,7 +2,7 @@ feed {
   id { node_name: "dense_1_input" }
   shape {
     dim { size : 1 }
-    dim { size : 62 }
+    dim { size : 59 }
   }
 }
 
