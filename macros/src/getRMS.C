@@ -280,8 +280,8 @@ void getRMS(){
           string pdf_numb[100];
           ifstream normfile(uhh2_basedir + "CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/macros/src/SamplePDFNorm/" + year.at(j) + "/SampleNorm_" + samples.at(i) + ".txt", ios::in);
           if (normfile.is_open()){
-            for(int i = 0; i < 100; ++i){
-              normfile >> pdf_numb[i] >> pdf_norm[i];
+            for(int a = 0; a < 100; ++a){
+              normfile >> pdf_numb[a] >> pdf_norm[a];
             }
             normfile.close();
           }
@@ -303,10 +303,10 @@ void getRMS(){
 
           float sum_bins = 0;
           // Loop over each bin of the Mtt histograms
-          for(int j=1; j<h_nominal->GetNbinsX()+1; j++){
+          for(int b=1; b<h_nominal->GetNbinsX()+1; b++){
 
             if(!isSignalInt.at(i)){
-              float nominal = h_nominal->GetBinContent(j);
+              float nominal = h_nominal->GetBinContent(b);
               float sum_bins = 0;
 
               // Loop over each of the 100 Histogrmas reweighted with the PDF replicas
@@ -317,19 +317,19 @@ void getRMS(){
                 const char* char_name = s_name.c_str();
 
                 // cout << "pdf norm " << pdf_norm[i-1] << endl;
-                float bin =  ((TH1F*)(f_in->Get(char_name)))->GetBinContent(j);
+                float bin =  ((TH1F*)(f_in->Get(char_name)))->GetBinContent(b);
                 float norm_bin = bin * pdf_norm[i-1];
-                // cout << "bin " << j << " value " << bin << " norm " << norm_bin << endl;
+                // cout << "bin " << b << " value " << bin << " norm " << norm_bin << endl;
                 sum_bins += pow(norm_bin - nominal,2);
 
               }
               float rms = sqrt( sum_bins /100  );
 
-              h_PDF_up->SetBinContent(j, nominal+rms);
-              h_PDF_down->SetBinContent(j, max((float)0., nominal-rms));
+              h_PDF_up->SetBinContent(b, nominal+rms);
+              h_PDF_down->SetBinContent(b, max((float)0., nominal-rms));
             }
             if(isSignalInt.at(i)){
-              float nominal = h_nominal->GetBinContent(j);
+              float nominal = h_nominal->GetBinContent(b);
               float sum_bins = 0;
 
               // Loop over each of the 100 Histogrmas reweighted with the PDF replicas
@@ -340,16 +340,16 @@ void getRMS(){
                 const char* char_name = s_name.c_str();
 
                 // cout << "pdf norm " << pdf_norm[i-1] << endl;
-                float bin = -1*(  ((TH1F*)(f_in->Get(char_name)))->GetBinContent(j));
+                float bin = -1*(  ((TH1F*)(f_in->Get(char_name)))->GetBinContent(b));
                 float norm_bin = bin * pdf_norm[i-1];
-                // cout << "bin " << j << " value " << bin << " norm " << norm_bin << endl;
+                // cout << "bin " << b << " value " << bin << " norm " << norm_bin << endl;
                 sum_bins += pow(norm_bin - nominal,2);
 
               }
               float rms = sqrt( sum_bins /100  );
 
-              h_PDF_up->SetBinContent(j, nominal+rms);
-              h_PDF_down->SetBinContent(j, nominal-rms);
+              h_PDF_up->SetBinContent(b, nominal+rms);
+              h_PDF_down->SetBinContent(b, nominal-rms);
             }
           }
 
