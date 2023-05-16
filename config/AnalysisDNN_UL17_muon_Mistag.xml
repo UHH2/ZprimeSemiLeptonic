@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd" [
+
+<!ENTITY TargetLumi  "41480"> <!-- from https://twiki.cern.ch/twiki/bin/view/CMS/TWikiLUM#SummaryTable -->
+<!ENTITY PREFIX      "uhh2.AnalysisModuleRunner.">
+<!ENTITY b_Cacheable "False">
+<!ENTITY NEVT        "-1">
+
+<!ENTITY IS_HOTVR            "false">
+<!ENTITY IS_DEEPAK8          "true">
+<!ENTITY IS_LOOSER_SELECTION "false">
+<!ENTITY CHANNEL             "muon">
+<!ENTITY OUTPUTdir           "/nfs/dust/cms/group/zprime-uhh/AnalysisDNN_UL17/Mistag_rate/&CHANNEL;/">
+
+<!-- SingleMuon -->
+<!ENTITY DATA_SingleMuon_RunB_UL17 SYSTEM "../data/Skimming_datasets_UL17_muon/DATA_SingleMuon_RunB_UL17.xml">
+<!ENTITY DATA_SingleMuon_RunC_UL17 SYSTEM "../data/Skimming_datasets_UL17_muon/DATA_SingleMuon_RunC_UL17.xml">
+<!ENTITY DATA_SingleMuon_RunD_UL17 SYSTEM "../data/Skimming_datasets_UL17_muon/DATA_SingleMuon_RunD_UL17.xml">
+<!ENTITY DATA_SingleMuon_RunE_UL17 SYSTEM "../data/Skimming_datasets_UL17_muon/DATA_SingleMuon_RunE_UL17.xml">
+<!ENTITY DATA_SingleMuon_RunF_UL17 SYSTEM "../data/Skimming_datasets_UL17_muon/DATA_SingleMuon_RunF_UL17.xml">
+<!-- TTbar -->
+<!ENTITY TTToSemiLeptonic_UL17 SYSTEM "../data/Skimming_datasets_UL17_muon/MC_TTToSemiLeptonic_UL17.xml">
+<!ENTITY TTToHadronic_UL17     SYSTEM "../data/Skimming_datasets_UL17_muon/MC_TTToHadronic_UL17.xml">
+<!ENTITY TTTo2L2Nu_UL17        SYSTEM "../data/Skimming_datasets_UL17_muon/MC_TTTo2L2Nu_UL17.xml">
+<!-- WJets -->
+<!ENTITY WJetsToLNu_HT-70To100_UL17    SYSTEM "../data/Skimming_datasets_UL17_muon/MC_WJetsToLNu_HT-70To100_UL17.xml">
+<!ENTITY WJetsToLNu_HT-100To200_UL17   SYSTEM "../data/Skimming_datasets_UL17_muon/MC_WJetsToLNu_HT-100To200_UL17.xml">
+<!ENTITY WJetsToLNu_HT-200To400_UL17   SYSTEM "../data/Skimming_datasets_UL17_muon/MC_WJetsToLNu_HT-200To400_UL17.xml">
+<!ENTITY WJetsToLNu_HT-400To600_UL17   SYSTEM "../data/Skimming_datasets_UL17_muon/MC_WJetsToLNu_HT-400To600_UL17.xml">
+<!ENTITY WJetsToLNu_HT-600To800_UL17   SYSTEM "../data/Skimming_datasets_UL17_muon/MC_WJetsToLNu_HT-600To800_UL17.xml">
+<!ENTITY WJetsToLNu_HT-800To1200_UL17  SYSTEM "../data/Skimming_datasets_UL17_muon/MC_WJetsToLNu_HT-800To1200_UL17.xml">
+<!ENTITY WJetsToLNu_HT-1200To2500_UL17 SYSTEM "../data/Skimming_datasets_UL17_muon/MC_WJetsToLNu_HT-1200To2500_UL17.xml">
+<!ENTITY WJetsToLNu_HT-2500ToInf_UL17  SYSTEM "../data/Skimming_datasets_UL17_muon/MC_WJetsToLNu_HT-2500ToInf_UL17.xml">
+<!-- DY -->
+<!ENTITY DYJetsToLL_M-50_HT-70to100_UL17    SYSTEM "../data/Skimming_datasets_UL17_muon/MC_DYJetsToLL_M-50_HT-70to100_UL17.xml">
+<!ENTITY DYJetsToLL_M-50_HT-100to200_UL17   SYSTEM "../data/Skimming_datasets_UL17_muon/MC_DYJetsToLL_M-50_HT-100to200_UL17.xml">
+<!ENTITY DYJetsToLL_M-50_HT-200to400_UL17   SYSTEM "../data/Skimming_datasets_UL17_muon/MC_DYJetsToLL_M-50_HT-200to400_UL17.xml">
+<!ENTITY DYJetsToLL_M-50_HT-400to600_UL17   SYSTEM "../data/Skimming_datasets_UL17_muon/MC_DYJetsToLL_M-50_HT-400to600_UL17.xml">
+<!ENTITY DYJetsToLL_M-50_HT-600to800_UL17   SYSTEM "../data/Skimming_datasets_UL17_muon/MC_DYJetsToLL_M-50_HT-600to800_UL17.xml">
+<!ENTITY DYJetsToLL_M-50_HT-800to1200_UL17  SYSTEM "../data/Skimming_datasets_UL17_muon/MC_DYJetsToLL_M-50_HT-800to1200_UL17.xml">
+<!ENTITY DYJetsToLL_M-50_HT-1200to2500_UL17 SYSTEM "../data/Skimming_datasets_UL17_muon/MC_DYJetsToLL_M-50_HT-1200to2500_UL17.xml">
+<!ENTITY DYJetsToLL_M-50_HT-2500toInf_UL17  SYSTEM "../data/Skimming_datasets_UL17_muon/MC_DYJetsToLL_M-50_HT-2500toInf_UL17.xml">
+<!-- Diboson -->
+<!ENTITY WW_UL17 SYSTEM "../data/Skimming_datasets_UL17_muon/MC_WW_UL17.xml">
+<!ENTITY WZ_UL17 SYSTEM "../data/Skimming_datasets_UL17_muon/MC_WZ_UL17.xml">
+<!ENTITY ZZ_UL17 SYSTEM "../data/Skimming_datasets_UL17_muon/MC_ZZ_UL17.xml">
+<!-- ST -->
+<!ENTITY ST_tW_antitop_5f_NoFullyHadronicDecays_UL17  SYSTEM "../data/Skimming_datasets_UL17_muon/MC_ST_tW_antitop_5f_NoFullyHadronicDecays_UL17.xml">
+<!ENTITY ST_tW_top_5f_NoFullyHadronicDecays_UL17      SYSTEM "../data/Skimming_datasets_UL17_muon/MC_ST_tW_top_5f_NoFullyHadronicDecays_UL17.xml">
+<!ENTITY ST_t-channel_antitop_4f_InclusiveDecays_UL17 SYSTEM "../data/Skimming_datasets_UL17_muon/MC_ST_t-channel_antitop_4f_InclusiveDecays_UL17.xml">
+<!ENTITY ST_t-channel_top_4f_InclusiveDecays_UL17     SYSTEM "../data/Skimming_datasets_UL17_muon/MC_ST_t-channel_top_4f_InclusiveDecays_UL17.xml">
+<!ENTITY ST_s-channel_4f_leptonDecays_UL17            SYSTEM "../data/Skimming_datasets_UL17_muon/MC_ST_s-channel_4f_leptonDecays_UL17.xml">
+<!-- QCD -->
+<!ENTITY QCD_HT50to100_UL17    SYSTEM "../data/Skimming_datasets_UL17_muon/MC_QCD_HT50to100_UL17.xml">
+<!ENTITY QCD_HT100to200_UL17   SYSTEM "../data/Skimming_datasets_UL17_muon/MC_QCD_HT100to200_UL17.xml">
+<!ENTITY QCD_HT200to300_UL17   SYSTEM "../data/Skimming_datasets_UL17_muon/MC_QCD_HT200to300_UL17.xml">
+<!ENTITY QCD_HT300to500_UL17   SYSTEM "../data/Skimming_datasets_UL17_muon/MC_QCD_HT300to500_UL17.xml">
+<!ENTITY QCD_HT500to700_UL17   SYSTEM "../data/Skimming_datasets_UL17_muon/MC_QCD_HT500to700_UL17.xml">
+<!ENTITY QCD_HT700to1000_UL17  SYSTEM "../data/Skimming_datasets_UL17_muon/MC_QCD_HT700to1000_UL17.xml">
+<!ENTITY QCD_HT1000to1500_UL17 SYSTEM "../data/Skimming_datasets_UL17_muon/MC_QCD_HT1000to1500_UL17.xml">
+<!ENTITY QCD_HT1500to2000_UL17 SYSTEM "../data/Skimming_datasets_UL17_muon/MC_QCD_HT1500to2000_UL17.xml">
+<!ENTITY QCD_HT2000toInf_UL17  SYSTEM "../data/Skimming_datasets_UL17_muon/MC_QCD_HT2000toInf_UL17.xml">
+]>
+
+<!--
+<ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="1" AutoResubmit="0"/>
+<ConfigSGE RAM="2" DISK="2" Mail="ksenia.de.leo@desy.de" Notification="as" Workdir="workdir_Zprime_AnalysisDNN_UL17_muon"/>
+-->
+
+<JobConfiguration JobName="ZprimePreselectionJob" OutputLevel="INFO">
+  <Library Name="libSUHH2ZprimeSemiLeptonic"/>
+  <Package Name="SUHH2ZprimeSemiLeptonic.par"/>
+
+  <Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTPUTdir;/" PostFix="" TargetLumi="&TargetLumi;">
+
+    <!-- SingleMuon -->
+    <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_RunB_UL17" Cacheable="&b_Cacheable;">
+      &DATA_SingleMuon_RunB_UL17;
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
+    <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_RunC_UL17" Cacheable="&b_Cacheable;">
+      &DATA_SingleMuon_RunC_UL17;
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
+    <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_RunD_UL17" Cacheable="&b_Cacheable;">
+      &DATA_SingleMuon_RunD_UL17;
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
+    <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_RunE_UL17" Cacheable="&b_Cacheable;">
+      &DATA_SingleMuon_RunE_UL17;
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
+    <InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleMuon_RunF_UL17" Cacheable="&b_Cacheable;">
+      &DATA_SingleMuon_RunF_UL17;
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
+    <!-- TTbar -->
+    <InputData Lumi="287297864.349" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_UL17" Cacheable="&b_Cacheable;">
+      &TTToSemiLeptonic_UL17;
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
+    <InputData Lumi="190947232.884" NEventsMax="&NEVT;" Type="MC" Version="TTToHadronic_UL17" Cacheable="&b_Cacheable;">
+      &TTToHadronic_UL17;
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
+    <InputData Lumi="86394848.0821" NEventsMax="&NEVT;" Type="MC" Version="TTTo2L2Nu_UL17" Cacheable="&b_Cacheable;">
+      &TTTo2L2Nu_UL17;
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
+    <!-- WJets -->
+    <InputData Lumi="34594.902439" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-70To100_UL17" Cacheable="&b_Cacheable;">
+      &WJetsToLNu_HT-70To100_UL17;
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
+    <InputData Lumi="37290.9409417" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-100To200_UL17" Cacheable="&b_Cacheable;">
+      &WJetsToLNu_HT-100To200_UL17;
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
+    <InputData Lumi="124068.576957" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-200To400_UL17" Cacheable="&b_Cacheable;">
+      &WJetsToLNu_HT-200To400_UL17;
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
+    <InputData Lumi="119828.135368" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-400To600_UL17" Cacheable="&b_Cacheable;">
+      &WJetsToLNu_HT-400To600_UL17;
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
+    <InputData Lumi="488705.186533" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-600To800_UL17" Cacheable="&b_Cacheable;">
+      &WJetsToLNu_HT-600To800_UL17;
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
+    <InputData Lumi="1026107.98217" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-800To1200_UL17" Cacheable="&b_Cacheable;">
+      &WJetsToLNu_HT-800To1200_UL17;
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
+    <InputData Lumi="4204807.95848" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-1200To2500_UL17" Cacheable="&b_Cacheable;">
+      &WJetsToLNu_HT-1200To2500_UL17;
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
+    <InputData Lumi="45203926.8014" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-2500ToInf_UL17" Cacheable="&b_Cacheable;">
+      &WJetsToLNu_HT-2500ToInf_UL17;
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
+    <!-- DY -->
+    <InputData Lumi="85426.2027123" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-70to100_UL17" Cacheable="&b_Cacheable;">
+      &DYJetsToLL_M-50_HT-70to100_UL17;
+      <InputTree Name="AnalysisTree"/>
+      <OutputTree Name="AnalysisTree"/>
+    </InputData>
+    <InputData Lumi="131701.776034" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-100to200_UL17" Cacheable="&b_Cacheable;">
+      &DYJetsToLL_M-50_HT-100to200_UL17;
+      <InputTree Name="AnalysisTree"/>
+      <OutputTree Name="AnalysisTree"/>
+    </InputData>
+    <InputData Lumi="318464.387093" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-200to400_UL17" Cacheable="&b_Cacheable;">
+      &DYJetsToLL_M-50_HT-200to400_UL17;
+      <InputTree Name="AnalysisTree"/>
+      <OutputTree Name="AnalysisTree"/>
+    </InputData>
+    <InputData Lumi="1031396.2991" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-400to600_UL17" Cacheable="&b_Cacheable;">
+      &DYJetsToLL_M-50_HT-400to600_UL17;
+      <InputTree Name="AnalysisTree"/>
+      <OutputTree Name="AnalysisTree"/>
+    </InputData>
+    <InputData Lumi="4096054.26375" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-600to800_UL17" Cacheable="&b_Cacheable;">
+      &DYJetsToLL_M-50_HT-600to800_UL17;
+      <InputTree Name="AnalysisTree"/>
+      <OutputTree Name="AnalysisTree"/>
+    </InputData>
+    <InputData Lumi="7760077.57502" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-800to1200_UL17" Cacheable="&b_Cacheable;">
+      &DYJetsToLL_M-50_HT-800to1200_UL17;
+      <InputTree Name="AnalysisTree"/>
+      <OutputTree Name="AnalysisTree"/>
+    </InputData>
+    <InputData Lumi="35177730.0126" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-1200to2500_UL17" Cacheable="&b_Cacheable;">
+      &DYJetsToLL_M-50_HT-1200to2500_UL17;
+      <InputTree Name="AnalysisTree"/>
+      <OutputTree Name="AnalysisTree"/>
+    </InputData>
+    <InputData Lumi="457545227.842" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-2500toInf_UL17" Cacheable="&b_Cacheable;">
+      &DYJetsToLL_M-50_HT-2500toInf_UL17;
+      <InputTree Name="AnalysisTree"/>
+      <OutputTree Name="AnalysisTree"/>
+    </InputData>
+    <!-- Diboson -->
+    <InputData Lumi="204058.953256" NEventsMax="&NEVT;" Type="MC" Version="WW_UL17" Cacheable="&b_Cacheable;">
+      &WW_UL17;
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
+    <InputData Lumi="282764.876633" NEventsMax="&NEVT;" Type="MC" Version="WZ_UL17" Cacheable="&b_Cacheable;">
+      &WZ_UL17;
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
+    <InputData Lumi="223083.264633" NEventsMax="&NEVT;" Type="MC" Version="ZZ_UL17" Cacheable="&b_Cacheable;">
+      &ZZ_UL17;
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
+    <!-- ST -->
+    <InputData Lumi="13807581.5569" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_NoFullyHadronicDecays_UL17" Cacheable="&b_Cacheable;">
+      &ST_tW_antitop_5f_NoFullyHadronicDecays_UL17;
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
+    <InputData Lumi="13823204.3429" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_top_5f_NoFullyHadronicDecays_UL17" Cacheable="&b_Cacheable;">
+      &ST_tW_top_5f_NoFullyHadronicDecays_UL17;
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
+    <InputData Lumi="54133245.9623" NEventsMax="&NEVT;" Type="MC" Version="ST_t-channel_antitop_4f_InclusiveDecays_UL17" Cacheable="&b_Cacheable;">
+      &ST_t-channel_antitop_4f_InclusiveDecays_UL17;
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
+    <InputData Lumi="100258060.26" NEventsMax="&NEVT;" Type="MC" Version="ST_t-channel_top_4f_InclusiveDecays_UL17" Cacheable="&b_Cacheable;">
+      &ST_t-channel_top_4f_InclusiveDecays_UL17;
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
+    <InputData Lumi="14468534.8492" NEventsMax="&NEVT;" Type="MC" Version="ST_s-channel_4f_leptonDecays_UL17" Cacheable="&b_Cacheable;">
+      &ST_s-channel_4f_leptonDecays_UL17;
+      <InputTree Name="AnalysisTree" />
+      <OutputTree Name="AnalysisTree" />
+    </InputData>
+    <!-- QCD -->
+    <InputData Lumi="0.140034109736" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT50to100_UL17" Cacheable="&b_Cacheable;">
+      &QCD_HT50to100_UL17;
+      <InputTree Name="AnalysisTree"/>
+      <OutputTree Name="AnalysisTree"/>
+    </InputData>
+    <InputData Lumi="2.257501313" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT100to200_UL17" Cacheable="&b_Cacheable;">
+      &QCD_HT100to200_UL17;
+      <InputTree Name="AnalysisTree"/>
+      <OutputTree Name="AnalysisTree"/>
+    </InputData>
+    <InputData Lumi="27.2831257253" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT200to300_UL17" Cacheable="&b_Cacheable;">
+      &QCD_HT200to300_UL17;
+      <InputTree Name="AnalysisTree"/>
+      <OutputTree Name="AnalysisTree"/>
+    </InputData>
+    <InputData Lumi="132.328165279" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT300to500_UL17" Cacheable="&b_Cacheable;">
+      &QCD_HT300to500_UL17;
+      <InputTree Name="AnalysisTree"/>
+      <OutputTree Name="AnalysisTree"/>
+    </InputData>
+    <InputData Lumi="1178.16628214" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT500to700_UL17" Cacheable="&b_Cacheable;">
+      &QCD_HT500to700_UL17;
+      <InputTree Name="AnalysisTree"/>
+      <OutputTree Name="AnalysisTree"/>
+    </InputData>
+    <InputData Lumi="5224.66692547" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT700to1000_UL17" Cacheable="&b_Cacheable;">
+      &QCD_HT700to1000_UL17;
+      <InputTree Name="AnalysisTree"/>
+      <OutputTree Name="AnalysisTree"/>
+    </InputData>
+    <InputData Lumi="9066.7352415" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT1000to1500_UL17" Cacheable="&b_Cacheable;">
+      &QCD_HT1000to1500_UL17;
+      <InputTree Name="AnalysisTree"/>
+      <OutputTree Name="AnalysisTree"/>
+    </InputData>
+    <InputData Lumi="69712.2777778" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT1500to2000_UL17" Cacheable="&b_Cacheable;">
+      &QCD_HT1500to2000_UL17;
+      <InputTree Name="AnalysisTree"/>
+      <OutputTree Name="AnalysisTree"/>
+    </InputData>
+    <InputData Lumi="185881.227273" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT2000toInf_UL17" Cacheable="&b_Cacheable;">
+      &QCD_HT2000toInf_UL17;
+      <InputTree Name="AnalysisTree"/>
+      <OutputTree Name="AnalysisTree"/>
+    </InputData>
+
+    <UserConfig>
+      <Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices"/>
+      <Item Name="GenParticleCollection"   Value="GenParticles"/>
+      <Item Name="ElectronCollection"      Value="slimmedElectronsUSER"/>
+      <Item Name="MuonCollection"          Value="slimmedMuonsUSER"/>
+      <Item Name="JetCollection"           Value="jetsAk4Puppi"/>
+      <Item Name="GenJetCollection"        Value="slimmedGenJets"/>
+      <Item Name="TopJetCollection"        Value="hotvrPuppi"/>
+      <Item Name="GenTopJetCollection"     Value="genjetsAk8SubstructureSoftDrop"/>
+      <Item Name="TopPuppiJetCollection"   Value="jetsAk8PuppiSubstructure_SoftDropPuppi"/>
+      <Item Name="METName"                 Value="slimmedMETsPuppi"/>
+      <Item Name="genMETName"              Value="slimmedMETs_GenMET"/>
+
+      <Item Name="lumi_file" Value="/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL17/Cert_294927-306462_13TeV_UL2017_Collisions17_GoldenJSON_normtag.root"/>
+      <Item Name="lumihists_lumi_per_bin" Value="500.0"/>
+
+      <Item Name="pileup_directory"            Value="/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL17/MyMCPileupHistogram_UL17.root" />
+      <Item Name="pileup_directory_data"       Value="/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL17/MyDataPileupHistogram_UL17.root" />
+      <Item Name="pileup_directory_data_up"    Value="/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL17/MyDataPileupHistogram_UL17_72383.root" />
+      <Item Name="pileup_directory_data_down"  Value="/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/UL17/MyDataPileupHistogram_UL17_66017.root" />
+
+      <Item Name="BTagCalibration" Value = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-data/btagging_SFs_UL/UL17/reshaping_deepJet_v3.csv"/>
+      <!-- add DeepAK8 top tag SF -->
+
+      <Item Name="NLOCorrections" Value = "/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/data/" />
+
+      <Item Name="is_hotvr" Value="&IS_HOTVR;"/>
+      <Item Name="is_deepAK8" Value="&IS_DEEPAK8;"/>
+      <Item Name="is_looser_selection" Value="&IS_LOOSER_SELECTION;"/>
+
+      <Item Name="additionalBranches" Value="jetsAk4CHS CHS_matched hotvrGen
+              Ak4_j1_E Ak4_j1_eta Ak4_j1_m Ak4_j1_phi Ak4_j1_pt Ak4_j1_deepjetbscore
+              Ak4_j2_E Ak4_j2_eta Ak4_j2_m Ak4_j2_phi Ak4_j2_pt Ak4_j2_deepjetbscore
+              Ak4_j3_E Ak4_j3_eta Ak4_j3_m Ak4_j3_phi Ak4_j3_pt Ak4_j3_deepjetbscore
+              Ak4_j4_E Ak4_j4_eta Ak4_j4_m Ak4_j4_phi Ak4_j4_pt Ak4_j4_deepjetbscore
+              Ak4_j5_E Ak4_j5_eta Ak4_j5_m Ak4_j5_phi Ak4_j5_pt Ak4_j5_deepjetbscore
+              Ak8_j1_E Ak8_j1_eta Ak8_j1_mSD Ak8_j1_phi Ak8_j1_pt Ak8_j1_tau21 Ak8_j1_tau32
+              Ak8_j2_E Ak8_j2_eta Ak8_j2_mSD Ak8_j2_phi Ak8_j2_pt Ak8_j2_tau21 Ak8_j2_tau32
+              Ak8_j3_E Ak8_j3_eta Ak8_j3_mSD Ak8_j3_phi Ak8_j3_pt Ak8_j3_tau21 Ak8_j3_tau32
+              MET_phi MET_pt
+              Mu_E Mu_eta Mu_phi Mu_pt
+              N_Ak4 N_Ak8" />
+
+      <Item Name="use_sframe_weight"           Value="false"/>
+      <Item Name="jersmear_direction"          Value="nominal"/>
+      <Item Name="jecsmear_direction"          Value="nominal"/>
+      <Item Name="ScaleVariationMuR"           Value="nominal"/>
+      <Item Name="ScaleVariationMuF"           Value="nominal"/>
+      <Item Name="SystDirection_MuonId"        Value="nominal"/>
+      <Item Name="SystDirection_MuonIso"       Value="nominal"/>
+      <Item Name="SystDirection_MuonTrigger"   Value="nominal"/>
+      <Item Name="SystDirection_ElectronId"    Value="nominal"/>
+      <Item Name="SystDirection_ElectronReco"  Value="nominal"/>
+      <Item Name="Sys_PU"                      Value="central"/>
+      <Item Name="SystDirection_BTaggingShape" Value="central"/>
+      <Item Name="Sys_prefiring"               Value="nominal"/>
+      <Item Name="Sys_TopTag"                  Value="nominal"/>
+      <Item Name="Systematic_TopPt_a"          Value="nominal"/>
+      <Item Name="Systematic_TopPt_b"          Value="nominal"/>
+      <Item Name="channel"                     Value="&CHANNEL;"/>
+
+      <Item Name="AnalysisModule" Value="ZprimeAnalysisModule_applyNN"/>
+    </UserConfig>
+
+  </Cycle>
+</JobConfiguration>
