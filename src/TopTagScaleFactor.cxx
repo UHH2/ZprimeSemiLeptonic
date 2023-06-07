@@ -13,7 +13,7 @@ TopTagScaleFactor::TopTagScaleFactor(uhh2::Context & ctx){
   h_toptagsf_uncorr_up = ctx.declare_event_output<float>("weight_toptagsf_uncorr_up");
   h_toptagsf_uncorr_down = ctx.declare_event_output<float>("weight_toptagsf_uncorr_down");
 
-  TString path = "/nfs/dust/cms/user/matthies/KseniaAndHenrik/SF_ak8_t__MDdeepak8__2023-03-06/";
+  TString path = "/nfs/dust/cms/user/matthies/KseniaAndHenrik/SF_ak8_t__MDdeepak8__2023-06-06/scaleFactors-ak8_t__MDdeepak8-CustomPt400/";
 
   const Year & year = extract_year(ctx);
   TString year_tag;
@@ -23,16 +23,16 @@ TopTagScaleFactor::TopTagScaleFactor(uhh2::Context & ctx){
   else if(year == Year::isUL18) year_tag = "UL18";
   else throw runtime_error("TopTagScaleFactor: no valid year selected");
 
-  TFile *f = TFile::Open(path + "scale_factors_obs_" + year_tag + ".root");
-  tgae_fullymerged_tot = (TGraphAsymmErrors*) f->Get(("FullyMerged_" + year_tag + "_tot").Data());
-  tgae_fullymerged_corr = (TGraphAsymmErrors*) f->Get(("FullyMerged_" + year_tag + "_corr").Data());
-  tgae_fullymerged_uncorr  = (TGraphAsymmErrors*) f->Get(("FullyMerged_" + year_tag + "_uncorr").Data());
-  tgae_semimerged_tot = (TGraphAsymmErrors*) f->Get(("SemiMerged_" + year_tag + "_tot").Data());
-  tgae_semimerged_corr = (TGraphAsymmErrors*) f->Get(("SemiMerged_" + year_tag + "_corr").Data());
-  tgae_semimerged_uncorr = (TGraphAsymmErrors*) f->Get(("SemiMerged_" + year_tag + "_uncorr").Data());
-  tgae_notmerged_tot = (TGraphAsymmErrors*) f->Get(("NotMerged_" + year_tag + "_tot").Data());
-  tgae_notmerged_corr = (TGraphAsymmErrors*) f->Get(("NotMerged_" + year_tag + "_corr").Data());
-  tgae_notmerged_uncorr = (TGraphAsymmErrors*) f->Get(("NotMerged_" + year_tag + "_uncorr").Data());
+  TFile *f = TFile::Open(path + "scaleFactors-ak8_t__MDdeepak8-CustomPt400-" + year_tag + ".root");
+  tgae_fullymerged_tot = (TGraphAsymmErrors*) f->Get(("ak8_t__MDdeepak8-CustomPt400-" + year_tag + "/FullyMerged_" + year_tag + "_tot").Data());
+  tgae_fullymerged_corr = (TGraphAsymmErrors*) f->Get(("ak8_t__MDdeepak8-CustomPt400-" + year_tag + "/FullyMerged_" + year_tag + "_corr").Data());
+  tgae_fullymerged_uncorr  = (TGraphAsymmErrors*) f->Get(("ak8_t__MDdeepak8-CustomPt400-" + year_tag + "/FullyMerged_" + year_tag + "_uncorr").Data());
+  tgae_semimerged_tot = (TGraphAsymmErrors*) f->Get(("ak8_t__MDdeepak8-CustomPt400-" + year_tag + "/SemiMerged_" + year_tag + "_tot").Data());
+  tgae_semimerged_corr = (TGraphAsymmErrors*) f->Get(("ak8_t__MDdeepak8-CustomPt400-" + year_tag + "/SemiMerged_" + year_tag + "_corr").Data());
+  tgae_semimerged_uncorr = (TGraphAsymmErrors*) f->Get(("ak8_t__MDdeepak8-CustomPt400-" + year_tag + "/SemiMerged_" + year_tag + "_uncorr").Data());
+  tgae_notmerged_tot = (TGraphAsymmErrors*) f->Get(("ak8_t__MDdeepak8-CustomPt400-" + year_tag + "/NotMerged_" + year_tag + "_tot").Data());
+  tgae_notmerged_corr = (TGraphAsymmErrors*) f->Get(("ak8_t__MDdeepak8-CustomPt400-" + year_tag + "/NotMerged_" + year_tag + "_corr").Data());
+  tgae_notmerged_uncorr = (TGraphAsymmErrors*) f->Get(("ak8_t__MDdeepak8-CustomPt400-" + year_tag + "/NotMerged_" + year_tag + "_uncorr").Data());
   f->Close();
 }
 
