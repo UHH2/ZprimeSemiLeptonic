@@ -89,6 +89,8 @@ class NiceStackWithRatio():
         # inhist_name = '',
         x_axis_title = '',
         x_axis_unit = None,
+        y_axis_min = None,
+        y_axis_max = None,
         prepostfit = 'prefitRaw',
         processes = [],
         signals = [],
@@ -142,6 +144,9 @@ class NiceStackWithRatio():
         self.text_prelim = text_prelim
         self.text_top_left = text_top_left
         self.text_top_right = text_top_right
+
+        self.y_axis_min = y_axis_min
+        self.y_axis_max = y_axis_max
 
         self.draw_ratio_mc_stat = (self.prepostfit == 'prefitRaw')
         self.separate_stack_by_lines = False
@@ -315,6 +320,7 @@ class NiceStackWithRatio():
             nominal = hist_nominal.GetBinContent(i_bin)
             err2 += (nominal * process.xsec_uncert)**2
             for syst in self.syst_names:
+                # print(syst)
                 hist_syst_down = self.infile.Get(os.path.join(self.infile_directory, process.name+'_'+syst+'Down'))
                 hist_syst_up = self.infile.Get(os.path.join(self.infile_directory, process.name+'_'+syst+'Up'))
                 err_down = hist_syst_down.GetBinContent(i_bin) - nominal
@@ -414,7 +420,6 @@ class NiceStackWithRatio():
         maximum = maximum_stack
         minimum = minimum_stack
 
-
         if not self.blind_data:
             maximum_data = max(self.data.GetY())
             maximum = max(maximum_data, maximum_stack)
@@ -427,12 +432,19 @@ class NiceStackWithRatio():
         if self.logy:
             new_minimum = 1 # could also be one order of magnitude or so below the minimum bin value of the process that is lowest in the stack
             new_minimum = max(new_minimum, minimum * 0.1) # how it should be, but y axis range is somehow not correctly set to this value
-            print('new_minimum:', new_minimum)
+            # print('new_minimum:', new_minimum)
             new_maximum = math.pow(10, 2.5 * (math.log(maximum, 10) - math.log(new_minimum, 10))) # how it should be, but y axis range is somehow not correctly set to this value
-            print('new_maximum:', new_maximum)
+            # print('new_maximum:', new_maximum)
         else:
             new_minimum = 0.
             new_maximum = 2.0 * maximum
+
+        if not self.y_axis_min == None: new_minimum = self.y_axis_min
+        if not self.y_axis_max == None: new_maximum = self.y_axis_max
+
+        # print('new_minimum:', new_minimum)
+        # print('new_maximum:', new_maximum)
+
         last.SetMaximum(new_maximum) # this updates the axis maximum
         hist.SetMaximum(new_maximum)
         last.SetMinimum(new_minimum)
@@ -729,9 +741,10 @@ class NiceStackWithRatio():
             self.create_ratio_mc_stat().Draw('same e2')
         self.create_ratio_unc().Draw('same 2')
 
-        self.create_ratio_signal()
-        for signal_ratio in self.signal_ratiohists:
-            signal_ratio.Draw('same hist')
+        # comment in when wanted
+        # self.create_ratio_signal()
+        # for signal_ratio in self.signal_ratiohists:
+        #     signal_ratio.Draw('same hist')
 
         # self.create_ratio_data().Draw('same e x0') # if ratio data would be a TH1
         if not self.blind_data: self.create_ratio_data().Draw('pz0')

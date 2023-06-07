@@ -23,7 +23,7 @@ for binnumber in range(1, 7):
 
     # SM processes
     processes_Plotter = [
-        Process('bin' + str(binnumber) + '_TTToSemiLeptonic', 't#bar{t} (POWHEG P8 CP5)', root.kPink-3),
+        Process('bin' + str(binnumber) + '_TTToSemiLeptonic', 't#bar{t} (POWHEG P8 CP5)', root.kPink-3, 1., 0.2),
     ]
     processes_Plotter_temp = OrderedDict()
     for index, p in enumerate(processes_Plotter):
@@ -33,10 +33,10 @@ for binnumber in range(1, 7):
 
     # signal
     signals_Plotter = [
-        Process('bin' + str(binnumber) + '_SIB_sqrtmu_plus2', 't#bar{t} + ALP incl. neg. int. (#sqrt{#mu} = +2)', root.kBlue),
-        Process('bin' + str(binnumber) + '_SIB_sqrtmu_minus2', 't#bar{t} + ALP incl. pos. int. (#sqrt{#mu} = -2)', root.kGreen),
-        # Process('bin' + str(binnumber) + '_ALP_ttbar_signal', 'ALP signal', root.kBlack),
-        # Process('bin' + str(binnumber) + '_ALP_ttbar_interference', 'ALP-SM interference', root.kGray+2),
+        # Process('bin' + str(binnumber) + '_SIB_sqrtmu_plus3', 't#bar{t} + ALP incl. neg. int. (#sqrt{#mu} = +3)', root.kBlue),
+        # Process('bin' + str(binnumber) + '_SIB_sqrtmu_minus3', 't#bar{t} + ALP incl. pos. int. (#sqrt{#mu} = -3)', root.kGreen),
+        Process('bin' + str(binnumber) + '_ALP_ttbar_signal', 'ALP signal', root.kBlack),
+        Process('bin' + str(binnumber) + '_ALP_ttbar_interference', 'ALP-SM interference', root.kGray+2),
     ]
     signals_Plotter_temp = OrderedDict()
     for index, s in enumerate(signals_Plotter):
@@ -46,22 +46,24 @@ for binnumber in range(1, 7):
 
     # systematics
     systematics = [
-        'datasyst',
+        # 'datasyst',
         'mcscale',
-        # 'pdf',
-        # 'pu',
-        # 'isr',
-        # 'fsr'
+        'pdf',
+        'pu',
+        'isr',
+        'fsr'
     ]
 
     nice = NiceStackWithRatio(
-        infile_path = '/nfs/dust/cms/user/jabuschh/combine/CMSSW_10_2_13/src/HiggsAnalysis/CombinedLimit/TOP-20-001/cts_mtt_separateHists/inputHistograms_fullRun2_bin' + str(binnumber) + '.root',
+        infile_path = '/nfs/dust/cms/user/jabuschh/combine/CMSSW_11_3_4/src/HiggsAnalysis/CombinedLimit/TOP-20-001/cts_mtt/rootfiles/inputhists_run2_bin' + str(binnumber) + '.root',
         # infile_directory = '', # the directory within the ROOT file
         x_axis_title = 'cos(#theta*)',
-        # x_axis_unit = '',
+        x_axis_unit = None,
+        # y_axis_min = 1E+03,
+        # y_axis_max = 1E+08,
         prepostfit = 'prefitRaw',
         processes = processes_Plotter.values(),
-        signals = signals_Plotter.values(),
+        signals = [], #signals_Plotter.values(),
         syst_names = systematics,
         lumi_unc = _YEARS.get(year).get('lumi_unc'),
         divide_by_bin_width = False,
@@ -83,8 +85,8 @@ for binnumber in range(1, 7):
     legend = root.TLegend(nice.coord.graph_to_pad_x(0.45+leg_offset_x), nice.coord.graph_to_pad_y(0.45+leg_offset_y), nice.coord.graph_to_pad_x(0.7+leg_offset_x), nice.coord.graph_to_pad_y(0.73+leg_offset_y))
     if not nice.blind_data: legend.AddEntry(nice.data_hist, 'Data (PRD 104, 092013)', 'ep')
     legend.AddEntry(nice.stack.GetStack().At(processes_Plotter['bin' + str(binnumber) + '_TTToSemiLeptonic'].index), processes_Plotter['bin' + str(binnumber) + '_TTToSemiLeptonic'].legend, 'f')
-    legend.AddEntry(nice.signal_hists[signals_Plotter['bin' + str(binnumber) + '_SIB_sqrtmu_plus2'].index], signals_Plotter['bin' + str(binnumber) + '_SIB_sqrtmu_plus2'].legend, 'l')
-    legend.AddEntry(nice.signal_hists[signals_Plotter['bin' + str(binnumber) + '_SIB_sqrtmu_minus2'].index], signals_Plotter['bin' + str(binnumber) + '_SIB_sqrtmu_minus2'].legend, 'l')
+    # legend.AddEntry(nice.signal_hists[signals_Plotter['bin' + str(binnumber) + '_SIB_sqrtmu_plus3'].index], signals_Plotter['bin' + str(binnumber) + '_SIB_sqrtmu_plus3'].legend, 'l')
+    # legend.AddEntry(nice.signal_hists[signals_Plotter['bin' + str(binnumber) + '_SIB_sqrtmu_minus3'].index], signals_Plotter['bin' + str(binnumber) + '_SIB_sqrtmu_minus3'].legend, 'l')
     legend.SetHeader(bin_labels[binnumber-1])
     legend.SetTextSize(0.025)
     legend.SetBorderSize(0)
