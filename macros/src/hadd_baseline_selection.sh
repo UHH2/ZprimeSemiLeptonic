@@ -1,13 +1,13 @@
 #!/bin/bash
 
-year="UL16preVFP" # UL16preVFP / UL16postVFP / UL17 / UL18
-channel="electron" # electron / muon
+year="UL16postVFP" # UL16preVFP / UL16postVFP / UL17 / UL18
+channel="muon" # electron / muon
 input_dir="/nfs/dust/cms/group/zprime-uhh/Analysis_${year}/${channel}/workdir_Analysis_${year}_${channel}/"
 output_dir="/nfs/dust/cms/group/zprime-uhh/Analysis_${year}/${channel}/"
 
 echo "hadding: year=${year}, channel=${channel}"
 
-# # DATA
+# DATA
 if [ ${channel} = "electron" ]; then
   if [ ${year} = "UL18" ]; then
     hadd -T ${output_dir}uhh2.AnalysisModuleRunner.DATA.DATA.root ${input_dir}uhh2.AnalysisModuleRunner.DATA.EGamma_Run*.root
@@ -22,9 +22,8 @@ fi
 
 # MC
 # TTbar often larger than 100 GB (default max size of root tree) -> handle separately via "hadd_large_files.sh"
-# hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.TTbar.root ${input_dir}uhh2.AnalysisModuleRunner.MC.TTTo*.root ${input_dir}uhh2.AnalysisModuleRunner.MC.TTToHadronic_${year}_*.root ${input_dir}uhh2.AnalysisModuleRunner.MC.TTToSemiLeptonic_${year}_*.root
-
 hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.TTbar.root ${input_dir}uhh2.AnalysisModuleRunner.MC.TTTo*.root
+
 hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.ST.root ${input_dir}uhh2.AnalysisModuleRunner.MC.ST_*.root
 hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.WJets.root ${input_dir}uhh2.AnalysisModuleRunner.MC.WJetsToLNu_HT-*.root
 hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.DY.root ${input_dir}uhh2.AnalysisModuleRunner.MC.DYJetsToLL_M-50_HT-*.root
