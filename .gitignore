@@ -33,7 +33,10 @@ genLevelStudy/*
 config/constants.py
 config/sample_db.py
 config/xmlFileCreator.py
-TOP-20-001/.ipynb_checkpoints/*
-TOP-20-001/codeFromOtto/*
-TOP-20-001/test.ipynb
-TOP-20-001/output_combine/*
+TOP-20-001/*
+plotter/copy_plots_to_eos.sh
+systematics/hadd.sh
+config/*cutdnnscore*
+config/*jetvetomaps*
+data/Skimming_datasets_UL16postVFP_preselection_jetvetomaps/*
+combineFactory/baselineSelection_ALP.py

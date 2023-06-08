@@ -1,16 +1,16 @@
 #!/bin/bash
 
-year="UL17" # UL16preVFP / UL16postVFP / UL17 / UL18
+year="UL18" # UL16preVFP / UL16postVFP / UL17 / UL18
 channel="muon" # electron / muon
-input_dir="/nfs/dust/cms/group/zprime-uhh/AnalysisDNN_${year}/${channel}/workdir_Zprime_AnalysisDNN_${year}_${channel}/"
-output_dir="/nfs/dust/cms/group/zprime-uhh/AnalysisDNN_${year}/${channel}/"
+input_dir="/nfs/dust/cms/group/zprime-uhh/AnalysisDNN_${year}/JER_down/${channel}/workdir_AnalysisDNN_${year}_${channel}_JER_down/"
+output_dir="/nfs/dust/cms/group/zprime-uhh/AnalysisDNN_${year}/JER_down/${channel}/"
 
 echo "hadding: year=${year}, channel=${channel}"
 
 # DATA
 if [ ${channel} = "electron" ]; then
   if [ ${year} = "UL18" ]; then
-    hadd -T ${output_dir}uhh2.AnalysisModuleRunner.DATA.DATA.root ${input_dir}uhh2.AnalysisModuleRunner.DATA.DATA_EGamma_Run*.root
+    hadd -T ${output_dir}uhh2.AnalysisModuleRunner.DATA.DATA.root ${input_dir}uhh2.AnalysisModuleRunner.DATA.EGamma_Run*.root
   else
     hadd -T ${output_dir}uhh2.AnalysisModuleRunner.DATA.DATA.root ${input_dir}uhh2.AnalysisModuleRunner.DATA.DATA_SingleElectron_Run*.root ${input_dir}uhh2.AnalysisModuleRunner.DATA.DATA_SinglePhoton_Run*.root
   fi
@@ -27,7 +27,8 @@ hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.WJets.root ${input_dir}uhh2.An
 hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.DY.root ${input_dir}uhh2.AnalysisModuleRunner.MC.DYJetsToLL_M-50_HT-*.root
 hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.QCD.root ${input_dir}uhh2.AnalysisModuleRunner.MC.QCD_HT*.root
 hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.Diboson.root ${input_dir}uhh2.AnalysisModuleRunner.MC.WW_*.root ${input_dir}uhh2.AnalysisModuleRunner.MC.WZ_*.root ${input_dir}uhh2.AnalysisModuleRunner.MC.ZZ_*.root
-
+hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.others.root ${output_dir}uhh2.AnalysisModuleRunner.MC.DY.root ${output_dir}uhh2.AnalysisModuleRunner.MC.QCD.root ${output_dir}uhh2.AnalysisModuleRunner.MC.Diboson.root
+hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.data_obs.root ${output_dir}uhh2.AnalysisModuleRunner.MC.TTbar.root ${output_dir}uhh2.AnalysisModuleRunner.MC.ST.root ${output_dir}uhh2.AnalysisModuleRunner.MC.WJets.root ${output_dir}uhh2.AnalysisModuleRunner.MC.others.root
 hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.ALP_ttbar_signal.root ${input_dir}uhh2.AnalysisModuleRunner.MC.ALP_ttbar_signal_*.root
 hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.ALP_ttbar_interference.root ${input_dir}uhh2.AnalysisModuleRunner.MC.ALP_ttbar_interference_*.root
 hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.HpseudoToTTTo1L1Nu2J_m365_w91p25_res.root ${input_dir}uhh2.AnalysisModuleRunner.MC.HpseudoToTTTo1L1Nu2J_m365_w91p25_res_*.root
@@ -216,6 +217,3 @@ hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.ZPrimeToTT_M6000_W60.root ${in
 hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.ZPrimeToTT_M7000_W70.root ${input_dir}uhh2.AnalysisModuleRunner.MC.ZPrimeToTT_M7000_W70_*.root
 hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.ZPrimeToTT_M8000_W80.root ${input_dir}uhh2.AnalysisModuleRunner.MC.ZPrimeToTT_M8000_W80_*.root
 hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.ZPrimeToTT_M9000_W90.root ${input_dir}uhh2.AnalysisModuleRunner.MC.ZPrimeToTT_M9000_W90_*.root
-
-hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.others.root ${output_dir}uhh2.AnalysisModuleRunner.MC.DY.root ${output_dir}uhh2.AnalysisModuleRunner.MC.QCD.root ${output_dir}uhh2.AnalysisModuleRunner.MC.Diboson.root
-hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.data_obs.root ${output_dir}uhh2.AnalysisModuleRunner.MC.TTbar.root ${output_dir}uhh2.AnalysisModuleRunner.MC.ST.root ${output_dir}uhh2.AnalysisModuleRunner.MC.WJets.root ${output_dir}uhh2.AnalysisModuleRunner.MC.others.root

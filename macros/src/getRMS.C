@@ -455,8 +455,8 @@ void getRMS(){
           //   c->SaveAs(uhh2_basedir + "CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/macros/src/PDF_hists/" + year.at(j) + "/" + channel.at(k) + "/PDF_"+ samples.at(i) + "_" + v_root_directories.at(l) +".pdf");
           //   c->Close();
         }
-        delete f_in;
-        delete f_out;
+        f_in->Close();
+        f_out->Close();
       }
     }
   }

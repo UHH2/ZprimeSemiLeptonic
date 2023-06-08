@@ -1,6 +1,6 @@
 #!/bin/bash
 
-year="UL17" # UL16preVFP / UL16postVFP / UL17 / UL18
+year="UL18" # UL16preVFP / UL16postVFP / UL17 / UL18
 input_dir="/nfs/dust/cms/group/zprime-uhh/Presel_${year}/workdir_Preselection_${year}/"
 output_dir="/nfs/dust/cms/group/zprime-uhh/Presel_${year}/"
 
@@ -20,6 +20,7 @@ hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.WJets.root ${input_dir}uhh2.An
 hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.DY.root ${input_dir}uhh2.AnalysisModuleRunner.MC.DYJetsToLL_M-50_HT-*.root
 hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.QCD.root ${input_dir}uhh2.AnalysisModuleRunner.MC.QCD_HT*.root
 hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.Diboson.root ${input_dir}uhh2.AnalysisModuleRunner.MC.WW_*.root ${input_dir}uhh2.AnalysisModuleRunner.MC.WZ_*.root ${input_dir}uhh2.AnalysisModuleRunner.MC.ZZ_*.root
+hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.others.root ${output_dir}uhh2.AnalysisModuleRunner.MC.DY.root ${output_dir}uhh2.AnalysisModuleRunner.MC.QCD.root ${output_dir}uhh2.AnalysisModuleRunner.MC.Diboson.root
 hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.ALP_ttbar_signal.root ${input_dir}uhh2.AnalysisModuleRunner.MC.ALP_ttbar_signal_*.root
 hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.ALP_ttbar_interference.root ${input_dir}uhh2.AnalysisModuleRunner.MC.ALP_ttbar_interference_*.root
 hadd -T ${output_dir}uhh2.AnalysisModuleRunner.MC.HpseudoToTTTo1L1Nu2J_m365_w91p25_res.root ${input_dir}uhh2.AnalysisModuleRunner.MC.HpseudoToTTTo1L1Nu2J_m365_w91p25_res_*.root
