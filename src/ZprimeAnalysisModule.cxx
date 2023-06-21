@@ -41,7 +41,7 @@
 #include <UHH2/ZprimeSemiLeptonic/include/ElecTriggerSF.h>
 #include <UHH2/ZprimeSemiLeptonic/include/AK4JetCorrections.h>
 #include <UHH2/ZprimeSemiLeptonic/include/TopPuppiJetCorrections.h>
-// #include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicSystematicsModule.h>
+#include <UHH2/ZprimeSemiLeptonic/include/ZprimeSemiLeptonicSystematicsModule.h>
 #include <UHH2/ZprimeSemiLeptonic/include/TopTagScaleFactor.h>
 
 #include <UHH2/common/include/TTbarGen.h>
@@ -122,7 +122,7 @@ protected:
   unique_ptr<Variables_NN> Variables_module;
 
   // systematics handles
-  // unique_ptr<ZprimeSemiLeptonicSystematicsModule> SystematicsModule;
+  unique_ptr<ZprimeSemiLeptonicSystematicsModule> SystematicsModule;
 
   //Handles
   Event::Handle<bool> h_is_zprime_reconstructed_chi2, h_is_zprime_reconstructed_correctmatch;
@@ -377,7 +377,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
 
   Variables_module.reset(new Variables_NN(ctx, mode)); // variables for NN
 
-  // if(!isEleTriggerMeasurement) SystematicsModule.reset(new ZprimeSemiLeptonicSystematicsModule(ctx));
+  if(!isEleTriggerMeasurement) SystematicsModule.reset(new ZprimeSemiLeptonicSystematicsModule(ctx));
 
 
   // Split interference signal samples by sign
@@ -406,7 +406,7 @@ ZprimeAnalysisModule::ZprimeAnalysisModule(uhh2::Context& ctx){
   sel_2btag.reset(new NJetSelection(2,-1, id_btag));
 
   // PUPPI CHS match modules & hists
-  AK4PuppiCHS_matching.reset(new PuppiCHS_matching(ctx)); // match AK4 PUPPI jets to AK$ CHS jets for b-tagging
+  AK4PuppiCHS_matching.reset(new PuppiCHS_matching(ctx)); // match AK4 PUPPI jets to AK4 CHS jets for b-tagging
   AK4PuppiCHS_BTagging.reset(new PuppiCHS_BTagging(ctx)); // b-tagging on matched CHS jets
   h_CHSMatchHists.reset(new ZprimeSemiLeptonicCHSMatchHists(ctx, "CHSMatch"));
   h_CHSMatchHists_beforeBTagSF.reset(new ZprimeSemiLeptonicCHSMatchHists(ctx, "CHSMatch_beforeBTagSF"));
@@ -473,6 +473,7 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
 
   if(debug) cout << "++++++++++++ NEW EVENT ++++++++++++++" << endl;
   if(debug) cout << " run.event: " << event.run << ". " << event.event << endl;
+
   // Initialize reco flags with false
   event.set(h_is_zprime_reconstructed_chi2, false);
   event.set(h_is_zprime_reconstructed_correctmatch, false);
@@ -956,7 +957,7 @@ bool ZprimeAnalysisModule::process(uhh2::Event& event){
   if(debug) cout << "NNInputsBeforeReweight: ok" << endl;
 
   // histograms for systematics
-  // if(!isEleTriggerMeasurement) SystematicsModule->process(event);
+  if(!isEleTriggerMeasurement) SystematicsModule->process(event);
 
   return true;
 }

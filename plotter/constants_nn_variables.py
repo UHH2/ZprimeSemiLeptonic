@@ -6,87 +6,86 @@ _VARIABLES = OrderedDict([
     ('NN_Mu_pt', {
         'name': 'NN_Mu_pt',
         'x_axis_title': 'p_{T}^{#mu}',
-        'x_axis_unit': 'GeV'
+        'x_axis_unit': 'GeV',
     }),
     ('NN_Mu_eta', {
         'name': 'NN_Mu_eta',
         'x_axis_title': '#eta^{#mu}',
-        'x_axis_unit': None
+        'x_axis_unit': None,
     }),
     ('NN_Mu_phi', {
         'name': 'NN_Mu_phi',
         'x_axis_title': '#phi^{#mu}',
-        'x_axis_unit': 'rad'
+        'x_axis_unit': 'rad',
     }),
     ('NN_Mu_E', {
         'name': 'NN_Mu_E',
         'x_axis_title': 'E^{#mu}',
-        'x_axis_unit': 'GeV'
+        'x_axis_unit': 'GeV',
     }),
     ('NN_Ele_pt', {
         'name': 'NN_Ele_pt',
         'x_axis_title': 'p_{T}^{e}',
-        'x_axis_unit': 'GeV'
-    }),
+        'x_axis_unit': 'GeV',    }),
     ('NN_Ele_eta', {
         'name': 'NN_Ele_eta',
         'x_axis_title': '#eta^{e}',
-        'x_axis_unit': None
+        'x_axis_unit': None,
     }),
     ('NN_Ele_phi', {
         'name': 'NN_Ele_phi',
         'x_axis_title': '#phi^{e}',
-        'x_axis_unit': 'rad'
+        'x_axis_unit': 'rad',
     }),
     ('NN_Ele_E', {
         'name': 'NN_Ele_E',
-        'x_axis_title': 'E^{#mu}',
-        'x_axis_unit': 'GeV'
+        'x_axis_title': 'E^{e}',
+        'x_axis_unit': 'GeV',
     }),
     ('NN_MET_pt', {
         'name': 'NN_MET_pt',
         'x_axis_title': 'MET',
-        'x_axis_unit': 'GeV'
+        'x_axis_unit': 'GeV',
     }),
     ('NN_MET_phi', {
         'name': 'NN_MET_phi',
         'x_axis_title': '#phi^{MET}',
-        'x_axis_unit': 'rad'
+        'x_axis_unit': 'rad',
     }),
     ('NN_N_Ak4', {
         'name': 'NN_N_Ak4',
         'x_axis_title': 'N^{AK4 jets}',
-        'x_axis_unit': None
+        'x_axis_unit': None,
     }),
     ('NN_Ak4_j1_pt', {
         'name': 'NN_Ak4_j1_pt',
         'x_axis_title': 'p_{T}^{AK4 jet 1}',
-        'x_axis_unit': 'GeV'
+        'x_axis_unit': 'GeV',
     }),
     ('NN_Ak4_j1_eta', {
         'name': 'NN_Ak4_j1_eta',
         'x_axis_title': '#eta^{AK4 jet 1}',
-        'x_axis_unit': None
+        'x_axis_unit': None,
     }),
     ('NN_Ak4_j1_phi', {
         'name': 'NN_Ak4_j1_phi',
         'x_axis_title': '#phi^{AK4 jet 1}',
-        'x_axis_unit': 'rad'
+        'x_axis_unit': 'rad',
     }),
     ('NN_Ak4_j1_E', {
         'name': 'NN_Ak4_j1_E',
         'x_axis_title': 'E^{AK4 jet 1}',
-        'x_axis_unit': 'GeV'
+        'x_axis_unit': 'GeV',
     }),
     ('NN_Ak4_j1_m', {
         'name': 'NN_Ak4_j1_m',
         'x_axis_title': 'm^{AK4 jet 1}',
-        'x_axis_unit': 'GeV'
+        'x_axis_unit': 'GeV',
     }),
     ('NN_Ak4_j1_btag', {
         'name': 'NN_Ak4_j1_btag',
         'x_axis_title': 'b-tag score^{AK4 jet 1}',
-        'x_axis_unit': None
+        'x_axis_unit': None,
     }),
     ('NN_Ak4_j2_pt', {
         'name': 'NN_Ak4_j2_pt',
