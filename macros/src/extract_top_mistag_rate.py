@@ -122,7 +122,7 @@ output = OrderedDict([
 
 
 
-
+histograms = []
 
 
 for year in years:
@@ -196,12 +196,23 @@ for year in years:
     output[year]["scale_factor"] = SF
     output[year]["error"] = SF_err
 
+    histogram = ROOT.TH1F(year, year, 1, 0, 1)
+    histogram.SetBinContent(1, SF)
+    histogram.SetBinError(1, SF_err)
+    histograms.append(histogram)
+
+
+# output: root
+output_root = ROOT.TFile(os.getcwd() + "/../../data/top_mistag_scale_factors.root", "RECREATE")
+for histogram in histograms:
+    histogram.Write()
+output_root.Close()
+
+
+# output: json
+output_json_name = os.getcwd() + "/../../data/top_mistag_scale_factors.json"
 output_json = json.dumps(output, indent=4)
 print(output_json)
-
-# setup output directory
-output_file_name = os.getcwd() + "/../../data/top_mistag_scale_factors.json"
-with open(output_file_name, "w") as json_file:
+with open(output_json_name, "w") as json_file:
     json_file.write(output_json)
-
-print("saved to: " + output_file_name)
+print("saved to: " + output_json_name)
