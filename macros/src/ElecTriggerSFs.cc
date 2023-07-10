@@ -57,14 +57,14 @@ int argc = 2;
   }
   gErrorIgnoreLevel = kWarning;
 
-  //year = "UL16preVFP";
-  //lumi_plot = 19.5;
-  year = "UL16postVFP";
-  lumi_plot = 16.8;
+  // year = "UL16preVFP";
+  // lumi_plot = 19.5;
+  // year = "UL16postVFP";
+  // lumi_plot = 16.8;
   // year = "UL17";
   // lumi_plot = 41.5;
-  //year = "UL18";
-  //lumi_plot = 59.8;
+  year = "UL18";
+  lumi_plot = 59.8;
   TString fdir;
   fdir = "/nfs/dust/cms/group/zprime-uhh/Analysis_" + year + "/dilepton_TriggerModule/";
   // fdir = "/nfs/dust/cms/user/deleokse/RunII_106_v2/DiLepton_TriggerModule/Analysis_" + year +"_dilepton_Trigger/";
@@ -509,12 +509,10 @@ vector<TH1F*> GetSF(TGraphAsymmErrors* h_data, TGraphAsymmErrors* h_mc, TH1F* hi
 
     double central = 1;
     if(value_data != 0 && value_mc != 0) central = value_data/value_mc;
-
     double up = 0;
-    if(value_mc != 0) up = -value_data/(value_mc*value_mc) * e_mc_hi + e_data_hi/value_mc;
-
+    if(value_mc != 0) up = sqrt(pow(value_data/(value_mc*value_mc) * e_mc_hi, 2) + pow(e_data_hi/value_mc, 2));
     double down = 0;
-    if(value_mc != 0) down = -value_data/(value_mc*value_mc) * e_mc_lo + e_data_lo/value_mc;
+    if(value_mc != 0) down = sqrt(pow(value_data/(value_mc*value_mc) * e_mc_lo, 2) + pow(e_data_lo/value_mc, 2));
 
     // add 2% uncertainty to cover non-closure
     up += 0.02;
