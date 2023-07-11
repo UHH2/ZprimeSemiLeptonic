@@ -239,7 +239,18 @@
 <!ENTITY ZPrimeToTT_M7000_W70 SYSTEM "../data/Skimming_datasets_UL18_muon_JER_up/MC_ZPrimeToTT_M7000_W70_UL18.xml">
 <!ENTITY ZPrimeToTT_M8000_W80 SYSTEM "../data/Skimming_datasets_UL18_muon_JER_up/MC_ZPrimeToTT_M8000_W80_UL18.xml">
 <!ENTITY ZPrimeToTT_M9000_W90 SYSTEM "../data/Skimming_datasets_UL18_muon_JER_up/MC_ZPrimeToTT_M9000_W90_UL18.xml">
-
+<!ENTITY ZprimeDMToTTbarResoIncl_MZp1000_Mchi10_V1 SYSTEM "../data/Skimming_datasets_UL18_muon_JER_up/MC_ZprimeDMToTTbarResoIncl_MZp1000_Mchi10_V1_CP5_madgraph_pythia8_Summer20UL18_v1.xml">
+<!ENTITY ZprimeDMToTTbarResoIncl_MZp1500_Mchi10_V1 SYSTEM "../data/Skimming_datasets_UL18_muon_JER_up/MC_ZprimeDMToTTbarResoIncl_MZp1500_Mchi10_V1_CP5_madgraph_pythia8_Summer20UL18_v1.xml">
+<!ENTITY ZprimeDMToTTbarResoIncl_MZp2000_Mchi10_V1 SYSTEM "../data/Skimming_datasets_UL18_muon_JER_up/MC_ZprimeDMToTTbarResoIncl_MZp2000_Mchi10_V1_CP5_madgraph_pythia8_Summer20UL18_v1.xml">
+<!ENTITY ZprimeDMToTTbarResoIncl_MZp2500_Mchi10_V1 SYSTEM "../data/Skimming_datasets_UL18_muon_JER_up/MC_ZprimeDMToTTbarResoIncl_MZp2500_Mchi10_V1_CP5_madgraph_pythia8_Summer20UL18_v1.xml">
+<!ENTITY ZprimeDMToTTbarResoIncl_MZp3000_Mchi10_V1 SYSTEM "../data/Skimming_datasets_UL18_muon_JER_up/MC_ZprimeDMToTTbarResoIncl_MZp3000_Mchi10_V1_CP5_madgraph_pythia8_Summer20UL18_v1.xml">
+<!ENTITY ZprimeDMToTTbarResoIncl_MZp3500_Mchi10_V1 SYSTEM "../data/Skimming_datasets_UL18_muon_JER_up/MC_ZprimeDMToTTbarResoIncl_MZp3500_Mchi10_V1_CP5_madgraph_pythia8_Summer20UL18_v1.xml">
+<!ENTITY ZprimeDMToTTbarResoIncl_MZp4000_Mchi10_V1 SYSTEM "../data/Skimming_datasets_UL18_muon_JER_up/MC_ZprimeDMToTTbarResoIncl_MZp4000_Mchi10_V1_CP5_madgraph_pythia8_Summer20UL18_v1.xml">
+<!ENTITY ZprimeDMToTTbarResoIncl_MZp4500_Mchi10_V1 SYSTEM "../data/Skimming_datasets_UL18_muon_JER_up/MC_ZprimeDMToTTbarResoIncl_MZp4500_Mchi10_V1_CP5_madgraph_pythia8_Summer20UL18_v1.xml">
+<!ENTITY ZprimeDMToTTbarResoIncl_MZp5000_Mchi10_V1 SYSTEM "../data/Skimming_datasets_UL18_muon_JER_up/MC_ZprimeDMToTTbarResoIncl_MZp5000_Mchi10_V1_CP5_madgraph_pythia8_Summer20UL18_v1.xml">
+<!ENTITY ZprimeDMToTTbarResoIncl_MZp2500_Mchi1000_A1 SYSTEM "../data/Skimming_datasets_UL18_muon_JER_up/MC_ZprimeDMToTTbarResoIncl_MZp2500_Mchi1000_A1_CP5_madgraph_pythia8_Summer20UL18_v1.xml">
+<!ENTITY ZprimeDMToTTbarResoIncl_MZp2500_Mchi1000_V1 SYSTEM "../data/Skimming_datasets_UL18_muon_JER_up/MC_ZprimeDMToTTbarResoIncl_MZp2500_Mchi1000_V1_CP5_madgraph_pythia8_Summer20UL18_v1.xml">
+<!ENTITY ZprimeDMToTTbarResoIncl_MZp2500_Mchi10_A1 SYSTEM "../data/Skimming_datasets_UL18_muon_JER_up/MC_ZprimeDMToTTbarResoIncl_MZp2500_Mchi10_A1_CP5_madgraph_pythia8_Summer20UL18_v1.xml">
 ]>
 
 <!--
@@ -478,6 +489,18 @@
 		<InputData Lumi="197279.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M7000_W70&YEARsuffix;" Cacheable="&b_Cacheable;"> &ZPrimeToTT_M7000_W70; <InputTree Name="AnalysisTree"/> </InputData>
 		<InputData Lumi="170678.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M8000_W80&YEARsuffix;" Cacheable="&b_Cacheable;"> &ZPrimeToTT_M8000_W80; <InputTree Name="AnalysisTree"/> </InputData>
 		<InputData Lumi="201986.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M9000_W90&YEARsuffix;" Cacheable="&b_Cacheable;"> &ZPrimeToTT_M9000_W90; <InputTree Name="AnalysisTree"/> </InputData>
+		<InputData Lumi="989998.0" NEventsMax="&NEVT;" Type="MC" Version="ZprimeDMToTTbarResoIncl_MZp1000_Mchi10_V1&YEARsuffix;" Cacheable="&b_Cacheable;"> &ZprimeDMToTTbarResoIncl_MZp1000_Mchi10_V1; <InputTree Name="AnalysisTree"/> </InputData>
+		<InputData Lumi="997000.0" NEventsMax="&NEVT;" Type="MC" Version="ZprimeDMToTTbarResoIncl_MZp1500_Mchi10_V1&YEARsuffix;" Cacheable="&b_Cacheable;"> &ZprimeDMToTTbarResoIncl_MZp1500_Mchi10_V1; <InputTree Name="AnalysisTree"/> </InputData>
+		<InputData Lumi="1000000.0" NEventsMax="&NEVT;" Type="MC" Version="ZprimeDMToTTbarResoIncl_MZp2000_Mchi10_V1&YEARsuffix;" Cacheable="&b_Cacheable;"> &ZprimeDMToTTbarResoIncl_MZp2000_Mchi10_V1; <InputTree Name="AnalysisTree"/> </InputData>
+		<InputData Lumi="997000.0" NEventsMax="&NEVT;" Type="MC" Version="ZprimeDMToTTbarResoIncl_MZp2500_Mchi10_V1&YEARsuffix;" Cacheable="&b_Cacheable;"> &ZprimeDMToTTbarResoIncl_MZp2500_Mchi10_V1; <InputTree Name="AnalysisTree"/> </InputData>
+		<InputData Lumi="991000.0" NEventsMax="&NEVT;" Type="MC" Version="ZprimeDMToTTbarResoIncl_MZp3000_Mchi10_V1&YEARsuffix;" Cacheable="&b_Cacheable;"> &ZprimeDMToTTbarResoIncl_MZp3000_Mchi10_V1; <InputTree Name="AnalysisTree"/> </InputData>
+		<InputData Lumi="997000.0" NEventsMax="&NEVT;" Type="MC" Version="ZprimeDMToTTbarResoIncl_MZp3500_Mchi10_V1&YEARsuffix;" Cacheable="&b_Cacheable;"> &ZprimeDMToTTbarResoIncl_MZp3500_Mchi10_V1; <InputTree Name="AnalysisTree"/> </InputData>
+		<InputData Lumi="928000.0" NEventsMax="&NEVT;" Type="MC" Version="ZprimeDMToTTbarResoIncl_MZp4000_Mchi10_V1&YEARsuffix;" Cacheable="&b_Cacheable;"> &ZprimeDMToTTbarResoIncl_MZp4000_Mchi10_V1; <InputTree Name="AnalysisTree"/> </InputData>
+		<InputData Lumi="1000000.0" NEventsMax="&NEVT;" Type="MC" Version="ZprimeDMToTTbarResoIncl_MZp4500_Mchi10_V1&YEARsuffix;" Cacheable="&b_Cacheable;"> &ZprimeDMToTTbarResoIncl_MZp4500_Mchi10_V1; <InputTree Name="AnalysisTree"/> </InputData>
+		<InputData Lumi="997000.0" NEventsMax="&NEVT;" Type="MC" Version="ZprimeDMToTTbarResoIncl_MZp5000_Mchi10_V1&YEARsuffix;" Cacheable="&b_Cacheable;"> &ZprimeDMToTTbarResoIncl_MZp5000_Mchi10_V1; <InputTree Name="AnalysisTree"/> </InputData>
+		<InputData Lumi="994000.0" NEventsMax="&NEVT;" Type="MC" Version="ZprimeDMToTTbarResoIncl_MZp2500_Mchi1000_A1&YEARsuffix;" Cacheable="&b_Cacheable;"> &ZprimeDMToTTbarResoIncl_MZp2500_Mchi1000_A1; <InputTree Name="AnalysisTree"/> </InputData>
+		<InputData Lumi="1000000.0" NEventsMax="&NEVT;" Type="MC" Version="ZprimeDMToTTbarResoIncl_MZp2500_Mchi1000_V1&YEARsuffix;" Cacheable="&b_Cacheable;"> &ZprimeDMToTTbarResoIncl_MZp2500_Mchi1000_V1; <InputTree Name="AnalysisTree"/> </InputData>
+		<InputData Lumi="994000.0" NEventsMax="&NEVT;" Type="MC" Version="ZprimeDMToTTbarResoIncl_MZp2500_Mchi10_A1&YEARsuffix;" Cacheable="&b_Cacheable;"> &ZprimeDMToTTbarResoIncl_MZp2500_Mchi10_A1; <InputTree Name="AnalysisTree"/> </InputData>
 
 		<UserConfig>
 			<Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices"/>
