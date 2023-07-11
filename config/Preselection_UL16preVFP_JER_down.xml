@@ -337,17 +337,17 @@
 			<OutputTree Name="AnalysisTree"/>
 		</InputData>
 		<!-- Diboson -->
-		<InputData Lumi="207339.329717" NEventsMax="&NEVT;" Type="MC" Version="WW_UL16preVFP" Cacheable="&b_Cacheable;">
+		<InputData Lumi="132683.19701124143" NEventsMax="&NEVT;" Type="MC" Version="WW_UL16preVFP" Cacheable="&b_Cacheable;">
 			&WW_UL16preVFP;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-		<InputData Lumi="287010.159652" NEventsMax="&NEVT;" Type="MC" Version="WZ_UL16preVFP" Cacheable="&b_Cacheable;">
+		<InputData Lumi="169172.65508301818" NEventsMax="&NEVT;" Type="MC" Version="WZ_UL16preVFP" Cacheable="&b_Cacheable;">
 			&WZ_UL16preVFP;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-		<InputData Lumi="105688.375927" NEventsMax="&NEVT;" Type="MC" Version="ZZ_UL16preVFP" Cacheable="&b_Cacheable;">
+		<InputData Lumi="75750.6278058421" NEventsMax="&NEVT;" Type="MC" Version="ZZ_UL16preVFP" Cacheable="&b_Cacheable;">
 			&ZZ_UL16preVFP;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
