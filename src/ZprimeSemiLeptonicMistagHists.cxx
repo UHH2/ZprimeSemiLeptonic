@@ -178,11 +178,11 @@ void ZprimeSemiLeptonicMistagHists::fill(const Event & event){
 
   if(isdeepAK8){
 
-  vector<TopJet>* toppuppijets = event.toppuppijets;
-  vector<GenParticle>* genparticles = event.genparticles;
+    vector<TopJet>* toppuppijets = event.toppuppijets;
+    vector<GenParticle>* genparticles = event.genparticles;
 
-  // AK8 PUPPI jets pT>200
-  N_AK8jets_pt200->Fill(toppuppijets->size(), weight); 
+    // AK8 PUPPI jets pT>200
+    N_AK8jets_pt200->Fill(toppuppijets->size(), weight);
     for(unsigned int i=0; i<toppuppijets->size(); i++){
       pt_AK8jets_pt200->Fill(toppuppijets->at(i).pt(),weight);
       eta_AK8jets_pt200->Fill(toppuppijets->at(i).eta(),weight);
@@ -191,64 +191,64 @@ void ZprimeSemiLeptonicMistagHists::fill(const Event & event){
       tau21_AK8jets_pt200->Fill(toppuppijets->at(i).tau2() / toppuppijets->at(i).tau1(),weight);
       tau32_AK8jets_pt200->Fill(toppuppijets->at(i).tau3() / toppuppijets->at(i).tau2(),weight);
       if(i==0){
-          pt_AK8jet1_pt200->Fill(toppuppijets->at(i).pt(),weight);
-          eta_AK8jet1_pt200->Fill(toppuppijets->at(i).eta(),weight);
-          phi_AK8jet1_pt200->Fill(toppuppijets->at(i).phi(),weight);
-          mSD_AK8jet1_pt200->Fill(toppuppijets->at(i).softdropmass(),weight);
-          tau21_AK8jet1_pt200->Fill(toppuppijets->at(i).tau2() / toppuppijets->at(i).tau1(),weight);
-          tau32_AK8jet1_pt200->Fill(toppuppijets->at(i).tau3() / toppuppijets->at(i).tau2(),weight);
+        pt_AK8jet1_pt200->Fill(toppuppijets->at(i).pt(),weight);
+        eta_AK8jet1_pt200->Fill(toppuppijets->at(i).eta(),weight);
+        phi_AK8jet1_pt200->Fill(toppuppijets->at(i).phi(),weight);
+        mSD_AK8jet1_pt200->Fill(toppuppijets->at(i).softdropmass(),weight);
+        tau21_AK8jet1_pt200->Fill(toppuppijets->at(i).tau2() / toppuppijets->at(i).tau1(),weight);
+        tau32_AK8jet1_pt200->Fill(toppuppijets->at(i).tau3() / toppuppijets->at(i).tau2(),weight);
       }
 
       // Match to gen-lvl top quark
       if(is_mc){
         double deltaR_min = 99;
         for(unsigned int j=0; j<genparticles->size(); ++j) {
-            if (abs(genparticles->at(j).pdgId()) == 6){
-               double deltaR_top = deltaR(toppuppijets->at(i),genparticles->at(j));
-               if(deltaR_top<deltaR_min) deltaR_min = deltaR_top;
-            }
+          if (abs(genparticles->at(j).pdgId()) == 6){
+            double deltaR_top = deltaR(toppuppijets->at(i),genparticles->at(j));
+            if(deltaR_top<deltaR_min) deltaR_min = deltaR_top;
+          }
         }
         if(deltaR_min<=0.4){
-           N_AK8Topjets_pt200->Fill(toppuppijets->size(), weight);
-           pt_AK8Topjets_pt200->Fill(toppuppijets->at(i).pt(),weight);
-           eta_AK8Topjets_pt200->Fill(toppuppijets->at(i).eta(),weight);
-           phi_AK8Topjets_pt200->Fill(toppuppijets->at(i).phi(),weight);
-           mSD_AK8Topjets_pt200->Fill(toppuppijets->at(i).softdropmass(),weight);
-           tau21_AK8Topjets_pt200->Fill(toppuppijets->at(i).tau2() / toppuppijets->at(i).tau1(),weight);
-           tau32_AK8Topjets_pt200->Fill(toppuppijets->at(i).tau3() / toppuppijets->at(i).tau2(),weight);
-           if(i==0){
-               pt_AK8Topjet1_pt200->Fill(toppuppijets->at(i).pt(),weight);
-               eta_AK8Topjet1_pt200->Fill(toppuppijets->at(i).eta(),weight);
-               phi_AK8Topjet1_pt200->Fill(toppuppijets->at(i).phi(),weight);
-               mSD_AK8Topjet1_pt200->Fill(toppuppijets->at(i).softdropmass(),weight);
-               tau21_AK8Topjet1_pt200->Fill(toppuppijets->at(i).tau2() / toppuppijets->at(i).tau1(),weight);
-               tau32_AK8Topjet1_pt200->Fill(toppuppijets->at(i).tau3() / toppuppijets->at(i).tau2(),weight);
-           }
+          N_AK8Topjets_pt200->Fill(toppuppijets->size(), weight);
+          pt_AK8Topjets_pt200->Fill(toppuppijets->at(i).pt(),weight);
+          eta_AK8Topjets_pt200->Fill(toppuppijets->at(i).eta(),weight);
+          phi_AK8Topjets_pt200->Fill(toppuppijets->at(i).phi(),weight);
+          mSD_AK8Topjets_pt200->Fill(toppuppijets->at(i).softdropmass(),weight);
+          tau21_AK8Topjets_pt200->Fill(toppuppijets->at(i).tau2() / toppuppijets->at(i).tau1(),weight);
+          tau32_AK8Topjets_pt200->Fill(toppuppijets->at(i).tau3() / toppuppijets->at(i).tau2(),weight);
+          if(i==0){
+            pt_AK8Topjet1_pt200->Fill(toppuppijets->at(i).pt(),weight);
+            eta_AK8Topjet1_pt200->Fill(toppuppijets->at(i).eta(),weight);
+            phi_AK8Topjet1_pt200->Fill(toppuppijets->at(i).phi(),weight);
+            mSD_AK8Topjet1_pt200->Fill(toppuppijets->at(i).softdropmass(),weight);
+            tau21_AK8Topjet1_pt200->Fill(toppuppijets->at(i).tau2() / toppuppijets->at(i).tau1(),weight);
+            tau32_AK8Topjet1_pt200->Fill(toppuppijets->at(i).tau3() / toppuppijets->at(i).tau2(),weight);
+          }
         }else{
-           N_AK8Lightjets_pt200->Fill(toppuppijets->size(), weight);
-           pt_AK8Lightjets_pt200->Fill(toppuppijets->at(i).pt(),weight);
-           eta_AK8Lightjets_pt200->Fill(toppuppijets->at(i).eta(),weight);
-           phi_AK8Lightjets_pt200->Fill(toppuppijets->at(i).phi(),weight);
-           mSD_AK8Lightjets_pt200->Fill(toppuppijets->at(i).softdropmass(),weight);
-           tau21_AK8Lightjets_pt200->Fill(toppuppijets->at(i).tau2() / toppuppijets->at(i).tau1(),weight);
-           tau32_AK8Lightjets_pt200->Fill(toppuppijets->at(i).tau3() / toppuppijets->at(i).tau2(),weight);
-           if(i==0){
-               pt_AK8Lightjet1_pt200->Fill(toppuppijets->at(i).pt(),weight);
-               eta_AK8Lightjet1_pt200->Fill(toppuppijets->at(i).eta(),weight);
-               phi_AK8Lightjet1_pt200->Fill(toppuppijets->at(i).phi(),weight);
-               mSD_AK8Lightjet1_pt200->Fill(toppuppijets->at(i).softdropmass(),weight);
-               tau21_AK8Lightjet1_pt200->Fill(toppuppijets->at(i).tau2() / toppuppijets->at(i).tau1(),weight);
-               tau32_AK8Lightjet1_pt200->Fill(toppuppijets->at(i).tau3() / toppuppijets->at(i).tau2(),weight);
-           }
+          N_AK8Lightjets_pt200->Fill(toppuppijets->size(), weight);
+          pt_AK8Lightjets_pt200->Fill(toppuppijets->at(i).pt(),weight);
+          eta_AK8Lightjets_pt200->Fill(toppuppijets->at(i).eta(),weight);
+          phi_AK8Lightjets_pt200->Fill(toppuppijets->at(i).phi(),weight);
+          mSD_AK8Lightjets_pt200->Fill(toppuppijets->at(i).softdropmass(),weight);
+          tau21_AK8Lightjets_pt200->Fill(toppuppijets->at(i).tau2() / toppuppijets->at(i).tau1(),weight);
+          tau32_AK8Lightjets_pt200->Fill(toppuppijets->at(i).tau3() / toppuppijets->at(i).tau2(),weight);
+          if(i==0){
+            pt_AK8Lightjet1_pt200->Fill(toppuppijets->at(i).pt(),weight);
+            eta_AK8Lightjet1_pt200->Fill(toppuppijets->at(i).eta(),weight);
+            phi_AK8Lightjet1_pt200->Fill(toppuppijets->at(i).phi(),weight);
+            mSD_AK8Lightjet1_pt200->Fill(toppuppijets->at(i).softdropmass(),weight);
+            tau21_AK8Lightjet1_pt200->Fill(toppuppijets->at(i).tau2() / toppuppijets->at(i).tau1(),weight);
+            tau32_AK8Lightjet1_pt200->Fill(toppuppijets->at(i).tau3() / toppuppijets->at(i).tau2(),weight);
+          }
         }
       }
-  } // top jets loop
+    } // top jets loop
 
 
 
-  // AK8 PUPPI jets pT>400
-  for(unsigned int i=0; i<toppuppijets->size(); i++){
-    if(toppuppijets->at(i).pt()>400){
+    // AK8 PUPPI jets pT>400
+    for(unsigned int i=0; i<toppuppijets->size(); i++){
+      if(toppuppijets->at(i).pt()>400){
         N_AK8jets->Fill(toppuppijets->size(), weight);
         pt_AK8jets->Fill(toppuppijets->at(i).pt(),weight);
         eta_AK8jets->Fill(toppuppijets->at(i).eta(),weight);
@@ -257,126 +257,126 @@ void ZprimeSemiLeptonicMistagHists::fill(const Event & event){
         tau21_AK8jets->Fill(toppuppijets->at(i).tau2() / toppuppijets->at(i).tau1(),weight);
         tau32_AK8jets->Fill(toppuppijets->at(i).tau3() / toppuppijets->at(i).tau2(),weight);
         if(i==0){
-            pt_AK8jet1->Fill(toppuppijets->at(i).pt(),weight);
-            eta_AK8jet1->Fill(toppuppijets->at(i).eta(),weight);
-            phi_AK8jet1->Fill(toppuppijets->at(i).phi(),weight);
-            mSD_AK8jet1->Fill(toppuppijets->at(i).softdropmass(),weight);
-            tau21_AK8jet1->Fill(toppuppijets->at(i).tau2() / toppuppijets->at(i).tau1(),weight);
-            tau32_AK8jet1->Fill(toppuppijets->at(i).tau3() / toppuppijets->at(i).tau2(),weight);
+          pt_AK8jet1->Fill(toppuppijets->at(i).pt(),weight);
+          eta_AK8jet1->Fill(toppuppijets->at(i).eta(),weight);
+          phi_AK8jet1->Fill(toppuppijets->at(i).phi(),weight);
+          mSD_AK8jet1->Fill(toppuppijets->at(i).softdropmass(),weight);
+          tau21_AK8jet1->Fill(toppuppijets->at(i).tau2() / toppuppijets->at(i).tau1(),weight);
+          tau32_AK8jet1->Fill(toppuppijets->at(i).tau3() / toppuppijets->at(i).tau2(),weight);
         }
 
         // Match to gen-lvl top quark
         if(is_mc){
           double deltaR_min = 99;
           for(unsigned int j=0; j<genparticles->size(); ++j) {
-              if (abs(genparticles->at(j).pdgId()) == 6){
-                 double deltaR_top = deltaR(toppuppijets->at(i),genparticles->at(j));
-                 if(deltaR_top<deltaR_min) deltaR_min = deltaR_top;
-              }
+            if (abs(genparticles->at(j).pdgId()) == 6){
+              double deltaR_top = deltaR(toppuppijets->at(i),genparticles->at(j));
+              if(deltaR_top<deltaR_min) deltaR_min = deltaR_top;
+            }
           }
           if(deltaR_min<=0.4){
-             N_AK8Topjets->Fill(toppuppijets->size(), weight);
-             pt_AK8Topjets->Fill(toppuppijets->at(i).pt(),weight);
-             eta_AK8Topjets->Fill(toppuppijets->at(i).eta(),weight);
-             phi_AK8Topjets->Fill(toppuppijets->at(i).phi(),weight);
-             mSD_AK8Topjets->Fill(toppuppijets->at(i).softdropmass(),weight);
-             tau21_AK8Topjets->Fill(toppuppijets->at(i).tau2() / toppuppijets->at(i).tau1(),weight);
-             tau32_AK8Topjets->Fill(toppuppijets->at(i).tau3() / toppuppijets->at(i).tau2(),weight);
-             if(i==0){
-                 pt_AK8Topjet1->Fill(toppuppijets->at(i).pt(),weight);
-                 eta_AK8Topjet1->Fill(toppuppijets->at(i).eta(),weight);
-                 phi_AK8Topjet1->Fill(toppuppijets->at(i).phi(),weight);
-                 mSD_AK8Topjet1->Fill(toppuppijets->at(i).softdropmass(),weight);
-                 tau21_AK8Topjet1->Fill(toppuppijets->at(i).tau2() / toppuppijets->at(i).tau1(),weight);
-                 tau32_AK8Topjet1->Fill(toppuppijets->at(i).tau3() / toppuppijets->at(i).tau2(),weight);
-             }
+            N_AK8Topjets->Fill(toppuppijets->size(), weight);
+            pt_AK8Topjets->Fill(toppuppijets->at(i).pt(),weight);
+            eta_AK8Topjets->Fill(toppuppijets->at(i).eta(),weight);
+            phi_AK8Topjets->Fill(toppuppijets->at(i).phi(),weight);
+            mSD_AK8Topjets->Fill(toppuppijets->at(i).softdropmass(),weight);
+            tau21_AK8Topjets->Fill(toppuppijets->at(i).tau2() / toppuppijets->at(i).tau1(),weight);
+            tau32_AK8Topjets->Fill(toppuppijets->at(i).tau3() / toppuppijets->at(i).tau2(),weight);
+            if(i==0){
+              pt_AK8Topjet1->Fill(toppuppijets->at(i).pt(),weight);
+              eta_AK8Topjet1->Fill(toppuppijets->at(i).eta(),weight);
+              phi_AK8Topjet1->Fill(toppuppijets->at(i).phi(),weight);
+              mSD_AK8Topjet1->Fill(toppuppijets->at(i).softdropmass(),weight);
+              tau21_AK8Topjet1->Fill(toppuppijets->at(i).tau2() / toppuppijets->at(i).tau1(),weight);
+              tau32_AK8Topjet1->Fill(toppuppijets->at(i).tau3() / toppuppijets->at(i).tau2(),weight);
+            }
           }else{
-             N_AK8Lightjets->Fill(toppuppijets->size(), weight);
-             pt_AK8Lightjets->Fill(toppuppijets->at(i).pt(),weight);
-             eta_AK8Lightjets->Fill(toppuppijets->at(i).eta(),weight);
-             phi_AK8Lightjets->Fill(toppuppijets->at(i).phi(),weight);
-             mSD_AK8Lightjets->Fill(toppuppijets->at(i).softdropmass(),weight);
-             tau21_AK8Lightjets->Fill(toppuppijets->at(i).tau2() / toppuppijets->at(i).tau1(),weight);
-             tau32_AK8Lightjets->Fill(toppuppijets->at(i).tau3() / toppuppijets->at(i).tau2(),weight);
-             if(i==0){
-                 pt_AK8Lightjet1->Fill(toppuppijets->at(i).pt(),weight);
-                 eta_AK8Lightjet1->Fill(toppuppijets->at(i).eta(),weight);
-                 phi_AK8Lightjet1->Fill(toppuppijets->at(i).phi(),weight);
-                 mSD_AK8Lightjet1->Fill(toppuppijets->at(i).softdropmass(),weight);
-                 tau21_AK8Lightjet1->Fill(toppuppijets->at(i).tau2() / toppuppijets->at(i).tau1(),weight);
-                 tau32_AK8Lightjet1->Fill(toppuppijets->at(i).tau3() / toppuppijets->at(i).tau2(),weight);
-             }
+            N_AK8Lightjets->Fill(toppuppijets->size(), weight);
+            pt_AK8Lightjets->Fill(toppuppijets->at(i).pt(),weight);
+            eta_AK8Lightjets->Fill(toppuppijets->at(i).eta(),weight);
+            phi_AK8Lightjets->Fill(toppuppijets->at(i).phi(),weight);
+            mSD_AK8Lightjets->Fill(toppuppijets->at(i).softdropmass(),weight);
+            tau21_AK8Lightjets->Fill(toppuppijets->at(i).tau2() / toppuppijets->at(i).tau1(),weight);
+            tau32_AK8Lightjets->Fill(toppuppijets->at(i).tau3() / toppuppijets->at(i).tau2(),weight);
+            if(i==0){
+              pt_AK8Lightjet1->Fill(toppuppijets->at(i).pt(),weight);
+              eta_AK8Lightjet1->Fill(toppuppijets->at(i).eta(),weight);
+              phi_AK8Lightjet1->Fill(toppuppijets->at(i).phi(),weight);
+              mSD_AK8Lightjet1->Fill(toppuppijets->at(i).softdropmass(),weight);
+              tau21_AK8Lightjet1->Fill(toppuppijets->at(i).tau2() / toppuppijets->at(i).tau1(),weight);
+              tau32_AK8Lightjet1->Fill(toppuppijets->at(i).tau3() / toppuppijets->at(i).tau2(),weight);
+            }
           }
         }
-    } // pT>400
-  } // top jets loop
+      } // pT>400
+    } // top jets loop
 
-  // Top-tagged AK8 PUPPI jets
-  vector<TopJet> AK8PuppiTopTags = event.get(h_AK8TopTags);
-  
-  N_AK8jets_tagged->Fill(AK8PuppiTopTags.size(), weight);
-  for(unsigned int l=0; l<AK8PuppiTopTags.size(); l++){
-    pt_AK8jets_tagged->Fill(AK8PuppiTopTags.at(l).pt(),weight);
-    eta_AK8jets_tagged->Fill(AK8PuppiTopTags.at(l).eta(),weight);
-    phi_AK8jets_tagged->Fill(AK8PuppiTopTags.at(l).phi(),weight);
-    mSD_AK8jets_tagged->Fill(AK8PuppiTopTags.at(l).softdropmass(),weight);
-    tau21_AK8jets_tagged->Fill(AK8PuppiTopTags.at(l).tau2() / AK8PuppiTopTags.at(l).tau1(),weight);
-    tau32_AK8jets_tagged->Fill(AK8PuppiTopTags.at(l).tau3() / AK8PuppiTopTags.at(l).tau2(),weight);
-    if(l==0){
+    // Top-tagged AK8 PUPPI jets
+    vector<TopJet> AK8PuppiTopTags = event.get(h_AK8TopTags);
+
+    N_AK8jets_tagged->Fill(AK8PuppiTopTags.size(), weight);
+    for(unsigned int l=0; l<AK8PuppiTopTags.size(); l++){
+      pt_AK8jets_tagged->Fill(AK8PuppiTopTags.at(l).pt(),weight);
+      eta_AK8jets_tagged->Fill(AK8PuppiTopTags.at(l).eta(),weight);
+      phi_AK8jets_tagged->Fill(AK8PuppiTopTags.at(l).phi(),weight);
+      mSD_AK8jets_tagged->Fill(AK8PuppiTopTags.at(l).softdropmass(),weight);
+      tau21_AK8jets_tagged->Fill(AK8PuppiTopTags.at(l).tau2() / AK8PuppiTopTags.at(l).tau1(),weight);
+      tau32_AK8jets_tagged->Fill(AK8PuppiTopTags.at(l).tau3() / AK8PuppiTopTags.at(l).tau2(),weight);
+      if(l==0){
         pt_AK8jet1_tagged->Fill(AK8PuppiTopTags.at(l).pt(),weight);
         eta_AK8jet1_tagged->Fill(AK8PuppiTopTags.at(l).eta(),weight);
         phi_AK8jet1_tagged->Fill(AK8PuppiTopTags.at(l).phi(),weight);
         mSD_AK8jet1_tagged->Fill(AK8PuppiTopTags.at(l).softdropmass(),weight);
         tau21_AK8jet1_tagged->Fill(AK8PuppiTopTags.at(l).tau2() / AK8PuppiTopTags.at(l).tau1(),weight);
         tau32_AK8jet1_tagged->Fill(AK8PuppiTopTags.at(l).tau3() / AK8PuppiTopTags.at(l).tau2(),weight);
-    }
+      }
 
-    // Match to gen-lvl top quark
-    if(is_mc){
-      double deltaR_min_tagged = 99;
-      for(unsigned int k=0; k<genparticles->size(); ++k) {
+      // Match to gen-lvl top quark
+      if(is_mc){
+        double deltaR_min_tagged = 99;
+        for(unsigned int k=0; k<genparticles->size(); ++k) {
           if (abs(genparticles->at(k).pdgId()) == 6){
-             double deltaR_top_tagged = deltaR(AK8PuppiTopTags.at(l),genparticles->at(k));
-             if(deltaR_top_tagged<deltaR_min_tagged) deltaR_min_tagged = deltaR_top_tagged;
+            double deltaR_top_tagged = deltaR(AK8PuppiTopTags.at(l),genparticles->at(k));
+            if(deltaR_top_tagged<deltaR_min_tagged) deltaR_min_tagged = deltaR_top_tagged;
           }
+        }
+        if(deltaR_min_tagged<=0.4){
+          N_AK8Topjets_tagged->Fill(AK8PuppiTopTags.size(), weight);
+          pt_AK8Topjets_tagged->Fill(AK8PuppiTopTags.at(l).pt(),weight);
+          eta_AK8Topjets_tagged->Fill(AK8PuppiTopTags.at(l).eta(),weight);
+          phi_AK8Topjets_tagged->Fill(AK8PuppiTopTags.at(l).phi(),weight);
+          mSD_AK8Topjets_tagged->Fill(AK8PuppiTopTags.at(l).softdropmass(),weight);
+          tau21_AK8Topjets_tagged->Fill(AK8PuppiTopTags.at(l).tau2() / AK8PuppiTopTags.at(l).tau1(),weight);
+          tau32_AK8Topjets_tagged->Fill(AK8PuppiTopTags.at(l).tau3() / AK8PuppiTopTags.at(l).tau2(),weight);
+          if(l==0){
+            pt_AK8Topjet1_tagged->Fill(AK8PuppiTopTags.at(l).pt(),weight);
+            eta_AK8Topjet1_tagged->Fill(AK8PuppiTopTags.at(l).eta(),weight);
+            phi_AK8Topjet1_tagged->Fill(AK8PuppiTopTags.at(l).phi(),weight);
+            mSD_AK8Topjet1_tagged->Fill(AK8PuppiTopTags.at(l).softdropmass(),weight);
+            tau21_AK8Topjet1_tagged->Fill(AK8PuppiTopTags.at(l).tau2() / AK8PuppiTopTags.at(l).tau1(),weight);
+            tau32_AK8Topjet1_tagged->Fill(AK8PuppiTopTags.at(l).tau3() / AK8PuppiTopTags.at(l).tau2(),weight);
+          }
+        }else{
+          N_AK8Lightjets_tagged->Fill(AK8PuppiTopTags.size(), weight);
+          pt_AK8Lightjets_tagged->Fill(AK8PuppiTopTags.at(l).pt(),weight);
+          eta_AK8Lightjets_tagged->Fill(AK8PuppiTopTags.at(l).eta(),weight);
+          phi_AK8Lightjets_tagged->Fill(AK8PuppiTopTags.at(l).phi(),weight);
+          mSD_AK8Lightjets_tagged->Fill(AK8PuppiTopTags.at(l).softdropmass(),weight);
+          tau21_AK8Lightjets_tagged->Fill(AK8PuppiTopTags.at(l).tau2() / AK8PuppiTopTags.at(l).tau1(),weight);
+          tau32_AK8Lightjets_tagged->Fill(AK8PuppiTopTags.at(l).tau3() / AK8PuppiTopTags.at(l).tau2(),weight);
+          if(l==0){
+            pt_AK8Lightjet1_tagged->Fill(AK8PuppiTopTags.at(l).pt(),weight);
+            eta_AK8Lightjet1_tagged->Fill(AK8PuppiTopTags.at(l).eta(),weight);
+            phi_AK8Lightjet1_tagged->Fill(AK8PuppiTopTags.at(l).phi(),weight);
+            mSD_AK8Lightjet1_tagged->Fill(AK8PuppiTopTags.at(l).softdropmass(),weight);
+            tau21_AK8Lightjet1_tagged->Fill(AK8PuppiTopTags.at(l).tau2() / AK8PuppiTopTags.at(l).tau1(),weight);
+            tau32_AK8Lightjet1_tagged->Fill(AK8PuppiTopTags.at(l).tau3() / AK8PuppiTopTags.at(l).tau2(),weight);
+          }
+        }
       }
-      if(deltaR_min_tagged<=0.4){
-         N_AK8Topjets_tagged->Fill(AK8PuppiTopTags.size(), weight);
-         pt_AK8Topjets_tagged->Fill(AK8PuppiTopTags.at(l).pt(),weight);
-         eta_AK8Topjets_tagged->Fill(AK8PuppiTopTags.at(l).eta(),weight);
-         phi_AK8Topjets_tagged->Fill(AK8PuppiTopTags.at(l).phi(),weight);
-         mSD_AK8Topjets_tagged->Fill(AK8PuppiTopTags.at(l).softdropmass(),weight);
-         tau21_AK8Topjets_tagged->Fill(AK8PuppiTopTags.at(l).tau2() / AK8PuppiTopTags.at(l).tau1(),weight);
-         tau32_AK8Topjets_tagged->Fill(AK8PuppiTopTags.at(l).tau3() / AK8PuppiTopTags.at(l).tau2(),weight);
-         if(l==0){
-             pt_AK8Topjet1_tagged->Fill(AK8PuppiTopTags.at(l).pt(),weight);
-             eta_AK8Topjet1_tagged->Fill(AK8PuppiTopTags.at(l).eta(),weight);
-             phi_AK8Topjet1_tagged->Fill(AK8PuppiTopTags.at(l).phi(),weight);
-             mSD_AK8Topjet1_tagged->Fill(AK8PuppiTopTags.at(l).softdropmass(),weight);
-             tau21_AK8Topjet1_tagged->Fill(AK8PuppiTopTags.at(l).tau2() / AK8PuppiTopTags.at(l).tau1(),weight);
-             tau32_AK8Topjet1_tagged->Fill(AK8PuppiTopTags.at(l).tau3() / AK8PuppiTopTags.at(l).tau2(),weight);
-         }
-      }else{
-         N_AK8Lightjets_tagged->Fill(AK8PuppiTopTags.size(), weight);
-         pt_AK8Lightjets_tagged->Fill(AK8PuppiTopTags.at(l).pt(),weight);
-         eta_AK8Lightjets_tagged->Fill(AK8PuppiTopTags.at(l).eta(),weight);
-         phi_AK8Lightjets_tagged->Fill(AK8PuppiTopTags.at(l).phi(),weight);
-         mSD_AK8Lightjets_tagged->Fill(AK8PuppiTopTags.at(l).softdropmass(),weight);
-         tau21_AK8Lightjets_tagged->Fill(AK8PuppiTopTags.at(l).tau2() / AK8PuppiTopTags.at(l).tau1(),weight);
-         tau32_AK8Lightjets_tagged->Fill(AK8PuppiTopTags.at(l).tau3() / AK8PuppiTopTags.at(l).tau2(),weight);
-         if(l==0){
-             pt_AK8Lightjet1_tagged->Fill(AK8PuppiTopTags.at(l).pt(),weight);
-             eta_AK8Lightjet1_tagged->Fill(AK8PuppiTopTags.at(l).eta(),weight);
-             phi_AK8Lightjet1_tagged->Fill(AK8PuppiTopTags.at(l).phi(),weight);
-             mSD_AK8Lightjet1_tagged->Fill(AK8PuppiTopTags.at(l).softdropmass(),weight);
-             tau21_AK8Lightjet1_tagged->Fill(AK8PuppiTopTags.at(l).tau2() / AK8PuppiTopTags.at(l).tau1(),weight);
-             tau32_AK8Lightjet1_tagged->Fill(AK8PuppiTopTags.at(l).tau3() / AK8PuppiTopTags.at(l).tau2(),weight);
-         }
-      }
-    }
-  } // tagged top jets loop
+    } // tagged top jets loop
 
- } // isdeepAK8
+  } // isdeepAK8
 
 } //Method
 

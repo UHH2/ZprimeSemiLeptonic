@@ -85,6 +85,10 @@ Hists(ctx, dirname) {
   h_ttag_corr_down     = ctx.get_handle<float>("weight_toptagsf_corr_down");
   h_ttag_uncorr_up     = ctx.get_handle<float>("weight_toptagsf_uncorr_up");
   h_ttag_uncorr_down   = ctx.get_handle<float>("weight_toptagsf_uncorr_down");
+  h_tmistag            = ctx.get_handle<float>("weight_topmistagsf");
+  h_tmistag_up         = ctx.get_handle<float>("weight_topmistagsf_up");
+  h_tmistag_down       = ctx.get_handle<float>("weight_topmistagsf_down");
+
 
   h_BestZprimeCandidateChi2 = ctx.get_handle<ZprimeCandidate*>("ZprimeCandidateBestChi2");
   h_is_zprime_reconstructed_chi2 = ctx.get_handle<bool>("is_zprime_reconstructed_chi2");
@@ -143,6 +147,9 @@ void ZprimeSemiLeptonicSystematicsHists::init(){
   M_Zprime_ttag_corr_down     = book<TH1F>("M_Zprime_ttag_corr_down", "M_{t#bar{t}} [GeV] ttag_corr_down",         400, 0, 10000);
   M_Zprime_ttag_uncorr_up     = book<TH1F>("M_Zprime_ttag_uncorr_up", "M_{t#bar{t}} [GeV] ttag_uncorr_up",         400, 0, 10000);
   M_Zprime_ttag_uncorr_down   = book<TH1F>("M_Zprime_ttag_uncorr_down", "M_{t#bar{t}} [GeV] ttag_counrr_down",     400, 0, 10000);
+  M_Zprime_tmistag            = book<TH1F>("M_Zprime_tmistag", "M_{t#bar{t}} [GeV] tmistag",                       400, 0, 10000);
+  M_Zprime_tmistag_up         = book<TH1F>("M_Zprime_tmistag_up", "M_{t#bar{t}} [GeV] tmistag_up",                 400, 0, 10000);
+  M_Zprime_tmistag_down       = book<TH1F>("M_Zprime_tmistag_down", "M_{t#bar{t}} [GeV] tmistag_down",             400, 0, 10000);
 }
 
 
@@ -208,6 +215,10 @@ void ZprimeSemiLeptonicSystematicsHists::fill(const Event & event){
   float ttag_corr_down     = event.get(h_ttag_corr_down);
   float ttag_uncorr_up     = event.get(h_ttag_uncorr_up);
   float ttag_uncorr_down   = event.get(h_ttag_uncorr_down);
+  float tmistag_nominal    = event.get(h_tmistag);
+  float tmistag_up         = event.get(h_tmistag_up);
+  float tmistag_down       = event.get(h_tmistag_down);
+
 
   // only up/down variations
   vector<string> names       = {"ele_reco", "ele_id", "ele_trigger", "mu_reco", "mu_iso", "mu_id", "mu_trigger", "pu", "prefiring"};
@@ -228,6 +239,10 @@ void ZprimeSemiLeptonicSystematicsHists::fill(const Event & event){
   // ttag variations need special treatment
   vector<float> syst_ttag = {ttag_corr_up, ttag_corr_down, ttag_uncorr_up, ttag_uncorr_down};
   vector<TH1F*> hists_ttag = {M_Zprime_ttag_corr_up, M_Zprime_ttag_corr_down, M_Zprime_ttag_uncorr_up, M_Zprime_ttag_uncorr_down};
+
+  // tmistag variations need special treatment
+  vector<float> syst_tmistag = {tmistag_up, tmistag_down};
+  vector<TH1F*> hists_tmistag = {M_Zprime_tmistag_up, M_Zprime_tmistag_down};
 
   // parton shower variations (ISR, FSR) need special treatment
   vector<float> syst_ps = {isr_up, isr_down, fsr_up, fsr_down};
@@ -254,9 +269,13 @@ void ZprimeSemiLeptonicSystematicsHists::fill(const Event & event){
     for(unsigned int i=0; i<hists_btag.size(); i++){
       hists_btag.at(i)->Fill(Mreco, weight * syst_btag.at(i)/btag_nominal);
     }
-    // ttag variations!
+    // ttag variations
     for(unsigned int i=0; i<hists_ttag.size(); i++){
       hists_ttag.at(i)->Fill(Mreco, weight * syst_ttag.at(i)/ttag_nominal);
+    }
+    // tmistag variations
+    for(unsigned int i=0; i<hists_tmistag.size(); i++){
+      hists_tmistag.at(i)->Fill(Mreco, weight * syst_tmistag.at(i)/tmistag_nominal);
     }
     // ps variations
     for(unsigned int i=0; i<hists_ps.size(); i++){

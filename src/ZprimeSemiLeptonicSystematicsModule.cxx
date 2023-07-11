@@ -31,8 +31,8 @@ ZprimeSemiLeptonicSystematicsModule::ZprimeSemiLeptonicSystematicsModule(Context
     cout << " is nonstandard pdf set = true" << endl;
   }
 
-  v_systs = {"pu", "prefiring", "mu_id", "mu_iso", "mu_reco", "mu_trigger", "ele_id", "ele_reco", "ele_trigger", "btag_cferr1", "btag_cferr2", "btag_hf", "btag_hfstats1", "btag_hfstats2", "btag_lf", "btag_lfstats1", "btag_lfstats2", "ttag_corr", "ttag_uncorr"};
-  v_syst_handlenames = {"weight_pu", "prefiringWeight", "weight_sfmu_id", "weight_sfmu_iso", "weight_sfmu_reco", "weight_sfmu_trigger", "weight_sfelec_id", "weight_sfelec_reco", "weight_sfelec_trigger", "weight_btagdisc_cferr1", "weight_btagdisc_cferr2", "weight_btagdisc_hf", "weight_btagdisc_hfstats1", "weight_btagdisc_hfstats2", "weight_btagdisc_lf", "weight_btagdisc_lfstats1", "weight_btagdisc_lfstats2", "weight_toptagsf_corr", "weight_toptagsf_uncorr"};
+  v_systs = {"pu", "prefiring", "mu_id", "mu_iso", "mu_reco", "mu_trigger", "ele_id", "ele_reco", "ele_trigger", "btag_cferr1", "btag_cferr2", "btag_hf", "btag_hfstats1", "btag_hfstats2", "btag_lf", "btag_lfstats1", "btag_lfstats2", "ttag_corr", "ttag_uncorr", "tmistag"};
+  v_syst_handlenames = {"weight_pu", "prefiringWeight", "weight_sfmu_id", "weight_sfmu_iso", "weight_sfmu_reco", "weight_sfmu_trigger", "weight_sfelec_id", "weight_sfelec_reco", "weight_sfelec_trigger", "weight_btagdisc_cferr1", "weight_btagdisc_cferr2", "weight_btagdisc_hf", "weight_btagdisc_hfstats1", "weight_btagdisc_hfstats2", "weight_btagdisc_lf", "weight_btagdisc_lfstats1", "weight_btagdisc_lfstats2", "weight_toptagsf_corr", "weight_toptagsf_uncorr", "weight_topmistagsf"};
   v_psscales = {"isr", "fsr"};
   v_psscale_handlenames = {"weight_isr_2", "weight_fsr_2"};
   v_variations = {"up", "down"};
@@ -61,6 +61,9 @@ ZprimeSemiLeptonicSystematicsModule::ZprimeSemiLeptonicSystematicsModule(Context
       }
       else if(v_systs[i].Contains("ttag")){ // ttag variations have the same nominal
         handlename_nominal = "weight_toptagsf";
+      }
+      else if(v_systs[i].Contains("tmistag")){ // tmistag variations have the same nominal
+        handlename_nominal = "weight_topmistagsf";
       }
 
       uhh2::Event::Handle<float> handle_nominal = ctx.declare_event_output<float>((string) handlename_nominal);
