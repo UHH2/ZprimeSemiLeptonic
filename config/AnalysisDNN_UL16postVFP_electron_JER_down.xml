@@ -253,6 +253,19 @@
 <!ENTITY ZPrimeToTT_M7000_W70_UL16postVFP SYSTEM "../data/Skimming_datasets_UL16postVFP_electron_JER_down/MC_ZPrimeToTT_M7000_W70_UL16postVFP.xml">
 <!ENTITY ZPrimeToTT_M8000_W80_UL16postVFP SYSTEM "../data/Skimming_datasets_UL16postVFP_electron_JER_down/MC_ZPrimeToTT_M8000_W80_UL16postVFP.xml">
 <!ENTITY ZPrimeToTT_M9000_W90_UL16postVFP SYSTEM "../data/Skimming_datasets_UL16postVFP_electron_JER_down/MC_ZPrimeToTT_M9000_W90_UL16postVFP.xml">
+<!-- ZPrime DM -->
+<!ENTITY ZprimeDMToTTbarResoIncl_MZp1000_Mchi10_V1_UL16postVFP   SYSTEM "../data/Skimming_datasets_UL16postVFP_electron_JER_down/MC_ZprimeDMToTTbarResoIncl_MZp1000_Mchi10_V1_UL16postVFP.xml">
+<!ENTITY ZprimeDMToTTbarResoIncl_MZp1500_Mchi10_V1_UL16postVFP   SYSTEM "../data/Skimming_datasets_UL16postVFP_electron_JER_down/MC_ZprimeDMToTTbarResoIncl_MZp1500_Mchi10_V1_UL16postVFP.xml">
+<!ENTITY ZprimeDMToTTbarResoIncl_MZp2000_Mchi10_V1_UL16postVFP   SYSTEM "../data/Skimming_datasets_UL16postVFP_electron_JER_down/MC_ZprimeDMToTTbarResoIncl_MZp2000_Mchi10_V1_UL16postVFP.xml">
+<!ENTITY ZprimeDMToTTbarResoIncl_MZp2500_Mchi10_V1_UL16postVFP   SYSTEM "../data/Skimming_datasets_UL16postVFP_electron_JER_down/MC_ZprimeDMToTTbarResoIncl_MZp2500_Mchi10_V1_UL16postVFP.xml">
+<!ENTITY ZprimeDMToTTbarResoIncl_MZp3000_Mchi10_V1_UL16postVFP   SYSTEM "../data/Skimming_datasets_UL16postVFP_electron_JER_down/MC_ZprimeDMToTTbarResoIncl_MZp3000_Mchi10_V1_UL16postVFP.xml">
+<!ENTITY ZprimeDMToTTbarResoIncl_MZp3500_Mchi10_V1_UL16postVFP   SYSTEM "../data/Skimming_datasets_UL16postVFP_electron_JER_down/MC_ZprimeDMToTTbarResoIncl_MZp3500_Mchi10_V1_UL16postVFP.xml">
+<!ENTITY ZprimeDMToTTbarResoIncl_MZp4000_Mchi10_V1_UL16postVFP   SYSTEM "../data/Skimming_datasets_UL16postVFP_electron_JER_down/MC_ZprimeDMToTTbarResoIncl_MZp4000_Mchi10_V1_UL16postVFP.xml">
+<!ENTITY ZprimeDMToTTbarResoIncl_MZp4500_Mchi10_V1_UL16postVFP   SYSTEM "../data/Skimming_datasets_UL16postVFP_electron_JER_down/MC_ZprimeDMToTTbarResoIncl_MZp4500_Mchi10_V1_UL16postVFP.xml">
+<!ENTITY ZprimeDMToTTbarResoIncl_MZp5000_Mchi10_V1_UL16postVFP   SYSTEM "../data/Skimming_datasets_UL16postVFP_electron_JER_down/MC_ZprimeDMToTTbarResoIncl_MZp5000_Mchi10_V1_UL16postVFP.xml">
+<!ENTITY ZprimeDMToTTbarResoIncl_MZp2500_Mchi1000_A1_UL16postVFP SYSTEM "../data/Skimming_datasets_UL16postVFP_electron_JER_down/MC_ZprimeDMToTTbarResoIncl_MZp2500_Mchi1000_A1_UL16postVFP.xml">
+<!ENTITY ZprimeDMToTTbarResoIncl_MZp2500_Mchi1000_V1_UL16postVFP SYSTEM "../data/Skimming_datasets_UL16postVFP_electron_JER_down/MC_ZprimeDMToTTbarResoIncl_MZp2500_Mchi1000_V1_UL16postVFP.xml">
+<!ENTITY ZprimeDMToTTbarResoIncl_MZp2500_Mchi10_A1_UL16postVFP   SYSTEM "../data/Skimming_datasets_UL16postVFP_electron_JER_down/MC_ZprimeDMToTTbarResoIncl_MZp2500_Mchi10_A1_UL16postVFP.xml">
 ]>
 
 <!--
@@ -365,17 +378,17 @@
 			<OutputTree Name="AnalysisTree"/>
 		</InputData>
 		<!-- Diboson -->
-		<InputData Lumi="208090.331959" NEventsMax="&NEVT;" Type="MC" Version="WW_UL16postVFP" Cacheable="&b_Cacheable;">
+		<InputData Lumi="133076.13394082926" NEventsMax="&NEVT;" Type="MC" Version="WW_UL16postVFP" Cacheable="&b_Cacheable;">
 			&WW_UL16postVFP;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-		<InputData Lumi="273439.767779" NEventsMax="&NEVT;" Type="MC" Version="WZ_UL16postVFP" Cacheable="&b_Cacheable;">
+		<InputData Lumi="161232.3491686739" NEventsMax="&NEVT;" Type="MC" Version="WZ_UL16postVFP" Cacheable="&b_Cacheable;">
 			&WZ_UL16postVFP;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-		<InputData Lumi="94888.7056884" NEventsMax="&NEVT;" Type="MC" Version="ZZ_UL16postVFP" Cacheable="&b_Cacheable;">
+		<InputData Lumi="68066.2329972518" NEventsMax="&NEVT;" Type="MC" Version="ZZ_UL16postVFP" Cacheable="&b_Cacheable;">
 			&ZZ_UL16postVFP;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
@@ -1403,6 +1416,67 @@
 			<InputTree Name="AnalysisTree"/>
 			<OutputTree Name="AnalysisTree"/>
 		</InputData>
+                <!-- ZPrime DM -->
+                <InputData Lumi="933000.0" NEventsMax="&NEVT;" Type="MC" Version="ZprimeDMToTTbarResoIncl_MZp1000_Mchi10_V1_UL16postVFP" Cacheable="&b_Cacheable;">
+                        &ZprimeDMToTTbarResoIncl_MZp1000_Mchi10_V1_UL16postVFP;
+                        <InputTree Name="AnalysisTree"/>
+                        <OutputTree Name="AnalysisTree"/>
+                </InputData>
+                <InputData Lumi="1000000.0" NEventsMax="&NEVT;" Type="MC" Version="ZprimeDMToTTbarResoIncl_MZp1500_Mchi10_V1_UL16postVFP" Cacheable="&b_Cacheable;">
+                        &ZprimeDMToTTbarResoIncl_MZp1500_Mchi10_V1_UL16postVFP;
+                        <InputTree Name="AnalysisTree"/>
+                        <OutputTree Name="AnalysisTree"/>
+                </InputData>
+                <InputData Lumi="935000.0" NEventsMax="&NEVT;" Type="MC" Version="ZprimeDMToTTbarResoIncl_MZp2000_Mchi10_V1_UL16postVFP" Cacheable="&b_Cacheable;">
+                        &ZprimeDMToTTbarResoIncl_MZp2000_Mchi10_V1_UL16postVFP;
+                        <InputTree Name="AnalysisTree"/>
+                        <OutputTree Name="AnalysisTree"/>
+                </InputData>
+                <InputData Lumi="999999.0" NEventsMax="&NEVT;" Type="MC" Version="ZprimeDMToTTbarResoIncl_MZp2500_Mchi10_V1_UL16postVFP" Cacheable="&b_Cacheable;">
+                        &ZprimeDMToTTbarResoIncl_MZp2500_Mchi10_V1_UL16postVFP;
+                        <InputTree Name="AnalysisTree"/>
+                        <OutputTree Name="AnalysisTree"/>
+                </InputData>
+                <InputData Lumi="925000.0" NEventsMax="&NEVT;" Type="MC" Version="ZprimeDMToTTbarResoIncl_MZp3000_Mchi10_V1_UL16postVFP" Cacheable="&b_Cacheable;">
+                        &ZprimeDMToTTbarResoIncl_MZp3000_Mchi10_V1_UL16postVFP;
+                        <InputTree Name="AnalysisTree"/>
+                        <OutputTree Name="AnalysisTree"/>
+                </InputData>
+                <InputData Lumi="998999.0" NEventsMax="&NEVT;" Type="MC" Version="ZprimeDMToTTbarResoIncl_MZp3500_Mchi10_V1_UL16postVFP" Cacheable="&b_Cacheable;">
+                        &ZprimeDMToTTbarResoIncl_MZp3500_Mchi10_V1_UL16postVFP;
+                        <InputTree Name="AnalysisTree"/>
+                        <OutputTree Name="AnalysisTree"/>
+                </InputData>
+                <InputData Lumi="996000.0" NEventsMax="&NEVT;" Type="MC" Version="ZprimeDMToTTbarResoIncl_MZp4000_Mchi10_V1_UL16postVFP" Cacheable="&b_Cacheable;">
+                        &ZprimeDMToTTbarResoIncl_MZp4000_Mchi10_V1_UL16postVFP;
+                        <InputTree Name="AnalysisTree"/>
+                        <OutputTree Name="AnalysisTree"/>
+                </InputData>
+                <InputData Lumi="993000.0" NEventsMax="&NEVT;" Type="MC" Version="ZprimeDMToTTbarResoIncl_MZp4500_Mchi10_V1_UL16postVFP" Cacheable="&b_Cacheable;">
+                        &ZprimeDMToTTbarResoIncl_MZp4500_Mchi10_V1_UL16postVFP;
+                        <InputTree Name="AnalysisTree"/>
+                        <OutputTree Name="AnalysisTree"/>
+                </InputData>
+                <InputData Lumi="991999.0" NEventsMax="&NEVT;" Type="MC" Version="ZprimeDMToTTbarResoIncl_MZp5000_Mchi10_V1_UL16postVFP" Cacheable="&b_Cacheable;">
+                        &ZprimeDMToTTbarResoIncl_MZp5000_Mchi10_V1_UL16postVFP;
+                        <InputTree Name="AnalysisTree"/>
+                        <OutputTree Name="AnalysisTree"/>
+                </InputData>
+                <InputData Lumi="999000.0" NEventsMax="&NEVT;" Type="MC" Version="ZprimeDMToTTbarResoIncl_MZp2500_Mchi1000_A1_UL16postVFP" Cacheable="&b_Cacheable;">
+                        &ZprimeDMToTTbarResoIncl_MZp2500_Mchi1000_A1_UL16postVFP;
+                        <InputTree Name="AnalysisTree"/>
+                        <OutputTree Name="AnalysisTree"/>
+                </InputData>
+                <InputData Lumi="996000.0" NEventsMax="&NEVT;" Type="MC" Version="ZprimeDMToTTbarResoIncl_MZp2500_Mchi1000_V1_UL16postVFP" Cacheable="&b_Cacheable;">
+                        &ZprimeDMToTTbarResoIncl_MZp2500_Mchi1000_V1_UL16postVFP;
+                        <InputTree Name="AnalysisTree"/>
+                        <OutputTree Name="AnalysisTree"/>
+                </InputData>
+                <InputData Lumi="970000.0" NEventsMax="&NEVT;" Type="MC" Version="ZprimeDMToTTbarResoIncl_MZp2500_Mchi10_A1_UL16postVFP" Cacheable="&b_Cacheable;">
+                        &ZprimeDMToTTbarResoIncl_MZp2500_Mchi10_A1_UL16postVFP;
+                        <InputTree Name="AnalysisTree"/>
+                        <OutputTree Name="AnalysisTree"/>
+                </InputData>
 
 		<UserConfig>
 			<Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices"/>
