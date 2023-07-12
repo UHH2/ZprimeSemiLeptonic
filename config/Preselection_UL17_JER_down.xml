@@ -238,22 +238,6 @@
 
 	<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&PRESELdir;/" PostFix="" TargetLumi="&TargetLumi;">
 
-		<InputData Lumi="1.0" NEventsMax="&NEVT;" Type="DATA" Version="SingleMuon_RunB&YEARsuffix;" Cacheable="&b_Cacheable;"> &SingleMuon_RunB; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
-		<InputData Lumi="1.0" NEventsMax="&NEVT;" Type="DATA" Version="SingleMuon_RunC&YEARsuffix;" Cacheable="&b_Cacheable;"> &SingleMuon_RunC; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
-		<InputData Lumi="1.0" NEventsMax="&NEVT;" Type="DATA" Version="SingleMuon_RunD&YEARsuffix;" Cacheable="&b_Cacheable;"> &SingleMuon_RunD; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
-		<InputData Lumi="1.0" NEventsMax="&NEVT;" Type="DATA" Version="SingleMuon_RunE&YEARsuffix;" Cacheable="&b_Cacheable;"> &SingleMuon_RunE; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
-		<InputData Lumi="1.0" NEventsMax="&NEVT;" Type="DATA" Version="SingleMuon_RunF&YEARsuffix;" Cacheable="&b_Cacheable;"> &SingleMuon_RunF; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
-		<InputData Lumi="1.0" NEventsMax="&NEVT;" Type="DATA" Version="SingleElectron_RunB&YEARsuffix;" Cacheable="&b_Cacheable;"> &SingleElectron_RunB; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
-		<InputData Lumi="1.0" NEventsMax="&NEVT;" Type="DATA" Version="SingleElectron_RunC&YEARsuffix;" Cacheable="&b_Cacheable;"> &SingleElectron_RunC; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
-		<InputData Lumi="1.0" NEventsMax="&NEVT;" Type="DATA" Version="SingleElectron_RunD&YEARsuffix;" Cacheable="&b_Cacheable;"> &SingleElectron_RunD; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
-		<InputData Lumi="1.0" NEventsMax="&NEVT;" Type="DATA" Version="SingleElectron_RunE&YEARsuffix;" Cacheable="&b_Cacheable;"> &SingleElectron_RunE; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
-		<InputData Lumi="1.0" NEventsMax="&NEVT;" Type="DATA" Version="SingleElectron_RunF&YEARsuffix;" Cacheable="&b_Cacheable;"> &SingleElectron_RunF; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
-		<InputData Lumi="1.0" NEventsMax="&NEVT;" Type="DATA" Version="SinglePhoton_RunB&YEARsuffix;" Cacheable="&b_Cacheable;"> &SinglePhoton_RunB; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
-		<InputData Lumi="1.0" NEventsMax="&NEVT;" Type="DATA" Version="SinglePhoton_RunC&YEARsuffix;" Cacheable="&b_Cacheable;"> &SinglePhoton_RunC; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
-		<InputData Lumi="1.0" NEventsMax="&NEVT;" Type="DATA" Version="SinglePhoton_RunD&YEARsuffix;" Cacheable="&b_Cacheable;"> &SinglePhoton_RunD; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
-		<InputData Lumi="1.0" NEventsMax="&NEVT;" Type="DATA" Version="SinglePhoton_RunE&YEARsuffix;" Cacheable="&b_Cacheable;"> &SinglePhoton_RunE; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
-		<InputData Lumi="1.0" NEventsMax="&NEVT;" Type="DATA" Version="SinglePhoton_RunF&YEARsuffix;" Cacheable="&b_Cacheable;"> &SinglePhoton_RunF; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
-
 		<InputData Lumi="287297864.34871227" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic&YEARsuffix;" Cacheable="&b_Cacheable;"> &TTToSemiLeptonic; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
 		<InputData Lumi="86394848.08209327" NEventsMax="&NEVT;" Type="MC" Version="TTTo2L2Nu&YEARsuffix;" Cacheable="&b_Cacheable;"> &TTTo2L2Nu; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
 		<InputData Lumi="190947232.88378084" NEventsMax="&NEVT;" Type="MC" Version="TTToHadronic&YEARsuffix;" Cacheable="&b_Cacheable;"> &TTToHadronic; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
