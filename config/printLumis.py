@@ -1,9 +1,11 @@
+#!/usr/bin/env python3
+
 import sys
 sys.path.insert(1, '/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/common/UHH2-datasets/')
 
 from CrossSectionHelper import *
 
-year = "UL16preVFP" # choose: UL16preVFP, UL16postVFP, UL17, UL18
+year = "UL17" # choose: UL16preVFP, UL16postVFP, UL17, UL18
 print("---------- " + year + " ----------")
 
 samples = [
@@ -29,9 +31,9 @@ samples = [
     "DYJetsToLL_M-50_HT-1200to2500",
     "DYJetsToLL_M-50_HT-2500toInf",
 
-    "WW",
-    "WZ",
-    "ZZ",
+    "WW", # use k-factors!
+    "WZ", # use k-factors!
+    "ZZ", # use k-factors!
 
     "ST_tW_antitop_5f_NoFullyHadronicDecays",
     "ST_tW_top_5f_NoFullyHadronicDecays",
@@ -211,9 +213,22 @@ samples = [
     "ZprimeToTT_M7000_W70",
     "ZprimeToTT_M8000_W80",
     "ZprimeToTT_M9000_W90",
+
+    "ZprimeDMToTTbarResoIncl_MZp1000_Mchi10_V1",
+    "ZprimeDMToTTbarResoIncl_MZp1500_Mchi10_V1",
+    "ZprimeDMToTTbarResoIncl_MZp2000_Mchi10_V1",
+    "ZprimeDMToTTbarResoIncl_MZp2500_Mchi10_V1",
+    "ZprimeDMToTTbarResoIncl_MZp3000_Mchi10_V1",
+    "ZprimeDMToTTbarResoIncl_MZp3500_Mchi10_V1",
+    "ZprimeDMToTTbarResoIncl_MZp4000_Mchi10_V1",
+    "ZprimeDMToTTbarResoIncl_MZp4500_Mchi10_V1",
+    "ZprimeDMToTTbarResoIncl_MZp5000_Mchi10_V1",
+    "ZprimeDMToTTbarResoIncl_MZp2500_Mchi1000_A1",
+    "ZprimeDMToTTbarResoIncl_MZp2500_Mchi1000_V1",
+    "ZprimeDMToTTbarResoIncl_MZp2500_Mchi10_A1",
 ]
 
 helper = MCSampleValuesHelper()
 
 for sample in samples:
-    print(sample + ": " + str(helper.get_lumi(sample,"13TeV",year)))
+    print(sample + ": " + str(helper.get_lumi(sample,"13TeV",year,True,False)))
