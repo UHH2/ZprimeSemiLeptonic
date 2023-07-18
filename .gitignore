@@ -38,5 +38,6 @@ plotter/copy_plots_to_eos.sh
 systematics/hadd.sh
 config/*cutdnnscore*
 config/*jetvetomaps*
+config/config_*
 data/Skimming_datasets_UL16postVFP_preselection_jetvetomaps/*
 combineFactory/baselineSelection_ALP.py
