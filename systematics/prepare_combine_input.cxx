@@ -2,23 +2,23 @@
 using namespace std;
 
 // choose: after_preselection, after_baseline_selection, after_dnn
-TString analysis_step = "after_dnn";
+TString analysis_step = "after_baseline_selection";
 
 // input base dir: the folder structure is exected like this: *year/channel/
 TString input_base_dir = "/nfs/dust/cms/group/zprime-uhh/";
 
 // years
 vector<TString> v_years = {
-  "UL16preVFP",
-  "UL16postVFP",
-  "UL17",
+  // "UL16preVFP",
+  // "UL16postVFP",
+  // "UL17",
   "UL18"
 };
 
 // channels
 vector<TString> v_channels = {
   "electron",
-  "muon"
+  // "muon"
 };
 
 // samples
@@ -153,19 +153,19 @@ vector<TString> v_samples = {
   // "RSGluonToTT_M-5500",
   // "RSGluonToTT_M-6000",
   // "ZPrimeToTT_M400_W40",
-  "ZPrimeToTT_M500_W50",
+  // "ZPrimeToTT_M500_W50",
   // "ZPrimeToTT_M600_W60",
   // "ZPrimeToTT_M700_W70",
   // "ZPrimeToTT_M800_W80",
   // "ZPrimeToTT_M900_W90",
-  "ZPrimeToTT_M1000_W100",
+  // "ZPrimeToTT_M1000_W100",
   // "ZPrimeToTT_M1200_W120",
   // "ZPrimeToTT_M1400_W140",
   // "ZPrimeToTT_M1600_W160",
   // "ZPrimeToTT_M1800_W180",
   // "ZPrimeToTT_M2000_W200",
   // "ZPrimeToTT_M2500_W250",
-  "ZPrimeToTT_M3000_W300",
+  // "ZPrimeToTT_M3000_W300",
   // "ZPrimeToTT_M3500_W350",
   // "ZPrimeToTT_M4000_W400",
   // "ZPrimeToTT_M4500_W450",
@@ -218,6 +218,18 @@ vector<TString> v_samples = {
   // "ZPrimeToTT_M7000_W70",
   // "ZPrimeToTT_M8000_W80",
   // "ZPrimeToTT_M9000_W90",
+  // "ZprimeDMToTTbarResoIncl_MZp1000_Mchi10_V1",
+  // "ZprimeDMToTTbarResoIncl_MZp1500_Mchi10_V1",
+  // "ZprimeDMToTTbarResoIncl_MZp2000_Mchi10_V1",
+  // "ZprimeDMToTTbarResoIncl_MZp2500_Mchi10_V1",
+  // "ZprimeDMToTTbarResoIncl_MZp3000_Mchi10_V1",
+  // "ZprimeDMToTTbarResoIncl_MZp3500_Mchi10_V1",
+  // "ZprimeDMToTTbarResoIncl_MZp4000_Mchi10_V1",
+  // "ZprimeDMToTTbarResoIncl_MZp4500_Mchi10_V1",
+  // "ZprimeDMToTTbarResoIncl_MZp5000_Mchi10_V1",
+  // "ZprimeDMToTTbarResoIncl_MZp2500_Mchi1000_A1",
+  // "ZprimeDMToTTbarResoIncl_MZp2500_Mchi1000_V1",
+  // "ZprimeDMToTTbarResoIncl_MZp2500_Mchi10_A1",
 };
 
 // systematics
@@ -240,7 +252,6 @@ void prepare_combine_input(){
 
       TFile *output_file;
       output_file = new TFile(year + "/" + channel + "/combine_input_" + analysis_step + ".root", "RECREATE");
-      // output_file = new TFile(year + "_jetvetomaps/" + channel + "/combine_input_" + analysis_step + ".root", "RECREATE");
 
       for(unsigned int c=0; c<v_samples.size(); ++c){ // sample loop
         vector<TH1F*> v_hists;
@@ -256,7 +267,6 @@ void prepare_combine_input(){
         else file_prefix += "MC.";
 
         TFile *input_file = TFile::Open(input_base_dir + input_dir_prefix + year + "/" + channel + "/" + file_prefix + sample + ".root");
-        // TFile *input_file = TFile::Open("/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/02_baseline/" + year + "_jetvetomaps/" + channel + "/" + file_prefix + sample + ".root");
 
         vector<TH1F*> v_nominal;
         vector<TH1F*> v_murmuf_upup, v_murmuf_upnone, v_murmuf_noneup, v_murmuf_nonedown, v_murmuf_downnone, v_murmuf_downdown;
@@ -401,7 +411,6 @@ void prepare_combine_input(){
         else{
           // get hists for normalization from presel files
           TFile *presel_file = TFile::Open(input_base_dir + "Presel_" + year + "/" + file_prefix + sample + ".root");
-          // TFile *presel_file = TFile::Open("/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/01_preselection/" + year + "_jetvetomaps/" + file_prefix + sample + ".root");
           TH1F *nominal = (TH1F*) presel_file->Get("Input_General/sum_event_weights");
           TH1F *upup = (TH1F*) presel_file->Get("Input_General/sum_event_weights_mcscale_upup");
           TH1F *upnone = (TH1F*) presel_file->Get("Input_General/sum_event_weights_mcscale_upnone");
@@ -469,7 +478,6 @@ void prepare_combine_input(){
         }
         else{
           TFile *presel_file = TFile::Open(input_base_dir + "Presel_" + year + "/" + file_prefix + sample + ".root");
-          // TFile *presel_file = TFile::Open("/nfs/dust/cms/user/jabuschh/ZprimeSemiLeptonic/RunII_106X_v2/01_preselection/" + year + "_jetvetomaps/" + file_prefix + sample + ".root");
           TH1F *nominal = (TH1F*) presel_file->Get("Input_General/sum_event_weights");
           vector<double> v_pdf_norm;
           for(unsigned int i=1; i<101; ++i){
