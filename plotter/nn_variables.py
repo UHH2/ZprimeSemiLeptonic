@@ -11,7 +11,7 @@ from constants_nn_variables import _VARIABLES
 
 
 years = [
-    # 'UL16preVFP',
+    'UL16preVFP',
     'UL16postVFP',
     # 'UL17',
     # 'UL18'
@@ -46,7 +46,8 @@ systematics = [
     'btag_lfstats1',
     'btag_lfstats2',
     'ttag_corr',
-    'ttag_uncorr'
+    'ttag_uncorr',
+    'tmistag'
 ]
 
 for year in years:
@@ -72,7 +73,7 @@ for year in years:
 
 
             nice = NiceStackWithRatio(
-                infile_path = '/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/systematics/' + year + '_jetvetomaps/' + channel + '/combine_input_after_baseline_selection.root',
+                infile_path = '/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/systematics/' + year + '/' + channel + '/combine_input_after_baseline_selection.root',
                 # infile_directory = '', # the directory within the ROOT file
                 x_axis_title = var.get('x_axis_title'),
                 x_axis_unit = var.get('x_axis_unit'),
@@ -112,34 +113,34 @@ for year in years:
             legend.SetFillStyle(0)
             legend.Draw()
 
-            nice.save_plot('02_baseline_selection/' + year + '_jetvetomaps/' + channel + '/' + var.get('name') + '.pdf')
+            nice.save_plot('02_baseline_selection/' + year + '/' + channel + '/' + var.get('name') + '.pdf')
             nice.canvas.Close()
 
         # for webpage
-        def add_plots_to_html():
-            string = ""
-            for key, var in _VARIABLES.items():
-                string += """<iframe src="%s.pdf" width="300px" height="300px"></iframe>\n  """ % (var.get('name'))
-            return string
-
-        def write_html():
-            html = """
-        <!DOCTYPE html>
-        <html>
-        <header>
-          <h1>
-            Plots After Baseline Selection
-          </h1>
-        </header>
-        <body>
-          <h2> %s: %s channel </h2>
-          %s
-        </body>
-        </html>
-        """ % (year, channel, add_plots_to_html())
-
-            file = open("02_baseline_selection/" +  year + "_jetvetomaps/" + channel + "/index.html", "w")
-            file.write(html)
-            file.close()
-
-        write_html()
+        # def add_plots_to_html():
+        #     string = ""
+        #     for key, var in _VARIABLES.items():
+        #         string += """<iframe src="%s.pdf" width="300px" height="300px"></iframe>\n  """ % (var.get('name'))
+        #     return string
+        #
+        # def write_html():
+        #     html = """
+        # <!DOCTYPE html>
+        # <html>
+        # <header>
+        #   <h1>
+        #     Plots After Baseline Selection
+        #   </h1>
+        # </header>
+        # <body>
+        #   <h2> %s: %s channel </h2>
+        #   %s
+        # </body>
+        # </html>
+        # """ % (year, channel, add_plots_to_html())
+        #
+        #     file = open("02_baseline_selection/" +  year + "/" + channel + "/index.html", "w")
+        #     file.write(html)
+        #     file.close()
+        #
+        # write_html()
