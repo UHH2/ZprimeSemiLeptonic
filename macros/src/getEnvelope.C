@@ -251,6 +251,18 @@ void getEnvelope(){
     "ZPrimeToTT_M7000_W70",
     "ZPrimeToTT_M8000_W80",
     "ZPrimeToTT_M9000_W90",
+    "ZprimeDMToTTbarResoIncl_MZp1000_Mchi10_V1",
+    "ZprimeDMToTTbarResoIncl_MZp1500_Mchi10_V1",
+    "ZprimeDMToTTbarResoIncl_MZp2000_Mchi10_V1",
+    "ZprimeDMToTTbarResoIncl_MZp2500_Mchi10_V1",
+    "ZprimeDMToTTbarResoIncl_MZp3000_Mchi10_V1",
+    "ZprimeDMToTTbarResoIncl_MZp3500_Mchi10_V1",
+    "ZprimeDMToTTbarResoIncl_MZp4000_Mchi10_V1",
+    "ZprimeDMToTTbarResoIncl_MZp4500_Mchi10_V1",
+    "ZprimeDMToTTbarResoIncl_MZp5000_Mchi10_V1",
+    "ZprimeDMToTTbarResoIncl_MZp2500_Mchi1000_A1",
+    "ZprimeDMToTTbarResoIncl_MZp2500_Mchi1000_V1",
+    "ZprimeDMToTTbarResoIncl_MZp2500_Mchi10_A1",
   };
 
   vector<TString> v_variations = {"upup", "upnone", "noneup", "nonedown", "downnone", "downdown"};
