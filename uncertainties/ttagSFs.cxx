@@ -4,7 +4,7 @@
   TString save_directory = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/uncertainties/plots/";
   TString hist_name = "M_Zprime";
 
-  TString systematic = "muonSFs";
+  TString systematic = "ttagSFs";
   vector<TString> v_samples = {
     "TTbar",
     "ST",
@@ -45,63 +45,49 @@
     TFile *file = TFile::Open(input_directory + "uhh2.AnalysisModuleRunner.MC." + sample + ".root");
     file->cd(root_directory);
     TH1F *h_nominal = (TH1F*) gDirectory->Get(hist_name);
-    h_nominal->SetLineColor(kBlack);
-    h_nominal->SetLineWidth(2);
+    TH1F *h_corr_up = (TH1F*) gDirectory->Get(hist_name + "_ttag_corr_up");
+    TH1F *h_corr_down = (TH1F*) gDirectory->Get(hist_name + "_ttag_corr_down");
+    TH1F *h_uncorr_up = (TH1F*) gDirectory->Get(hist_name + "_ttag_uncorr_up");
+    TH1F *h_uncorr_down = (TH1F*) gDirectory->Get(hist_name + "_ttag_uncorr_down");
+    TH1F *h_mistag_up = (TH1F*) gDirectory->Get(hist_name + "_tmistag_up");
+    TH1F *h_mistag_down = (TH1F*) gDirectory->Get(hist_name + "_tmistag_down");
 
-    TH1F *h_mu_reco_up = (TH1F*) gDirectory->Get(hist_name + "_mu_reco_up");
-    TH1F *h_mu_reco_down = (TH1F*) gDirectory->Get(hist_name + "_mu_reco_down");
-    TH1F *h_mu_id_up = (TH1F*) gDirectory->Get(hist_name + "_mu_id_up");
-    TH1F *h_mu_id_down = (TH1F*) gDirectory->Get(hist_name + "_mu_id_down");
-    TH1F *h_mu_iso_up = (TH1F*) gDirectory->Get(hist_name + "_mu_iso_up");
-    TH1F *h_mu_iso_down = (TH1F*) gDirectory->Get(hist_name + "_mu_iso_down");
-    TH1F *h_mu_trigger_up = (TH1F*) gDirectory->Get(hist_name + "_mu_trigger_up");
-    TH1F *h_mu_trigger_down = (TH1F*) gDirectory->Get(hist_name + "_mu_trigger_down");
-
+    // rebinning
     h_nominal->Rebin(10);
-    h_mu_reco_up->Rebin(10);
-    h_mu_reco_down->Rebin(10);
-    h_mu_id_up->Rebin(10);
-    h_mu_id_down->Rebin(10);
-    h_mu_iso_up->Rebin(10);
-    h_mu_iso_down->Rebin(10);
-    h_mu_trigger_up->Rebin(10);
-    h_mu_trigger_down->Rebin(10);
+    h_corr_up->Rebin(10);
+    h_corr_down->Rebin(10);
+    h_uncorr_up->Rebin(10);
+    h_uncorr_down->Rebin(10);
+    h_mistag_up->Rebin(10);
+    h_mistag_down->Rebin(10);
 
-    h_mu_reco_up->Divide(h_nominal);
-    h_mu_reco_down->Divide(h_nominal);
-    h_mu_id_up->Divide(h_nominal);
-    h_mu_id_down->Divide(h_nominal);
-    h_mu_iso_up->Divide(h_nominal);
-    h_mu_iso_down->Divide(h_nominal);
-    h_mu_trigger_up->Divide(h_nominal);
-    h_mu_trigger_down->Divide(h_nominal);
+    h_corr_up->Divide(h_nominal);
+    h_corr_down->Divide(h_nominal);
+    h_uncorr_up->Divide(h_nominal);
+    h_uncorr_down->Divide(h_nominal);
+    h_mistag_up->Divide(h_nominal);
+    h_mistag_down->Divide(h_nominal);
 
-    h_mu_reco_up->SetLineColor(kRed);
-    h_mu_reco_down->SetLineColor(kRed);
-    h_mu_id_up->SetLineColor(kBlue);
-    h_mu_id_down->SetLineColor(kBlue);
-    h_mu_iso_up->SetLineColor(kGreen);
-    h_mu_iso_down->SetLineColor(kGreen);
-    h_mu_trigger_up->SetLineColor(kCyan);
-    h_mu_trigger_down->SetLineColor(kCyan);
+    h_corr_up->SetLineColor(kRed);
+    h_corr_down->SetLineColor(kRed);
+    h_uncorr_up->SetLineColor(kBlue);
+    h_uncorr_down->SetLineColor(kBlue);
+    h_mistag_up->SetLineColor(kGreen);
+    h_mistag_down->SetLineColor(kGreen);
 
-    h_mu_reco_up->SetLineWidth(2);
-    h_mu_reco_down->SetLineWidth(2);
-    h_mu_id_up->SetLineWidth(2);
-    h_mu_id_down->SetLineWidth(2);
-    h_mu_iso_up->SetLineWidth(2);
-    h_mu_iso_down->SetLineWidth(2);
-    h_mu_trigger_up->SetLineWidth(2);
-    h_mu_trigger_down->SetLineWidth(2);
+    h_corr_up->SetLineWidth(2);
+    h_corr_down->SetLineWidth(2);
+    h_uncorr_up->SetLineWidth(2);
+    h_uncorr_down->SetLineWidth(2);
+    h_mistag_up->SetLineWidth(2);
+    h_mistag_down->SetLineWidth(2);
 
-    h_mu_reco_up->SetLineStyle(7);
-    h_mu_reco_down->SetLineStyle(3);
-    h_mu_id_up->SetLineStyle(7);
-    h_mu_id_down->SetLineStyle(3);
-    h_mu_iso_up->SetLineStyle(7);
-    h_mu_iso_down->SetLineStyle(3);
-    h_mu_trigger_up->SetLineStyle(7);
-    h_mu_trigger_down->SetLineStyle(3);
+    h_corr_up->SetLineStyle(7);
+    h_corr_down->SetLineStyle(3);
+    h_uncorr_up->SetLineStyle(7);
+    h_uncorr_down->SetLineStyle(3);
+    h_mistag_up->SetLineStyle(7);
+    h_mistag_down->SetLineStyle(3);
 
 
     // plotting
@@ -129,42 +115,44 @@
 
     // legend
     double x_pos  = 0.7;
-    double y_pos  = 0.6;
+    double y_pos  = 0.55;
     double x_width = 0.2;
-    double y_width = 0.2;
+    double y_width = 0.3;
     TLegend *legend;
     legend = new TLegend(x_pos,y_pos,x_pos+x_width,y_pos+y_width);
     legend->SetTextSize(0.025);
     legend->SetLineWidth(0);
     legend->SetNColumns(1);
-    legend->AddEntry(h_mu_reco_up,"reco_up","le");
-    legend->AddEntry(h_mu_reco_down,"reco_down","le");
-    legend->AddEntry(h_mu_id_up,"id_up","le");
-    legend->AddEntry(h_mu_id_down,"id_down","le");
-    legend->AddEntry(h_mu_iso_up,"iso_up","le");
-    legend->AddEntry(h_mu_iso_down,"iso_down","le");
-    legend->AddEntry(h_mu_trigger_up,"trigger_up","le");
-    legend->AddEntry(h_mu_trigger_down,"trigger_down","le");
+    legend->AddEntry(h_corr_up,"corr_up","le");
+    legend->AddEntry(h_corr_down,"corr_down","le");
+    legend->AddEntry(h_uncorr_up,"uncorr_up","le");
+    legend->AddEntry(h_uncorr_down,"uncorr_down","le");
+    legend->AddEntry(h_mistag_up,"mistag_up","le");
+    legend->AddEntry(h_mistag_down,"mistag_down","le");
 
     // draw
-    h_mu_reco_up->Draw("hist");
-    h_mu_reco_down->Draw("hist same");
-    h_mu_id_up->Draw("hist same");
-    h_mu_id_down->Draw("hist same");
-    h_mu_iso_up->Draw("hist same");
-    h_mu_iso_down->Draw("hist same");
-    h_mu_trigger_up->Draw("hist same");
-    h_mu_trigger_down->Draw("hist same");
+    //h_corr_up->Draw("hist e");
+    //h_corr_down->Draw("hist e same");
+    //h_uncorr_up->Draw("hist e same");
+    //h_uncorr_down->Draw("hist e same");
+    //h_mistag_up->Draw("hist e same");
+    //h_mistag_down->Draw("hist e same");
+    h_corr_up->Draw("hist");
+    h_corr_down->Draw("hist same");
+    h_uncorr_up->Draw("hist same");
+    h_uncorr_down->Draw("hist same");
+    h_mistag_up->Draw("hist same");
+    h_mistag_down->Draw("hist same");
     legend->Draw();
 
     // x axis
-    h_mu_reco_up->GetXaxis()->SetTitle("m_{t#bar{t}} [GeV]");
-    h_mu_reco_up->GetXaxis()->SetTitleOffset(1.3);
-    h_mu_reco_up->GetXaxis()->SetRangeUser(100,10000);
+    h_corr_up->GetXaxis()->SetTitle("m_{t#bar{t}} [GeV]");
+    h_corr_up->GetXaxis()->SetTitleOffset(1.3);
+    h_corr_up->GetXaxis()->SetLimits(0,10000);
     // y axis
-    h_mu_reco_up->GetYaxis()->SetTitle("variation/nominal");
-    h_mu_reco_up->GetYaxis()->SetTitleOffset(1.7);
-    h_mu_reco_up->GetYaxis()->SetRangeUser(0.98,1.03);
+    h_corr_up->GetYaxis()->SetTitle("variation/nominal");
+    h_corr_up->GetYaxis()->SetTitleOffset(1.7);
+    h_corr_up->GetYaxis()->SetRangeUser(0.5,1.5);
 
     c1->Modified();
 

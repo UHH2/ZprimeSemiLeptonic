@@ -5,7 +5,7 @@
   TString JER_up_directory = "/nfs/dust/cms/group/zprime-uhh/AnalysisDNN_UL18/JER_up/muon/";
   TString JER_down_directory = "/nfs/dust/cms/group/zprime-uhh/AnalysisDNN_UL18/JER_down/muon/";
   TString root_directory = "Zprime_SystVariations_DNN_output0"; // SR (TTbar node of DNN)
-  TString save_directory = "/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/uncertainties/plots_new/";
+  TString save_directory = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/uncertainties/plots/";
   TString hist_name = "M_Zprime";
 
   TString systematic = "jecjer";
@@ -13,9 +13,10 @@
     "TTbar",
     "ST",
     "WJets",
-    "others", // DY + Diboson + QCD
+    "Diboson",
     "DY",
     "QCD",
+    "others", // DY + Diboson + QCD
     "ZPrimeToTT_M500_W50",
     "ZPrimeToTT_M1000_W100",
     "ZPrimeToTT_M1400_W140",
@@ -34,10 +35,11 @@
     "HpseudoToTTTo1L1Nu2J_m1000_w250p0_int_pos",
     "HpseudoToTTTo1L1Nu2J_m1000_w250p0_int_neg",
     "ALP_ttbar_signal",
-    "ALP_ttbar_interference"
+    "ALP_ttbar_interference",
+    "ZprimeDMToTTbarResoIncl_MZp1000_Mchi10_V1",
+    "ZprimeDMToTTbarResoIncl_MZp3000_Mchi10_V1",
+    "ZprimeDMToTTbarResoIncl_MZp5000_Mchi10_V1",
   };
-
-  Double_t bins_Zprime4[26] = {0,400,600,800,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200,3400,3600,3800,4000,4400,4800,5200,5600,6000,6100};
 
   for(int i=0; i<v_samples.size(); i++){
 
@@ -47,8 +49,7 @@
     TFile *file = TFile::Open(input_directory + "uhh2.AnalysisModuleRunner.MC." + sample + ".root");
     file->cd(root_directory);
     TH1F *h_nominal_in = (TH1F*) gDirectory->Get(hist_name);
-    TH1F *h_nominal = dynamic_cast<TH1F*>(h_nominal_in->Rebin(25,"h_nominal", bins_Zprime4));
-    h_nominal->Rebin(25, "h_nominal", bins_Zprime4);
+    TH1F *h_nominal = dynamic_cast<TH1F*>(h_nominal_in->Rebin(10));
     h_nominal->SetLineColor(kBlack);
     h_nominal->SetLineWidth(2);
 
@@ -63,15 +64,15 @@
     TFile *file_JER_up = TFile::Open(JER_up_directory + "uhh2.AnalysisModuleRunner.MC." + sample + ".root");
     file_JER_up->cd(root_directory);
     TH1F *h_JER_up_in = (TH1F*) gDirectory->Get(hist_name);
-    
+
     TFile *file_JER_down = TFile::Open(JER_down_directory + "uhh2.AnalysisModuleRunner.MC." + sample + ".root");
     file_JER_down->cd(root_directory);
     TH1F *h_JER_down_in = (TH1F*) gDirectory->Get(hist_name);
 
-    TH1F *h_JEC_up= dynamic_cast<TH1F*>(h_JEC_up_in->Rebin(25,"h_JEC_up", bins_Zprime4));
-    TH1F *h_JEC_down= dynamic_cast<TH1F*>(h_JEC_down_in->Rebin(25,"h_JEC_down", bins_Zprime4));
-    TH1F *h_JER_up= dynamic_cast<TH1F*>(h_JER_up_in->Rebin(25,"h_JER_up", bins_Zprime4));
-    TH1F *h_JER_down= dynamic_cast<TH1F*>(h_JER_down_in->Rebin(25,"h_JER_down", bins_Zprime4));
+    TH1F *h_JEC_up= dynamic_cast<TH1F*>(h_JEC_up_in->Rebin(10));
+    TH1F *h_JEC_down= dynamic_cast<TH1F*>(h_JEC_down_in->Rebin(10));
+    TH1F *h_JER_up= dynamic_cast<TH1F*>(h_JER_up_in->Rebin(10));
+    TH1F *h_JER_down= dynamic_cast<TH1F*>(h_JER_down_in->Rebin(10));
 
     h_JEC_up->Divide(h_nominal);
     h_JEC_down->Divide(h_nominal);
@@ -118,8 +119,8 @@
     upperPad->cd();
 
     // legend
-    double x_pos  = 0.17;
-    double y_pos  = 0.7;
+    double x_pos  = 0.7;
+    double y_pos  = 0.6;
     double x_width = 0.2;
     double y_width = 0.2;
     TLegend *legend;
@@ -142,7 +143,7 @@
     // x axis
     h_JEC_up->GetXaxis()->SetTitle("m_{t#bar{t}} [GeV]");
     h_JEC_up->GetXaxis()->SetTitleOffset(1.3);
-    h_JEC_up->GetXaxis()->SetRangeUser(100,6000);
+    h_JEC_up->GetXaxis()->SetRangeUser(100,10000);
     // y axis
     h_JEC_up->GetYaxis()->SetTitle("variation/nominal");
     h_JEC_up->GetYaxis()->SetTitleOffset(1.7);
@@ -161,7 +162,7 @@
 
 void plot_nominalLine(){
   TLine *line1;
-  line1 = new TLine (0,1,6000,1);
+  line1 = new TLine (0,1,10000,1);
   line1->SetLineColor(kBlack);
   line1->SetLineWidth(1);
   line1->SetLineStyle(2);
@@ -182,9 +183,9 @@ void plot_lumiTag(){
 }
 
 void plot_systTag(TString sample){
-  double x_pos = 0.125;
-  double y_pos = 0.957;
-  auto *systTag = new TLatex(3.5, 24, "UL18 muon channel (SR): " + sample);
+  double x_pos = 0.17;
+  double y_pos = 0.88;
+  auto *systTag = new TLatex(3.5, 24, "#splitline{UL18 muon channel (SR):}{" + sample + "}");
   systTag->SetNDC();
   systTag->SetTextAlign(11);
   systTag->SetX(x_pos);
