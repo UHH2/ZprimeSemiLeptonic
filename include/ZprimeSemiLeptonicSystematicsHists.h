@@ -132,7 +132,6 @@ protected:
   TH1F *M_Zprime_ttag_corr_down;
   TH1F *M_Zprime_ttag_uncorr_up;
   TH1F *M_Zprime_ttag_uncorr_down;
-  TH1F *M_Zprime_tmistag;
   TH1F *M_Zprime_tmistag_up;
   TH1F *M_Zprime_tmistag_down;
 
