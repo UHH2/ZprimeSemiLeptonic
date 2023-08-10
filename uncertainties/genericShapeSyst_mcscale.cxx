@@ -1,10 +1,17 @@
 {
-  //
-  TString input_dir = "/nfs/dust/cms/user/deleokse/RunII_106_v2/DNN_";
-  TString save_dir = "/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/macros/src/Scale_hists/";
+  TString input_dir = "/nfs/dust/cms/group/zprime-uhh/AnalysisDNN_";
+  TString save_dir = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/macros/src/Scale_hists/";
 
-  vector<TString> year = {"UL16preVFP", "UL16postVFP", "UL17", "UL18"};
-  vector<TString> channel = {"muon","electron"};
+  vector<TString> year = {
+    "UL16preVFP",
+    "UL16postVFP",
+    "UL17",
+    "UL18"
+  };
+  vector<TString> channel = {
+    "muon",
+    "electron"
+  };
   vector<TString> v_root_directories = {
     "DNN_output0",
     "DNN_output1",
@@ -29,19 +36,33 @@
     "DNN_output0_NoTopTag_thetastar_bin4"
   };
 
-  vector<TString> v_samples = {"Diboson", "RSGluonToTT_M-500", "RSGluonToTT_M-1000", "RSGluonToTT_M-1500", "RSGluonToTT_M-2000", "RSGluonToTT_M-2500", "RSGluonToTT_M-3000", "RSGluonToTT_M-3500", "RSGluonToTT_M-4000", "RSGluonToTT_M-4500", "RSGluonToTT_M-5000", "RSGluonToTT_M-5500", "RSGluonToTT_M-6000"};
+  vector<TString> v_samples = {
+    "Diboson",
+    "RSGluonToTT_M-500",
+    "RSGluonToTT_M-1000",
+    "RSGluonToTT_M-1500",
+    "RSGluonToTT_M-2000",
+    "RSGluonToTT_M-2500",
+    "RSGluonToTT_M-3000",
+    "RSGluonToTT_M-3500",
+    "RSGluonToTT_M-4000",
+    "RSGluonToTT_M-4500",
+    "RSGluonToTT_M-5000",
+    "RSGluonToTT_M-5500",
+    "RSGluonToTT_M-6000"
+  };
 
   for(unsigned int j=0; j<year.size(); j++){
     for(unsigned int k=0; k<channel.size(); k++){
       for(unsigned int i=0; i<v_samples.size(); i++){
 
 
-      TFile *file_in = TFile::Open(input_dir +  year.at(j) +"_"+channel.at(k)  + "/uhh2.AnalysisModuleRunner.MC."+ v_samples.at(i) +".root");
+      TFile *file_in = TFile::Open(input_dir +  year.at(j) + "/" + channel.at(k)  + "/uhh2.AnalysisModuleRunner.MC."+ v_samples.at(i) +".root");
       TFile* file_out = new TFile(save_dir + year.at(j) + "/" + channel.at(k) +"/uhh2.AnalysisModuleRunner.MC." + v_samples.at(i) +".root", "RECREATE");
 
       for(int l=0; l<v_root_directories.size(); l++){
-         TH1F *hist = (TH1F*)file_in->Get(v_root_directories.at(l)+"_General/M_Zprime_rebin4");
-         TString output_root_directory = "Zprime_SystVariations_" + v_root_directories.at(l);
+        TH1F *hist = (TH1F*)file_in->Get("Zprime_SystVariations_" + v_root_directories.at(l)+"/M_Zprime");
+        TString output_root_directory = "Zprime_SystVariations_" + v_root_directories.at(l);
 
         // generic shape systematics in mttbar: multiply with linear function "Events = 1.6 * mttbar"
         TH1F *hist_genericShapeSyst_up = (TH1F*) hist->Clone();
@@ -56,8 +77,8 @@
 
           //double bin_content_syst_up = bin_content * (1. + bin_center / 6100. * syst_weight);
           //double bin_content_syst_down = bin_content * (1. - bin_center / 6100. * syst_weight);
-          double bin_content_syst_up   = bin_content * (1.05 + bin_center / 6100. * syst_weight);
-          double bin_content_syst_down = bin_content * (0.95 - bin_center / 6100. * syst_weight);
+          double bin_content_syst_up   = bin_content * (1.05 + bin_center / 10000. * syst_weight);
+          double bin_content_syst_down = bin_content * (0.95 - bin_center / 10000. * syst_weight);
           hist_genericShapeSyst_up->SetBinContent(i, bin_content_syst_up);
           hist_genericShapeSyst_down->SetBinContent(i, bin_content_syst_down);
 

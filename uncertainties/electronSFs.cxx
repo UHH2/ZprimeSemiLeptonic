@@ -1,7 +1,7 @@
 {
-  TString input_directory = "/nfs/dust/cms/user/deleokse/RunII_106_v2/DNN_UL18_electron/";
+  TString input_directory = "/nfs/dust/cms/group/zprime-uhh/AnalysisDNN_UL18/electron/";
   TString root_directory = "Zprime_SystVariations_DNN_output0"; // SR (TTbar node of DNN)
-  TString save_directory = "/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/uncertainties/plots_new/";
+  TString save_directory = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/uncertainties/plots/";
   TString hist_name = "M_Zprime";
 
   TString systematic = "electronSFs";
@@ -9,9 +9,10 @@
     "TTbar",
     "ST",
     "WJets",
-    "others", // DY + Diboson + QCD
+    "Diboson",
     "DY",
     "QCD",
+    "others", // DY + Diboson + QCD
     "ZPrimeToTT_M500_W50",
     "ZPrimeToTT_M1000_W100",
     "ZPrimeToTT_M1400_W140",
@@ -30,7 +31,10 @@
     "HpseudoToTTTo1L1Nu2J_m1000_w250p0_int_pos",
     "HpseudoToTTTo1L1Nu2J_m1000_w250p0_int_neg",
     "ALP_ttbar_signal",
-    "ALP_ttbar_interference"
+    "ALP_ttbar_interference",
+    "ZprimeDMToTTbarResoIncl_MZp1000_Mchi10_V1",
+    "ZprimeDMToTTbarResoIncl_MZp3000_Mchi10_V1",
+    "ZprimeDMToTTbarResoIncl_MZp5000_Mchi10_V1",
   };
 
   for(int i=0; i<v_samples.size(); i++){
@@ -50,6 +54,14 @@
     TH1F *h_ele_id_down = (TH1F*) gDirectory->Get(hist_name + "_ele_id_down");
     TH1F *h_ele_trigger_up = (TH1F*) gDirectory->Get(hist_name + "_ele_trigger_up");
     TH1F *h_ele_trigger_down = (TH1F*) gDirectory->Get(hist_name + "_ele_trigger_down");
+
+    h_nominal->Rebin(10);
+    h_ele_reco_up->Rebin(10);
+    h_ele_reco_down->Rebin(10);
+    h_ele_id_up->Rebin(10);
+    h_ele_id_down->Rebin(10);
+    h_ele_trigger_up->Rebin(10);
+    h_ele_trigger_down->Rebin(10);
 
     h_ele_reco_up->Divide(h_nominal);
     h_ele_reco_down->Divide(h_nominal);
@@ -103,8 +115,8 @@
     upperPad->cd();
 
     // legend
-    double x_pos  = 0.17;
-    double y_pos  = 0.7;
+    double x_pos  = 0.7;
+    double y_pos  = 0.6;
     double x_width = 0.2;
     double y_width = 0.2;
     TLegend *legend;
@@ -131,7 +143,7 @@
     // x axis
     h_ele_reco_up->GetXaxis()->SetTitle("m_{t#bar{t}} [GeV]");
     h_ele_reco_up->GetXaxis()->SetTitleOffset(1.3);
-    h_ele_reco_up->GetXaxis()->SetRangeUser(100,6000);
+    h_ele_reco_up->GetXaxis()->SetRangeUser(100,10000);
     // y axis
     h_ele_reco_up->GetYaxis()->SetTitle("variation/nominal");
     h_ele_reco_up->GetYaxis()->SetTitleOffset(1.7);
@@ -151,7 +163,7 @@
 
 void plot_nominalLine(){
   TLine *line1;
-  line1 = new TLine (0,1,6000,1);
+  line1 = new TLine (0,1,10000,1);
   line1->SetLineColor(kBlack);
   line1->SetLineWidth(1);
   line1->SetLineStyle(2);
@@ -172,9 +184,9 @@ void plot_lumiTag(){
 }
 
 void plot_systTag(TString sample){
-  double x_pos = 0.125;
-  double y_pos = 0.957;
-  auto *systTag = new TLatex(3.5, 24, "UL18 electron channel (SR): " + sample);
+  double x_pos = 0.17;
+  double y_pos = 0.88;
+  auto *systTag = new TLatex(3.5, 24, "#splitline{UL18 electron channel (SR):}{" + sample + "}");
   systTag->SetNDC();
   systTag->SetTextAlign(11);
   systTag->SetX(x_pos);

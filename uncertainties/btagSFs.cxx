@@ -1,7 +1,7 @@
 {
-  TString input_directory = "/nfs/dust/cms/user/deleokse/RunII_106_v2/DNN_UL18_muon/";
+  TString input_directory = "/nfs/dust/cms/group/zprime-uhh/AnalysisDNN_UL18/muon/";
   TString root_directory = "Zprime_SystVariations_DNN_output0"; // SR (TTbar node of DNN)
-  TString save_directory = "/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/uncertainties/plots_new/";
+  TString save_directory = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/uncertainties/plots/";
   TString hist_name = "M_Zprime";
 
   TString systematic = "btagSFs";
@@ -9,9 +9,10 @@
     "TTbar",
     "ST",
     "WJets",
-    "others", // DY + Diboson + QCD
+    "Diboson",
     "DY",
     "QCD",
+    "others", // DY + Diboson + QCD
     "ZPrimeToTT_M500_W50",
     "ZPrimeToTT_M1000_W100",
     "ZPrimeToTT_M1400_W140",
@@ -30,7 +31,10 @@
     "HpseudoToTTTo1L1Nu2J_m1000_w250p0_int_pos",
     "HpseudoToTTTo1L1Nu2J_m1000_w250p0_int_neg",
     "ALP_ttbar_signal",
-    "ALP_ttbar_interference"
+    "ALP_ttbar_interference",
+    "ZprimeDMToTTbarResoIncl_MZp1000_Mchi10_V1",
+    "ZprimeDMToTTbarResoIncl_MZp3000_Mchi10_V1",
+    "ZprimeDMToTTbarResoIncl_MZp5000_Mchi10_V1",
   };
 
   for(int i=0; i<v_samples.size(); i++){
@@ -41,7 +45,6 @@
     TFile *file = TFile::Open(input_directory + "uhh2.AnalysisModuleRunner.MC." + sample + ".root");
     file->cd(root_directory);
     TH1F *h_nominal = (TH1F*) gDirectory->Get(hist_name);
-
     TH1F *h_cferr1_up = (TH1F*) gDirectory->Get(hist_name + "_btag_cferr1_up");
     TH1F *h_cferr1_down = (TH1F*) gDirectory->Get(hist_name + "_btag_cferr1_down");
     TH1F *h_cferr2_up = (TH1F*) gDirectory->Get(hist_name + "_btag_cferr2_up");
@@ -58,6 +61,25 @@
     TH1F *h_lfstats1_down = (TH1F*) gDirectory->Get(hist_name + "_btag_lfstats1_down");
     TH1F *h_lfstats2_up = (TH1F*) gDirectory->Get(hist_name + "_btag_lfstats2_up");
     TH1F *h_lfstats2_down = (TH1F*) gDirectory->Get(hist_name + "_btag_lfstats2_down");
+
+    // rebinning
+    h_nominal->Rebin(10);
+    h_cferr1_up->Rebin(10);
+    h_cferr1_down->Rebin(10);
+    h_cferr2_up->Rebin(10);
+    h_cferr2_down->Rebin(10);
+    h_hf_up->Rebin(10);
+    h_hf_down->Rebin(10);
+    h_hfstats1_up->Rebin(10);
+    h_hfstats1_down->Rebin(10);
+    h_hfstats2_up->Rebin(10);
+    h_hfstats2_down->Rebin(10);
+    h_lf_up->Rebin(10);
+    h_lf_down->Rebin(10);
+    h_lfstats1_up->Rebin(10);
+    h_lfstats1_down->Rebin(10);
+    h_lfstats2_up->Rebin(10);
+    h_lfstats2_down->Rebin(10);
 
     h_cferr1_up->Divide(h_nominal);
     h_cferr1_down->Divide(h_nominal);
@@ -152,8 +174,8 @@
     upperPad->cd();
 
     // legend
-    double x_pos  = 0.17;
-    double y_pos  = 0.6;
+    double x_pos  = 0.7;
+    double y_pos  = 0.55;
     double x_width = 0.2;
     double y_width = 0.3;
     TLegend *legend;
@@ -216,7 +238,7 @@
     // x axis
     h_cferr1_up->GetXaxis()->SetTitle("m_{t#bar{t}} [GeV]");
     h_cferr1_up->GetXaxis()->SetTitleOffset(1.3);
-    h_cferr1_up->GetXaxis()->SetLimits(0,6000);
+    h_cferr1_up->GetXaxis()->SetLimits(0,10000);
     // y axis
     h_cferr1_up->GetYaxis()->SetTitle("variation/nominal");
     h_cferr1_up->GetYaxis()->SetTitleOffset(1.7);
@@ -235,7 +257,7 @@
 
 void plot_nominalLine(){
   TLine *line1;
-  line1 = new TLine (0,1,6000,1);
+  line1 = new TLine (0,1,10000,1);
   line1->SetLineColor(kBlack);
   line1->SetLineWidth(1);
   line1->SetLineStyle(2);
@@ -256,9 +278,9 @@ void plot_lumiTag(){
 }
 
 void plot_systTag(TString sample){
-  double x_pos = 0.125;
-  double y_pos = 0.957;
-  auto *systTag = new TLatex(3.5, 24, "UL18 muon channel (SR): " + sample);
+  double x_pos = 0.17;
+  double y_pos = 0.88;
+  auto *systTag = new TLatex(3.5, 24, "#splitline{UL18 muon channel (SR):}{" + sample + "}");
   systTag->SetNDC();
   systTag->SetTextAlign(11);
   systTag->SetX(x_pos);
