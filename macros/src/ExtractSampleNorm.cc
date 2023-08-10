@@ -30,9 +30,9 @@ void ExtractSampleNorm(){
 
   TString file_dir = "/nfs/dust/cms/group/zprime-uhh/Presel_";
   vector<TString> year = {
-    // "UL16preVFP",
-    // "UL16postVFP",
-    // "UL17",
+    "UL16preVFP",
+    "UL16postVFP",
+    "UL17",
     "UL18"
   };
 
@@ -42,7 +42,7 @@ void ExtractSampleNorm(){
     "ST",
     "QCD",
     "DY",
-    // "Diboson", has no PDF weights stored!
+    // "Diboson", // has no PDF weights stored
     "others",
     "ALP_ttbar_signal",
     "ALP_ttbar_interference",
@@ -118,6 +118,18 @@ void ExtractSampleNorm(){
     "HpseudoToTTTo1L1Nu2J_m600_w15p0_int",
     "HpseudoToTTTo1L1Nu2J_m800_w20p0_int",
     "HpseudoToTTTo1L1Nu2J_m1000_w25p0_int",
+    // "RSGluonToTT_M-500", // has no PDF weights stored
+    // "RSGluonToTT_M-1000", // has no PDF weights stored
+    // "RSGluonToTT_M-1500", // has no PDF weights stored
+    // "RSGluonToTT_M-2000", // has no PDF weights stored
+    // "RSGluonToTT_M-2500", // has no PDF weights stored
+    // "RSGluonToTT_M-3000", // has no PDF weights stored
+    // "RSGluonToTT_M-3500", // has no PDF weights stored
+    // "RSGluonToTT_M-4000", // has no PDF weights stored
+    // "RSGluonToTT_M-4500", // has no PDF weights stored
+    // "RSGluonToTT_M-5000", // has no PDF weights stored
+    // "RSGluonToTT_M-5500", // has no PDF weights stored
+    // "RSGluonToTT_M-6000", // has no PDF weights stored
     "ZPrimeToTT_M400_W40",
     "ZPrimeToTT_M500_W50",
     "ZPrimeToTT_M600_W60",
