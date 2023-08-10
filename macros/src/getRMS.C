@@ -28,13 +28,13 @@ void getRMS(){
   TString file_dir = "/nfs/dust/cms/group/zprime-uhh/";
   TString file_name = "";
 
-  vector<TString> year = {
+  vector<TString> v_years = {
     "UL16preVFP",
     "UL16postVFP",
     "UL17",
     "UL18",
   };
-  vector<TString> channel = {
+  vector<TString> v_channels = {
     "electron",
     "muon"
   };
@@ -68,7 +68,7 @@ void getRMS(){
     "DNN_output0_NoTopTag_thetastar_bin6",
   };
 
-  vector<TString> samples = {
+  vector<TString> v_samples = {
     "TTbar",
     "WJets",
     "ST",
@@ -278,103 +278,74 @@ void getRMS(){
     "ZprimeDMToTTbarResoIncl_MZp2500_Mchi10_A1",
   };
 
-  vector<bool> isSignal (samples.size(), false);
-  vector<bool> isSignalInt (samples.size(), false);
+  vector<bool> isSignalInt (v_samples.size(), false);
 
-  for(unsigned int j=0; j<year.size(); j++){
-    cout << "year: " << year.at(j) << endl;
+  for(unsigned int j=0; j<v_years.size(); j++){
+    TString year = v_years.at(j);
+    cout << "year: " << year << endl;
 
-    for(unsigned int k=0; k<channel.size(); k++){
-      cout << "channel: " << channel.at(k) << endl;
+    for(unsigned int k=0; k<v_channels.size(); k++){
+      TString channel = v_channels.at(k);
+      cout << "channel: " << channel << endl;
 
-      for(unsigned int i=0; i<samples.size(); i++){
-        cout << samples.at(i) << endl;
+      for(unsigned int i=0; i<v_samples.size(); i++){
+        TString sample = v_samples.at(i);
+        cout << sample << endl;
 
-        // check if the sample is a signal or a background
-        isSignal.at(i) = (samples.at(i).Index("ZPrimeToTT") == 0  || samples.at(i).Index("ALP") == 0  || samples.at(i).Index("Hscalar") == 0 || samples.at(i).Index("Hpseudo") == 0  );
-        isSignalInt.at(i) = (((samples.at(i).Index("Hscalar") == 0 || samples.at(i).Index("Hpseudo") == 0) && (samples.at(i).Index("_int_neg") != -1)) || samples.at(i) == "ALP_ttbar_interference");
+        // check if the sample is an interference sample with negative weights
+        isSignalInt.at(i) = (((sample.Index("Hscalar") == 0 || sample.Index("Hpseudo") == 0) && (sample.Index("_int_neg") != -1)) || sample == "ALP_ttbar_interference");
 
-        // cout << "sample " << samples.at(i) << " is signal " << isSignal.at(i)  << " is negative interference " << isSignalInt.at(i) << endl;
-
-        file_name = file_dir + "AnalysisDNN_" + year.at(j) +"/" + channel.at(k) +"/uhh2.AnalysisModuleRunner.MC."+ samples.at(i) + ".root";
+        file_name = file_dir + "AnalysisDNN_" + year +"/" + channel +"/uhh2.AnalysisModuleRunner.MC."+ sample + ".root";
         TFile* f_in = new TFile(file_name, "READ");
 
-        // For each Signal sample read the normalization values - one for each of the 100 PDF replicas
-        vector<double> pdf_norm (100, 1.); //For bkgs set normalization value to 1
-        if(isSignal.at(i)){
-          string pdf_numb[100];
-          ifstream normfile(uhh2_basedir + "CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/macros/src/SamplePDFNorm/" + year.at(j) + "/SampleNorm_" + samples.at(i) + ".txt", ios::in);
-          if (normfile.is_open()){
-            for(int a = 0; a < 100; ++a){
-              normfile >> pdf_numb[a] >> pdf_norm[a];
-            }
-            normfile.close();
-          }
+        vector<double> v_variation_norms;
+        TString presel_file_name = file_dir + "Presel_" + year + "/uhh2.AnalysisModuleRunner.MC.";
+        if(sample.EndsWith("_int_pos") || sample.EndsWith("_int_neg")){
+          TString sample_fix = sample;
+          sample_fix.Resize(sample_fix.Length() - 4); // remove last 4 characters from string
+          presel_file_name += sample_fix + ".root";
+        }
+        else{
+          presel_file_name += sample + ".root";
         }
 
-        TFile* f_out = new TFile(uhh2_basedir + "CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/macros/src/PDF_hists/" + year.at(j) + "/" + channel.at(k) +"/uhh2.AnalysisModuleRunner.MC." + samples.at(i) +".root", "RECREATE");
+        TFile *presel_file = TFile::Open(presel_file_name);
+        TH1F *nominal_hist = (TH1F*) presel_file->Get("Input_General/sum_event_weights");
+        for(int c=1; c<101; ++c){
+          TString pdfnumber = (TString) to_string(c);
+          TH1F *variation_hist = (TH1F*) presel_file->Get("Input_General/sum_event_weights_PDF_" + pdfnumber);
+          double norm = variation_hist->GetBinContent(1) / nominal_hist->GetBinContent(1);
+          v_variation_norms.push_back(norm);
+        }
+        presel_file->Close();
+
+        TFile* f_out = new TFile(uhh2_basedir + "CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/macros/src/PDF_hists/" + year + "/" + channel +"/uhh2.AnalysisModuleRunner.MC." + sample +".root", "RECREATE");
         for(int l=0; l<v_root_directories.size(); l++){
-          TString output_root_directory = "Zprime_SystVariations_" + v_root_directories.at(l);
+          TString output_root_directory = "Zprime_PDFVariations_" + v_root_directories.at(l);
 
           TH1F *h_nominal = (TH1F*)f_in->Get("Zprime_SystVariations_" + v_root_directories.at(l)+"/M_Zprime");
           TH1F *h_PDF_up = (TH1F*)h_nominal->Clone();
           TH1F *h_PDF_down = (TH1F*)h_nominal->Clone();
 
-          if(isSignalInt.at(i)){
-            h_nominal->Scale(-1);
-            h_PDF_up->Scale(-1);
-            h_PDF_down->Scale(-1);
-          }
-
           float sum_bins = 0;
           // Loop over each bin of the Mtt histograms
-          for(int b=1; b<h_nominal->GetNbinsX()+1; b++){
+          for(int a=1; a<h_nominal->GetNbinsX()+1; a++){
+            float nominal = h_nominal->GetBinContent(a);
+            float sum_bins = 0;
 
-            if(!isSignalInt.at(i)){
-              float nominal = h_nominal->GetBinContent(b);
-              float sum_bins = 0;
-
-              // Loop over each of the 100 Histogrmas reweighted with the PDF replicas
-              for(int i = 1; i<101; i++){
-                stringstream ss_name;
-                ss_name << "Zprime_PDFVariations_" +v_root_directories.at(l)+"/M_Zprime_PDF_" << i;
-                string s_name = ss_name.str();
-                const char* char_name = s_name.c_str();
-
-                // cout << "pdf norm " << pdf_norm[i-1] << endl;
-                float bin =  ((TH1F*)(f_in->Get(char_name)))->GetBinContent(b);
-                float norm_bin = bin * pdf_norm[i-1];
-                // cout << "bin " << b << " value " << bin << " norm " << norm_bin << endl;
-                sum_bins += pow(norm_bin - nominal,2);
-
-              }
-              float rms = sqrt( sum_bins /100  );
-
-              h_PDF_up->SetBinContent(b, nominal+rms);
-              h_PDF_down->SetBinContent(b, max((float)0., nominal-rms));
+            for(int b=0; b<100; b++){
+              TString vars = "Zprime_PDFVariations_" + v_root_directories.at(l) + "/M_Zprime_PDF_" + to_string(b+1);
+              float bin_content = ((TH1F*) f_in->Get(vars))->GetBinContent(a) / v_variation_norms.at(b);
+              sum_bins += pow(bin_content - nominal, 2);
             }
+            float rms = sqrt(sum_bins / 100);
             if(isSignalInt.at(i)){
-              float nominal = h_nominal->GetBinContent(b);
-              float sum_bins = 0;
-
-              // Loop over each of the 100 Histogrmas reweighted with the PDF replicas
-              for(int i = 1; i<101; i++){
-                stringstream ss_name;
-                ss_name << "Zprime_PDFVariations_" +v_root_directories.at(l)+"/M_Zprime_PDF_" << i;
-                string s_name = ss_name.str();
-                const char* char_name = s_name.c_str();
-
-                // cout << "pdf norm " << pdf_norm[i-1] << endl;
-                float bin = -1*(  ((TH1F*)(f_in->Get(char_name)))->GetBinContent(b));
-                float norm_bin = bin * pdf_norm[i-1];
-                // cout << "bin " << b << " value " << bin << " norm " << norm_bin << endl;
-                sum_bins += pow(norm_bin - nominal,2);
-
-              }
-              float rms = sqrt( sum_bins /100  );
-
-              h_PDF_up->SetBinContent(b, nominal+rms);
-              h_PDF_down->SetBinContent(b, nominal-rms);
+              h_PDF_up->SetBinContent(a, nominal-rms);
+              h_PDF_down->SetBinContent(a, nominal+rms);
+            }
+            else{
+              h_PDF_up->SetBinContent(a, nominal+rms);
+              h_PDF_down->SetBinContent(a, nominal-rms);
             }
           }
 
@@ -383,17 +354,13 @@ void getRMS(){
           f_out->cd(output_root_directory);
           h_PDF_up->SetName("M_Zprime_pdf_up");
           h_PDF_down->SetName("M_Zprime_pdf_down");
-          if(isSignalInt.at(i)){
-            h_nominal->Scale(-1);
-            h_PDF_up->Scale(-1);
-            h_PDF_down->Scale(-1);
-          }
           h_PDF_up->Write();
           h_PDF_down->Write();
-          //}
+
+
 
           // // Plots nominal hist + up/down variations
-          // if( l== 0 && year.at(j)=="UL18" && channel.at(k) == "muon" && samples.at(i)=="ZPrimeToTT_M8000_W80"){
+          // if( l== 0 && year.at(j)=="UL18" && channel == "muon" && sample=="ZPrimeToTT_M8000_W80"){
           //   TCanvas* c = new TCanvas("c", "c", 1200, 800);
           //   c->Divide(1,1);
           //   c->cd(1);
@@ -477,11 +444,12 @@ void getRMS(){
           //   text1->Draw();
           //
           //
-          //   c->SaveAs(uhh2_basedir + "CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/macros/src/PDF_hists/" + year.at(j) + "/" + channel.at(k) + "/PDF_"+ samples.at(i) + "_" + v_root_directories.at(l) +".pdf");
+          //   c->SaveAs(uhh2_basedir + "CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/macros/src/PDF_hists/" + year.at(j) + "/" + channel + "/PDF_"+ sample + "_" + v_root_directories.at(l) +".pdf");
           //   c->Close();
         }
         f_in->Close();
         f_out->Close();
+        v_variation_norms.clear();
       }
     }
   }
