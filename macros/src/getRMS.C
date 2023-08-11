@@ -321,7 +321,7 @@ void getRMS(){
 
         TFile* f_out = new TFile(uhh2_basedir + "CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/macros/src/PDF_hists/" + year + "/" + channel +"/uhh2.AnalysisModuleRunner.MC." + sample +".root", "RECREATE");
         for(int l=0; l<v_root_directories.size(); l++){
-          TString output_root_directory = "Zprime_PDFVariations_" + v_root_directories.at(l);
+          TString output_root_directory = "Zprime_SystVariations_" + v_root_directories.at(l);
 
           TH1F *h_nominal = (TH1F*)f_in->Get("Zprime_SystVariations_" + v_root_directories.at(l)+"/M_Zprime");
           TH1F *h_PDF_up = (TH1F*)h_nominal->Clone();
