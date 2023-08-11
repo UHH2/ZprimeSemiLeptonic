@@ -147,7 +147,6 @@ void ZprimeSemiLeptonicSystematicsHists::init(){
   M_Zprime_ttag_corr_down     = book<TH1F>("M_Zprime_ttag_corr_down", "M_{t#bar{t}} [GeV] ttag_corr_down",         400, 0, 10000);
   M_Zprime_ttag_uncorr_up     = book<TH1F>("M_Zprime_ttag_uncorr_up", "M_{t#bar{t}} [GeV] ttag_uncorr_up",         400, 0, 10000);
   M_Zprime_ttag_uncorr_down   = book<TH1F>("M_Zprime_ttag_uncorr_down", "M_{t#bar{t}} [GeV] ttag_counrr_down",     400, 0, 10000);
-  M_Zprime_tmistag            = book<TH1F>("M_Zprime_tmistag", "M_{t#bar{t}} [GeV] tmistag",                       400, 0, 10000);
   M_Zprime_tmistag_up         = book<TH1F>("M_Zprime_tmistag_up", "M_{t#bar{t}} [GeV] tmistag_up",                 400, 0, 10000);
   M_Zprime_tmistag_down       = book<TH1F>("M_Zprime_tmistag_down", "M_{t#bar{t}} [GeV] tmistag_down",             400, 0, 10000);
 }
