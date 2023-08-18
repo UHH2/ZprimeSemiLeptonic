@@ -1,6 +1,6 @@
 {
   TString input_dir = "/nfs/dust/cms/group/zprime-uhh/AnalysisDNN_";
-  TString save_dir = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/macros/src/Scale_hists/";
+  TString save_dir = "/nfs/dust/cms/user/deleokse/RunII_106_v2/CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/macros/src/Scale_hists/";
 
   vector<TString> year = {
     "UL16preVFP",
@@ -26,14 +26,20 @@
     "DNN_output0_thetastar_bin2",
     "DNN_output0_thetastar_bin3",
     "DNN_output0_thetastar_bin4",
+    "DNN_output0_thetastar_bin5",
+    "DNN_output0_thetastar_bin6",
     "DNN_output0_TopTag_thetastar_bin1",
     "DNN_output0_TopTag_thetastar_bin2",
     "DNN_output0_TopTag_thetastar_bin3",
     "DNN_output0_TopTag_thetastar_bin4",
+    "DNN_output0_TopTag_thetastar_bin5",
+    "DNN_output0_TopTag_thetastar_bin6",
     "DNN_output0_NoTopTag_thetastar_bin1",
     "DNN_output0_NoTopTag_thetastar_bin2",
     "DNN_output0_NoTopTag_thetastar_bin3",
-    "DNN_output0_NoTopTag_thetastar_bin4"
+    "DNN_output0_NoTopTag_thetastar_bin4",
+    "DNN_output0_NoTopTag_thetastar_bin5",
+    "DNN_output0_NoTopTag_thetastar_bin6"
   };
 
   vector<TString> v_samples = {
