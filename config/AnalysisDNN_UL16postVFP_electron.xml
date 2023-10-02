@@ -48,7 +48,9 @@
 <!ENTITY ZZ_UL16postVFP SYSTEM "../data/Skimming_datasets_UL16postVFP_electron/MC_ZZ_UL16postVFP.xml">
 <!-- ST -->
 <!ENTITY ST_tW_antitop_5f_NoFullyHadronicDecays_UL16postVFP  SYSTEM "../data/Skimming_datasets_UL16postVFP_electron/MC_ST_tW_antitop_5f_NoFullyHadronicDecays_UL16postVFP.xml">
+<!ENTITY ST_tW_antitop_5f_NoFullyHadronicDecays_PDFWeights_UL16postVFP  SYSTEM "../data/Skimming_datasets_UL16postVFP_electron/MC_ST_tW_antitop_5f_NoFullyHadronicDecays_PDFWeights_UL16postVFP.xml">
 <!ENTITY ST_tW_top_5f_NoFullyHadronicDecays_UL16postVFP      SYSTEM "../data/Skimming_datasets_UL16postVFP_electron/MC_ST_tW_top_5f_NoFullyHadronicDecays_UL16postVFP.xml">
+<!ENTITY ST_tW_top_5f_NoFullyHadronicDecays_PDFWeights_UL16postVFP      SYSTEM "../data/Skimming_datasets_UL16postVFP_electron/MC_ST_tW_top_5f_NoFullyHadronicDecays_PDFWeights_UL16postVFP.xml">
 <!ENTITY ST_t-channel_antitop_4f_InclusiveDecays_UL16postVFP SYSTEM "../data/Skimming_datasets_UL16postVFP_electron/MC_ST_t-channel_antitop_4f_InclusiveDecays_UL16postVFP.xml">
 <!ENTITY ST_t-channel_top_4f_InclusiveDecays_UL16postVFP     SYSTEM "../data/Skimming_datasets_UL16postVFP_electron/MC_ST_t-channel_top_4f_InclusiveDecays_UL16postVFP.xml">
 <!ENTITY ST_s-channel_4f_leptonDecays_UL16postVFP            SYSTEM "../data/Skimming_datasets_UL16postVFP_electron/MC_ST_s-channel_4f_leptonDecays_UL16postVFP.xml">
@@ -278,7 +280,7 @@
 
 <!--
 <ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="5" AutoResubmit="0"/>
-<ConfigSGE RAM="2" DISK="2" Mail="henrik.jabusch@desy.de" Notification="as" Workdir="workdir_AnalysisDNN_UL16postVFP_electron"/>
+<ConfigSGE RAM="2" DISK="2" Mail="ksenia.de.leo@desy.de" Notification="as" Workdir="workdir_AnalysisDNN_UL16postVFP_electron"/>
 -->
 
 <JobConfiguration JobName="ZprimePreselectionJob" OutputLevel="INFO">
@@ -286,8 +288,7 @@
 	<Package Name="SUHH2ZprimeSemiLeptonic.par"/>
 
 	<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTPUTdir;/" PostFix="" TargetLumi="&TargetLumi;">
-
-		<!-- SingleElectron -->
+<!--
 		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SingleElectron_RunF_UL16postVFP" Cacheable="&b_Cacheable;">
 			&DATA_SingleElectron_RunF_UL16postVFP;
 			<InputTree Name="AnalysisTree" />
@@ -303,7 +304,6 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-		<!-- SinglePhoton -->
 		<InputData Lumi="1" NEventsMax="&NEVT;" Type="DATA" Version="DATA_SinglePhoton_RunF_UL16postVFP" Cacheable="&b_Cacheable;">
 			&DATA_SinglePhoton_RunF_UL16postVFP;
 			<InputTree Name="AnalysisTree" />
@@ -319,7 +319,6 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-		<!-- TTbar -->
 		<InputData Lumi="117575358.677" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic_UL16postVFP" Cacheable="&b_Cacheable;">
 			&TTToSemiLeptonic_UL16postVFP;
 			<InputTree Name="AnalysisTree" />
@@ -335,7 +334,6 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-		<!-- WJets -->
 		<InputData Lumi="15086.0818253" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-70To100_UL16postVFP" Cacheable="&b_Cacheable;">
 			&WJetsToLNu_HT-70To100_UL16postVFP;
 			<InputTree Name="AnalysisTree" />
@@ -376,7 +374,6 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-		<!-- DY -->
 		<InputData Lumi="41737.544611" NEventsMax="&NEVT;" Type="MC" Version="DYJetsToLL_M-50_HT-70to100_UL16postVFP" Cacheable="&b_Cacheable;">
 			&DYJetsToLL_M-50_HT-70to100_UL16postVFP;
 			<InputTree Name="AnalysisTree"/>
@@ -417,7 +414,6 @@
 			<InputTree Name="AnalysisTree"/>
 			<OutputTree Name="AnalysisTree"/>
 		</InputData>
-		<!-- Diboson -->
 		<InputData Lumi="133076.13394082926" NEventsMax="&NEVT;" Type="MC" Version="WW_UL16postVFP" Cacheable="&b_Cacheable;">
 			&WW_UL16postVFP;
 			<InputTree Name="AnalysisTree" />
@@ -433,17 +429,26 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-		<!-- ST -->
 		<InputData Lumi="5944312.97693" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_NoFullyHadronicDecays_UL16postVFP" Cacheable="&b_Cacheable;">
 			&ST_tW_antitop_5f_NoFullyHadronicDecays_UL16postVFP;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-		<InputData Lumi="5455706.1544" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_top_5f_NoFullyHadronicDecays_UL16postVFP" Cacheable="&b_Cacheable;">
+   -->             <InputData Lumi="6525109.5326085" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_NoFullyHadronicDecays_PDFWeights_UL16postVFP" Cacheable="&b_Cacheable;">
+                        &ST_tW_antitop_5f_NoFullyHadronicDecays_PDFWeights_UL16postVFP;
+                        <InputTree Name="AnalysisTree" />
+                        <OutputTree Name="AnalysisTree" />
+                </InputData>
+<!--		<InputData Lumi="5455706.1544" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_top_5f_NoFullyHadronicDecays_UL16postVFP" Cacheable="&b_Cacheable;">
 			&ST_tW_top_5f_NoFullyHadronicDecays_UL16postVFP;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
+    -->            <InputData Lumi="5705433.856898114" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_top_5f_NoFullyHadronicDecays_PDFWeights_UL16postVFP" Cacheable="&b_Cacheable;">
+                        &ST_tW_top_5f_NoFullyHadronicDecays_PDFWeights_UL16postVFP;
+                        <InputTree Name="AnalysisTree" />
+                        <OutputTree Name="AnalysisTree" />
+                </InputData>
 		<InputData Lumi="23689117.2415" NEventsMax="&NEVT;" Type="MC" Version="ST_t-channel_antitop_4f_InclusiveDecays_UL16postVFP" Cacheable="&b_Cacheable;">
 			&ST_t-channel_antitop_4f_InclusiveDecays_UL16postVFP;
 			<InputTree Name="AnalysisTree" />
@@ -459,8 +464,7 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-		<!-- QCD -->
-		<InputData Lumi="0.0596026465842" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT50to100_UL16postVFP" Cacheable="&b_Cacheable;">
+<!--		<InputData Lumi="0.0596026465842" NEventsMax="&NEVT;" Type="MC" Version="QCD_HT50to100_UL16postVFP" Cacheable="&b_Cacheable;">
 			&QCD_HT50to100_UL16postVFP;
 			<InputTree Name="AnalysisTree"/>
 			<OutputTree Name="AnalysisTree"/>
@@ -505,7 +509,6 @@
 			<InputTree Name="AnalysisTree"/>
 			<OutputTree Name="AnalysisTree"/>
 		</InputData>
-		<!-- ALP -->
 		<InputData Lumi="642451.759364" NEventsMax="&NEVT;" Type="MC" Version="ALP_ttbar_signal_UL16postVFP" Cacheable="&b_Cacheable;">
 			&ALP_ttbar_signal_UL16postVFP;
 			<InputTree Name="AnalysisTree"/>
@@ -516,7 +519,6 @@
 			<InputTree Name="AnalysisTree"/>
 			<OutputTree Name="AnalysisTree"/>
 		</InputData>
-		<!-- Scalar H 10% -->
 		<InputData Lumi="95506.0882794" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m365_w36p5_res_UL16postVFP" Cacheable="&b_Cacheable;">
 			&HscalarToTTTo1L1Nu2J_m365_w36p5_res_UL16postVFP;
 			<InputTree Name="AnalysisTree" />
@@ -607,7 +609,6 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-		<!-- Pseudoscalar A 10% -->
 		<InputData Lumi="51496.502675" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m365_w36p5_res_UL16postVFP" Cacheable="&b_Cacheable;">
 			&HpseudoToTTTo1L1Nu2J_m365_w36p5_res_UL16postVFP;
 			<InputTree Name="AnalysisTree" />
@@ -698,7 +699,6 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-		<!-- Scalar H 25% -->
 		<InputData Lumi="95538.5489009" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m365_w91p25_res_UL16postVFP" Cacheable="&b_Cacheable;">
 			&HscalarToTTTo1L1Nu2J_m365_w91p25_res_UL16postVFP;
 			<InputTree Name="AnalysisTree" />
@@ -789,7 +789,6 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-		<!-- Pseudoscalar A 25% -->
 		<InputData Lumi="90284.2747383" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m365_w91p25_res_UL16postVFP" Cacheable="&b_Cacheable;">
 			&HpseudoToTTTo1L1Nu2J_m365_w91p25_res_UL16postVFP;
 			<InputTree Name="AnalysisTree" />
@@ -880,7 +879,6 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-		<!-- Scalar H 2.5% -->
 		<InputData Lumi="95264.1914606" NEventsMax="&NEVT;" Type="MC" Version="HscalarToTTTo1L1Nu2J_m365_w9p125_res_UL16postVFP" Cacheable="&b_Cacheable;">
 			&HscalarToTTTo1L1Nu2J_m365_w9p125_res_UL16postVFP;
 			<InputTree Name="AnalysisTree" />
@@ -971,7 +969,6 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-		<!-- Pseudoscalar A 2.5% -->
 		<InputData Lumi="93626.0926526" NEventsMax="&NEVT;" Type="MC" Version="HpseudoToTTTo1L1Nu2J_m365_w9p125_res_UL16postVFP" Cacheable="&b_Cacheable;">
 			&HpseudoToTTTo1L1Nu2J_m365_w9p125_res_UL16postVFP;
 			<InputTree Name="AnalysisTree" />
@@ -1062,7 +1059,6 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-		<!-- RS gluon -->
 		<InputData Lumi="200000.0" NEventsMax="&NEVT;" Type="MC" Version="RSGluonToTT_M-500_UL16postVFP" Cacheable="&b_Cacheable;">
 			&RSGluonToTT_M-500_UL16postVFP;
 			<InputTree Name="AnalysisTree" />
@@ -1123,7 +1119,6 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-		<!-- ZPrime 10% -->
 		<InputData Lumi="206000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M400_W40_UL16postVFP" Cacheable="&b_Cacheable;">
 			&ZPrimeToTT_M400_W40_UL16postVFP;
 			<InputTree Name="AnalysisTree" />
@@ -1234,7 +1229,6 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-		<!-- ZPrime 30% -->
 		<InputData Lumi="230000.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M400_W120_UL16postVFP" Cacheable="&b_Cacheable;">
 			&ZPrimeToTT_M400_W120_UL16postVFP;
 			<InputTree Name="AnalysisTree" />
@@ -1345,7 +1339,6 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
-		<!-- ZPrime 1% -->
 		<InputData Lumi="570127.0" NEventsMax="&NEVT;" Type="MC" Version="ZPrimeToTT_M400_W4_UL16postVFP" Cacheable="&b_Cacheable;">
 			&ZPrimeToTT_M400_W4_UL16postVFP;
 			<InputTree Name="AnalysisTree"/>
@@ -1456,7 +1449,6 @@
 			<InputTree Name="AnalysisTree"/>
 			<OutputTree Name="AnalysisTree"/>
 		</InputData>
-                <!-- ZPrime DM -->
                 <InputData Lumi="933000.0" NEventsMax="&NEVT;" Type="MC" Version="ZprimeDMToTTbarResoIncl_MZp1000_Mchi10_V1_UL16postVFP" Cacheable="&b_Cacheable;">
                         &ZprimeDMToTTbarResoIncl_MZp1000_Mchi10_V1_UL16postVFP;
                         <InputTree Name="AnalysisTree"/>
@@ -1517,7 +1509,7 @@
                         <InputTree Name="AnalysisTree"/>
                         <OutputTree Name="AnalysisTree"/>
                 </InputData>
-
+-->
 		<UserConfig>
 			<Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices"/>
 			<Item Name="GenParticleCollection"   Value="GenParticles"/>
