@@ -65,6 +65,7 @@ protected:
   std::unique_ptr<uhh2::Selection> jet1_sel;
   std::unique_ptr<uhh2::Selection> jet2_sel;
   std::unique_ptr<uhh2::Selection> met_sel;
+  unique_ptr<Selection> SignSplit;
 
   bool isMC, isHOTVR;
   string Sys_PU;
@@ -148,6 +149,14 @@ ZprimePreselectionModule::ZprimePreselectionModule(uhh2::Context& ctx){
   topjet_puppi_IDcleaner.reset(new TopJetCleaner(ctx, jetID_PUPPI, "toppuppijets"));
   topjet_puppi_cleaner.reset(new TopJetCleaner(ctx, TopJetId(PtEtaCut(200., 2.5)), "toppuppijets"));
 
+  // Split interference signal samples by sign
+  if(ctx.get("dataset_version").find("_int") != std::string::npos){
+    if     (ctx.get("dataset_version").find("_pos") != std::string::npos) SignSplit.reset(new SignSelection("pos"));
+    else if(ctx.get("dataset_version").find("_neg") != std::string::npos) SignSplit.reset(new SignSelection("neg"));
+    else SignSplit.reset(new uhh2::AndSelection(ctx));
+  }
+  else SignSplit.reset(new uhh2::AndSelection(ctx));
+
   // common modules
   common.reset(new CommonModules());
   common->switch_jetlepcleaner(true);
@@ -187,6 +196,10 @@ bool ZprimePreselectionModule::process(uhh2::Event& event){
 
   if(debug) cout << "++++++++++++ NEW EVENT ++++++++++++++" << endl;
   if(debug) cout << " run.event: " << event.run << ". " << event.event << endl;
+
+  if(!event.isRealData){
+    if(!SignSplit->passes(event)) return false;
+  }
 
   fill_histograms(event, "Input");
 
