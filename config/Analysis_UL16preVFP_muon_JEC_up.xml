@@ -41,7 +41,9 @@
 <!ENTITY ZZ_UL16preVFP SYSTEM "../data/Skimming_datasets_UL16preVFP_preselection_JEC_up/MC_ZZ_UL16preVFP.xml">
 <!-- ST -->
 <!ENTITY ST_tW_antitop_5f_NoFullyHadronicDecays_UL16preVFP  SYSTEM "../data/Skimming_datasets_UL16preVFP_preselection_JEC_up/MC_ST_tW_antitop_5f_NoFullyHadronicDecays_UL16preVFP.xml">
+<!ENTITY ST_tW_antitop_5f_NoFullyHadronicDecays_PDFWeights_UL16preVFP  SYSTEM "../data/Skimming_datasets_UL16preVFP_preselection_JEC_up/MC_ST_tW_antitop_5f_NoFullyHadronicDecays_PDFWeights_UL16preVFP.xml">
 <!ENTITY ST_tW_top_5f_NoFullyHadronicDecays_UL16preVFP      SYSTEM "../data/Skimming_datasets_UL16preVFP_preselection_JEC_up/MC_ST_tW_top_5f_NoFullyHadronicDecays_UL16preVFP.xml">
+<!ENTITY ST_tW_top_5f_NoFullyHadronicDecays_PDFWeights_UL16preVFP      SYSTEM "../data/Skimming_datasets_UL16preVFP_preselection_JEC_up/MC_ST_tW_top_5f_NoFullyHadronicDecays_PDFWeights_UL16preVFP.xml">
 <!ENTITY ST_t-channel_antitop_4f_InclusiveDecays_UL16preVFP SYSTEM "../data/Skimming_datasets_UL16preVFP_preselection_JEC_up/MC_ST_t-channel_antitop_4f_InclusiveDecays_UL16preVFP.xml">
 <!ENTITY ST_t-channel_top_4f_InclusiveDecays_UL16preVFP     SYSTEM "../data/Skimming_datasets_UL16preVFP_preselection_JEC_up/MC_ST_t-channel_top_4f_InclusiveDecays_UL16preVFP.xml">
 <!ENTITY ST_s-channel_4f_leptonDecays_UL16preVFP            SYSTEM "../data/Skimming_datasets_UL16preVFP_preselection_JEC_up/MC_ST_s-channel_4f_leptonDecays_UL16preVFP.xml">
@@ -270,7 +272,7 @@
 ]>
 
 <!--
-<ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="1" AutoResubmit="0"/>
+<ConfigParse NEventsBreak="0" LastBreak="0" FileSplit="5" AutoResubmit="0"/>
 <ConfigSGE RAM="2" DISK="2" Mail="ksenia.de.leo@desy.de" Notification="as" Workdir="workdir_Analysis_UL16preVFP_muon_JEC_up"/>
 -->
 
@@ -400,11 +402,21 @@
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
+                <InputData Lumi="5843850.988695993" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_NoFullyHadronicDecays_PDFWeights_UL16preVFP" Cacheable="&b_Cacheable;">
+                        &ST_tW_antitop_5f_NoFullyHadronicDecays_PDFWeights_UL16preVFP;
+                        <InputTree Name="AnalysisTree" />
+                        <OutputTree Name="AnalysisTree" />
+                </InputData>
 		<InputData Lumi="5491324.50234" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_top_5f_NoFullyHadronicDecays_UL16preVFP" Cacheable="&b_Cacheable;">
 			&ST_tW_top_5f_NoFullyHadronicDecays_UL16preVFP;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData>
+                <InputData Lumi="5905922.089687181" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_top_5f_NoFullyHadronicDecays_PDFWeights_UL16preVFP" Cacheable="&b_Cacheable;">
+                        &ST_tW_top_5f_NoFullyHadronicDecays_PDFWeights_UL16preVFP;
+                        <InputTree Name="AnalysisTree" />
+                        <OutputTree Name="AnalysisTree" />
+                </InputData>
 		<InputData Lumi="24110577.2047" NEventsMax="&NEVT;" Type="MC" Version="ST_t-channel_antitop_4f_InclusiveDecays_UL16preVFP" Cacheable="&b_Cacheable;">
 			&ST_t-channel_antitop_4f_InclusiveDecays_UL16preVFP;
 			<InputTree Name="AnalysisTree" />
