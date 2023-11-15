@@ -71,11 +71,15 @@ void getRMS(){
   vector<TString> v_samples = {
     "TTbar",
     "WJets",
-    "ST",
+    // "ST", // treat channels independently due to needed index shift in s-channel
+    "ST_s-channel",
+    "ST_t-channel",
+    "ST_tW",
     "QCD",
     "DY",
     // "Diboson", // has no PDF weights stored
     "others",
+    "others2",
     "ALP_ttbar_signal",
     "ALP_ttbar_interference",
     "HscalarToTTTo1L1Nu2J_m365_w36p5_res",
@@ -279,6 +283,8 @@ void getRMS(){
   };
 
   vector<bool> isSignalInt (v_samples.size(), false);
+  vector<bool> isHessianPDF (v_samples.size(), true); // the Hessian set is stored first for all samples
+
 
   for(unsigned int j=0; j<v_years.size(); j++){
     TString year = v_years.at(j);
@@ -294,6 +300,7 @@ void getRMS(){
 
         // check if the sample is an interference sample with negative weights
         isSignalInt.at(i) = (((sample.Index("Hscalar") == 0 || sample.Index("Hpseudo") == 0) && (sample.Index("_int_neg") != -1)) || sample == "ALP_ttbar_interference");
+        // isHessianPDF.at(i) = (sample == "TTbar");
 
         file_name = file_dir + "AnalysisDNN_" + year +"/" + channel +"/uhh2.AnalysisModuleRunner.MC."+ sample + ".root";
         TFile* f_in = new TFile(file_name, "READ");
@@ -304,6 +311,9 @@ void getRMS(){
           TString sample_fix = sample;
           sample_fix.Resize(sample_fix.Length() - 4); // remove last 4 characters from string
           presel_file_name += sample_fix + ".root";
+        }
+        else if(sample.BeginsWith("ST_")){
+          presel_file_name = file_dir + "Presel_" + year + "/uhh2.AnalysisModuleRunner.MC.ST.root";
         }
         else{
           presel_file_name += sample + ".root";
@@ -323,9 +333,20 @@ void getRMS(){
         for(int l=0; l<v_root_directories.size(); l++){
           TString output_root_directory = "Zprime_SystVariations_" + v_root_directories.at(l);
 
-          TH1F *h_nominal = (TH1F*)f_in->Get("Zprime_SystVariations_" + v_root_directories.at(l)+"/M_Zprime");
-          TH1F *h_PDF_up = (TH1F*)h_nominal->Clone();
-          TH1F *h_PDF_down = (TH1F*)h_nominal->Clone();
+          // TH1F *h_nominal = (TH1F*)f_in->Get("Zprime_SystVariations_" + v_root_directories.at(l)+"/M_Zprime"); // before
+          TString name_nominal = "Zprime_PDFVariations_" + v_root_directories.at(l) + "/M_Zprime_PDF_";
+          int start_index = 0;
+          if(sample == "ST_s-channel"){
+            name_nominal += "2";
+            start_index = 2;
+          }
+          else{
+            name_nominal += "1";
+            start_index = 1;
+          }
+          TH1F *h_nominal = (TH1F*)f_in->Get(name_nominal); // nominal = first PDF variation
+          TH1F *h_PDF_up = (TH1F*) h_nominal->Clone();
+          TH1F *h_PDF_down = (TH1F*) h_nominal->Clone();
 
           float sum_bins = 0;
           // Loop over each bin of the Mtt histograms
@@ -333,12 +354,18 @@ void getRMS(){
             float nominal = h_nominal->GetBinContent(a);
             float sum_bins = 0;
 
-            for(int b=0; b<100; b++){
-              TString vars = "Zprime_PDFVariations_" + v_root_directories.at(l) + "/M_Zprime_PDF_" + to_string(b+1);
+            for(int b=start_index; b<100; ++b){ // the first one is the nominal one
+              TString vars = "Zprime_PDFVariations_" + v_root_directories.at(l) + "/M_Zprime_PDF_" + to_string(b);
               float bin_content = ((TH1F*) f_in->Get(vars))->GetBinContent(a) / v_variation_norms.at(b);
               sum_bins += pow(bin_content - nominal, 2);
             }
-            float rms = sqrt(sum_bins / 100);
+            float rms;
+            if(isHessianPDF.at(i)){
+              rms = sqrt(sum_bins);
+            }
+            else{
+              rms = sqrt(sum_bins / 100);
+            }
             if(isSignalInt.at(i)){
               h_PDF_up->SetBinContent(a, nominal-rms);
               h_PDF_down->SetBinContent(a, nominal+rms);
@@ -360,7 +387,7 @@ void getRMS(){
 
 
           // // Plots nominal hist + up/down variations
-          // if( l== 0 && year.at(j)=="UL18" && channel == "muon" && sample=="ZPrimeToTT_M8000_W80"){
+          // if(l == 0 && year == "UL18" && channel == "muon"){
           //   TCanvas* c = new TCanvas("c", "c", 1200, 800);
           //   c->Divide(1,1);
           //   c->cd(1);
@@ -371,35 +398,44 @@ void getRMS(){
           //   //gPad->SetLogy();
           //   gStyle->SetOptStat(0);
           //
-          //   h_nominal->SetLineWidth(1);
-          //   h_nominal->SetLineColor(kBlack);
-          //   h_PDF_up->SetLineWidth(1);
-          //   h_PDF_up->SetLineColor(kRed);
-          //   h_PDF_down->SetLineWidth(1);
-          //   h_PDF_down->SetLineColor(kBlue);
+          //   TH1F *h_nominal_draw = (TH1F*) h_nominal->Clone();
+          //   TH1F *h_PDF_up_draw = (TH1F*) h_PDF_up->Clone();
+          //   TH1F *h_PDF_down_draw = (TH1F*) h_PDF_down->Clone();
           //
-          //   h_nominal->Draw("HIST");
-          //   h_nominal->SetTitle("");
-          //   h_nominal->GetXaxis()->SetTitle("M_{t#bar{t}} [GeV]");
-          //   h_nominal->GetXaxis()->SetRangeUser(0.,3000.);
-          //   h_nominal->GetXaxis()->SetTitleSize(0.055);
-          //   h_nominal->GetXaxis()->SetLabelSize(0.05);
-          //   h_nominal->GetYaxis()->SetTitle("Events");
-          //   h_nominal->GetYaxis()->SetRangeUser(0.,200.);
-          //   h_nominal->GetYaxis()->SetTitleSize(0.055);
-          //   h_nominal->GetYaxis()->SetLabelSize(0.05);
-          //   h_nominal->Draw("HIST");
-          //   h_PDF_up->Draw("HIST same");
-          //   h_PDF_down->Draw("HIST same");
+          //   h_nominal_draw->Divide(h_nominal);
+          //   h_PDF_up_draw->Divide(h_nominal);
+          //   h_PDF_down_draw->Divide(h_nominal);
+          //
+          //   h_nominal_draw->SetLineWidth(1);
+          //   h_nominal_draw->SetLineColor(kBlack);
+          //   h_PDF_up_draw->SetLineWidth(1);
+          //   h_PDF_up_draw->SetLineColor(kRed);
+          //   h_PDF_down_draw->SetLineWidth(1);
+          //   h_PDF_down_draw->SetLineColor(kBlue);
+          //
+          //   h_nominal_draw->Draw("HIST");
+          //   h_nominal_draw->SetTitle("");
+          //   h_nominal_draw->GetXaxis()->SetTitle("M_{t#bar{t}} [GeV]");
+          //   // h_nominal_draw->GetXaxis()->SetRangeUser(0.,3000.);
+          //   h_nominal_draw->GetXaxis()->SetTitleSize(0.055);
+          //   h_nominal_draw->GetXaxis()->SetLabelSize(0.05);
+          //   h_nominal_draw->GetYaxis()->SetTitle("Events");
+          //   h_nominal_draw->GetYaxis()->SetRangeUser(0.,2);
+          //   h_nominal_draw->GetYaxis()->SetTitleSize(0.055);
+          //   h_nominal_draw->GetYaxis()->SetLabelSize(0.05);
+          //
+          //   h_nominal_draw->Draw("HIST");
+          //   h_PDF_up_draw->Draw("HIST same");
+          //   h_PDF_down_draw->Draw("HIST same");
           //
           //   auto legend = new TLegend(0.7,0.67,0.85,0.9);
           //   legend->SetBorderSize(0);
           //   legend->SetFillStyle(0);
           //   legend->SetTextSize(0.035);
           //   legend->SetTextFont(42);
-          //   legend->AddEntry(h_nominal,"nominal","le");
-          //   legend->AddEntry(h_PDF_up,"PDF up","le");
-          //   legend->AddEntry(h_PDF_down,"PDF down","le");
+          //   legend->AddEntry(h_nominal_draw,"nominal","le");
+          //   legend->AddEntry(h_PDF_up_draw,"PDF up","le");
+          //   legend->AddEntry(h_PDF_down_draw,"PDF down","le");
           //   legend->Draw();
           //
           //   TString cmstext = "CMS";
@@ -443,9 +479,10 @@ void getRMS(){
           //   text1->SetY(1.-0.07+0.2*0.07);
           //   text1->Draw();
           //
-          //
-          //   c->SaveAs(uhh2_basedir + "CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/macros/src/PDF_hists/" + year.at(j) + "/" + channel + "/PDF_"+ sample + "_" + v_root_directories.at(l) +".pdf");
+          //   c->SaveAs(uhh2_basedir + "CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/macros/src/PDF_hists/" + year + "/" + channel + "/PDF_"+ sample + "_" + v_root_directories.at(l) +".pdf");
           //   c->Close();
+          // }
+
         }
         f_in->Close();
         f_out->Close();
