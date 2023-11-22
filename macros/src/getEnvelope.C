@@ -303,14 +303,7 @@ void getEnvelope(){
 
         vector<double> v_variation_norms;
         TString presel_file_name = file_dir + "Presel_" + year + "/uhh2.AnalysisModuleRunner.MC.";
-        if(sample.EndsWith("_int_pos") || sample.EndsWith("_int_neg")){
-          TString sample_fix = sample;
-          sample_fix.Resize(sample_fix.Length() - 4); // remove last 4 characters from string
-          presel_file_name += sample_fix + ".root";
-        }
-        else{
-          presel_file_name += sample + ".root";
-        }
+        presel_file_name += sample + ".root";
         // cout << "presel in file: " << presel_file_name << endl;
 
         TFile *presel_file = TFile::Open(presel_file_name);
