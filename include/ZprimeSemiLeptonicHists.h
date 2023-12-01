@@ -54,6 +54,7 @@ protected:
   TH1F *massdecordeepjet_TvsQCD_Taggedjet,*massdecordeepjet_TvsQCD_Taggedjet1,*massdecordeepjet_TvsQCD_Taggedjet2,*massdecordeepjet_TvsQCD_Taggedjet3;
   TH1F *cos_hadtop_thetastar, *cos_leptop_thetastar, *abs_cos_leptop_thetastar;
   TH2F *N_Jets_vs_HT, *mttbar_vs_costhetastar, *costhetastar_vs_mttbar;
+  TH1F *DeltaEtaj1j2;
 
   uhh2::Event::Handle< std::vector<TopJet> > h_AK8TopTags;
   uhh2::Event::Handle<bool> h_is_zprime_reconstructed_chi2;

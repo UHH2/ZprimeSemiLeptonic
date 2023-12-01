@@ -67,6 +67,8 @@ void ZprimeSemiLeptonicHists::init(){
   N_bJetsDeepJet_med   = book<TH1F>("N_bJetsDeepJet_med", "N_{jets}^{DeepJet medium}", 11, -0.5, 10.5);
   N_bJetsDeepJet_tight = book<TH1F>("N_bJetsDeepJet_tight", "N_{jets}^{DeepJet tight}", 11, -0.5, 10.5);
 
+  DeltaEtaj1j2 = book<TH1F>("DeltaEtaj1j2", "#Delta#eta(j1,j2)", 120, -6.0, 6.0);
+
   // leptons
   N_mu             = book<TH1F>("N_mu", "N^{#mu}", 11, -0.5, 10.5);
   pt_mu            = book<TH1F>("pt_mu", "p_{T}^{#mu} [GeV]", 90, 0, 900);
@@ -662,6 +664,7 @@ void ZprimeSemiLeptonicHists::fill(const Event & event){
   vector<Jet>* jets = event.jets;
   int Njets = jets->size();
   N_jets->Fill(Njets, weight);
+  DeltaEtaj1j2->Fill((jets->at(0).eta()-jets->at(1).eta()),weight);
 
   for(unsigned int i=0; i<jets->size(); i++){
     pt_jet->Fill(jets->at(i).pt(),weight);
