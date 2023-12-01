@@ -36,9 +36,7 @@
 <!ENTITY WW SYSTEM "../data/Skimming_datasets_UL18_electron_JER_up/MC_WW_UL18.xml">
 <!ENTITY WZ SYSTEM "../data/Skimming_datasets_UL18_electron_JER_up/MC_WZ_UL18.xml">
 <!ENTITY ZZ SYSTEM "../data/Skimming_datasets_UL18_electron_JER_up/MC_ZZ_UL18.xml">
-<!ENTITY ST_tW_antitop_5f_NoFullyHadronicDecays SYSTEM "../data/Skimming_datasets_UL18_electron_JER_up/MC_ST_tW_antitop_5f_NoFullyHadronicDecays_UL18.xml">
 <!ENTITY ST_tW_antitop_5f_NoFullyHadronicDecays_PDFWeights SYSTEM "../data/Skimming_datasets_UL18_electron_JER_up/MC_ST_tW_antitop_5f_NoFullyHadronicDecays_PDFWeights_UL18.xml">
-<!ENTITY ST_tW_top_5f_NoFullyHadronicDecays SYSTEM "../data/Skimming_datasets_UL18_electron_JER_up/MC_ST_tW_top_5f_NoFullyHadronicDecays_UL18.xml">
 <!ENTITY ST_tW_top_5f_NoFullyHadronicDecays_PDFWeights SYSTEM "../data/Skimming_datasets_UL18_electron_JER_up/MC_ST_tW_top_5f_NoFullyHadronicDecays_PDFWeights_UL18.xml">
 <!ENTITY ST_t-channel_antitop_4f_InclusiveDecays SYSTEM "../data/Skimming_datasets_UL18_electron_JER_up/MC_ST_t-channel_antitop_4f_InclusiveDecays_UL18.xml">
 <!ENTITY ST_t-channel_top_4f_InclusiveDecays SYSTEM "../data/Skimming_datasets_UL18_electron_JER_up/MC_ST_t-channel_top_4f_InclusiveDecays_UL18.xml">
@@ -270,9 +268,8 @@
 		<InputData Lumi="385941905.855241" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic&YEARsuffix;" Cacheable="&b_Cacheable;"> &TTToSemiLeptonic; <InputTree Name="AnalysisTree"/> </InputData>
 		<InputData Lumi="118155756.09035574" NEventsMax="&NEVT;" Type="MC" Version="TTTo2L2Nu&YEARsuffix;" Cacheable="&b_Cacheable;"> &TTTo2L2Nu; <InputTree Name="AnalysisTree"/> </InputData>
 		<InputData Lumi="277261144.22366405" NEventsMax="&NEVT;" Type="MC" Version="TTToHadronic&YEARsuffix;" Cacheable="&b_Cacheable;"> &TTToHadronic; <InputTree Name="AnalysisTree"/> </InputData>
-		<InputData Lumi="18184625.971525513" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_top_5f_NoFullyHadronicDecays&YEARsuffix;" Cacheable="&b_Cacheable;"> &ST_tW_top_5f_NoFullyHadronicDecays; <InputTree Name="AnalysisTree"/> </InputData>-->
+-->
                 <InputData Lumi="20301496.2345151" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_top_5f_NoFullyHadronicDecays_PDFWeights&YEARsuffix;" Cacheable="&b_Cacheable;"> &ST_tW_top_5f_NoFullyHadronicDecays_PDFWeights; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
-<!--		<InputData Lumi="17844330.02339911" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_NoFullyHadronicDecays&YEARsuffix;" Cacheable="&b_Cacheable;"> &ST_tW_antitop_5f_NoFullyHadronicDecays; <InputTree Name="AnalysisTree"/> </InputData>-->
                 <InputData Lumi="19511977.419419464" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_NoFullyHadronicDecays_PDFWeights&YEARsuffix;" Cacheable="&b_Cacheable;"> &ST_tW_antitop_5f_NoFullyHadronicDecays_PDFWeights; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
 		<InputData Lumi="137232537.73709747" NEventsMax="&NEVT;" Type="MC" Version="ST_t-channel_top_4f_InclusiveDecays&YEARsuffix;" Cacheable="&b_Cacheable;"> &ST_t-channel_top_4f_InclusiveDecays; <InputTree Name="AnalysisTree"/> </InputData>
 		<InputData Lumi="74925350.38641135" NEventsMax="&NEVT;" Type="MC" Version="ST_t-channel_antitop_4f_InclusiveDecays&YEARsuffix;" Cacheable="&b_Cacheable;"> &ST_t-channel_antitop_4f_InclusiveDecays; <InputTree Name="AnalysisTree"/> </InputData>
