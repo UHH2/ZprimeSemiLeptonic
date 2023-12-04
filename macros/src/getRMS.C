@@ -78,8 +78,8 @@ void getRMS(){
     "QCD",
     "DY",
     // "Diboson", // has no PDF weights stored
-    "others",
-    "others2",
+    // "others", // Diboson has no PDF weights stored
+    // "others2", // Diboson has no PDF weights stored
     "ALP_ttbar_signal",
     "ALP_ttbar_interference",
     "HscalarToTTTo1L1Nu2J_m365_w36p5_res",
