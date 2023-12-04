@@ -264,17 +264,16 @@
 	<Package Name="SUHH2ZprimeSemiLeptonic.par"/>
 
 	<Cycle Name="uhh2::AnalysisModuleRunner" OutputDirectory="&OUTPUTdir;/" PostFix="" TargetLumi="&TargetLumi;">
-<!--
+
 		<InputData Lumi="385941905.855241" NEventsMax="&NEVT;" Type="MC" Version="TTToSemiLeptonic&YEARsuffix;" Cacheable="&b_Cacheable;"> &TTToSemiLeptonic; <InputTree Name="AnalysisTree"/> </InputData>
 		<InputData Lumi="118155756.09035574" NEventsMax="&NEVT;" Type="MC" Version="TTTo2L2Nu&YEARsuffix;" Cacheable="&b_Cacheable;"> &TTTo2L2Nu; <InputTree Name="AnalysisTree"/> </InputData>
 		<InputData Lumi="277261144.22366405" NEventsMax="&NEVT;" Type="MC" Version="TTToHadronic&YEARsuffix;" Cacheable="&b_Cacheable;"> &TTToHadronic; <InputTree Name="AnalysisTree"/> </InputData>
--->
-                <InputData Lumi="20301496.2345151" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_top_5f_NoFullyHadronicDecays_PDFWeights&YEARsuffix;" Cacheable="&b_Cacheable;"> &ST_tW_top_5f_NoFullyHadronicDecays_PDFWeights; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
-                <InputData Lumi="19511977.419419464" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_NoFullyHadronicDecays_PDFWeights&YEARsuffix;" Cacheable="&b_Cacheable;"> &ST_tW_antitop_5f_NoFullyHadronicDecays_PDFWeights; <InputTree Name="AnalysisTree"/> <OutputTree Name="AnalysisTree"/> </InputData>
+                <InputData Lumi="20301496.2345151" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_top_5f_NoFullyHadronicDecays_PDFWeights&YEARsuffix;" Cacheable="&b_Cacheable;"> &ST_tW_top_5f_NoFullyHadronicDecays_PDFWeights; <InputTree Name="AnalysisTree"/> </InputData>
+                <InputData Lumi="19511977.419419464" NEventsMax="&NEVT;" Type="MC" Version="ST_tW_antitop_5f_NoFullyHadronicDecays_PDFWeights&YEARsuffix;" Cacheable="&b_Cacheable;"> &ST_tW_antitop_5f_NoFullyHadronicDecays_PDFWeights; <InputTree Name="AnalysisTree"/> </InputData>
 		<InputData Lumi="137232537.73709747" NEventsMax="&NEVT;" Type="MC" Version="ST_t-channel_top_4f_InclusiveDecays&YEARsuffix;" Cacheable="&b_Cacheable;"> &ST_t-channel_top_4f_InclusiveDecays; <InputTree Name="AnalysisTree"/> </InputData>
 		<InputData Lumi="74925350.38641135" NEventsMax="&NEVT;" Type="MC" Version="ST_t-channel_antitop_4f_InclusiveDecays&YEARsuffix;" Cacheable="&b_Cacheable;"> &ST_t-channel_antitop_4f_InclusiveDecays; <InputTree Name="AnalysisTree"/> </InputData>
 		<InputData Lumi="19938898.433591332" NEventsMax="&NEVT;" Type="MC" Version="ST_s-channel_4f_leptonDecays&YEARsuffix;" Cacheable="&b_Cacheable;"> &ST_s-channel_4f_leptonDecays; <InputTree Name="AnalysisTree"/> </InputData>
-<!--		<InputData Lumi="51465.909520062945" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-70To100&YEARsuffix;" Cacheable="&b_Cacheable;"> &WJetsToLNu_HT-70To100; <InputTree Name="AnalysisTree"/> </InputData>
+		<InputData Lumi="51465.909520062945" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-70To100&YEARsuffix;" Cacheable="&b_Cacheable;"> &WJetsToLNu_HT-70To100; <InputTree Name="AnalysisTree"/> </InputData>
 		<InputData Lumi="40619.25059856345" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-100To200&YEARsuffix;" Cacheable="&b_Cacheable;"> &WJetsToLNu_HT-100To200; <InputTree Name="AnalysisTree"/> </InputData>
 		<InputData Lumi="170855.90949687408" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-200To400&YEARsuffix;" Cacheable="&b_Cacheable;"> &WJetsToLNu_HT-200To400; <InputTree Name="AnalysisTree"/> </InputData>
 		<InputData Lumi="160044.9900464499" NEventsMax="&NEVT;" Type="MC" Version="WJetsToLNu_HT-400To600&YEARsuffix;" Cacheable="&b_Cacheable;"> &WJetsToLNu_HT-400To600; <InputTree Name="AnalysisTree"/> </InputData>
@@ -503,7 +502,7 @@
 		<InputData Lumi="994000.0" NEventsMax="&NEVT;" Type="MC" Version="ZprimeDMToTTbarResoIncl_MZp2500_Mchi1000_A1&YEARsuffix;" Cacheable="&b_Cacheable;"> &ZprimeDMToTTbarResoIncl_MZp2500_Mchi1000_A1; <InputTree Name="AnalysisTree"/> </InputData>
 			<InputData Lumi="1000000.0" NEventsMax="&NEVT;" Type="MC" Version="ZprimeDMToTTbarResoIncl_MZp2500_Mchi1000_V1&YEARsuffix;" Cacheable="&b_Cacheable;"> &ZprimeDMToTTbarResoIncl_MZp2500_Mchi1000_V1; <InputTree Name="AnalysisTree"/> </InputData>
 			<InputData Lumi="994000.0" NEventsMax="&NEVT;" Type="MC" Version="ZprimeDMToTTbarResoIncl_MZp2500_Mchi10_A1&YEARsuffix;" Cacheable="&b_Cacheable;"> &ZprimeDMToTTbarResoIncl_MZp2500_Mchi10_A1; <InputTree Name="AnalysisTree"/> </InputData>
--->
+
 		<UserConfig>
 			<Item Name="PrimaryVertexCollection" Value="offlineSlimmedPrimaryVertices"/>
 			<Item Name="GenParticleCollection" Value="GenParticles"/>
