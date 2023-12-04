@@ -680,14 +680,14 @@ bool uhh2::SignSelection::passes(const uhh2::Event& event){
 
 /////////////////////////////////////////////////////
 
-uhh2::DeltaEtaSelection::DeltaEtaSelection(Context& ctx){}
+uhh2::DeltaEtaSelection::DeltaEtaSelection(){} // Context& ctx
 
 bool uhh2::DeltaEtaSelection::passes(const uhh2::Event& event){
- 
-  assert(event.jets);  
- 
+
+  assert(event.jets);
+
   for(unsigned int k = 0; k < event.jets->size(); k++){
     if( fabs(event.jets->at(0).eta() - event.jets->at(1).eta() ) > max_eta) return false;
-  } 
+  }
   return true;
 }
