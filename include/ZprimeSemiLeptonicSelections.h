@@ -366,7 +366,7 @@ namespace uhh2 {
   class DeltaEtaSelection: public Selection {
 
   public:
-    explicit DeltaEtaSelection(uhh2::Context&);
+    explicit DeltaEtaSelection(); // uhh2::Context&
     virtual bool passes(const Event&) override;
 
   private:
