@@ -69,19 +69,19 @@ void getRMS(){
   };
 
   vector<TString> v_samples = {
-    //"TTbar",
-    //"WJets",
-    //// "ST", // treat channels independently due to needed index shift in s-channel
-    //"ST_s-channel",
-    //"ST_t-channel",
-    //"ST_tW",
-    //"QCD",
-    //"DY",
-    //// "Diboson", // has no PDF weights stored
-    //"others",
-    //"others2",
-    //"ALP_ttbar_signal",
-    //"ALP_ttbar_interference",
+    "TTbar",
+    "WJets",
+    // "ST", // treat channels independently due to needed index shift in s-channel
+    "ST_s-channel",
+    "ST_t-channel",
+    "ST_tW",
+    "QCD",
+    "DY",
+    // "Diboson", // has no PDF weights stored
+    "others",
+    "others2",
+    "ALP_ttbar_signal",
+    "ALP_ttbar_interference",
     "HscalarToTTTo1L1Nu2J_m365_w36p5_res",
     "HscalarToTTTo1L1Nu2J_m400_w40p0_res",
     "HscalarToTTTo1L1Nu2J_m500_w50p0_res",
@@ -190,96 +190,96 @@ void getRMS(){
     "HpseudoToTTTo1L1Nu2J_m600_w15p0_int_neg",
     "HpseudoToTTTo1L1Nu2J_m800_w20p0_int_neg",
     "HpseudoToTTTo1L1Nu2J_m1000_w25p0_int_neg",
-    //// "RSGluonToTT_M-500", // has no PDF weights stored
-    //// "RSGluonToTT_M-1000", // has no PDF weights stored
-    //// "RSGluonToTT_M-1500", // has no PDF weights stored
-    //// "RSGluonToTT_M-2000", // has no PDF weights stored
-    //// "RSGluonToTT_M-2500", // has no PDF weights stored
-    //// "RSGluonToTT_M-3000", // has no PDF weights stored
-    //// "RSGluonToTT_M-3500", // has no PDF weights stored
-    //// "RSGluonToTT_M-4000", // has no PDF weights stored
-    //// "RSGluonToTT_M-4500", // has no PDF weights stored
-    //// "RSGluonToTT_M-5000", // has no PDF weights stored
-    //// "RSGluonToTT_M-5500", // has no PDF weights stored
-    //// "RSGluonToTT_M-6000", // has no PDF weights stored
-    //"ZPrimeToTT_M400_W40",
-    //"ZPrimeToTT_M500_W50",
-    //"ZPrimeToTT_M600_W60",
-    //"ZPrimeToTT_M700_W70",
-    //"ZPrimeToTT_M800_W80",
-    //"ZPrimeToTT_M900_W90",
-    //"ZPrimeToTT_M1000_W100",
-    //"ZPrimeToTT_M1200_W120",
-    //"ZPrimeToTT_M1400_W140",
-    //"ZPrimeToTT_M1600_W160",
-    //"ZPrimeToTT_M1800_W180",
-    //"ZPrimeToTT_M2000_W200",
-    //"ZPrimeToTT_M2500_W250",
-    //"ZPrimeToTT_M3000_W300",
-    //"ZPrimeToTT_M3500_W350",
-    //"ZPrimeToTT_M4000_W400",
-    //"ZPrimeToTT_M4500_W450",
-    //"ZPrimeToTT_M5000_W500",
-    //"ZPrimeToTT_M6000_W600",
-    //"ZPrimeToTT_M7000_W700",
-    //"ZPrimeToTT_M8000_W800",
-    //"ZPrimeToTT_M9000_W900",
-    //"ZPrimeToTT_M400_W120",
-    //"ZPrimeToTT_M500_W150",
-    //"ZPrimeToTT_M600_W180",
-    //"ZPrimeToTT_M700_W210",
-    //"ZPrimeToTT_M800_W240",
-    //"ZPrimeToTT_M900_W270",
-    //"ZPrimeToTT_M1000_W300",
-    //"ZPrimeToTT_M1200_W360",
-    //"ZPrimeToTT_M1400_W420",
-    //"ZPrimeToTT_M1600_W480",
-    //"ZPrimeToTT_M1800_W540",
-    //"ZPrimeToTT_M2000_W600",
-    //"ZPrimeToTT_M2500_W750",
-    //"ZPrimeToTT_M3000_W900",
-    //"ZPrimeToTT_M3500_W1050",
-    //"ZPrimeToTT_M4000_W1200",
-    //"ZPrimeToTT_M4500_W1350",
-    //"ZPrimeToTT_M5000_W1500",
-    //"ZPrimeToTT_M6000_W1800",
-    //"ZPrimeToTT_M7000_W2100",
-    //"ZPrimeToTT_M8000_W2400",
-    //"ZPrimeToTT_M9000_W2700",
-    //"ZPrimeToTT_M400_W4",
-    //"ZPrimeToTT_M500_W5",
-    //"ZPrimeToTT_M600_W6",
-    //"ZPrimeToTT_M700_W7",
-    //"ZPrimeToTT_M800_W8",
-    //"ZPrimeToTT_M900_W9",
-    //"ZPrimeToTT_M1000_W10",
-    //"ZPrimeToTT_M1200_W12",
-    //"ZPrimeToTT_M1400_W14",
-    //"ZPrimeToTT_M1600_W16",
-    //"ZPrimeToTT_M1800_W18",
-    //"ZPrimeToTT_M2000_W20",
-    //"ZPrimeToTT_M2500_W25",
-    //"ZPrimeToTT_M3000_W30",
-    //"ZPrimeToTT_M3500_W35",
-    //"ZPrimeToTT_M4000_W40",
-    //"ZPrimeToTT_M4500_W45",
-    //"ZPrimeToTT_M5000_W50",
-    //"ZPrimeToTT_M6000_W60",
-    //"ZPrimeToTT_M7000_W70",
-    //"ZPrimeToTT_M8000_W80",
-    //"ZPrimeToTT_M9000_W90",
-    //"ZprimeDMToTTbarResoIncl_MZp1000_Mchi10_V1",
-    //"ZprimeDMToTTbarResoIncl_MZp1500_Mchi10_V1",
-    //"ZprimeDMToTTbarResoIncl_MZp2000_Mchi10_V1",
-    //"ZprimeDMToTTbarResoIncl_MZp2500_Mchi10_V1",
-    //"ZprimeDMToTTbarResoIncl_MZp3000_Mchi10_V1",
-    //"ZprimeDMToTTbarResoIncl_MZp3500_Mchi10_V1",
-    //"ZprimeDMToTTbarResoIncl_MZp4000_Mchi10_V1",
-    //"ZprimeDMToTTbarResoIncl_MZp4500_Mchi10_V1",
-    //"ZprimeDMToTTbarResoIncl_MZp5000_Mchi10_V1",
-    //"ZprimeDMToTTbarResoIncl_MZp2500_Mchi1000_A1",
-    //"ZprimeDMToTTbarResoIncl_MZp2500_Mchi1000_V1",
-    //"ZprimeDMToTTbarResoIncl_MZp2500_Mchi10_A1",
+    // "RSGluonToTT_M-500", // has no PDF weights stored
+    // "RSGluonToTT_M-1000", // has no PDF weights stored
+    // "RSGluonToTT_M-1500", // has no PDF weights stored
+    // "RSGluonToTT_M-2000", // has no PDF weights stored
+    // "RSGluonToTT_M-2500", // has no PDF weights stored
+    // "RSGluonToTT_M-3000", // has no PDF weights stored
+    // "RSGluonToTT_M-3500", // has no PDF weights stored
+    // "RSGluonToTT_M-4000", // has no PDF weights stored
+    // "RSGluonToTT_M-4500", // has no PDF weights stored
+    // "RSGluonToTT_M-5000", // has no PDF weights stored
+    // "RSGluonToTT_M-5500", // has no PDF weights stored
+    // "RSGluonToTT_M-6000", // has no PDF weights stored
+    "ZPrimeToTT_M400_W40",
+    "ZPrimeToTT_M500_W50",
+    "ZPrimeToTT_M600_W60",
+    "ZPrimeToTT_M700_W70",
+    "ZPrimeToTT_M800_W80",
+    "ZPrimeToTT_M900_W90",
+    "ZPrimeToTT_M1000_W100",
+    "ZPrimeToTT_M1200_W120",
+    "ZPrimeToTT_M1400_W140",
+    "ZPrimeToTT_M1600_W160",
+    "ZPrimeToTT_M1800_W180",
+    "ZPrimeToTT_M2000_W200",
+    "ZPrimeToTT_M2500_W250",
+    "ZPrimeToTT_M3000_W300",
+    "ZPrimeToTT_M3500_W350",
+    "ZPrimeToTT_M4000_W400",
+    "ZPrimeToTT_M4500_W450",
+    "ZPrimeToTT_M5000_W500",
+    "ZPrimeToTT_M6000_W600",
+    "ZPrimeToTT_M7000_W700",
+    "ZPrimeToTT_M8000_W800",
+    "ZPrimeToTT_M9000_W900",
+    "ZPrimeToTT_M400_W120",
+    "ZPrimeToTT_M500_W150",
+    "ZPrimeToTT_M600_W180",
+    "ZPrimeToTT_M700_W210",
+    "ZPrimeToTT_M800_W240",
+    "ZPrimeToTT_M900_W270",
+    "ZPrimeToTT_M1000_W300",
+    "ZPrimeToTT_M1200_W360",
+    "ZPrimeToTT_M1400_W420",
+    "ZPrimeToTT_M1600_W480",
+    "ZPrimeToTT_M1800_W540",
+    "ZPrimeToTT_M2000_W600",
+    "ZPrimeToTT_M2500_W750",
+    "ZPrimeToTT_M3000_W900",
+    "ZPrimeToTT_M3500_W1050",
+    "ZPrimeToTT_M4000_W1200",
+    "ZPrimeToTT_M4500_W1350",
+    "ZPrimeToTT_M5000_W1500",
+    "ZPrimeToTT_M6000_W1800",
+    "ZPrimeToTT_M7000_W2100",
+    "ZPrimeToTT_M8000_W2400",
+    "ZPrimeToTT_M9000_W2700",
+    //"ZPrimeToTT_M400_W4",  // wrong PDF weights stored
+    //"ZPrimeToTT_M500_W5", // wrong PDF weights stored
+    //"ZPrimeToTT_M600_W6", // wrong PDF weights stored
+    //"ZPrimeToTT_M700_W7", // wrong PDF weights stored
+    //"ZPrimeToTT_M800_W8", // wrong PDF weights stored
+    //"ZPrimeToTT_M900_W9", // wrong PDF weights stored
+    //"ZPrimeToTT_M1000_W10", // wrong PDF weights stored
+    //"ZPrimeToTT_M1200_W12", // wrong PDF weights stored
+    //"ZPrimeToTT_M1400_W14", // wrong PDF weights stored
+    //"ZPrimeToTT_M1600_W16", // wrong PDF weights stored
+    //"ZPrimeToTT_M1800_W18", // wrong PDF weights stored
+    //"ZPrimeToTT_M2000_W20", // wrong PDF weights stored
+    //"ZPrimeToTT_M2500_W25", // wrong PDF weights stored
+    //"ZPrimeToTT_M3000_W30", // wrong PDF weights stored
+    //"ZPrimeToTT_M3500_W35", // wrong PDF weights stored
+    //"ZPrimeToTT_M4000_W40", // wrong PDF weights stored
+    //"ZPrimeToTT_M4500_W45", // wrong PDF weights stored
+    //"ZPrimeToTT_M5000_W50", // wrong PDF weights stored
+    //"ZPrimeToTT_M6000_W60", // wrong PDF weights stored
+    //"ZPrimeToTT_M7000_W70", // wrong PDF weights stored
+    //"ZPrimeToTT_M8000_W80", // wrong PDF weights stored
+    //"ZPrimeToTT_M9000_W90", // wrong PDF weights stored
+    "ZprimeDMToTTbarResoIncl_MZp1000_Mchi10_V1",
+    "ZprimeDMToTTbarResoIncl_MZp1500_Mchi10_V1",
+    "ZprimeDMToTTbarResoIncl_MZp2000_Mchi10_V1",
+    "ZprimeDMToTTbarResoIncl_MZp2500_Mchi10_V1",
+    "ZprimeDMToTTbarResoIncl_MZp3000_Mchi10_V1",
+    "ZprimeDMToTTbarResoIncl_MZp3500_Mchi10_V1",
+    "ZprimeDMToTTbarResoIncl_MZp4000_Mchi10_V1",
+    "ZprimeDMToTTbarResoIncl_MZp4500_Mchi10_V1",
+    "ZprimeDMToTTbarResoIncl_MZp5000_Mchi10_V1",
+    "ZprimeDMToTTbarResoIncl_MZp2500_Mchi1000_A1",
+    "ZprimeDMToTTbarResoIncl_MZp2500_Mchi1000_V1",
+    "ZprimeDMToTTbarResoIncl_MZp2500_Mchi10_A1",
   };
 
   vector<bool> isSignalInt (v_samples.size(), false);
@@ -306,16 +306,15 @@ void getRMS(){
         TFile* f_in = new TFile(file_name, "READ");
 
         vector<double> v_variation_norms;
-        TString presel_file_name = file_dir + "Presel_" + year + "/uhh2.AnalysisModuleRunner.MC.";
-        if(sample.BeginsWith("ST_")){
-          presel_file_name = file_dir + "Presel_" + year + "/uhh2.AnalysisModuleRunner.MC.ST.root";
-        }
-        else{
-          presel_file_name += sample + ".root";
-        }
+        TString presel_file_name = file_dir + "Presel_" + year + "/uhh2.AnalysisModuleRunner.MC." + sample + ".root";
 
         TFile *presel_file = TFile::Open(presel_file_name);
-        TH1F *nominal_hist = (TH1F*) presel_file->Get("Input_General/sum_event_weights");
+        // TH1F *nominal_hist = (TH1F*) presel_file->Get("Input_General/sum_event_weights"); // before
+        TString first_index = "1";
+        if(sample == "ST_s-channel"){
+          first_index = "2";
+        }
+        TH1F *nominal_hist = (TH1F*) presel_file->Get("Input_General/sum_event_weights_PDF_" + first_index);
         for(int c=1; c<101; ++c){
           TString pdfnumber = (TString) to_string(c);
           TH1F *variation_hist = (TH1F*) presel_file->Get("Input_General/sum_event_weights_PDF_" + pdfnumber);
