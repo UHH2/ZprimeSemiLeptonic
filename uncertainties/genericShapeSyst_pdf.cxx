@@ -55,7 +55,29 @@
     "RSGluonToTT_M-4500",
     "RSGluonToTT_M-5000",
     "RSGluonToTT_M-5500",
-    "RSGluonToTT_M-6000"
+    "RSGluonToTT_M-6000",
+    "ZPrimeToTT_M400_W4",
+    "ZPrimeToTT_M500_W5",
+    "ZPrimeToTT_M600_W6",
+    "ZPrimeToTT_M700_W7",
+    "ZPrimeToTT_M800_W8",
+    "ZPrimeToTT_M900_W9",
+    "ZPrimeToTT_M1000_W10",
+    "ZPrimeToTT_M1200_W12",
+    "ZPrimeToTT_M1400_W14",
+    "ZPrimeToTT_M1600_W16",
+    "ZPrimeToTT_M1800_W18",
+    "ZPrimeToTT_M2000_W20",
+    "ZPrimeToTT_M2500_W25",
+    "ZPrimeToTT_M3000_W30",
+    "ZPrimeToTT_M3500_W35",
+    "ZPrimeToTT_M4000_W40",
+    "ZPrimeToTT_M4500_W45",
+    "ZPrimeToTT_M5000_W50",
+    "ZPrimeToTT_M6000_W60",
+    "ZPrimeToTT_M7000_W70",
+    "ZPrimeToTT_M8000_W80",
+    "ZPrimeToTT_M9000_W90",
   };
 
   for(unsigned int j=0; j<year.size(); j++){
@@ -73,16 +95,14 @@
           // generic shape systematics in mttbar: multiply with linear function "Events = 1.6 * mttbar"
           TH1F *hist_genericShapeSyst_up = (TH1F*) hist->Clone();
           TH1F *hist_genericShapeSyst_down = (TH1F*) hist->Clone();
-          double syst_weight = 0.0; // Diboson
-          if(i==0) syst_weight = 0.01; // Diboson
-          if(i>=1) syst_weight = 0.1; // RSGluon
+          double syst_weight = 0.1;
 
           for(int i=0; i<hist->GetNbinsX()+2; i++){
             double bin_content = hist->GetBinContent(i);
             double bin_center = hist->GetBinCenter(i);
 
-            double bin_content_syst_up = bin_content * (1. + bin_center / 10000. * syst_weight);
-            double bin_content_syst_down = bin_content * (1. - bin_center / 10000. * syst_weight);
+            double bin_content_syst_up = bin_content * (1.05 + bin_center / 10000. * syst_weight);
+            double bin_content_syst_down = bin_content * (0.95 - bin_center / 10000. * syst_weight);
             hist_genericShapeSyst_up->SetBinContent(i, bin_content_syst_up);
             hist_genericShapeSyst_down->SetBinContent(i, bin_content_syst_down);
 
