@@ -24,7 +24,7 @@ using namespace std;
 
 void getRMS(){
 
-  TString uhh2_basedir = "/nfs/dust/cms/user/deleokse/RunII_106_v2/";
+  TString uhh2_basedir = "/nfs/dust/cms/user/jabuschh/uhh2-106X_v2/";
   TString file_dir = "/nfs/dust/cms/group/zprime-uhh/";
   TString file_name = "";
 
@@ -338,20 +338,22 @@ void getRMS(){
             name_nominal += "1";
             start_index = 1;
           }
-          TH1F *h_nominal = (TH1F*)f_in->Get(name_nominal); // nominal = first PDF variation
-          TH1F *h_PDF_up = (TH1F*) h_nominal->Clone();
-          TH1F *h_PDF_down = (TH1F*) h_nominal->Clone();
+          TH1F *h_nominal = (TH1F*) f_in->Get("Zprime_SystVariations_" + v_root_directories.at(l)+"/M_Zprime");
+          TH1F *h_nominal_pdf = (TH1F*)f_in->Get(name_nominal); // nominal = first PDF variation
+          TH1F *h_PDF_up = (TH1F*) h_nominal_pdf->Clone();
+          TH1F *h_PDF_down = (TH1F*) h_nominal_pdf->Clone();
 
           float sum_bins = 0;
           // Loop over each bin of the Mtt histograms
-          for(int a=1; a<h_nominal->GetNbinsX()+1; a++){
+          for(int a=1; a<h_nominal_pdf->GetNbinsX()+1; a++){
+            float nominal_pdf = h_nominal_pdf->GetBinContent(a);
             float nominal = h_nominal->GetBinContent(a);
             float sum_bins = 0;
 
             for(int b=start_index; b<100; ++b){ // the first one is the nominal one
               TString vars = "Zprime_PDFVariations_" + v_root_directories.at(l) + "/M_Zprime_PDF_" + to_string(b);
               float bin_content = ((TH1F*) f_in->Get(vars))->GetBinContent(a) / v_variation_norms.at(b);
-              sum_bins += pow(bin_content - nominal, 2);
+              sum_bins += pow(bin_content - nominal_pdf, 2);
             }
             float rms;
             if(isHessianPDF.at(i)){
@@ -380,102 +382,102 @@ void getRMS(){
 
 
 
-          // // Plots nominal hist + up/down variations
-          // if(l == 0 && year == "UL18" && channel == "muon"){
-          //   TCanvas* c = new TCanvas("c", "c", 1200, 800);
-          //   c->Divide(1,1);
-          //   c->cd(1);
-          //   gPad->SetTopMargin(0.07);
-          //   gPad->SetBottomMargin(0.17);
-          //   gPad->SetLeftMargin(0.2);
-          //   gPad->SetRightMargin(0.1);
-          //   //gPad->SetLogy();
-          //   gStyle->SetOptStat(0);
-          //
-          //   TH1F *h_nominal_draw = (TH1F*) h_nominal->Clone();
-          //   TH1F *h_PDF_up_draw = (TH1F*) h_PDF_up->Clone();
-          //   TH1F *h_PDF_down_draw = (TH1F*) h_PDF_down->Clone();
-          //
-          //   h_nominal_draw->Divide(h_nominal);
-          //   h_PDF_up_draw->Divide(h_nominal);
-          //   h_PDF_down_draw->Divide(h_nominal);
-          //
-          //   h_nominal_draw->SetLineWidth(1);
-          //   h_nominal_draw->SetLineColor(kBlack);
-          //   h_PDF_up_draw->SetLineWidth(1);
-          //   h_PDF_up_draw->SetLineColor(kRed);
-          //   h_PDF_down_draw->SetLineWidth(1);
-          //   h_PDF_down_draw->SetLineColor(kBlue);
-          //
-          //   h_nominal_draw->Draw("HIST");
-          //   h_nominal_draw->SetTitle("");
-          //   h_nominal_draw->GetXaxis()->SetTitle("M_{t#bar{t}} [GeV]");
-          //   // h_nominal_draw->GetXaxis()->SetRangeUser(0.,3000.);
-          //   h_nominal_draw->GetXaxis()->SetTitleSize(0.055);
-          //   h_nominal_draw->GetXaxis()->SetLabelSize(0.05);
-          //   h_nominal_draw->GetYaxis()->SetTitle("Events");
-          //   h_nominal_draw->GetYaxis()->SetRangeUser(0.,2);
-          //   h_nominal_draw->GetYaxis()->SetTitleSize(0.055);
-          //   h_nominal_draw->GetYaxis()->SetLabelSize(0.05);
-          //
-          //   h_nominal_draw->Draw("HIST");
-          //   h_PDF_up_draw->Draw("HIST same");
-          //   h_PDF_down_draw->Draw("HIST same");
-          //
-          //   auto legend = new TLegend(0.7,0.67,0.85,0.9);
-          //   legend->SetBorderSize(0);
-          //   legend->SetFillStyle(0);
-          //   legend->SetTextSize(0.035);
-          //   legend->SetTextFont(42);
-          //   legend->AddEntry(h_nominal_draw,"nominal","le");
-          //   legend->AddEntry(h_PDF_up_draw,"PDF up","le");
-          //   legend->AddEntry(h_PDF_down_draw,"PDF down","le");
-          //   legend->Draw();
-          //
-          //   TString cmstext = "CMS";
-          //   TLatex *text2 = new TLatex(3.5, 24, cmstext);
-          //   text2->SetNDC();
-          //   text2->SetTextAlign(13);
-          //   text2->SetX(0.24);
-          //   text2->SetTextFont(62);
-          //   text2->SetTextSize(0.06825);
-          //   text2->SetY(0.895);
-          //   text2->Draw();
-          //
-          //
-          //   TString supptext = "Simulation";
-          //   TLatex *text4 = new TLatex(3.5, 24, supptext);
-          //   text4->SetNDC();
-          //   text4->SetTextAlign(13);
-          //   text4->SetX(0.24);
-          //   text4->SetTextFont(52);
-          //   text4->SetTextSize(0.55*0.06825);
-          //   text4->SetY(0.8312);
-          //   text4->Draw();
-          //
-          //   TString supptext2 = "Work in progress";
-          //   TLatex *text5 = new TLatex(3.5, 24, supptext2);
-          //   text5->SetNDC();
-          //   text5->SetTextAlign(13);
-          //   text5->SetX(0.24);
-          //   text5->SetTextFont(52);
-          //   text5->SetTextSize(0.55*0.06825);
-          //   text5->SetY(0.79);
-          //   text5->Draw();
-          //
-          //   TString infotext = "59.8 fb^{-1}(13 TeV)";
-          //   TLatex *text1 = new TLatex(3.5, 24, infotext);
-          //   text1->SetNDC();
-          //   text1->SetTextAlign(31);
-          //   text1->SetX(1.-0.1);
-          //   text1->SetTextFont(42);
-          //   text1->SetTextSize(0.07*0.7);
-          //   text1->SetY(1.-0.07+0.2*0.07);
-          //   text1->Draw();
-          //
-          //   c->SaveAs(uhh2_basedir + "CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/macros/src/PDF_hists/" + year + "/" + channel + "/PDF_"+ sample + "_" + v_root_directories.at(l) +".pdf");
-          //   c->Close();
-          // }
+          // Plots nominal hist + up/down variations
+          if(l == 0 && year == "UL18" && channel == "muon"){
+            TCanvas* c = new TCanvas("c", "c", 1200, 800);
+            c->Divide(1,1);
+            c->cd(1);
+            gPad->SetTopMargin(0.07);
+            gPad->SetBottomMargin(0.17);
+            gPad->SetLeftMargin(0.2);
+            gPad->SetRightMargin(0.1);
+            //gPad->SetLogy();
+            gStyle->SetOptStat(0);
+
+            TH1F *h_nominal_draw = (TH1F*) h_nominal->Clone();
+            TH1F *h_PDF_up_draw = (TH1F*) h_PDF_up->Clone();
+            TH1F *h_PDF_down_draw = (TH1F*) h_PDF_down->Clone();
+
+            h_nominal_draw->Divide(h_nominal);
+            h_PDF_up_draw->Divide(h_nominal);
+            h_PDF_down_draw->Divide(h_nominal);
+
+            h_nominal_draw->SetLineWidth(1);
+            h_nominal_draw->SetLineColor(kBlack);
+            h_PDF_up_draw->SetLineWidth(1);
+            h_PDF_up_draw->SetLineColor(kRed);
+            h_PDF_down_draw->SetLineWidth(1);
+            h_PDF_down_draw->SetLineColor(kBlue);
+
+            h_nominal_draw->Draw("HIST");
+            h_nominal_draw->SetTitle("");
+            h_nominal_draw->GetXaxis()->SetTitle("M_{t#bar{t}} [GeV]");
+            // h_nominal_draw->GetXaxis()->SetRangeUser(0.,3000.);
+            h_nominal_draw->GetXaxis()->SetTitleSize(0.055);
+            h_nominal_draw->GetXaxis()->SetLabelSize(0.05);
+            h_nominal_draw->GetYaxis()->SetTitle("Events");
+            h_nominal_draw->GetYaxis()->SetRangeUser(0.,2);
+            h_nominal_draw->GetYaxis()->SetTitleSize(0.055);
+            h_nominal_draw->GetYaxis()->SetLabelSize(0.05);
+
+            h_nominal_draw->Draw("HIST");
+            h_PDF_up_draw->Draw("HIST same");
+            h_PDF_down_draw->Draw("HIST same");
+
+            auto legend = new TLegend(0.7,0.67,0.85,0.9);
+            legend->SetBorderSize(0);
+            legend->SetFillStyle(0);
+            legend->SetTextSize(0.035);
+            legend->SetTextFont(42);
+            legend->AddEntry(h_nominal_draw,"nominal","le");
+            legend->AddEntry(h_PDF_up_draw,"PDF up","le");
+            legend->AddEntry(h_PDF_down_draw,"PDF down","le");
+            legend->Draw();
+
+            TString cmstext = "CMS";
+            TLatex *text2 = new TLatex(3.5, 24, cmstext);
+            text2->SetNDC();
+            text2->SetTextAlign(13);
+            text2->SetX(0.24);
+            text2->SetTextFont(62);
+            text2->SetTextSize(0.06825);
+            text2->SetY(0.895);
+            text2->Draw();
+
+
+            TString supptext = "Simulation";
+            TLatex *text4 = new TLatex(3.5, 24, supptext);
+            text4->SetNDC();
+            text4->SetTextAlign(13);
+            text4->SetX(0.24);
+            text4->SetTextFont(52);
+            text4->SetTextSize(0.55*0.06825);
+            text4->SetY(0.8312);
+            text4->Draw();
+
+            TString supptext2 = "Work in progress";
+            TLatex *text5 = new TLatex(3.5, 24, supptext2);
+            text5->SetNDC();
+            text5->SetTextAlign(13);
+            text5->SetX(0.24);
+            text5->SetTextFont(52);
+            text5->SetTextSize(0.55*0.06825);
+            text5->SetY(0.79);
+            text5->Draw();
+
+            TString infotext = "59.8 fb^{-1}(13 TeV)";
+            TLatex *text1 = new TLatex(3.5, 24, infotext);
+            text1->SetNDC();
+            text1->SetTextAlign(31);
+            text1->SetX(1.-0.1);
+            text1->SetTextFont(42);
+            text1->SetTextSize(0.07*0.7);
+            text1->SetY(1.-0.07+0.2*0.07);
+            text1->Draw();
+
+            c->SaveAs(uhh2_basedir + "CMSSW_10_6_28/src/UHH2/ZprimeSemiLeptonic/macros/src/PDF_hists/" + year + "/" + channel + "/PDF_"+ sample + "_" + v_root_directories.at(l) +".pdf");
+            c->Close();
+          }
 
         }
         f_in->Close();
