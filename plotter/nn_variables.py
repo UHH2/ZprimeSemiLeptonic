@@ -11,14 +11,15 @@ from constants_nn_variables import _VARIABLES
 
 
 years = [
-    'UL16preVFP',
-    'UL16postVFP',
+    # 'UL16preVFP',
+    # 'UL16postVFP',
     # 'UL17',
-    # 'UL18'
+    # 'UL18',
+    'Run2'
 ]
 channels = [
-    'electron',
-    'muon'
+    # 'electron',
+    # 'muon'
 ]
 
 systematics = [

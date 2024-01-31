@@ -33,10 +33,10 @@ for binnumber in range(1, 7):
 
     # signal
     signals_Plotter = [
-        # Process('bin' + str(binnumber) + '_SIB_sqrtmu_plus3', 't#bar{t} + ALP incl. neg. int. (#sqrt{#mu} = +3)', root.kBlue),
-        # Process('bin' + str(binnumber) + '_SIB_sqrtmu_minus3', 't#bar{t} + ALP incl. pos. int. (#sqrt{#mu} = -3)', root.kGreen),
-        Process('bin' + str(binnumber) + '_ALP_ttbar_signal', 'ALP signal', root.kBlack),
-        Process('bin' + str(binnumber) + '_ALP_ttbar_interference', 'ALP-SM interference', root.kGray+2),
+        # Process('bin' + str(binnumber) + '_ALP_ttbar_signal', 'ALP signal', root.kBlack),
+        # Process('bin' + str(binnumber) + '_ALP_ttbar_interference', 'ALP-SM interference', root.kGray+2),
+        Process('bin' + str(binnumber) + '_SIB_negint_sqrtmu3', 't#bar{t} + ALP incl. neg. int. (#sqrt{#mu} = +3)', root.kBlue),
+        Process('bin' + str(binnumber) + '_SIB_posint_sqrtmu3', 't#bar{t} + ALP incl. pos. int. (#sqrt{#mu} = -3)', root.kGreen),
     ]
     signals_Plotter_temp = OrderedDict()
     for index, s in enumerate(signals_Plotter):
@@ -63,12 +63,13 @@ for binnumber in range(1, 7):
         # y_axis_max = 1E+08,
         prepostfit = 'prefitRaw',
         processes = processes_Plotter.values(),
-        signals = [], #signals_Plotter.values(),
+        signals = signals_Plotter.values(),
         syst_names = systematics,
         lumi_unc = _YEARS.get(year).get('lumi_unc'),
         divide_by_bin_width = False,
         data_name = 'bin' + str(binnumber) + '_data_obs',
         text_prelim = 'Private Work',
+        text_simulation = 'Simulation',
         text_top_left = 'parton level, e/#mu + jets (' + year + ')',
         text_top_right = _YEARS.get(year).get('lumi_fb_display') + ' fb^{#minus1} (13 TeV)',
         nostack = False,
@@ -85,8 +86,10 @@ for binnumber in range(1, 7):
     legend = root.TLegend(nice.coord.graph_to_pad_x(0.45+leg_offset_x), nice.coord.graph_to_pad_y(0.45+leg_offset_y), nice.coord.graph_to_pad_x(0.7+leg_offset_x), nice.coord.graph_to_pad_y(0.73+leg_offset_y))
     if not nice.blind_data: legend.AddEntry(nice.data_hist, 'Data (PRD 104, 092013)', 'ep')
     legend.AddEntry(nice.stack.GetStack().At(processes_Plotter['bin' + str(binnumber) + '_TTToSemiLeptonic'].index), processes_Plotter['bin' + str(binnumber) + '_TTToSemiLeptonic'].legend, 'f')
-    # legend.AddEntry(nice.signal_hists[signals_Plotter['bin' + str(binnumber) + '_SIB_sqrtmu_plus3'].index], signals_Plotter['bin' + str(binnumber) + '_SIB_sqrtmu_plus3'].legend, 'l')
-    # legend.AddEntry(nice.signal_hists[signals_Plotter['bin' + str(binnumber) + '_SIB_sqrtmu_minus3'].index], signals_Plotter['bin' + str(binnumber) + '_SIB_sqrtmu_minus3'].legend, 'l')
+    legend.AddEntry(nice.signal_hists[signals_Plotter['bin' + str(binnumber) + '_SIB_negint_sqrtmu3'].index], signals_Plotter['bin' + str(binnumber) + '_SIB_negint_sqrtmu3'].legend, 'l')
+    legend.AddEntry(nice.signal_hists[signals_Plotter['bin' + str(binnumber) + '_SIB_posint_sqrtmu3'].index], signals_Plotter['bin' + str(binnumber) + '_SIB_posint_sqrtmu3'].legend, 'l')
+    # legend.AddEntry(nice.signal_hists[signals_Plotter['bin' + str(binnumber) + '_ALP_ttbar_signal'].index], signals_Plotter['bin' + str(binnumber) + '_ALP_ttbar_signal'].legend, 'l')
+    # legend.AddEntry(nice.signal_hists[signals_Plotter['bin' + str(binnumber) + '_ALP_ttbar_interference'].index], signals_Plotter['bin' + str(binnumber) + '_ALP_ttbar_interference'].legend, 'l')
     legend.SetHeader(bin_labels[binnumber-1])
     legend.SetTextSize(0.025)
     legend.SetBorderSize(0)

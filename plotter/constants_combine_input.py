@@ -2,7 +2,9 @@
 
 from collections import OrderedDict
 
-_VARIABLES = OrderedDict([
+_HISTNAME = 'M_Zprime'
+
+_REGIONS = OrderedDict([
     ('SR_bin1_TopTag', {
         'name': 'SR_bin1_TopTag',
         'text': '#splitline{t#bar{t} SR, #geq1 t-tag,}{#chi^{2} < 30, #minus1 #leq cos(#theta*) < #minus0.7}'
@@ -27,13 +29,17 @@ _VARIABLES = OrderedDict([
         'name': 'SR_bin3_NoTopTag',
         'text': '#splitline{t#bar{t} SR, 0 t-tag,}{#chi^{2} < 30, #minus0.5 #leq cos(#theta*) < 0}'
     }),
-    ('SR_bin4_TopTag', {
-        'name': 'SR_bin4_TopTag',
-        'text': '#splitline{t#bar{t} SR, #geq1 t-tag,}{#chi^{2} < 30, 0 #leq cos(#theta*) < 0.5}'
-    }),
-    ('SR_bin4_NoTopTag', {
-        'name': 'SR_bin4_NoTopTag',
-        'text': '#splitline{t#bar{t} SR, 0 t-tag,}{#chi^{2} < 30, 0 #leq cos(#theta*) < 0.5}'
+    # ('SR_bin4_TopTag', {
+    #     'name': 'SR_bin4_TopTag',
+    #     'text': '#splitline{t#bar{t} SR, #geq1 t-tag,}{#chi^{2} < 30, 0 #leq cos(#theta*) < 0.5}'
+    # }),
+    # ('SR_bin4_NoTopTag', {
+    #     'name': 'SR_bin4_NoTopTag',
+    #     'text': '#splitline{t#bar{t} SR, 0 t-tag,}{#chi^{2} < 30, 0 #leq cos(#theta*) < 0.5}'
+    # }),
+    ('SR_bin4', {
+        'name': 'SR_bin4',
+        'text': '#splitline{t#bar{t} SR,}{#chi^{2} < 30, 0 #leq cos(#theta*) < 0.5}'
     }),
     ('SR_bin5', {
         'name': 'SR_bin5',
@@ -43,6 +49,10 @@ _VARIABLES = OrderedDict([
         'name': 'SR_bin6',
         'text': '#splitline{t#bar{t} SR,}{#chi^{2} < 30, 0.7 #leq cos(#theta*) < 1}'
     }),
+    # ('SR', {
+    #     'name': 'SR',
+    #     'text': '#splitline{t#bar{t} SR,}{#chi^{2} < 30}'
+    # }),
     ('CR1', {
         'name': 'CR1',
         'text': 'Single t CR'
