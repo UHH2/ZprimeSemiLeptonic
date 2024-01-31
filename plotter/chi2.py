@@ -7,7 +7,7 @@ import ROOT as root
 from collections import OrderedDict
 from plotter import NiceStackWithRatio, Process
 from constants import _YEARS
-from constants_mtt import _VARIABLES
+from constants_chi2 import _VARIABLES
 
 
 year = "Run2"
@@ -41,12 +41,12 @@ for key, var in _VARIABLES.items():
 
     # SM processes
     processes_Plotter = [
-        Process(var.get("name") + "_TTbar", "t#bar{t}", root.kPink-3),
-        Process(var.get("name") + "_WJets", "W+jets", root.kSpring-3),
-        Process(var.get("name") + "_DY", "Drell-Yan", root.kOrange),
-        Process(var.get("name") + "_ST", "Single t", root.kBlue),
-        Process(var.get("name") + "_QCD", "QCD", root.kAzure+10),
-        Process(var.get("name") + "_Diboson", "Diboson", root.kMagenta),
+        Process(var.get("name") + "_TTbar", "t#bar{t}", root.kPink-3, 1, 0.2),
+        Process(var.get("name") + "_WJets", "W+jets", root.kSpring-3, 1, 0.5),
+        Process(var.get("name") + "_ST", "Single t", root.kBlue, 1, 0.5),
+        Process(var.get("name") + "_DY", "Drell-Yan", root.kOrange, 1, 0.3),
+        Process(var.get("name") + "_Diboson", "Diboson", root.kMagenta, 1, 0.5),
+        Process(var.get("name") + "_QCD", "QCD", root.kAzure+10, 1, 0.5),
     ]
     processes_Plotter_temp = OrderedDict()
     for index, p in enumerate(processes_Plotter):
@@ -56,8 +56,8 @@ for key, var in _VARIABLES.items():
 
     # signal
     signals_Plotter = [
-        Process(var.get("name") + "_ALP_ttbar_signal", "ALP signal #times 10", root.kBlack, 10),
-        Process(var.get("name") + "_ALP_ttbar_interference", "pos. ALP interference #times 10", root.kGray, -10),
+        Process(var.get("name") + "_ALP_ttbar_signal", "ALP signal", root.kBlack, 1),
+        Process(var.get("name") + "_ALP_ttbar_interference", "pos. ALP-SM interference", root.kGray+2, -1),
     ]
     signals_Plotter_temp = OrderedDict()
     for index, s in enumerate(signals_Plotter):
@@ -73,23 +73,24 @@ for key, var in _VARIABLES.items():
         x_axis_unit = var.get("x_axis_unit"),
         prepostfit = "prefitRaw",
         processes = processes_Plotter.values(),
-        signals = signals_Plotter.values(),
+        signals = signals_Plotter.values(), #
         syst_names = systematics,
         lumi_unc = _YEARS.get(year).get("lumi_unc"),
         divide_by_bin_width = False,
         data_name = var.get("name") + "_DATA",
-        text_prelim = "Private Work",
+        # show_cms_logo = True,
+        text_prelim = 'Private Work',
+        text_simulation = 'Simulation', # or: None
         text_top_left = year,
         text_top_right = _YEARS.get(year).get("lumi_fb_display") + " fb^{#minus1} (13 TeV)",
+        y_axis_min = 100,
+        y_axis_max = 1E7,
         x_axis_min = 0,
-        x_axis_max = 3000,
-        y_axis_min = 0,
-        y_axis_max = 6E5,
+        x_axis_max = 200,
         nostack = False,
-        logy = False,
+        logy = True,
         blind_data = True,
         show_ratio = False,
-        debug = False,
     )
 
     nice.plot()
@@ -97,10 +98,9 @@ for key, var in _VARIABLES.items():
 
     # nice.ratio_null_hist.SetMinimum(0.0)
     # nice.ratio_null_hist.SetMaximum(2.0)
-    # nice.ratio_null_hist.GetYaxis().SetNdivisions(-402)
 
     # legend
-    leg_offset_x = 0.10
+    leg_offset_x = 0.05
     leg_offset_y = 0.23
     legend = root.TLegend(nice.coord.graph_to_pad_x(0.45+leg_offset_x), nice.coord.graph_to_pad_y(0.45+leg_offset_y), nice.coord.graph_to_pad_x(0.70+leg_offset_x), nice.coord.graph_to_pad_y(0.73+leg_offset_y))
     if not nice.blind_data: legend.AddEntry(nice.data_hist, "Data", "ep")
@@ -113,10 +113,6 @@ for key, var in _VARIABLES.items():
     legend.AddEntry(nice.stack.GetStack().At(processes_Plotter[var.get("name") + "_Diboson"].index), processes_Plotter[var.get("name") + "_Diboson"].legend, "f")
     legend.AddEntry(nice.signal_hists[signals_Plotter[var.get("name") + "_ALP_ttbar_signal"].index], signals_Plotter[var.get("name") + "_ALP_ttbar_signal"].legend, "l")
     legend.AddEntry(nice.signal_hists[signals_Plotter[var.get("name") + "_ALP_ttbar_interference"].index], signals_Plotter[var.get("name") + "_ALP_ttbar_interference"].legend, "l")
-    # legend.AddEntry(nice.signal_hists[signals_Plotter[var.get("name") + "_HpseudoToTTTo1L1Nu2J_m500_w125p0_res"].index], signals_Plotter[var.get("name") + "_HpseudoToTTTo1L1Nu2J_m500_w125p0_res"].legend, "l")
-    # legend.AddEntry(nice.signal_hists[signals_Plotter[var.get("name") + "_HscalarToTTTo1L1Nu2J_m500_w125p0_res"].index], signals_Plotter[var.get("name") + "_HscalarToTTTo1L1Nu2J_m500_w125p0_res"].legend, "l")
-    # legend.AddEntry(nice.signal_hists[signals_Plotter[var.get("name") + "_RSGluonToTT_M-1000"].index], signals_Plotter[var.get("name") + "_RSGluonToTT_M-1000"].legend, "l")
-    # legend.AddEntry(nice.signal_hists[signals_Plotter[var.get("name") + "_ZPrimeToTT_M1000_W100"].index], signals_Plotter[var.get("name") + "_ZPrimeToTT_M1000_W100"].legend, "l")
 
     legend.SetTextSize(0.025)
     legend.SetBorderSize(0)
